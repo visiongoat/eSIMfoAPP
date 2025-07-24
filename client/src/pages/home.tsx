@@ -215,9 +215,9 @@ export default function HomeScreen() {
       <div className="telecom-bg" style={{ opacity: scrollOpacity }}>
         <div className="telecom-pattern"></div>
       </div>
-      <div className="scroll-gradient min-h-screen relative z-10">
+      <div className="scroll-gradient min-h-screen relative z-20">
       {/* Compact Header with Search */}
-      <div className="relative bg-white/80 backdrop-blur-sm sticky top-0 z-10 py-4 border-b border-blue-100">
+      <div className="relative bg-white/80 backdrop-blur-sm sticky top-0 z-30 py-4 border-b border-blue-100">
         <div className="max-w-screen-md mx-auto px-4">
           <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
@@ -310,7 +310,7 @@ export default function HomeScreen() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="max-w-screen-md mx-auto px-4 pb-20 space-y-6 bg-white">
+      <div className="max-w-screen-md mx-auto px-4 pb-20 space-y-6">
         {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* User's Local Country - Compact */}
