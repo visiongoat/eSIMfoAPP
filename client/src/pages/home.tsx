@@ -381,69 +381,47 @@ export default function HomeScreen() {
             )}
           </div>
 
-          {/* Search Results Dropdown - Premium Design */}
+          {/* Mobile Search Results */}
           {showSearchResults && searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-100 mt-2 z-20 max-h-80 overflow-hidden">
-              <div className="p-2 space-y-1">
-                {searchResults.map((country, index) => {
-                  // Create flag emoji from country code
-                  const getFlagEmoji = (code: string) => {
-                    if (!code || code.length !== 2) return '🌍';
-                    const codePoints = code.toUpperCase().split('').map(char => 
-                      127397 + char.charCodeAt(0)
-                    );
-                    return String.fromCodePoint(...codePoints);
-                  };
-
-                  return (
-                    <button
-                      key={country.id}
-                      onClick={() => {
-                        handleCountrySelect(country);
-                        setSearchQuery('');
-                        setShowSearchResults(false);
-                      }}
-                      className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-blue-50 rounded-xl text-left transition-all duration-200 group hover:shadow-sm"
-                    >
-                      <div className="w-10 h-10 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-                        <span className="text-xl">{getFlagEmoji(country.code)}</span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-gray-900 truncate">{country.name}</div>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <span className="text-sm text-gray-500 font-medium">{country.planCount} eSIMs</span>
-                          {country.hasFullPlan && (
-                            <div className="flex items-center space-x-1">
-                              <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h18l-1 8H4L3 7zM3 7l-1-4h2m0 0h14" />
-                              </svg>
-                              <span className="text-xs text-blue-600 font-semibold">Full Plan</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 717.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-                        </svg>
-                        <svg className="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </button>
+            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-lg border border-gray-200 mt-1 z-20 overflow-hidden">
+              {searchResults.map((country, index) => {
+                // Create flag emoji from country code
+                const getFlagEmoji = (code: string) => {
+                  if (!code || code.length !== 2) return '🌍';
+                  const codePoints = code.toUpperCase().split('').map(char => 
+                    127397 + char.charCodeAt(0)
                   );
-                })}
-              </div>
-              
-              {/* Search Footer */}
-              <div className="px-4 py-3 bg-gray-50/80 border-t border-gray-100">
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span>Press Enter to select first result</span>
-                  <span className="flex items-center space-x-1">
-                    <kbd className="px-1.5 py-0.5 bg-white rounded border text-gray-600">↵</kbd>
-                  </span>
-                </div>
-              </div>
+                  return String.fromCodePoint(...codePoints);
+                };
+
+                return (
+                  <button
+                    key={country.id}
+                    onClick={() => {
+                      handleCountrySelect(country);
+                      setSearchQuery('');
+                      setShowSearchResults(false);
+                    }}
+                    className="w-full px-4 py-3 flex items-center space-x-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 text-left transition-colors active:bg-blue-50"
+                  >
+                    <span className="text-xl">{getFlagEmoji(country.code)}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-gray-900 truncate">{country.name}</div>
+                      <div className="flex items-center space-x-2 mt-0.5">
+                        <span className="text-sm text-gray-500">{country.planCount} eSIMs</span>
+                        {country.hasFullPlan && (
+                          <span className="text-xs text-blue-600 font-medium bg-blue-50 px-2 py-0.5 rounded">
+                            📞 Full Plan
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 717.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                    </svg>
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>
