@@ -193,9 +193,86 @@ export default function HomeScreen() {
   const popularDestinations = getFilteredCountries();
 
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
+    <div className="mobile-screen min-h-screen relative overflow-hidden">
+      {/* Animated Network Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-white to-blue-50">
+        {/* Network Animation Layer */}
+        <div className="absolute inset-0 opacity-30">
+          {/* Connection dots */}
+          <div className="absolute top-10 left-8 w-2 h-2 bg-blue-200 rounded-full animate-pulse"></div>
+          <div className="absolute top-20 right-12 w-1.5 h-1.5 bg-blue-300 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute top-32 left-16 w-1 h-1 bg-blue-200 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-48 right-8 w-2 h-2 bg-blue-300 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-64 left-12 w-1.5 h-1.5 bg-blue-200 rounded-full animate-pulse" style={{ animationDelay: '0.8s' }}></div>
+          <div className="absolute top-80 right-16 w-1 h-1 bg-blue-300 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-96 left-20 w-2 h-2 bg-blue-200 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+          
+          {/* Connection lines */}
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#93C5FD" stopOpacity="0.3"/>
+                <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.1"/>
+              </linearGradient>
+            </defs>
+            
+            {/* Animated connection lines */}
+            <path d="M32 40 Q80 60 112 80 T200 120" 
+                  stroke="url(#connectionGradient)" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  strokeDasharray="4,4"
+                  className="animate-pulse">
+              <animate attributeName="stroke-dashoffset" values="0;8;0" dur="3s" repeatCount="indefinite"/>
+            </path>
+            
+            <path d="M320 80 Q250 120 192 160 T80 240" 
+                  stroke="url(#connectionGradient)" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  strokeDasharray="3,3"
+                  className="animate-pulse">
+              <animate attributeName="stroke-dashoffset" values="0;6;0" dur="4s" repeatCount="indefinite"/>
+            </path>
+            
+            <path d="M64 128 Q120 180 200 200 T320 256" 
+                  stroke="url(#connectionGradient)" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  strokeDasharray="5,3"
+                  className="animate-pulse">
+              <animate attributeName="stroke-dashoffset" values="0;8;0" dur="2.5s" repeatCount="indefinite"/>
+            </path>
+            
+            <path d="M48 256 Q150 300 240 320 T350 380" 
+                  stroke="url(#connectionGradient)" 
+                  strokeWidth="1" 
+                  fill="none" 
+                  strokeDasharray="4,2"
+                  className="animate-pulse">
+              <animate attributeName="stroke-dashoffset" values="0;6;0" dur="3.5s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+          
+          {/* Floating signal waves */}
+          <div className="absolute top-16 right-20">
+            <div className="w-8 h-8 border border-blue-200 rounded-full animate-ping opacity-20"></div>
+            <div className="absolute inset-0 w-8 h-8 border border-blue-300 rounded-full animate-ping opacity-10" style={{ animationDelay: '1s' }}></div>
+          </div>
+          
+          <div className="absolute top-40 left-6">
+            <div className="w-6 h-6 border border-blue-200 rounded-full animate-ping opacity-15"></div>
+            <div className="absolute inset-0 w-6 h-6 border border-blue-300 rounded-full animate-ping opacity-8" style={{ animationDelay: '1.5s' }}></div>
+          </div>
+          
+          <div className="absolute top-72 right-6">
+            <div className="w-10 h-10 border border-blue-200 rounded-full animate-ping opacity-12"></div>
+            <div className="absolute inset-0 w-10 h-10 border border-blue-300 rounded-full animate-ping opacity-6" style={{ animationDelay: '2s' }}></div>
+          </div>
+        </div>
+      </div>
       {/* Compact Header with Search */}
-      <div className="bg-white/80 backdrop-blur-sm sticky top-0 z-10 px-4 py-4 border-b border-blue-100">
+      <div className="relative bg-white/80 backdrop-blur-sm sticky top-0 z-10 px-4 py-4 border-b border-blue-100">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
             <EsimfoLogo size="lg" />
@@ -285,6 +362,7 @@ export default function HomeScreen() {
         </div>
 
         {/* Main Content Grid */}
+        <div className="relative z-10 px-4 pb-20">
         {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* User's Local Country - Compact */}
@@ -577,7 +655,7 @@ export default function HomeScreen() {
             <div className="text-xs text-gray-600">Manage plans</div>
           </button>
         </div>
-      </div>
+        </div>
 
       <TabBar />
 
@@ -712,6 +790,7 @@ export default function HomeScreen() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }
