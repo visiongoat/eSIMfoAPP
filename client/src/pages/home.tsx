@@ -130,39 +130,65 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        {/* Category Tabs - 3 tabs in 1 row */}
+        {/* Modern Card-Style Tabs */}
         <div className="mb-6">
-          <div className="grid grid-cols-3 gap-2">
-            <button 
-              onClick={() => setSelectedTab('local')}
-              className={`py-3 px-2 rounded-xl font-medium text-xs transition-all ${
-                selectedTab === 'local' 
-                  ? 'bg-blue-500 text-white shadow-lg' 
-                  : 'bg-white text-gray-700 shadow-sm'
-              }`}
-            >
-              Local eSIMs
-            </button>
-            <button 
-              onClick={() => setSelectedTab('regional')}
-              className={`py-3 px-2 rounded-xl font-medium text-xs transition-all ${
-                selectedTab === 'regional' 
-                  ? 'bg-blue-500 text-white shadow-lg' 
-                  : 'bg-white text-gray-700 shadow-sm'
-              }`}
-            >
-              Regional eSIMs
-            </button>
-            <button 
-              onClick={() => setSelectedTab('global')}
-              className={`py-3 px-2 rounded-xl font-medium text-xs transition-all ${
-                selectedTab === 'global' 
-                  ? 'bg-blue-500 text-white shadow-lg' 
-                  : 'bg-white text-gray-700 shadow-sm'
-              }`}
-            >
-              Global eSIMs
-            </button>
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {[
+              { 
+                id: 'local', 
+                title: 'Local', 
+                subtitle: 'Your area',
+                icon: '📍',
+                gradient: 'from-blue-500 to-blue-600',
+                activeColor: 'bg-blue-50 border-blue-200'
+              },
+              { 
+                id: 'regional', 
+                title: 'Regional', 
+                subtitle: 'Nearby',
+                icon: '🌍',
+                gradient: 'from-green-500 to-green-600',
+                activeColor: 'bg-green-50 border-green-200'
+              },
+              { 
+                id: 'global', 
+                title: 'Global', 
+                subtitle: 'Worldwide',
+                icon: '🌐',
+                gradient: 'from-purple-500 to-purple-600',
+                activeColor: 'bg-purple-50 border-purple-200'
+              }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedTab(tab.id)}
+                className={`min-w-[110px] p-4 rounded-2xl border-2 transition-all duration-300 ${
+                  selectedTab === tab.id
+                    ? `${tab.activeColor} border-2 scale-105 shadow-lg`
+                    : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-md hover:scale-102'
+                }`}
+              >
+                <div className="flex flex-col items-center space-y-2">
+                  <div className={`w-10 h-10 rounded-full bg-gradient-to-r ${tab.gradient} flex items-center justify-center ${
+                    selectedTab === tab.id ? 'scale-110' : ''
+                  } transition-transform duration-300`}>
+                    <span className="text-white text-lg">{tab.icon}</span>
+                  </div>
+                  <div className="text-center">
+                    <div className={`font-semibold text-sm ${
+                      selectedTab === tab.id ? 'text-gray-900' : 'text-gray-700'
+                    }`}>
+                      {tab.title}
+                    </div>
+                    <div className={`text-xs ${
+                      selectedTab === tab.id ? 'text-gray-600' : 'text-gray-500'
+                    }`}>
+                      {tab.subtitle}
+                    </div>
+                  </div>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
 
