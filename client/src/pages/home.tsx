@@ -193,7 +193,12 @@ export default function HomeScreen() {
   const popularDestinations = getFilteredCountries();
 
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
+    <div className="mobile-screen min-h-screen relative">
+      {/* Telecommunications Animated Background */}
+      <div className="telecom-bg">
+        <div className="telecom-pattern"></div>
+      </div>
+      <div className="scroll-gradient min-h-screen relative z-10">
       {/* Compact Header with Search */}
       <div className="relative bg-white/80 backdrop-blur-sm sticky top-0 z-10 py-4 border-b border-blue-100">
         <div className="max-w-screen-md mx-auto px-4">
@@ -585,147 +590,140 @@ export default function HomeScreen() {
         </div>
         </div>
 
-      <TabBar />
-
-      {/* Live Chat Modal - Slides up from bottom */}
-      {showLiveChat && (
-        <div className="fixed inset-0 z-50 flex items-end" style={{ touchAction: 'none' }}>
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
-            onClick={() => setShowLiveChat(false)}
-            onTouchMove={(e) => e.preventDefault()}
-            style={{
-              opacity: isDragging && currentY > startY ? Math.max(0.1, 0.5 - (currentY - startY) / 800) : 0.5
-            }}
-          />
-          
-          {/* Modal Content */}
-          <div 
-            className="relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 h-[85vh] flex flex-col"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            style={{
-              transform: isDragging && currentY > startY ? `translateY(${Math.max(0, currentY - startY)}px)` : 'translateY(0)',
-              transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-              opacity: isDragging && currentY > startY ? Math.max(0.3, 1 - (currentY - startY) / 400) : 1
-            }}
-          >
-            {/* Header - eSIMfo Style */}
-            <div className="px-4 py-4 text-white rounded-t-3xl relative" style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)' }}>
-              {/* Drag Handle */}
-              <div className="flex justify-center absolute top-2 left-0 right-0">
-                <div className="w-12 h-1 bg-white/30 rounded-full"></div>
-              </div>
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-3">
-                  <h1 className="text-xl font-bold">eSIMfo</h1>
-                </div>
-                <button 
-                  onClick={() => setShowLiveChat(false)}
-                  className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center active:bg-white/30 transition-colors"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Support Team Avatars */}
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="flex -space-x-2">
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
-                    <span className="text-xs">👩‍💼</span>
-                  </div>
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
-                    <span className="text-xs">👨‍💼</span>
-                  </div>
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
-                    <span className="text-xs">👩‍💻</span>
-                  </div>
-                </div>
-              </div>
-
-              <h2 className="text-lg font-medium mb-1">Hi, Welcome to eSIMfo 👋</h2>
-              <p className="text-blue-100 text-sm">Our support team is here to help you 24/7</p>
-            </div>
-
-            {/* Chat Content - Scrollable */}
+        {/* Live Chat Modal - Slides up from bottom */}
+        {showLiveChat && (
+          <div className="fixed inset-0 z-50 flex items-end" style={{ touchAction: 'none' }}>
+            {/* Backdrop */}
             <div 
-              className="flex-1 overflow-y-auto px-4 py-4 space-y-3"
-              onTouchStart={(e) => e.stopPropagation()}
-              onTouchMove={(e) => e.stopPropagation()}
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+              onClick={() => setShowLiveChat(false)}
+              onTouchMove={(e) => e.preventDefault()}
+              style={{
+                opacity: isDragging && currentY > startY ? Math.max(0.1, 0.5 - (currentY - startY) / 800) : 0.5
+              }}
+            />
+            
+            {/* Modal Content */}
+            <div 
+              className="relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 h-[85vh] flex flex-col"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              style={{
+                transform: isDragging && currentY > startY ? `translateY(${Math.max(0, currentY - startY)}px)` : 'translateY(0)',
+                transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                opacity: isDragging && currentY > startY ? Math.max(0.3, 1 - (currentY - startY) / 400) : 1
+              }}
             >
-              {/* Welcome Message from Bot */}
-              <div className="bg-gray-50 rounded-2xl p-3 shadow-sm max-w-[85%]">
-                <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#3B82F6' }}>
-                    <span className="text-sm text-white">🎧</span>
+              {/* Header - eSIMfo Style */}
+              <div className="px-4 py-4 text-white rounded-t-3xl relative" style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)' }}>
+                {/* Drag Handle */}
+                <div className="flex justify-center absolute top-2 left-0 right-0">
+                  <div className="w-12 h-1 bg-white/30 rounded-full"></div>
+                </div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <h1 className="text-xl font-bold">eSIMfo</h1>
                   </div>
-                  <div>
-                    <div className="text-sm font-medium text-gray-900 mb-1">eSIMfo Support</div>
-                    <div className="text-gray-700 text-sm">
-                      Hello, adventurer! 🌍✨ At eSIMfo, we're here to make your travel experience epic. How can we assist you today?
+                  <button 
+                    onClick={() => setShowLiveChat(false)}
+                    className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center active:bg-white/30 transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Support Team Avatars */}
+                <div className="flex items-center space-x-2 mb-3">
+                  <div className="flex -space-x-2">
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
+                      <span className="text-xs">👩‍💼</span>
+                    </div>
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
+                      <span className="text-xs">👨‍💼</span>
+                    </div>
+                    <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
+                      <span className="text-xs">👩‍💻</span>
                     </div>
                   </div>
                 </div>
+
+                <h2 className="text-lg font-medium mb-1">Hi, Welcome to eSIMfo 👋</h2>
+                <p className="text-blue-100 text-sm">Our support team is here to help you 24/7</p>
               </div>
 
-              {/* Quick Action Buttons */}
-              <div className="space-y-2">
-                <button className="w-full bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-all text-left border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-xl">📱</span>
-                      <span className="font-medium text-gray-900 text-sm">I want an eSIM</span>
+              {/* Chat Content - Scrollable */}
+              <div 
+                className="flex-1 overflow-y-auto px-4 py-4 space-y-3"
+                onTouchStart={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
+              >
+                {/* Welcome Message from Bot */}
+                <div className="bg-gray-50 rounded-2xl p-3 shadow-sm max-w-[85%]">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#3B82F6' }}>
+                      <span className="text-sm text-white">🎧</span>
                     </div>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#3B82F6' }}>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    <div>
+                      <div className="text-sm font-medium text-gray-900 mb-1">eSIMfo Support</div>
+                      <div className="text-gray-700 text-sm">
+                        Hello, adventurer! 🌍✨ At eSIMfo, we're here to make your travel experience epic. How can we assist you today?
+                      </div>
+                    </div>
                   </div>
-                </button>
+                </div>
 
-                <button className="w-full bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-all text-left border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-xl">🛠️</span>
-                      <span className="font-medium text-gray-900 text-sm">I already purchased an eSIM</span>
+                {/* Quick Action Buttons */}
+                <div className="space-y-2">
+                  <button className="w-full bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-all text-left border border-gray-100">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">📱</span>
+                        <span className="font-medium text-gray-900 text-sm">I want an eSIM</span>
+                      </div>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#3B82F6' }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </div>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#3B82F6' }}>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </button>
+                  </button>
+
+                  <button className="w-full bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-all text-left border border-gray-100">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">🛠️</span>
+                        <span className="font-medium text-gray-900 text-sm">I already purchased an eSIM</span>
+                      </div>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#3B82F6' }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </button>
+                </div>
               </div>
-            </div>
 
-            {/* Message Input - Fixed at bottom */}
-            <div className="px-4 pb-6 pt-4 border-t border-gray-100">
-              <div className="bg-gray-50 rounded-full shadow-sm border border-gray-200 flex items-center px-4 py-3">
-                <input
-                  type="text"
-                  placeholder="Send us a message"
-                  className="flex-1 outline-none bg-transparent text-gray-700 placeholder-gray-400"
-                />
-                <button className="ml-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{ backgroundColor: '#3B82F6' }}>
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                </button>
+              {/* Message Input - Fixed at bottom */}
+              <div className="px-4 pb-6 pt-4 border-t border-gray-100">
+                <div className="bg-gray-50 rounded-full shadow-sm border border-gray-200 flex items-center px-4 py-3">
+                  <input
+                    type="text"
+                    placeholder="Send us a message"
+                    className="flex-1 outline-none bg-transparent text-gray-700 placeholder-gray-400"
+                  />
+                  <button className="ml-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{ backgroundColor: '#3B82F6' }}>
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Live Support Chat Modal */}
-      {showLiveChat && (
-        <LiveChatModal onClose={() => setShowLiveChat(false)} />
-      )}
-
-      {/* Tab Bar */}
-      <TabBar />
+        <TabBar />
+      </div>
     </div>
   );
 }
