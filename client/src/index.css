@@ -3,25 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(242, 47%, 97%);
-  --foreground: hsl(240, 10%, 3.9%);
-  --muted: hsl(240, 4.8%, 95.9%);
-  --muted-foreground: hsl(240, 3.8%, 46.1%);
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 9%);
+  --muted: hsl(0, 0%, 96%);
+  --muted-foreground: hsl(0, 0%, 45%);
   --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 9%);
   --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(240, 10%, 3.9%);
-  --border: hsl(240, 5.9%, 90%);
-  --input: hsl(240, 5.9%, 90%);
-  --primary: hsl(240, 100%, 50%);
+  --card-foreground: hsl(0, 0%, 9%);
+  --border: hsl(0, 0%, 91%);
+  --input: hsl(0, 0%, 91%);
+  --primary: hsl(207, 90%, 54%);
   --primary-foreground: hsl(0, 0%, 98%);
   --secondary: hsl(142, 76%, 36%);
-  --secondary-foreground: hsl(355.7, 100%, 97.3%);
-  --accent: hsl(240, 4.8%, 95.9%);
-  --accent-foreground: hsl(240, 5.9%, 10%);
-  --destructive: hsl(0, 84.2%, 60.2%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(0, 0%, 96%);
+  --accent-foreground: hsl(0, 0%, 9%);
+  --destructive: hsl(0, 79%, 63%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 5%, 64.9%);
+  --ring: hsl(207, 90%, 54%);
   --radius: 0.75rem;
   
   /* Mobile-specific colors */
