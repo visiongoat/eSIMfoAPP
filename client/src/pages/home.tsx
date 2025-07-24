@@ -817,7 +817,7 @@ export default function HomeScreen() {
                 <div className="flex items-start space-x-3">
                   <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h1m0 0V2a1 1 0 112 0v1.01M4 20v1a1 1 0 001 1h1m0 0h.01M20 4v1a1 1 0 001 1h1m0 0V4a1 1 0 00-1-1h-1.01M20 20h1a1 1 0 001-1v-1m0 0v-.01M4 12a8 8 0 1116 0M12 8v8m-4-4h8" />
                     </svg>
                   </div>
                   <div className="flex-1">
