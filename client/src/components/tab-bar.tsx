@@ -62,9 +62,9 @@ export default function TabBar() {
             <button
               key={tab.id}
               onClick={() => handleTabClick(tab.path)}
-              className={`flex flex-col items-center py-2 px-3 rounded-xl transition-all duration-200 ${
+              className={`flex flex-col items-center py-2 px-3 transition-all duration-200 ${
                 isActive 
-                  ? 'bg-blue-50 scale-105' 
+                  ? '' 
                   : 'hover:bg-gray-50 active:scale-95'
               }`}
             >
