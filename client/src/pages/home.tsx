@@ -113,10 +113,15 @@ export default function HomeScreen() {
     e.stopPropagation();
     
     const deltaY = currentY - startY;
-    const threshold = 100; // Minimum swipe distance to close
+    const threshold = 150; // Minimum swipe distance to close
+    const velocity = Math.abs(deltaY) / 100; // Simple velocity calculation
     
-    if (deltaY > threshold) {
-      setShowLiveChat(false);
+    // Close if dragged far enough OR if velocity is high enough
+    if (deltaY > threshold || (deltaY > 50 && velocity > 0.5)) {
+      // Add a smooth closing animation
+      setTimeout(() => {
+        setShowLiveChat(false);
+      }, 100);
     }
     
     setIsDragging(false);
@@ -584,9 +589,12 @@ export default function HomeScreen() {
         <div className="fixed inset-0 z-50 flex items-end" style={{ touchAction: 'none' }}>
           {/* Backdrop */}
           <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
             onClick={() => setShowLiveChat(false)}
             onTouchMove={(e) => e.preventDefault()}
+            style={{
+              opacity: isDragging && currentY > startY ? Math.max(0.1, 0.5 - (currentY - startY) / 800) : 0.5
+            }}
           />
           
           {/* Modal Content */}
@@ -597,7 +605,8 @@ export default function HomeScreen() {
             onTouchEnd={handleTouchEnd}
             style={{
               transform: isDragging && currentY > startY ? `translateY(${Math.max(0, currentY - startY)}px)` : 'translateY(0)',
-              transition: isDragging ? 'none' : 'transform 0.3s ease-out'
+              transition: isDragging ? 'none' : 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+              opacity: isDragging && currentY > startY ? Math.max(0.3, 1 - (currentY - startY) / 400) : 1
             }}
           >
             {/* Header - Holafly Style */}
