@@ -231,18 +231,47 @@ export default function HomeScreen() {
               ))}
             </div>
             
-            {/* More Destinations Button */}
+            {/* More Destinations Button - Creative Design */}
             <button 
               onClick={() => setLocation('/search')}
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 text-center hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] mb-4"
+              className="w-full bg-gradient-to-br from-purple-600 via-blue-600 to-cyan-500 rounded-2xl p-1 shadow-xl hover:shadow-2xl transform hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 mb-4 group overflow-hidden relative"
             >
-              <div className="flex items-center justify-center space-x-2">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <div className="font-semibold text-white text-sm">More destinations</div>
+              {/* Animated background shimmer */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 relative z-10">
+                <div className="flex items-center justify-center space-x-3 mb-2">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                  </div>
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.3s'}}></div>
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></div>
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.5s'}}></div>
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="font-bold text-white text-base mb-1 group-hover:text-yellow-200 transition-colors duration-300">
+                    🌍 Discover More Destinations
+                  </div>
+                  <div className="text-xs text-white/80 group-hover:text-white transition-colors duration-300">
+                    200+ countries waiting for you ✈️
+                  </div>
+                </div>
+
+                {/* Floating particles effect */}
+                <div className="absolute top-2 left-4 w-1 h-1 bg-yellow-300 rounded-full opacity-70 animate-ping"></div>
+                <div className="absolute top-6 right-6 w-1 h-1 bg-cyan-300 rounded-full opacity-70 animate-ping" style={{animationDelay: '1s'}}></div>
+                <div className="absolute bottom-4 left-8 w-1 h-1 bg-purple-300 rounded-full opacity-70 animate-ping" style={{animationDelay: '2s'}}></div>
               </div>
-              <div className="text-xs text-blue-100 mt-1">Explore 200+ countries worldwide</div>
             </button>
 
             {/* Quick Stats */}
