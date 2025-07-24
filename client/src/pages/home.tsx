@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 
@@ -11,6 +11,58 @@ import type { Country, Package } from "@shared/schema";
 export default function HomeScreen() {
   const [, setLocation] = useLocation();
   const [selectedTab, setSelectedTab] = useState('local');
+  const [placeholderText, setPlaceholderText] = useState('');
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  
+  const placeholderTexts = [
+    'Find your destination',
+    'Search a country or city',
+    'Type Germany, Spain, or Japan',
+    'Looking for Europe plans?',
+    'Explore eSIMs for USA, UAE…',
+    'Where are you traveling to?',
+    'Start typing a country name…',
+    'eSIM for 200+ countries'
+  ];
+
+  // Typewriter effect for search placeholder
+  useEffect(() => {
+    let currentText = '';
+    let currentIndex = 0;
+    let isDeleting = false;
+    
+    const typeWriter = () => {
+      const fullText = placeholderTexts[placeholderIndex];
+      
+      if (isDeleting) {
+        currentText = fullText.substring(0, currentText.length - 1);
+      } else {
+        currentText = fullText.substring(0, currentText.length + 1);
+      }
+      
+      setPlaceholderText(currentText);
+      
+      let typeSpeed = 100;
+      
+      if (isDeleting) {
+        typeSpeed = 50;
+      } else if (currentText === fullText) {
+        typeSpeed = 2000; // Pause when full text is displayed
+        isDeleting = true;
+      }
+      
+      if (isDeleting && currentText === '') {
+        isDeleting = false;
+        setPlaceholderIndex((prev) => (prev + 1) % placeholderTexts.length);
+        typeSpeed = 500;
+      }
+      
+      setTimeout(typeWriter, typeSpeed);
+    };
+    
+    const timer = setTimeout(typeWriter, 1000);
+    return () => clearTimeout(timer);
+  }, [placeholderIndex, placeholderTexts]);
   
   // Detect user's country (in real app this would come from IP geolocation)
   const getUserCountry = () => {
@@ -99,15 +151,18 @@ export default function HomeScreen() {
           </div>
         </div>
         
-        {/* Compact Search */}
+        {/* Search Bar with Typewriter Effect */}
         <div 
-          className="bg-gray-100 rounded-xl p-3 flex items-center space-x-3 cursor-pointer hover:bg-gray-200 transition-colors mb-4"
+          className="bg-white rounded-xl p-4 flex items-center space-x-3 cursor-pointer hover:shadow-md transition-all duration-200 border border-gray-200 mb-4"
           onClick={() => setLocation('/search')}
         >
-          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-          <span className="text-gray-500 text-sm">Search countries...</span>
+          <span className="text-gray-600 text-base flex-1">
+            {placeholderText}
+            <span className="animate-pulse">|</span>
+          </span>
         </div>
 
         {/* Modern Pill-Style Tabs - Moved up */}
