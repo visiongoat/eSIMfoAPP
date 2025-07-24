@@ -9,7 +9,7 @@ import type { Country, Package } from "@shared/schema";
 
 export default function HomeScreen() {
   const [, setLocation] = useLocation();
-  const [selectedTab, setSelectedTab] = useState('countries');
+  const [selectedTab, setSelectedTab] = useState('local');
 
   const { data: countries = [] } = useQuery<Country[]>({
     queryKey: ["/api/countries"],
@@ -40,14 +40,16 @@ export default function HomeScreen() {
   // Filter countries based on selected tab
   const getFilteredCountries = () => {
     switch (selectedTab) {
-      case 'countries':
+      case 'local':
         return countries.filter(country => 
           ['United States', 'United Kingdom', 'Germany', 'France', 'Japan'].includes(country.name)
         ).slice(0, 8);
       case 'regional':
         return countries.filter(country => 
           ['Spain', 'Italy', 'Netherlands', 'Poland', 'Turkey'].includes(country.name)
-        ).slice(0, 3);
+        ).slice(0, 8);
+      case 'global':
+        return countries.slice(0, 8);
       default:
         return countries.slice(0, 8);
     }
@@ -112,32 +114,44 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        {/* Category Tabs */}
-        <div className="flex space-x-2 mb-6">
+        {/* Category Tabs - 3 tabs in 2 rows */}
+        <div className="mb-6">
+          <div className="grid grid-cols-2 gap-2 mb-2">
+            <button 
+              onClick={() => setSelectedTab('local')}
+              className={`py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                selectedTab === 'local' 
+                  ? 'bg-blue-500 text-white shadow-lg' 
+                  : 'bg-white text-gray-700 shadow-sm'
+              }`}
+            >
+              Local eSIMs
+            </button>
+            <button 
+              onClick={() => setSelectedTab('regional')}
+              className={`py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+                selectedTab === 'regional' 
+                  ? 'bg-blue-500 text-white shadow-lg' 
+                  : 'bg-white text-gray-700 shadow-sm'
+              }`}
+            >
+              Regional eSIMs
+            </button>
+          </div>
           <button 
-            onClick={() => setSelectedTab('countries')}
-            className={`flex-1 py-3 px-4 rounded-xl font-medium text-sm transition-all ${
-              selectedTab === 'countries' 
+            onClick={() => setSelectedTab('global')}
+            className={`w-full py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+              selectedTab === 'global' 
                 ? 'bg-blue-500 text-white shadow-lg' 
                 : 'bg-white text-gray-700 shadow-sm'
             }`}
           >
-            Countries
-          </button>
-          <button 
-            onClick={() => setSelectedTab('regional')}
-            className={`flex-1 py-3 px-4 rounded-xl font-medium text-sm transition-all ${
-              selectedTab === 'regional' 
-                ? 'bg-blue-500 text-white shadow-lg' 
-                : 'bg-white text-gray-700 shadow-sm'
-            }`}
-          >
-            Regions
+            Global eSIMs
           </button>
         </div>
 
         {/* Main Content Grid */}
-        {selectedTab === 'countries' ? (
+        {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* Featured Country */}
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
@@ -147,7 +161,7 @@ export default function HomeScreen() {
                     <span className="text-3xl">🇺🇸</span>
                     <div>
                       <h3 className="font-bold text-lg">United States</h3>
-                      <p className="text-blue-100 text-sm">Most popular destination</p>
+                      <p className="text-blue-100 text-sm">Most popular local destination</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 text-sm">
@@ -170,7 +184,7 @@ export default function HomeScreen() {
               </div>
             </div>
 
-            {/* Country Grid */}
+            {/* Local Country Grid */}
             <div className="grid grid-cols-2 gap-3">
               {countries.slice(1, 9).map((country, index) => {
                 const flags = ['🇬🇧', '🇩🇪', '🇫🇷', '🇯🇵', '🇪🇸', '🇮🇹', '🇨🇦', '🇦🇺'];
@@ -197,7 +211,7 @@ export default function HomeScreen() {
               })}
             </div>
           </div>
-        ) : (
+        ) : selectedTab === 'regional' ? (
           <div className="space-y-3">
             {/* Regional Plans */}
             <div className="bg-white rounded-xl p-4 shadow-sm">
@@ -233,15 +247,105 @@ export default function HomeScreen() {
             <div className="bg-white rounded-xl p-4 shadow-sm">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                    <span className="text-xl">🌍</span>
+                  <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                    <span className="text-xl">🌎</span>
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900">Global</h3>
-                    <p className="text-xs text-gray-500">200+ countries • From $19.99</p>
+                    <h3 className="font-medium text-gray-900">Americas</h3>
+                    <p className="text-xs text-gray-500">20+ countries • From $11.99</p>
                   </div>
                 </div>
                 <button className="text-blue-500 text-sm font-medium">View</button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {/* Global Plans */}
+            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-6 text-white">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <span className="text-3xl">🌍</span>
+                    <div>
+                      <h3 className="font-bold text-lg">Global eSIM</h3>
+                      <p className="text-green-100 text-sm">200+ countries coverage</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4 text-sm">
+                    <span>From $19.99</span>
+                    <span>•</span>
+                    <span>5+ plans</span>
+                  </div>
+                  <button 
+                    onClick={() => setLocation('/packages/global')}
+                    className="mt-4 bg-white text-green-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-green-50 transition-colors"
+                  >
+                    View Global Plans
+                  </button>
+                </div>
+                <div className="text-right">
+                  <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded-lg text-xs font-bold mb-2">
+                    BEST VALUE
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Global Plan Options */}
+            <div className="grid grid-cols-1 gap-3">
+              <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                      <span className="text-xl">📱</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900">1GB Global</h3>
+                      <p className="text-xs text-gray-500">30 days • 200+ countries</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-gray-900">$19.99</div>
+                    <button className="text-blue-500 text-xs font-medium">Select</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                      <span className="text-xl">📶</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900">5GB Global</h3>
+                      <p className="text-xs text-gray-500">30 days • 200+ countries</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-gray-900">$49.99</div>
+                    <button className="text-blue-500 text-xs font-medium">Select</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl p-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                      <span className="text-xl">🚀</span>
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900">10GB Global</h3>
+                      <p className="text-xs text-gray-500">30 days • 200+ countries</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-gray-900">$89.99</div>
+                    <button className="text-blue-500 text-xs font-medium">Select</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
