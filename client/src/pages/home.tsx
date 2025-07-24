@@ -384,7 +384,7 @@ export default function HomeScreen() {
                 <button
                   key={index}
                   onClick={() => handleCountrySelect(countries[0])}
-                  className="bg-white rounded-xl p-3 text-left shadow-md border border-gray-100 hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] duration-200"
+                  className="bg-white rounded-xl p-3 text-left shadow-sm border border-gray-100 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200"
                 >
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-6 rounded-sm overflow-hidden shadow-sm border border-gray-200 flex">
