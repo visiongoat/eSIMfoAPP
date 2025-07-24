@@ -75,7 +75,7 @@
   }
   
   .mobile-screen {
-    @apply w-full min-h-screen pb-20;
+    @apply w-full min-h-screen pb-24;
   }
   
   .mobile-card {
