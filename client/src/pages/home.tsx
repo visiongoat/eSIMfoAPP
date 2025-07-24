@@ -292,10 +292,10 @@ export default function HomeScreen() {
         {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* User's Local Country - Compact */}
-            <div className="overflow-hidden rounded-xl bg-white">
+            <div className="relative overflow-hidden rounded-xl bg-white border-[1px] border-white">
               <button 
                 onClick={() => handleCountrySelect(countries[0])}
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 p-4 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 border-0 outline-none shadow-none"
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 px-6 shadow-none z-10 hover:from-blue-600 hover:to-blue-700 transition-all duration-200 border-none outline-none"
               >
                 <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
