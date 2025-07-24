@@ -14,6 +14,9 @@ export default function HomeScreen() {
   const [placeholderText, setPlaceholderText] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [showLiveChat, setShowLiveChat] = useState(false);
+  const [startY, setStartY] = useState(0);
+  const [currentY, setCurrentY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   
   const placeholderTexts = [
     'Find your destination',
@@ -71,6 +74,32 @@ export default function HomeScreen() {
       clearTimeout(timeoutId);
     };
   }, [placeholderIndex]);
+
+  // Touch handlers for swipe to close
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setStartY(e.touches[0].clientY);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    setCurrentY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+    
+    const deltaY = currentY - startY;
+    const threshold = 100; // Minimum swipe distance to close
+    
+    if (deltaY > threshold) {
+      setShowLiveChat(false);
+    }
+    
+    setIsDragging(false);
+    setStartY(0);
+    setCurrentY(0);
+  };
   
   // Detect user's country (in real app this would come from IP geolocation)
   const getUserCountry = () => {
@@ -537,9 +566,22 @@ export default function HomeScreen() {
           />
           
           {/* Modal Content */}
-          <div className="relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 h-[85vh] flex flex-col">
+          <div 
+            className="relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 h-[85vh] flex flex-col"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{
+              transform: isDragging && currentY > startY ? `translateY(${Math.max(0, currentY - startY)}px)` : 'translateY(0)',
+              transition: isDragging ? 'none' : 'transform 0.3s ease-out'
+            }}
+          >
             {/* Header - Holafly Style */}
-            <div className="bg-gradient-to-r from-pink-500 to-pink-600 px-4 py-4 text-white rounded-t-3xl">
+            <div className="bg-gradient-to-r from-pink-500 to-pink-600 px-4 py-4 text-white rounded-t-3xl relative">
+              {/* Drag Handle */}
+              <div className="flex justify-center absolute top-2 left-0 right-0">
+                <div className="w-12 h-1 bg-white/30 rounded-full"></div>
+              </div>
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-3">
                   <h1 className="text-xl font-bold">eSIMfo</h1>
