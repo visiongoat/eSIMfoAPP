@@ -101,7 +101,7 @@ export default function HomeScreen() {
         
         {/* Compact Search */}
         <div 
-          className="bg-gray-100 rounded-xl p-3 flex items-center space-x-3 cursor-pointer hover:bg-gray-200 transition-colors"
+          className="bg-gray-100 rounded-xl p-3 flex items-center space-x-3 cursor-pointer hover:bg-gray-200 transition-colors mb-4"
           onClick={() => setLocation('/search')}
         >
           <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,27 +109,9 @@ export default function HomeScreen() {
           </svg>
           <span className="text-gray-500 text-sm">Search countries...</span>
         </div>
-      </div>
 
-      <div className="px-4 py-6">
-        {/* Quick Stats */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-            <div className="text-2xl font-bold text-blue-600">200+</div>
-            <div className="text-xs text-gray-600">Countries</div>
-          </div>
-          <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-            <div className="text-2xl font-bold text-green-600">5min</div>
-            <div className="text-xs text-gray-600">Activation</div>
-          </div>
-          <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-            <div className="text-2xl font-bold text-yellow-600">24/7</div>
-            <div className="text-xs text-gray-600">Support</div>
-          </div>
-        </div>
-
-        {/* Modern Pill-Style Tabs */}
-        <div className="mb-6">
+        {/* Modern Pill-Style Tabs - Moved up */}
+        <div className="mb-4">
           <div className="flex gap-2 p-1 bg-gray-50 rounded-2xl">
             {[
               { 
@@ -249,6 +231,22 @@ export default function HomeScreen() {
               ))}
             </div>
             
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-blue-600">200+</div>
+                <div className="text-xs text-gray-600">Countries</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-green-600">5min</div>
+                <div className="text-xs text-gray-600">Activation</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-yellow-600">24/7</div>
+                <div className="text-xs text-gray-600">Support</div>
+              </div>
+            </div>
+
             {/* More Destinations Button */}
             <button 
               onClick={() => setLocation('/search')}
@@ -303,6 +301,22 @@ export default function HomeScreen() {
                   </div>
                 </div>
                 <button className="text-blue-500 text-sm font-medium">View</button>
+              </div>
+            </div>
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-3 mt-4">
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-blue-600">200+</div>
+                <div className="text-xs text-gray-600">Countries</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-green-600">5min</div>
+                <div className="text-xs text-gray-600">Activation</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-yellow-600">24/7</div>
+                <div className="text-xs text-gray-600">Support</div>
               </div>
             </div>
           </div>
@@ -393,6 +407,22 @@ export default function HomeScreen() {
                     <button className="text-blue-500 text-xs font-medium">Select</button>
                   </div>
                 </div>
+              </div>
+            </div>
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-3 mt-4">
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-blue-600">200+</div>
+                <div className="text-xs text-gray-600">Countries</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-green-600">5min</div>
+                <div className="text-xs text-gray-600">Activation</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
+                <div className="text-2xl font-bold text-yellow-600">24/7</div>
+                <div className="text-xs text-gray-600">Support</div>
               </div>
             </div>
           </div>
