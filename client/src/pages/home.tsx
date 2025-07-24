@@ -288,7 +288,7 @@ export default function HomeScreen() {
       </div>
 
       {/* Main Content Grid */}
-      <div className="max-w-screen-md mx-auto px-4 pb-20 space-y-6">
+      <div className="max-w-screen-md mx-auto px-4 pb-20 space-y-6 bg-white">
         {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* User's Local Country - Compact */}
