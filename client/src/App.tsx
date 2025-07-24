@@ -12,6 +12,7 @@ import PackagesScreen from "@/pages/packages";
 import PurchaseScreen from "@/pages/purchase";
 import QRCodeScreen from "@/pages/qr-code";
 import MyEsimsScreen from "@/pages/my-esims";
+import GuidesScreen from "@/pages/guides";
 import ProfileScreen from "@/pages/profile";
 import PartnerScreen from "@/pages/partner";
 
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/purchase/:packageId" component={PurchaseScreen} />
       <Route path="/qr/:esimId" component={QRCodeScreen} />
       <Route path="/my-esims" component={MyEsimsScreen} />
+      <Route path="/guides" component={GuidesScreen} />
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/partner" component={PartnerScreen} />
     </Switch>
