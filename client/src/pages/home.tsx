@@ -537,12 +537,12 @@ export default function HomeScreen() {
           />
           
           {/* Modal Content */}
-          <div className="relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 max-h-[90vh] flex flex-col">
+          <div className="relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 h-[85vh] flex flex-col">
             {/* Header - Holafly Style */}
-            <div className="bg-gradient-to-r from-pink-500 to-pink-600 px-4 py-6 text-white rounded-t-3xl">
-              <div className="flex items-center justify-between mb-4">
+            <div className="bg-gradient-to-r from-pink-500 to-pink-600 px-4 py-4 text-white rounded-t-3xl">
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-3">
-                  <h1 className="text-2xl font-bold">eSIMfo</h1>
+                  <h1 className="text-xl font-bold">eSIMfo</h1>
                 </div>
                 <button 
                   onClick={() => setShowLiveChat(false)}
@@ -555,35 +555,35 @@ export default function HomeScreen() {
               </div>
 
               {/* Support Team Avatars */}
-              <div className="flex items-center space-x-2 mb-4">
+              <div className="flex items-center space-x-2 mb-3">
                 <div className="flex -space-x-2">
-                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
-                    <span className="text-sm">👩‍💼</span>
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
+                    <span className="text-xs">👩‍💼</span>
                   </div>
-                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
-                    <span className="text-sm">👨‍💼</span>
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
+                    <span className="text-xs">👨‍💼</span>
                   </div>
-                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
-                    <span className="text-sm">👩‍💻</span>
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
+                    <span className="text-xs">👩‍💻</span>
                   </div>
                 </div>
               </div>
 
-              <h2 className="text-xl font-medium mb-1">Hi, Welcome to eSIMfo 👋</h2>
+              <h2 className="text-lg font-medium mb-1">Hi, Welcome to eSIMfo 👋</h2>
               <p className="text-pink-100 text-sm">Our support team is here to help you 24/7</p>
             </div>
 
             {/* Chat Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
               {/* Welcome Message from Bot */}
-              <div className="bg-gray-50 rounded-2xl p-4 shadow-sm max-w-[85%]">
+              <div className="bg-gray-50 rounded-2xl p-3 shadow-sm max-w-[85%]">
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-sm">🎧</span>
                   </div>
                   <div>
                     <div className="text-sm font-medium text-gray-900 mb-1">eSIMfo Support</div>
-                    <div className="text-gray-700">
+                    <div className="text-gray-700 text-sm">
                       Hello, adventurer! 🌍✨ At eSIMfo, we're here to make your travel experience epic. How can we assist you today?
                     </div>
                   </div>
@@ -591,26 +591,26 @@ export default function HomeScreen() {
               </div>
 
               {/* Quick Action Buttons */}
-              <div className="space-y-3">
-                <button className="w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all text-left border border-gray-100">
+              <div className="space-y-2">
+                <button className="w-full bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-all text-left border border-gray-100">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <span className="text-2xl">📱</span>
-                      <span className="font-medium text-gray-900">I want an eSIM</span>
+                      <span className="text-xl">📱</span>
+                      <span className="font-medium text-gray-900 text-sm">I want an eSIM</span>
                     </div>
-                    <svg className="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
                 </button>
 
-                <button className="w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all text-left border border-gray-100">
+                <button className="w-full bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-all text-left border border-gray-100">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <span className="text-2xl">🛠️</span>
-                      <span className="font-medium text-gray-900">I already purchased an eSIM</span>
+                      <span className="text-xl">🛠️</span>
+                      <span className="font-medium text-gray-900 text-sm">I already purchased an eSIM</span>
                     </div>
-                    <svg className="w-5 h-5 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
