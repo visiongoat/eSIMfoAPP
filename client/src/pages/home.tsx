@@ -290,13 +290,14 @@ export default function HomeScreen() {
       {/* Main Content Grid */}
       <div className="max-w-screen-md mx-auto px-4 pb-20 space-y-6">
         {selectedTab === 'local' ? (
-          <div className="space-y-4 overflow-hidden">
+          <div className="space-y-4">
             {/* User's Local Country - Compact */}
-            <button 
-              onClick={() => handleCountrySelect(countries[0])}
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 overflow-hidden shadow-md border-0 outline-none relative z-10"
-            >
-              <div className="flex items-center justify-between">
+            <div className="overflow-hidden rounded-xl bg-white">
+              <button 
+                onClick={() => handleCountrySelect(countries[0])}
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 p-4 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 border-0 outline-none shadow-none"
+              >
+                <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <span className="text-2xl">{userCountry.flag}</span>
                   <div className="text-left">
@@ -312,8 +313,9 @@ export default function HomeScreen() {
                     LOCAL
                   </div>
                 </div>
-              </div>
-            </button>
+                </div>
+              </button>
+            </div>
 
             {/* Popular Local Countries - 20 countries grid */}
             <div className="grid grid-cols-2 gap-2">
