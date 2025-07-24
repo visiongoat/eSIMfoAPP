@@ -232,7 +232,7 @@ export default function HomeScreen() {
         </div>
 
         {/* Modern Pill-Style Tabs - Moved up */}
-        <div className="mb-4">
+        <div className="mb-2">
           <div className="flex gap-2 p-1 bg-gray-50 rounded-2xl">
             {[
               { 
