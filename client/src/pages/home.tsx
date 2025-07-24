@@ -239,18 +239,20 @@ export default function HomeScreen() {
               </div>
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center space-x-3">
+            {/* Currency Display */}
+            <div className="bg-gray-100 px-2 py-1 rounded-md">
+              <span className="text-xs font-semibold text-gray-700">€</span>
+            </div>
+            
+            {/* Compact Live Chat Button */}
             <button 
               onClick={() => setShowLiveChat(true)}
-              className="text-white px-4 py-2.5 rounded-full text-sm font-medium flex items-center space-x-2 shadow-lg active:shadow-sm transition-all duration-200 active:scale-95"
-              style={{ backgroundColor: '#3B82F6' }}
+              className="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center shadow-md active:shadow-sm transition-all duration-200 active:scale-95 relative"
             >
-              <div className="flex items-center space-x-2">
-                <MessageCircle className="w-4 h-4" />
-                <span>Support</span>
-                {/* Active status indicator */}
-                <div className="w-2 h-2 rounded-full animate-pulse border border-white" style={{ backgroundColor: '#22C55E' }}></div>
-              </div>
+              <MessageCircle className="w-4 h-4 text-white" />
+              {/* Active status indicator */}
+              <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
             </button>
           </div>
         </div>
