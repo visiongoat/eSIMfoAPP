@@ -285,7 +285,7 @@ export default function HomeScreen() {
         </div>
 
         {/* Main Content Grid */}
-        <div className="px-4 pb-20">
+        <div className="px-4 pb-20 space-y-6">
         {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* User's Local Country - Compact */}
@@ -559,7 +559,7 @@ export default function HomeScreen() {
         )}
 
         {/* Quick Actions */}
-        <div className="mt-6 grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <button 
             onClick={() => setLocation('/search')}
             className="bg-gray-100 rounded-xl p-4 text-left hover:bg-gray-200 transition-colors"
