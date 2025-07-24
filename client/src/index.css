@@ -70,12 +70,12 @@
 
 @layer components {
   .mobile-container {
-    @apply max-w-sm mx-auto min-h-screen relative overflow-x-hidden;
+    @apply w-full mx-auto min-h-screen relative overflow-x-hidden;
     background-color: var(--mobile-bg);
   }
   
   .mobile-screen {
-    @apply min-h-screen pb-20;
+    @apply w-full min-h-screen pb-20;
   }
   
   .mobile-card {
@@ -95,7 +95,7 @@
   }
   
   .tab-bar {
-    @apply fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-sm h-20 backdrop-blur-xl border-t flex pb-8;
+    @apply fixed bottom-0 left-0 w-full h-20 backdrop-blur-xl border-t flex pb-8;
     background-color: var(--tab-bg);
     border-color: var(--mobile-border);
   }

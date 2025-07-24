@@ -104,37 +104,37 @@ export default function HomeScreen() {
         </div>
 
         {/* eSIM Category Tabs */}
-        <div className="mx-4 mb-4">
-          <div className="bg-gray-100 rounded-xl p-1 flex">
+        <div className="px-4 mb-4">
+          <div className="bg-gray-100 rounded-xl p-1 flex gap-1">
             <button
               onClick={() => setSelectedTab('local')}
-              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+              className={`flex-1 py-3 px-1 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
                 selectedTab === 'local'
                   ? 'bg-white text-primary shadow-sm'
                   : 'text-gray-600'
               }`}
             >
-              Local eSIMs
+              Local
             </button>
             <button
               onClick={() => setSelectedTab('regional')}
-              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+              className={`flex-1 py-3 px-1 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
                 selectedTab === 'regional'
                   ? 'bg-white text-primary shadow-sm'
                   : 'text-gray-600'
               }`}
             >
-              Regional eSIMs
+              Regional
             </button>
             <button
               onClick={() => setSelectedTab('global')}
-              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+              className={`flex-1 py-3 px-1 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
                 selectedTab === 'global'
                   ? 'bg-white text-primary shadow-sm'
                   : 'text-gray-600'
               }`}
             >
-              Global eSIMs
+              Global
             </button>
           </div>
         </div>
