@@ -254,9 +254,8 @@ export default function HomeScreen() {
           </div>
           <div className="flex items-center space-x-3">
             {/* Currency Display */}
-            <div className="flex items-center space-x-1 bg-white px-2.5 py-1.5 rounded-lg shadow-sm border border-gray-200">
-              <span className="text-sm font-semibold text-gray-800">€</span>
-              <span className="text-xs font-medium text-gray-600">EUR</span>
+            <div className="text-sm font-medium text-gray-600">
+              EUR
             </div>
             
             {/* Compact Live Chat Button */}
