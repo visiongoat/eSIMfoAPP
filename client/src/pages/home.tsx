@@ -80,7 +80,7 @@ export default function HomeScreen() {
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (showLiveChat) {
+    if (showLiveChat || showHowItWorks) {
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
@@ -95,7 +95,7 @@ export default function HomeScreen() {
       document.body.style.position = '';
       document.body.style.width = '';
     };
-  }, [showLiveChat]);
+  }, [showLiveChat, showHowItWorks]);
 
   // Touch handlers for swipe to close
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -776,81 +776,80 @@ export default function HomeScreen() {
 
         {/* How It Works Modal */}
         {showHowItWorks && (
-          <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-[100]" onClick={() => setShowHowItWorks(false)}>
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4" onClick={() => setShowHowItWorks(false)}>
             <div 
-              className="bg-white rounded-t-3xl w-full max-w-md max-h-[80vh] overflow-hidden transform animate-in slide-in-from-bottom duration-300"
+              className="bg-white rounded-2xl w-full max-w-sm transform animate-in zoom-in-95 duration-200 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="px-6 py-6 border-b border-gray-100">
+              <div className="px-5 py-4 border-b border-gray-100">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-bold text-gray-900">How Does eSIMfo Work?</h2>
                   <button 
                     onClick={() => setShowHowItWorks(false)}
-                    className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
+                    className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
                   >
                     <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
-                <p className="text-gray-600 mt-2">Get global data connectivity in just a few simple steps</p>
+                <p className="text-gray-600 text-sm mt-1">Get global data connectivity in just a few simple steps</p>
               </div>
 
               {/* Content */}
-              <div className="px-6 py-6 space-y-6 overflow-y-auto">
+              <div className="px-5 py-4 space-y-4">
                 {/* Step 1 */}
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-start space-x-3">
+                  <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">Choose Your Destination and Plan</h3>
-                    <p className="text-gray-600">Select from over 200 countries and pick the plan that suits you best</p>
+                    <h3 className="text-base font-semibold text-gray-900 mb-0.5">Choose Your Destination and Plan</h3>
+                    <p className="text-gray-600 text-sm">Select from over 200 countries and pick the plan that suits you best</p>
                   </div>
                 </div>
 
                 {/* Step 2 */}
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                <div className="flex items-start space-x-3">
+                  <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">Set Up Your eSIM</h3>
-                    <p className="text-gray-600">Scan the QR code to install your eSIM on your phone</p>
+                    <h3 className="text-base font-semibold text-gray-900 mb-0.5">Set Up Your eSIM</h3>
+                    <p className="text-gray-600 text-sm">Scan the QR code to install your eSIM on your phone</p>
                   </div>
                 </div>
 
                 {/* Step 3 */}
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-start space-x-3">
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">Activate Your eSIM</h3>
-                    <p className="text-gray-600">Turn on your eSIM during your trip and get connected instantly</p>
+                    <h3 className="text-base font-semibold text-gray-900 mb-0.5">Activate Your eSIM</h3>
+                    <p className="text-gray-600 text-sm">Turn on your eSIM during your trip and get connected instantly</p>
                   </div>
                 </div>
 
                 {/* Get Started Button */}
-                <div className="pt-4">
+                <div className="pt-3">
                   <button 
                     onClick={() => {
                       setShowHowItWorks(false);
                       setLocation('/search');
                     }}
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2"
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2"
                   >
                     <span>Get Started Now</span>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </button>
