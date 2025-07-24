@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 
@@ -8,6 +9,7 @@ import type { Country, Package } from "@shared/schema";
 
 export default function HomeScreen() {
   const [, setLocation] = useLocation();
+  const [selectedTab, setSelectedTab] = useState('local');
 
   const { data: countries = [] } = useQuery<Country[]>({
     queryKey: ["/api/countries"],
@@ -35,7 +37,28 @@ export default function HomeScreen() {
     }
   };
 
-  const popularDestinations = countries.slice(0, 3);
+  // Filter countries based on selected tab
+  const getFilteredCountries = () => {
+    switch (selectedTab) {
+      case 'local':
+        return countries.filter(country => 
+          ['United States', 'United Kingdom', 'Germany', 'France', 'Japan'].includes(country.name)
+        ).slice(0, 3);
+      case 'regional':
+        return countries.filter(country => 
+          ['Spain', 'Italy', 'Netherlands', 'Poland', 'Turkey'].includes(country.name)
+        ).slice(0, 3);
+      case 'global':
+        return countries.filter(country => 
+          ['Global', 'Europe', 'Asia', 'Americas'].includes(country.name) || 
+          ['China', 'India', 'Brazil', 'Australia'].includes(country.name)
+        ).slice(0, 3);
+      default:
+        return countries.slice(0, 3);
+    }
+  };
+
+  const popularDestinations = getFilteredCountries();
 
   return (
     <div className="mobile-screen">
@@ -80,6 +103,42 @@ export default function HomeScreen() {
           </div>
         </div>
 
+        {/* eSIM Category Tabs */}
+        <div className="mx-4 mb-4">
+          <div className="bg-gray-100 rounded-xl p-1 flex">
+            <button
+              onClick={() => setSelectedTab('local')}
+              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+                selectedTab === 'local'
+                  ? 'bg-white text-primary shadow-sm'
+                  : 'text-gray-600'
+              }`}
+            >
+              Local eSIMs
+            </button>
+            <button
+              onClick={() => setSelectedTab('regional')}
+              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+                selectedTab === 'regional'
+                  ? 'bg-white text-primary shadow-sm'
+                  : 'text-gray-600'
+              }`}
+            >
+              Regional eSIMs
+            </button>
+            <button
+              onClick={() => setSelectedTab('global')}
+              className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
+                selectedTab === 'global'
+                  ? 'bg-white text-primary shadow-sm'
+                  : 'text-gray-600'
+              }`}
+            >
+              Global eSIMs
+            </button>
+          </div>
+        </div>
+
         {/* Quick Actions */}
         <div className="px-4 mb-4">
           <h2 className="text-lg font-semibold mb-3">Quick Actions</h2>
@@ -114,10 +173,14 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        {/* Popular Destinations */}
+        {/* Dynamic Content Based on Selected Tab */}
         <div className="px-4 mb-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-semibold">Popular Destinations</h2>
+            <h2 className="text-lg font-semibold">
+              {selectedTab === 'local' && 'Popular Local Destinations'}
+              {selectedTab === 'regional' && 'Regional Coverage'}
+              {selectedTab === 'global' && 'Global Plans'}
+            </h2>
             <button 
               onClick={() => setLocation('/search')}
               className="text-primary text-sm font-medium"
@@ -127,15 +190,36 @@ export default function HomeScreen() {
           </div>
           
           <div className="space-y-2">
-            {popularDestinations.map((country) => (
-              <CountryCard
-                key={country.id}
-                country={country}
-                onSelect={handleCountrySelect}
-                showPrice={true}
-                price="€0.94"
-              />
-            ))}
+            {popularDestinations.length > 0 ? (
+              popularDestinations.map((country) => (
+                <CountryCard
+                  key={country.id}
+                  country={country}
+                  onSelect={handleCountrySelect}
+                  showPrice={true}
+                  price={
+                    selectedTab === 'local' ? "€0.94" : 
+                    selectedTab === 'regional' ? "€2.49" : 
+                    "€4.99"
+                  }
+                />
+              ))
+            ) : (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl">
+                    {selectedTab === 'local' && '🏠'}
+                    {selectedTab === 'regional' && '🌍'}
+                    {selectedTab === 'global' && '✈️'}
+                  </span>
+                </div>
+                <p className="text-gray-500 text-sm">
+                  {selectedTab === 'local' && 'Local eSIMs will be available soon'}
+                  {selectedTab === 'regional' && 'Regional eSIMs coming soon'}
+                  {selectedTab === 'global' && 'Global eSIMs launching soon'}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
