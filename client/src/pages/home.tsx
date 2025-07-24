@@ -75,19 +75,42 @@ export default function HomeScreen() {
     };
   }, [placeholderIndex]);
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (showLiveChat) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    };
+  }, [showLiveChat]);
+
   // Touch handlers for swipe to close
   const handleTouchStart = (e: React.TouchEvent) => {
+    e.stopPropagation();
     setStartY(e.touches[0].clientY);
     setIsDragging(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return;
+    e.preventDefault();
+    e.stopPropagation();
     setCurrentY(e.touches[0].clientY);
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
     if (!isDragging) return;
+    e.stopPropagation();
     
     const deltaY = currentY - startY;
     const threshold = 100; // Minimum swipe distance to close
@@ -558,11 +581,12 @@ export default function HomeScreen() {
 
       {/* Live Chat Modal - Slides up from bottom */}
       {showLiveChat && (
-        <div className="fixed inset-0 z-50 flex items-end">
+        <div className="fixed inset-0 z-50 flex items-end" style={{ touchAction: 'none' }}>
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setShowLiveChat(false)}
+            onTouchMove={(e) => e.preventDefault()}
           />
           
           {/* Modal Content */}
@@ -616,7 +640,11 @@ export default function HomeScreen() {
             </div>
 
             {/* Chat Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+            <div 
+              className="flex-1 overflow-y-auto px-4 py-4 space-y-3"
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+            >
               {/* Welcome Message from Bot */}
               <div className="bg-gray-50 rounded-2xl p-3 shadow-sm max-w-[85%]">
                 <div className="flex items-start space-x-3">
