@@ -61,288 +61,154 @@ export default function HomeScreen() {
   const popularDestinations = getFilteredCountries();
 
   return (
-    <div className="mobile-screen bg-gray-50">
-      {/* Personalized Header */}
-      <div className="bg-white px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-            <span className="text-white font-semibold text-lg">TY</span>
-          </div>
+    <div className="mobile-screen bg-white">
+      {/* Clean Minimal Header */}
+      <div className="px-6 pt-8 pb-6">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <div className="flex items-center space-x-1">
-              <span className="font-semibold text-gray-900">Good Night</span>
-              <span className="text-lg">👋</span>
-            </div>
-            <p className="text-sm text-gray-600">Tuğçe Yılmaz</p>
+            <h1 className="text-2xl font-bold text-gray-900">esimfo</h1>
+            <p className="text-sm text-gray-500 mt-1">Global connectivity made simple</p>
           </div>
-        </div>
-        <div className="flex items-center space-x-2">
-          <button className="p-2 rounded-full bg-gray-100">
-            <span className="text-lg">🔔</span>
+          <button className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center">
+            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5l-5-5h5V3h5v14z" />
+            </svg>
           </button>
-          <div className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm font-medium">
-            ❄️ 30°C
-          </div>
         </div>
-      </div>
 
-      <div className="pb-4">
-        {/* Search Bar */}
+        {/* Primary Search - Main CTA */}
         <div 
-          className="mx-4 mt-4 mb-4 bg-white rounded-xl p-4 shadow-sm cursor-pointer"
+          className="bg-blue-50 rounded-2xl p-6 mb-8 cursor-pointer border border-blue-100"
           onClick={() => setLocation('/search')}
         >
-          <div className="flex items-center space-x-3">
-            <span className="text-gray-400 text-lg">📍</span>
-            <span className="text-gray-500 italic">Find your destination...</span>
-          </div>
-        </div>
-
-        {/* Summer Travel Promotion Cards */}
-        <div className="mb-4">
-          <div className="flex space-x-4 px-4 overflow-x-auto">
-            <div className="min-w-72 bg-white rounded-2xl p-6 shadow-sm flex items-center justify-between">
-              <div className="flex-1">
-                <h3 className="font-bold text-lg text-gray-900 mb-1">Yaz Seyahati</h3>
-                <h3 className="font-bold text-lg text-gray-900 mb-1">İndirimi - %20</h3>
-                <h3 className="font-bold text-lg text-gray-900 mb-3">İndirim!</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">Yol gezilerinden uzak kaçışlara</p>
-                <p className="text-sm text-gray-600">kadar, verilerinizi karşıladık!</p>
-              </div>
-              <div className="ml-4">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-200 to-green-200 flex items-center justify-center">
-                  <span className="text-4xl">🏝️</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="min-w-72 bg-white rounded-2xl p-6 shadow-sm flex items-center justify-between">
-              <div className="flex-1">
-                <h3 className="font-bold text-lg text-gray-900 mb-1">Yaz Seyahati</h3>
-                <h3 className="font-bold text-lg text-gray-900 mb-1">İndirimi - %30</h3>
-                <h3 className="font-bold text-lg text-gray-900 mb-3">İndirim!</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">Avrupa genelinde</p>
-                <p className="text-sm text-gray-600">kadar, verilerinizi karşıladık!</p>
-              </div>
-              <div className="ml-4">
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-orange-200 to-red-200 flex items-center justify-center">
-                  <span className="text-4xl">✈️</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Pagination dots */}
-          <div className="flex justify-center mt-4 space-x-2">
-            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-            <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-            <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-          </div>
-        </div>
-
-        {/* eSIM Category Tabs */}
-        <div className="px-4 mb-4">
-          <div className="flex gap-2">
-            <button
-              onClick={() => setSelectedTab('local')}
-              className={`flex items-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all ${
-                selectedTab === 'local'
-                  ? 'bg-blue-500 text-white shadow-lg'
-                  : 'bg-white text-gray-600 shadow-sm'
-              }`}
-            >
-              <span className="text-lg">📍</span>
-              <span>Local</span>
-            </button>
-            <button
-              onClick={() => setSelectedTab('regional')}
-              className={`flex items-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all ${
-                selectedTab === 'regional'
-                  ? 'bg-blue-500 text-white shadow-lg'
-                  : 'bg-white text-gray-600 shadow-sm'
-              }`}
-            >
-              <span className="text-lg">🏢</span>
-              <span>Regional</span>
-            </button>
-            <button
-              onClick={() => setSelectedTab('global')}
-              className={`flex items-center space-x-2 px-4 py-3 rounded-xl font-medium transition-all ${
-                selectedTab === 'global'
-                  ? 'bg-blue-500 text-white shadow-lg'
-                  : 'bg-white text-gray-600 shadow-sm'
-              }`}
-            >
-              <span className="text-lg">🌍</span>
-              <span>Global</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Location-based eSIM Availability */}
-        <div className="mx-4 mb-4 bg-white rounded-xl p-4 shadow-sm border-l-4 border-blue-500">
           <div className="flex items-center justify-between">
             <div className="flex-1">
-              <div className="flex items-center space-x-2 mb-1">
-                <span className="text-blue-500 text-lg">📍</span>
-                <span className="font-semibold text-gray-900">eSIMs available for your location</span>
-                <button className="text-gray-400">✕</button>
+              <h3 className="font-semibold text-gray-900 mb-2">Need data now?</h3>
+              <p className="text-gray-600 text-sm mb-4">Get instant eSIM for 200+ countries</p>
+              <div className="inline-flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-xl font-medium text-sm">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span>Find eSIM</span>
               </div>
-              <div className="flex items-center space-x-2 text-gray-600">
-                <span className="text-blue-500">📍</span>
-                <span className="text-sm">Antalya, TR</span>
-                <span className="text-sm">•</span>
-                <span className="text-sm font-medium">7 packages available</span>
+            </div>
+            <div className="ml-4">
+              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center">
+                <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
-              <button 
-                onClick={() => setLocation('/packages/1')}
-                className="mt-3 bg-blue-500 text-white px-6 py-2 rounded-lg font-medium text-sm"
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Access Categories */}
+        <div className="mb-8">
+          <div className="flex justify-center">
+            <div className="inline-flex bg-gray-100 rounded-2xl p-1">
+              <button
+                onClick={() => setSelectedTab('local')}
+                className={`px-6 py-3 rounded-xl font-medium transition-all ${
+                  selectedTab === 'local'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600'
+                }`}
               >
-                View Packages
+                Local
+              </button>
+              <button
+                onClick={() => setSelectedTab('regional')}
+                className={`px-6 py-3 rounded-xl font-medium transition-all ${
+                  selectedTab === 'regional'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600'
+                }`}
+              >
+                Regional
+              </button>
+              <button
+                onClick={() => setSelectedTab('global')}
+                className={`px-6 py-3 rounded-xl font-medium transition-all ${
+                  selectedTab === 'global'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600'
+                }`}
+              >
+                Global
               </button>
             </div>
           </div>
         </div>
 
-        {/* Available Countries Grid */}
-        <div className="px-4 mb-4">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Available Countries</h2>
-          <div className="grid grid-cols-2 gap-3">
-            {countries.slice(0, 8).map((country) => (
+        {/* Popular Destinations - Clean minimal cards */}
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-6">Popular destinations</h2>
+          <div className="space-y-3">
+            {countries.slice(0, 4).map((country, index) => (
               <button
                 key={country.id}
                 onClick={() => handleCountrySelect(country)}
-                className="bg-white rounded-xl p-4 shadow-sm flex items-center space-x-3 hover:shadow-md transition-all"
+                className="w-full bg-gray-50 rounded-2xl p-4 flex items-center justify-between group hover:bg-blue-50 transition-all"
               >
-                <div className="w-8 h-6 rounded-sm bg-gray-200 flex items-center justify-center">
-                  <span className="text-xs font-semibold">
-                    {country.code}
-                  </span>
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                    <span className="text-lg">
+                      {index === 0 && '🇺🇸'}
+                      {index === 1 && '🇬🇧'} 
+                      {index === 2 && '🇩🇪'}
+                      {index === 3 && '🇫🇷'}
+                    </span>
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium text-gray-900">{country.name}</div>
+                    <div className="text-sm text-gray-500">From €{(Math.random() * 2 + 1).toFixed(2)}/GB</div>
+                  </div>
                 </div>
-                <span className="font-medium text-gray-900 text-sm">{country.name}</span>
+                <div className="text-gray-400 group-hover:text-blue-500 transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </button>
             ))}
           </div>
           
           <button 
             onClick={() => setLocation('/search')}
-            className="w-full mt-4 bg-white rounded-xl p-4 shadow-sm border border-gray-200 text-center font-medium text-gray-700"
+            className="w-full mt-6 bg-gray-50 rounded-2xl p-4 text-center text-gray-600 font-medium hover:bg-gray-100 transition-all"
           >
-            Show All 202 Countries
+            View all 200+ countries
           </button>
         </div>
 
-        {/* Stats Section */}
-        <div className="px-4 mb-4">
-          <div className="grid grid-cols-3 gap-3">
-            <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-2xl">👥</span>
+        {/* Quick Actions - Essential only */}
+        <div className="mb-8">
+          <div className="grid grid-cols-2 gap-4">
+            <button 
+              onClick={() => setLocation('/my-esims')}
+              className="bg-blue-500 rounded-2xl p-6 text-left text-white"
+            >
+              <div className="mb-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
               </div>
-              <div className="font-bold text-gray-900">50K+</div>
-              <div className="text-xs text-gray-600">Travelers</div>
-            </div>
-            <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <div className="font-bold text-gray-900">Instant</div>
-              <div className="text-xs text-gray-600">Activation</div>
-            </div>
-            <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-2xl">🔒</span>
-              </div>
-              <div className="font-bold text-gray-900">Secure</div>
-              <div className="text-xs text-gray-600">Payment</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Popular Destinations */}
-        <div className="px-4 mb-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-900">Popular Destinations</h2>
+              <div className="font-semibold mb-1">My eSIMs</div>
+              <div className="text-sm opacity-90">Manage active plans</div>
+            </button>
+            
             <button 
               onClick={() => setLocation('/search')}
-              className="text-blue-500 text-sm font-medium"
+              className="bg-gray-100 rounded-2xl p-6 text-left"
             >
-              more +
+              <div className="mb-3">
+                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <div className="font-semibold text-gray-900 mb-1">Browse all</div>
+              <div className="text-sm text-gray-600">Find any destination</div>
             </button>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-3">
-            {/* USA Card */}
-            <div 
-              onClick={() => handleCountrySelect(countries[0])}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-            >
-              <div className="h-32 bg-gradient-to-br from-orange-400 to-red-500 relative">
-                <div className="absolute top-3 right-3 w-8 h-6 bg-white rounded-sm flex items-center justify-center">
-                  <span className="text-xs font-bold">🇺🇸</span>
-                </div>
-                <div className="absolute inset-0 bg-black/20"></div>
-              </div>
-              <div className="p-3">
-                <h3 className="font-bold text-gray-900 text-sm mb-1">Amerika Birleşik D...</h3>
-                <p className="text-xs text-gray-600 mb-1">1 GB - 50 GB</p>
-                <p className="text-xs text-gray-600">0.54 USD/GB'dan başlayan</p>
-              </div>
-            </div>
-
-            {/* Canada Card */}
-            <div 
-              onClick={() => handleCountrySelect(countries[1] || countries[0])}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-            >
-              <div className="h-32 bg-gradient-to-br from-yellow-400 to-orange-500 relative">
-                <div className="absolute top-3 right-3 w-8 h-6 bg-white rounded-sm flex items-center justify-center">
-                  <span className="text-xs font-bold">🇨🇦</span>
-                </div>
-                <div className="absolute inset-0 bg-black/20"></div>
-              </div>
-              <div className="p-3">
-                <h3 className="font-bold text-gray-900 text-sm mb-1">Kanada</h3>
-                <p className="text-xs text-gray-600 mb-1">1 GB - 50 GB</p>
-                <p className="text-xs text-gray-600">0.98 USD/GB'dan başlayan</p>
-              </div>
-            </div>
-
-            {/* UK Card */}
-            <div 
-              onClick={() => handleCountrySelect(countries[2] || countries[0])}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-            >
-              <div className="h-32 bg-gradient-to-br from-blue-400 to-purple-500 relative">
-                <div className="absolute top-3 right-3 w-8 h-6 bg-white rounded-sm flex items-center justify-center">
-                  <span className="text-xs font-bold">🇬🇧</span>
-                </div>
-                <div className="absolute inset-0 bg-black/20"></div>
-              </div>
-              <div className="p-3">
-                <h3 className="font-bold text-gray-900 text-sm mb-1">İngiltere</h3>
-                <p className="text-xs text-gray-600 mb-1">1 GB - 50 GB</p>
-                <p className="text-xs text-gray-600">0.75 USD/GB'dan başlayan</p>
-              </div>
-            </div>
-
-            {/* Japan Card */}
-            <div 
-              onClick={() => handleCountrySelect(countries[3] || countries[0])}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer"
-            >
-              <div className="h-32 bg-gradient-to-br from-pink-400 to-red-500 relative">
-                <div className="absolute top-3 right-3 w-8 h-6 bg-white rounded-sm flex items-center justify-center">
-                  <span className="text-xs font-bold">🇯🇵</span>
-                </div>
-                <div className="absolute inset-0 bg-black/20"></div>
-              </div>
-              <div className="p-3">
-                <h3 className="font-bold text-gray-900 text-sm mb-1">Japonya</h3>
-                <p className="text-xs text-gray-600 mb-1">1 GB - 50 GB</p>
-                <p className="text-xs text-gray-600">1.25 USD/GB'dan başlayan</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
