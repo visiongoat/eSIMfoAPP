@@ -158,6 +158,23 @@ export default function HomeScreen() {
     queryKey: ['/api/profile']
   });
 
+  // Time-based greeting function
+  const getTimeBasedGreeting = () => {
+    const hour = new Date().getHours();
+    
+    if (hour >= 5 && hour < 12) {
+      return { text: 'Good Morning', icon: '🌅' };
+    } else if (hour >= 12 && hour < 17) {
+      return { text: 'Good Afternoon', icon: '☀️' };
+    } else if (hour >= 17 && hour < 21) {
+      return { text: 'Good Evening', icon: '🌆' };
+    } else {
+      return { text: 'Good Night', icon: '🌙' };
+    }
+  };
+
+  const greeting = getTimeBasedGreeting();
+
   const handleCountrySelect = (country: Country) => {
     setLocation(`/packages/${country.id}`);
   };
@@ -209,10 +226,17 @@ export default function HomeScreen() {
             </div>
             {/* Hello, Guest/User Text */}
             <div>
-              <span className="text-lg font-medium text-gray-700">Hello, </span>
-              <span className="text-lg font-semibold text-blue-600">
-                {profile?.name || 'Guest user'}
-              </span>
+              <div className="flex items-center">
+                <span className="text-lg font-medium text-gray-700">Hello, </span>
+                <span className="text-lg font-semibold text-blue-600">
+                  {profile?.name || 'Guest user'}
+                </span>
+              </div>
+              {/* Time-based greeting */}
+              <div className="flex items-center space-x-1 mt-0.5">
+                <span className="text-xs">{greeting.icon}</span>
+                <span className="text-xs text-gray-500 font-medium">{greeting.text}</span>
+              </div>
             </div>
           </div>
           <div className="flex items-center">
