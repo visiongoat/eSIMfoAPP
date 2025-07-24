@@ -333,9 +333,11 @@ export default function HomeScreen() {
             </div>
           </div>
         </div>
-        
-        {/* Enhanced Search Bar with Smart Features */}
-        <div className="relative mb-4 z-50">
+      </div>
+
+      {/* Enhanced Search Bar with Smart Features - Fixed positioning */}
+      <div className="max-w-screen-md mx-auto px-4 mb-4">
+        <div className="relative z-[9999]">
           <div className="bg-white rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg focus-within:shadow-xl focus-within:border-blue-500 focus-within:border-2 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 group">
             {/* Animated Search Icon */}
             <div className="relative">
@@ -400,11 +402,9 @@ export default function HomeScreen() {
             </div>
           </div>
 
-        </div>
-
           {/* Mobile Search Results */}
           {showSearchResults && searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-200 mt-1 z-[100] overflow-hidden" style={{position: 'absolute', zIndex: 9999}}>
+            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-200 mt-1 z-[9999] overflow-hidden" style={{position: 'absolute', zIndex: 99999}}>
               {searchResults.map((country, index) => {
                 // Create flag emoji from country code
                 const getFlagEmoji = (code: string) => {
@@ -461,8 +461,9 @@ export default function HomeScreen() {
             </div>
           )}
         </div>
+      </div>
 
-        {/* Modern Pill-Style Tabs - Fixed alignment */}
+      {/* Modern Pill-Style Tabs - Fixed alignment */}
         <div className="max-w-screen-md mx-auto px-4 mb-4">
           <div className="flex gap-2 p-1 bg-gray-50 rounded-2xl">
             {[
