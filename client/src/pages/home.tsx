@@ -252,14 +252,14 @@ export default function HomeScreen() {
               </div>
             </div>
           </div>
-          <div className="flex items-start space-x-3 mt-1">
+          <div className="flex items-center space-x-3 mt-1">
             {/* Currency Display */}
             <div className="flex items-center bg-green-50 border border-green-200 px-2 py-1 rounded-md">
               <span className="text-xs font-semibold text-green-700">€ EUR</span>
             </div>
             
             {/* Compact Live Chat Button */}
-            <div className="self-start -mt-1">
+            <div>
               <button 
                 onClick={() => setShowLiveChat(true)}
                 className="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center shadow-md active:shadow-sm transition-all duration-200 active:scale-95 relative"
