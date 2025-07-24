@@ -20,6 +20,8 @@ export default function HomeScreen() {
   const [startY, setStartY] = useState(0);
   const [currentY, setCurrentY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
   
   const placeholderTexts = [
     'Find your destination',
@@ -215,6 +217,18 @@ export default function HomeScreen() {
 
   const popularDestinations = getFilteredCountries();
 
+  // Filter countries based on search query
+  const getSearchResults = () => {
+    if (!searchQuery.trim()) return [];
+    
+    return countries.filter(country => 
+      country.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      country.code.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 5); // Show max 5 results
+  };
+
+  const searchResults = getSearchResults();
+
   return (
     <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
       {/* Compact Header with Search */}
@@ -274,23 +288,77 @@ export default function HomeScreen() {
         </div>
         
         {/* Search Bar with Typewriter Effect */}
-        <div className="bg-white rounded-xl p-4 flex items-center space-x-3 hover:shadow-md focus-within:shadow-lg focus-within:border-blue-500 focus-within:border-2 transition-all duration-200 border border-gray-200 mb-4 group">
-          <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input
-            type="text"
-            placeholder={placeholderText}
-            className="text-gray-600 text-base flex-1 outline-none bg-transparent placeholder-gray-500"
-            onFocus={() => {
-              // Stop the typewriter effect when focused
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                setLocation('/search');
-              }
-            }}
-          />
+        <div className="relative mb-4">
+          <div className="bg-white rounded-xl p-4 flex items-center space-x-3 hover:shadow-md focus-within:shadow-lg focus-within:border-blue-500 focus-within:border-2 transition-all duration-200 border border-gray-200 group">
+            <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              value={searchQuery}
+              placeholder={searchQuery ? "Search countries..." : placeholderText}
+              className="text-gray-600 text-base flex-1 outline-none bg-transparent placeholder-gray-500"
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setShowSearchResults(e.target.value.length > 0);
+              }}
+              onFocus={() => {
+                setShowSearchResults(searchQuery.length > 0);
+              }}
+              onBlur={() => {
+                // Delay hiding results to allow clicks
+                setTimeout(() => setShowSearchResults(false), 150);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  if (searchResults.length > 0) {
+                    handleCountrySelect(searchResults[0]);
+                  } else {
+                    setLocation('/search');
+                  }
+                }
+              }}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setShowSearchResults(false);
+                }}
+                className="w-5 h-5 text-gray-400 hover:text-gray-600"
+              >
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+
+          {/* Search Results Dropdown */}
+          {showSearchResults && searchResults.length > 0 && (
+            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-lg border border-gray-200 mt-1 z-20 max-h-64 overflow-y-auto">
+              {searchResults.map((country) => (
+                <button
+                  key={country.id}
+                  onClick={() => {
+                    handleCountrySelect(country);
+                    setSearchQuery('');
+                    setShowSearchResults(false);
+                  }}
+                  className="w-full px-4 py-3 flex items-center space-x-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 text-left transition-colors"
+                >
+                  <span className="text-2xl">{country.flagUrl || '🌍'}</span>
+                  <div className="flex-1">
+                    <div className="font-medium text-gray-900">{country.name}</div>
+                    <div className="text-sm text-gray-500">{country.code}</div>
+                  </div>
+                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Modern Pill-Style Tabs - Moved up */}
