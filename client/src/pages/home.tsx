@@ -227,7 +227,54 @@ export default function HomeScreen() {
     ).slice(0, 5); // Show max 5 results
   };
 
-  const searchResults = getSearchResults();
+  // Enhanced search results with plan info
+  const getEnhancedSearchResults = () => {
+    const results = getSearchResults();
+    return results.map(country => {
+      // Add plan information based on country
+      let planCount = 3; // Default
+      let hasFullPlan = false;
+      
+      switch(country.name) {
+        case 'United States':
+          planCount = 13;
+          hasFullPlan = true;
+          break;
+        case 'United Kingdom':
+          planCount = 12;
+          hasFullPlan = true;
+          break;
+        case 'Germany':
+          planCount = 8;
+          break;
+        case 'France':
+          planCount = 6;
+          break;
+        case 'Turkey':
+          planCount = 5;
+          break;
+        case 'Spain':
+          planCount = 7;
+          break;
+        case 'Italy':
+          planCount = 6;
+          break;
+        case 'Japan':
+          planCount = 9;
+          break;
+        default:
+          planCount = Math.floor(Math.random() * 10) + 3; // 3-12 random
+      }
+      
+      return {
+        ...country,
+        planCount,
+        hasFullPlan
+      };
+    });
+  };
+
+  const searchResults = getEnhancedSearchResults();
 
   return (
     <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
@@ -363,12 +410,22 @@ export default function HomeScreen() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="font-semibold text-gray-900 truncate">{country.name}</div>
-                        <div className="text-sm text-gray-500 font-medium">{country.code}</div>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <span className="text-sm text-gray-500 font-medium">{country.planCount} eSIMs</span>
+                          {country.hasFullPlan && (
+                            <div className="flex items-center space-x-1">
+                              <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h18l-1 8H4L3 7zM3 7l-1-4h2m0 0h14" />
+                              </svg>
+                              <span className="text-xs text-blue-600 font-semibold">Full Plan</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <div className="text-xs text-gray-400 font-medium px-2 py-1 bg-gray-100 rounded-md">
-                          eSIM
-                        </div>
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 717.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                        </svg>
                         <svg className="w-4 h-4 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
