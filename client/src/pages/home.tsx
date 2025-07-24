@@ -335,7 +335,7 @@ export default function HomeScreen() {
         </div>
         
         {/* Enhanced Search Bar with Smart Features */}
-        <div className="relative mb-4">
+        <div className="relative mb-4 z-50">
           <div className="bg-white rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg focus-within:shadow-xl focus-within:border-blue-500 focus-within:border-2 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 group">
             {/* Animated Search Icon */}
             <div className="relative">
@@ -404,7 +404,7 @@ export default function HomeScreen() {
 
           {/* Mobile Search Results */}
           {showSearchResults && searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-lg border border-gray-200 mt-1 z-50 overflow-hidden">
+            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-200 mt-1 z-[100] overflow-hidden" style={{position: 'absolute', zIndex: 9999}}>
               {searchResults.map((country, index) => {
                 // Create flag emoji from country code
                 const getFlagEmoji = (code: string) => {
