@@ -220,9 +220,9 @@ export default function HomeScreen() {
       <div className="relative bg-white/80 backdrop-blur-sm sticky top-0 z-10 py-4 border-b border-blue-100">
         <div className="max-w-screen-md mx-auto px-4">
           <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-start space-x-3">
             {/* User Profile Photo */}
-            <div className="w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 border-gray-200">
+            <div className="w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 border-gray-200 mt-1">
               {profile?.name ? (
                 <img 
                   src={profileImage} 
