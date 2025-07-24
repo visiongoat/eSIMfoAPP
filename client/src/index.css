@@ -133,6 +133,16 @@
   .slide-up {
     @apply animate-in slide-in-from-bottom duration-300;
   }
+
+  /* Custom animations for search */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
   
   .gradient-bg {
     background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);

@@ -372,7 +372,7 @@ export default function HomeScreen() {
                 if (e.key === 'Escape') {
                   setSearchQuery('');
                   setShowSearchResults(false);
-                  (e.target as HTMLInputElement).blur();
+                  e.target.blur();
                 }
               }}
             />
@@ -532,6 +532,7 @@ export default function HomeScreen() {
               </button>
             ))}
           </div>
+        </div>
         </div>
       </div>
 
@@ -1073,4 +1074,3 @@ export default function HomeScreen() {
     </div>
   );
 }
-
