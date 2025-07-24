@@ -642,7 +642,7 @@ export default function HomeScreen() {
 
         {/* Live Chat Modal - Slides up from bottom */}
         {showLiveChat && (
-          <div className="fixed inset-0 z-50 flex items-end" style={{ touchAction: 'none' }}>
+          <div className="fixed inset-0 z-[100] flex items-end" style={{ touchAction: 'none' }}>
             {/* Backdrop */}
             <div 
               className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
