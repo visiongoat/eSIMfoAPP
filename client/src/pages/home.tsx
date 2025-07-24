@@ -231,8 +231,17 @@ export default function HomeScreen() {
               ))}
             </div>
             
+            {/* More Destinations Button */}
+            <button 
+              onClick={() => setLocation('/search')}
+              className="w-full bg-gray-100 rounded-xl p-4 text-center hover:bg-gray-200 transition-colors mb-4"
+            >
+              <div className="font-medium text-gray-900 text-sm">More destinations</div>
+              <div className="text-xs text-gray-600 mt-1">Explore 200+ countries</div>
+            </button>
+
             {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="grid grid-cols-3 gap-3">
               <div className="bg-white rounded-xl p-4 text-center shadow-sm">
                 <div className="text-2xl font-bold text-blue-600">200+</div>
                 <div className="text-xs text-gray-600">Countries</div>
@@ -246,15 +255,6 @@ export default function HomeScreen() {
                 <div className="text-xs text-gray-600">Support</div>
               </div>
             </div>
-
-            {/* More Destinations Button */}
-            <button 
-              onClick={() => setLocation('/search')}
-              className="w-full bg-gray-100 rounded-xl p-4 text-center hover:bg-gray-200 transition-colors"
-            >
-              <div className="font-medium text-gray-900 text-sm">More destinations</div>
-              <div className="text-xs text-gray-600 mt-1">Explore 200+ countries</div>
-            </button>
           </div>
         ) : selectedTab === 'regional' ? (
           <div className="space-y-3">
