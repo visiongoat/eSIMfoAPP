@@ -776,15 +776,15 @@ export default function HomeScreen() {
 
         {/* How It Works Modal */}
         {showHowItWorks && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4" onClick={() => setShowHowItWorks(false)}>
+          <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-[100]" onClick={() => setShowHowItWorks(false)}>
             <div 
-              className="bg-white rounded-2xl w-full max-w-sm transform animate-in zoom-in-95 duration-200 shadow-2xl"
+              className="bg-white rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}
-              <div className="px-5 py-4 border-b border-gray-100">
+              <div className="px-4 py-3 border-b border-gray-100">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-bold text-gray-900">How Does eSIMfo Work?</h2>
+                  <h2 className="text-lg font-bold text-gray-900">How Does eSIMfo Work?</h2>
                   <button 
                     onClick={() => setShowHowItWorks(false)}
                     className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
@@ -798,7 +798,7 @@ export default function HomeScreen() {
               </div>
 
               {/* Content */}
-              <div className="px-5 py-4 space-y-4">
+              <div className="px-4 py-3 space-y-3">
                 {/* Step 1 */}
                 <div className="flex items-start space-x-3">
                   <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -840,13 +840,13 @@ export default function HomeScreen() {
                 </div>
 
                 {/* Get Started Button */}
-                <div className="pt-3">
+                <div className="pt-2">
                   <button 
                     onClick={() => {
                       setShowHowItWorks(false);
                       setLocation('/search');
                     }}
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2"
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-5 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2"
                   >
                     <span>Get Started Now</span>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
