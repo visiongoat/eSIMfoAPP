@@ -195,7 +195,7 @@ export default function HomeScreen() {
   return (
     <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
       {/* Compact Header with Search */}
-      <div className="relative bg-white/80 backdrop-blur-sm sticky top-0 z-10 px-4 py-4 border-b border-blue-100">
+      <div className="relative bg-white/80 backdrop-blur-sm sticky top-0 z-10 px-2 py-4 border-b border-blue-100">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
             <EsimfoLogo size="lg" />
@@ -285,7 +285,7 @@ export default function HomeScreen() {
         </div>
 
         {/* Main Content Grid */}
-        <div className="px-4 pb-20 space-y-6">
+        <div className="px-2 pb-20 space-y-6">
         {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* User's Local Country - Compact */}
