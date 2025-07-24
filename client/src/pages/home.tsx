@@ -27,42 +27,49 @@ export default function HomeScreen() {
 
   // Typewriter effect for search placeholder
   useEffect(() => {
+    let isMounted = true;
     let currentText = '';
-    let currentIndex = 0;
     let isDeleting = false;
+    let timeoutId: NodeJS.Timeout;
     
     const typeWriter = () => {
+      if (!isMounted) return;
+      
       const fullText = placeholderTexts[placeholderIndex];
       
       if (isDeleting) {
-        currentText = fullText.substring(0, currentText.length - 1);
+        currentText = currentText.slice(0, -1);
       } else {
-        currentText = fullText.substring(0, currentText.length + 1);
+        currentText = fullText.slice(0, currentText.length + 1);
       }
       
       setPlaceholderText(currentText);
       
-      let typeSpeed = 100;
+      let typeSpeed = 80;
       
       if (isDeleting) {
-        typeSpeed = 50;
-      } else if (currentText === fullText) {
-        typeSpeed = 2000; // Pause when full text is displayed
-        isDeleting = true;
+        typeSpeed = 40;
       }
       
-      if (isDeleting && currentText === '') {
+      if (!isDeleting && currentText === fullText) {
+        typeSpeed = 2000; // Pause when complete
+        isDeleting = true;
+      } else if (isDeleting && currentText === '') {
         isDeleting = false;
         setPlaceholderIndex((prev) => (prev + 1) % placeholderTexts.length);
         typeSpeed = 500;
       }
       
-      setTimeout(typeWriter, typeSpeed);
+      timeoutId = setTimeout(typeWriter, typeSpeed);
     };
     
-    const timer = setTimeout(typeWriter, 1000);
-    return () => clearTimeout(timer);
-  }, [placeholderIndex, placeholderTexts]);
+    timeoutId = setTimeout(typeWriter, 500);
+    
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+    };
+  }, [placeholderIndex]);
   
   // Detect user's country (in real app this would come from IP geolocation)
   const getUserCountry = () => {
@@ -161,7 +168,7 @@ export default function HomeScreen() {
           </svg>
           <span className="text-gray-600 text-base flex-1">
             {placeholderText}
-            <span className="animate-pulse">|</span>
+            <span className="animate-pulse text-blue-500 ml-1">|</span>
           </span>
         </div>
 
