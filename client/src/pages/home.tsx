@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { MessageCircle } from "lucide-react";
+import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
@@ -224,7 +225,7 @@ export default function HomeScreen() {
             <div className="w-10 h-10 rounded-full overflow-hidden shadow-sm border-2 border-gray-200">
               {profile?.name ? (
                 <img 
-                  src="/attached_assets/IMG_5282_1753389516466.jpeg" 
+                  src={profileImage} 
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
