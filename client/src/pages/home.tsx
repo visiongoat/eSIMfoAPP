@@ -275,10 +275,10 @@ export default function HomeScreen() {
         
         {/* Search Bar with Typewriter Effect */}
         <div 
-          className="bg-white rounded-xl p-4 flex items-center space-x-3 cursor-pointer hover:shadow-md transition-all duration-200 border border-gray-200 mb-4"
+          className="bg-white rounded-xl p-4 flex items-center space-x-3 cursor-pointer hover:shadow-md focus-within:shadow-lg focus-within:border-blue-500 focus-within:border-2 transition-all duration-200 border border-gray-200 mb-4 group"
           onClick={() => setLocation('/search')}
         >
-          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           <span className="text-gray-600 text-base flex-1">
