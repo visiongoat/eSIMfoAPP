@@ -18,6 +18,7 @@ export default function HomeScreen() {
   const [startY, setStartY] = useState(0);
   const [currentY, setCurrentY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [scrollOpacity, setScrollOpacity] = useState(1);
   
   const placeholderTexts = [
     'Find your destination',
@@ -75,6 +76,22 @@ export default function HomeScreen() {
       clearTimeout(timeoutId);
     };
   }, [placeholderIndex]);
+
+  // Scroll-based background color transition
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.min(scrollTop / Math.max(docHeight, 1), 1);
+      
+      // Calculate opacity for telecom background based on scroll
+      const newOpacity = Math.max(0.3, 1 - scrollPercent * 0.7);
+      setScrollOpacity(newOpacity);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -195,7 +212,7 @@ export default function HomeScreen() {
   return (
     <div className="mobile-screen min-h-screen relative">
       {/* Telecommunications Animated Background */}
-      <div className="telecom-bg">
+      <div className="telecom-bg" style={{ opacity: scrollOpacity }}>
         <div className="telecom-pattern"></div>
       </div>
       <div className="scroll-gradient min-h-screen relative z-10">
