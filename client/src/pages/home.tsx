@@ -285,7 +285,7 @@ export default function HomeScreen() {
         </div>
 
         {/* Main Content Grid */}
-        <div className="pb-20 space-y-6" style={{ paddingLeft: '17px', paddingRight: '17px' }}>
+        <div className="px-4 pb-20 space-y-6">
         {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* User's Local Country - Compact */}
