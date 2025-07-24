@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
+import { MessageCircle } from "lucide-react";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
@@ -202,18 +203,14 @@ export default function HomeScreen() {
           <div className="flex items-center">
             <button 
               onClick={() => setShowLiveChat(true)}
-              className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center space-x-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95 relative overflow-hidden group"
+              className="text-white px-4 py-2.5 rounded-full text-sm font-medium flex items-center space-x-2 shadow-lg active:shadow-sm transition-all duration-200 active:scale-95"
+              style={{ backgroundColor: '#3B82F6' }}
             >
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
-              
-              <div className="relative z-10 flex items-center space-x-2">
-                {/* Customer support headset icon */}
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                </svg>
-                <span>Live Support</span>
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="flex items-center space-x-2">
+                <MessageCircle className="w-4 h-4" />
+                <span>Support</span>
+                {/* Active status indicator */}
+                <div className="w-2 h-2 rounded-full animate-pulse border border-white" style={{ backgroundColor: '#22C55E' }}></div>
               </div>
             </button>
           </div>
@@ -609,8 +606,8 @@ export default function HomeScreen() {
               opacity: isDragging && currentY > startY ? Math.max(0.3, 1 - (currentY - startY) / 400) : 1
             }}
           >
-            {/* Header - Holafly Style */}
-            <div className="bg-gradient-to-r from-pink-500 to-pink-600 px-4 py-4 text-white rounded-t-3xl relative">
+            {/* Header - eSIMfo Style */}
+            <div className="px-4 py-4 text-white rounded-t-3xl relative" style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)' }}>
               {/* Drag Handle */}
               <div className="flex justify-center absolute top-2 left-0 right-0">
                 <div className="w-12 h-1 bg-white/30 rounded-full"></div>
@@ -621,7 +618,7 @@ export default function HomeScreen() {
                 </div>
                 <button 
                   onClick={() => setShowLiveChat(false)}
-                  className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                  className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center active:bg-white/30 transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -632,20 +629,20 @@ export default function HomeScreen() {
               {/* Support Team Avatars */}
               <div className="flex items-center space-x-2 mb-3">
                 <div className="flex -space-x-2">
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
                     <span className="text-xs">👩‍💼</span>
                   </div>
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
                     <span className="text-xs">👨‍💼</span>
                   </div>
-                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-pink-400">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2" style={{ borderColor: '#3B82F6' }}>
                     <span className="text-xs">👩‍💻</span>
                   </div>
                 </div>
               </div>
 
               <h2 className="text-lg font-medium mb-1">Hi, Welcome to eSIMfo 👋</h2>
-              <p className="text-pink-100 text-sm">Our support team is here to help you 24/7</p>
+              <p className="text-blue-100 text-sm">Our support team is here to help you 24/7</p>
             </div>
 
             {/* Chat Content - Scrollable */}
@@ -657,8 +654,8 @@ export default function HomeScreen() {
               {/* Welcome Message from Bot */}
               <div className="bg-gray-50 rounded-2xl p-3 shadow-sm max-w-[85%]">
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm">🎧</span>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#3B82F6' }}>
+                    <span className="text-sm text-white">🎧</span>
                   </div>
                   <div>
                     <div className="text-sm font-medium text-gray-900 mb-1">eSIMfo Support</div>
@@ -677,7 +674,7 @@ export default function HomeScreen() {
                       <span className="text-xl">📱</span>
                       <span className="font-medium text-gray-900 text-sm">I want an eSIM</span>
                     </div>
-                    <svg className="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#3B82F6' }}>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
@@ -689,7 +686,7 @@ export default function HomeScreen() {
                       <span className="text-xl">🛠️</span>
                       <span className="font-medium text-gray-900 text-sm">I already purchased an eSIM</span>
                     </div>
-                    <svg className="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#3B82F6' }}>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
@@ -705,7 +702,7 @@ export default function HomeScreen() {
                   placeholder="Send us a message"
                   className="flex-1 outline-none bg-transparent text-gray-700 placeholder-gray-400"
                 />
-                <button className="ml-3 w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center hover:bg-pink-600 transition-colors">
+                <button className="ml-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{ backgroundColor: '#3B82F6' }}>
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
