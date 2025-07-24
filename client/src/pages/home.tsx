@@ -259,14 +259,16 @@ export default function HomeScreen() {
             </div>
             
             {/* Compact Live Chat Button */}
-            <button 
-              onClick={() => setShowLiveChat(true)}
-              className="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center shadow-md active:shadow-sm transition-all duration-200 active:scale-95 relative"
-            >
-              <MessageCircle className="w-4 h-4 text-white" />
-              {/* Active status indicator */}
-              <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
-            </button>
+            <div className="self-start">
+              <button 
+                onClick={() => setShowLiveChat(true)}
+                className="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center shadow-md active:shadow-sm transition-all duration-200 active:scale-95 relative"
+              >
+                <MessageCircle className="w-4 h-4 text-white" />
+                {/* Active status indicator */}
+                <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
+              </button>
+            </div>
           </div>
         </div>
         
