@@ -1,0 +1,148 @@
+import { useQuery } from "@tanstack/react-query";
+import { useRoute } from "wouter";
+import StatusBar from "@/components/status-bar";
+import NavigationBar from "@/components/navigation-bar";
+import type { Esim, Package, Country } from "@shared/schema";
+
+export default function QRCodeScreen() {
+  const [, params] = useRoute("/qr/:esimId");
+  const esimId = params?.esimId ? parseInt(params.esimId) : null;
+
+  const { data: esim } = useQuery<Esim & { package?: Package; country?: Country }>({
+    queryKey: ["/api/esims", esimId],
+    enabled: !!esimId,
+  });
+
+  if (!esimId || !esim) {
+    return <div>eSIM not found</div>;
+  }
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'My eSIM QR Code',
+          text: `eSIM for ${esim.country?.name}`,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.log('Error sharing:', error);
+      }
+    }
+  };
+
+  const handleEmailQR = () => {
+    const subject = encodeURIComponent(`Your eSIM QR Code for ${esim.country?.name}`);
+    const body = encodeURIComponent(`Here is your eSIM QR code for ${esim.country?.name}. Please scan this code to install your eSIM.`);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  };
+
+  const handleSaveToPhotos = () => {
+    // In a real app, this would generate and download the QR code image
+    alert('QR code would be saved to photos');
+  };
+
+  return (
+    <div className="mobile-screen">
+      <StatusBar />
+      <NavigationBar 
+        title="Your eSIM"
+        showBack={true}
+        rightButton={
+          <button 
+            onClick={handleShare}
+            className="text-primary font-medium"
+          >
+            Share
+          </button>
+        }
+      />
+
+      <div className="px-4 pt-4 text-center">
+        {/* Success Message */}
+        <div className="mb-6">
+          <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-white text-2xl">✓</span>
+          </div>
+          <h2 className="text-xl font-bold mb-2">eSIM Ready!</h2>
+          <p className="text-muted-foreground">
+            Your eSIM has been successfully purchased and is ready to install
+          </p>
+        </div>
+
+        {/* QR Code */}
+        <div className="mobile-card p-6 mb-4">
+          <div className="w-48 h-48 bg-white border-2 border-gray-200 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+            <div className="w-40 h-40 bg-black qr-code-pattern"></div>
+          </div>
+          <p className="font-medium mb-2">Scan to Install eSIM</p>
+          <p className="text-sm text-muted-foreground">
+            Use your device camera to scan this QR code
+          </p>
+        </div>
+
+        {/* eSIM Details */}
+        <div className="mobile-card p-4 mb-4 text-left">
+          <h3 className="font-semibold mb-3">eSIM Details</h3>
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Country</span>
+              <span>{esim.country?.name}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Data</span>
+              <span>{esim.package?.data}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Validity</span>
+              <span>{esim.package?.validity}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Network</span>
+              <span>{esim.country?.operators?.join(', ')}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Status</span>
+              <span className="text-secondary">{esim.status}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Installation Guide */}
+        <div className="mobile-card p-4 mb-6 text-left">
+          <h3 className="font-semibold mb-3">Installation Guide</h3>
+          <div className="space-y-3 text-sm">
+            <div className="flex items-start space-x-3">
+              <div className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-bold">1</div>
+              <p>Go to Settings → Cellular → Add Cellular Plan</p>
+            </div>
+            <div className="flex items-start space-x-3">
+              <div className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-bold">2</div>
+              <p>Scan the QR code above with your camera</p>
+            </div>
+            <div className="flex items-start space-x-3">
+              <div className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-xs font-bold">3</div>
+              <p>Follow the on-screen instructions to complete setup</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="space-y-3 pb-4">
+          <button 
+            onClick={handleEmailQR}
+            className="w-full button-secondary"
+          >
+            📧 Email QR Code
+          </button>
+          <button 
+            onClick={handleSaveToPhotos}
+            className="w-full button-secondary"
+          >
+            💾 Save to Photos
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

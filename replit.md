@@ -1,0 +1,90 @@
+# eSIM Mobile App
+
+## Overview
+
+This is a mobile-first eSIM management application built with React, Express.js, and PostgreSQL. The app allows users to browse and purchase eSIM packages for different countries, manage their active eSIMs, and provides a partner dashboard for resellers. The application uses a modern tech stack with TypeScript, Drizzle ORM, and shadcn/ui components.
+
+## User Preferences
+
+Preferred communication style: Simple, everyday language.
+
+## System Architecture
+
+The application follows a full-stack monorepo architecture with clear separation between client, server, and shared components:
+
+- **Frontend**: React-based mobile-first web application using Vite as the build tool
+- **Backend**: Express.js REST API server with TypeScript
+- **Database**: PostgreSQL with Drizzle ORM for type-safe database operations
+- **Styling**: Tailwind CSS with shadcn/ui component library
+- **State Management**: TanStack Query (React Query) for server state management
+- **Routing**: Wouter for lightweight client-side routing
+
+## Key Components
+
+### Frontend Architecture
+- **Mobile-First Design**: Custom CSS classes for mobile containers, cards, and navigation
+- **Component Structure**: Organized into reusable UI components, pages, and shared components
+- **Responsive Design**: Uses Tailwind CSS with custom mobile-specific styling
+- **State Management**: React Query for API state, local React state for UI state
+
+### Backend Architecture
+- **RESTful API**: Express.js server with structured route handlers
+- **Data Access Layer**: Abstract storage interface with memory-based implementation
+- **Type Safety**: Full TypeScript integration with shared schema types
+- **Development Setup**: Vite integration for hot module replacement in development
+
+### Database Schema
+The application uses PostgreSQL with the following main entities:
+- **Users**: Authentication and partner status management
+- **Countries**: Geographic regions with coverage information
+- **Packages**: eSIM data packages with pricing and features
+- **eSIMs**: Individual eSIM instances with activation status
+- **Partner Stats**: Revenue and performance tracking for partners
+- **Sales**: Transaction records for partner dashboard
+
+## Data Flow
+
+1. **User Journey**: Splash screen → Onboarding → Home → Country selection → Package selection → Purchase → QR code generation
+2. **API Communication**: Frontend makes REST API calls to Express server endpoints
+3. **Database Operations**: Server uses Drizzle ORM to perform type-safe database operations
+4. **State Synchronization**: React Query manages server state caching and synchronization
+
+## External Dependencies
+
+### Core Framework Dependencies
+- **@tanstack/react-query**: Server state management and caching
+- **wouter**: Lightweight client-side routing
+- **drizzle-orm**: Type-safe ORM for PostgreSQL
+- **@neondatabase/serverless**: PostgreSQL database connection
+
+### UI/UX Dependencies
+- **@radix-ui/***: Headless UI components for accessibility
+- **tailwindcss**: Utility-first CSS framework
+- **class-variance-authority**: Component variant management
+- **lucide-react**: Icon library
+
+### Development Dependencies
+- **vite**: Build tool and development server
+- **typescript**: Type checking and compilation
+- **tsx**: TypeScript execution for development
+
+## Deployment Strategy
+
+### Development Environment
+- Uses Vite development server with Express API integration
+- Hot module replacement for fast development iterations
+- Environment-based configuration for database connections
+
+### Production Build
+- **Frontend**: Vite builds React app to static assets in `dist/public`
+- **Backend**: esbuild bundles Express server to `dist/index.js`
+- **Database**: Drizzle migrations in `migrations/` directory
+- **Environment Variables**: Requires `DATABASE_URL` for PostgreSQL connection
+
+### Key Build Commands
+- `npm run dev`: Start development server with hot reload
+- `npm run build`: Build both frontend and backend for production
+- `npm run start`: Start production server
+- `npm run db:push`: Push database schema changes using Drizzle
+
+The application is designed to be deployed as a single Node.js application serving both the API and static frontend assets, with PostgreSQL as the database backend.

@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(242, 47%, 97%);
+  --foreground: hsl(240, 10%, 3.9%);
+  --muted: hsl(240, 4.8%, 95.9%);
+  --muted-foreground: hsl(240, 3.8%, 46.1%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(240, 10%, 3.9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(240, 10%, 3.9%);
+  --border: hsl(240, 5.9%, 90%);
+  --input: hsl(240, 5.9%, 90%);
+  --primary: hsl(240, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(142, 76%, 36%);
+  --secondary-foreground: hsl(355.7, 100%, 97.3%);
+  --accent: hsl(240, 4.8%, 95.9%);
+  --accent-foreground: hsl(240, 5.9%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 5%, 64.9%);
+  --radius: 0.75rem;
+  
+  /* Mobile-specific colors */
+  --mobile-bg: hsl(240, 20%, 97%);
+  --mobile-card: hsl(0, 0%, 100%);
+  --mobile-border: hsl(240, 5.9%, 90%);
+  --tab-bg: hsl(240, 20%, 98%);
+  --status-bar: hsl(0, 0%, 0%);
+  --gradient-start: hsl(264, 83%, 70%);
+  --gradient-end: hsl(219, 100%, 61%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(240, 100%, 50%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(142, 76%, 36%);
+  --secondary-foreground: hsl(355.7, 100%, 97.3%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased text-foreground;
+    background-color: var(--mobile-bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+@layer components {
+  .mobile-container {
+    @apply max-w-sm mx-auto min-h-screen relative overflow-x-hidden;
+    background-color: var(--mobile-bg);
+  }
+  
+  .mobile-screen {
+    @apply min-h-screen pb-20;
+  }
+  
+  .mobile-card {
+    @apply rounded-xl shadow-sm border;
+    background-color: var(--mobile-card);
+    border-color: var(--mobile-border);
+  }
+  
+  .status-bar {
+    @apply h-11 text-white flex justify-between items-center px-5 text-sm font-semibold;
+    background-color: var(--status-bar);
+  }
+  
+  .navigation-bar {
+    @apply h-11 bg-white/95 backdrop-blur-xl border-b flex items-center justify-between px-4;
+    border-color: var(--mobile-border);
+  }
+  
+  .tab-bar {
+    @apply fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-sm h-20 backdrop-blur-xl border-t flex pb-8;
+    background-color: var(--tab-bg);
+    border-color: var(--mobile-border);
+  }
+  
+  .tab-item {
+    @apply flex-1 flex flex-col items-center justify-center pt-2 cursor-pointer transition-all duration-200;
+  }
+  
+  .tab-item.active {
+    @apply text-primary;
+  }
+  
+  .button-primary {
+    @apply bg-primary text-primary-foreground rounded-xl px-4 py-4 font-semibold text-center transition-all duration-200 active:scale-98;
+  }
+  
+  .button-primary:active {
+    opacity: 0.9;
+  }
+  
+  .button-secondary {
+    @apply bg-gray-100 text-gray-700 rounded-xl px-4 py-4 font-medium text-center transition-all duration-200 active:scale-98;
+  }
+  
+  .flag-icon {
+    @apply w-6 h-4 rounded-sm object-cover;
+  }
+  
+  .skeleton {
+    @apply bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-pulse;
+  }
+  
+  .slide-up {
+    @apply animate-in slide-in-from-bottom duration-300;
+  }
+  
+  .gradient-bg {
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  }
+  
+  .usage-bar {
+    @apply w-full bg-gray-200 rounded-full h-2;
+  }
+  
+  .usage-fill {
+    @apply bg-secondary h-2 rounded-full transition-all duration-500;
+  }
+}
+
+@layer utilities {
+  .scale-98 {
+    transform: scale(0.98);
+  }
+}
+
+/* Custom animations */
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.splash-logo {
+  animation: pulse 2s infinite;
+}
+
+/* QR Code grid pattern */
+.qr-code-pattern {
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 2px, black 2px, black 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, black 2px, black 4px);
+  background-size: 8px 8px;
+}
+
+/* Native mobile scrolling */
+.mobile-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.mobile-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Touch feedback */
+.touch-feedback:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
