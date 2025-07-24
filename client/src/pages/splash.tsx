@@ -14,7 +14,7 @@ export default function SplashScreen() {
 
   return (
     <div className="mobile-screen">
-      <div className="flex items-center justify-center min-h-screen gradient-bg">
+      <div className="flex items-center justify-center h-screen gradient-bg">
         <div className="relative z-10 text-center">
           <div className="splash-logo mb-8">
             <div className="w-20 h-20 bg-white rounded-2xl shadow-2xl mx-auto flex items-center justify-center">

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import StatusBar from "@/components/status-bar";
+
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import type { User } from "@shared/schema";
@@ -43,7 +43,6 @@ export default function ProfileScreen() {
 
   return (
     <div className="mobile-screen">
-      <StatusBar />
       <NavigationBar 
         title="Profile"
         rightButton={

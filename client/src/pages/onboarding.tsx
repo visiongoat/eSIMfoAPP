@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import StatusBar from "@/components/status-bar";
+
 
 export default function OnboardingScreen() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -46,9 +46,7 @@ export default function OnboardingScreen() {
 
   return (
     <div className="mobile-screen">
-      <StatusBar />
-      
-      <div className="flex flex-col items-center justify-center min-h-screen px-8 bg-white">
+      <div className="flex flex-col items-center justify-center h-screen px-8 bg-white">
         <div className={`w-64 h-64 mb-8 bg-gradient-to-br ${currentStepData.bgColor} rounded-3xl flex items-center justify-center`}>
           <div className={`w-32 h-32 ${currentStepData.iconBg} rounded-full flex items-center justify-center`}>
             <span className="text-white text-4xl">{currentStepData.icon}</span>

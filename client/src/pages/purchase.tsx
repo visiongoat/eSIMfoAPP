@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import StatusBar from "@/components/status-bar";
+
 import NavigationBar from "@/components/navigation-bar";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -64,7 +64,6 @@ export default function PurchaseScreen() {
 
   return (
     <div className="mobile-screen">
-      <StatusBar />
       <NavigationBar 
         title="Purchase eSIM"
         showBack={true}

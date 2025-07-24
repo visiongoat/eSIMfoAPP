@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import StatusBar from "@/components/status-bar";
+
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import PackageCard from "@/components/package-card";
@@ -31,7 +31,6 @@ export default function PackagesScreen() {
 
   return (
     <div className="mobile-screen">
-      <StatusBar />
       <NavigationBar 
         title={country?.name || "Loading..."}
         showBack={true}

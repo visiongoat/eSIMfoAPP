@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import StatusBar from "@/components/status-bar";
+
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import EsimCard from "@/components/esim-card";
@@ -36,7 +36,6 @@ export default function MyEsimsScreen() {
 
   return (
     <div className="mobile-screen">
-      <StatusBar />
       <NavigationBar 
         title="My eSIMs"
         rightButton={

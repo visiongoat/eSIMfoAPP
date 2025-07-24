@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import StatusBar from "@/components/status-bar";
+
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import type { PartnerStats, Sale, Package, Country } from "@shared/schema";
@@ -32,7 +32,6 @@ export default function PartnerScreen() {
 
   return (
     <div className="mobile-screen">
-      <StatusBar />
       <NavigationBar 
         title="Partner Dashboard"
         rightButton={

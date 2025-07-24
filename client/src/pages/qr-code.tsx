@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute } from "wouter";
-import StatusBar from "@/components/status-bar";
+
 import NavigationBar from "@/components/navigation-bar";
 import type { Esim, Package, Country } from "@shared/schema";
 
@@ -44,7 +44,6 @@ export default function QRCodeScreen() {
 
   return (
     <div className="mobile-screen">
-      <StatusBar />
       <NavigationBar 
         title="Your eSIM"
         showBack={true}
