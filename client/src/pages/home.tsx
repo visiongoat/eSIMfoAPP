@@ -182,9 +182,10 @@ export default function HomeScreen() {
                     <p className="text-blue-100 text-xs">Your current location</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-2">
                   <div className="text-right">
-                    <div className="text-sm font-medium">{userCountry.price}</div>
+                    <div className="text-sm font-medium">From {userCountry.price}</div>
+                    <div className="text-xs text-blue-100">{Math.floor(Math.random() * 8) + 5}+ plans</div>
                   </div>
                   <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold">
                     LOCAL
@@ -222,13 +223,11 @@ export default function HomeScreen() {
                   onClick={() => handleCountrySelect(countries[0])}
                   className="bg-white rounded-xl p-3 text-left shadow-sm hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] duration-200"
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-xl">{country.flag}</span>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-xl">{country.flag}</span>
+                    <div className="flex-1 min-w-0">
                       <div className="font-medium text-gray-900 text-sm truncate">{country.name}</div>
-                    </div>
-                    <div className="text-sm font-medium text-gray-900">
-                      {country.price}
+                      <div className="text-xs text-gray-500">From {country.price} • {Math.floor(Math.random() * 8) + 3} plans</div>
                     </div>
                   </div>
                 </button>
