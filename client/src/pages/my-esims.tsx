@@ -4,6 +4,7 @@ import { useLocation } from "wouter";
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import EsimCard from "@/components/esim-card";
+import EsimfoLogo from "@/components/esimfo-logo";
 import type { Esim, Package, Country } from "@shared/schema";
 
 export default function MyEsimsScreen() {

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
+import EsimfoLogo from "@/components/esimfo-logo";
 import type { User } from "@shared/schema";
 
 export default function ProfileScreen() {
@@ -108,6 +109,12 @@ export default function ProfileScreen() {
         <button className="w-full py-4 text-red-500 font-medium mb-4">
           Sign Out
         </button>
+
+        {/* esimfo Branding Footer */}
+        <div className="text-center py-6 border-t border-gray-100">
+          <EsimfoLogo size="sm" className="justify-center mb-2" />
+          <p className="text-xs text-gray-500">Version 1.2.3 • Made with ❤️ for travelers</p>
+        </div>
       </div>
 
       <TabBar />

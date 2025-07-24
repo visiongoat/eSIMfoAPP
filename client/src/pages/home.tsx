@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import CountryCard from "@/components/country-card";
+import EsimfoLogo from "@/components/esimfo-logo";
 import type { Country, Package } from "@shared/schema";
 
 export default function HomeScreen() {
@@ -79,10 +80,7 @@ export default function HomeScreen() {
       <div className="bg-white/80 backdrop-blur-sm sticky top-0 z-10 px-4 py-4 border-b border-blue-100">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">e</span>
-            </div>
-            <span className="font-bold text-xl text-gray-900">simfo</span>
+            <EsimfoLogo size="lg" />
           </div>
           <div className="flex items-center space-x-3">
             <button className="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center">
