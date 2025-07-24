@@ -404,7 +404,7 @@ export default function HomeScreen() {
 
           {/* Mobile Search Results */}
           {showSearchResults && searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-lg border border-gray-200 mt-1 z-20 overflow-hidden">
+            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-lg border border-gray-200 mt-1 z-50 overflow-hidden">
               {searchResults.map((country, index) => {
                 // Create flag emoji from country code
                 const getFlagEmoji = (code: string) => {
