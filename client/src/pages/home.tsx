@@ -6,7 +6,7 @@ import { MessageCircle } from "lucide-react";
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import CountryCard from "@/components/country-card";
-import EsimfoLogo from "@/components/esimfo-logo";
+
 import type { Country, Package } from "@shared/schema";
 
 export default function HomeScreen() {
@@ -154,6 +154,10 @@ export default function HomeScreen() {
     queryKey: ["/api/packages/popular"],
   });
 
+  const { data: profile } = useQuery<{ name?: string }>({
+    queryKey: ['/api/profile']
+  });
+
   const handleCountrySelect = (country: Country) => {
     setLocation(`/packages/${country.id}`);
   };
@@ -198,8 +202,18 @@ export default function HomeScreen() {
       <div className="relative bg-white/80 backdrop-blur-sm sticky top-0 z-10 py-4 border-b border-blue-100">
         <div className="max-w-screen-md mx-auto px-4">
           <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-2">
-            <EsimfoLogo size="lg" />
+          <div className="flex items-center space-x-3">
+            {/* eSIMfo Logo Icon */}
+            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center shadow-sm">
+              <div className="text-white font-bold text-lg">e</div>
+            </div>
+            {/* Hello, Guest/User Text */}
+            <div>
+              <span className="text-lg font-medium text-gray-700">Hello, </span>
+              <span className="text-lg font-semibold text-blue-600">
+                {profile?.name || 'Guest user'}
+              </span>
+            </div>
           </div>
           <div className="flex items-center">
             <button 
