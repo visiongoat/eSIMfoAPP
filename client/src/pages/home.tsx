@@ -445,21 +445,7 @@ export default function HomeScreen() {
               </div>
             </button>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-3">
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-blue-600">200+</div>
-                <div className="text-xs text-gray-600">Countries</div>
-              </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-green-600">5min</div>
-                <div className="text-xs text-gray-600">Activation</div>
-              </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-yellow-600">24/7</div>
-                <div className="text-xs text-gray-600">Support</div>
-              </div>
-            </div>
+
           </div>
         ) : selectedTab === 'regional' ? (
           <div className="space-y-3">
