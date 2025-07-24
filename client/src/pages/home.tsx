@@ -301,7 +301,7 @@ export default function HomeScreen() {
                   <span className="text-2xl">{userCountry.flag}</span>
                   <div className="text-left">
                     <h3 className="font-semibold text-base">{userCountry.name}</h3>
-                    <p className="text-blue-100 text-xs">Your current location</p>
+                    <p className="text-white/70 text-xs">Your current location</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
