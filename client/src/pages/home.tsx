@@ -400,24 +400,6 @@ export default function HomeScreen() {
             </div>
           </div>
 
-          {/* Search suggestions when empty */}
-          {!searchQuery && !showSearchResults && (
-            <div className="mt-2 flex flex-wrap gap-2">
-              {['🇺🇸 USA', '🇬🇧 UK', '🇩🇪 Germany', '🇫🇷 France'].map((suggestion) => (
-                <button
-                  key={suggestion}
-                  onClick={() => {
-                    const country = suggestion.split(' ')[1];
-                    setSearchQuery(country);
-                    setShowSearchResults(true);
-                  }}
-                  className="px-3 py-1.5 text-xs bg-gray-100 text-gray-600 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
 
           {/* Mobile Search Results */}
@@ -480,8 +462,8 @@ export default function HomeScreen() {
           )}
         </div>
 
-        {/* Modern Pill-Style Tabs - Moved up */}
-        <div className="mb-2">
+        {/* Modern Pill-Style Tabs - Fixed alignment */}
+        <div className="max-w-screen-md mx-auto px-4 mb-4">
           <div className="flex gap-2 p-1 bg-gray-50 rounded-2xl">
             {[
               { 
@@ -519,13 +501,13 @@ export default function HomeScreen() {
               <button
                 key={tab.id}
                 onClick={() => setSelectedTab(tab.id)}
-                className={`flex-1 py-3 px-4 rounded-xl font-medium text-sm transition-all duration-300 ${
+                className={`flex-1 py-2.5 px-3 rounded-xl font-medium text-sm transition-all duration-300 ${
                   selectedTab === tab.id
-                    ? `${tab.color} text-white shadow-lg transform scale-105`
+                    ? `${tab.color} text-white shadow-lg`
                     : 'text-gray-600 hover:text-gray-800 hover:bg-white hover:shadow-sm'
                 }`}
               >
-                <div className="flex items-center justify-center space-x-2">
+                <div className="flex items-center justify-center space-x-1.5">
                   {tab.icon}
                   <span>{tab.label}</span>
                 </div>
