@@ -10,6 +10,22 @@ import type { Country, Package } from "@shared/schema";
 export default function HomeScreen() {
   const [, setLocation] = useLocation();
   const [selectedTab, setSelectedTab] = useState('local');
+  
+  // Detect user's country (in real app this would come from IP geolocation)
+  const getUserCountry = () => {
+    // Simulating different countries based on time for demo
+    const countries = [
+      { name: 'Turkey', code: 'TR', flag: '🇹🇷', price: '$2.99' },
+      { name: 'Germany', code: 'DE', flag: '🇩🇪', price: '$3.49' },
+      { name: 'United Kingdom', code: 'GB', flag: '🇬🇧', price: '$3.99' },
+      { name: 'France', code: 'FR', flag: '🇫🇷', price: '$4.49' },
+      { name: 'Spain', code: 'ES', flag: '🇪🇸', price: '$3.49' }
+    ];
+    const index = Math.floor(Date.now() / 10000) % countries.length;
+    return countries[index];
+  };
+  
+  const userCountry = getUserCountry();
 
   const { data: countries = [] } = useQuery<Country[]>({
     queryKey: ["/api/countries"],
@@ -153,39 +169,33 @@ export default function HomeScreen() {
         {/* Main Content Grid */}
         {selectedTab === 'local' ? (
           <div className="space-y-4">
-            {/* Featured Country */}
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
+            {/* User's Local Country - Compact */}
+            <button 
+              onClick={() => handleCountrySelect(countries[0])}
+              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            >
               <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <span className="text-3xl">🇺🇸</span>
-                    <div>
-                      <h3 className="font-bold text-lg">United States</h3>
-                      <p className="text-blue-100 text-sm">Most popular local destination</p>
-                    </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl">{userCountry.flag}</span>
+                  <div className="text-left">
+                    <h3 className="font-semibold text-base">{userCountry.name}</h3>
+                    <p className="text-blue-100 text-xs">Your current location</p>
                   </div>
-                  <div className="flex items-center space-x-4 text-sm">
-                    <span>From $4.99</span>
-                    <span>•</span>
-                    <span>15+ plans</span>
-                  </div>
-                  <button 
-                    onClick={() => handleCountrySelect(countries[0])}
-                    className="mt-4 bg-white text-blue-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-50 transition-colors"
-                  >
-                    View Plans
-                  </button>
                 </div>
-                <div className="text-right">
-                  <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded-lg text-xs font-bold mb-2">
-                    HOT
+                <div className="flex items-center space-x-2">
+                  <div className="text-right">
+                    <div className="text-sm font-medium">From {userCountry.price}</div>
+                    <div className="text-xs text-blue-100">{Math.floor(Math.random() * 8) + 5}+ plans</div>
+                  </div>
+                  <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold">
+                    LOCAL
                   </div>
                 </div>
               </div>
-            </div>
+            </button>
 
-            {/* Local Country Grid */}
-            <div className="grid grid-cols-2 gap-3">
+            {/* Other Local Countries - Compact Grid */}
+            <div className="grid grid-cols-2 gap-2">
               {countries.slice(1, 9).map((country, index) => {
                 const flags = ['🇬🇧', '🇩🇪', '🇫🇷', '🇯🇵', '🇪🇸', '🇮🇹', '🇨🇦', '🇦🇺'];
                 const prices = ['$3.99', '$2.99', '$4.49', '$5.99', '$3.49', '$3.99', '$4.99', '$5.49'];
@@ -194,17 +204,14 @@ export default function HomeScreen() {
                   <button
                     key={country.id}
                     onClick={() => handleCountrySelect(country)}
-                    className="bg-white rounded-xl p-4 text-left shadow-sm hover:shadow-md transition-all hover:scale-105"
+                    className="bg-white rounded-xl p-3 text-left shadow-sm hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] duration-200"
                   >
-                    <div className="flex items-center space-x-3 mb-2">
-                      <span className="text-2xl">{flags[index]}</span>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-xl">{flags[index]}</span>
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-gray-900 text-sm truncate">{country.name}</div>
-                        <div className="text-xs text-gray-500">From {prices[index]}</div>
+                        <div className="text-xs text-gray-500">From {prices[index]} • {Math.floor(Math.random() * 8) + 3} plans</div>
                       </div>
-                    </div>
-                    <div className="text-xs text-blue-600 font-medium">
-                      {Math.floor(Math.random() * 10) + 3} plans
                     </div>
                   </button>
                 );
