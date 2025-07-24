@@ -15,7 +15,7 @@ import MyEsimsScreen from "@/pages/my-esims";
 import GuidesScreen from "@/pages/guides";
 import ProfileScreen from "@/pages/profile";
 import PartnerScreen from "@/pages/partner";
-import SupportScreen from "@/pages/support";
+import LiveChatScreen from "@/pages/support";
 
 function Router() {
   return (
@@ -31,7 +31,7 @@ function Router() {
       <Route path="/guides" component={GuidesScreen} />
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/partner" component={PartnerScreen} />
-      <Route path="/support" component={SupportScreen} />
+      <Route path="/live-chat" component={LiveChatScreen} />
     </Switch>
   );
 }
