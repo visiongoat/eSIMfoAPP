@@ -220,9 +220,21 @@ export default function HomeScreen() {
         <div className="max-w-screen-md mx-auto px-4">
           <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
-            {/* eSIMfo Logo Icon */}
-            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center shadow-sm">
-              <div className="text-white font-bold text-lg">e</div>
+            {/* User Profile Photo */}
+            <div className="w-10 h-10 rounded-full overflow-hidden shadow-sm border-2 border-gray-200">
+              {profile?.name ? (
+                <img 
+                  src="/attached_assets/IMG_5282_1753389516466.jpeg" 
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+              )}
             </div>
             {/* Hello, Guest/User Text */}
             <div>
