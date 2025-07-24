@@ -185,7 +185,6 @@ export default function HomeScreen() {
                 <div className="flex items-center space-x-2">
                   <div className="text-right">
                     <div className="text-sm font-medium">From {userCountry.price}</div>
-                    <div className="text-xs text-blue-100">{Math.floor(Math.random() * 8) + 5}+ plans</div>
                   </div>
                   <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold">
                     LOCAL
@@ -227,7 +226,7 @@ export default function HomeScreen() {
                     <span className="text-xl">{country.flag}</span>
                     <div className="flex-1 min-w-0">
                       <div className="font-medium text-gray-900 text-sm truncate">{country.name}</div>
-                      <div className="text-xs text-gray-500">From {country.price} • {Math.floor(Math.random() * 8) + 3} plans</div>
+                      <div className="text-xs text-gray-500">From {country.price}</div>
                     </div>
                   </div>
                 </button>
