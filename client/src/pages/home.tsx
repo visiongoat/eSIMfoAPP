@@ -194,29 +194,54 @@ export default function HomeScreen() {
               </div>
             </button>
 
-            {/* Other Local Countries - Compact Grid */}
+            {/* Popular Local Countries - 20 countries grid */}
             <div className="grid grid-cols-2 gap-2">
-              {countries.slice(1, 9).map((country, index) => {
-                const flags = ['🇬🇧', '🇩🇪', '🇫🇷', '🇯🇵', '🇪🇸', '🇮🇹', '🇨🇦', '🇦🇺'];
-                const prices = ['$3.99', '$2.99', '$4.49', '$5.99', '$3.49', '$3.99', '$4.99', '$5.49'];
-                
-                return (
-                  <button
-                    key={country.id}
-                    onClick={() => handleCountrySelect(country)}
-                    className="bg-white rounded-xl p-3 text-left shadow-sm hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] duration-200"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <span className="text-xl">{flags[index]}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 text-sm truncate">{country.name}</div>
-                        <div className="text-xs text-gray-500">From {prices[index]} • {Math.floor(Math.random() * 8) + 3} plans</div>
-                      </div>
+              {[
+                { name: 'United States', flag: '🇺🇸', price: '$4.99' },
+                { name: 'France', flag: '🇫🇷', price: '$3.49' },
+                { name: 'China', flag: '🇨🇳', price: '$5.99' },
+                { name: 'Spain', flag: '🇪🇸', price: '$3.49' },
+                { name: 'Italy', flag: '🇮🇹', price: '$3.99' },
+                { name: 'Turkey', flag: '🇹🇷', price: '$2.99' },
+                { name: 'United Kingdom', flag: '🇬🇧', price: '$3.99' },
+                { name: 'Germany', flag: '🇩🇪', price: '$3.49' },
+                { name: 'Mexico', flag: '🇲🇽', price: '$4.49' },
+                { name: 'Thailand', flag: '🇹🇭', price: '$3.99' },
+                { name: 'Hong Kong', flag: '🇭🇰', price: '$5.49' },
+                { name: 'Malaysia', flag: '🇲🇾', price: '$4.99' },
+                { name: 'Greece', flag: '🇬🇷', price: '$3.99' },
+                { name: 'Canada', flag: '🇨🇦', price: '$4.99' },
+                { name: 'South Korea', flag: '🇰🇷', price: '$5.99' },
+                { name: 'Japan', flag: '🇯🇵', price: '$5.99' },
+                { name: 'Singapore', flag: '🇸🇬', price: '$5.49' },
+                { name: 'Aruba', flag: '🇦🇼', price: '$6.99' },
+                { name: 'Afghanistan', flag: '🇦🇫', price: '$7.99' },
+                { name: 'Anguilla', flag: '🇦🇮', price: '$8.99' }
+              ].map((country, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleCountrySelect(countries[0])}
+                  className="bg-white rounded-xl p-3 text-left shadow-sm hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98] duration-200"
+                >
+                  <div className="flex items-center space-x-3">
+                    <span className="text-xl">{country.flag}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-medium text-gray-900 text-sm truncate">{country.name}</div>
+                      <div className="text-xs text-gray-500">From {country.price} • {Math.floor(Math.random() * 8) + 3} plans</div>
                     </div>
-                  </button>
-                );
-              })}
+                  </div>
+                </button>
+              ))}
             </div>
+            
+            {/* More Destinations Button */}
+            <button 
+              onClick={() => setLocation('/search')}
+              className="w-full bg-gray-100 rounded-xl p-4 text-center hover:bg-gray-200 transition-colors"
+            >
+              <div className="font-medium text-gray-900 text-sm">More destinations</div>
+              <div className="text-xs text-gray-600 mt-1">Explore 200+ countries</div>
+            </button>
           </div>
         ) : selectedTab === 'regional' ? (
           <div className="space-y-3">
