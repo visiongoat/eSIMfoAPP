@@ -223,7 +223,7 @@ export default function HomeScreen() {
           <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             {/* User Profile Photo */}
-            <div className="w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 border-gray-200">
+            <div className="w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 border-blue-500">
               {profile?.name ? (
                 <img 
                   src={profileImage} 
