@@ -365,7 +365,7 @@ export default function HomeScreen() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="font-medium text-gray-900 text-sm truncate">{country.name}</div>
-                      <div className="text-xs text-gray-600">From {country.price}</div>
+                      <div className="text-xs text-gray-400">From {country.price}</div>
                     </div>
                   </div>
                 </button>
