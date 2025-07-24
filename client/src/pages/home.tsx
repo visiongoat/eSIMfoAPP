@@ -114,12 +114,12 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        {/* Category Tabs - 3 tabs in 2 rows */}
+        {/* Category Tabs - 3 tabs in 1 row */}
         <div className="mb-6">
-          <div className="grid grid-cols-2 gap-2 mb-2">
+          <div className="grid grid-cols-3 gap-2">
             <button 
               onClick={() => setSelectedTab('local')}
-              className={`py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+              className={`py-3 px-2 rounded-xl font-medium text-xs transition-all ${
                 selectedTab === 'local' 
                   ? 'bg-blue-500 text-white shadow-lg' 
                   : 'bg-white text-gray-700 shadow-sm'
@@ -129,7 +129,7 @@ export default function HomeScreen() {
             </button>
             <button 
               onClick={() => setSelectedTab('regional')}
-              className={`py-3 px-4 rounded-xl font-medium text-sm transition-all ${
+              className={`py-3 px-2 rounded-xl font-medium text-xs transition-all ${
                 selectedTab === 'regional' 
                   ? 'bg-blue-500 text-white shadow-lg' 
                   : 'bg-white text-gray-700 shadow-sm'
@@ -137,17 +137,17 @@ export default function HomeScreen() {
             >
               Regional eSIMs
             </button>
+            <button 
+              onClick={() => setSelectedTab('global')}
+              className={`py-3 px-2 rounded-xl font-medium text-xs transition-all ${
+                selectedTab === 'global' 
+                  ? 'bg-blue-500 text-white shadow-lg' 
+                  : 'bg-white text-gray-700 shadow-sm'
+              }`}
+            >
+              Global eSIMs
+            </button>
           </div>
-          <button 
-            onClick={() => setSelectedTab('global')}
-            className={`w-full py-3 px-4 rounded-xl font-medium text-sm transition-all ${
-              selectedTab === 'global' 
-                ? 'bg-blue-500 text-white shadow-lg' 
-                : 'bg-white text-gray-700 shadow-sm'
-            }`}
-          >
-            Global eSIMs
-          </button>
         </div>
 
         {/* Main Content Grid */}
