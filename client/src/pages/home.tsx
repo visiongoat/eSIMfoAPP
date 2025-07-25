@@ -701,7 +701,7 @@ export default function HomeScreen() {
                   <button
                     key={index}
                     onClick={() => handleCountrySelect(countries[0])}
-                    className="bg-white rounded-xl p-3 text-left shadow-sm border border-gray-100 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200"
+                    className={`bg-white rounded-xl p-3 text-left shadow-sm border border-gray-100 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${index}`}
                   >
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-6 rounded-sm overflow-hidden shadow-sm border border-gray-200 flex">
@@ -753,7 +753,7 @@ export default function HomeScreen() {
         ) : selectedTab === 'regional' ? (
           <div className="space-y-3">
             {/* Regional Plans */}
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="bg-white rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
@@ -768,7 +768,7 @@ export default function HomeScreen() {
               </div>
             </div>
             
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="bg-white rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-1">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
@@ -783,7 +783,7 @@ export default function HomeScreen() {
               </div>
             </div>
             
-            <div className="bg-white rounded-xl p-4 shadow-sm">
+            <div className="bg-white rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
