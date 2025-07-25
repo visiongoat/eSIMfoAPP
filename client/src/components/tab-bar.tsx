@@ -80,26 +80,14 @@ export default function TabBar() {
                   }`}
                   style={{willChange: 'transform, opacity'}}
                 >
-                  {/* Elegant Subtle Active State */}
-                  {isActive && (
-                    <div 
-                      className="absolute inset-x-2 inset-y-1.5 rounded-xl transition-all duration-400 ease-out"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.25) 100%)',
-                        backdropFilter: 'blur(8px)',
-                        WebkitBackdropFilter: 'blur(8px)',
-                        border: '1px solid rgba(59, 130, 246, 0.3)',
-                        boxShadow: '0 1px 6px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
-                      }}
-                    />
-                  )}
+
                   
                   {/* Icon Container */}
                   <div className={`mb-1.5 transition-all duration-300 relative z-10 ${
                     isActive ? 'scale-110' : 'group-hover:scale-105'
                   }`}>
                     <svg className={`w-5 h-5 transition-all duration-300 ${
-                      isActive ? 'text-blue-600 drop-shadow-sm' : 'text-gray-700 group-hover:text-gray-900'
+                      isActive ? 'text-blue-500 hover:text-blue-600' : 'text-gray-700 group-hover:text-gray-900'
                     }`} fill={isActive ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                       {tab.id === 'shop' && (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -118,7 +106,7 @@ export default function TabBar() {
                   
                   {/* Label */}
                   <span className={`text-xs font-medium transition-all duration-300 relative z-10 ${
-                    isActive ? 'text-blue-700 font-semibold drop-shadow-sm' : 'text-gray-800 group-hover:text-gray-900'
+                    isActive ? 'text-blue-500 font-semibold hover:text-blue-600' : 'text-gray-800 group-hover:text-gray-900'
                   }`}>
                     {tab.label}
                   </span>
