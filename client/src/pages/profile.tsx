@@ -16,6 +16,7 @@ export default function ProfileScreen() {
       items: [
         { icon: "👤", label: "Personal Information", hasArrow: true },
         { icon: "💳", label: "Payment Methods", hasArrow: true },
+        { icon: "🌙", label: "Dark Mode", hasToggle: true, enabled: false },
         { icon: "🔔", label: "Notifications", hasToggle: true, enabled: true },
         { icon: "🔒", label: "Privacy & Security", hasArrow: true },
       ]
