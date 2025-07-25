@@ -97,7 +97,7 @@ export default function HomeScreen() {
     };
   }, [placeholderIndex]);
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when modal is open + Safari viewport fix
   useEffect(() => {
     if (showLiveChat || showHowItWorks) {
       const scrollY = window.scrollY;
@@ -108,6 +108,21 @@ export default function HomeScreen() {
       document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
+      
+      // Safari-specific viewport fix
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      if (isSafari) {
+        const modalContent = document.querySelector('.modal-content') as HTMLElement;
+        const modalInput = document.querySelector('.modal-input-area') as HTMLElement;
+        
+        if (modalContent) {
+          modalContent.style.height = '70vh';
+          modalContent.style.maxHeight = '70vh';
+        }
+        if (modalInput) {
+          modalInput.style.paddingBottom = '3rem';
+        }
+      }
       
       return () => {
         document.body.style.position = '';
@@ -911,7 +926,10 @@ export default function HomeScreen() {
               onClick={(e) => e.stopPropagation()}
               style={{ 
                 zIndex: 10000,
-                position: 'relative'
+                position: 'relative',
+                height: '75vh',
+                maxHeight: '75vh',
+                minHeight: '60vh'
               }}
             >
               {/* Header - Native app style */}
@@ -1000,7 +1018,10 @@ export default function HomeScreen() {
               </div>
 
               {/* Message Input - Fixed at bottom */}
-              <div className="modal-input-area px-4 pt-4 border-t border-gray-100 flex-shrink-0">
+              <div 
+                className="modal-input-area px-4 pt-4 border-t border-gray-100 flex-shrink-0"
+                style={{ paddingBottom: '2.5rem' }}
+              >
                 <div className="bg-gray-50 rounded-full shadow-sm border border-gray-200 flex items-center px-4 py-3">
                   <input
                     type="text"
