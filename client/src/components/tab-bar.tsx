@@ -77,11 +77,10 @@ export default function TabBar() {
           </button>
         </div>
 
-        {/* Tab Bar with convex arc that hugs the FAB */}
+        {/* Tab Bar with smooth curved integration */}
         <div className="relative z-10">
-          {/* Main tab bar */}
           <div 
-            className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative"
+            className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative overflow-visible"
             style={{
               backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
               WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
@@ -89,15 +88,14 @@ export default function TabBar() {
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
             }}
           >
-            {/* Convex arc overlay that wraps behind FAB */}
+            {/* Create upward curve using border-radius */}
             <div 
-              className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-20 h-8 z-20"
+              className="absolute left-1/2 transform -translate-x-1/2 w-24 h-6 -top-6"
               style={{
                 background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-                borderRadius: '0 0 50% 50%',
+                borderRadius: '0 0 100% 100%',
                 backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
                 WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
-                boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
               }}
             ></div>
           <div className="flex items-center relative">
