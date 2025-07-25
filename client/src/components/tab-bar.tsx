@@ -82,7 +82,7 @@ export default function TabBar() {
         <div className="relative z-10">
           {/* Wide seamless upward curve that merges with tab bar */}
           <div 
-            className="absolute left-1/2 transform -translate-x-1/2 w-36 h-16 -top-16 z-20"
+            className="absolute left-1/2 transform -translate-x-1/2 w-36 h-12 -top-12 z-20"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
               borderRadius: '50% 50% 0 0',
@@ -93,7 +93,7 @@ export default function TabBar() {
           
           {/* Extended left and right connecting elements */}
           <div 
-            className="absolute left-1/2 transform -translate-x-1/2 w-48 h-4 -top-4 z-15"
+            className="absolute left-1/2 transform -translate-x-1/2 w-48 h-3 -top-3 z-15"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
               backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
