@@ -54,43 +54,77 @@ export default function TabBar() {
   };
 
   return (
-    <div className="tab-bar-fixed bg-gradient-to-t from-white via-white to-gray-50/50 backdrop-blur-md border-t border-gray-200/40 px-2 py-1 shadow-lg shadow-gray-200/40 relative" style={{paddingBottom: 'calc(env(safe-area-inset-bottom) + 8px)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)'}}>
-      {/* Animated border accents removed - causing visual artifacts above location bar */}
-      <div className="flex justify-around items-center max-w-md mx-auto">
-        {tabs.map((tab) => {
-          const isActive = location === tab.path;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => handleTabClick(tab.path)}
-              className={`flex flex-col items-center py-2 px-3 transition-all duration-300 transform relative group rounded-xl ${
-                isActive 
-                  ? 'bg-gradient-to-b from-blue-50/70 to-blue-100/40 scale-105 shadow-inner' 
-                  : 'hover:bg-gray-50/60 active:scale-95 hover:shadow-sm'
-              }`}
-              style={{willChange: 'transform, opacity'}}
-            >
-              {/* Subtle inner glow for depth */}
-              {isActive && (
-                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-blue-50/40 to-blue-100/60 rounded-xl"></div>
-              )}
-              
-              <div className={`mb-1 transition-all duration-300 ${isActive ? 'scale-110 animate-bounce-subtle' : 'group-hover:scale-105'}`} style={{transform: 'translate3d(0,0,0)'}}>
-                {tab.icon(isActive)}
-              </div>
-              <span className={`text-xs font-medium transition-all duration-300 ${
-                isActive ? 'text-blue-600 font-semibold' : 'text-gray-500 group-hover:text-gray-700'
-              }`}>
-                {tab.label}
-              </span>
-              
-              {/* Soft ripple effect */}
-              <div className={`absolute inset-0 rounded-2xl opacity-0 group-active:opacity-20 group-active:scale-110 transition-all duration-200 ${
-                isActive ? 'bg-blue-400/25' : 'bg-gray-400/20'
-              }`}></div>
-            </button>
-          );
-        })}
+    <div className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6" style={{paddingBottom: 'calc(env(safe-area-inset-bottom) + 24px)'}}>
+      <div className="max-w-md mx-auto">
+        {/* Modern Floating Glassmorphism Container */}
+        <div 
+          className="bg-white/85 backdrop-blur-xl rounded-2xl px-3 py-2.5 shadow-2xl border border-white/20"
+          style={{
+            backdropFilter: 'blur(24px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+          }}
+        >
+          <div className="flex justify-around items-center">
+            {tabs.map((tab) => {
+              const isActive = location === tab.path;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabClick(tab.path)}
+                  className={`flex flex-col items-center py-2.5 px-4 transition-all duration-300 transform relative group rounded-xl min-w-[64px] ${
+                    isActive 
+                      ? 'scale-105' 
+                      : 'active:scale-95 hover:scale-102'
+                  }`}
+                  style={{willChange: 'transform, opacity'}}
+                >
+                  {/* Modern Active State Background */}
+                  {isActive && (
+                    <div 
+                      className="absolute inset-0 bg-blue-500 rounded-xl shadow-lg"
+                      style={{
+                        boxShadow: '0 4px 16px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+                      }}
+                    />
+                  )}
+                  
+                  {/* Icon Container */}
+                  <div className={`mb-1.5 transition-all duration-300 relative z-10 ${
+                    isActive ? 'scale-110 animate-pulse' : 'group-hover:scale-105'
+                  }`}>
+                    <svg className={`w-5 h-5 transition-all duration-300 ${
+                      isActive ? 'text-white drop-shadow-sm' : 'text-gray-500 group-hover:text-gray-700'
+                    }`} fill={isActive ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                      {tab.id === 'shop' && (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      )}
+                      {tab.id === 'my-esims' && (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      )}
+                      {tab.id === 'guides' && (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      )}
+                      {tab.id === 'profile' && (
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      )}
+                    </svg>
+                  </div>
+                  
+                  {/* Label */}
+                  <span className={`text-xs font-medium transition-all duration-300 relative z-10 ${
+                    isActive ? 'text-white font-semibold drop-shadow-sm' : 'text-gray-600 group-hover:text-gray-800'
+                  }`}>
+                    {tab.label}
+                  </span>
+                  
+                  {/* Ripple Effect */}
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-active:opacity-20 group-active:scale-110 transition-all duration-200 bg-blue-400/30"></div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
