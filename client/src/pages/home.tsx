@@ -3,11 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { MessageCircle } from "lucide-react";
 import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
+import { useOnlineStatus } from "@/hooks/use-online-status";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import CountryCard from "@/components/country-card";
 import SkeletonCard from "@/components/skeleton-card";
+import ErrorBoundary from "@/components/error-boundary";
 
 import type { Country, Package } from "@shared/schema";
 
@@ -40,6 +42,7 @@ export default function HomeScreen() {
   const [isDragging, setIsDragging] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const isOnline = useOnlineStatus();
   
   const placeholderTexts = [
     'Find your destination',
@@ -189,20 +192,38 @@ export default function HomeScreen() {
   
   const userCountry = getUserCountry();
 
-  const { data: countries = [], isLoading: countriesLoading } = useQuery<Country[]>({
+  const { 
+    data: countries = [], 
+    isLoading: countriesLoading, 
+    isError: countriesError, 
+    error: countriesErrorDetails,
+    refetch: refetchCountries 
+  } = useQuery<Country[]>({
     queryKey: ["/api/countries"],
   });
 
-  const { data: popularPackages = [] } = useQuery<(Package & { country?: Country })[]>({
+  const { 
+    data: popularPackages = [], 
+    isError: packagesError, 
+    refetch: refetchPackages 
+  } = useQuery<(Package & { country?: Country })[]>({
     queryKey: ["/api/packages/popular"],
   });
 
-  const { data: profile } = useQuery<{ name?: string }>({
+  const { 
+    data: profile, 
+    isError: profileError, 
+    refetch: refetchProfile 
+  } = useQuery<{ name?: string }>({
     queryKey: ['/api/profile']
   });
 
   // Fetch user's eSIMs to get active count
-  const { data: userEsims = [] } = useQuery<any[]>({
+  const { 
+    data: userEsims = [], 
+    isError: esimsError, 
+    refetch: refetchEsims 
+  } = useQuery<any[]>({
     queryKey: ['/api/esims'],
     enabled: !!profile, // Only fetch if user is logged in
   });
@@ -368,6 +389,13 @@ export default function HomeScreen() {
             <div className="flex items-center bg-green-50 border border-green-200 px-2 py-1 rounded-md">
               <span className="text-xs font-semibold text-green-700">€ EUR</span>
             </div>
+            
+            {/* Offline Indicator */}
+            {!isOnline && (
+              <div className="flex items-center bg-red-50 border border-red-200 px-2 py-1 rounded-md">
+                <span className="text-xs font-semibold text-red-700">Offline</span>
+              </div>
+            )}
             
             {/* Compact Live Chat Button */}
             <div>
@@ -633,6 +661,16 @@ export default function HomeScreen() {
                 Array.from({ length: 20 }).map((_, index) => (
                   <SkeletonCard key={index} />
                 ))
+              ) : countriesError ? (
+                // Error handling for network/API failures
+                <div className="col-span-2">
+                  <ErrorBoundary
+                    title="Connection Problem"
+                    message="Unable to load destinations. Please check your internet connection and try again."
+                    type="network"
+                    onRetry={() => refetchCountries()}
+                  />
+                </div>
               ) : (
                 [
                   { name: 'United States', flagColors: ['#B22234', '#FFFFFF', '#3C3B6E'], price: '€4.99' },

@@ -292,6 +292,22 @@
     animation: spin-slow 3s linear infinite;
   }
 
+  /* Network banner animations */
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slideDown {
+    animation: slideDown 0.3s ease-out;
+  }
+
   .mobile-container {
     @apply w-full mx-auto min-h-screen relative overflow-x-hidden;
     background-color: var(--mobile-bg);
