@@ -853,7 +853,10 @@ export default function HomeScreen() {
             <div className="flex items-center justify-between mb-3">
               <div className="text-2xl">🔍</div>
               <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                200+
+                <div className="flex flex-col items-center leading-tight">
+                  <span>200+</span>
+                  <span className="text-[9px] opacity-90">Countries</span>
+                </div>
               </div>
             </div>
             <div className="font-medium text-gray-900 text-sm">Browse All</div>
