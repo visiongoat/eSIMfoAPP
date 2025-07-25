@@ -125,6 +125,25 @@
     animation: shimmer 3s ease-in-out infinite;
   }
   
+  /* Subtle bounce animation for active tabs */
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1.1);
+    }
+    50% {
+      transform: translate3d(0, -1px, 0) scale(1.1);
+    }
+  }
+  
+  .animate-bounce-subtle {
+    animation: bounce-subtle 0.6s ease-in-out;
+  }
+  
+  /* Slow pulse for enhanced depth */
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
   /* Force sticky navigation */
   .tab-bar-fixed {
     position: fixed !important;

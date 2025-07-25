@@ -67,16 +67,20 @@ export default function TabBar() {
               onClick={() => handleTabClick(tab.path)}
               className={`flex flex-col items-center py-2 px-3 rounded-xl transition-all duration-300 transform relative group tab-ripple ${
                 isActive 
-                  ? 'bg-blue-50/80 scale-105 shadow-sm premium-glow' 
+                  ? 'bg-blue-50/80 scale-105 shadow-inner premium-glow' 
                   : 'hover:bg-gray-50/60 active:scale-95 hover:shadow-sm'
               }`}
+              style={{willChange: 'transform, opacity'}}
             >
-              {/* Premium glow effect for active tab */}
+              {/* Enhanced background glow for active tab */}
               {isActive && (
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-blue-600/20 to-blue-500/10 rounded-xl blur-sm opacity-60 animate-pulse"></div>
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-blue-600/20 to-blue-500/10 rounded-xl blur-sm opacity-60 animate-pulse"></div>
+                  <div className="absolute inset-0 bg-blue-500/5 rounded-xl animate-pulse-slow"></div>
+                </>
               )}
               
-              <div className={`mb-1 transition-all duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
+              <div className={`mb-1 transition-all duration-300 ${isActive ? 'scale-110 animate-bounce-subtle' : 'group-hover:scale-105'}`} style={{transform: 'translate3d(0,0,0)'}}>
                 {tab.icon(isActive)}
               </div>
               <span className={`text-xs font-medium transition-all duration-300 ${
