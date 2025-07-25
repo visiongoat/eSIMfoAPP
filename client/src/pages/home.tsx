@@ -176,11 +176,11 @@ export default function HomeScreen() {
   const getUserCountry = () => {
     // Simulating different countries based on time for demo
     const countries = [
-      { name: 'Turkey', code: 'TR', flag: '🇹🇷', price: '$2.99' },
-      { name: 'Germany', code: 'DE', flag: '🇩🇪', price: '$3.49' },
-      { name: 'United Kingdom', code: 'GB', flag: '🇬🇧', price: '$3.99' },
-      { name: 'France', code: 'FR', flag: '🇫🇷', price: '$4.49' },
-      { name: 'Spain', code: 'ES', flag: '🇪🇸', price: '$3.49' }
+      { name: 'Turkey', code: 'TR', flag: '🇹🇷', price: '€2.99' },
+      { name: 'Germany', code: 'DE', flag: '🇩🇪', price: '€3.49' },
+      { name: 'United Kingdom', code: 'GB', flag: '🇬🇧', price: '€3.99' },
+      { name: 'France', code: 'FR', flag: '🇫🇷', price: '€4.49' },
+      { name: 'Spain', code: 'ES', flag: '🇪🇸', price: '€3.49' }
     ];
     const index = Math.floor(Date.now() / 10000) % countries.length;
     return countries[index];
@@ -628,26 +628,26 @@ export default function HomeScreen() {
             {/* Popular Local Countries - 20 countries grid */}
             <div className="grid grid-cols-2 gap-2">
               {[
-                { name: 'United States', flagColors: ['#B22234', '#FFFFFF', '#3C3B6E'], price: '$4.99' },
-                { name: 'France', flagColors: ['#0055A4', '#FFFFFF', '#EF4135'], price: '$3.49' },
-                { name: 'China', flagColors: ['#DE2910'], price: '$5.99' },
-                { name: 'Spain', flagColors: ['#C60B1E', '#FFC400'], price: '$3.49' },
-                { name: 'Italy', flagColors: ['#009246', '#FFFFFF', '#CE2B37'], price: '$3.99' },
-                { name: 'Turkey', flagColors: ['#E30A17'], price: '$2.99' },
-                { name: 'United Kingdom', flagColors: ['#012169', '#FFFFFF', '#C8102E'], price: '$3.99' },
-                { name: 'Germany', flagColors: ['#000000', '#DD0000', '#FFCE00'], price: '$3.49' },
-                { name: 'Mexico', flagColors: ['#006847', '#FFFFFF', '#CE1126'], price: '$4.49' },
-                { name: 'Thailand', flagColors: ['#ED1C24', '#FFFFFF', '#241D4F'], price: '$3.99' },
-                { name: 'Hong Kong', flagColors: ['#DE2910'], price: '$5.49' },
-                { name: 'Malaysia', flagColors: ['#CC0001', '#FFFFFF', '#010066'], price: '$4.99' },
-                { name: 'Greece', flagColors: ['#0D5EAF', '#FFFFFF'], price: '$3.99' },
-                { name: 'Canada', flagColors: ['#FF0000', '#FFFFFF'], price: '$4.99' },
-                { name: 'South Korea', flagColors: ['#FFFFFF', '#C60C30', '#003478'], price: '$5.99' },
-                { name: 'Japan', flagColors: ['#FFFFFF', '#BC002D'], price: '$5.99' },
-                { name: 'Singapore', flagColors: ['#ED2939', '#FFFFFF'], price: '$5.49' },
-                { name: 'Aruba', flagColors: ['#318CE7', '#FFCE00'], price: '$6.99' },
-                { name: 'Afghanistan', flagColors: ['#000000', '#D32011', '#FFFFFF'], price: '$7.99' },
-                { name: 'Anguilla', flagColors: ['#012169', '#FFFFFF'], price: '$8.99' }
+                { name: 'United States', flagColors: ['#B22234', '#FFFFFF', '#3C3B6E'], price: '€4.99' },
+                { name: 'France', flagColors: ['#0055A4', '#FFFFFF', '#EF4135'], price: '€3.49' },
+                { name: 'China', flagColors: ['#DE2910'], price: '€5.99' },
+                { name: 'Spain', flagColors: ['#C60B1E', '#FFC400'], price: '€3.49' },
+                { name: 'Italy', flagColors: ['#009246', '#FFFFFF', '#CE2B37'], price: '€3.99' },
+                { name: 'Turkey', flagColors: ['#E30A17'], price: '€2.99' },
+                { name: 'United Kingdom', flagColors: ['#012169', '#FFFFFF', '#C8102E'], price: '€3.99' },
+                { name: 'Germany', flagColors: ['#000000', '#DD0000', '#FFCE00'], price: '€3.49' },
+                { name: 'Mexico', flagColors: ['#006847', '#FFFFFF', '#CE1126'], price: '€4.49' },
+                { name: 'Thailand', flagColors: ['#ED1C24', '#FFFFFF', '#241D4F'], price: '€3.99' },
+                { name: 'Hong Kong', flagColors: ['#DE2910'], price: '€5.49' },
+                { name: 'Malaysia', flagColors: ['#CC0001', '#FFFFFF', '#010066'], price: '€4.99' },
+                { name: 'Greece', flagColors: ['#0D5EAF', '#FFFFFF'], price: '€3.99' },
+                { name: 'Canada', flagColors: ['#FF0000', '#FFFFFF'], price: '€4.99' },
+                { name: 'South Korea', flagColors: ['#FFFFFF', '#C60C30', '#003478'], price: '€5.99' },
+                { name: 'Japan', flagColors: ['#FFFFFF', '#BC002D'], price: '€5.99' },
+                { name: 'Singapore', flagColors: ['#ED2939', '#FFFFFF'], price: '€5.49' },
+                { name: 'Aruba', flagColors: ['#318CE7', '#FFCE00'], price: '€6.99' },
+                { name: 'Afghanistan', flagColors: ['#000000', '#D32011', '#FFFFFF'], price: '€7.99' },
+                { name: 'Anguilla', flagColors: ['#012169', '#FFFFFF'], price: '€8.99' }
               ].map((country, index) => (
                 <button
                   key={index}
