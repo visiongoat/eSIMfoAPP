@@ -592,55 +592,39 @@ export default function HomeScreen() {
         >
         {selectedTab === 'local' ? (
           <div className="space-y-4">
-            {/* User's Local Country - Enhanced with flag gradient */}
+            {/* User's Local Country - Enhanced with subtle animations */}
             <div className="relative overflow-hidden rounded-xl bg-white border-[1px] border-white group hover:shadow-lg transition-all duration-300">
               {/* Subtle location pulse indicator */}
               <div className="absolute top-4 left-4 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse opacity-80"></div>
               
               <button 
                 onClick={() => handleCountrySelect(countries[0])}
-                className="w-full relative py-4 px-6 shadow-none z-10 transition-all duration-300 border-none outline-none group overflow-hidden rounded-xl"
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 px-6 shadow-none z-10 hover:from-blue-600 hover:to-blue-700 transition-all duration-300 border-none outline-none group relative"
               >
-                {/* Germany Flag Background with Fade Effect */}
-                <div className="absolute inset-0">
-                  {/* Flag stripes with gradient fade to right */}
-                  <div className="absolute left-0 top-0 w-full h-full flex flex-col">
-                    <div className="flex-1 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
-                    <div className="flex-1 bg-gradient-to-r from-red-600/60 via-red-600/30 to-transparent"></div>
-                    <div className="flex-1 bg-gradient-to-r from-yellow-400/60 via-yellow-400/30 to-transparent"></div>
+                <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  {/* Flag with subtle hover animation */}
+                  <span className="text-2xl transform transition-transform duration-200 group-hover:scale-105">
+                    {userCountry.flag}
+                  </span>
+                  <div className="text-left">
+                    <h3 className="font-semibold text-base">{userCountry.name}</h3>
+                    <p className="text-white/70 text-xs">Your current location</p>
                   </div>
                 </div>
-                
-                {/* Main blue overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/70 via-blue-600/90 to-blue-600 group-hover:from-blue-600/70 group-hover:via-blue-700/90 group-hover:to-blue-700 transition-all duration-300"></div>
-                
-                {/* Content */}
-                <div className="relative z-10 text-white">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      {/* Flag with subtle hover animation */}
-                      <span className="text-2xl transform transition-transform duration-200 group-hover:scale-105">
-                        {userCountry.flag}
-                      </span>
-                      <div className="text-left">
-                        <h3 className="font-semibold text-base">{userCountry.name}</h3>
-                        <p className="text-white/70 text-xs">Your current location</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="text-right">
-                        <div className="text-sm font-medium">From {userCountry.price}</div>
-                      </div>
-                      {/* Enhanced LOCAL badge */}
-                      <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold transform transition-transform duration-200 group-hover:scale-105">
-                        LOCAL
-                      </div>
-                    </div>
+                <div className="flex items-center space-x-2">
+                  <div className="text-right">
+                    <div className="text-sm font-medium">From {userCountry.price}</div>
                   </div>
-                  
-                  {/* Subtle overlay effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-white rounded-xl"></div>
+                  {/* Enhanced LOCAL badge */}
+                  <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold transform transition-transform duration-200 group-hover:scale-105">
+                    LOCAL
+                  </div>
                 </div>
+                </div>
+                
+                {/* Subtle overlay effect */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 bg-white rounded-xl"></div>
               </button>
             </div>
 
