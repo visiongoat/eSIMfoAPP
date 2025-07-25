@@ -78,14 +78,14 @@ export default function TabBar() {
           </button>
         </div>
 
-        {/* Tab Bar with seamless upward curve integration */}
+        {/* Tab Bar with unified curve */}
         <div className="relative z-10">
-          {/* Semicircle with gentle side curves */}
+          {/* Invisible seamless curve extension */}
           <div 
-            className="absolute left-1/2 transform -translate-x-1/2 w-24 h-10 -top-8 z-20"
+            className="absolute left-1/2 transform -translate-x-1/2 w-24 h-6 -top-4 z-5"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-              borderRadius: '60px 60px 0 0',
+              borderRadius: '50% 50% 0 0',
               backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
               WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             }}
