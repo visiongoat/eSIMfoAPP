@@ -58,7 +58,7 @@ export default function TabBar() {
       <div className="max-w-md mx-auto">
         {/* Full Width Glassmorphism Container */}
         <div 
-          className="bg-white/20 backdrop-blur-2xl px-3 py-2.5 shadow-2xl border-t border-white/30"
+          className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30"
           style={{
             backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
@@ -73,7 +73,7 @@ export default function TabBar() {
                 <button
                   key={tab.id}
                   onClick={() => handleTabClick(tab.path)}
-                  className={`flex-1 flex flex-col items-center py-2.5 px-2 transition-all duration-300 transform relative group rounded-xl ${
+                  className={`flex-1 flex flex-col items-center py-1.5 px-2 transition-all duration-300 transform relative group rounded-xl ${
                     isActive 
                       ? 'scale-105' 
                       : 'active:scale-95 hover:scale-102 hover:bg-white/10'
@@ -83,7 +83,7 @@ export default function TabBar() {
 
                   
                   {/* Icon Container */}
-                  <div className={`mb-1.5 transition-all duration-300 relative z-10 ${
+                  <div className={`mb-1 transition-all duration-300 relative z-10 ${
                     isActive ? 'scale-110' : 'group-hover:scale-105'
                   }`}>
                     <svg className={`w-5 h-5 transition-all duration-300 ${
