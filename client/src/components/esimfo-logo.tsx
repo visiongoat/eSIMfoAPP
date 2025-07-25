@@ -36,10 +36,10 @@ export default function EsimfoLogo({
       
       {/* esimfo yazısı - gerçek logo stilinde */}
       <div className="flex items-center">
-        <span className="font-semibold text-gray-900" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
+        <span className="font-semibold text-gray-900 dark:text-gray-100" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
           e-sim
         </span>
-        <span className="font-semibold text-blue-600" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
+        <span className="font-semibold text-blue-600 dark:text-blue-400" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, system-ui, sans-serif' }}>
           fo
         </span>
       </div>
