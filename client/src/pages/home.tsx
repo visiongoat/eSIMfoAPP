@@ -592,7 +592,7 @@ export default function HomeScreen() {
         >
         {selectedTab === 'local' ? (
           <div className="space-y-4">
-            {/* User's Local Country - Enhanced with subtle animations */}
+            {/* User's Local Country - Enhanced with flag corner */}
             <div className="relative overflow-hidden rounded-xl bg-white border-[1px] border-white group hover:shadow-lg transition-all duration-300">
               {/* Subtle location pulse indicator */}
               <div className="absolute top-4 left-4 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse opacity-80"></div>
@@ -601,6 +601,21 @@ export default function HomeScreen() {
                 onClick={() => handleCountrySelect(countries[0])}
                 className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 px-6 shadow-none z-10 hover:from-blue-600 hover:to-blue-700 transition-all duration-300 border-none outline-none group relative"
               >
+                {/* Modern Flag Accent - Diagonal Corner */}
+                <div className="absolute top-0 left-0 w-16 h-16">
+                  {/* Diagonal flag triangle */}
+                  <div className="absolute top-0 left-0 w-16 h-16 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-full transform rotate-45 translate-x-4 -translate-y-4">
+                      <div className="w-full h-full flex flex-col shadow-lg">
+                        <div className="flex-1 bg-black opacity-40 transform transition-all duration-300 group-hover:opacity-60 group-hover:scale-105"></div>
+                        <div className="flex-1 bg-red-600 opacity-50 transform transition-all duration-300 group-hover:opacity-70 group-hover:scale-105"></div>
+                        <div className="flex-1 bg-yellow-400 opacity-50 transform transition-all duration-300 group-hover:opacity-70 group-hover:scale-105"></div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Subtle glow effect */}
+                  <div className="absolute top-0 left-0 w-6 h-6 bg-white/10 rounded-full blur-sm opacity-50 group-hover:opacity-80 transition-opacity duration-300"></div>
+                </div>
                 <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   {/* Flag with subtle hover animation */}
