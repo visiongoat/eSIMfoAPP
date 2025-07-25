@@ -325,7 +325,7 @@ export default function HomeScreen() {
 
 
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen pb-24">
+    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen pb-32">
       {/* Compact Header with Search */}
       <div className="relative sticky top-0 z-10 py-4">
         <div className="max-w-screen-md mx-auto px-4">
@@ -1145,7 +1145,7 @@ export default function HomeScreen() {
       </div>
 
       {/* How Does eSIMfo Work - Compact Button */}
-      <div className="max-w-screen-md mx-auto px-4 pb-0 pt-1">
+      <div className="max-w-screen-md mx-auto px-4 pb-4 pt-1">
         <button 
           onClick={() => setShowHowItWorks(true)}
           className="w-full bg-white rounded-xl p-3 shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 text-left"
