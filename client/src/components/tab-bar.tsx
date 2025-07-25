@@ -65,18 +65,18 @@ export default function TabBar() {
             <button
               key={tab.id}
               onClick={() => handleTabClick(tab.path)}
-              className={`flex flex-col items-center py-2 px-3 rounded-xl transition-all duration-300 transform relative group tab-ripple ${
+              className={`flex flex-col items-center py-2 px-3 rounded-2xl transition-all duration-300 transform relative group tab-ripple ${
                 isActive 
-                  ? 'bg-blue-50/80 scale-105 shadow-inner premium-glow' 
+                  ? 'bg-gradient-to-b from-blue-50/90 to-blue-100/60 scale-105 shadow-sm shadow-blue-200/40' 
                   : 'hover:bg-gray-50/60 active:scale-95 hover:shadow-sm'
               }`}
               style={{willChange: 'transform, opacity'}}
             >
-              {/* Enhanced background glow for active tab */}
+              {/* Soft elevated glow for active tab */}
               {isActive && (
                 <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-blue-600/20 to-blue-500/10 rounded-xl blur-sm opacity-60 animate-pulse"></div>
-                  <div className="absolute inset-0 bg-blue-500/5 rounded-xl animate-pulse-slow"></div>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-blue-400/15 via-blue-500/25 to-blue-400/15 rounded-3xl blur-md opacity-50 animate-pulse"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-blue-50/30 rounded-2xl opacity-80"></div>
                 </>
               )}
               
@@ -89,9 +89,9 @@ export default function TabBar() {
                 {tab.label}
               </span>
               
-              {/* Premium ripple effect */}
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-active:opacity-30 group-active:scale-110 transition-all duration-200 ${
-                isActive ? 'bg-blue-500/20' : 'bg-gray-500/20'
+              {/* Soft ripple effect */}
+              <div className={`absolute inset-0 rounded-2xl opacity-0 group-active:opacity-20 group-active:scale-110 transition-all duration-200 ${
+                isActive ? 'bg-blue-400/25' : 'bg-gray-400/20'
               }`}></div>
             </button>
           );
