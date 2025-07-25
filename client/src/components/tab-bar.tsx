@@ -76,23 +76,24 @@ export default function TabBar() {
                   className={`flex flex-col items-center py-2.5 px-4 transition-all duration-300 transform relative group rounded-xl min-w-[64px] ${
                     isActive 
                       ? 'scale-105' 
-                      : 'active:scale-95 hover:scale-102'
+                      : 'active:scale-95 hover:scale-102 hover:bg-white/10'
                   }`}
                   style={{willChange: 'transform, opacity'}}
                 >
-                  {/* Modern Active State Background */}
+                  {/* Professional Active State Background */}
                   {isActive && (
                     <div 
-                      className="absolute inset-0 bg-blue-500 rounded-xl shadow-lg"
+                      className="absolute inset-0 rounded-xl transition-all duration-500 ease-out"
                       style={{
-                        boxShadow: '0 4px 16px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+                        background: 'linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)',
+                        boxShadow: '0 4px 16px rgba(59, 130, 246, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
                       }}
                     />
                   )}
                   
                   {/* Icon Container */}
                   <div className={`mb-1.5 transition-all duration-300 relative z-10 ${
-                    isActive ? 'scale-110 animate-pulse' : 'group-hover:scale-105'
+                    isActive ? 'scale-110' : 'group-hover:scale-105'
                   }`}>
                     <svg className={`w-5 h-5 transition-all duration-300 ${
                       isActive ? 'text-white drop-shadow-sm' : 'text-gray-700 group-hover:text-gray-900'
