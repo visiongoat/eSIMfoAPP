@@ -54,7 +54,7 @@ export default function TabBar() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white to-gray-50/50 backdrop-blur-md border-t border-gray-200/60 px-2 py-1 z-50 shadow-lg shadow-gray-200/40 relative">
+    <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white to-gray-50/50 backdrop-blur-md border-t border-gray-200/60 px-2 py-1 z-50 shadow-lg shadow-gray-200/40 relative" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
       {/* Animated border accent */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-60 animate-pulse"></div>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-blue-400 via-purple-500 to-blue-400 animate-shimmer"></div>

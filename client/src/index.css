@@ -67,6 +67,8 @@
     @apply font-sans antialiased text-foreground;
     background-color: var(--mobile-bg);
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    /* Ensure safe area is respected */
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }
 
