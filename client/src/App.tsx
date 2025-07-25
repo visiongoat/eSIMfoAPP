@@ -17,6 +17,7 @@ import GuidesScreen from "@/pages/guides";
 import ProfileScreen from "@/pages/profile";
 import PartnerScreen from "@/pages/partner";
 import LiveChatScreen from "@/pages/support";
+import NotFoundPage from "@/pages/not-found";
 
 function Router() {
   return (
@@ -33,6 +34,9 @@ function Router() {
       <Route path="/profile" component={ProfileScreen} />
       <Route path="/partner" component={PartnerScreen} />
       <Route path="/live-chat" component={LiveChatScreen} />
+      
+      {/* 404 Catch-all route */}
+      <Route component={NotFoundPage} />
     </Switch>
   );
 }

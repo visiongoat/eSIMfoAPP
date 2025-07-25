@@ -201,32 +201,47 @@ export default function HomeScreen() {
     refetch: refetchCountries 
   } = useQuery<Country[]>({
     queryKey: ["/api/countries"],
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
   const { 
     data: popularPackages = [], 
     isError: packagesError, 
+    error: packagesErrorDetails,
     refetch: refetchPackages 
   } = useQuery<(Package & { country?: Country })[]>({
     queryKey: ["/api/packages/popular"],
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
   const { 
     data: profile, 
     isError: profileError, 
+    error: profileErrorDetails,
     refetch: refetchProfile 
   } = useQuery<{ name?: string }>({
-    queryKey: ['/api/profile']
+    queryKey: ['/api/profile'],
+    retry: 2,
+    retryDelay: 1000,
+    staleTime: 10 * 60 * 1000, // 10 minutes
   });
 
   // Fetch user's eSIMs to get active count
   const { 
     data: userEsims = [], 
     isError: esimsError, 
+    error: esimsErrorDetails,
     refetch: refetchEsims 
   } = useQuery<any[]>({
     queryKey: ['/api/esims'],
     enabled: !!profile, // Only fetch if user is logged in
+    retry: 2,
+    retryDelay: 1000,
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
   // Time-based greeting function
@@ -248,6 +263,37 @@ export default function HomeScreen() {
 
   const handleCountrySelect = (country: Country) => {
     setLocation(`/packages/${country.id}`);
+  };
+
+  // Helper function to detect error type
+  const getErrorType = (error: any): 'network' | 'server' | 'timeout' | 'generic' => {
+    if (!navigator.onLine) return 'network';
+    if (error?.code === 'NETWORK_ERROR' || error?.message?.includes('fetch')) return 'network';
+    if (error?.status >= 500) return 'server';
+    if (error?.code === 'TIMEOUT' || error?.message?.includes('timeout')) return 'timeout';
+    return 'generic';
+  };
+
+  const getErrorMessage = (error: any): string => {
+    const errorType = getErrorType(error);
+    switch (errorType) {
+      case 'network':
+        return 'Please check your internet connection and try again.';
+      case 'server':
+        return 'Our servers are experiencing issues. Please try again in a moment.';
+      case 'timeout':
+        return 'The request took too long. Please try again.';
+      default:
+        return 'Something went wrong. Please try again.';
+    }
+  };
+
+  // Global retry function
+  const handleGlobalRetry = () => {
+    refetchCountries();
+    refetchPackages();
+    refetchProfile();
+    refetchEsims();
   };
 
   const handleQuickAction = (action: string) => {
@@ -350,6 +396,28 @@ export default function HomeScreen() {
     return <OfflinePage onRetry={() => window.location.reload()} />;
   }
 
+  // Handle critical errors (countries are essential for the app)
+  const hasCriticalError = countriesError;
+  
+  // Show critical error page if essential data fails to load
+  if (hasCriticalError && !countriesLoading) {
+    return (
+      <div className="mobile-screen">
+        <NavigationBar title="eSIMfo" />
+        <div className="p-4">
+          <ErrorBoundary
+            title="Unable to Load Data"
+            message={getErrorMessage(countriesErrorDetails)}
+            type={getErrorType(countriesErrorDetails)}
+            onRetry={handleGlobalRetry}
+            onGoOffline={() => setLocation('/my-esims')}
+          />
+        </div>
+        <TabBar />
+      </div>
+    );
+  }
+  
   return (
     <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen pb-20">
       {/* Compact Header with Search */}
@@ -672,7 +740,7 @@ export default function HomeScreen() {
                     title="Connection Problem"
                     message="Unable to load destinations. Please check your internet connection and try again."
                     type="network"
-                    onRetry={() => refetchCountries()}
+                    onRetry={refetchCountries}
                   />
                 </div>
               ) : (
