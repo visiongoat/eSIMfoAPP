@@ -986,14 +986,14 @@ export default function HomeScreen() {
             
             {/* Modal Content */}
             <div 
-              className="modal-content relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 flex flex-col"
+              className="modal-content relative w-full bg-white dark:bg-gray-800 rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 flex flex-col"
               onClick={(e) => e.stopPropagation()}
               style={{ 
                 zIndex: 10000,
                 position: 'relative',
-                height: '75vh',
-                maxHeight: '75vh',
-                minHeight: '60vh'
+                height: '85vh',
+                maxHeight: '85vh',
+                minHeight: '75vh'
               }}
             >
               {/* Header - Native app style */}
@@ -1039,14 +1039,14 @@ export default function HomeScreen() {
               {/* Chat Content - Scrollable */}
               <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
                 {/* Welcome Message from Bot */}
-                <div className="bg-gray-50 rounded-2xl p-4 shadow-sm max-w-[85%]">
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-4 shadow-sm max-w-[85%]">
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#3B82F6' }}>
                       <span className="text-sm text-white">🎧</span>
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-gray-900 mb-1">eSIMfo Support</div>
-                      <div className="text-gray-700 text-sm">
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">eSIMfo Support</div>
+                      <div className="text-gray-700 dark:text-gray-300 text-sm">
                         Hello, adventurer! 🌍✨ At eSIMfo, we're here to make your travel experience epic. How can we assist you today?
                       </div>
                     </div>
@@ -1055,11 +1055,11 @@ export default function HomeScreen() {
 
                 {/* Quick Action Buttons */}
                 <div className="space-y-3">
-                  <button className="w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all text-left border border-gray-100 active:scale-[0.98]">
+                  <button className="w-full bg-white dark:bg-gray-600 rounded-xl p-4 shadow-sm hover:shadow-md transition-all text-left border border-gray-100 dark:border-gray-600 active:scale-[0.98]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <span className="text-xl">📱</span>
-                        <span className="font-medium text-gray-900 text-sm">I want an eSIM</span>
+                        <span className="font-medium text-gray-900 dark:text-gray-100 text-sm">I want an eSIM</span>
                       </div>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#3B82F6' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -1067,11 +1067,11 @@ export default function HomeScreen() {
                     </div>
                   </button>
 
-                  <button className="w-full bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-all text-left border border-gray-100 active:scale-[0.98]">
+                  <button className="w-full bg-white dark:bg-gray-600 rounded-xl p-4 shadow-sm hover:shadow-md transition-all text-left border border-gray-100 dark:border-gray-600 active:scale-[0.98]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <span className="text-xl">🛠️</span>
-                        <span className="font-medium text-gray-900 text-sm">I already purchased an eSIM</span>
+                        <span className="font-medium text-gray-900 dark:text-gray-100 text-sm">I already purchased an eSIM</span>
                       </div>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#3B82F6' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -1083,14 +1083,14 @@ export default function HomeScreen() {
 
               {/* Message Input - Fixed at bottom */}
               <div 
-                className="modal-input-area px-4 pt-4 border-t border-gray-100 flex-shrink-0"
+                className="modal-input-area px-4 pt-4 border-t border-gray-100 dark:border-gray-600 flex-shrink-0"
                 style={{ paddingBottom: '2.5rem' }}
               >
-                <div className="bg-gray-50 rounded-full shadow-sm border border-gray-200 flex items-center px-4 py-3">
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-full shadow-sm border border-gray-200 dark:border-gray-600 flex items-center px-4 py-3">
                   <input
                     type="text"
                     placeholder="Send us a message"
-                    className="flex-1 outline-none bg-transparent text-gray-700 placeholder-gray-400"
+                    className="flex-1 outline-none bg-transparent text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
                   />
                   <button className="ml-3 w-8 h-8 rounded-full flex items-center justify-center transition-colors active:scale-95" style={{ backgroundColor: '#3B82F6' }}>
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
