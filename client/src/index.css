@@ -124,6 +124,15 @@
     background-size: 200% 100%;
     animation: shimmer 3s ease-in-out infinite;
   }
+  
+  /* Force sticky navigation */
+  .tab-bar-fixed {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 99999 !important;
+  }
 
   .mobile-container {
     @apply w-full mx-auto min-h-screen relative overflow-x-hidden;
