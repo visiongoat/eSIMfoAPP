@@ -70,7 +70,6 @@ export default function TabBar() {
               background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
               boxShadow: '0 12px 32px rgba(0, 122, 255, 0.4), 0 6px 16px rgba(0, 0, 0, 0.2)',
               filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15))',
-              borderTop: '12px solid rgba(255, 255, 255, 0.7)',
             }}
           >
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
