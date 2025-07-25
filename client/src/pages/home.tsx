@@ -581,7 +581,7 @@ export default function HomeScreen() {
       </div>
 
       {/* Animated Main Content Grid */}
-      <div className="max-w-screen-md mx-auto px-4 pb-2 bg-white relative overflow-hidden mt-4">
+      <div className="max-w-screen-md mx-auto px-4 pb-2 relative overflow-hidden mt-4">
         <div 
           key={selectedTab}
           className={`transition-all duration-300 ${
