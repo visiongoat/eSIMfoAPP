@@ -9,36 +9,41 @@ export default function NotFoundPage() {
       {/* 404 Illustration */}
       <div className="mb-8">
         <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/20 dark:to-blue-800/20 rounded-full flex items-center justify-center">
-          {/* Sevimli Üzgün Surat */}
+          {/* Üzgün ve Sempatik Surat */}
           <svg width="64" height="64" viewBox="0 0 64 64" className="text-blue-500 dark:text-blue-400" fill="none">
-            {/* Sol Göz */}
-            <circle cx="20" cy="24" r="3" fill="currentColor" />
+            {/* Sol Göz - Büyük ve masum */}
+            <circle cx="19" cy="22" r="4" fill="currentColor" />
+            <circle cx="17" cy="20" r="1.5" fill="white" />
             
-            {/* Sağ Göz */}
-            <circle cx="44" cy="24" r="3" fill="currentColor" />
+            {/* Sağ Göz - Büyük ve masum */}
+            <circle cx="45" cy="22" r="4" fill="currentColor" />
+            <circle cx="43" cy="20" r="1.5" fill="white" />
             
-            {/* Üzgün Ağız */}
+            {/* Çok üzgün ağız - daha aşağı */}
             <path 
-              d="M 20 40 Q 32 48 44 40" 
+              d="M 22 42 Q 32 50 42 42" 
               stroke="currentColor" 
-              strokeWidth="3" 
+              strokeWidth="2.5" 
               strokeLinecap="round"
               fill="none"
             />
             
-            {/* Üzgün Kaşlar */}
+            {/* Daha üzgün kaşlar */}
             <path 
-              d="M 14 18 L 26 20" 
+              d="M 12 15 Q 18 18 24 16" 
               stroke="currentColor" 
-              strokeWidth="2.5" 
+              strokeWidth="2" 
               strokeLinecap="round"
             />
             <path 
-              d="M 38 20 L 50 18" 
+              d="M 40 16 Q 46 18 52 15" 
               stroke="currentColor" 
-              strokeWidth="2.5" 
+              strokeWidth="2" 
               strokeLinecap="round"
             />
+            
+            {/* Küçük burun */}
+            <circle cx="32" cy="32" r="1" fill="currentColor" />
           </svg>
         </div>
         
