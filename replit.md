@@ -88,3 +88,17 @@ The application uses PostgreSQL with the following main entities:
 - `npm run db:push`: Push database schema changes using Drizzle
 
 The application is designed to be deployed as a single Node.js application serving both the API and static frontend assets, with PostgreSQL as the database backend.
+
+## Recent Changes
+
+### Complete Dark Mode System with Auto Theme Detection (January 25, 2025)
+- Comprehensive dark mode system with theme provider and CSS variables
+- **System theme auto-detection**: Automatically detects user's device theme preference on app startup
+- **Real-time theme tracking**: Responds instantly to device theme changes while app is running
+- **Three theme options**: Light, Dark, and System (follows device setting)
+- Complete UI adaptation for home page including cards, search bar, tabs, and navigation
+- Row-based stagger animations for natural card appearance sequence
+- Tab bar and all interactive elements fully adapted for dark theme
+- Live chat modal enhanced with dark mode compatibility and improved sizing (85vh)
+- Profile page theme selector with visual indicators for current theme mode
+- localStorage persistence for user theme preferences
