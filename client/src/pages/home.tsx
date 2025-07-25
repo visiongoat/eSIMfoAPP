@@ -697,12 +697,18 @@ export default function HomeScreen() {
                   { name: 'Aruba', flagColors: ['#318CE7', '#FFCE00'], price: '€6.99' },
                   { name: 'Afghanistan', flagColors: ['#000000', '#D32011', '#FFFFFF'], price: '€7.99' },
                   { name: 'Anguilla', flagColors: ['#012169', '#FFFFFF'], price: '€8.99' }
-                ].map((country, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleCountrySelect(countries[0])}
-                    className={`bg-white rounded-xl p-3 text-left shadow-sm border border-gray-100 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${index}`}
-                  >
+                ].map((country, index) => {
+                  // Calculate row-based stagger delay for 2-column grid
+                  const row = Math.floor(index / 2);
+                  const col = index % 2;
+                  const staggerDelay = row * 2 + col; // Row priority, then column
+                  
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => handleCountrySelect(countries[0])}
+                      className={`bg-white rounded-xl p-3 text-left shadow-sm border border-gray-100 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${staggerDelay}`}
+                    >
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-6 rounded-sm overflow-hidden shadow-sm border border-gray-200 flex">
                         {country.flagColors.length === 1 ? (
@@ -726,7 +732,8 @@ export default function HomeScreen() {
                       </div>
                     </div>
                   </button>
-                ))
+                  );
+                })
               )}
             </div>
             
