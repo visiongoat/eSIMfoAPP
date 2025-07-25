@@ -66,24 +66,24 @@ export default function TabBar() {
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
           }}
         >
-          <div className="flex justify-around items-center">
+          <div className="flex items-center">
             {tabs.map((tab) => {
               const isActive = location === tab.path;
               return (
                 <button
                   key={tab.id}
                   onClick={() => handleTabClick(tab.path)}
-                  className={`flex flex-col items-center py-2.5 px-4 transition-all duration-300 transform relative group rounded-xl min-w-[64px] ${
+                  className={`flex-1 flex flex-col items-center py-2.5 px-2 transition-all duration-300 transform relative group rounded-xl ${
                     isActive 
                       ? 'scale-105' 
                       : 'active:scale-95 hover:scale-102 hover:bg-white/10'
                   }`}
                   style={{willChange: 'transform, opacity'}}
                 >
-                  {/* Elegant Active State */}
+                  {/* Full Width Active State */}
                   {isActive && (
                     <div 
-                      className="absolute inset-x-2 inset-y-1 rounded-xl transition-all duration-300 ease-out"
+                      className="absolute inset-x-1 inset-y-1 rounded-lg transition-all duration-300 ease-out"
                       style={{
                         background: 'linear-gradient(145deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%)',
                         boxShadow: '0 2px 12px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1)',
