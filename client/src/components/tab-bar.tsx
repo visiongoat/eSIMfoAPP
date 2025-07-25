@@ -59,7 +59,7 @@ export default function TabBar() {
 
 
         {/* FAB Button - floating with enhanced elevation and animations */}
-        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-30">
+        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-30">
           <button
             onClick={() => {
               hapticFeedback();
