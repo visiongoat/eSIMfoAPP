@@ -601,15 +601,18 @@ export default function HomeScreen() {
                 onClick={() => handleCountrySelect(countries[0])}
                 className="w-full relative py-4 px-6 shadow-none z-10 transition-all duration-300 border-none outline-none group overflow-hidden rounded-xl"
               >
-                {/* Germany Flag Gradient Background */}
-                <div className="absolute inset-0 flex flex-col">
-                  <div className="flex-1 bg-black opacity-20"></div>
-                  <div className="flex-1 bg-red-600 opacity-20"></div>
-                  <div className="flex-1 bg-yellow-400 opacity-20"></div>
+                {/* Germany Flag Background with Fade Effect */}
+                <div className="absolute inset-0">
+                  {/* Flag stripes with gradient fade to right */}
+                  <div className="absolute left-0 top-0 w-full h-full flex flex-col">
+                    <div className="flex-1 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
+                    <div className="flex-1 bg-gradient-to-r from-red-600/60 via-red-600/30 to-transparent"></div>
+                    <div className="flex-1 bg-gradient-to-r from-yellow-400/60 via-yellow-400/30 to-transparent"></div>
+                  </div>
                 </div>
                 
-                {/* Main blue gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/95 via-blue-600/98 to-blue-600 group-hover:from-blue-600/95 group-hover:via-blue-700/98 group-hover:to-blue-700 transition-all duration-300"></div>
+                {/* Main blue overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/70 via-blue-600/90 to-blue-600 group-hover:from-blue-600/70 group-hover:via-blue-700/90 group-hover:to-blue-700 transition-all duration-300"></div>
                 
                 {/* Content */}
                 <div className="relative z-10 text-white">
