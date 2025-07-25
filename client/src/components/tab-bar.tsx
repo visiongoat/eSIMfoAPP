@@ -59,7 +59,7 @@ export default function TabBar() {
 
 
         {/* FAB Button - floating with enhanced elevation and animations */}
-        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-30 flex flex-col items-center">
+        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-30">
           <button
             onClick={() => {
               hapticFeedback();
@@ -77,8 +77,6 @@ export default function TabBar() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
           </button>
-          {/* Add label */}
-          <span className="text-white/80 text-xs font-medium mt-1">Add</span>
         </div>
 
         {/* Tab Bar */}
@@ -93,6 +91,11 @@ export default function TabBar() {
             }}
           >
           <div className="flex items-center relative">
+            {/* Add label under FAB button */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 -top-2 z-20">
+              <span className="text-gray-600 text-xs font-medium">Add</span>
+            </div>
+            
             {/* First two tabs */}
             {tabs.slice(0, 2).map((tab, index) => {
               const isActive = location === tab.path;
