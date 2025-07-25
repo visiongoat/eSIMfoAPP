@@ -54,10 +54,11 @@ export default function TabBar() {
   };
 
   return (
-    <div className="tab-bar-fixed bg-gradient-to-t from-white via-white to-gray-50/50 backdrop-blur-md border-t border-gray-200/60 px-2 py-1 shadow-lg shadow-gray-200/40 relative" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
-      {/* Animated border accent - More subtle */}
-      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-20 animate-pulse"></div>
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-blue-400 via-purple-500 to-blue-400 animate-shimmer opacity-30"></div>
+    <div className="tab-bar-fixed px-3 pb-2" style={{paddingBottom: 'calc(env(safe-area-inset-bottom) + 8px)'}}>
+      <div className="bg-gradient-to-t from-white via-white to-gray-50/50 backdrop-blur-md border border-gray-200/40 rounded-2xl px-2 py-1 shadow-xl shadow-gray-300/20 relative mx-3" style={{backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)'}}>
+        {/* Animated border accent - More subtle */}
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-20 animate-pulse rounded-t-2xl"></div>
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-blue-400 via-purple-500 to-blue-400 animate-shimmer opacity-30 rounded-t-2xl"></div>
       <div className="flex justify-around items-center max-w-md mx-auto">
         {tabs.map((tab) => {
           const isActive = location === tab.path;
@@ -92,6 +93,7 @@ export default function TabBar() {
             </button>
           );
         })}
+      </div>
       </div>
     </div>
   );
