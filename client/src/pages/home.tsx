@@ -329,7 +329,7 @@ export default function HomeScreen() {
       {/* Compact Header with Search */}
       <div className="relative sticky top-0 z-10 py-4">
         <div className="max-w-screen-md mx-auto px-4">
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             {/* User Profile Photo */}
             <div className="w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 border-blue-500">
