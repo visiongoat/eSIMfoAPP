@@ -897,27 +897,22 @@ export default function HomeScreen() {
 
         {/* Live Chat Modal - Bottom slide-up design */}
         {showLiveChat && (
-          <div className="fixed inset-0 z-[9999] flex items-end" style={{ touchAction: 'none', top: 0, left: 0, right: 0, bottom: 0, position: 'fixed' }}>
+          <div className="modal-overlay flex items-end" style={{ touchAction: 'none' }}>
             {/* Backdrop */}
             <div 
-              className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+              className="modal-overlay bg-black/50 backdrop-blur-sm transition-opacity duration-300"
               onClick={() => setShowLiveChat(false)}
-              style={{ 
-                backdropFilter: 'blur(4px)', 
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                width: '100vw',
-                height: '100vh'
-              }}
+              style={{ backdropFilter: 'blur(4px)' }}
             />
             
             {/* Modal Content */}
             <div 
               className="relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 h-[85vh] flex flex-col"
               onClick={(e) => e.stopPropagation()}
+              style={{ 
+                zIndex: 10000,
+                position: 'relative'
+              }}
             >
               {/* Header - Native app style */}
               <div className="px-4 py-4 text-white rounded-t-3xl relative" style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)' }}>
