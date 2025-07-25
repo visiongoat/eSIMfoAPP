@@ -11,29 +11,28 @@ export default function NotFoundPage() {
         <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/20 dark:to-blue-800/20 rounded-full flex items-center justify-center">
           {/* Pixel Art Üzgün Surat */}
           <svg width="64" height="64" viewBox="0 0 64 64" className="text-blue-500 dark:text-blue-400">
-            {/* Sol Göz */}
-            <rect x="18" y="20" width="6" height="6" fill="currentColor" />
-            <rect x="18" y="26" width="2" height="2" fill="currentColor" />
-            <rect x="22" y="26" width="2" height="2" fill="currentColor" />
+            {/* Sol Göz - X şekli */}
+            <rect x="16" y="18" width="3" height="3" fill="currentColor" />
+            <rect x="19" y="21" width="3" height="3" fill="currentColor" />
+            <rect x="22" y="24" width="3" height="3" fill="currentColor" />
+            <rect x="19" y="24" width="3" height="3" fill="currentColor" />
+            <rect x="16" y="21" width="3" height="3" fill="currentColor" />
             
-            {/* Sağ Göz */}
-            <rect x="40" y="20" width="6" height="6" fill="currentColor" />
-            <rect x="40" y="26" width="2" height="2" fill="currentColor" />
-            <rect x="44" y="26" width="2" height="2" fill="currentColor" />
+            {/* Sağ Göz - X şekli */}
+            <rect x="39" y="18" width="3" height="3" fill="currentColor" />
+            <rect x="42" y="21" width="3" height="3" fill="currentColor" />
+            <rect x="45" y="24" width="3" height="3" fill="currentColor" />
+            <rect x="42" y="24" width="3" height="3" fill="currentColor" />
+            <rect x="39" y="21" width="3" height="3" fill="currentColor" />
             
-            {/* Burun */}
-            <rect x="30" y="30" width="4" height="4" fill="currentColor" />
-            
-            {/* Üzgün Ağız - Ters U şekli (daha büyük) */}
-            <rect x="20" y="44" width="4" height="2" fill="currentColor" />
-            <rect x="24" y="46" width="2" height="2" fill="currentColor" />
-            <rect x="26" y="48" width="2" height="2" fill="currentColor" />
-            <rect x="28" y="50" width="2" height="2" fill="currentColor" />
-            <rect x="30" y="51" width="4" height="2" fill="currentColor" />
-            <rect x="34" y="50" width="2" height="2" fill="currentColor" />
-            <rect x="36" y="48" width="2" height="2" fill="currentColor" />
-            <rect x="38" y="46" width="2" height="2" fill="currentColor" />
-            <rect x="40" y="44" width="4" height="2" fill="currentColor" />
+            {/* Üzgün Ağız - Ters U şekli */}
+            <rect x="22" y="42" width="3" height="3" fill="currentColor" />
+            <rect x="25" y="45" width="3" height="3" fill="currentColor" />
+            <rect x="28" y="47" width="3" height="3" fill="currentColor" />
+            <rect x="31" y="48" width="3" height="3" fill="currentColor" />
+            <rect x="34" y="47" width="3" height="3" fill="currentColor" />
+            <rect x="37" y="45" width="3" height="3" fill="currentColor" />
+            <rect x="40" y="42" width="3" height="3" fill="currentColor" />
           </svg>
         </div>
         
