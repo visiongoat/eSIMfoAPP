@@ -65,16 +65,16 @@ export default function TabBar() {
             <button
               key={tab.id}
               onClick={() => handleTabClick(tab.path)}
-              className={`flex flex-col items-center py-2 px-3 transition-all duration-300 transform relative group tab-ripple ${
+              className={`flex flex-col items-center py-2 px-3 transition-all duration-300 transform relative group tab-ripple rounded-xl ${
                 isActive 
-                  ? 'bg-blue-50/90 scale-105 border border-blue-200/50 rounded-xl shadow-sm' 
-                  : 'hover:bg-gray-50/60 active:scale-95 hover:shadow-sm rounded-xl'
+                  ? 'bg-gradient-to-b from-blue-50/70 to-blue-100/40 scale-105 shadow-inner' 
+                  : 'hover:bg-gray-50/60 active:scale-95 hover:shadow-sm'
               }`}
               style={{willChange: 'transform, opacity'}}
             >
-              {/* Clean active indicator */}
+              {/* Subtle inner glow for depth */}
               {isActive && (
-                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-blue-500 rounded-full"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-blue-50/40 to-blue-100/60 rounded-xl"></div>
               )}
               
               <div className={`mb-1 transition-all duration-300 ${isActive ? 'scale-110 animate-bounce-subtle' : 'group-hover:scale-105'}`} style={{transform: 'translate3d(0,0,0)'}}>
