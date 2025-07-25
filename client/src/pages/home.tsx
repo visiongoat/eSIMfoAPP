@@ -13,6 +13,23 @@ import type { Country, Package } from "@shared/schema";
 export default function HomeScreen() {
   const [, setLocation] = useLocation();
   const [selectedTab, setSelectedTab] = useState('local');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Handle tab change with smooth animation
+  const handleTabChange = (newTab: string) => {
+    if (newTab === selectedTab || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    // Fade out current content, then switch tab
+    setTimeout(() => {
+      setSelectedTab(newTab);
+      // Fade in new content
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 150);
+    }, 150);
+  };
   const [placeholderText, setPlaceholderText] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [showLiveChat, setShowLiveChat] = useState(false);
@@ -197,6 +214,8 @@ export default function HomeScreen() {
     }
   };
 
+
+
   // Filter countries based on selected tab
   const getFilteredCountries = () => {
     switch (selectedTab) {
@@ -275,6 +294,8 @@ export default function HomeScreen() {
   };
 
   const searchResults = getEnhancedSearchResults();
+
+
 
   return (
     <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen">
@@ -501,7 +522,7 @@ export default function HomeScreen() {
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setSelectedTab(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform relative group ${
                   selectedTab === tab.id
                     ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
@@ -532,8 +553,16 @@ export default function HomeScreen() {
         </div>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="max-w-screen-md mx-auto px-4 pb-2 space-y-6 bg-white">
+      {/* Animated Main Content Grid */}
+      <div className="max-w-screen-md mx-auto px-4 pb-2 space-y-6 bg-white relative overflow-hidden">
+        <div 
+          key={selectedTab}
+          className={`transition-all duration-300 ${
+            isTransitioning 
+              ? 'opacity-40 scale-[0.98]' 
+              : 'opacity-100 scale-100'
+          }`}
+        >
         {selectedTab === 'local' ? (
           <div className="space-y-4">
             {/* User's Local Country - Compact */}
@@ -1047,6 +1076,7 @@ export default function HomeScreen() {
             </div>
           </div>
         )}
+      </div>
 
       {/* How Does eSIMfo Work - Compact Button */}
       <div className="max-w-screen-md mx-auto px-4 py-4">
