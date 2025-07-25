@@ -9,56 +9,36 @@ export default function NotFoundPage() {
       {/* 404 Illustration */}
       <div className="mb-8">
         <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/20 dark:to-blue-800/20 rounded-full flex items-center justify-center">
-          {/* Pixel Art Üzgün Surat - Sanatsal */}
-          <svg width="64" height="64" viewBox="0 0 64 64" className="text-blue-500 dark:text-blue-400">
-            {/* Sol Kaş - Üzgün */}
-            <rect x="14" y="14" width="2" height="2" fill="currentColor" />
-            <rect x="16" y="15" width="2" height="2" fill="currentColor" />
-            <rect x="18" y="16" width="2" height="2" fill="currentColor" />
-            <rect x="20" y="17" width="2" height="2" fill="currentColor" />
+          {/* Sevimli Üzgün Surat */}
+          <svg width="64" height="64" viewBox="0 0 64 64" className="text-blue-500 dark:text-blue-400" fill="none">
+            {/* Sol Göz */}
+            <circle cx="20" cy="24" r="3" fill="currentColor" />
             
-            {/* Sağ Kaş - Üzgün */}
-            <rect x="42" y="17" width="2" height="2" fill="currentColor" />
-            <rect x="44" y="16" width="2" height="2" fill="currentColor" />
-            <rect x="46" y="15" width="2" height="2" fill="currentColor" />
-            <rect x="48" y="14" width="2" height="2" fill="currentColor" />
+            {/* Sağ Göz */}
+            <circle cx="44" cy="24" r="3" fill="currentColor" />
             
-            {/* Sol Göz - Kapalı/Üzgün */}
-            <rect x="16" y="22" width="2" height="2" fill="currentColor" />
-            <rect x="18" y="23" width="2" height="2" fill="currentColor" />
-            <rect x="20" y="24" width="2" height="2" fill="currentColor" />
-            <rect x="22" y="23" width="2" height="2" fill="currentColor" />
-            <rect x="24" y="22" width="2" height="2" fill="currentColor" />
+            {/* Üzgün Ağız */}
+            <path 
+              d="M 20 40 Q 32 48 44 40" 
+              stroke="currentColor" 
+              strokeWidth="3" 
+              strokeLinecap="round"
+              fill="none"
+            />
             
-            {/* Sol Gözyaşı */}
-            <rect x="20" y="26" width="2" height="2" fill="currentColor" />
-            <rect x="20" y="28" width="2" height="2" fill="currentColor" />
-            <rect x="20" y="30" width="2" height="2" fill="currentColor" />
-            
-            {/* Sağ Göz - Kapalı/Üzgün */}
-            <rect x="38" y="22" width="2" height="2" fill="currentColor" />
-            <rect x="40" y="23" width="2" height="2" fill="currentColor" />
-            <rect x="42" y="24" width="2" height="2" fill="currentColor" />
-            <rect x="44" y="23" width="2" height="2" fill="currentColor" />
-            <rect x="46" y="22" width="2" height="2" fill="currentColor" />
-            
-            {/* Sağ Gözyaşı */}
-            <rect x="42" y="26" width="2" height="2" fill="currentColor" />
-            <rect x="42" y="28" width="2" height="2" fill="currentColor" />
-            <rect x="42" y="30" width="2" height="2" fill="currentColor" />
-            
-            {/* Burun */}
-            <rect x="30" y="32" width="2" height="2" fill="currentColor" />
-            <rect x="32" y="34" width="2" height="2" fill="currentColor" />
-            
-            {/* Üzgün Ağız - Daha detaylı ters U */}
-            <rect x="26" y="44" width="2" height="2" fill="currentColor" />
-            <rect x="28" y="46" width="2" height="2" fill="currentColor" />
-            <rect x="30" y="47" width="2" height="2" fill="currentColor" />
-            <rect x="32" y="48" width="2" height="2" fill="currentColor" />
-            <rect x="34" y="47" width="2" height="2" fill="currentColor" />
-            <rect x="36" y="46" width="2" height="2" fill="currentColor" />
-            <rect x="38" y="44" width="2" height="2" fill="currentColor" />
+            {/* Üzgün Kaşlar */}
+            <path 
+              d="M 14 18 L 26 20" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round"
+            />
+            <path 
+              d="M 38 20 L 50 18" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round"
+            />
           </svg>
         </div>
         
