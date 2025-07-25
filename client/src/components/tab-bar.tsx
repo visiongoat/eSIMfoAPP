@@ -58,7 +58,7 @@ export default function TabBar() {
       <div className="max-w-md mx-auto relative">
 
 
-        {/* FAB Button - positioned above the notch */}
+        {/* FAB Button - elevated above the bar */}
         <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-30">
           <button
             onClick={() => {
@@ -77,8 +77,9 @@ export default function TabBar() {
           </button>
         </div>
 
-        {/* Tab Bar with semicircle notch cutout */}
+        {/* Tab Bar with convex arc that hugs the FAB */}
         <div className="relative z-10">
+          {/* Main tab bar */}
           <div 
             className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative"
             style={{
@@ -86,9 +87,19 @@ export default function TabBar() {
               WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
               boxShadow: '0 -8px 32px -8px rgba(0, 0, 0, 0.15), 0 -4px 16px -4px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-              clipPath: 'polygon(0% 0%, 30% 0%, 35% 10%, 40% 25%, 45% 35%, 50% 40%, 55% 35%, 60% 25%, 65% 10%, 70% 0%, 100% 0%, 100% 100%, 0% 100%)',
             }}
           >
+            {/* Convex arc overlay that wraps behind FAB */}
+            <div 
+              className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-20 h-8 z-20"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
+                borderRadius: '0 0 50% 50%',
+                backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+                WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+                boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
+              }}
+            ></div>
           <div className="flex items-center relative">
             {/* First two tabs */}
             {tabs.slice(0, 2).map((tab, index) => {
