@@ -107,6 +107,21 @@
     width: 200px;
     height: 200px;
   }
+  
+  /* Animated border accent */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .animate-shimmer {
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
 
   .mobile-container {
     @apply w-full mx-auto min-h-screen relative overflow-x-hidden;
