@@ -9,8 +9,31 @@ export default function NotFoundPage() {
       {/* 404 Illustration */}
       <div className="mb-8">
         <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/20 dark:to-blue-800/20 rounded-full flex items-center justify-center">
-          <svg className="w-16 h-16 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47.901-6.064 2.379l-.833-.14C4.446 16.687 4 16.144 4 15.5c0-1.096.89-2 2-2h12c1.11 0 2 .904 2 2 0 .644-.446 1.187-1.103 1.739l-.833.14z" />
+          {/* Pixel Art Üzgün Surat */}
+          <svg width="64" height="64" viewBox="0 0 64 64" className="text-blue-500 dark:text-blue-400">
+            {/* Sol Göz */}
+            <rect x="18" y="20" width="6" height="6" fill="currentColor" />
+            <rect x="18" y="26" width="2" height="2" fill="currentColor" />
+            <rect x="22" y="26" width="2" height="2" fill="currentColor" />
+            
+            {/* Sağ Göz */}
+            <rect x="40" y="20" width="6" height="6" fill="currentColor" />
+            <rect x="40" y="26" width="2" height="2" fill="currentColor" />
+            <rect x="44" y="26" width="2" height="2" fill="currentColor" />
+            
+            {/* Burun */}
+            <rect x="30" y="30" width="4" height="4" fill="currentColor" />
+            
+            {/* Üzgün Ağız - Ters U şekli (daha büyük) */}
+            <rect x="20" y="44" width="4" height="2" fill="currentColor" />
+            <rect x="24" y="46" width="2" height="2" fill="currentColor" />
+            <rect x="26" y="48" width="2" height="2" fill="currentColor" />
+            <rect x="28" y="50" width="2" height="2" fill="currentColor" />
+            <rect x="30" y="51" width="4" height="2" fill="currentColor" />
+            <rect x="34" y="50" width="2" height="2" fill="currentColor" />
+            <rect x="36" y="48" width="2" height="2" fill="currentColor" />
+            <rect x="38" y="46" width="2" height="2" fill="currentColor" />
+            <rect x="40" y="44" width="4" height="2" fill="currentColor" />
           </svg>
         </div>
         
