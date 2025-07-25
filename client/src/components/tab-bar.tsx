@@ -54,15 +54,15 @@ export default function TabBar() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 px-4" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
+    <div className="fixed bottom-0 left-0 right-0 z-50" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
       <div className="max-w-md mx-auto">
-        {/* Modern Floating Glassmorphism Container */}
+        {/* Full Width Glassmorphism Container */}
         <div 
-          className="bg-white/20 backdrop-blur-2xl rounded-2xl px-3 py-2.5 shadow-2xl border border-white/30"
+          className="bg-white/20 backdrop-blur-2xl px-3 py-2.5 shadow-2xl border-t border-white/30"
           style={{
             backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 8px 32px -8px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 -8px 32px -8px rgba(0, 0, 0, 0.15), 0 -4px 16px -4px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
           }}
         >
