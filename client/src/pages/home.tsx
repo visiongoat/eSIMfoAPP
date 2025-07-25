@@ -105,14 +105,18 @@ export default function HomeScreen() {
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = '0';
       document.body.style.right = '0';
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       
       return () => {
         document.body.style.position = '';
         document.body.style.top = '';
         document.body.style.left = '';
         document.body.style.right = '';
+        document.body.style.width = '';
         document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
         window.scrollTo(0, scrollY);
       };
     }
@@ -893,12 +897,21 @@ export default function HomeScreen() {
 
         {/* Live Chat Modal - Bottom slide-up design */}
         {showLiveChat && (
-          <div className="fixed inset-0 z-[9999] flex items-end" style={{ touchAction: 'none' }}>
+          <div className="fixed inset-0 z-[9999] flex items-end" style={{ touchAction: 'none', top: 0, left: 0, right: 0, bottom: 0, position: 'fixed' }}>
             {/* Backdrop */}
             <div 
               className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
               onClick={() => setShowLiveChat(false)}
-              style={{ backdropFilter: 'blur(4px)' }}
+              style={{ 
+                backdropFilter: 'blur(4px)', 
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                width: '100vw',
+                height: '100vh'
+              }}
             />
             
             {/* Modal Content */}
