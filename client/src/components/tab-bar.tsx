@@ -78,19 +78,8 @@ export default function TabBar() {
           </button>
         </div>
 
-        {/* Tab Bar with unified curve */}
+        {/* Tab Bar with perfect curve integration like the reference */}
         <div className="relative z-10">
-          {/* Tall extended vertical curve */}
-          <div 
-            className="absolute left-1/2 transform -translate-x-1/2 w-24 h-16 -top-7 z-5"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-              borderRadius: '50% 50% 0 0',
-              backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
-              WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
-            }}
-          ></div>
-          
           <div 
             className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative z-10"
             style={{
@@ -100,6 +89,16 @@ export default function TabBar() {
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
             }}
           >
+            {/* Curved bridge that goes over the FAB button */}
+            <div 
+              className="absolute left-1/2 transform -translate-x-1/2 w-20 h-3 -top-3 z-20"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
+                borderRadius: '0 0 50% 50%',
+                backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+                WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+              }}
+            ></div>
           <div className="flex items-center relative">
             {/* First two tabs */}
             {tabs.slice(0, 2).map((tab, index) => {
