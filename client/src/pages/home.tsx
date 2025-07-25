@@ -10,6 +10,7 @@ import TabBar from "@/components/tab-bar";
 import CountryCard from "@/components/country-card";
 import SkeletonCard from "@/components/skeleton-card";
 import ErrorBoundary from "@/components/error-boundary";
+import OfflinePage from "@/components/offline-page";
 
 import type { Country, Package } from "@shared/schema";
 
@@ -344,7 +345,10 @@ export default function HomeScreen() {
 
   const searchResults = getEnhancedSearchResults();
 
-
+  // Show offline page when user is offline
+  if (!isOnline) {
+    return <OfflinePage onRetry={() => window.location.reload()} />;
+  }
 
   return (
     <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen pb-20">
