@@ -73,14 +73,8 @@ export default function TabBar() {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-blue-600/20 to-blue-500/10 rounded-xl blur-sm opacity-60 animate-pulse"></div>
               )}
               
-              <div className={`mb-1 transition-all duration-300 relative ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
+              <div className={`mb-1 transition-all duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}>
                 {tab.icon(isActive)}
-                {/* Premium badge for My eSIMs */}
-                {tab.id === 'my-esims' && (
-                  <div className="absolute -top-1 -right-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg animate-pulse">
-                    3
-                  </div>
-                )}
               </div>
               <span className={`text-xs font-medium transition-all duration-300 ${
                 isActive ? 'text-blue-600 font-semibold' : 'text-gray-500 group-hover:text-gray-700'
