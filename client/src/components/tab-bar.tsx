@@ -66,8 +66,9 @@ export default function TabBar() {
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
           }}
         >
-          <div className="flex items-center">
-            {tabs.map((tab) => {
+          <div className="flex items-center relative">
+            {/* First two tabs */}
+            {tabs.slice(0, 2).map((tab, index) => {
               const isActive = location === tab.path;
               return (
                 <button
@@ -80,8 +81,6 @@ export default function TabBar() {
                   }`}
                   style={{willChange: 'transform, opacity'}}
                 >
-
-                  
                   {/* Icon Container */}
                   <div className={`mb-1 transition-all duration-300 relative z-10 ${
                     isActive ? 'scale-110' : 'group-hover:scale-105'
@@ -95,6 +94,62 @@ export default function TabBar() {
                       {tab.id === 'my-esims' && (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                       )}
+                    </svg>
+                  </div>
+                  
+                  {/* Label */}
+                  <span className={`text-xs font-medium transition-all duration-300 relative z-10 ${
+                    isActive ? 'text-blue-500 font-semibold hover:text-blue-600' : 'text-gray-800 group-hover:text-gray-900'
+                  }`}>
+                    {tab.label}
+                  </span>
+                  
+                  {/* Ripple Effect */}
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-active:opacity-20 group-active:scale-110 transition-all duration-200 bg-blue-400/30"></div>
+                </button>
+              );
+            })}
+            
+            {/* Central FAB Button */}
+            <div className="flex-1 flex justify-center items-center relative">
+              <button
+                onClick={() => {
+                  hapticFeedback();
+                  // Add your FAB action here
+                }}
+                className="w-14 h-14 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95 relative -top-3 flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
+                  boxShadow: '0 6px 20px rgba(0, 122, 255, 0.4), 0 2px 8px rgba(0, 0, 0, 0.1)',
+                }}
+              >
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </button>
+            </div>
+            
+            {/* Last two tabs */}
+            {tabs.slice(2, 4).map((tab, index) => {
+              const isActive = location === tab.path;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabClick(tab.path)}
+                  className={`flex-1 flex flex-col items-center py-1.5 px-2 transition-all duration-300 transform relative group rounded-xl ${
+                    isActive 
+                      ? 'scale-105' 
+                      : 'active:scale-95 hover:scale-102 hover:bg-white/10'
+                  }`}
+                  style={{willChange: 'transform, opacity'}}
+                >
+                  {/* Icon Container */}
+                  <div className={`mb-1 transition-all duration-300 relative z-10 ${
+                    isActive ? 'scale-110' : 'group-hover:scale-105'
+                  }`}>
+                    <svg className={`w-5 h-5 transition-all duration-300 ${
+                      isActive ? 'text-blue-500 hover:text-blue-600' : 'text-gray-700 group-hover:text-gray-900'
+                    }`} fill={isActive ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                       {tab.id === 'guides' && (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       )}
