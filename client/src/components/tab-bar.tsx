@@ -56,27 +56,10 @@ export default function TabBar() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
       <div className="max-w-md mx-auto relative">
-        {/* FAB Button - positioned above tab bar */}
-        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10">
-          <button
-            onClick={() => {
-              hapticFeedback();
-              // Add your FAB action here
-            }}
-            className="w-14 h-14 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center"
-            style={{
-              background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
-              boxShadow: '0 8px 24px rgba(0, 122, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15)',
-            }}
-          >
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-          </button>
-        </div>
+
 
         {/* Tab Bar with curved bump around FAB */}
-        <div className="relative z-20">
+        <div className="relative z-10">
           {/* Main tab bar */}
           <div 
             className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative"
@@ -97,6 +80,25 @@ export default function TabBar() {
                 WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
               }}
             ></div>
+
+            {/* FAB Button - centered on top of tab bar */}
+            <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-30">
+              <button
+                onClick={() => {
+                  hapticFeedback();
+                  // Add your FAB action here
+                }}
+                className="w-14 h-14 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
+                  boxShadow: '0 8px 24px rgba(0, 122, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15)',
+                }}
+              >
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </button>
+            </div>
           <div className="flex items-center relative">
             {/* First two tabs */}
             {tabs.slice(0, 2).map((tab, index) => {
