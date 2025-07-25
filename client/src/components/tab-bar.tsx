@@ -80,9 +80,9 @@ export default function TabBar() {
 
         {/* Tab Bar with unified curve */}
         <div className="relative z-10">
-          {/* Invisible seamless curve extension */}
+          {/* Extended vertical curve */}
           <div 
-            className="absolute left-1/2 transform -translate-x-1/2 w-24 h-6 -top-4 z-5"
+            className="absolute left-1/2 transform -translate-x-1/2 w-24 h-12 -top-10 z-5"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
               borderRadius: '50% 50% 0 0',
