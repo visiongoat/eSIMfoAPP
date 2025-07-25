@@ -58,18 +58,19 @@ export default function TabBar() {
       <div className="max-w-md mx-auto relative">
 
 
-        {/* FAB Button - floating with enhanced elevation */}
+        {/* FAB Button - floating with enhanced elevation and animations */}
         <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-30">
           <button
             onClick={() => {
               hapticFeedback();
               // Add your FAB action here
             }}
-            className="w-14 h-14 rounded-full transform transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center"
+            className="fab-button w-14 h-14 rounded-full transform transition-all duration-300 hover:scale-110 active:scale-90 flex items-center justify-center group"
             style={{
               background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
               boxShadow: '0 12px 32px rgba(0, 122, 255, 0.45), 0 6px 16px rgba(0, 0, 0, 0.2)',
               filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15))',
+              animation: 'pulse-glow 3s ease-in-out infinite',
             }}
           >
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
