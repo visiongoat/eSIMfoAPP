@@ -58,17 +58,18 @@ export default function TabBar() {
       <div className="max-w-md mx-auto relative">
 
 
-        {/* FAB Button - elevated above the bar */}
+        {/* FAB Button - floating with enhanced elevation */}
         <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-30">
           <button
             onClick={() => {
               hapticFeedback();
               // Add your FAB action here
             }}
-            className="w-14 h-14 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center"
+            className="w-14 h-14 rounded-full transform transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center"
             style={{
               background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
-              boxShadow: '0 8px 24px rgba(0, 122, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15)',
+              boxShadow: '0 12px 32px rgba(0, 122, 255, 0.4), 0 6px 16px rgba(0, 0, 0, 0.2)',
+              filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15))',
             }}
           >
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,16 +78,26 @@ export default function TabBar() {
           </button>
         </div>
 
-        {/* Tab Bar with perfect semi-circle cutout */}
+        {/* Tab Bar with upward semi-circle bump */}
         <div className="relative z-10">
+          {/* Upward bump background */}
           <div 
-            className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative"
+            className="absolute left-1/2 transform -translate-x-1/2 w-20 h-10 -top-10 z-20"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
+              borderRadius: '50% 50% 0 0',
+              backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+              WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+            }}
+          ></div>
+          
+          <div 
+            className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative z-10"
             style={{
               backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
               WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
               boxShadow: '0 -8px 32px -8px rgba(0, 0, 0, 0.15), 0 -4px 16px -4px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-              clipPath: 'polygon(0 0, 35% 0, 40% 15%, 45% 25%, 50% 30%, 55% 25%, 60% 15%, 65% 0, 100% 0, 100% 100%, 0 100%)',
             }}
           >
           <div className="flex items-center relative">
