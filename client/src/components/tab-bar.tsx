@@ -80,12 +80,12 @@ export default function TabBar() {
 
         {/* Tab Bar with seamless upward curve integration */}
         <div className="relative z-10">
-          {/* Perfect semicircle supporting FAB button */}
+          {/* Wide semicircle with extended sides */}
           <div 
-            className="absolute left-1/2 transform -translate-x-1/2 w-20 h-10 -top-8 z-20"
+            className="absolute left-1/2 transform -translate-x-1/2 w-32 h-10 -top-8 z-20"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-              borderRadius: '50px 50px 0 0',
+              borderRadius: '80px 80px 0 0',
               backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
               WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             }}
