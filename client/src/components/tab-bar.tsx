@@ -56,8 +56,8 @@ export default function TabBar() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
       <div className="max-w-md mx-auto relative">
-        {/* Floating FAB Button - positioned above tab bar */}
-        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
+        {/* FAB Button - positioned to sit in the notch */}
+        <div className="absolute -top-5 left-1/2 transform -translate-x-1/2 z-20">
           <button
             onClick={() => {
               hapticFeedback();
@@ -75,15 +75,15 @@ export default function TabBar() {
           </button>
         </div>
 
-        {/* Tab Bar with oval cutout at top center */}
+        {/* Tab Bar with curved notch cut into top edge */}
         <div 
-          className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative"
+          className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative overflow-visible"
           style={{
             backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             boxShadow: '0 -8px 32px -8px rgba(0, 0, 0, 0.15), 0 -4px 16px -4px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
-            clipPath: 'polygon(0% 0%, 35% 0%, 40% 30%, 45% 50%, 50% 60%, 55% 50%, 60% 30%, 65% 0%, 100% 0%, 100% 100%, 0% 100%)',
+            clipPath: 'polygon(0% 0%, 30% 0%, 35% 15%, 40% 25%, 45% 35%, 50% 40%, 55% 35%, 60% 25%, 65% 15%, 70% 0%, 100% 0%, 100% 100%, 0% 100%)',
           }}
         >
           <div className="flex items-center relative">
