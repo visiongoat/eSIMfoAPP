@@ -47,15 +47,24 @@
   --card-foreground: hsl(0, 0%, 98%);
   --border: hsl(240, 3.7%, 15.9%);
   --input: hsl(240, 3.7%, 15.9%);
-  --primary: hsl(240, 100%, 50%);
+  --primary: hsl(207, 90%, 54%);
   --primary-foreground: hsl(0, 0%, 98%);
   --secondary: hsl(142, 76%, 36%);
-  --secondary-foreground: hsl(355.7, 100%, 97.3%);
+  --secondary-foreground: hsl(0, 0%, 98%);
   --accent: hsl(240, 3.7%, 15.9%);
   --accent-foreground: hsl(0, 0%, 98%);
   --destructive: hsl(0, 62.8%, 30.6%);
   --destructive-foreground: hsl(0, 0%, 98%);
   --ring: hsl(240, 4.9%, 83.9%);
+  
+  /* Mobile-specific dark colors */
+  --mobile-bg: hsl(240, 10%, 8%);
+  --mobile-card: hsl(240, 5%, 12%);
+  --mobile-border: hsl(240, 3.7%, 15.9%);
+  --tab-bg: hsl(240, 5%, 10%);
+  --status-bar: hsl(0, 0%, 100%);
+  --gradient-start: hsl(264, 83%, 70%);
+  --gradient-end: hsl(219, 100%, 61%);
 }
 
 @layer base {

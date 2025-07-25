@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import EsimfoLogo from "@/components/esimfo-logo";
+import { useTheme } from "@/contexts/theme-context";
 import type { User } from "@shared/schema";
 
 export default function ProfileScreen() {
@@ -10,13 +11,15 @@ export default function ProfileScreen() {
     queryKey: ["/api/profile"],
   });
 
+  const { theme, toggleTheme } = useTheme();
+
   const profileSections = [
     {
       title: "Account Settings",
       items: [
         { icon: "👤", label: "Personal Information", hasArrow: true },
         { icon: "💳", label: "Payment Methods", hasArrow: true },
-        { icon: "🌙", label: "Dark Mode", hasToggle: true, enabled: false },
+        { icon: "🌙", label: "Dark Mode", hasToggle: true, enabled: theme === 'dark' },
         { icon: "🔔", label: "Notifications", hasToggle: true, enabled: true },
         { icon: "🔒", label: "Privacy & Security", hasArrow: true },
       ]
@@ -73,7 +76,19 @@ export default function ProfileScreen() {
             <h3 className="font-semibold mb-3">{section.title}</h3>
             <div className="space-y-3">
               {section.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="flex items-center justify-between py-2">
+                <div 
+                  key={itemIndex} 
+                  className={`flex items-center justify-between py-2 ${
+                    'hasToggle' in item && item.hasToggle && item.label === 'Dark Mode' 
+                      ? 'cursor-pointer' 
+                      : ''
+                  }`}
+                  onClick={() => {
+                    if ('hasToggle' in item && item.hasToggle && item.label === 'Dark Mode') {
+                      toggleTheme();
+                    }
+                  }}
+                >
                   <div className="flex items-center space-x-3">
                     <span className="text-lg">{item.icon}</span>
                     <span>{item.label}</span>
@@ -85,8 +100,8 @@ export default function ProfileScreen() {
                   
                   {'hasToggle' in item && item.hasToggle && (
                     <div className="flex items-center space-x-2">
-                      <div className={`w-10 h-6 rounded-full relative ${
-                        'enabled' in item && item.enabled ? 'bg-primary' : 'bg-gray-300'
+                      <div className={`w-10 h-6 rounded-full relative transition-all duration-200 ${
+                        'enabled' in item && item.enabled ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-600'
                       }`}>
                         <div className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-all duration-200 ${
                           'enabled' in item && item.enabled ? 'right-0.5' : 'left-0.5'

@@ -123,7 +123,7 @@ export default function TabBar() {
                   
                   {/* Label */}
                   <span className={`text-xs font-medium transition-all duration-300 relative z-10 ${
-                    isActive ? 'text-blue-500 font-semibold hover:text-blue-600' : 'text-gray-800 group-hover:text-gray-900'
+                    isActive ? 'text-blue-500 font-semibold hover:text-blue-600' : 'text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-gray-100'
                   }`}>
                     {tab.label}
                   </span>
@@ -169,7 +169,7 @@ export default function TabBar() {
                   
                   {/* Label */}
                   <span className={`text-xs font-medium transition-all duration-300 relative z-10 ${
-                    isActive ? 'text-blue-500 font-semibold hover:text-blue-600' : 'text-gray-800 group-hover:text-gray-900'
+                    isActive ? 'text-blue-500 font-semibold hover:text-blue-600' : 'text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-gray-100'
                   }`}>
                     {tab.label}
                   </span>

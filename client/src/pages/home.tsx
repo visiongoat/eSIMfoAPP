@@ -351,7 +351,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen pb-20">
+    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen pb-20">
       {/* Compact Header with Search */}
       <div className="relative sticky top-0 z-10 py-4">
         <div className="max-w-screen-md mx-auto px-4">
@@ -376,15 +376,15 @@ export default function HomeScreen() {
             {/* Hello, Guest/User Text */}
             <div>
               <div className="flex items-center">
-                <span className="text-lg font-medium text-gray-700">Hello, </span>
-                <span className="text-lg font-semibold text-blue-600">
+                <span className="text-lg font-medium text-gray-700 dark:text-gray-300">Hello, </span>
+                <span className="text-lg font-semibold text-blue-600 dark:text-blue-400">
                   {profile?.name || 'Guest user'}
                 </span>
               </div>
               {/* Time-based greeting */}
               <div className="flex items-center space-x-1 mt-0.5">
                 <span className="text-xs">{greeting.icon}</span>
-                <span className="text-xs text-gray-500 font-medium">{greeting.text}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">{greeting.text}</span>
               </div>
             </div>
           </div>
@@ -419,7 +419,7 @@ export default function HomeScreen() {
       {/* Enhanced Search Bar with Smart Features - Fixed positioning */}
       <div className="max-w-screen-md mx-auto px-4 mb-4">
         <div className="relative z-[9999]">
-          <div className="bg-white rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg focus-within:shadow-xl focus-within:border-blue-500 focus-within:border-2 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 group">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg focus-within:shadow-xl focus-within:border-blue-500 focus-within:border-2 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group">
             {/* Animated Search Icon */}
             <div className="relative">
               <svg className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 group-focus-within:scale-110 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -433,7 +433,7 @@ export default function HomeScreen() {
               type="text"
               value={searchQuery}
               placeholder={searchQuery ? "Type country name..." : placeholderText}
-              className="text-gray-700 text-base flex-1 outline-none bg-transparent placeholder-gray-500 font-medium"
+              className="text-gray-700 dark:text-gray-300 text-base flex-1 outline-none bg-transparent placeholder-gray-500 dark:placeholder-gray-400 font-medium"
               onChange={(e) => {
                 setSearchQuery(e.target.value);
                 setShowSearchResults(e.target.value.length > 0);
@@ -485,7 +485,7 @@ export default function HomeScreen() {
 
           {/* Mobile Search Results */}
           {showSearchResults && searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 bg-white rounded-xl shadow-xl border border-gray-200 mt-1 z-[9999] overflow-hidden" style={{position: 'absolute', zIndex: 99999}}>
+            <div className="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 mt-1 z-[9999] overflow-hidden" style={{position: 'absolute', zIndex: 99999}}>
               {searchResults.map((country, index) => {
                 // Create flag emoji from country code
                 const getFlagEmoji = (code: string) => {
@@ -546,7 +546,7 @@ export default function HomeScreen() {
 
       {/* Modern Pill-Style Tabs - Matched spacing */}
         <div className="max-w-screen-md mx-auto px-4 -mb-2">
-          <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40">
+          <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40">
             {[
               { 
                 id: 'local', 
@@ -586,7 +586,7 @@ export default function HomeScreen() {
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform relative group ${
                   selectedTab === tab.id
                     ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
-                    : 'text-gray-600 hover:text-gray-800 hover:bg-white/80 hover:shadow-md hover:scale-102 active:scale-95'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-gray-600/80 hover:shadow-md hover:scale-102 active:scale-95'
                 }`}
                 style={{willChange: 'transform'}}
               >
@@ -707,7 +707,7 @@ export default function HomeScreen() {
                     <button
                       key={index}
                       onClick={() => handleCountrySelect(countries[0])}
-                      className={`bg-white rounded-xl p-3 text-left shadow-sm border border-gray-100 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${staggerDelay}`}
+                      className={`bg-white dark:bg-gray-800 rounded-xl p-3 text-left shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${staggerDelay}`}
                     >
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-6 rounded-sm overflow-hidden shadow-sm border border-gray-200 flex">
@@ -727,8 +727,8 @@ export default function HomeScreen() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 text-sm truncate">{country.name}</div>
-                        <div className="text-xs text-gray-400">From {country.price}</div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100 text-sm truncate">{country.name}</div>
+                        <div className="text-xs text-gray-400 dark:text-gray-500">From {country.price}</div>
                       </div>
                     </div>
                   </button>
@@ -760,18 +760,18 @@ export default function HomeScreen() {
         ) : selectedTab === 'regional' ? (
           <div className="space-y-3">
             {/* Regional Plans */}
-            <div className="bg-white rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
                     <span className="text-xl">🇪🇺</span>
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900">Europe</h3>
-                    <p className="text-xs text-gray-500">30+ countries • From $9.99</p>
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100">Europe</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">30+ countries • From $9.99</p>
                   </div>
                 </div>
-                <button className="text-blue-500 text-sm font-medium">View</button>
+                <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
               </div>
             </div>
             
