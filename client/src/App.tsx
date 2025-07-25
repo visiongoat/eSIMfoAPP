@@ -36,7 +36,7 @@ function Router() {
       <Route path="/live-chat" component={LiveChatScreen} />
       
       {/* 404 Catch-all route */}
-      <Route component={NotFoundPage} />
+      <Route path="/:rest*" component={NotFoundPage} />
     </Switch>
   );
 }
