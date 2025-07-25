@@ -65,7 +65,7 @@ export default function TabBar() {
               hapticFeedback();
               // Add your FAB action here
             }}
-            className="w-14 h-14 rounded-full transform transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center border-t-4 border-white/50"
+            className="w-14 h-14 rounded-full transform transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center border-t-8 border-white/60"
             style={{
               background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
               boxShadow: '0 12px 32px rgba(0, 122, 255, 0.4), 0 6px 16px rgba(0, 0, 0, 0.2)',
