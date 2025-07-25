@@ -56,13 +56,14 @@ export default function TabBar() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6" style={{paddingBottom: 'calc(env(safe-area-inset-bottom) + 24px)'}}>
       <div className="max-w-md mx-auto">
-        {/* iOS Native Style Container */}
+        {/* Modern Floating Glassmorphism Container */}
         <div 
-          className="bg-white/95 backdrop-blur-xl rounded-2xl px-2 py-1.5 shadow-lg border border-gray-200/50"
+          className="bg-white/20 backdrop-blur-2xl rounded-2xl px-3 py-2.5 shadow-2xl border border-white/30"
           style={{
-            backdropFilter: 'blur(20px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-            boxShadow: '0 8px 32px -8px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5)',
+            backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+            WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 8px 32px -8px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
           }}
         >
           <div className="flex justify-around items-center">
@@ -72,25 +73,28 @@ export default function TabBar() {
                 <button
                   key={tab.id}
                   onClick={() => handleTabClick(tab.path)}
-                  className={`flex flex-col items-center py-2 px-3 transition-all duration-200 relative group rounded-lg min-w-[60px] ${
+                  className={`flex flex-col items-center py-2.5 px-4 transition-all duration-300 transform relative group rounded-xl min-w-[64px] ${
                     isActive 
-                      ? '' 
-                      : 'hover:bg-white/10'
+                      ? 'scale-105' 
+                      : 'active:scale-95 hover:scale-102 hover:bg-white/10'
                   }`}
                   style={{willChange: 'transform, opacity'}}
                 >
-                  {/* iOS Native Active State */}
+                  {/* Professional Active State Background */}
                   {isActive && (
                     <div 
-                      className="absolute inset-1 rounded-lg transition-all duration-200 ease-out bg-blue-500"
+                      className="absolute inset-0 rounded-xl transition-all duration-500 ease-out"
                       style={{
-                        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+                        background: 'linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)',
+                        boxShadow: '0 4px 16px rgba(59, 130, 246, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
                       }}
                     />
                   )}
                   
                   {/* Icon Container */}
-                  <div className="mb-1.5 transition-all duration-200 relative z-10">
+                  <div className={`mb-1.5 transition-all duration-300 relative z-10 ${
+                    isActive ? 'scale-110' : 'group-hover:scale-105'
+                  }`}>
                     <svg className={`w-5 h-5 transition-all duration-300 ${
                       isActive ? 'text-white drop-shadow-sm' : 'text-gray-700 group-hover:text-gray-900'
                     }`} fill={isActive ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
