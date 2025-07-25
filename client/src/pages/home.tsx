@@ -465,7 +465,7 @@ export default function HomeScreen() {
 
       {/* Modern Pill-Style Tabs - Fixed alignment */}
         <div className="max-w-screen-md mx-auto px-4 mb-4">
-          <div className="flex gap-2 p-1 bg-gray-50 rounded-2xl">
+          <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40">
             {[
               { 
                 id: 'local', 
@@ -502,16 +502,30 @@ export default function HomeScreen() {
               <button
                 key={tab.id}
                 onClick={() => setSelectedTab(tab.id)}
-                className={`flex-1 py-2.5 px-3 rounded-xl font-medium text-sm transition-all duration-300 ${
+                className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform relative group ${
                   selectedTab === tab.id
-                    ? `${tab.color} text-white shadow-lg`
-                    : 'text-gray-600 hover:text-gray-800 hover:bg-white hover:shadow-sm'
+                    ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
+                    : 'text-gray-600 hover:text-gray-800 hover:bg-white/80 hover:shadow-md hover:scale-102 active:scale-95'
                 }`}
+                style={{willChange: 'transform'}}
               >
-                <div className="flex items-center justify-center space-x-1.5">
-                  {tab.icon}
-                  <span>{tab.label}</span>
+                <div className="flex items-center justify-center space-x-2 relative z-10">
+                  <div className={`transition-transform duration-300 ${selectedTab === tab.id ? 'scale-110' : 'group-hover:scale-105'}`}>
+                    {tab.icon}
+                  </div>
+                  <span className="tracking-wide">{tab.label}</span>
                 </div>
+                
+                {/* Enhanced effects for active tab */}
+                {selectedTab === tab.id && (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 rounded-xl opacity-80"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 rounded-xl"></div>
+                  </>
+                )}
+                
+                {/* Ripple effect on click */}
+                <div className="absolute inset-0 rounded-xl opacity-0 group-active:opacity-30 transition-opacity duration-200 bg-white/20"></div>
               </button>
             ))}
           </div>
