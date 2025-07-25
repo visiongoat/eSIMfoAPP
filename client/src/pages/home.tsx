@@ -179,6 +179,12 @@ export default function HomeScreen() {
     queryKey: ['/api/profile']
   });
 
+  // Fetch user's eSIMs to get active count
+  const { data: userEsims = [] } = useQuery<any[]>({
+    queryKey: ['/api/esims'],
+    enabled: !!profile, // Only fetch if user is logged in
+  });
+
   // Time-based greeting function
   const getTimeBasedGreeting = () => {
     const hour = new Date().getHours();
@@ -842,20 +848,43 @@ export default function HomeScreen() {
         <div className="grid grid-cols-2 gap-3 mt-6">
           <button 
             onClick={() => setLocation('/search')}
-            className="bg-gray-100 rounded-xl p-4 text-left hover:bg-gray-200 transition-colors"
+            className="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-150 border border-green-200 rounded-xl p-4 text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
           >
-            <div className="text-2xl mb-2">🔍</div>
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-2xl">🔍</div>
+              <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                200+
+              </div>
+            </div>
             <div className="font-medium text-gray-900 text-sm">Browse All</div>
-            <div className="text-xs text-gray-600">200+ destinations</div>
+            <div className="text-xs text-gray-600">Global destinations</div>
           </button>
           
           <button 
-            onClick={() => setLocation('/my-esims')}
-            className="bg-blue-50 rounded-xl p-4 text-left hover:bg-blue-100 transition-colors"
+            onClick={() => profile ? setLocation('/my-esims') : setLocation('/profile')}
+            className={`rounded-xl p-4 text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] ${
+              profile 
+                ? 'bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-150 border border-blue-200' 
+                : 'bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-150 border border-gray-200'
+            }`}
           >
-            <div className="text-2xl mb-2">📱</div>
-            <div className="font-medium text-gray-900 text-sm">My eSIMs</div>
-            <div className="text-xs text-gray-600">Manage plans</div>
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-2xl">📱</div>
+              {profile && (
+                <div className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                  {userEsims.length}
+                </div>
+              )}
+            </div>
+            <div className="font-medium text-gray-900 text-sm">
+              {profile ? 'My eSIMs' : 'Sign In'}
+            </div>
+            <div className="text-xs text-gray-600">
+              {profile 
+                ? `${userEsims.length} ${userEsims.length === 1 ? 'active plan' : 'active plans'}` 
+                : 'Access your eSIMs'
+              }
+            </div>
           </button>
         </div>
         </div>
