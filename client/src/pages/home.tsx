@@ -933,7 +933,7 @@ export default function HomeScreen() {
         <div className="grid grid-cols-2 gap-3 mt-6">
           <button 
             onClick={() => setLocation('/search')}
-            className="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-150 border border-green-200 rounded-xl p-4 text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+            className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 hover:from-green-100 hover:to-green-150 dark:hover:from-green-800/40 dark:hover:to-green-700/40 border border-green-200 dark:border-green-700 rounded-xl p-4 text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
           >
             <div className="flex items-center justify-between mb-3">
               <div className="text-2xl">🔍</div>
@@ -941,16 +941,16 @@ export default function HomeScreen() {
                 202+
               </div>
             </div>
-            <div className="font-medium text-gray-900 text-sm">Browse All</div>
-            <div className="text-xs text-gray-600">All destinations</div>
+            <div className="font-medium text-gray-900 dark:text-gray-100 text-sm">Browse All</div>
+            <div className="text-xs text-gray-600 dark:text-gray-400">All destinations</div>
           </button>
           
           <button 
             onClick={() => profile ? setLocation('/my-esims') : setLocation('/profile')}
             className={`rounded-xl p-4 text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] ${
               profile 
-                ? 'bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-150 border border-blue-200' 
-                : 'bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-150 border border-gray-200'
+                ? 'bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 hover:from-blue-100 hover:to-blue-150 dark:hover:from-blue-800/40 dark:hover:to-blue-700/40 border border-blue-200 dark:border-blue-700' 
+                : 'bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800/30 dark:to-gray-700/30 hover:from-gray-100 hover:to-gray-150 dark:hover:from-gray-700/40 dark:hover:to-gray-600/40 border border-gray-200 dark:border-gray-700'
             }`}
           >
             <div className="flex items-center justify-between mb-3">
@@ -961,10 +961,10 @@ export default function HomeScreen() {
                 </div>
               )}
             </div>
-            <div className="font-medium text-gray-900 text-sm">
+            <div className="font-medium text-gray-900 dark:text-gray-100 text-sm">
               {profile ? 'My eSIMs' : 'Sign In'}
             </div>
-            <div className="text-xs text-gray-600">
+            <div className="text-xs text-gray-600 dark:text-gray-400">
               {profile 
                 ? `${userEsims.length} ${userEsims.length === 1 ? 'active plan' : 'active plans'}` 
                 : 'Access your eSIMs'
@@ -1118,24 +1118,24 @@ export default function HomeScreen() {
             }}
           >
             <div 
-              className="bg-white rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative"
+              className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative"
               onClick={(e) => e.stopPropagation()}
               style={{ zIndex: 10000 }}
             >
               {/* Header */}
-              <div className="px-4 py-3 border-b border-gray-100">
+              <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-bold text-gray-900">How Does eSIMfo Work?</h2>
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">How Does eSIMfo Work?</h2>
                   <button 
                     onClick={() => setShowHowItWorks(false)}
-                    className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+                    className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   >
-                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
-                <p className="text-gray-600 text-sm mt-1">Get global data connectivity in just a few simple steps</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Get global data connectivity in just a few simple steps</p>
               </div>
 
               {/* Content */}
@@ -1149,8 +1149,8 @@ export default function HomeScreen() {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold text-gray-900 mb-0.5">Choose Your Destination and Plan</h3>
-                    <p className="text-gray-600 text-sm">Select from over 200 countries and pick the plan that suits you best</p>
+                    <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Choose Your Destination and Plan</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Select from over 200 countries and pick the plan that suits you best</p>
                   </div>
                 </div>
 
@@ -1162,8 +1162,8 @@ export default function HomeScreen() {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold text-gray-900 mb-0.5">Set Up Your eSIM</h3>
-                    <p className="text-gray-600 text-sm">Scan the QR code to install your eSIM on your phone</p>
+                    <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Set Up Your eSIM</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Scan the QR code to install your eSIM on your phone</p>
                   </div>
                 </div>
 
@@ -1175,8 +1175,8 @@ export default function HomeScreen() {
                     </svg>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-base font-semibold text-gray-900 mb-0.5">Activate Your eSIM</h3>
-                    <p className="text-gray-600 text-sm">Turn on your eSIM during your trip and get connected instantly</p>
+                    <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Activate Your eSIM</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Turn on your eSIM during your trip and get connected instantly</p>
                   </div>
                 </div>
 
@@ -1205,12 +1205,12 @@ export default function HomeScreen() {
       <div className="max-w-screen-md mx-auto px-4 pb-4 pt-1">
         <button 
           onClick={() => setShowHowItWorks(true)}
-          className="w-full bg-white rounded-xl p-3 shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 text-left"
+          className="w-full bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 text-left"
         >
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">How Does eSIMfo Work?</h3>
-              <p className="text-gray-600 text-sm">Get global data connectivity in just a few simple steps</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">How Does eSIMfo Work?</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Get global data connectivity in just a few simple steps</p>
             </div>
             <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
