@@ -80,13 +80,13 @@ export default function TabBar() {
                   }`}
                   style={{willChange: 'transform, opacity'}}
                 >
-                  {/* Professional Active State Background */}
+                  {/* Elegant Active State */}
                   {isActive && (
                     <div 
-                      className="absolute inset-0 rounded-xl transition-all duration-500 ease-out"
+                      className="absolute inset-x-2 inset-y-1 rounded-xl transition-all duration-300 ease-out"
                       style={{
-                        background: 'linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%)',
-                        boxShadow: '0 4px 16px rgba(59, 130, 246, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+                        background: 'linear-gradient(145deg, #3B82F6 0%, #2563EB 50%, #1D4ED8 100%)',
+                        boxShadow: '0 2px 12px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1)',
                       }}
                     />
                   )}
