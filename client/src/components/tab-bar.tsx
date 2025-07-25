@@ -93,7 +93,7 @@ export default function TabBar() {
           <div className="flex items-center relative">
             {/* Add label under FAB button */}
             <div className="absolute left-1/2 transform -translate-x-1/2 top-6 z-20">
-              <span className="text-gray-700 text-xs font-semibold">Add</span>
+              <span className="text-gray-700/60 text-xs font-semibold">Add</span>
             </div>
             
             {/* First two tabs */}
