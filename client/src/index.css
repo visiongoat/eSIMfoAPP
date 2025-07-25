@@ -462,16 +462,19 @@
   animation: bounce-click 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
 }
 
-/* FAB Icon rotation animation */
-@keyframes rotate-360 {
-  from {
+/* FAB Icon rotation animation - quick burst then pause */
+@keyframes rotate-burst {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  15% {
+    transform: rotate(360deg);
+  }
+  16%, 100% {
     transform: rotate(360deg);
   }
 }
 
 .fab-icon {
-  animation: rotate-360 6s linear infinite;
+  animation: rotate-burst 4s ease-out infinite;
 }
