@@ -907,7 +907,7 @@ export default function HomeScreen() {
             
             {/* Modal Content */}
             <div 
-              className="relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 h-[85vh] flex flex-col"
+              className="modal-content relative w-full bg-white rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 flex flex-col"
               onClick={(e) => e.stopPropagation()}
               style={{ 
                 zIndex: 10000,
@@ -1000,7 +1000,7 @@ export default function HomeScreen() {
               </div>
 
               {/* Message Input - Fixed at bottom */}
-              <div className="px-4 pb-6 pt-4 border-t border-gray-100">
+              <div className="modal-input-area px-4 pt-4 border-t border-gray-100 flex-shrink-0">
                 <div className="bg-gray-50 rounded-full shadow-sm border border-gray-200 flex items-center px-4 py-3">
                   <input
                     type="text"

@@ -249,6 +249,17 @@
     z-index: 9999 !important;
   }
 
+  /* Safe area support for modals */
+  .modal-content {
+    height: calc(90vh - env(safe-area-inset-bottom)) !important;
+    max-height: 90vh !important;
+    min-height: 70vh !important;
+  }
+
+  .modal-input-area {
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)) !important;
+  }
+
   .mobile-container {
     @apply w-full mx-auto min-h-screen relative overflow-x-hidden;
     background-color: var(--mobile-bg);
