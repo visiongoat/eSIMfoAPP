@@ -325,7 +325,7 @@ export default function HomeScreen() {
 
 
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen pb-32">
+    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 min-h-screen pb-20">
       {/* Compact Header with Search */}
       <div className="relative sticky top-0 z-10 py-4">
         <div className="max-w-screen-md mx-auto px-4">

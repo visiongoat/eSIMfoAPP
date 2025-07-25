@@ -54,7 +54,7 @@ export default function TabBar() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6" style={{paddingBottom: 'calc(env(safe-area-inset-bottom) + 24px)'}}>
+    <div className="fixed bottom-0 left-0 right-0 z-50 px-4" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
       <div className="max-w-md mx-auto">
         {/* Modern Floating Glassmorphism Container */}
         <div 
