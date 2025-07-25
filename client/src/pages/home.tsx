@@ -594,9 +594,6 @@ export default function HomeScreen() {
           <div className="space-y-4">
             {/* User's Local Country - Enhanced with subtle animations */}
             <div className="relative overflow-hidden group">
-              {/* Subtle location pulse indicator */}
-              <div className="absolute top-4 left-4 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse opacity-80 z-20"></div>
-              
               <button 
                 onClick={() => handleCountrySelect(countries[0])}
                 className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 px-6 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 border-none outline-none group relative"
