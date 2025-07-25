@@ -56,14 +56,15 @@ export default function TabBar() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
       <div className="max-w-md mx-auto">
-        {/* Full Width Glassmorphism Container */}
+        {/* Tab Bar with FAB Notch */}
         <div 
-          className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30"
+          className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative"
           style={{
             backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
             boxShadow: '0 -8px 32px -8px rgba(0, 0, 0, 0.15), 0 -4px 16px -4px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
             background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
+            clipPath: 'polygon(0% 0%, 38% 0%, 40% 10%, 42% 20%, 44% 28%, 46% 34%, 48% 38%, 50% 40%, 52% 38%, 54% 34%, 56% 28%, 58% 20%, 60% 10%, 62% 0%, 100% 0%, 100% 100%, 0% 100%)',
           }}
         >
           <div className="flex items-center relative">
@@ -117,7 +118,7 @@ export default function TabBar() {
                   hapticFeedback();
                   // Add your FAB action here
                 }}
-                className="w-14 h-14 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95 relative -top-3 flex items-center justify-center"
+                className="w-16 h-16 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95 relative -top-8 flex items-center justify-center"
                 style={{
                   background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
                   boxShadow: '0 6px 20px rgba(0, 122, 255, 0.4), 0 2px 8px rgba(0, 0, 0, 0.1)',
