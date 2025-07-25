@@ -8,6 +8,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Countries routes
   app.get("/api/countries", async (req, res) => {
+    // Temporarily break API for error testing
+    res.status(500).json({ error: "Server temporarily unavailable for testing" });
+    return;
+    
     try {
       const countries = await storage.getAllCountries();
       res.json(countries);
