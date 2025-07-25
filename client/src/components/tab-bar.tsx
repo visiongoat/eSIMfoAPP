@@ -82,7 +82,7 @@ export default function TabBar() {
         <div className="relative z-10">
           {/* Tall extended vertical curve */}
           <div 
-            className="absolute left-1/2 transform -translate-x-1/2 w-24 h-16 -top-14 z-5"
+            className="absolute left-1/2 transform -translate-x-1/2 w-24 h-16 -top-10 z-5"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%)',
               borderRadius: '50% 50% 0 0',
