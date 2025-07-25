@@ -100,20 +100,22 @@ export default function HomeScreen() {
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (showLiveChat || showHowItWorks) {
-      document.body.style.overflow = 'hidden';
+      const scrollY = window.scrollY;
       document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+      
+      return () => {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      };
     }
-    
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    };
   }, [showLiveChat, showHowItWorks]);
 
   // Touch handlers for swipe to close
@@ -1023,10 +1025,22 @@ export default function HomeScreen() {
 
         {/* How It Works Modal */}
         {showHowItWorks && (
-          <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-[9999]" onClick={() => setShowHowItWorks(false)}>
+          <div 
+            className="fixed inset-0 bg-black/50 flex items-end justify-center z-[9999]" 
+            onClick={() => setShowHowItWorks(false)}
+            style={{ 
+              position: 'fixed', 
+              top: 0, 
+              left: 0, 
+              right: 0, 
+              bottom: 0,
+              zIndex: 9999
+            }}
+          >
             <div 
-              className="bg-white rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl"
+              className="bg-white rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative"
               onClick={(e) => e.stopPropagation()}
+              style={{ zIndex: 10000 }}
             >
               {/* Header */}
               <div className="px-4 py-3 border-b border-gray-100">
