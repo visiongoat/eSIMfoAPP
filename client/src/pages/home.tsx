@@ -512,7 +512,7 @@ export default function HomeScreen() {
       </div>
 
       {/* Modern Pill-Style Tabs - Matched spacing */}
-        <div className="max-w-screen-md mx-auto px-4 mb-0">
+        <div className="max-w-screen-md mx-auto px-4 -mb-2">
           <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40">
             {[
               { 
