@@ -1023,7 +1023,7 @@ export default function HomeScreen() {
 
         {/* How It Works Modal */}
         {showHowItWorks && (
-          <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-[100]" onClick={() => setShowHowItWorks(false)}>
+          <div className="fixed inset-0 bg-black/50 flex items-end justify-center z-[9999]" onClick={() => setShowHowItWorks(false)}>
             <div 
               className="bg-white rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
