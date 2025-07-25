@@ -19,7 +19,7 @@ export default function ProfileScreen() {
       items: [
         { icon: "👤", label: "Personal Information", hasArrow: true },
         { icon: "💳", label: "Payment Methods", hasArrow: true },
-        { icon: "🌙", label: "Dark Mode", hasToggle: true, enabled: theme === 'dark' },
+        { icon: "🎨", label: "Theme", hasToggle: true, enabled: theme === 'dark' },
         { icon: "🔔", label: "Notifications", hasToggle: true, enabled: true },
         { icon: "🔒", label: "Privacy & Security", hasArrow: true },
       ]
@@ -79,12 +79,12 @@ export default function ProfileScreen() {
                 <div 
                   key={itemIndex} 
                   className={`flex items-center justify-between py-2 ${
-                    'hasToggle' in item && item.hasToggle && item.label === 'Dark Mode' 
+                    'hasToggle' in item && item.hasToggle && item.label === 'Theme' 
                       ? 'cursor-pointer' 
                       : ''
                   }`}
                   onClick={() => {
-                    if ('hasToggle' in item && item.hasToggle && item.label === 'Dark Mode') {
+                    if ('hasToggle' in item && item.hasToggle && item.label === 'Theme') {
                       toggleTheme();
                     }
                   }}
@@ -98,7 +98,15 @@ export default function ProfileScreen() {
                     <span className="text-gray-400">›</span>
                   )}
                   
-                  {'hasToggle' in item && item.hasToggle && (
+                  {'hasToggle' in item && item.hasToggle && item.label === 'Theme' && (
+                    <div className="flex items-center space-x-2">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                        {theme === 'light' ? 'Light' : theme === 'dark' ? 'Dark' : 'System'}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {'hasToggle' in item && item.hasToggle && item.label !== 'Theme' && (
                     <div className="flex items-center space-x-2">
                       <div className={`w-10 h-6 rounded-full relative transition-all duration-200 ${
                         'enabled' in item && item.enabled ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-600'
