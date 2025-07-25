@@ -71,6 +71,43 @@
 }
 
 @layer components {
+  /* Premium glassmorphism effects */
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .premium-glow {
+    box-shadow: 
+      0 0 20px rgba(59, 130, 246, 0.15),
+      0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tab-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .tab-ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  .tab-ripple:active::before {
+    width: 200px;
+    height: 200px;
+  }
+
   .mobile-container {
     @apply w-full mx-auto min-h-screen relative overflow-x-hidden;
     background-color: var(--mobile-bg);
