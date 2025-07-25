@@ -32,7 +32,7 @@ export default function NotFoundPage() {
         
         <button
           onClick={() => window.history.back()}
-          className="w-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-white py-4 rounded-2xl font-semibold transition-all duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 active:scale-[0.98]"
+          className="w-full bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-white py-4 rounded-2xl font-semibold transition-all duration-200 hover:bg-gray-300 dark:hover:bg-gray-700 active:scale-[0.98]"
         >
           Go Back
         </button>
