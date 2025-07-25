@@ -11,7 +11,7 @@ export default function TabBar() {
       label: 'Shop', 
       path: '/home',
       icon: (active: boolean) => (
-        <svg className={`w-5 h-5 transition-colors duration-300 ${active ? 'text-blue-600' : 'text-gray-400'}`} fill={active ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`w-5 h-5 transition-colors duration-300 ${active ? 'text-blue-600' : 'text-gray-400 dark:text-gray-500'}`} fill={active ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 0 : 2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
         </svg>
       )
@@ -21,7 +21,7 @@ export default function TabBar() {
       label: 'My eSIMs', 
       path: '/my-esims',
       icon: (active: boolean) => (
-        <svg className={`w-5 h-5 transition-colors duration-300 ${active ? 'text-blue-600' : 'text-gray-400'}`} fill={active ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`w-5 h-5 transition-colors duration-300 ${active ? 'text-blue-600' : 'text-gray-400 dark:text-gray-500'}`} fill={active ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 0 : 2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
         </svg>
       )
@@ -31,7 +31,7 @@ export default function TabBar() {
       label: 'Guides', 
       path: '/guides',
       icon: (active: boolean) => (
-        <svg className={`w-5 h-5 transition-colors duration-300 ${active ? 'text-blue-600' : 'text-gray-400'}`} fill={active ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`w-5 h-5 transition-colors duration-300 ${active ? 'text-blue-600' : 'text-gray-400 dark:text-gray-500'}`} fill={active ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 0 : 2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
       )
@@ -41,7 +41,7 @@ export default function TabBar() {
       label: 'Profile', 
       path: '/profile',
       icon: (active: boolean) => (
-        <svg className={`w-5 h-5 transition-colors duration-300 ${active ? 'text-blue-600' : 'text-gray-400'}`} fill={active ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+        <svg className={`w-5 h-5 transition-colors duration-300 ${active ? 'text-blue-600' : 'text-gray-400 dark:text-gray-500'}`} fill={active ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 0 : 2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
       )
@@ -82,7 +82,7 @@ export default function TabBar() {
         {/* Tab Bar */}
         <div className="relative z-10">
           <div 
-            className="bg-white/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 relative z-10"
+            className="bg-white/20 dark:bg-black/20 backdrop-blur-2xl px-3 py-1.5 shadow-2xl border-t border-white/30 dark:border-gray-700/30 relative z-10"
             style={{
               backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
               WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
@@ -110,7 +110,7 @@ export default function TabBar() {
                     isActive ? 'scale-110' : 'group-hover:scale-105'
                   }`}>
                     <svg className={`w-5 h-5 transition-all duration-300 ${
-                      isActive ? 'text-blue-500 hover:text-blue-600' : 'text-gray-700 group-hover:text-gray-900'
+                      isActive ? 'text-blue-500 hover:text-blue-600' : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100'
                     }`} fill={isActive ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                       {tab.id === 'shop' && (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -156,7 +156,7 @@ export default function TabBar() {
                     isActive ? 'scale-110' : 'group-hover:scale-105'
                   }`}>
                     <svg className={`w-5 h-5 transition-all duration-300 ${
-                      isActive ? 'text-blue-500 hover:text-blue-600' : 'text-gray-700 group-hover:text-gray-900'
+                      isActive ? 'text-blue-500 hover:text-blue-600' : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100'
                     }`} fill={isActive ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                       {tab.id === 'guides' && (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
