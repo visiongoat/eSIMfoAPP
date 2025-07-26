@@ -339,7 +339,7 @@ export default function DestinationsScreen() {
     <div className="mobile-screen bg-gray-50 dark:bg-gray-900" style={{ scrollBehavior: 'auto' }}>
       <NavigationBar 
         title="Buy eSIM"
-        showBack={true}
+        showBack={false}
       />
 
       <div className="px-4 pt-4 pb-20">
