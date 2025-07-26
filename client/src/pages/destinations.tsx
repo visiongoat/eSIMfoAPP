@@ -215,13 +215,13 @@ export default function DestinationsScreen() {
 
       <div className="px-4 pt-4 pb-20">
         {/* Search Bar */}
-        <div className="mobile-card p-3 mb-4 bg-gray-800 dark:bg-gray-700 border-0">
+        <div className="mobile-card p-3 mb-4 bg-gray-100 dark:bg-gray-800 border-0">
           <div className="flex items-center space-x-3">
-            <Search className="text-gray-400 w-5 h-5" />
+            <Search className="text-gray-500 dark:text-gray-400 w-5 h-5" />
             <input 
               type="text"
               placeholder="Search your travel destination"
-              className="flex-1 bg-transparent text-gray-300 dark:text-gray-200 text-base outline-none placeholder-gray-400 dark:placeholder-gray-500"
+              className="flex-1 bg-transparent text-gray-700 dark:text-gray-300 text-base outline-none placeholder-gray-500 dark:placeholder-gray-400"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -229,7 +229,7 @@ export default function DestinationsScreen() {
         </div>
 
         {/* Tab Filters */}
-        <div className="flex mb-4 bg-gray-700 dark:bg-gray-800 rounded-xl p-1">
+        <div className="flex mb-4 bg-gray-200 dark:bg-gray-700 rounded-xl p-1">
           {[
             { key: 'countries', label: 'Countries', icon: MapPin },
             { key: 'regions', label: 'Regions', icon: Globe },
@@ -240,8 +240,8 @@ export default function DestinationsScreen() {
               onClick={() => setSelectedTab(tab.key as any)}
               className={`flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center space-x-2 ${
                 selectedTab === tab.key
-                  ? 'bg-gray-500 dark:bg-gray-600 text-white'
-                  : 'text-gray-400 dark:text-gray-500 hover:text-white dark:hover:text-gray-300'
+                  ? 'bg-white dark:bg-gray-500 text-gray-900 dark:text-white shadow-sm'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300'
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -251,14 +251,14 @@ export default function DestinationsScreen() {
         </div>
 
         {/* International eSIM Banner */}
-        <div className="mobile-card p-4 mb-4 bg-gray-800 dark:bg-gray-700 border-0">
+        <div className="mobile-card p-4 mb-4 bg-gray-100 dark:bg-gray-800 border-0">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gray-600 dark:bg-gray-500 rounded-lg flex items-center justify-center">
-              <Globe className="w-6 h-6 text-gray-300" />
+            <div className="w-12 h-12 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center">
+              <Globe className="w-6 h-6 text-gray-600 dark:text-gray-300" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-white dark:text-gray-100">International eSIM</h3>
-              <p className="text-sm text-gray-400 dark:text-gray-500">
+              <h3 className="font-semibold text-gray-900 dark:text-white">International eSIM</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 No limits - pay only for the data you use. Global coverage
               </p>
             </div>
