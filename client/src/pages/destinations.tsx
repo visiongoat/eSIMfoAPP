@@ -396,7 +396,7 @@ export default function DestinationsScreen() {
   return (
     <div className="mobile-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" style={{ scrollBehavior: 'auto' }}>
       <NavigationBar 
-        title="Buy eSIM"
+        title="Buy eSIM fo"
         showBack={false}
       />
 
