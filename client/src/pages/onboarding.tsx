@@ -427,13 +427,43 @@ export default function OnboardingScreen() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,119,198,0.2),transparent_50%)]"></div>
       </div>
 
-      {/* Skip button - always visible */}
-      <button
-        onClick={handleSkip}
-        className="absolute top-6 right-6 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 z-50 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full"
-      >
-        Skip
-      </button>
+      {/* Skip button with color clouds */}
+      <div className="absolute top-6 right-6 z-50">
+        {/* Color clouds based on current step */}
+        <div className="absolute -inset-8 opacity-10">
+          <div 
+            className={`absolute top-2 right-8 w-12 h-8 rounded-full blur-md animate-pulse ${
+              currentStep === 0 ? 'bg-blue-400' : 
+              currentStep === 1 ? 'bg-emerald-400' : 
+              'bg-purple-400'
+            }`}
+            style={{ animationDuration: '3s' }}
+          />
+          <div 
+            className={`absolute top-6 right-2 w-8 h-6 rounded-full blur-lg animate-pulse ${
+              currentStep === 0 ? 'bg-blue-300' : 
+              currentStep === 1 ? 'bg-emerald-300' : 
+              'bg-purple-300'
+            }`}
+            style={{ animationDuration: '4s', animationDelay: '1s' }}
+          />
+          <div 
+            className={`absolute top-0 right-4 w-6 h-4 rounded-full blur-sm animate-pulse ${
+              currentStep === 0 ? 'bg-blue-500' : 
+              currentStep === 1 ? 'bg-emerald-500' : 
+              'bg-purple-500'
+            }`}
+            style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}
+          />
+        </div>
+        
+        <button
+          onClick={handleSkip}
+          className="relative px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full"
+        >
+          Skip
+        </button>
+      </div>
 
       {/* Main content - optimized height */}
       <div className="flex flex-col h-screen px-6 py-6 relative z-10">
