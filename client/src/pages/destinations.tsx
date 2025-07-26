@@ -44,7 +44,7 @@ export default function DestinationsScreen() {
       const regions = [
         {
           id: 'europe',
-          name: 'Avrupa',
+          name: 'Europe',
           countryCount: 33,
           price: '€0.89',
           icon: '🌍',
@@ -52,7 +52,7 @@ export default function DestinationsScreen() {
         },
         {
           id: 'balkans',
-          name: 'Balkanlar',
+          name: 'Balkans',
           countryCount: 12,
           price: '€1.20',
           icon: '🏔️',
@@ -60,7 +60,7 @@ export default function DestinationsScreen() {
         },
         {
           id: 'asia-pacific',
-          name: 'Asya Pasifik',
+          name: 'Asia Pacific',
           countryCount: 15,
           price: '€2.40',
           icon: '🌏',
@@ -68,15 +68,15 @@ export default function DestinationsScreen() {
         },
         {
           id: 'southeast-asia',
-          name: 'Güneydoğu Asya',
+          name: 'Southeast Asia',
           countryCount: 7,
           price: '€1.80',
           icon: '🏝️',
-          countries: ['Thailand', 'Vietnam', 'Indonesia']
+          countries: ['Thailand', 'Vietnam', 'Indonesia']  
         },
         {
-          id: 'middle-east',
-          name: 'Orta Asya',
+          id: 'middle-asia',
+          name: 'Central Asia',
           countryCount: 6,
           price: '€3.20',
           icon: '🕌',
@@ -84,7 +84,7 @@ export default function DestinationsScreen() {
         },
         {
           id: 'north-america',
-          name: 'Kuzey Amerika',
+          name: 'North America',
           countryCount: 3,
           price: '€4.50',
           icon: '🍁',
@@ -92,15 +92,15 @@ export default function DestinationsScreen() {
         },
         {
           id: 'south-america',
-          name: 'Güney Amerika',
+          name: 'South America',
           countryCount: 12,
           price: '€5.80',
           icon: '🌎',
           countries: ['Brazil', 'Argentina', 'Chile']
         },
         {
-          id: 'middle-east-africa',
-          name: 'Orta Doğu',
+          id: 'middle-east',
+          name: 'Middle East',
           countryCount: 8,
           price: '€2.90',
           icon: '🐪',
@@ -108,7 +108,7 @@ export default function DestinationsScreen() {
         },
         {
           id: 'caribbean',
-          name: 'Karayipler',
+          name: 'Caribbean',
           countryCount: 14,
           price: '€7.20',
           icon: '🏖️',
@@ -123,35 +123,35 @@ export default function DestinationsScreen() {
       const globalPackages = [
         {
           id: 'global-world',
-          name: 'Küresel Paket',
+          name: 'Global Package',
           countryCount: 147,
           price: '€24.99',
           icon: '🌐',
-          description: 'Sınırlama yok - sadece kullandığınız veriler için ödeme yapın. Küresel kapsama'
+          description: 'No limits - pay only for the data you use. Global coverage'
         },
         {
           id: 'business-global',
-          name: 'İş Seyahat Noktaları',
+          name: 'Business Travel Points',
           countryCount: 43,
           price: '€18.50',
           icon: '💼',
-          description: 'ABD Küresel'
+          description: 'USA Global'
         },
         {
           id: 'usa-global',
-          name: 'ABD Küresel',
+          name: 'USA Global',
           countryCount: 40,
           price: '€15.99',
           icon: '🇺🇸',
-          description: 'Amerika ve müttefik ülkeler'
+          description: 'America and allied countries'
         },
         {
           id: 'africa-europe',
-          name: 'Afrika ve Avrupa',
+          name: 'Africa & Europe',
           countryCount: 57,
           price: '€12.80',
           icon: '🌍',
-          description: 'Kıtalar arası kapsama'
+          description: 'Cross-continental coverage'
         }
       ];
       return globalPackages.filter(pkg =>
@@ -164,17 +164,44 @@ export default function DestinationsScreen() {
 
   const filteredData = getFilteredData();
 
-  // Alphabet filter for countries
-  const alphabetFilters = [
-    'Tümü', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+  // Alphabet filter groups for countries
+  const alphabetFilterGroups = [
+    { label: 'All', value: 'all' },
+    { label: 'A-D', value: 'A-D' },
+    { label: 'E-K', value: 'E-K' },
+    { label: 'L-Q', value: 'L-Q' },
+    { label: 'R-Z', value: 'R-Z' }
   ];
 
   const getAlphabetFilteredCountries = () => {
-    if (selectedFilter === 'all' || selectedFilter === 'Tümü') return filteredData;
-    return filteredData.filter((country: any) =>
-      country.name && country.name.charAt(0).toUpperCase() === selectedFilter
-    );
+    if (selectedFilter === 'all') return filteredData;
+    
+    const firstLetter = (country: any) => country.name?.charAt(0).toUpperCase();
+    
+    switch (selectedFilter) {
+      case 'A-D':
+        return filteredData.filter((country: any) => {
+          const letter = firstLetter(country);
+          return letter >= 'A' && letter <= 'D';
+        });
+      case 'E-K':
+        return filteredData.filter((country: any) => {
+          const letter = firstLetter(country);
+          return letter >= 'E' && letter <= 'K';
+        });
+      case 'L-Q':
+        return filteredData.filter((country: any) => {
+          const letter = firstLetter(country);
+          return letter >= 'L' && letter <= 'Q';
+        });
+      case 'R-Z':
+        return filteredData.filter((country: any) => {
+          const letter = firstLetter(country);
+          return letter >= 'R' && letter <= 'Z';
+        });
+      default:
+        return filteredData;
+    }
   };
 
   const finalFilteredData = selectedTab === 'countries' ? getAlphabetFilteredCountries() : filteredData;
@@ -182,7 +209,7 @@ export default function DestinationsScreen() {
   return (
     <div className="mobile-screen bg-gray-50 dark:bg-gray-900">
       <NavigationBar 
-        title="eSIM satın al"
+        title="Buy eSIM"
         showBack={true}
       />
 
@@ -193,7 +220,7 @@ export default function DestinationsScreen() {
             <Search className="text-gray-400 w-5 h-5" />
             <input 
               type="text"
-              placeholder="Gideceğiniz varış noktasını arayın"
+              placeholder="Search your travel destination"
               className="flex-1 bg-transparent text-gray-300 dark:text-gray-200 text-base outline-none placeholder-gray-400 dark:placeholder-gray-500"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -204,9 +231,9 @@ export default function DestinationsScreen() {
         {/* Tab Filters */}
         <div className="flex mb-4 bg-gray-700 dark:bg-gray-800 rounded-xl p-1">
           {[
-            { key: 'countries', label: 'Ülkeler', icon: MapPin },
-            { key: 'regions', label: 'Bölgeler', icon: Globe },
-            { key: 'global', label: 'Küresel', icon: Navigation }
+            { key: 'countries', label: 'Countries', icon: MapPin },
+            { key: 'regions', label: 'Regions', icon: Globe },
+            { key: 'global', label: 'Global', icon: Navigation }
           ].map((tab) => (
             <button
               key={tab.key}
@@ -230,9 +257,9 @@ export default function DestinationsScreen() {
               <Globe className="w-6 h-6 text-gray-300" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-white dark:text-gray-100">Uluslararası eSIM</h3>
+              <h3 className="font-semibold text-white dark:text-gray-100">International eSIM</h3>
               <p className="text-sm text-gray-400 dark:text-gray-500">
-                Sınırlama yok - sadece kullandığınız veriler için ödeme yapın. Küresel kapsama
+                No limits - pay only for the data you use. Global coverage
               </p>
             </div>
           </div>
@@ -242,17 +269,17 @@ export default function DestinationsScreen() {
         {selectedTab === 'countries' && (
           <div className="mb-4">
             <div className="flex flex-wrap gap-2">
-              {alphabetFilters.map((letter) => (
+              {alphabetFilterGroups.map((group) => (
                 <button
-                  key={letter}
-                  onClick={() => setSelectedFilter(letter === 'Tümü' ? 'all' : letter)}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    (selectedFilter === letter || (selectedFilter === 'all' && letter === 'Tümü'))
+                  key={group.value}
+                  onClick={() => setSelectedFilter(group.value)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    selectedFilter === group.value
                       ? 'bg-gray-600 dark:bg-gray-500 text-white'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
                   }`}
                 >
-                  {letter}
+                  {group.label}
                 </button>
               ))}
             </div>
@@ -315,7 +342,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <p className="font-medium text-gray-900 dark:text-gray-100">{region.name}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{region.countryCount} ülke</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{region.countryCount} countries</p>
                       </div>
                     </div>
                     <span className="text-gray-400 dark:text-gray-500">›</span>
@@ -337,7 +364,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <p className="font-medium text-gray-900 dark:text-gray-100">{globalPkg.name}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{globalPkg.countryCount} ülke</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{globalPkg.countryCount} countries</p>
                       </div>
                     </div>
                     <span className="text-gray-400 dark:text-gray-500">›</span>
@@ -352,18 +379,18 @@ export default function DestinationsScreen() {
         {selectedTab === 'countries' && !searchQuery && selectedFilter === 'all' && (
           <>
             <div className="mt-8 mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Popüler</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Popular</h2>
             </div>
             <div className="space-y-3">
               {[
-                { name: 'Türkiye', flag: '🇹🇷', price: '€1.20' },
-                { name: 'Amerika Birleşik Devletleri', flag: '🇺🇸', price: '€4.50' },
-                { name: 'Birleşik Krallık', flag: '🇬🇧', price: '€2.80' },
-                { name: 'Japonya', flag: '🇯🇵', price: '€3.20' },
-                { name: 'Tayland', flag: '🇹🇭', price: '€1.80' },
-                { name: 'Mısır', flag: '🇪🇬', price: '€2.40' },
-                { name: 'Birleşik Arap Emirlikleri', flag: '🇦🇪', price: '€3.60' },
-                { name: 'Çin', flag: '🇨🇳', price: '€2.90' }
+                { name: 'Turkey', flag: '🇹🇷', price: '€1.20' },
+                { name: 'United States', flag: '🇺🇸', price: '€4.50' },
+                { name: 'United Kingdom', flag: '🇬🇧', price: '€2.80' },
+                { name: 'Japan', flag: '🇯🇵', price: '€3.20' },
+                { name: 'Thailand', flag: '🇹🇭', price: '€1.80' },
+                { name: 'Egypt', flag: '🇪🇬', price: '€2.40' },
+                { name: 'UAE', flag: '🇦🇪', price: '€3.60' },
+                { name: 'China', flag: '🇨🇳', price: '€2.90' }
               ].map((country, index) => (
                 <button
                   key={index}
@@ -384,7 +411,7 @@ export default function DestinationsScreen() {
             </div>
 
             <div className="mt-8 mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Tüm Ülkeler</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">All Countries</h2>
             </div>
           </>
         )}
