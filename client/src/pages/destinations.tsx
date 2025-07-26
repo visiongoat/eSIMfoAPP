@@ -138,34 +138,27 @@ export default function DestinationsScreen() {
 
   // Keyboard navigation handler
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    console.log('Key pressed:', e.key, 'showSearchResults:', showSearchResults, 'searchResults.length:', searchResults.length);
-    
     switch (e.key) {
       case 'ArrowDown':
         if (showSearchResults && searchResults.length > 0) {
           e.preventDefault();
-          setSelectedResultIndex(prev => {
-            const newIndex = prev < searchResults.length - 1 ? prev + 1 : 0;
-            console.log('Arrow Down - new index:', newIndex);
-            return newIndex;
-          });
+          setSelectedResultIndex(prev => 
+            prev < searchResults.length - 1 ? prev + 1 : 0
+          );
         }
         break;
       
       case 'ArrowUp':
         if (showSearchResults && searchResults.length > 0) {
           e.preventDefault();
-          setSelectedResultIndex(prev => {
-            const newIndex = prev > 0 ? prev - 1 : searchResults.length - 1;
-            console.log('Arrow Up - new index:', newIndex);
-            return newIndex;
-          });
+          setSelectedResultIndex(prev => 
+            prev > 0 ? prev - 1 : searchResults.length - 1
+          );
         }
         break;
       
       case 'Enter':
         e.preventDefault();
-        console.log('Enter pressed - selectedIndex:', selectedResultIndex);
         if (showSearchResults && searchResults.length > 0) {
           if (selectedResultIndex >= 0 && selectedResultIndex < searchResults.length) {
             selectCountry(searchResults[selectedResultIndex]);
@@ -177,7 +170,6 @@ export default function DestinationsScreen() {
       
       case 'Escape':
         e.preventDefault();
-        console.log('Escape pressed - clearing search');
         clearSearch();
         searchInputRef.current?.blur();
         break;
