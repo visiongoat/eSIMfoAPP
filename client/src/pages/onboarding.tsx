@@ -272,51 +272,48 @@ export default function OnboardingScreen() {
         <currentStepData.component />
       </div>
       
-      {/* Content Overlay */}
-      <div className="relative z-30 flex flex-col items-center justify-end h-screen px-8 pb-20">
+      {/* Content Overlay - Full Screen */}
+      <div className="absolute bottom-0 left-0 right-0 z-30 px-8 pb-12">
         <div className={`text-center transition-all duration-500 transform ${
           isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
         }`}>
-          {/* Content Background */}
-          <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 dark:border-gray-800/20">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              {currentStepData.title}
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8 max-w-sm mx-auto">
-              {currentStepData.description}
-            </p>
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 drop-shadow-lg">
+            {currentStepData.title}
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 text-xl leading-relaxed mb-12 max-w-md mx-auto drop-shadow-md">
+            {currentStepData.description}
+          </p>
+          
+          {/* Step Indicators */}
+          <div className="flex justify-center space-x-3 mb-8">
+            {onboardingSteps.map((_, index) => (
+              <div
+                key={index}
+                className={`h-3 rounded-full transition-all duration-300 ${
+                  index === currentStep 
+                    ? 'w-8 bg-blue-500 dark:bg-blue-400 shadow-lg' 
+                    : 'w-3 bg-white/60 dark:bg-gray-600'
+                }`}
+              />
+            ))}
+          </div>
+          
+          {/* Action Buttons */}
+          <div className="w-full max-w-sm mx-auto space-y-4">
+            <button 
+              onClick={handleNext}
+              disabled={isAnimating}
+              className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-5 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-2xl text-lg disabled:opacity-50"
+            >
+              {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
+            </button>
             
-            {/* Step Indicators */}
-            <div className="flex justify-center space-x-3 mb-8">
-              {onboardingSteps.map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentStep 
-                      ? 'w-8 bg-blue-500 dark:bg-blue-400' 
-                      : 'w-2 bg-gray-300 dark:bg-gray-600'
-                  }`}
-                />
-              ))}
-            </div>
-            
-            {/* Action Buttons */}
-            <div className="w-full max-w-sm mx-auto space-y-4">
-              <button 
-                onClick={handleNext}
-                disabled={isAnimating}
-                className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg disabled:opacity-50"
-              >
-                {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
-              </button>
-              
-              <button 
-                onClick={handleSkip}
-                className="w-full py-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
-              >
-                Skip
-              </button>
-            </div>
+            <button 
+              onClick={handleSkip}
+              className="w-full py-4 text-white/80 dark:text-gray-300 hover:text-white dark:hover:text-white transition-colors duration-200 text-lg drop-shadow-md"
+            >
+              Skip
+            </button>
           </div>
         </div>
       </div>
