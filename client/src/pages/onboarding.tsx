@@ -218,8 +218,8 @@ export default function OnboardingScreen() {
 
   return (
     <div className="mobile-screen relative">
-      {/* Full-Screen Background - Apple-style Blue Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-500 via-blue-600 to-blue-800 dark:from-gray-900 dark:to-gray-800"></div>
+      {/* Full-Screen Background - Light for Travel Design */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-white to-gray-50 dark:from-gray-900 dark:to-gray-800"></div>
       
       {/* Animation Layer */}
       <div className={`absolute inset-0 transition-all duration-500 transform ${
@@ -232,7 +232,7 @@ export default function OnboardingScreen() {
       <div className="absolute top-4 right-4 z-50">
         <button 
           onClick={handleSkip}
-          className="text-white/70 hover:text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-white/10 transition-all"
+          className="text-gray-500 hover:text-gray-700 text-sm font-medium px-3 py-2 rounded-lg hover:bg-gray-100 transition-all"
         >
           Skip
         </button>
@@ -248,55 +248,88 @@ export default function OnboardingScreen() {
             isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
           }`}>
             
-            {/* Step 1: Apple-style Global Connectivity */}
+            {/* Step 1: Travel Woman with Phone - Exact Reference Design */}
             {currentStep === 0 && (
-              <div className="relative w-full h-full flex flex-col items-center justify-center px-8 pt-16">
+              <div className="relative w-full h-full flex flex-col items-center justify-center px-8">
                 
-                {/* Floating decorative dots - smaller and better positioned */}
-                <div className="absolute top-20 left-12 w-3 h-3 bg-green-400/80 rounded-full"></div>
-                <div className="absolute top-32 right-16 w-2 h-2 bg-blue-300/70 rounded-full"></div>
-                <div className="absolute top-40 left-1/4 w-2 h-2 bg-purple-400/60 rounded-full"></div>
-                <div className="absolute bottom-32 right-12 w-4 h-4 bg-orange-400/80 rounded-full"></div>
-                <div className="absolute bottom-40 left-16 w-2 h-2 bg-cyan-300/60 rounded-full"></div>
-                <div className="absolute top-1/2 right-8 w-2 h-2 bg-pink-400/50 rounded-full"></div>
-                <div className="absolute top-1/3 left-8 w-3 h-3 bg-yellow-400/70 rounded-full"></div>
-                
-                {/* Main icon container - Much larger */}
-                <div className="relative flex items-center justify-center mb-12">
-                  {/* Globe - Much bigger */}
-                  <div className="w-40 h-40 text-blue-400">
-                    <img src={globeIcon} alt="Global Network" className="w-full h-full" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(96%) saturate(1180%) hue-rotate(200deg) brightness(98%) contrast(101%)' }} />
-                  </div>
+                {/* Mountain Background Layers */}
+                <div className="absolute inset-0 overflow-hidden">
+                  {/* Sky gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-blue-200 via-blue-300 to-blue-400"></div>
                   
-                  {/* SIM card overlay - Positioned like reference */}
-                  <div className="absolute -bottom-2 -right-2 w-20 h-24 bg-white rounded-xl shadow-2xl flex items-center justify-center">
-                    <div className="w-16 h-18 bg-gray-50 rounded-lg border border-gray-200 flex flex-col items-center justify-center">
-                      {/* SIM card contact grid */}
-                      <div className="grid grid-cols-3 gap-0.5 w-10 h-10">
-                        <div className="bg-gray-700 rounded-sm"></div>
-                        <div className="bg-gray-700 rounded-sm"></div>
-                        <div className="bg-gray-700 rounded-sm"></div>
-                        <div className="bg-gray-700 rounded-sm"></div>
-                        <div className="bg-gray-800 rounded-sm"></div>
-                        <div className="bg-gray-700 rounded-sm"></div>
-                        <div className="bg-gray-700 rounded-sm"></div>
-                        <div className="bg-gray-700 rounded-sm"></div>
-                        <div className="bg-gray-700 rounded-sm"></div>
-                      </div>
-                    </div>
-                  </div>
+                  {/* Mountain layers - back to front */}
+                  <svg className="absolute bottom-0 w-full h-3/4" viewBox="0 0 400 300" preserveAspectRatio="none">
+                    {/* Furthest mountains */}
+                    <path d="M0,150 Q100,120 200,140 T400,130 L400,300 L0,300 Z" fill="#7fb3d3" opacity="0.6"/>
+                    {/* Middle mountains */}
+                    <path d="M0,180 Q150,150 250,170 T400,160 L400,300 L0,300 Z" fill="#6ba6cd" opacity="0.7"/>
+                    {/* Closest mountains */}
+                    <path d="M0,200 Q100,180 300,190 T400,185 L400,300 L0,300 Z" fill="#5b9bc7" opacity="0.8"/>
+                  </svg>
+                  
+                  {/* Clouds */}
+                  <div className="absolute top-8 left-12 w-16 h-8 bg-white/40 rounded-full"></div>
+                  <div className="absolute top-12 right-16 w-20 h-10 bg-white/30 rounded-full"></div>
+                  <div className="absolute top-20 left-1/3 w-12 h-6 bg-white/35 rounded-full"></div>
                 </div>
                 
-                {/* Title and description - Better spacing */}
-                <div className="text-center">
-                  <h1 className="text-4xl font-bold text-white mb-6 leading-tight">
+                {/* Travel Woman Character */}
+                <div className="relative z-10 flex items-center justify-center mb-8">
+                  <svg width="200" height="240" viewBox="0 0 200 240" className="drop-shadow-lg">
+                    {/* Woman's body */}
+                    <ellipse cx="100" cy="200" rx="35" ry="25" fill="#87CEEB"/>
+                    
+                    {/* Backpack */}
+                    <ellipse cx="120" cy="180" rx="15" ry="25" fill="#2C3E50"/>
+                    <rect x="115" y="165" width="10" height="8" rx="2" fill="#34495E"/>
+                    
+                    {/* Arms */}
+                    <ellipse cx="80" cy="180" rx="8" ry="20" fill="#F4A261"/>
+                    <ellipse cx="120" cy="185" rx="8" ry="18" fill="#F4A261"/>
+                    
+                    {/* Head */}
+                    <circle cx="100" cy="140" r="25" fill="#F4A261"/>
+                    
+                    {/* Hair */}
+                    <path d="M80,130 Q100,110 120,130 Q115,140 100,145 Q85,140 80,130" fill="#8B4513"/>
+                    
+                    {/* Hat */}
+                    <ellipse cx="100" cy="120" rx="35" ry="8" fill="#F2C94C"/>
+                    <ellipse cx="100" cy="118" rx="20" ry="15" fill="#F2C94C"/>
+                    
+                    {/* Face features */}
+                    <circle cx="92" cy="135" r="2" fill="#2C3E50"/>
+                    <circle cx="108" cy="135" r="2" fill="#2C3E50"/>
+                    <path d="M95,145 Q100,150 105,145" stroke="#2C3E50" strokeWidth="1.5" fill="none"/>
+                    
+                    {/* Phone in hand */}
+                    <rect x="75" y="170" width="18" height="32" rx="4" fill="#2C3E50"/>
+                    <rect x="77" y="172" width="14" height="28" rx="2" fill="white"/>
+                    
+                    {/* eSIMfo logo on phone */}
+                    <circle cx="84" cy="180" r="3" fill="#2563EB"/>
+                    <circle cx="84" cy="180" r="1.5" fill="white"/>
+                    <text x="84" y="192" fontSize="3" textAnchor="middle" fill="#2C3E50" fontWeight="bold">eSIMfo</text>
+                  </svg>
+                </div>
+                
+                {/* eSIMfo Logo */}
+                <div className="relative z-10 flex items-center justify-center mb-6">
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+                    <div className="w-4 h-4 border-2 border-white rounded-full"></div>
+                  </div>
+                  <span className="text-2xl font-bold text-gray-800">eSIMfo</span>
+                </div>
+                
+                {/* Title and description */}
+                <div className="relative z-10 text-center">
+                  <h1 className="text-3xl font-bold text-gray-800 mb-4 leading-tight">
                     Stay Connected<br />
                     Worldwide
                   </h1>
-                  <p className="text-xl text-blue-100/90 leading-relaxed max-w-xs mx-auto">
-                    Get instant data connectivity in<br />
-                    200+ countries without changing<br />
-                    your SIM card
+                  <p className="text-lg text-gray-600 leading-relaxed max-w-sm mx-auto">
+                    Get instant data connectivity in 200+<br />
+                    countries without changing your SIM card
                   </p>
                 </div>
               </div>
@@ -384,20 +417,20 @@ export default function OnboardingScreen() {
                   key={index}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     index === currentStep 
-                      ? 'w-8 bg-white' 
-                      : 'w-2 bg-white/30'
+                      ? 'w-8 bg-blue-600' 
+                      : 'w-2 bg-gray-300'
                   }`}
                 />
               ))}
             </div>
           </div>
           
-          {/* Action Buttons - Apple Style */}
+          {/* Action Buttons - Blue Style matching reference */}
           <div className="w-full max-w-sm mx-auto pb-8">
             <button 
               onClick={handleNext}
               disabled={isAnimating}
-              className="w-full bg-white text-blue-600 font-semibold py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl disabled:opacity-50"
+              className="w-full bg-blue-600 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg disabled:opacity-50"
             >
               {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
             </button>
