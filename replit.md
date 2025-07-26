@@ -130,3 +130,12 @@ The application is designed to be deployed as a single Node.js application servi
 - **Three eSIM categories**: Local (blue), Regional (green), Global (purple) with premium gradients
 - **Micro-interactions**: Handle bar, slide animations, hover effects, and scale transforms
 - **Universal functionality**: + button active on all pages with contextual navigation
+
+### Enhanced Mobile UX & Soft Gradients (January 25, 2025)
+- **Mobile touch optimization**: Enter key for quick search selection, ESC for clearing with keyboard dismiss
+- **Touch feedback**: Active scale effects (0.98x), haptic feedback simulation, touch-manipulation
+- **Consistent ESC badges**: Unified keyboard shortcut hints across home and destinations search bars
+- **Optimized spacing**: Destinations page bottom margin reduced for better content-to-tab-bar ratio
+- **Soft gradient system**: Light mode enhanced with subtle blue-to-purple gradients on background and cards
+- **Dark mode parity**: Light mode now features elegant gradient transitions similar to dark mode's soft aesthetics
+- **Brand-friendly naming**: "Buy eSIM fo" header adds playful brand consistency to destinations page
