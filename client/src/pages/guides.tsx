@@ -109,7 +109,7 @@ export default function GuidesScreen() {
           </div>
         </div>
       </div>
-      <TabBar />
+      <TabBar onPlusClick={() => window.location.href = '/destinations'} />
     </MobileContainer>
   );
 }

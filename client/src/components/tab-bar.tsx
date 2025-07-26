@@ -1,7 +1,11 @@
 import { useLocation } from "wouter";
 import { useHaptic } from "@/hooks/use-haptic";
 
-export default function TabBar() {
+interface TabBarProps {
+  onPlusClick?: () => void;
+}
+
+export default function TabBar({ onPlusClick }: TabBarProps) {
   const [location, setLocation] = useLocation();
   const { hapticFeedback } = useHaptic();
 
@@ -63,7 +67,7 @@ export default function TabBar() {
           <button
             onClick={() => {
               hapticFeedback();
-              // Add your FAB action here
+              onPlusClick?.();
             }}
             className="fab-button w-14 h-14 rounded-full transform transition-all duration-300 hover:scale-110 active:scale-90 flex items-center justify-center group"
             style={{

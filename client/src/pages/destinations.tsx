@@ -715,7 +715,7 @@ export default function DestinationsScreen() {
 
       </div>
 
-      <TabBar />
+      <TabBar onPlusClick={() => window.location.href = '/destinations'} />
     </div>
   );
 }

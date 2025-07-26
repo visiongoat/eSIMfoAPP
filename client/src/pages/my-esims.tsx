@@ -135,7 +135,7 @@ export default function MyEsimsScreen() {
         )}
       </div>
 
-      <TabBar />
+      <TabBar onPlusClick={() => window.location.href = '/destinations'} />
     </div>
   );
 }

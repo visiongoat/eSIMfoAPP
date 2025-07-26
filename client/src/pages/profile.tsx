@@ -141,7 +141,7 @@ export default function ProfileScreen() {
         </div>
       </div>
 
-      <TabBar />
+      <TabBar onPlusClick={() => window.location.href = '/destinations'} />
     </div>
   );
 }
