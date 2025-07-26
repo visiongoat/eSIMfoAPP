@@ -794,3 +794,63 @@
 .dark .continent-oceania {
   background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(8, 145, 178, 0.08) 100%);
 }
+
+/* Enhanced Onboarding Animations */
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  75% {
+    transform: scale(0.95) rotate(-1deg);
+  }
+}
+
+@keyframes featureFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes progressExpand {
+  from {
+    width: 0.75rem;
+    transform: scaleY(0.8);
+  }
+  to {
+    width: 3rem;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(300%) skewX(-15deg);
+  }
+}
+
+.animate-icon-bounce {
+  animation: iconBounce 3s ease-in-out infinite;
+}
+
+.animate-feature-fade {
+  animation: featureFadeIn 0.4s ease-out forwards;
+}
+
+.animate-progress-expand {
+  animation: progressExpand 0.5s ease-out forwards;
+}
+
+.animate-button-shine {
+  animation: buttonShine 2s ease-in-out infinite;
+}
