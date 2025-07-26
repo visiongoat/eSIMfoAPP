@@ -572,11 +572,11 @@ export default function HomeScreen() {
                       setSearchQuery('');
                       setShowSearchResults(false);
                     }}
-                    className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 text-left transition-all duration-200 active:bg-blue-50 group"
+                    className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 active:bg-blue-50 dark:active:bg-blue-900/20 group"
                   >
                     {/* Premium Flag Container */}
                     <div className="relative">
-                      <div className="w-11 h-11 bg-gradient-to-br from-white to-gray-50 rounded-full flex items-center justify-center shadow-md border border-gray-200 group-hover:shadow-lg group-hover:scale-105 transition-all duration-200">
+                      <div className="w-11 h-11 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center shadow-md border border-gray-200 dark:border-gray-600 group-hover:shadow-lg group-hover:scale-105 transition-all duration-200">
                         <span className="text-xl filter drop-shadow-sm">{getFlagEmoji(country.code)}</span>
                       </div>
                       {/* Signal indicator */}
@@ -586,13 +586,13 @@ export default function HomeScreen() {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-gray-900 truncate group-hover:text-blue-600 transition-colors">
+                      <div className="font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {country.name}
                       </div>
                       <div className="flex items-center space-x-2 mt-1">
-                        <span className="text-sm text-gray-500 font-medium">{country.planCount} eSIMs</span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">{country.planCount} eSIMs</span>
                         {country.hasFullPlan && (
-                          <span className="text-xs text-blue-600 font-semibold bg-blue-50 px-2 py-1 rounded-full border border-blue-100">
+                          <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-full border border-blue-100 dark:border-blue-800">
                             📞 Full Plan
                           </span>
                         )}
@@ -600,7 +600,7 @@ export default function HomeScreen() {
                     </div>
                     
                     <div className="flex items-center">
-                      <svg className="w-5 h-5 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-gray-300 dark:text-gray-600 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
