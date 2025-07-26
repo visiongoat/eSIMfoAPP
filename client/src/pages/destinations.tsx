@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { Search, Globe, MapPin, Navigation } from "lucide-react";
+import { Search, Globe, MapPin, Navigation, X } from "lucide-react";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
@@ -20,11 +20,24 @@ export default function DestinationsScreen() {
       setSelectedTab(tabParam as 'countries' | 'regions' | 'global');
     }
   }, []);
+
+  // Scroll listener for sticky search bar
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 100); // Adjust threshold as needed
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const [, setLocation] = useLocation();
   const [placeholderText, setPlaceholderText] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const searchBarRef = useRef<HTMLDivElement>(null);
 
   const placeholderTexts = [
     'Find your destination',
@@ -374,8 +387,15 @@ export default function DestinationsScreen() {
       />
 
       <div className="px-4 pt-4 pb-20">
-        {/* Sticky Search Bar - Sticks to top of viewport when scrolling */}
-        <div className="sticky top-0 bg-gradient-to-br from-gray-50/95 via-white/95 to-gray-100/95 dark:bg-gradient-to-br dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 z-50 -mx-4 px-4 backdrop-blur-md shadow-lg mb-6">
+        {/* Search Bar - Becomes fixed when scrolled */}
+        <div 
+          ref={searchBarRef}
+          className={`${
+            isScrolled 
+              ? 'fixed top-0 left-0 right-0 z-50 shadow-lg' 
+              : 'relative z-10 mb-6'
+          } bg-gradient-to-br from-gray-50/95 via-white/95 to-gray-100/95 dark:bg-gradient-to-br dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 backdrop-blur-md transition-all duration-300 ${isScrolled ? '' : '-mx-4'} px-4`}
+        >
         <div className="max-w-md mx-auto py-2">
           <div className="bg-gradient-to-r from-white via-gray-50 to-white dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750 dark:to-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:via-white hover:to-blue-50 dark:hover:from-gray-750 dark:hover:via-gray-700 dark:hover:to-gray-750 focus-within:shadow-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group backdrop-blur-sm">
             {/* Enhanced Animated Search Icon */}
@@ -434,7 +454,7 @@ export default function DestinationsScreen() {
       </div>
 
         {/* Search Results Container - Position relative for absolute positioning */}
-        <div className="relative">
+        <div className={`relative ${isScrolled ? 'pt-20' : ''}`}>
           {/* Mobile Search Results */}
           {showSearchResults && searchResults.length > 0 && (
             <div className="absolute top-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-[9999] overflow-hidden">
