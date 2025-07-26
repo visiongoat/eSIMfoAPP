@@ -551,16 +551,13 @@ export default function OnboardingScreen() {
           </div>
           
           {currentStep > 0 && (
-            <Button
-              variant="ghost"
+            <button
               onClick={handlePrevious}
               disabled={isAnimating}
-              className="w-full flex items-center justify-center space-x-2 py-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-all duration-300 hover:bg-white/50 dark:hover:bg-gray-800/50 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm group disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors disabled:opacity-50"
             >
-              <div className="w-2 h-2 rounded-full bg-current opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <span>Back</span>
-              <div className="w-2 h-2 rounded-full bg-current opacity-50 group-hover:opacity-100 transition-opacity"></div>
-            </Button>
+              • •
+            </button>
           )}
         </div>
       </div>
