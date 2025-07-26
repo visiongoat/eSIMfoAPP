@@ -130,10 +130,12 @@ export class MemStorage implements IStorage {
       { name: "El Salvador", code: "SV", flagUrl: "https://flagcdn.com/w40/sv.png", region: "Central America", coverage: "Good", network: "4G", operators: ["Claro", "Movistar", "Tigo"] },
       { name: "Estonia", code: "EE", flagUrl: "https://flagcdn.com/w40/ee.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["Telia", "Elisa", "Tele2"] },
       { name: "Eswatini", code: "SZ", flagUrl: "https://flagcdn.com/w40/sz.png", region: "Africa", coverage: "Good", network: "4G", operators: ["MTN", "Eswatini Mobile"] },
+      { name: "Ethiopia", code: "ET", flagUrl: "https://flagcdn.com/w40/et.png", region: "Africa", coverage: "Fair", network: "3G/4G", operators: ["Ethio Telecom", "Safaricom"] },
+      { name: "Faroe Islands", code: "FO", flagUrl: "https://flagcdn.com/w40/fo.png", region: "Europe", coverage: "Good", network: "4G", operators: ["Faroese Telecom", "Vodafone"] },
+      { name: "Fiji", code: "FJ", flagUrl: "https://flagcdn.com/w40/fj.png", region: "Oceania", coverage: "Good", network: "4G", operators: ["Vodafone", "Digicel"] },
+      { name: "Finland", code: "FI", flagUrl: "https://flagcdn.com/w40/fi.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["Elisa", "Telia", "DNA"] },
+      { name: "France", code: "FR", flagUrl: "https://flagcdn.com/w40/fr.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["Orange", "SFR", "Bouygues"] },
 
-      // US packages
-      { countryId: 1, name: "1GB / 7 Days", data: "1GB", validity: "7 Days", price: "4.50", originalPrice: "6.00", description: "Perfect for short trips", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
-      { countryId: 1, name: "3GB / 15 Days", data: "3GB", validity: "15 Days", price: "12.90", originalPrice: null, description: "Most popular choice", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
       { countryId: 1, name: "10GB / 30 Days", data: "10GB", validity: "30 Days", price: "28.50", originalPrice: null, description: "Extended stay package", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
       
       // Germany packages  
