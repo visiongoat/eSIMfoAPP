@@ -26,53 +26,86 @@ const GlobalConnectionAnimation = () => (
         <div className="absolute bottom-16 left-16 w-5 h-2 bg-white/40 rounded-full"></div>
       </div>
 
-      {/* Famous Landmarks around the World */}
-      {/* Eiffel Tower - Europe */}
-      <div className="absolute -top-8 -left-4 transform rotate-12 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '3s' }}>
-        <div className="w-2 h-12 bg-gray-600 dark:bg-gray-400"></div>
-        <div className="w-4 h-1 bg-gray-600 dark:bg-gray-400 -mt-8 -ml-1"></div>
-        <div className="w-3 h-1 bg-gray-600 dark:bg-gray-400 -mt-2 -ml-0.5"></div>
+      {/* Famous Landmarks around the World - Much Better! */}
+      
+      {/* Eiffel Tower - Paris */}
+      <div className="absolute -top-12 -left-8 transform rotate-12 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '3s' }}>
+        <svg className="w-8 h-16" viewBox="0 0 32 64" fill="none">
+          <path d="M16 2 L6 62 L26 62 Z" fill="#8B7355" stroke="#6B5B45" strokeWidth="1"/>
+          <line x1="8" y1="24" x2="24" y2="24" stroke="#6B5B45" strokeWidth="1"/>
+          <line x1="10" y1="40" x2="22" y2="40" stroke="#6B5B45" strokeWidth="1"/>
+          <circle cx="16" cy="8" r="2" fill="#FFD700"/>
+        </svg>
       </div>
 
-      {/* Big Ben - UK */}
-      <div className="absolute -top-12 right-8 animate-bounce" style={{ animationDelay: '1s', animationDuration: '3s' }}>
-        <div className="w-3 h-14 bg-amber-600 dark:bg-amber-500 rounded-t-lg"></div>
-        <div className="w-4 h-3 bg-amber-700 dark:bg-amber-600 -mt-1 -ml-0.5 rounded-sm"></div>
+      {/* Big Ben - London */}
+      <div className="absolute -top-16 right-4 animate-bounce" style={{ animationDelay: '1s', animationDuration: '3s' }}>
+        <svg className="w-6 h-18" viewBox="0 0 24 72" fill="none">
+          <rect x="8" y="20" width="8" height="48" fill="#D4A574" stroke="#B8956A" strokeWidth="1"/>
+          <rect x="6" y="12" width="12" height="8" fill="#8B4513" stroke="#654321" strokeWidth="1"/>
+          <circle cx="12" cy="16" r="3" fill="#FFD700" stroke="#B8860B" strokeWidth="1"/>
+          <polygon points="12,2 8,12 16,12" fill="#654321"/>
+        </svg>
       </div>
 
-      {/* Statue of Liberty - USA */}
-      <div className="absolute -right-6 top-4 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '3s' }}>
-        <div className="w-2 h-8 bg-green-600 dark:bg-green-500"></div>
-        <div className="w-3 h-2 bg-green-600 dark:bg-green-500 -mt-1 -ml-0.5"></div>
-        <div className="w-1 h-3 bg-yellow-400 dark:bg-yellow-300 -mt-1 ml-1"></div>
+      {/* Statue of Liberty - New York */}
+      <div className="absolute -right-8 top-2 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '3s' }}>
+        <svg className="w-6 h-14" viewBox="0 0 24 56" fill="none">
+          <rect x="10" y="20" width="4" height="32" fill="#87CEEB" stroke="#4682B4" strokeWidth="1"/>
+          <circle cx="12" cy="16" r="4" fill="#87CEEB" stroke="#4682B4" strokeWidth="1"/>
+          <polygon points="12,4 8,12 16,12" fill="#FFD700"/>
+          <line x1="16" y1="12" x2="20" y2="8" stroke="#FFD700" strokeWidth="2"/>
+          <rect x="8" y="52" width="8" height="4" fill="#696969"/>
+        </svg>
       </div>
 
       {/* Pyramid - Egypt */}
-      <div className="absolute -bottom-6 -right-8 animate-bounce" style={{ animationDelay: '2s', animationDuration: '3s' }}>
-        <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-yellow-600 dark:border-b-yellow-500"></div>
+      <div className="absolute -bottom-8 -right-12 animate-bounce" style={{ animationDelay: '2s', animationDuration: '3s' }}>
+        <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none">
+          <polygon points="24,4 8,44 40,44" fill="#DAA520" stroke="#B8860B" strokeWidth="1"/>
+          <polygon points="24,4 32,44 40,44" fill="#CD853F" stroke="#A0522D" strokeWidth="1"/>
+          <rect x="20" y="32" width="8" height="12" fill="#8B4513"/>
+        </svg>
       </div>
 
       {/* Sydney Opera House - Australia */}
-      <div className="absolute -bottom-8 left-6 animate-bounce" style={{ animationDelay: '2.5s', animationDuration: '3s' }}>
-        <div className="flex space-x-1">
-          <div className="w-2 h-4 bg-white dark:bg-gray-100 rounded-t-full"></div>
-          <div className="w-2 h-3 bg-white dark:bg-gray-100 rounded-t-full mt-1"></div>
-          <div className="w-2 h-4 bg-white dark:bg-gray-100 rounded-t-full"></div>
-        </div>
+      <div className="absolute -bottom-12 left-2 animate-bounce" style={{ animationDelay: '2.5s', animationDuration: '3s' }}>
+        <svg className="w-12 h-8" viewBox="0 0 48 32" fill="none">
+          <ellipse cx="12" cy="16" rx="8" ry="12" fill="white" stroke="#E0E0E0" strokeWidth="1"/>
+          <ellipse cx="24" cy="18" rx="6" ry="10" fill="white" stroke="#E0E0E0" strokeWidth="1"/>
+          <ellipse cx="36" cy="16" rx="8" ry="12" fill="white" stroke="#E0E0E0" strokeWidth="1"/>
+          <rect x="0" y="26" width="48" height="6" fill="#4682B4"/>
+        </svg>
       </div>
 
-      {/* Tokyo Tower - Japan */}
-      <div className="absolute top-8 -right-12 animate-bounce" style={{ animationDelay: '3s', animationDuration: '3s' }}>
-        <div className="w-1 h-10 bg-red-500 dark:bg-red-400"></div>
-        <div className="w-3 h-1 bg-red-500 dark:bg-red-400 -mt-6 -ml-1"></div>
-        <div className="w-2 h-1 bg-red-500 dark:bg-red-400 -mt-2 -ml-0.5"></div>
+      {/* Mount Fuji - Japan */}
+      <div className="absolute top-4 -right-16 animate-bounce" style={{ animationDelay: '3s', animationDuration: '3s' }}>
+        <svg className="w-10 h-12" viewBox="0 0 40 48" fill="none">
+          <polygon points="20,4 4,44 36,44" fill="#708090" stroke="#556B6B" strokeWidth="1"/>
+          <polygon points="20,4 14,16 26,16" fill="white"/>
+          <rect x="0" y="40" width="40" height="8" fill="#228B22"/>
+        </svg>
       </div>
 
       {/* Hot Air Balloon */}
-      <div className="absolute -top-16 left-12 animate-bounce" style={{ animationDelay: '0s', animationDuration: '4s' }}>
-        <div className="w-6 h-8 bg-gradient-to-b from-red-400 to-red-500 dark:from-red-500 dark:to-red-600 rounded-full"></div>
-        <div className="w-0.5 h-4 bg-gray-600 dark:bg-gray-400 mx-auto"></div>
-        <div className="w-3 h-2 bg-amber-600 dark:bg-amber-500 mx-auto rounded-sm"></div>
+      <div className="absolute -top-20 left-8 animate-bounce" style={{ animationDelay: '0s', animationDuration: '4s' }}>
+        <svg className="w-8 h-12" viewBox="0 0 32 48" fill="none">
+          <ellipse cx="16" cy="12" rx="12" ry="16" fill="#FF6B6B" stroke="#E55555" strokeWidth="1"/>
+          <ellipse cx="16" cy="12" rx="8" ry="12" fill="#FFD93D" stroke="#E6C22A" strokeWidth="1"/>
+          <line x1="8" y1="24" x2="12" y2="36" stroke="#8B4513" strokeWidth="1"/>
+          <line x1="24" y1="24" x2="20" y2="36" stroke="#8B4513" strokeWidth="1"/>
+          <rect x="12" y="36" width="8" height="4" fill="#D2691E" stroke="#B8860B" strokeWidth="1"/>
+        </svg>
+      </div>
+
+      {/* London Bridge */}
+      <div className="absolute -left-12 top-12 animate-bounce" style={{ animationDelay: '3.5s', animationDuration: '3s' }}>
+        <svg className="w-10 h-6" viewBox="0 0 40 24" fill="none">
+          <rect x="2" y="8" width="6" height="16" fill="#8B4513" stroke="#654321" strokeWidth="1"/>
+          <rect x="32" y="8" width="6" height="16" fill="#8B4513" stroke="#654321" strokeWidth="1"/>
+          <path d="M8 12 Q20 4 32 12" fill="none" stroke="#654321" strokeWidth="2"/>
+          <rect x="0" y="20" width="40" height="4" fill="#4682B4"/>
+        </svg>
       </div>
 
       {/* Simple Connection Lines */}
