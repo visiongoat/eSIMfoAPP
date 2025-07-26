@@ -50,20 +50,17 @@ export default function SplashScreen() {
           isLoaded ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
         }`}>
           
-          {/* Main Logo Circle */}
-          <div className="relative mb-8">
+          {/* Main Logo Circle - Centered */}
+          <div className="relative mb-8 flex justify-center">
             {/* Outer Ring Animation */}
             <div className="absolute inset-0 w-32 h-32 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 dark:from-blue-400/20 dark:to-purple-400/20 animate-pulse"></div>
             
             {/* Logo Container */}
             <div className="relative w-32 h-32 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl dark:shadow-2xl dark:shadow-black/50 flex items-center justify-center backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50">
               
-              {/* e-simfo Logo SVG */}
-              <div className="text-center">
-                {/* "e" Icon */}
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-2xl flex items-center justify-center shadow-lg mb-2">
-                  <span className="text-white text-2xl font-bold tracking-tight">e</span>
-                </div>
+              {/* e-simfo Logo SVG - Centered */}
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <span className="text-white text-2xl font-bold tracking-tight">e</span>
               </div>
               
               {/* Subtle glow effect */}
@@ -71,16 +68,11 @@ export default function SplashScreen() {
             </div>
           </div>
 
-          {/* Brand Text */}
+          {/* Brand Text - Without small logo */}
           <div className="text-center mb-6">
-            <div className="flex items-center justify-center space-x-2 mb-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-lg flex items-center justify-center">
-                <span className="text-white text-sm font-bold">e</span>
-              </div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent tracking-tight">
-                e-simfo
-              </h1>
-            </div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text text-transparent tracking-tight mb-2">
+              e-simfo
+            </h1>
             <p className="text-gray-600 dark:text-gray-400 text-lg font-medium tracking-wide">
               Global eSIM Connectivity
             </p>
