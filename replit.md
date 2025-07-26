@@ -139,3 +139,12 @@ The application is designed to be deployed as a single Node.js application servi
 - **Soft gradient system**: Light mode enhanced with subtle blue-to-purple gradients on background and cards
 - **Dark mode parity**: Light mode now features elegant gradient transitions similar to dark mode's soft aesthetics
 - **Brand-friendly naming**: "Buy eSIM fo" header adds playful brand consistency to destinations page
+
+### Advanced Parallax Onboarding System (January 26, 2025)
+- **Multi-layered parallax backgrounds**: 3 layers per step moving at different speeds (20%, 50%, 80%) during swipe
+- **Step-specific visual themes**: Global Coverage (world map + satellites), Easy Setup (circuit boards + QR elements), Instant Activation (lightning + signal waves)
+- **Grid notebook backgrounds**: Subtle fade-out mask from top and bottom for professional appearance
+- **Swipe gesture integration**: Touch handlers with visual feedback and haptic simulation
+- **Color wave transitions**: Dynamic gradient overlays during step changes based on theme colors
+- **Optimized UI controls**: Clean Skip button (always visible) and simple Back text for navigation
+- **Performance optimized**: GPU-accelerated transforms with smooth 60fps animations
