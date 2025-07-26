@@ -218,15 +218,15 @@ export default function OnboardingScreen() {
         return (
           <>
             {/* Layer 0: Grid notebook background */}
-            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]">
+            <div className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]">
               <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
                 {/* Vertical lines */}
                 {[...Array(20)].map((_, i) => (
-                  <line key={`v${i}`} x1={i * 20} y1="0" x2={i * 20} y2="400" stroke="currentColor" strokeWidth="0.5" opacity="0.3"/>
+                  <line key={`v${i}`} x1={i * 20} y1="0" x2={i * 20} y2="400" stroke="currentColor" strokeWidth="0.8" opacity="0.5"/>
                 ))}
                 {/* Horizontal lines */}
                 {[...Array(20)].map((_, i) => (
-                  <line key={`h${i}`} x1="0" y1={i * 20} x2="400" y2={i * 20} stroke="currentColor" strokeWidth="0.5" opacity="0.3"/>
+                  <line key={`h${i}`} x1="0" y1={i * 20} x2="400" y2={i * 20} stroke="currentColor" strokeWidth="0.8" opacity="0.5"/>
                 ))}
               </svg>
             </div>
