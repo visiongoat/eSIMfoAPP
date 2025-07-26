@@ -833,8 +833,8 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
                   </div>
                   <div>
@@ -851,8 +851,11 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    <svg className="w-7 h-7 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 100 80">
+                      {/* Asia simplified silhouette */}
+                      <path d="M15,25 Q20,15 35,20 L45,10 Q55,5 70,15 L85,20 Q90,30 85,40 L90,50 Q85,65 70,60 L50,70 Q35,75 25,65 L15,55 Q10,40 15,25Z"/>
+                      <circle cx="70" cy="35" r="3"/>
+                      <circle cx="25" cy="45" r="2"/>
                     </svg>
                   </div>
                   <div>
@@ -869,8 +872,10 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <svg className="w-6 h-7 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 60 100">
+                      {/* Americas simplified silhouette */}
+                      <path d="M20,5 Q30,0 35,10 L40,25 Q45,35 40,45 L35,60 Q30,70 25,75 L20,85 Q15,95 10,85 L5,70 Q0,50 5,35 L10,20 Q15,5 20,5Z"/>
+                      <path d="M25,40 Q35,35 40,50 L45,70 Q50,85 45,95 L35,90 Q25,85 30,70 L25,55 Q20,45 25,40Z"/>
                     </svg>
                   </div>
                   <div>
@@ -887,8 +892,10 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    <svg className="w-6 h-7 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 70 100">
+                      {/* Africa simplified silhouette */}
+                      <path d="M25,5 Q35,0 45,10 L50,20 Q55,30 50,40 L55,50 Q60,65 55,75 L50,85 Q45,95 35,90 L25,85 Q15,80 10,70 L5,55 Q0,40 5,25 L10,15 Q15,5 25,5Z"/>
+                      <path d="M35,35 Q40,30 45,35 L50,45 Q45,50 40,45 L35,35Z"/>
                     </svg>
                   </div>
                   <div>
@@ -905,8 +912,11 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                    <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 80 70">
+                      {/* Middle East simplified silhouette */}
+                      <path d="M10,25 Q20,15 35,20 L50,15 Q65,20 70,35 L75,45 Q70,55 55,50 L40,55 Q25,60 15,50 L10,40 Q5,30 10,25Z"/>
+                      <circle cx="45" cy="35" r="2"/>
+                      <circle cx="25" cy="40" r="1.5"/>
                     </svg>
                   </div>
                   <div>
@@ -923,8 +933,13 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    <svg className="w-7 h-5 text-teal-600 dark:text-teal-400" fill="currentColor" viewBox="0 0 100 60">
+                      {/* Oceania simplified silhouette */}
+                      <path d="M15,25 Q25,15 40,20 L55,18 Q70,25 65,35 L60,45 Q50,50 40,45 L25,40 Q15,35 15,25Z"/>
+                      <circle cx="85" cy="20" r="3"/>
+                      <circle cx="90" cy="35" r="2"/>
+                      <circle cx="10" cy="45" r="1.5"/>
+                      <circle cx="75" cy="50" r="1"/>
                     </svg>
                   </div>
                   <div>
