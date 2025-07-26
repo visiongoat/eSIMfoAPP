@@ -43,6 +43,7 @@ export default function OnboardingScreen() {
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
   const [isSwiping, setIsSwiping] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
+  const [parallaxOffset, setParallaxOffset] = useState(0);
 
   const handleNext = () => {
     setIsAnimating(true);
@@ -86,8 +87,13 @@ export default function OnboardingScreen() {
     const touch = e.touches[0];
     setTouchEnd({ x: touch.clientX, y: touch.clientY });
     
-    // Show swipe direction feedback
+    // Calculate parallax offset based on swipe distance
     const deltaX = touchStart.x - touch.clientX;
+    const maxOffset = 100; // Maximum parallax movement
+    const clampedOffset = Math.max(-maxOffset, Math.min(maxOffset, deltaX * 0.3));
+    setParallaxOffset(clampedOffset);
+    
+    // Show swipe direction feedback
     if (Math.abs(deltaX) > 20) {
       setSwipeDirection(deltaX > 0 ? 'left' : 'right');
     } else {
@@ -99,6 +105,9 @@ export default function OnboardingScreen() {
     if (!isSwiping) return;
     setIsSwiping(false);
     setSwipeDirection(null);
+    
+    // Reset parallax offset with smooth animation
+    setParallaxOffset(0);
     
     const deltaX = touchStart.x - touchEnd.x;
     const deltaY = touchStart.y - touchEnd.y;
@@ -152,6 +161,180 @@ export default function OnboardingScreen() {
 
   const currentColors = colors[currentStepData.color as keyof typeof colors];
 
+  // Parallax background component for each step
+  const renderParallaxBackground = () => {
+    const offset = parallaxOffset;
+    
+    switch (currentStep) {
+      case 0: // Global Coverage
+        return (
+          <>
+            {/* Layer 1: Slow moving world map outline */}
+            <div 
+              className="absolute inset-0 opacity-10 dark:opacity-20"
+              style={{ transform: `translateX(${offset * 0.2}px)` }}
+            >
+              <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+                <path d="M50 100 Q100 80 150 100 T250 120 Q300 110 350 130" stroke="currentColor" strokeWidth="1" opacity="0.3"/>
+                <path d="M80 180 Q130 160 180 180 T280 200 Q330 190 380 210" stroke="currentColor" strokeWidth="1" opacity="0.3"/>
+                <circle cx="120" cy="140" r="2" fill="currentColor" opacity="0.4"/>
+                <circle cx="280" cy="160" r="1.5" fill="currentColor" opacity="0.4"/>
+                <circle cx="200" cy="120" r="1" fill="currentColor" opacity="0.4"/>
+              </svg>
+            </div>
+            
+            {/* Layer 2: Medium speed connection dots */}
+            <div 
+              className="absolute inset-0 opacity-15 dark:opacity-25"
+              style={{ transform: `translateX(${offset * 0.5}px)` }}
+            >
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-1 h-1 bg-blue-400 rounded-full animate-pulse"
+                  style={{
+                    left: `${20 + i * 45}%`,
+                    top: `${30 + (i % 3) * 25}%`,
+                    animationDelay: `${i * 0.3}s`,
+                    animationDuration: '3s'
+                  }}
+                />
+              ))}
+            </div>
+            
+            {/* Layer 3: Fast moving satellites */}
+            <div 
+              className="absolute inset-0 opacity-20 dark:opacity-30"
+              style={{ transform: `translateX(${offset * 0.8}px)` }}
+            >
+              <div className="absolute top-20 left-10 w-2 h-2 bg-blue-500 rounded-full opacity-60 animate-bounce"/>
+              <div className="absolute top-40 right-20 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-50 animate-bounce" style={{ animationDelay: '1s' }}/>
+              <div className="absolute bottom-32 left-1/3 w-1 h-1 bg-blue-300 rounded-full opacity-70 animate-bounce" style={{ animationDelay: '2s' }}/>
+            </div>
+          </>
+        );
+        
+      case 1: // Easy Setup
+        return (
+          <>
+            {/* Layer 1: Circuit board patterns */}
+            <div 
+              className="absolute inset-0 opacity-[0.08] dark:opacity-15"
+              style={{ transform: `translateX(${offset * 0.3}px)` }}
+            >
+              <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+                <rect x="50" y="50" width="20" height="4" rx="2" fill="currentColor" opacity="0.3"/>
+                <rect x="80" y="48" width="4" height="8" rx="2" fill="currentColor" opacity="0.3"/>
+                <rect x="200" y="150" width="30" height="4" rx="2" fill="currentColor" opacity="0.3"/>
+                <rect x="240" y="148" width="4" height="8" rx="2" fill="currentColor" opacity="0.3"/>
+                <path d="M70 54 L200 54 L200 152 L240 152" stroke="currentColor" strokeWidth="1" opacity="0.2"/>
+                <circle cx="90" cy="54" r="3" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3"/>
+                <circle cx="220" cy="152" r="2" fill="currentColor" opacity="0.4"/>
+              </svg>
+            </div>
+            
+            {/* Layer 2: QR code elements */}
+            <div 
+              className="absolute inset-0 opacity-[0.12] dark:opacity-20"
+              style={{ transform: `translateX(${offset * 0.6}px)` }}
+            >
+              <div className="absolute top-16 right-16 grid grid-cols-3 gap-1">
+                {[...Array(9)].map((_, i) => (
+                  <div key={i} className={`w-1 h-1 ${i % 2 === 0 ? 'bg-emerald-400' : 'bg-transparent'} rounded-sm`}/>
+                ))}
+              </div>
+              <div className="absolute bottom-20 left-20 grid grid-cols-2 gap-1">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="w-1.5 h-1.5 bg-emerald-300 rounded-sm opacity-60"/>
+                ))}
+              </div>
+            </div>
+            
+            {/* Layer 3: Fast moving data bits */}
+            <div 
+              className="absolute inset-0 opacity-20 dark:opacity-30"
+              style={{ transform: `translateX(${offset * 0.9}px)` }}
+            >
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute text-xs font-mono text-emerald-400 opacity-40 animate-pulse"
+                  style={{
+                    left: `${10 + i * 60}%`,
+                    top: `${25 + (i % 2) * 50}%`,
+                    animationDelay: `${i * 0.4}s`
+                  }}
+                >
+                  {['01', '10', '11', '00'][i % 4]}
+                </div>
+              ))}
+            </div>
+          </>
+        );
+        
+      case 2: // Instant Activation
+        return (
+          <>
+            {/* Layer 1: Lightning background */}
+            <div 
+              className="absolute inset-0 opacity-10 dark:opacity-18"
+              style={{ transform: `translateX(${offset * 0.25}px)` }}
+            >
+              <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+                <path d="M100 50 L120 100 L90 100 L110 150" stroke="currentColor" strokeWidth="2" opacity="0.3"/>
+                <path d="M300 80 L320 130 L290 130 L310 180" stroke="currentColor" strokeWidth="1.5" opacity="0.3"/>
+                <path d="M200 200 L220 250 L190 250 L210 300" stroke="currentColor" strokeWidth="2" opacity="0.3"/>
+              </svg>
+            </div>
+            
+            {/* Layer 2: Signal waves */}
+            <div 
+              className="absolute inset-0 opacity-15 dark:opacity-25"
+              style={{ transform: `translateX(${offset * 0.7}px)` }}
+            >
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute border border-purple-400 rounded-full opacity-30 animate-ping"
+                  style={{
+                    width: `${40 + i * 20}px`,
+                    height: `${40 + i * 20}px`,
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    animationDelay: `${i * 0.5}s`,
+                    animationDuration: '2s'
+                  }}
+                />
+              ))}
+            </div>
+            
+            {/* Layer 3: Energy particles */}
+            <div 
+              className="absolute inset-0 opacity-25 dark:opacity-35"
+              style={{ transform: `translateX(${offset * 1.0}px)` }}
+            >
+              {[...Array(10)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-0.5 h-0.5 bg-purple-400 rounded-full animate-bounce"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${i * 0.2}s`,
+                    animationDuration: `${1.5 + Math.random()}s`
+                  }}
+                />
+              ))}
+            </div>
+          </>
+        );
+        
+      default:
+        return null;
+    }
+  };
+
   return (
     <div 
       className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden"
@@ -159,7 +342,12 @@ export default function OnboardingScreen() {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Background patterns */}
+      {/* Parallax Background Layers */}
+      <div className="fixed inset-0 transition-transform duration-200 ease-out" style={{ color: currentColors.accent.replace('text-', '').replace('dark:', '') }}>
+        {renderParallaxBackground()}
+      </div>
+      
+      {/* Original background gradients */}
       <div className="fixed inset-0 opacity-5 dark:opacity-10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.3),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,119,198,0.2),transparent_50%)]"></div>
