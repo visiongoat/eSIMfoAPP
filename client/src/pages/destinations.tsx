@@ -490,7 +490,7 @@ export default function DestinationsScreen() {
         </div>
 
         {/* Premium Tab Filters */}
-        <div className="flex mb-6 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gradient-to-r dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-xl p-1 shadow-inner">
+        <div className="flex mb-6 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gray-700 rounded-xl p-1 shadow-inner">
           {[
             { key: 'countries', label: 'Countries', icon: MapPin },
             { key: 'regions', label: 'Regions', icon: Globe },
@@ -501,8 +501,8 @@ export default function DestinationsScreen() {
               onClick={() => setSelectedTab(tab.key as any)}
               className={`relative flex-1 py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 transform ${
                 selectedTab === tab.key
-                  ? 'bg-gradient-to-b from-white via-gray-50 to-white dark:bg-gradient-to-b dark:from-gray-500 dark:via-gray-400 dark:to-gray-500 text-gray-900 dark:text-white shadow-lg scale-[1.02] ring-2 ring-white/50 dark:ring-gray-400/50'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gradient-to-b hover:from-gray-100 hover:to-gray-200/50 dark:hover:bg-gradient-to-b dark:hover:from-gray-600 dark:hover:to-gray-700/50 hover:scale-[1.01]'
+                  ? 'bg-gradient-to-b from-white via-gray-50 to-white dark:bg-gray-500 text-gray-900 dark:text-white shadow-lg scale-[1.02] ring-2 ring-white/50 dark:ring-gray-400/50'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gradient-to-b hover:from-gray-100 hover:to-gray-200/50 dark:hover:bg-gray-600/50 hover:scale-[1.01]'
               }`}
             >
               <tab.icon className={`w-4 h-4 transition-transform duration-200 ${selectedTab === tab.key ? 'scale-110' : ''}`} />
