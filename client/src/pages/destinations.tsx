@@ -434,6 +434,13 @@ export default function DestinationsScreen() {
               onBlur={() => {
                 setTimeout(() => setShowSearchResults(false), 150);
               }}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                  e.preventDefault();
+                  clearSearch();
+                  (e.target as HTMLInputElement).blur();
+                }
+              }}
               className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base font-medium group-focus-within:placeholder-blue-400 transition-all duration-300"
             />
 
