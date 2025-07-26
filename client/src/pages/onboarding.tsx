@@ -505,16 +505,16 @@ export default function OnboardingScreen() {
           isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
         } ${swipeDirection === 'left' ? 'transform -translate-x-2' : swipeDirection === 'right' ? 'transform translate-x-2' : ''}`}>
           
-          {/* Fixed Content Container - consistent height */}
-          <div className="flex flex-col items-center justify-center space-y-6 sm:space-y-8" style={{ height: '450px' }}>
+          {/* Fixed Content Container - consistent positioning */}
+          <div className="flex flex-col items-center justify-center space-y-8" style={{ height: '460px', paddingTop: '20px' }}>
           
 
 
-          {/* Icon Container */}
-          <div className="relative">
-            <div className={`absolute inset-0 w-32 h-32 rounded-full ${currentColors.bg} opacity-20 blur-xl animate-pulse`}></div>
+          {/* Icon Container - consistent size */}
+          <div className="relative flex items-center justify-center" style={{ height: '140px' }}>
+            <div className={`absolute inset-0 w-32 h-32 rounded-full ${currentColors.bg} opacity-20 blur-xl animate-pulse`} style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}></div>
             
-            <div className={`w-28 h-28 rounded-3xl ${currentColors.bg} flex items-center justify-center shadow-2xl relative overflow-hidden transition-all duration-700 hover:scale-110 hover:shadow-3xl hover:rotate-3 ${
+            <div className={`w-32 h-32 rounded-3xl ${currentColors.bg} flex items-center justify-center shadow-2xl relative overflow-hidden transition-all duration-700 hover:scale-110 hover:shadow-3xl hover:rotate-3 ${
               isAnimating ? 'scale-90 rotate-6' : 'scale-100 rotate-0'
             }`}>
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/10 dark:from-white/10 dark:to-black/20"></div>
@@ -527,27 +527,27 @@ export default function OnboardingScreen() {
               
               <div className="absolute inset-4 border border-current/10 rounded-2xl animate-spin" style={{ animationDuration: '12s' }}></div>
               
-              <IconComponent className={`w-16 h-16 ${currentColors.icon} relative z-20 transition-all duration-500 filter drop-shadow-lg`} />
+              <IconComponent className={`w-20 h-20 ${currentColors.icon} relative z-20 transition-all duration-500 filter drop-shadow-lg`} />
               
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-shimmer"></div>
             </div>
           </div>
 
-          {/* Title and description - responsive sizing */}
-          <div className="max-w-xs sm:max-w-sm space-y-3 sm:space-y-4">
-            <h1 className={`text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-300 ${
+          {/* Title and description - centered and consistent */}
+          <div className="max-w-sm space-y-4 text-center px-4" style={{ minHeight: '120px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h1 className={`text-3xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-300 ${
               isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'
-            }`}>
+            }`} style={{ lineHeight: '1.2' }}>
               {currentStepData.title}
             </h1>
-            <p className={`text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-all duration-300 delay-100 ${
+            <p className={`text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-all duration-300 delay-100 ${
               isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'
-            }`}>
+            }`} style={{ lineHeight: '1.5' }}>
               {currentStepData.description}
             </p>
             
-            {/* Feature highlights - responsive */}
-            <div className="flex justify-center gap-1.5 sm:gap-2 mt-4 sm:mt-6 flex-wrap sm:flex-nowrap max-w-full">
+            {/* Feature highlights - centered */}
+            <div className="flex justify-center gap-2 mt-6 flex-wrap max-w-full" style={{ minHeight: '32px' }}>
               {currentStepData.features.map((feature, index) => (
                 <div
                   key={index}
