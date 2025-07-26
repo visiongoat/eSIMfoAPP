@@ -448,15 +448,22 @@ export default function DestinationsScreen() {
               className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base font-medium group-focus-within:placeholder-blue-400 transition-all duration-300 touch-manipulation"
             />
 
-            {/* Enhanced Clear Button */}
-            {searchQuery && (
-              <button
-                onClick={clearSearch}
-                className="flex-shrink-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation"
-              >
-                <X className="w-3 h-3" />
-              </button>
-            )}
+            {/* Search Actions */}
+            <div className="flex items-center space-x-2">
+              {searchQuery && (
+                <button
+                  onClick={clearSearch}
+                  className="flex-shrink-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              )}
+              
+              {/* Keyboard shortcut hint - ESC Badge */}
+              <div className="hidden group-focus-within:flex items-center space-x-1 animate-fadeIn">
+                <kbd className="px-2 py-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 dark:text-gray-400 rounded border font-mono">ESC</kbd>
+              </div>
+            </div>
           </div>
         </div>
       </div>
