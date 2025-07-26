@@ -357,7 +357,7 @@ export default function DestinationsScreen() {
   const finalFilteredData = selectedTab === 'countries' ? getAlphabetFilteredCountries() : filteredData;
 
   return (
-    <div className="mobile-screen bg-gray-50 dark:bg-gray-900" style={{ scrollBehavior: 'auto' }}>
+    <div className="mobile-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" style={{ scrollBehavior: 'auto' }}>
       <NavigationBar 
         title="Buy eSIM"
         showBack={false}
@@ -366,7 +366,7 @@ export default function DestinationsScreen() {
       <div className="px-4 pt-4 pb-20">
         {/* Premium Search Bar with Advanced Interactions */}
         <div className="relative z-[9999] mb-6">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg focus-within:shadow-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group backdrop-blur-sm">
+          <div className="bg-gradient-to-r from-white via-gray-50 to-white dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750 dark:to-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:via-white hover:to-blue-50 dark:hover:from-gray-750 dark:hover:via-gray-700 dark:hover:to-gray-750 focus-within:shadow-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group backdrop-blur-sm">
             {/* Enhanced Animated Search Icon */}
             <div className="relative flex-shrink-0">
               <Search className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 group-focus-within:scale-110 transition-all duration-300" />
@@ -490,7 +490,7 @@ export default function DestinationsScreen() {
         </div>
 
         {/* Premium Tab Filters */}
-        <div className="flex mb-6 bg-gray-200 dark:bg-gray-700 rounded-xl p-1 shadow-inner">
+        <div className="flex mb-6 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gradient-to-r dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-xl p-1 shadow-inner">
           {[
             { key: 'countries', label: 'Countries', icon: MapPin },
             { key: 'regions', label: 'Regions', icon: Globe },
@@ -501,8 +501,8 @@ export default function DestinationsScreen() {
               onClick={() => setSelectedTab(tab.key as any)}
               className={`relative flex-1 py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 transform ${
                 selectedTab === tab.key
-                  ? 'bg-white dark:bg-gray-500 text-gray-900 dark:text-white shadow-lg scale-[1.02] ring-2 ring-white/50 dark:ring-gray-400/50'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-600/50 hover:scale-[1.01]'
+                  ? 'bg-gradient-to-b from-white via-gray-50 to-white dark:bg-gradient-to-b dark:from-gray-500 dark:via-gray-400 dark:to-gray-500 text-gray-900 dark:text-white shadow-lg scale-[1.02] ring-2 ring-white/50 dark:ring-gray-400/50'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gradient-to-b hover:from-gray-100 hover:to-gray-200/50 dark:hover:bg-gradient-to-b dark:hover:from-gray-600 dark:hover:to-gray-700/50 hover:scale-[1.01]'
               }`}
             >
               <tab.icon className={`w-4 h-4 transition-transform duration-200 ${selectedTab === tab.key ? 'scale-110' : ''}`} />
@@ -524,8 +524,8 @@ export default function DestinationsScreen() {
                   style={{ animationDelay: `${index * 50}ms` }}
                   className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 animate-fadeInUp ${
                     selectedFilter === group.value
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/25 scale-105'
-                      : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 hover:scale-105 hover:shadow-md'
+                      ? 'bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25 scale-105'
+                      : 'bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gradient-to-r dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-300 hover:via-gray-200 hover:to-gray-300 dark:hover:bg-gradient-to-r dark:hover:from-gray-600 dark:hover:via-gray-500 dark:hover:to-gray-600 hover:scale-105 hover:shadow-md'
                   }`}
                 >
                   {group.label}
@@ -542,29 +542,29 @@ export default function DestinationsScreen() {
             {Array.from({ length: 8 }).map((_, index) => (
               <div 
                 key={index} 
-                className="mobile-card p-4 animate-pulse"
+                className="mobile-card bg-gradient-to-r from-gray-50 via-white to-gray-50 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750 dark:to-gray-800 p-4 animate-pulse"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-center space-x-4">
-                  {/* Flag skeleton with shimmer */}
-                  <div className="relative w-10 h-7 rounded-md bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer"></div>
+                  {/* Flag skeleton with enhanced shimmer */}
+                  <div className="relative w-10 h-7 rounded-md bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gradient-to-r dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-shimmer"></div>
                   </div>
                   
                   <div className="flex-1 space-y-2">
                     {/* Country name skeleton */}
-                    <div className="relative h-4 bg-gray-200 dark:bg-gray-700 rounded-md w-32 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" style={{ animationDelay: `${index * 150}ms` }}></div>
+                    <div className="relative h-4 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gradient-to-r dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded-md w-32 overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-shimmer" style={{ animationDelay: `${index * 150}ms` }}></div>
                     </div>
                     
                     {/* Price skeleton */}
-                    <div className="relative h-3 bg-gray-200 dark:bg-gray-700 rounded w-20 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" style={{ animationDelay: `${index * 200}ms` }}></div>
+                    <div className="relative h-3 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gradient-to-r dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded w-20 overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-shimmer" style={{ animationDelay: `${index * 200}ms` }}></div>
                     </div>
                   </div>
                   
                   {/* Chevron skeleton */}
-                  <div className="w-5 h-5 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                  <div className="w-5 h-5 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gradient-to-r dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 rounded"></div>
                 </div>
               </div>
             ))}
@@ -578,7 +578,7 @@ export default function DestinationsScreen() {
                   key={country.id}
                   onClick={() => handleCountrySelect(country)}
                   style={{ animationDelay: `${index * 50}ms` }}
-                  className="mobile-card p-4 w-full text-left hover:bg-gray-50 dark:hover:bg-gray-700/70 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 active:scale-[0.98] group animate-fadeInUp border border-transparent hover:border-blue-500/20 dark:hover:border-blue-400/20"
+                  className="mobile-card bg-gradient-to-r from-white via-gray-50/30 to-white dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750/30 dark:to-gray-800 p-4 w-full text-left hover:bg-gradient-to-r hover:from-blue-50/50 hover:via-white hover:to-blue-50/50 dark:hover:bg-gradient-to-r dark:hover:from-gray-700/70 dark:hover:via-gray-600/70 dark:hover:to-gray-700/70 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 active:scale-[0.98] group animate-fadeInUp border border-transparent hover:border-blue-500/20 dark:hover:border-blue-400/20"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
