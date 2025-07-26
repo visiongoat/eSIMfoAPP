@@ -1,442 +1,161 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "wouter";
-import globeIcon from '@assets/globe.svg';
-import phoneIcon from '@assets/phone.svg';
-import worldMapIcon from '@assets/world-map.svg';
+import { Button } from "@/components/ui/button";
+import { Globe, Smartphone, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 
-// Simple World with Landmarks Animation - Inspired by Travel Apps
-const GlobalConnectionAnimation = () => (
-  <div className="absolute inset-0 overflow-hidden bg-gradient-to-b from-sky-200 via-sky-100 to-blue-50 dark:from-blue-900 dark:via-blue-800 dark:to-gray-900">
-    
-    {/* Simple Cloud Background */}
-    <div className="absolute top-10 left-10 w-16 h-8 bg-white/60 dark:bg-white/20 rounded-full animate-pulse"></div>
-    <div className="absolute top-16 right-16 w-20 h-10 bg-white/40 dark:bg-white/15 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-    <div className="absolute top-20 left-1/3 w-12 h-6 bg-white/50 dark:bg-white/18 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-
-    {/* Central World */}
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      {/* Main Earth Globe */}
-      <div className="relative w-48 h-48 bg-gradient-to-br from-blue-400 to-blue-500 dark:from-blue-500 dark:to-blue-600 rounded-full shadow-2xl overflow-hidden">
-        {/* Continents - Simple Shapes */}
-        <div className="absolute top-6 left-8 w-12 h-8 bg-green-400 dark:bg-green-500 rounded-lg opacity-80"></div>
-        <div className="absolute top-12 right-6 w-10 h-10 bg-green-500 dark:bg-green-600 rounded-full opacity-70"></div>
-        <div className="absolute bottom-8 left-12 w-16 h-6 bg-green-400 dark:bg-green-500 rounded-2xl opacity-80"></div>
-        <div className="absolute bottom-12 right-8 w-8 h-8 bg-green-500 dark:bg-green-600 rounded-lg opacity-75"></div>
-        
-        {/* Simple white clouds on Earth */}
-        <div className="absolute top-8 left-20 w-4 h-2 bg-white/60 rounded-full"></div>
-        <div className="absolute top-20 right-12 w-6 h-3 bg-white/50 rounded-full"></div>
-        <div className="absolute bottom-16 left-16 w-5 h-2 bg-white/40 rounded-full"></div>
-      </div>
-
-
-
-      {/* Simple Connection Lines */}
-      <div className="absolute inset-0">
-        {/* Dotted lines connecting landmarks to earth */}
-        <svg className="w-full h-full absolute inset-0" viewBox="0 0 200 200">
-          <defs>
-            <pattern id="dottedLine" patternUnits="userSpaceOnUse" width="8" height="8">
-              <circle cx="4" cy="4" r="1" fill="#3b82f6" opacity="0.6">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
-              </circle>
-            </pattern>
-          </defs>
-          
-          {/* Connection lines from landmarks to center */}
-          <line x1="40" y1="30" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
-          <line x1="160" y1="25" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
-          <line x1="170" y1="120" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
-          <line x1="130" y1="180" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
-          <line x1="60" y1="180" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
-        </svg>
-      </div>
-    </div>
-
-    {/* Simple floating icons */}
-    <div className="absolute top-1/4 left-1/4">
-      <div className="w-4 h-4 bg-blue-500 dark:bg-blue-400 rounded-full animate-ping"></div>
-    </div>
-    <div className="absolute top-3/4 right-1/4">
-      <div className="w-3 h-3 bg-green-500 dark:bg-green-400 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-    </div>
-    <div className="absolute top-1/3 right-1/3">
-      <div className="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '2s' }}></div>
-    </div>
-
-  </div>
-);
-
-const QRSetupAnimation = () => (
-  <div className="relative w-64 h-64 bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-950 dark:to-emerald-900 rounded-3xl flex items-center justify-center overflow-hidden">
-    {/* Phone Outline */}
-    <div className="relative z-10 w-32 h-48 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border-4 border-gray-300 dark:border-gray-600 flex flex-col">
-      {/* Phone Screen */}
-      <div className="flex-1 m-2 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 rounded-xl relative overflow-hidden">
-        {/* QR Code Animation */}
-        <div className="absolute inset-4 bg-white dark:bg-gray-100 rounded-lg flex items-center justify-center">
-          <div className="grid grid-cols-8 grid-rows-8 gap-1 w-full h-full">
-            {Array.from({ length: 64 }).map((_, i) => (
-              <div 
-                key={i}
-                className={`bg-black dark:bg-gray-800 rounded-sm animate-pulse ${
-                  Math.random() > 0.5 ? 'opacity-100' : 'opacity-0'
-                }`}
-                style={{ animationDelay: `${i * 50}ms` }}
-              />
-            ))}
-          </div>
-        </div>
-        
-        {/* Scan Line */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-400/30 to-transparent h-1 animate-bounce"
-             style={{ animationDuration: '2s' }} />
-      </div>
-      
-      {/* Phone Home Indicator */}
-      <div className="h-1 w-16 bg-gray-400 dark:bg-gray-600 rounded-full mx-auto mb-2" />
-    </div>
-    
-    {/* Success Checkmarks */}
-    {[0, 1, 2].map((i) => (
-      <div 
-        key={i}
-        className="absolute w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center animate-ping"
-        style={{
-          top: `${20 + i * 20}%`,
-          right: `${10 + i * 15}%`,
-          animationDelay: `${i * 800}ms`
-        }}
-      >
-        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-    ))}
-  </div>
-);
-
-const InstantActivationAnimation = () => (
-  <div className="relative w-64 h-64 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 rounded-3xl flex items-center justify-center overflow-hidden">
-    {/* Central Tower */}
-    <div className="relative z-10">
-      <div className="w-16 h-32 bg-gradient-to-t from-purple-600 to-purple-500 rounded-t-full flex flex-col items-center justify-end pb-2">
-        <div className="w-2 h-8 bg-purple-300 rounded-full mb-1" />
-        <div className="w-4 h-4 bg-yellow-400 rounded-full animate-pulse" />
-      </div>
-    </div>
-    
-    {/* Signal Waves */}
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 256 256">
-      <defs>
-        <radialGradient id="signalGrad" cx="50%" cy="70%" r="50%">
-          <stop offset="0%" stopColor="#a855f7" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.1" />
-        </radialGradient>
-      </defs>
-      
-      {/* Concentric Signal Circles */}
-      {[40, 60, 80, 100, 120].map((radius, i) => (
-        <circle 
-          key={radius}
-          cx="128" cy="180" 
-          r={radius} 
-          fill="none" 
-          stroke="url(#signalGrad)" 
-          strokeWidth="3" 
-          strokeDasharray="8 8"
-          className="animate-ping"
-          style={{ animationDelay: `${i * 300}ms`, animationDuration: '2s' }}
-        />
-      ))}
-    </svg>
-    
-    {/* Data Packets */}
-    {[0, 1, 2, 3, 4].map((i) => (
-      <div 
-        key={i}
-        className="absolute w-3 h-3 bg-purple-400 rounded-full animate-bounce"
-        style={{
-          left: `${30 + i * 20}%`,
-          top: `${40 + Math.sin(i) * 10}%`,
-          animationDelay: `${i * 200}ms`,
-          animationDuration: '1.5s'
-        }}
-      />
-    ))}
-  </div>
-);
+const onboardingSteps = [
+  {
+    icon: Globe,
+    title: "Global Coverage",
+    description: "Stay connected in 200+ countries worldwide with instant eSIM activation.",
+    color: "blue"
+  },
+  {
+    icon: Smartphone,
+    title: "Easy Setup", 
+    description: "Simple QR code scanning - no physical SIM card changes required.",
+    color: "emerald"
+  },
+  {
+    icon: Zap,
+    title: "Instant Activation",
+    description: "Get online immediately when you arrive at your destination.",
+    color: "purple"
+  }
+];
 
 export default function OnboardingScreen() {
   const [currentStep, setCurrentStep] = useState(0);
   const [, setLocation] = useLocation();
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const onboardingSteps = [
-    {
-      title: "Stay Connected Worldwide",
-      description: "Get instant data connectivity in 200+ countries without changing your SIM card",
-      component: GlobalConnectionAnimation,
-      bgGradient: "from-blue-500/5 to-blue-600/10"
-    },
-    {
-      title: "Simple Setup", 
-      description: "Just scan the QR code and your eSIM will be ready to use in seconds",
-      component: QRSetupAnimation,
-      bgGradient: "from-emerald-500/5 to-emerald-600/10"
-    },
-    {
-      title: "Instant Activation",
-      description: "Activate your eSIM instantly when you arrive at your destination",
-      component: InstantActivationAnimation,
-      bgGradient: "from-purple-500/5 to-purple-600/10"
-    }
-  ];
-
-  const currentStepData = onboardingSteps[currentStep];
 
   const handleNext = () => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      if (currentStep < onboardingSteps.length - 1) {
-        setCurrentStep(currentStep + 1);
-      } else {
-        setLocation("/home");
-      }
-      setIsAnimating(false);
-    }, 300);
+    if (currentStep < onboardingSteps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      setLocation("/home");
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
   };
 
   const handleSkip = () => {
     setLocation("/home");
   };
 
-  useEffect(() => {
-    // Reset animation when step changes
-    setIsAnimating(false);
-  }, [currentStep]);
+  const currentStepData = onboardingSteps[currentStep];
+  const IconComponent = currentStepData.icon;
+
+  const getColorClasses = (color: string) => {
+    switch (color) {
+      case 'blue':
+        return {
+          bg: 'bg-blue-100 dark:bg-blue-900/30',
+          icon: 'text-blue-600 dark:text-blue-400',
+          button: 'bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700'
+        };
+      case 'emerald':
+        return {
+          bg: 'bg-emerald-100 dark:bg-emerald-900/30',
+          icon: 'text-emerald-600 dark:text-emerald-400',
+          button: 'bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-700'
+        };
+      case 'purple':
+        return {
+          bg: 'bg-purple-100 dark:bg-purple-900/30',
+          icon: 'text-purple-600 dark:text-purple-400',
+          button: 'bg-purple-600 hover:bg-purple-700 dark:bg-purple-600 dark:hover:bg-purple-700'
+        };
+      default:
+        return {
+          bg: 'bg-gray-100 dark:bg-gray-900/30',
+          icon: 'text-gray-600 dark:text-gray-400',
+          button: 'bg-gray-600 hover:bg-gray-700 dark:bg-gray-600 dark:hover:bg-gray-700'
+        };
+    }
+  };
+
+  const colors = getColorClasses(currentStepData.color);
 
   return (
     <div className="mobile-screen relative">
-      {/* Full-Screen Background - Light for Travel Design */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-white to-gray-50 dark:from-gray-900 dark:to-gray-800"></div>
+      {/* Background */}
+      <div className="absolute inset-0 bg-white dark:bg-gray-900"></div>
       
-      {/* Animation Layer */}
-      <div className={`absolute inset-0 transition-all duration-500 transform ${
-        isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
-      }`}>
-        <currentStepData.component />
-      </div>
-      
-      {/* Skip button - Top Right */}
-      <div className="absolute top-4 right-4 z-50">
-        <button 
+      {/* Skip button */}
+      <div className="absolute top-4 right-4 z-20">
+        <Button
+          variant="ghost"
           onClick={handleSkip}
-          className="text-gray-500 hover:text-gray-700 text-sm font-medium px-3 py-2 rounded-lg hover:bg-gray-100 transition-all"
+          className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
         >
           Skip
-        </button>
+        </Button>
       </div>
-      
-      {/* Split Screen Layout */}
-      <div className="absolute inset-0 z-30 flex flex-col">
+
+      {/* Main content */}
+      <div className="flex flex-col h-full px-6 py-8">
         
-        {/* Upper Half - Visual Content Area */}
-        <div className="flex-1 flex items-center justify-center relative overflow-hidden">
-          {/* Professional Visual Content */}
-          <div className={`transition-all duration-700 transform ${
-            isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
-          }`}>
-            
-            {/* Step 1: Travel Woman with Phone - Exact Reference Design */}
-            {currentStep === 0 && (
-              <div className="relative w-full h-full flex flex-col items-center justify-center px-8">
-                
-                {/* Mountain Background Layers */}
-                <div className="absolute inset-0 overflow-hidden">
-                  {/* Sky gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-blue-200 via-blue-300 to-blue-400"></div>
-                  
-                  {/* Mountain layers - back to front */}
-                  <svg className="absolute bottom-0 w-full h-3/4" viewBox="0 0 400 300" preserveAspectRatio="none">
-                    {/* Furthest mountains */}
-                    <path d="M0,150 Q100,120 200,140 T400,130 L400,300 L0,300 Z" fill="#7fb3d3" opacity="0.6"/>
-                    {/* Middle mountains */}
-                    <path d="M0,180 Q150,150 250,170 T400,160 L400,300 L0,300 Z" fill="#6ba6cd" opacity="0.7"/>
-                    {/* Closest mountains */}
-                    <path d="M0,200 Q100,180 300,190 T400,185 L400,300 L0,300 Z" fill="#5b9bc7" opacity="0.8"/>
-                  </svg>
-                  
-                  {/* Clouds */}
-                  <div className="absolute top-8 left-12 w-16 h-8 bg-white/40 rounded-full"></div>
-                  <div className="absolute top-12 right-16 w-20 h-10 bg-white/30 rounded-full"></div>
-                  <div className="absolute top-20 left-1/3 w-12 h-6 bg-white/35 rounded-full"></div>
-                </div>
-                
-                {/* Travel Woman Character */}
-                <div className="relative z-10 flex items-center justify-center mb-8">
-                  <svg width="200" height="240" viewBox="0 0 200 240" className="drop-shadow-lg">
-                    {/* Woman's body */}
-                    <ellipse cx="100" cy="200" rx="35" ry="25" fill="#87CEEB"/>
-                    
-                    {/* Backpack */}
-                    <ellipse cx="120" cy="180" rx="15" ry="25" fill="#2C3E50"/>
-                    <rect x="115" y="165" width="10" height="8" rx="2" fill="#34495E"/>
-                    
-                    {/* Arms */}
-                    <ellipse cx="80" cy="180" rx="8" ry="20" fill="#F4A261"/>
-                    <ellipse cx="120" cy="185" rx="8" ry="18" fill="#F4A261"/>
-                    
-                    {/* Head */}
-                    <circle cx="100" cy="140" r="25" fill="#F4A261"/>
-                    
-                    {/* Hair */}
-                    <path d="M80,130 Q100,110 120,130 Q115,140 100,145 Q85,140 80,130" fill="#8B4513"/>
-                    
-                    {/* Hat */}
-                    <ellipse cx="100" cy="120" rx="35" ry="8" fill="#F2C94C"/>
-                    <ellipse cx="100" cy="118" rx="20" ry="15" fill="#F2C94C"/>
-                    
-                    {/* Face features */}
-                    <circle cx="92" cy="135" r="2" fill="#2C3E50"/>
-                    <circle cx="108" cy="135" r="2" fill="#2C3E50"/>
-                    <path d="M95,145 Q100,150 105,145" stroke="#2C3E50" strokeWidth="1.5" fill="none"/>
-                    
-                    {/* Phone in hand */}
-                    <rect x="75" y="170" width="18" height="32" rx="4" fill="#2C3E50"/>
-                    <rect x="77" y="172" width="14" height="28" rx="2" fill="white"/>
-                    
-                    {/* eSIMfo logo on phone */}
-                    <circle cx="84" cy="180" r="3" fill="#2563EB"/>
-                    <circle cx="84" cy="180" r="1.5" fill="white"/>
-                    <text x="84" y="192" fontSize="3" textAnchor="middle" fill="#2C3E50" fontWeight="bold">eSIMfo</text>
-                  </svg>
-                </div>
-                
-                {/* eSIMfo Logo */}
-                <div className="relative z-10 flex items-center justify-center mb-6">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-3">
-                    <div className="w-4 h-4 border-2 border-white rounded-full"></div>
-                  </div>
-                  <span className="text-2xl font-bold text-gray-800">eSIMfo</span>
-                </div>
-                
-                {/* Title and description */}
-                <div className="relative z-10 text-center">
-                  <h1 className="text-3xl font-bold text-gray-800 mb-4 leading-tight">
-                    Stay Connected<br />
-                    Worldwide
-                  </h1>
-                  <p className="text-lg text-gray-600 leading-relaxed max-w-sm mx-auto">
-                    Get instant data connectivity in 200+<br />
-                    countries without changing your SIM card
-                  </p>
-                </div>
-              </div>
-            )}
-            
-            {/* Step 2: Professional Phone SVG */}
-            {currentStep === 1 && (
-              <div className="relative w-72 h-80 flex items-center justify-center">
-                {/* Professional Phone SVG from Internet */}
-                <div className="w-32 h-48 drop-shadow-2xl">
-                  <img src={phoneIcon} alt="eSIM Phone" className="w-full h-full" style={{ filter: 'invert(0.2) sepia(1) saturate(2) hue-rotate(200deg)' }} />
-                </div>
-                
-                {/* eSIM indicator */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="bg-blue-600 dark:bg-blue-400 text-white dark:text-gray-900 px-3 py-1 rounded-lg text-sm font-bold shadow-lg">
-                    eSIM
-                  </div>
-                </div>
-                
-                {/* Signal indicators */}
-                <div className="absolute top-8 right-8 flex space-x-1">
-                  <div className="w-1 h-3 bg-green-500 rounded-sm"></div>
-                  <div className="w-1 h-4 bg-green-500 rounded-sm"></div>
-                  <div className="w-1 h-5 bg-green-500 rounded-sm"></div>
-                  <div className="w-1 h-6 bg-green-500 rounded-sm"></div>
-                </div>
-              </div>
-            )}
-            
-            {/* Step 3: Professional World Map Success */}
-            {currentStep === 2 && (
-              <div className="relative w-80 h-64 flex items-center justify-center">
-                {/* Professional World Map Background from SimpleMaps */}
-                <div className="absolute inset-0 opacity-15 dark:opacity-25">
-                  <img src={worldMapIcon} alt="World Map" className="w-full h-full object-contain" />
-                </div>
-                
-                {/* Central Success Checkmark */}
-                <div className="relative z-10">
-                  <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 dark:from-green-400 dark:to-green-500 rounded-full shadow-2xl flex items-center justify-center">
-                    <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                    </svg>
-                  </div>
-                </div>
-                
-                {/* Location markers */}
-                <div className="absolute top-12 left-12 w-4 h-4 bg-blue-500 rounded-full shadow-md"></div>
-                <div className="absolute top-16 right-16 w-4 h-4 bg-purple-500 rounded-full shadow-md"></div>
-                <div className="absolute bottom-16 left-16 w-4 h-4 bg-orange-500 rounded-full shadow-md"></div>
-                <div className="absolute bottom-12 right-12 w-4 h-4 bg-pink-500 rounded-full shadow-md"></div>
-                
-                {/* Success text */}
-                <div className="absolute bottom-8 text-center">
-                  <div className="text-sm font-medium text-green-600 dark:text-green-400">Connected Globally</div>
-                </div>
-              </div>
-            )}
-          </div>
+        {/* Progress indicators */}
+        <div className="flex justify-center space-x-2 mb-8">
+          {onboardingSteps.map((_, index) => (
+            <div
+              key={index}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                index === currentStep 
+                  ? 'w-8 bg-blue-600 dark:bg-blue-400' 
+                  : index < currentStep
+                  ? 'w-2 bg-blue-300 dark:bg-blue-600'
+                  : 'w-2 bg-gray-200 dark:bg-gray-700'
+              }`}
+            />
+          ))}
         </div>
-        
-        {/* Lower Half - Text and Controls */}
-        <div className="h-80 bg-transparent px-8 py-8 flex flex-col">
-          <div className={`text-center transition-all duration-500 transform flex-1 ${
-            isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
-          }`}>
-            
-            {/* Only show content for non-first step since Step 1 has integrated content */}
-            {currentStep !== 0 && (
-              <>
-                <h2 className="text-3xl font-bold text-white mb-4">
-                  {currentStepData.title}
-                </h2>
-                <p className="text-blue-100 text-lg leading-relaxed mb-6 max-w-sm mx-auto">
-                  {currentStepData.description}
-                </p>
-              </>
-            )}
-            
-            {/* Step Indicators */}
-            <div className="flex justify-center space-x-3 mb-8">
-              {onboardingSteps.map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === currentStep 
-                      ? 'w-8 bg-blue-600' 
-                      : 'w-2 bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+
+        {/* Content area */}
+        <div className="flex-1 flex flex-col items-center justify-center text-center space-y-8">
           
-          {/* Action Buttons - Blue Style matching reference */}
-          <div className="w-full max-w-sm mx-auto pb-8">
-            <button 
-              onClick={handleNext}
-              disabled={isAnimating}
-              className="w-full bg-blue-600 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg disabled:opacity-50"
-            >
-              {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
-            </button>
+          {/* Icon */}
+          <div className={`w-32 h-32 rounded-full ${colors.bg} flex items-center justify-center shadow-lg`}>
+            <IconComponent className={`w-16 h-16 ${colors.icon}`} />
+          </div>
+
+          {/* Title and description */}
+          <div className="max-w-sm space-y-4">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              {currentStepData.title}
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+              {currentStepData.description}
+            </p>
           </div>
         </div>
-        
+
+        {/* Navigation buttons */}
+        <div className="flex items-center justify-between pt-8">
+          <Button
+            variant="ghost"
+            onClick={handlePrevious}
+            disabled={currentStep === 0}
+            className="flex items-center space-x-2"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            <span>Back</span>
+          </Button>
+
+          <Button
+            onClick={handleNext}
+            className={`${colors.button} text-white flex items-center space-x-2 px-8`}
+          >
+            <span>
+              {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
+            </span>
+            <ChevronRight className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
     </div>
   );
