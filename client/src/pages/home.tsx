@@ -833,7 +833,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
-                    <img src="https://simplemaps.com/static/demos/resources/svg-library/svgs/europe.svg" alt="Europe" className="w-7 h-7 opacity-80"/>
+                    <span className="text-xl">🇪🇺</span>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Europa</h3>
@@ -849,7 +849,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
-                    <img src="https://www.svgrepo.com/download/155398/australia.svg" alt="Asia" className="w-7 h-7 opacity-80" style={{transform: 'scale(1.5)'}}/>
+                    <span className="text-xl">🌏</span>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Asia</h3>
@@ -865,7 +865,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
-                    <img src="https://www.svgrepo.com/download/154046/south-america.svg" alt="Americas" className="w-7 h-7 opacity-80"/>
+                    <span className="text-xl">🌎</span>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Americas</h3>
@@ -881,7 +881,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
-                    <img src="https://www.svgrepo.com/download/480953/africa-continent.svg" alt="Africa" className="w-7 h-7 opacity-80"/>
+                    <span className="text-xl">🌍</span>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Africa</h3>
@@ -897,7 +897,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
-                    <img src="https://www.svgrepo.com/download/155398/australia.svg" alt="Middle East" className="w-7 h-7 opacity-80" style={{transform: 'scale(0.8)'}}/>
+                    <span className="text-xl">🕌</span>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Middle East</h3>
@@ -913,7 +913,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-xl flex items-center justify-center">
-                    <img src="https://www.svgrepo.com/download/155398/australia.svg" alt="Oceania" className="w-7 h-7 opacity-80"/>
+                    <span className="text-xl">🏝️</span>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Oceania</h3>
