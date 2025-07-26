@@ -664,67 +664,66 @@
 .stagger-delay-4 { animation-delay: 400ms; }
 .stagger-delay-5 { animation-delay: 500ms; }
 
-/* Continent-specific gradient themes - Subtle corporate light mode */
+/* Continent-specific themes - Minimal gray for light mode */
 .continent-europa {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(255, 255, 255, 0.98) 100%);
-  border: 1px solid rgba(59, 130, 246, 0.12);
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%);
+  border: 1px solid rgba(156, 163, 175, 0.15);
 }
 
 .continent-asia {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.06) 0%, rgba(255, 255, 255, 0.98) 100%);
-  border: 1px solid rgba(34, 197, 94, 0.12);
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%);
+  border: 1px solid rgba(107, 114, 128, 0.15);
 }
 
 .continent-americas {
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.06) 0%, rgba(255, 255, 255, 0.98) 100%);
-  border: 1px solid rgba(249, 115, 22, 0.12);
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%);
+  border: 1px solid rgba(156, 163, 175, 0.15);
 }
 
 .continent-africa {
-  background: linear-gradient(135deg, rgba(234, 179, 8, 0.06) 0%, rgba(255, 255, 255, 0.98) 100%);
-  border: 1px solid rgba(234, 179, 8, 0.12);
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%);
+  border: 1px solid rgba(107, 114, 128, 0.15);
 }
 
 .continent-middle-east {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.06) 0%, rgba(255, 255, 255, 0.98) 100%);
-  border: 1px solid rgba(168, 85, 247, 0.12);
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%);
+  border: 1px solid rgba(156, 163, 175, 0.15);
 }
 
 .continent-oceania {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.06) 0%, rgba(255, 255, 255, 0.98) 100%);
-  border: 1px solid rgba(6, 182, 212, 0.12);
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.08) 0%, rgba(255, 255, 255, 0.98) 100%);
+  border: 1px solid rgba(107, 114, 128, 0.15);
 }
 
-/* Icon container - Clean solid colors for both modes */
+/* Icon container - Minimal gray for light mode */
 .continent-europa .continent-icon {
-  /* Light mode - subtle gradient */
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(255, 255, 255, 0.9));
-  border: 1px solid rgba(59, 130, 246, 0.18);
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.15), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(156, 163, 175, 0.25);
 }
 
 .continent-asia .continent-icon {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(255, 255, 255, 0.9));
-  border: 1px solid rgba(34, 197, 94, 0.18);
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.15), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(107, 114, 128, 0.25);
 }
 
 .continent-americas .continent-icon {
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.12), rgba(255, 255, 255, 0.9));
-  border: 1px solid rgba(249, 115, 22, 0.18);
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.15), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(156, 163, 175, 0.25);
 }
 
 .continent-africa .continent-icon {
-  background: linear-gradient(135deg, rgba(234, 179, 8, 0.12), rgba(255, 255, 255, 0.9));
-  border: 1px solid rgba(234, 179, 8, 0.18);
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.15), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(107, 114, 128, 0.25);
 }
 
 .continent-middle-east .continent-icon {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(255, 255, 255, 0.9));
-  border: 1px solid rgba(168, 85, 247, 0.18);
+  background: linear-gradient(135deg, rgba(156, 163, 175, 0.15), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(156, 163, 175, 0.25);
 }
 
 .continent-oceania .continent-icon {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(255, 255, 255, 0.9));
-  border: 1px solid rgba(6, 182, 212, 0.18);
+  background: linear-gradient(135deg, rgba(107, 114, 128, 0.15), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(107, 114, 128, 0.25);
 }
 
 /* Dark mode - Minimal unified colors */
