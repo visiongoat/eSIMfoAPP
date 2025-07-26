@@ -651,7 +651,7 @@ export default function DestinationsScreen() {
             ))}
           </div>
         ) : (
-          <div className="space-y-3 mb-8">
+          <div className="space-y-3 mb-4">
             {selectedTab === 'countries' ? (
               // Premium Countries List with Stagger Animation
               finalFilteredData.map((country: any, index: number) => (
