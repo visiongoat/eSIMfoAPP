@@ -173,8 +173,8 @@ export default function OnboardingScreen() {
             <div 
               className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]"
               style={{
-                maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+                maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)'
               }}
             >
               <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
@@ -241,8 +241,8 @@ export default function OnboardingScreen() {
             <div 
               className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]"
               style={{
-                maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+                maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)'
               }}
             >
               <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
@@ -319,8 +319,8 @@ export default function OnboardingScreen() {
             <div 
               className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]"
               style={{
-                maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+                maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)'
               }}
             >
               <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
