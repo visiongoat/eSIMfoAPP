@@ -218,14 +218,24 @@ export default function OnboardingScreen() {
 
   return (
     <div className="mobile-screen relative">
-      {/* Full-Screen Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800"></div>
+      {/* Full-Screen Background - Apple-style Blue Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 dark:from-gray-900 dark:to-gray-800"></div>
       
       {/* Animation Layer */}
       <div className={`absolute inset-0 transition-all duration-500 transform ${
         isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
       }`}>
         <currentStepData.component />
+      </div>
+      
+      {/* Skip button - Top Right */}
+      <div className="absolute top-4 right-4 z-50">
+        <button 
+          onClick={handleSkip}
+          className="text-white/70 hover:text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-white/10 transition-all"
+        >
+          Skip
+        </button>
       </div>
       
       {/* Split Screen Layout */}
@@ -238,19 +248,56 @@ export default function OnboardingScreen() {
             isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
           }`}>
             
-            {/* Step 1: Professional Globe */}
+            {/* Step 1: Apple-style Global Connectivity */}
             {currentStep === 0 && (
-              <div className="relative w-72 h-72 flex items-center justify-center">
-                {/* Professional Globe SVG from Internet */}
-                <div className="w-48 h-48 text-blue-600 dark:text-blue-400 drop-shadow-2xl">
-                  <img src={globeIcon} alt="Global Network" className="w-full h-full" />
+              <div className="relative w-full h-80 flex flex-col items-center justify-center">
+                
+                {/* Floating decorative dots */}
+                <div className="absolute top-8 left-8 w-4 h-4 bg-green-400/60 rounded-full"></div>
+                <div className="absolute top-12 right-12 w-3 h-3 bg-blue-300/50 rounded-full"></div>
+                <div className="absolute top-20 left-1/4 w-2 h-2 bg-purple-400/40 rounded-full"></div>
+                <div className="absolute bottom-16 right-8 w-5 h-5 bg-orange-400/50 rounded-full"></div>
+                <div className="absolute bottom-20 left-12 w-3 h-3 bg-cyan-300/40 rounded-full"></div>
+                <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-pink-400/30 rounded-full"></div>
+                
+                {/* Main icon container */}
+                <div className="relative flex items-center justify-center mb-8">
+                  {/* Globe background */}
+                  <div className="w-32 h-32 text-blue-400">
+                    <img src={globeIcon} alt="Global Network" className="w-full h-full" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(96%) saturate(1180%) hue-rotate(200deg) brightness(98%) contrast(101%)' }} />
+                  </div>
+                  
+                  {/* SIM card overlay */}
+                  <div className="absolute -bottom-4 -right-4 w-16 h-20 bg-white rounded-lg shadow-xl flex items-center justify-center">
+                    <div className="w-12 h-14 bg-gray-100 rounded border-2 border-gray-300 flex flex-col items-center justify-center">
+                      {/* SIM card grid pattern */}
+                      <div className="grid grid-cols-3 gap-1 w-8 h-8">
+                        <div className="bg-gray-400 rounded-sm"></div>
+                        <div className="bg-gray-400 rounded-sm"></div>
+                        <div className="bg-gray-400 rounded-sm"></div>
+                        <div className="bg-gray-400 rounded-sm"></div>
+                        <div className="bg-gray-600 rounded-sm"></div>
+                        <div className="bg-gray-400 rounded-sm"></div>
+                        <div className="bg-gray-400 rounded-sm"></div>
+                        <div className="bg-gray-400 rounded-sm"></div>
+                        <div className="bg-gray-400 rounded-sm"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
-                {/* Connection indicators */}
-                <div className="absolute top-16 right-16 w-3 h-3 bg-green-500 rounded-full shadow-lg"></div>
-                <div className="absolute bottom-20 left-20 w-3 h-3 bg-blue-500 rounded-full shadow-lg"></div>
-                <div className="absolute top-20 left-16 w-3 h-3 bg-purple-500 rounded-full shadow-lg"></div>
-                <div className="absolute bottom-16 right-20 w-3 h-3 bg-orange-500 rounded-full shadow-lg"></div>
+                {/* Title and description */}
+                <div className="text-center px-8">
+                  <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
+                    Stay Connected<br />
+                    Worldwide
+                  </h2>
+                  <p className="text-lg text-blue-100 leading-relaxed max-w-sm mx-auto">
+                    Get instant data connectivity in<br />
+                    200+ countries without changing<br />
+                    your SIM card
+                  </p>
+                </div>
               </div>
             )}
             
@@ -312,47 +359,46 @@ export default function OnboardingScreen() {
         </div>
         
         {/* Lower Half - Text and Controls */}
-        <div className="h-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md px-8 py-8 flex flex-col">
+        <div className="h-80 bg-transparent px-8 py-8 flex flex-col">
           <div className={`text-center transition-all duration-500 transform flex-1 ${
             isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
           }`}>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              {currentStepData.title}
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6 max-w-sm mx-auto">
-              {currentStepData.description}
-            </p>
+            
+            {/* Only show content for non-first step since Step 1 has integrated content */}
+            {currentStep !== 0 && (
+              <>
+                <h2 className="text-3xl font-bold text-white mb-4">
+                  {currentStepData.title}
+                </h2>
+                <p className="text-blue-100 text-lg leading-relaxed mb-6 max-w-sm mx-auto">
+                  {currentStepData.description}
+                </p>
+              </>
+            )}
             
             {/* Step Indicators */}
-            <div className="flex justify-center space-x-3 mb-6">
+            <div className="flex justify-center space-x-3 mb-8">
               {onboardingSteps.map((_, index) => (
                 <div
                   key={index}
                   className={`h-2 rounded-full transition-all duration-300 ${
                     index === currentStep 
-                      ? 'w-8 bg-blue-500 dark:bg-blue-400' 
-                      : 'w-2 bg-gray-300 dark:bg-gray-600'
+                      ? 'w-8 bg-white' 
+                      : 'w-2 bg-white/30'
                   }`}
                 />
               ))}
             </div>
           </div>
           
-          {/* Action Buttons - Fixed at Bottom */}
-          <div className="w-full max-w-sm mx-auto space-y-3">
+          {/* Action Buttons - Apple Style */}
+          <div className="w-full max-w-sm mx-auto pb-8">
             <button 
               onClick={handleNext}
               disabled={isAnimating}
-              className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg disabled:opacity-50"
+              className="w-full bg-white text-blue-600 font-semibold py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-xl disabled:opacity-50"
             >
               {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
-            </button>
-            
-            <button 
-              onClick={handleSkip}
-              className="w-full py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
-            >
-              Skip
             </button>
           </div>
         </div>
