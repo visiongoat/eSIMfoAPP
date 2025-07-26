@@ -273,14 +273,7 @@ export default function OnboardingScreen() {
             </div>
           )}
           
-          {/* Swipe hint on first load */}
-          {currentStep === 0 && !isAnimating && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
-              <div className="bg-black/20 dark:bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-gray-600 dark:text-gray-300">
-                👈 Swipe to navigate 👉
-              </div>
-            </div>
-          )}
+
           
           {/* Enhanced Icon Container - compact */}
           <div className="relative">
