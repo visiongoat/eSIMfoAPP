@@ -602,44 +602,7 @@ export default function DestinationsScreen() {
           </div>
         )}
 
-        {/* Popular Section (only for countries) */}
-        {selectedTab === 'countries' && !searchQuery && selectedFilter === 'all' && (
-          <>
-            <div className="mt-8 mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Popular</h2>
-            </div>
-            <div className="space-y-3">
-              {[
-                { name: 'Turkey', flag: '🇹🇷', price: '€1.20' },
-                { name: 'United States', flag: '🇺🇸', price: '€4.50' },
-                { name: 'United Kingdom', flag: '🇬🇧', price: '€2.80' },
-                { name: 'Japan', flag: '🇯🇵', price: '€3.20' },
-                { name: 'Thailand', flag: '🇹🇭', price: '€1.80' },
-                { name: 'Egypt', flag: '🇪🇬', price: '€2.40' },
-                { name: 'UAE', flag: '🇦🇪', price: '€3.60' },
-                { name: 'China', flag: '🇨🇳', price: '€2.90' }
-              ].map((country, index) => (
-                <button
-                  key={index}
-                  onClick={() => {/* Handle popular country selection */}}
-                  className="mobile-card p-4 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 active:scale-[0.98]"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-2xl">{country.flag}</span>
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{country.name}</p>
-                      </div>
-                    </div>
-                    <span className="text-gray-400 dark:text-gray-500">›</span>
-                  </div>
-                </button>
-              ))}
-            </div>
 
-
-          </>
-        )}
       </div>
 
       <TabBar />
