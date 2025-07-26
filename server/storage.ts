@@ -129,20 +129,54 @@ export class MemStorage implements IStorage {
       { name: "Egypt", code: "EG", flagUrl: "https://flagcdn.com/w40/eg.png", region: "Africa", coverage: "Good", network: "4G", operators: ["Orange", "Vodafone", "Etisalat"] },
       { name: "El Salvador", code: "SV", flagUrl: "https://flagcdn.com/w40/sv.png", region: "Central America", coverage: "Good", network: "4G", operators: ["Claro", "Movistar", "Tigo"] },
       { name: "Estonia", code: "EE", flagUrl: "https://flagcdn.com/w40/ee.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["Telia", "Elisa", "Tele2"] },
-      { name: "Eswatini", code: "SZ", flagUrl: "https://flagcdn.com/w40/sz.png", region: "Africa", coverage: "Good", network: "4G", operators: ["MTN", "Eswatini Mobile"] },
+      { name: "Ethiopia", code: "ET", flagUrl: "https://flagcdn.com/w40/et.png", region: "Africa", coverage: "Fair", network: "3G/4G", operators: ["Ethio Telecom", "Safaricom"] },
+      { name: "Faroe Islands", code: "FO", flagUrl: "https://flagcdn.com/w40/fo.png", region: "Europe", coverage: "Good", network: "4G", operators: ["Faroese Telecom", "Vodafone"] },
+      { name: "Fiji", code: "FJ", flagUrl: "https://flagcdn.com/w40/fj.png", region: "Oceania", coverage: "Good", network: "4G", operators: ["Vodafone", "Digicel"] },
+      { name: "Finland", code: "FI", flagUrl: "https://flagcdn.com/w40/fi.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["Elisa", "Telia", "DNA"] },
+      { name: "France", code: "FR", flagUrl: "https://flagcdn.com/w40/fr.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["Orange", "SFR", "Bouygues"] },
+      { name: "Germany", code: "DE", flagUrl: "https://flagcdn.com/w40/de.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["Vodafone", "O2", "Telekom"] },
+      { name: "Greece", code: "GR", flagUrl: "https://flagcdn.com/w40/gr.png", region: "Europe", coverage: "Good", network: "4G/5G", operators: ["Cosmote", "Vodafone", "Wind"] },
+      { name: "Hong Kong", code: "HK", flagUrl: "https://flagcdn.com/w40/hk.png", region: "Asia", coverage: "Excellent", network: "5G", operators: ["3HK", "CSL", "SmarTone"] },
+      { name: "Italy", code: "IT", flagUrl: "https://flagcdn.com/w40/it.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["TIM", "Vodafone", "WindTre"] },
+      { name: "Japan", code: "JP", flagUrl: "https://flagcdn.com/w40/jp.png", region: "Asia", coverage: "Excellent", network: "5G", operators: ["NTT DoCoMo", "SoftBank", "KDDI"] },
+      { name: "Malaysia", code: "MY", flagUrl: "https://flagcdn.com/w40/my.png", region: "Asia", coverage: "Good", network: "4G/5G", operators: ["Maxis", "Celcom", "Digi"] },
+      { name: "Mexico", code: "MX", flagUrl: "https://flagcdn.com/w40/mx.png", region: "North America", coverage: "Good", network: "4G/5G", operators: ["Telcel", "AT&T", "Movistar"] },
+      { name: "Singapore", code: "SG", flagUrl: "https://flagcdn.com/w40/sg.png", region: "Asia", coverage: "Excellent", network: "5G", operators: ["Singtel", "StarHub", "M1"] },
+      { name: "South Korea", code: "KR", flagUrl: "https://flagcdn.com/w40/kr.png", region: "Asia", coverage: "Excellent", network: "5G", operators: ["SK Telecom", "KT", "LG U+"] },
+      { name: "Spain", code: "ES", flagUrl: "https://flagcdn.com/w40/es.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["Movistar", "Orange", "Vodafone"] },
+      { name: "Thailand", code: "TH", flagUrl: "https://flagcdn.com/w40/th.png", region: "Asia", coverage: "Good", network: "4G/5G", operators: ["AIS", "dtac", "True"] },
+      { name: "Turkey", code: "TR", flagUrl: "https://flagcdn.com/w40/tr.png", region: "Europe", coverage: "Good", network: "4G/5G", operators: ["Türk Telekom", "Vodafone", "Turkcell"] },
+      { name: "United Kingdom", code: "GB", flagUrl: "https://flagcdn.com/w40/gb.png", region: "Europe", coverage: "Excellent", network: "5G", operators: ["EE", "Vodafone", "O2"] },
+      { name: "United States", code: "US", flagUrl: "https://flagcdn.com/w40/us.png", region: "North America", coverage: "Excellent", network: "5G", operators: ["T-Mobile", "Verizon", "AT&T"] }
+    ];
 
-      // US packages
-      { countryId: 1, name: "1GB / 7 Days", data: "1GB", validity: "7 Days", price: "4.50", originalPrice: "6.00", description: "Perfect for short trips", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
-      { countryId: 1, name: "3GB / 15 Days", data: "3GB", validity: "15 Days", price: "12.90", originalPrice: null, description: "Most popular choice", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
-      { countryId: 1, name: "10GB / 30 Days", data: "10GB", validity: "30 Days", price: "28.50", originalPrice: null, description: "Extended stay package", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
+    seedCountries.forEach((country, index) => {
+      const id = this.currentCountryId++;
+      this.countries.set(id, { ...country, id });
+    });
+
+    // Seed packages
+    const seedPackages = [
+      // US packages (countryId 11 - United States)
+      { countryId: 11, name: "1GB / 7 Days", data: "1GB", validity: "7 Days", price: "4.50", originalPrice: "6.00", description: "Perfect for short trips", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
+      { countryId: 11, name: "3GB / 15 Days", data: "3GB", validity: "15 Days", price: "12.90", originalPrice: null, description: "Most popular choice", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
+      { countryId: 11, name: "10GB / 30 Days", data: "10GB", validity: "30 Days", price: "28.50", originalPrice: null, description: "Extended stay package", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
       
-      // Germany packages  
-      { countryId: 2, name: "2GB / 10 Days", data: "2GB", validity: "10 Days", price: "8.90", originalPrice: null, description: "Great for business trips", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
-      { countryId: 2, name: "5GB / 20 Days", data: "5GB", validity: "20 Days", price: "18.50", originalPrice: null, description: "Extended Europe stay", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
+      // Germany packages (countryId 7)
+      { countryId: 7, name: "2GB / 10 Days", data: "2GB", validity: "10 Days", price: "8.90", originalPrice: null, description: "Great for business trips", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
+      { countryId: 7, name: "5GB / 20 Days", data: "5GB", validity: "20 Days", price: "18.50", originalPrice: null, description: "Extended Europe stay", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
       
-      // Japan packages
-      { countryId: 3, name: "1GB / 5 Days", data: "1GB", validity: "5 Days", price: "6.90", originalPrice: null, description: "Short Tokyo visit", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
-      { countryId: 3, name: "3GB / 14 Days", data: "3GB", validity: "14 Days", price: "16.50", originalPrice: null, description: "Explore Japan package", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" }
+      // Japan packages (countryId 8)
+      { countryId: 8, name: "1GB / 5 Days", data: "1GB", validity: "5 Days", price: "6.90", originalPrice: null, description: "Short Tokyo visit", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
+      { countryId: 8, name: "3GB / 14 Days", data: "3GB", validity: "14 Days", price: "16.50", originalPrice: null, description: "Explore Japan package", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
+      
+      // Turkey packages (countryId 9)
+      { countryId: 9, name: "2GB / 7 Days", data: "2GB", validity: "7 Days", price: "5.90", originalPrice: null, description: "Istanbul visit", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
+      { countryId: 9, name: "5GB / 15 Days", data: "5GB", validity: "15 Days", price: "12.50", originalPrice: null, description: "Turkey explorer", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
+      
+      // France packages (countryId 6)
+      { countryId: 6, name: "3GB / 14 Days", data: "3GB", validity: "14 Days", price: "11.90", originalPrice: null, description: "Paris vacation", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
+      { countryId: 6, name: "8GB / 30 Days", data: "8GB", validity: "30 Days", price: "24.90", originalPrice: null, description: "Extended France stay", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" }
     ];
 
     seedPackages.forEach((pkg, index) => {
