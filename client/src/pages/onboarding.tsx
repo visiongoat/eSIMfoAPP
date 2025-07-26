@@ -26,80 +26,7 @@ const GlobalConnectionAnimation = () => (
         <div className="absolute bottom-16 left-16 w-5 h-2 bg-white/40 rounded-full"></div>
       </div>
 
-      {/* Simple & Recognizable World Landmarks */}
-      
-      {/* Eiffel Tower - Paris (Very Simple) */}
-      <div className="absolute -top-16 -left-6 transform rotate-15 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '3s' }}>
-        <div className="relative">
-          <div className="w-1 h-12 bg-gray-600 dark:bg-gray-400 mx-auto"></div>
-          <div className="w-3 h-0.5 bg-gray-600 dark:bg-gray-400 mx-auto -mt-8"></div>
-          <div className="w-2 h-0.5 bg-gray-600 dark:bg-gray-400 mx-auto -mt-4"></div>
-          <div className="w-1 h-1 bg-yellow-400 rounded-full mx-auto -mt-1"></div>
-        </div>
-      </div>
 
-      {/* Statue of Liberty - New York (Simple Silhouette) */}
-      <div className="absolute -right-8 top-8 animate-bounce" style={{ animationDelay: '1s', animationDuration: '3s' }}>
-        <div className="text-green-600 dark:text-green-400 text-2xl">🗽</div>
-      </div>
-
-      {/* Pyramid - Egypt (Clean Triangle) */}
-      <div className="absolute -bottom-4 -right-8 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '3s' }}>
-        <div className="w-0 h-0 border-l-6 border-r-6 border-b-8 border-l-transparent border-r-transparent border-b-yellow-500 dark:border-b-yellow-400"></div>
-      </div>
-
-      {/* Big Ben - London (Simple Tower) */}
-      <div className="absolute -top-12 right-8 animate-bounce" style={{ animationDelay: '2s', animationDuration: '3s' }}>
-        <div className="w-2 h-10 bg-amber-600 dark:bg-amber-500 rounded-t-sm mx-auto"></div>
-        <div className="w-3 h-2 bg-amber-700 dark:bg-amber-600 rounded-sm mx-auto -mt-1"></div>
-        <div className="w-1 h-1 bg-yellow-400 rounded-full mx-auto -mt-1"></div>
-      </div>
-
-      {/* Sydney Opera House - Australia (Shell Design) */}
-      <div className="absolute -bottom-8 left-4 animate-bounce" style={{ animationDelay: '2.5s', animationDuration: '3s' }}>
-        <div className="flex items-end space-x-1">
-          <div className="w-2 h-3 bg-white dark:bg-gray-100 rounded-t-full"></div>
-          <div className="w-2 h-4 bg-white dark:bg-gray-100 rounded-t-full"></div>
-          <div className="w-2 h-3 bg-white dark:bg-gray-100 rounded-t-full"></div>
-        </div>
-      </div>
-
-      {/* Mount Fuji - Japan (Snow-capped Mountain) */}
-      <div className="absolute top-8 -right-12 animate-bounce" style={{ animationDelay: '3s', animationDuration: '3s' }}>
-        <div className="relative">
-          <div className="w-0 h-0 border-l-4 border-r-4 border-b-6 border-l-transparent border-r-transparent border-b-gray-600 dark:border-b-gray-400"></div>
-          <div className="w-0 h-0 border-l-2 border-r-2 border-b-2 border-l-transparent border-r-transparent border-b-white mx-auto -mt-2"></div>
-        </div>
-      </div>
-
-      {/* Hot Air Balloon (Colorful) */}
-      <div className="absolute -top-16 left-12 animate-bounce" style={{ animationDelay: '0s', animationDuration: '4s' }}>
-        <div className="relative">
-          <div className="w-4 h-6 bg-gradient-to-b from-red-400 to-red-500 dark:from-red-500 dark:to-red-600 rounded-full mx-auto"></div>
-          <div className="w-0.5 h-2 bg-gray-600 dark:bg-gray-400 mx-auto"></div>
-          <div className="w-2 h-1 bg-amber-600 dark:bg-amber-500 rounded-sm mx-auto"></div>
-        </div>
-      </div>
-
-      {/* London Bridge/Tower Bridge (Simple Arch) */}
-      <div className="absolute -left-8 top-16 animate-bounce" style={{ animationDelay: '3.5s', animationDuration: '3s' }}>
-        <div className="relative">
-          <div className="flex space-x-2">
-            <div className="w-1 h-4 bg-stone-600 dark:bg-stone-400"></div>
-            <div className="w-1 h-4 bg-stone-600 dark:bg-stone-400"></div>
-          </div>
-          <div className="w-4 h-0.5 bg-stone-600 dark:bg-stone-400 rounded-full -mt-1"></div>
-        </div>
-      </div>
-
-      {/* Taj Mahal - India (Simple Dome) */}
-      <div className="absolute -bottom-12 left-16 animate-bounce" style={{ animationDelay: '4s', animationDuration: '3s' }}>
-        <div className="relative">
-          <div className="w-3 h-2 bg-white dark:bg-gray-100 rounded-t-full mx-auto"></div>
-          <div className="w-4 h-2 bg-white dark:bg-gray-100 mx-auto"></div>
-          <div className="w-0.5 h-1 bg-yellow-400 rounded-full mx-auto -mt-1"></div>
-        </div>
-      </div>
 
       {/* Simple Connection Lines */}
       <div className="absolute inset-0">
@@ -298,50 +225,102 @@ export default function OnboardingScreen() {
         <currentStepData.component />
       </div>
       
-      {/* Content Overlay - Full Screen */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 px-8 pb-12">
-        <div className={`text-center transition-all duration-500 transform ${
-          isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
-        }`}>
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 drop-shadow-lg">
-            {currentStepData.title}
-          </h2>
-          <p className="text-gray-700 dark:text-gray-300 text-xl leading-relaxed mb-12 max-w-md mx-auto drop-shadow-md">
-            {currentStepData.description}
-          </p>
-          
-          {/* Step Indicators */}
-          <div className="flex justify-center space-x-3 mb-8">
-            {onboardingSteps.map((_, index) => (
-              <div
-                key={index}
-                className={`h-3 rounded-full transition-all duration-300 ${
-                  index === currentStep 
-                    ? 'w-8 bg-blue-500 dark:bg-blue-400 shadow-lg' 
-                    : 'w-3 bg-white/60 dark:bg-gray-600'
-                }`}
-              />
-            ))}
+      {/* Split Screen Layout */}
+      <div className="absolute inset-0 z-30 flex flex-col">
+        
+        {/* Upper Half - Visual Content Area */}
+        <div className="flex-1 flex items-center justify-center relative overflow-hidden">
+          {/* Real Image/Illustration Placeholder */}
+          <div className={`transition-all duration-500 transform ${
+            isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
+          }`}>
+            {/* Step 1: Globe with Connectivity */}
+            {currentStep === 0 && (
+              <div className="relative">
+                <div className="w-48 h-48 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 dark:from-blue-500 dark:via-blue-600 dark:to-blue-700 shadow-2xl flex items-center justify-center">
+                  <div className="text-6xl">🌍</div>
+                  {/* Connection dots around globe */}
+                  <div className="absolute inset-0 animate-pulse">
+                    <div className="absolute top-4 right-8 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
+                    <div className="absolute bottom-8 left-12 w-2 h-2 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+                    <div className="absolute top-12 left-4 w-2 h-2 bg-red-400 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Step 2: Mobile Device with eSIM */}
+            {currentStep === 1 && (
+              <div className="relative">
+                <div className="w-40 h-64 bg-gray-900 dark:bg-gray-800 rounded-3xl shadow-2xl relative">
+                  <div className="w-full h-full bg-gradient-to-b from-blue-100 to-blue-200 dark:from-gray-700 dark:to-gray-800 rounded-3xl p-4 flex flex-col items-center justify-center">
+                    <div className="text-4xl mb-4">📱</div>
+                    <div className="w-16 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                      <div className="text-white text-xs font-bold">eSIM</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Step 3: Happy Traveler */}
+            {currentStep === 2 && (
+              <div className="relative">
+                <div className="w-48 h-48 rounded-full bg-gradient-to-br from-green-400 via-green-500 to-green-600 dark:from-green-500 dark:via-green-600 dark:to-green-700 shadow-2xl flex items-center justify-center">
+                  <div className="text-6xl">✈️</div>
+                  <div className="absolute -top-4 -right-4 text-4xl">😊</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {/* Lower Half - Text and Controls */}
+        <div className="h-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md px-8 py-8 flex flex-col">
+          <div className={`text-center transition-all duration-500 transform flex-1 ${
+            isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
+          }`}>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              {currentStepData.title}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6 max-w-sm mx-auto">
+              {currentStepData.description}
+            </p>
+            
+            {/* Step Indicators */}
+            <div className="flex justify-center space-x-3 mb-6">
+              {onboardingSteps.map((_, index) => (
+                <div
+                  key={index}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === currentStep 
+                      ? 'w-8 bg-blue-500 dark:bg-blue-400' 
+                      : 'w-2 bg-gray-300 dark:bg-gray-600'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
           
-          {/* Action Buttons */}
-          <div className="w-full max-w-sm mx-auto space-y-4">
+          {/* Action Buttons - Fixed at Bottom */}
+          <div className="w-full max-w-sm mx-auto space-y-3">
             <button 
               onClick={handleNext}
               disabled={isAnimating}
-              className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-5 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-2xl text-lg disabled:opacity-50"
+              className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg disabled:opacity-50"
             >
               {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
             </button>
             
             <button 
               onClick={handleSkip}
-              className="w-full py-4 text-white/80 dark:text-gray-300 hover:text-white dark:hover:text-white transition-colors duration-200 text-lg drop-shadow-md"
+              className="w-full py-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
             >
               Skip
             </button>
           </div>
         </div>
+        
       </div>
     </div>
   );
