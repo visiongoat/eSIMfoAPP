@@ -507,9 +507,6 @@ export default function DestinationsScreen() {
             >
               <tab.icon className={`w-4 h-4 transition-transform duration-200 ${selectedTab === tab.key ? 'scale-110' : ''}`} />
               <span className="tracking-wide">{tab.label}</span>
-              {selectedTab === tab.key && (
-                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-500 rounded-t-full animate-slideIn"></div>
-              )}
             </button>
           ))}
         </div>
