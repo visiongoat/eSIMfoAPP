@@ -440,6 +440,10 @@ export default function DestinationsScreen() {
                   clearSearch();
                   (e.target as HTMLInputElement).blur();
                 }
+                if (e.key === 'Enter' && searchResults.length > 0) {
+                  e.preventDefault();
+                  selectCountry(searchResults[0]);
+                }
               }}
               className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base font-medium group-focus-within:placeholder-blue-400 transition-all duration-300"
             />
