@@ -9,7 +9,7 @@ const onboardingSteps = [
     title: "Global Coverage",
     description: "Stay connected in 200+ countries worldwide with instant eSIM activation. No roaming fees, no surprises.",
     color: "blue",
-    features: ["200+ Countries", "No Roaming Fees", "Instant Coverage"],
+    features: ["200+ Countries", "No Fees", "Global"],
     stats: "98% Global Coverage",
     backgroundPattern: "globe"
   },
@@ -546,8 +546,8 @@ export default function OnboardingScreen() {
               {currentStepData.description}
             </p>
             
-            {/* Feature highlights - centered */}
-            <div className="flex justify-center gap-2 mt-6 flex-wrap max-w-full" style={{ minHeight: '32px' }}>
+            {/* Feature highlights - single row */}
+            <div className="flex justify-center gap-1.5 mt-6 max-w-full" style={{ minHeight: '32px' }}>
               {currentStepData.features.map((feature, index) => (
                 <div
                   key={index}
@@ -556,7 +556,7 @@ export default function OnboardingScreen() {
                   }`}
                   style={{ transitionDelay: `${300 + index * 150}ms` }}
                 >
-                  <div className={`relative px-2 sm:px-2.5 py-1 rounded-lg text-xs font-semibold ${currentColors.bg} ${currentColors.icon} border border-current/30 shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:shadow-xl whitespace-nowrap`}>
+                  <div className={`relative px-2 py-1 rounded-lg text-xs font-semibold ${currentColors.bg} ${currentColors.icon} border border-current/30 shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:shadow-xl whitespace-nowrap flex-shrink-0`}>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span className="relative z-10">{feature}</span>
                     <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
