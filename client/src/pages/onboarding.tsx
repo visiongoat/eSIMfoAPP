@@ -473,8 +473,8 @@ export default function OnboardingScreen() {
         </button>
       </div>
 
-      {/* Main content - optimized height */}
-      <div className="flex flex-col h-screen px-6 py-6 relative z-10">
+      {/* Main content - responsive height with safe areas */}
+      <div className="flex flex-col min-h-screen px-6 py-6 pb-20 relative z-10" style={{ minHeight: 'calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top))' }}>
         
         {/* Progress indicators */}
         <div className="mb-6">
@@ -500,8 +500,8 @@ export default function OnboardingScreen() {
           </div>
         </div>
 
-        {/* Content area with swipe indicators */}
-        <div className={`flex-1 flex flex-col items-center justify-center text-center space-y-6 transition-all duration-500 relative ${
+        {/* Content area with responsive spacing */}
+        <div className={`flex-1 flex flex-col items-center justify-center text-center space-y-4 sm:space-y-6 md:space-y-8 transition-all duration-500 relative px-2 ${
           isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
         } ${swipeDirection === 'left' ? 'transform -translate-x-2' : swipeDirection === 'right' ? 'transform translate-x-2' : ''}`}>
           
@@ -530,21 +530,21 @@ export default function OnboardingScreen() {
             </div>
           </div>
 
-          {/* Title and description */}
-          <div className="max-w-sm space-y-4">
-            <h1 className={`text-3xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-300 ${
+          {/* Title and description - responsive sizing */}
+          <div className="max-w-xs sm:max-w-sm space-y-3 sm:space-y-4">
+            <h1 className={`text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-300 ${
               isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'
             }`}>
               {currentStepData.title}
             </h1>
-            <p className={`text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-all duration-300 delay-100 ${
+            <p className={`text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-all duration-300 delay-100 ${
               isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'
             }`}>
               {currentStepData.description}
             </p>
             
-            {/* Feature highlights */}
-            <div className="flex justify-center gap-2 mt-6 flex-nowrap">
+            {/* Feature highlights - responsive */}
+            <div className="flex justify-center gap-1.5 sm:gap-2 mt-4 sm:mt-6 flex-wrap sm:flex-nowrap max-w-full">
               {currentStepData.features.map((feature, index) => (
                 <div
                   key={index}
@@ -553,7 +553,7 @@ export default function OnboardingScreen() {
                   }`}
                   style={{ transitionDelay: `${300 + index * 150}ms` }}
                 >
-                  <div className={`relative px-2.5 py-1 rounded-lg text-xs font-semibold ${currentColors.bg} ${currentColors.icon} border border-current/30 shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:shadow-xl whitespace-nowrap`}>
+                  <div className={`relative px-2 sm:px-2.5 py-1 rounded-lg text-xs font-semibold ${currentColors.bg} ${currentColors.icon} border border-current/30 shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:shadow-xl whitespace-nowrap`}>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     <span className="relative z-10">{feature}</span>
                     <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
@@ -564,8 +564,8 @@ export default function OnboardingScreen() {
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className={`space-y-4 pt-6 transition-all duration-300 ${
+        {/* Navigation - moved higher with responsive padding */}
+        <div className={`space-y-4 pt-4 pb-8 sm:pb-12 md:pb-16 transition-all duration-300 ${
           isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
         }`}>
           <div className="relative">
@@ -574,7 +574,7 @@ export default function OnboardingScreen() {
             <Button
               onClick={handleNext}
               disabled={isAnimating}
-              className={`w-full ${currentColors.button} text-white py-5 rounded-3xl text-lg font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97] disabled:scale-100 disabled:opacity-75 relative overflow-hidden group border-2 border-white/20`}
+              className={`w-full ${currentColors.button} text-white py-4 sm:py-5 rounded-3xl text-base sm:text-lg font-bold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97] disabled:scale-100 disabled:opacity-75 relative overflow-hidden group border-2 border-white/20`}
             >
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"></div>
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 delay-200 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
@@ -613,7 +613,7 @@ export default function OnboardingScreen() {
             <button
               onClick={handlePrevious}
               disabled={isAnimating}
-              className="w-full py-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors disabled:opacity-50"
+              className="w-full py-2.5 sm:py-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors disabled:opacity-50 text-sm sm:text-base"
             >
               Back
             </button>
