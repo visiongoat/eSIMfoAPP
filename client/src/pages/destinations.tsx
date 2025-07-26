@@ -138,34 +138,46 @@ export default function DestinationsScreen() {
 
   // Keyboard navigation handler
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!showSearchResults || searchResults.length === 0) return;
-
+    console.log('Key pressed:', e.key, 'showSearchResults:', showSearchResults, 'searchResults.length:', searchResults.length);
+    
     switch (e.key) {
       case 'ArrowDown':
-        e.preventDefault();
-        setSelectedResultIndex(prev => 
-          prev < searchResults.length - 1 ? prev + 1 : 0
-        );
+        if (showSearchResults && searchResults.length > 0) {
+          e.preventDefault();
+          setSelectedResultIndex(prev => {
+            const newIndex = prev < searchResults.length - 1 ? prev + 1 : 0;
+            console.log('Arrow Down - new index:', newIndex);
+            return newIndex;
+          });
+        }
         break;
       
       case 'ArrowUp':
-        e.preventDefault();
-        setSelectedResultIndex(prev => 
-          prev > 0 ? prev - 1 : searchResults.length - 1
-        );
+        if (showSearchResults && searchResults.length > 0) {
+          e.preventDefault();
+          setSelectedResultIndex(prev => {
+            const newIndex = prev > 0 ? prev - 1 : searchResults.length - 1;
+            console.log('Arrow Up - new index:', newIndex);
+            return newIndex;
+          });
+        }
         break;
       
       case 'Enter':
         e.preventDefault();
-        if (selectedResultIndex >= 0 && selectedResultIndex < searchResults.length) {
-          selectCountry(searchResults[selectedResultIndex]);
-        } else if (searchResults.length > 0) {
-          selectCountry(searchResults[0]);
+        console.log('Enter pressed - selectedIndex:', selectedResultIndex);
+        if (showSearchResults && searchResults.length > 0) {
+          if (selectedResultIndex >= 0 && selectedResultIndex < searchResults.length) {
+            selectCountry(searchResults[selectedResultIndex]);
+          } else {
+            selectCountry(searchResults[0]);
+          }
         }
         break;
       
       case 'Escape':
         e.preventDefault();
+        console.log('Escape pressed - clearing search');
         clearSearch();
         searchInputRef.current?.blur();
         break;
@@ -515,7 +527,7 @@ export default function DestinationsScreen() {
                     onClick={() => selectCountry(country)}
                     className={`w-full px-4 py-3.5 flex items-center space-x-4 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 group ${
                       selectedResultIndex === index
-                        ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700'
+                        ? 'bg-blue-100 dark:bg-blue-900/40 border-blue-300 dark:border-blue-600 ring-2 ring-blue-500/20 dark:ring-blue-400/20'
                         : 'hover:bg-gray-50 dark:hover:bg-gray-700 active:bg-blue-50 dark:active:bg-blue-900/20'
                     }`}
                   >
@@ -531,7 +543,11 @@ export default function DestinationsScreen() {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <div className={`font-semibold truncate transition-colors ${
+                        selectedResultIndex === index
+                          ? 'text-blue-700 dark:text-blue-300'
+                          : 'text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400'
+                      }`}>
                         {country.name}
                       </div>
                       <div className="flex items-center space-x-2 mt-1">
