@@ -373,23 +373,22 @@ export default function DestinationsScreen() {
         showBack={false}
       />
 
-      <div className="px-4 pt-4 pb-20">
-        {/* Premium Search Bar with Advanced Interactions - Sticky */}
-        <div className="sticky top-11 bg-gradient-to-br from-gray-50/95 via-white/95 to-gray-100/95 dark:bg-gradient-to-br dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 z-10 mb-6 py-3 -mx-4 px-4 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50">
+      {/* Fixed Search Bar */}
+      <div className="fixed top-11 left-0 right-0 bg-gradient-to-br from-gray-50/95 via-white/95 to-gray-100/95 dark:bg-gradient-to-br dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 z-10 py-3 px-4 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50">
+        <div className="max-w-md mx-auto">
           <div className="bg-gradient-to-r from-white via-gray-50 to-white dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750 dark:to-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:via-white hover:to-blue-50 dark:hover:from-gray-750 dark:hover:via-gray-700 dark:hover:to-gray-750 focus-within:shadow-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group backdrop-blur-sm">
             {/* Enhanced Animated Search Icon */}
             <div className="relative flex-shrink-0">
               <Search className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 group-focus-within:scale-110 transition-all duration-300" />
-              {/* Multiple pulse effects */}
-              <div className="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-focus-within:opacity-20 group-focus-within:animate-ping"></div>
-              <div className="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-focus-within:opacity-10 group-focus-within:animate-pulse delay-75"></div>
+              {/* Search pulse effect */}
+              <div className="absolute inset-0 w-5 h-5 rounded-full bg-blue-500/20 scale-0 group-focus-within:scale-150 group-focus-within:opacity-0 transition-all duration-500"></div>
             </div>
 
+            {/* Enhanced Search Input */}
             <input
               type="text"
+              placeholder="Search destinations..."
               value={searchQuery}
-              placeholder={searchQuery ? "Type country name..." : placeholderText}
-              className="text-gray-900 dark:text-gray-100 text-base flex-1 outline-none bg-transparent placeholder-gray-500 dark:placeholder-gray-400 font-medium tracking-wide"
               onChange={(e) => {
                 setSearchQuery(e.target.value);
                 setShowSearchResults(e.target.value.length > 0);
@@ -414,34 +413,31 @@ export default function DestinationsScreen() {
                   (e.target as HTMLInputElement).blur();
                 }
               }}
+              className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base font-medium group-focus-within:placeholder-blue-400 transition-all duration-300"
             />
 
-            {/* Search Actions */}
-            <div className="flex items-center space-x-2">
-              {searchQuery && (
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setShowSearchResults(false);
-                  }}
-                  className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group/clear"
-                >
-                  <svg className="w-4 h-4 text-gray-400 group-hover/clear:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              )}
-              
-              {/* Keyboard shortcut hint */}
-              <div className="hidden group-focus-within:flex items-center space-x-1 animate-fadeIn">
-                <kbd className="px-2 py-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 rounded border font-mono">ESC</kbd>
-              </div>
-            </div>
+            {/* Enhanced Clear Button */}
+            {searchQuery && (
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setShowSearchResults(false);
+                }}
+                className="flex-shrink-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 hover:scale-110 active:scale-95"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            )}
           </div>
+        </div>
+      </div>
 
+      <div className="px-4 pt-24 pb-20">
+        {/* Search Results Container - Position relative for absolute positioning */}
+        <div className="relative">
           {/* Mobile Search Results */}
           {showSearchResults && searchResults.length > 0 && (
-            <div className="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 mt-1 z-[9999] overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-[9999] overflow-hidden">
               {searchResults.map((country: any, index: number) => {
                 // Create flag emoji from country code
                 const getFlagEmoji = (code: string) => {
