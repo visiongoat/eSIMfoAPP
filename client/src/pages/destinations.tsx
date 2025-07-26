@@ -445,14 +445,14 @@ export default function DestinationsScreen() {
                   selectCountry(searchResults[0]);
                 }
               }}
-              className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base font-medium group-focus-within:placeholder-blue-400 transition-all duration-300"
+              className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base font-medium group-focus-within:placeholder-blue-400 transition-all duration-300 touch-manipulation"
             />
 
             {/* Enhanced Clear Button */}
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="flex-shrink-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 hover:scale-110 active:scale-95"
+                className="flex-shrink-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -463,7 +463,7 @@ export default function DestinationsScreen() {
 
         {/* Search Results Container - Position relative for absolute positioning */}
         <div className={`relative ${isScrolled ? 'pt-20' : ''}`}>
-          {/* Mobile Search Results */}
+          {/* Mobile Search Results with swipe-friendly touch targets */}
           {showSearchResults && searchResults.length > 0 && (
             <div className="absolute top-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-[9999] overflow-hidden">
               {searchResults.map((country: any, index: number) => {
@@ -480,7 +480,7 @@ export default function DestinationsScreen() {
                   <button
                     key={country.id}
                     onClick={() => selectCountry(country)}
-                    className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 active:bg-blue-50 dark:active:bg-blue-900/20 group"
+                    className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 active:bg-blue-50 dark:active:bg-blue-900/20 active:scale-[0.98] group touch-manipulation"
                   >
                     {/* Premium Flag Container */}
                     <div className="relative">
