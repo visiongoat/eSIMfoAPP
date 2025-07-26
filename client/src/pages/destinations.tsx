@@ -37,7 +37,9 @@ export default function DestinationsScreen() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
   const searchBarRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const placeholderTexts = [
     'Find your destination',
@@ -121,6 +123,55 @@ export default function DestinationsScreen() {
     setLocation(`/packages/${country.id}`);
   };
 
+  // Clear search and reset states
+  const clearSearch = () => {
+    setSearchQuery('');
+    setShowSearchResults(false);
+    setSelectedResultIndex(-1);
+  };
+
+  // Handle country selection with cleanup
+  const selectCountry = (country: Country) => {
+    handleCountrySelect(country);
+    clearSearch();
+  };
+
+  // Keyboard navigation handler
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!showSearchResults || searchResults.length === 0) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedResultIndex(prev => 
+          prev < searchResults.length - 1 ? prev + 1 : 0
+        );
+        break;
+      
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedResultIndex(prev => 
+          prev > 0 ? prev - 1 : searchResults.length - 1
+        );
+        break;
+      
+      case 'Enter':
+        e.preventDefault();
+        if (selectedResultIndex >= 0 && selectedResultIndex < searchResults.length) {
+          selectCountry(searchResults[selectedResultIndex]);
+        } else if (searchResults.length > 0) {
+          selectCountry(searchResults[0]);
+        }
+        break;
+      
+      case 'Escape':
+        e.preventDefault();
+        clearSearch();
+        searchInputRef.current?.blur();
+        break;
+    }
+  };
+
   // Get minimum price for a country from real packages
   const getMinPrice = (countryId: number) => {
     // Static price mapping based on our seeded packages
@@ -196,6 +247,11 @@ export default function DestinationsScreen() {
   };
 
   const searchResults = getEnhancedSearchResults();
+
+  // Reset selected index when search query changes
+  useEffect(() => {
+    setSelectedResultIndex(-1);
+  }, [searchQuery]);
 
   // Enhanced search and filter functionality
   const getFilteredData = () => {
@@ -407,8 +463,9 @@ export default function DestinationsScreen() {
 
             {/* Enhanced Search Input */}
             <input
+              ref={searchInputRef}
               type="text"
-              placeholder="Search destinations..."
+              placeholder={placeholderText || "Search destinations..."}
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -420,30 +477,14 @@ export default function DestinationsScreen() {
               onBlur={() => {
                 setTimeout(() => setShowSearchResults(false), 150);
               }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  if (searchResults.length > 0) {
-                    handleCountrySelect(searchResults[0]);
-                    setSearchQuery('');
-                    setShowSearchResults(false);
-                  }
-                }
-                if (e.key === 'Escape') {
-                  setSearchQuery('');
-                  setShowSearchResults(false);
-                  (e.target as HTMLInputElement).blur();
-                }
-              }}
+              onKeyDown={handleKeyDown}
               className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base font-medium group-focus-within:placeholder-blue-400 transition-all duration-300"
             />
 
             {/* Enhanced Clear Button */}
             {searchQuery && (
               <button
-                onClick={() => {
-                  setSearchQuery('');
-                  setShowSearchResults(false);
-                }}
+                onClick={clearSearch}
                 className="flex-shrink-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 hover:scale-110 active:scale-95"
               >
                 <X className="w-3 h-3" />
@@ -471,12 +512,12 @@ export default function DestinationsScreen() {
                 return (
                   <button
                     key={country.id}
-                    onClick={() => {
-                      handleCountrySelect(country);
-                      setSearchQuery('');
-                      setShowSearchResults(false);
-                    }}
-                    className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 active:bg-blue-50 dark:active:bg-blue-900/20 group"
+                    onClick={() => selectCountry(country)}
+                    className={`w-full px-4 py-3.5 flex items-center space-x-4 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 group ${
+                      selectedResultIndex === index
+                        ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700'
+                        : 'hover:bg-gray-50 dark:hover:bg-gray-700 active:bg-blue-50 dark:active:bg-blue-900/20'
+                    }`}
                   >
                     {/* Premium Flag Container */}
                     <div className="relative">
