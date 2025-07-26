@@ -489,20 +489,7 @@ export default function DestinationsScreen() {
           ))}
         </div>
 
-        {/* International eSIM Banner */}
-        <div className="mobile-card p-4 mb-4 bg-gray-100 dark:bg-gray-800 border-0">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center">
-              <Globe className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 dark:text-white">International eSIM</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                No limits - pay only for the data you use. Global coverage
-              </p>
-            </div>
-          </div>
-        </div>
+
 
         {/* Alphabet Filter (only for countries) */}
         {selectedTab === 'countries' && (
