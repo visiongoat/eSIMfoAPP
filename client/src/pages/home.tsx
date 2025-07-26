@@ -829,10 +829,10 @@ export default function HomeScreen() {
         ) : selectedTab === 'regional' ? (
           <div className="space-y-3">
             {/* Europa */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0">
-              <div className="flex items-center justify-between">
+            <div className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
+                  <div className="continent-icon w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
                     <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
@@ -847,10 +847,10 @@ export default function HomeScreen() {
             </div>
             
             {/* Asia */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-1">
-              <div className="flex items-center justify-between">
+            <div className="continent-card continent-asia rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-1 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
+                  <div className="continent-icon w-12 h-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
                     <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10"/>
                       <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
@@ -867,10 +867,10 @@ export default function HomeScreen() {
             </div>
             
             {/* Americas */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-2">
-              <div className="flex items-center justify-between">
+            <div className="continent-card continent-americas rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-2 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
+                  <div className="continent-icon w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
                     <svg className="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                     </svg>
@@ -885,10 +885,10 @@ export default function HomeScreen() {
             </div>
 
             {/* Africa */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-3">
-              <div className="flex items-center justify-between">
+            <div className="continent-card continent-africa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-3 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
+                  <div className="continent-icon w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
                     <svg className="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10"/>
                       <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
@@ -906,10 +906,10 @@ export default function HomeScreen() {
             </div>
 
             {/* Middle East */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-4">
-              <div className="flex items-center justify-between">
+            <div className="continent-card continent-middle-east rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-4 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
+                  <div className="continent-icon w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
                     <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -924,10 +924,10 @@ export default function HomeScreen() {
             </div>
 
             {/* Oceania */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-5">
-              <div className="flex items-center justify-between">
+            <div className="continent-card continent-oceania rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-5 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-xl flex items-center justify-center">
+                  <div className="continent-icon w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-xl flex items-center justify-center">
                     <svg className="w-6 h-6 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       <circle cx="18" cy="5" r="3"/>
