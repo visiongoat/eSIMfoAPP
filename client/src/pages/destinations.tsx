@@ -489,26 +489,59 @@ export default function DestinationsScreen() {
           )}
         </div>
 
-        {/* Premium Tab Filters */}
-        <div className="flex mb-6 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 dark:bg-gray-700 rounded-xl p-1 shadow-inner">
-          {[
-            { key: 'countries', label: 'Countries', icon: MapPin },
-            { key: 'regions', label: 'Regions', icon: Globe },
-            { key: 'global', label: 'Global', icon: Navigation }
-          ].map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setSelectedTab(tab.key as any)}
-              className={`relative flex-1 py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 transform ${
-                selectedTab === tab.key
-                  ? 'bg-gradient-to-b from-white via-gray-50 to-white dark:bg-gray-500 text-gray-900 dark:text-white shadow-lg scale-[1.02] ring-2 ring-white/50 dark:ring-gray-400/50'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gradient-to-b hover:from-gray-100 hover:to-gray-200/50 dark:hover:bg-gray-600/50 hover:scale-[1.01]'
-              }`}
-            >
-              <tab.icon className={`w-4 h-4 transition-transform duration-200 ${selectedTab === tab.key ? 'scale-110' : ''}`} />
-              <span className="tracking-wide">{tab.label}</span>
-            </button>
-          ))}
+        {/* Consistent Tab Filters (Home Style) */}
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-1 mb-6">
+          <div className="flex space-x-1">
+            {[
+              { 
+                id: 'countries', 
+                label: 'Countries', 
+                icon: <MapPin className="w-4 h-4" />, 
+                color: 'bg-blue-500' 
+              },
+              { 
+                id: 'regions', 
+                label: 'Regions', 
+                icon: <Globe className="w-4 h-4" />, 
+                color: 'bg-green-500' 
+              },
+              { 
+                id: 'global', 
+                label: 'Global', 
+                icon: <Navigation className="w-4 h-4" />, 
+                color: 'bg-purple-500' 
+              }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedTab(tab.id as any)}
+                className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform relative group ${
+                  selectedTab === tab.id
+                    ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-gray-600/80 hover:shadow-md hover:scale-102 active:scale-95'
+                }`}
+                style={{willChange: 'transform'}}
+              >
+                <div className="flex items-center justify-center space-x-2 relative z-10">
+                  <div className={`transition-transform duration-300 ${selectedTab === tab.id ? 'scale-110' : 'group-hover:scale-105'}`}>
+                    {tab.icon}
+                  </div>
+                  <span className="tracking-wide">{tab.label}</span>
+                </div>
+                
+                {/* Enhanced effects for active tab */}
+                {selectedTab === tab.id && (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 rounded-xl opacity-80"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 rounded-xl"></div>
+                  </>
+                )}
+                
+                {/* Ripple effect on click */}
+                <div className="absolute inset-0 rounded-xl opacity-0 group-active:opacity-30 transition-opacity duration-200 bg-white/20"></div>
+              </button>
+            ))}
+          </div>
         </div>
 
 
