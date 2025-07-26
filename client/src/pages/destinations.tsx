@@ -37,9 +37,7 @@ export default function DestinationsScreen() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
   const searchBarRef = useRef<HTMLDivElement>(null);
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const placeholderTexts = [
     'Find your destination',
@@ -127,53 +125,12 @@ export default function DestinationsScreen() {
   const clearSearch = () => {
     setSearchQuery('');
     setShowSearchResults(false);
-    setSelectedResultIndex(-1);
   };
 
   // Handle country selection with cleanup
   const selectCountry = (country: Country) => {
     handleCountrySelect(country);
     clearSearch();
-  };
-
-  // Keyboard navigation handler
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    switch (e.key) {
-      case 'ArrowDown':
-        if (showSearchResults && searchResults.length > 0) {
-          e.preventDefault();
-          setSelectedResultIndex(prev => 
-            prev < searchResults.length - 1 ? prev + 1 : 0
-          );
-        }
-        break;
-      
-      case 'ArrowUp':
-        if (showSearchResults && searchResults.length > 0) {
-          e.preventDefault();
-          setSelectedResultIndex(prev => 
-            prev > 0 ? prev - 1 : searchResults.length - 1
-          );
-        }
-        break;
-      
-      case 'Enter':
-        e.preventDefault();
-        if (showSearchResults && searchResults.length > 0) {
-          if (selectedResultIndex >= 0 && selectedResultIndex < searchResults.length) {
-            selectCountry(searchResults[selectedResultIndex]);
-          } else {
-            selectCountry(searchResults[0]);
-          }
-        }
-        break;
-      
-      case 'Escape':
-        e.preventDefault();
-        clearSearch();
-        searchInputRef.current?.blur();
-        break;
-    }
   };
 
   // Get minimum price for a country from real packages
@@ -252,10 +209,7 @@ export default function DestinationsScreen() {
 
   const searchResults = getEnhancedSearchResults();
 
-  // Reset selected index when search query changes
-  useEffect(() => {
-    setSelectedResultIndex(-1);
-  }, [searchQuery]);
+
 
   // Enhanced search and filter functionality
   const getFilteredData = () => {
@@ -467,7 +421,6 @@ export default function DestinationsScreen() {
 
             {/* Enhanced Search Input */}
             <input
-              ref={searchInputRef}
               type="text"
               placeholder={placeholderText || "Search destinations..."}
               value={searchQuery}
@@ -481,7 +434,6 @@ export default function DestinationsScreen() {
               onBlur={() => {
                 setTimeout(() => setShowSearchResults(false), 150);
               }}
-              onKeyDown={handleKeyDown}
               className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base font-medium group-focus-within:placeholder-blue-400 transition-all duration-300"
             />
 
@@ -517,11 +469,7 @@ export default function DestinationsScreen() {
                   <button
                     key={country.id}
                     onClick={() => selectCountry(country)}
-                    className={`w-full px-4 py-3.5 flex items-center space-x-4 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 group ${
-                      selectedResultIndex === index
-                        ? 'bg-blue-100 dark:bg-blue-900/40 border-blue-300 dark:border-blue-600 ring-2 ring-blue-500/20 dark:ring-blue-400/20'
-                        : 'hover:bg-gray-50 dark:hover:bg-gray-700 active:bg-blue-50 dark:active:bg-blue-900/20'
-                    }`}
+                    className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 active:bg-blue-50 dark:active:bg-blue-900/20 group"
                   >
                     {/* Premium Flag Container */}
                     <div className="relative">
@@ -535,11 +483,7 @@ export default function DestinationsScreen() {
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <div className={`font-semibold truncate transition-colors ${
-                        selectedResultIndex === index
-                          ? 'text-blue-700 dark:text-blue-300'
-                          : 'text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400'
-                      }`}>
+                      <div className="font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {country.name}
                       </div>
                       <div className="flex items-center space-x-2 mt-1">
