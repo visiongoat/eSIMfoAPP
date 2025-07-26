@@ -567,7 +567,7 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.95);
+  /* Background will be overridden by continent-specific classes */
 }
 
 .dark .continent-card {
@@ -664,29 +664,66 @@
 .stagger-delay-4 { animation-delay: 400ms; }
 .stagger-delay-5 { animation-delay: 500ms; }
 
-/* Continent-specific gradient themes */
+/* Continent-specific gradient themes - Enhanced for light mode */
 .continent-europa {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 64, 175, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(30, 64, 175, 0.15) 50%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .continent-asia {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(22, 163, 74, 0.15) 50%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.2);
 }
 
 .continent-americas {
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.25) 0%, rgba(234, 88, 12, 0.15) 50%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(249, 115, 22, 0.2);
 }
 
 .continent-africa {
-  background: linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(202, 138, 4, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.25) 0%, rgba(202, 138, 4, 0.15) 50%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(234, 179, 8, 0.2);
 }
 
 .continent-middle-east {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(147, 51, 234, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(147, 51, 234, 0.15) 50%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.2);
 }
 
 .continent-oceania {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(8, 145, 178, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(8, 145, 178, 0.15) 50%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+/* Icon container enhancements for light mode */
+.continent-europa .continent-icon {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(30, 64, 175, 0.1));
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.continent-asia .continent-icon {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.continent-americas .continent-icon {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.1));
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.continent-africa .continent-icon {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(202, 138, 4, 0.1));
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.continent-middle-east .continent-icon {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(147, 51, 234, 0.1));
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.continent-oceania .continent-icon {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(8, 145, 178, 0.1));
+  border: 1px solid rgba(6, 182, 212, 0.3);
 }
 
 /* Dark mode enhancements */
