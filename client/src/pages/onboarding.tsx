@@ -217,6 +217,20 @@ export default function OnboardingScreen() {
       case 1: // Easy Setup
         return (
           <>
+            {/* Layer 0: Grid notebook background */}
+            <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]">
+              <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+                {/* Vertical lines */}
+                {[...Array(20)].map((_, i) => (
+                  <line key={`v${i}`} x1={i * 20} y1="0" x2={i * 20} y2="400" stroke="currentColor" strokeWidth="0.5" opacity="0.3"/>
+                ))}
+                {/* Horizontal lines */}
+                {[...Array(20)].map((_, i) => (
+                  <line key={`h${i}`} x1="0" y1={i * 20} x2="400" y2={i * 20} stroke="currentColor" strokeWidth="0.5" opacity="0.3"/>
+                ))}
+              </svg>
+            </div>
+            
             {/* Layer 1: Circuit board patterns */}
             <div 
               className="absolute inset-0 opacity-[0.08] dark:opacity-15"
@@ -343,9 +357,23 @@ export default function OnboardingScreen() {
       onTouchEnd={handleTouchEnd}
     >
       {/* Parallax Background Layers */}
-      <div className="fixed inset-0 transition-transform duration-200 ease-out" style={{ color: currentColors.accent.replace('text-', '').replace('dark:', '') }}>
+      <div className="fixed inset-0 transition-all duration-700 ease-out" style={{ color: currentColors.accent.replace('text-', '').replace('dark:', '') }}>
         {renderParallaxBackground()}
       </div>
+      
+      {/* Color wave transition effect */}
+      {isAnimating && (
+        <div 
+          className="fixed inset-0 opacity-20 pointer-events-none z-20"
+          style={{
+            background: `radial-gradient(circle at 50% 50%, ${currentColors.accent.includes('blue') ? 'rgba(59, 130, 246, 0.3)' : 
+                                                             currentColors.accent.includes('emerald') ? 'rgba(16, 185, 129, 0.3)' : 
+                                                             'rgba(147, 51, 234, 0.3)'}, transparent 70%)`
+          }}
+        >
+          <div className="w-full h-full animate-ping" style={{ animationDuration: '1s' }}></div>
+        </div>
+      )}
       
       {/* Original background gradients */}
       <div className="fixed inset-0 opacity-5 dark:opacity-10">
@@ -353,16 +381,27 @@ export default function OnboardingScreen() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,119,198,0.2),transparent_50%)]"></div>
       </div>
 
-      {/* Skip button */}
-      <div className="absolute top-6 right-6 z-50">
-        <Button
-          variant="ghost"
+      {/* Back and Skip buttons */}
+      {currentStep > 0 && (
+        <button
+          onClick={handlePrevious}
+          className="absolute top-6 left-6 flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 z-50 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
+        </button>
+      )}
+      
+      {currentStep === 0 && (
+        <button
           onClick={handleSkip}
-          className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-sm font-medium px-4 py-2 rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-200"
+          className="absolute top-6 right-6 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 z-50 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full"
         >
           Skip
-        </Button>
-      </div>
+        </button>
+      )}
 
       {/* Main content - optimized height */}
       <div className="flex flex-col h-screen px-6 py-6 relative z-10">
