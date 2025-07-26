@@ -1,131 +1,113 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 
-// Full-Screen Global Connection Animation
+// Simple World with Landmarks Animation - Inspired by Travel Apps
 const GlobalConnectionAnimation = () => (
-  <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-blue-900/10 via-blue-800/5 to-purple-900/10 dark:from-blue-900/20 dark:via-blue-800/10 dark:to-purple-900/20">
-    {/* World Map Background Pattern */}
-    <div className="absolute inset-0 opacity-5 dark:opacity-10">
-      <svg className="w-full h-full" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
-        {/* Simplified World Map Paths */}
-        <path d="M100 150 Q200 100 350 120 T600 180 L650 200 Q700 220 750 180 L800 200 L800 400 Q600 350 400 380 T100 400 Z" 
-              fill="currentColor" opacity="0.3" />
-        <path d="M50 300 Q150 280 250 300 T450 320 L500 340 Q550 360 600 340 L650 360 L650 500 Q450 480 250 500 T50 500 Z" 
-              fill="currentColor" opacity="0.2" />
-      </svg>
-    </div>
+  <div className="absolute inset-0 overflow-hidden bg-gradient-to-b from-sky-200 via-sky-100 to-blue-50 dark:from-blue-900 dark:via-blue-800 dark:to-gray-900">
+    
+    {/* Simple Cloud Background */}
+    <div className="absolute top-10 left-10 w-16 h-8 bg-white/60 dark:bg-white/20 rounded-full animate-pulse"></div>
+    <div className="absolute top-16 right-16 w-20 h-10 bg-white/40 dark:bg-white/15 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+    <div className="absolute top-20 left-1/3 w-12 h-6 bg-white/50 dark:bg-white/18 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
 
-    {/* Central Globe - Much Larger */}
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-      <div className="relative">
-        {/* Outer Glow Ring */}
-        <div className="absolute -inset-8 bg-gradient-to-r from-blue-400/20 to-purple-400/20 dark:from-blue-300/30 dark:to-purple-300/30 rounded-full blur-xl animate-pulse"></div>
+    {/* Central World */}
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      {/* Main Earth Globe */}
+      <div className="relative w-48 h-48 bg-gradient-to-br from-blue-400 to-blue-500 dark:from-blue-500 dark:to-blue-600 rounded-full shadow-2xl overflow-hidden">
+        {/* Continents - Simple Shapes */}
+        <div className="absolute top-6 left-8 w-12 h-8 bg-green-400 dark:bg-green-500 rounded-lg opacity-80"></div>
+        <div className="absolute top-12 right-6 w-10 h-10 bg-green-500 dark:bg-green-600 rounded-full opacity-70"></div>
+        <div className="absolute bottom-8 left-12 w-16 h-6 bg-green-400 dark:bg-green-500 rounded-2xl opacity-80"></div>
+        <div className="absolute bottom-12 right-8 w-8 h-8 bg-green-500 dark:bg-green-600 rounded-lg opacity-75"></div>
         
-        {/* Main Globe */}
-        <div className="relative w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-full shadow-2xl flex items-center justify-center">
-          {/* Inner Earth */}
-          <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center shadow-inner">
-            <svg className="w-10 h-10 text-white/90" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
-            </svg>
-          </div>
-          
-          {/* Rotating Ring */}
-          <div className="absolute inset-0 border-2 border-blue-300/50 dark:border-blue-200/50 rounded-full animate-spin" style={{ animationDuration: '8s' }}></div>
+        {/* Simple white clouds on Earth */}
+        <div className="absolute top-8 left-20 w-4 h-2 bg-white/60 rounded-full"></div>
+        <div className="absolute top-20 right-12 w-6 h-3 bg-white/50 rounded-full"></div>
+        <div className="absolute bottom-16 left-16 w-5 h-2 bg-white/40 rounded-full"></div>
+      </div>
+
+      {/* Famous Landmarks around the World */}
+      {/* Eiffel Tower - Europe */}
+      <div className="absolute -top-8 -left-4 transform rotate-12 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '3s' }}>
+        <div className="w-2 h-12 bg-gray-600 dark:bg-gray-400"></div>
+        <div className="w-4 h-1 bg-gray-600 dark:bg-gray-400 -mt-8 -ml-1"></div>
+        <div className="w-3 h-1 bg-gray-600 dark:bg-gray-400 -mt-2 -ml-0.5"></div>
+      </div>
+
+      {/* Big Ben - UK */}
+      <div className="absolute -top-12 right-8 animate-bounce" style={{ animationDelay: '1s', animationDuration: '3s' }}>
+        <div className="w-3 h-14 bg-amber-600 dark:bg-amber-500 rounded-t-lg"></div>
+        <div className="w-4 h-3 bg-amber-700 dark:bg-amber-600 -mt-1 -ml-0.5 rounded-sm"></div>
+      </div>
+
+      {/* Statue of Liberty - USA */}
+      <div className="absolute -right-6 top-4 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '3s' }}>
+        <div className="w-2 h-8 bg-green-600 dark:bg-green-500"></div>
+        <div className="w-3 h-2 bg-green-600 dark:bg-green-500 -mt-1 -ml-0.5"></div>
+        <div className="w-1 h-3 bg-yellow-400 dark:bg-yellow-300 -mt-1 ml-1"></div>
+      </div>
+
+      {/* Pyramid - Egypt */}
+      <div className="absolute -bottom-6 -right-8 animate-bounce" style={{ animationDelay: '2s', animationDuration: '3s' }}>
+        <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-yellow-600 dark:border-b-yellow-500"></div>
+      </div>
+
+      {/* Sydney Opera House - Australia */}
+      <div className="absolute -bottom-8 left-6 animate-bounce" style={{ animationDelay: '2.5s', animationDuration: '3s' }}>
+        <div className="flex space-x-1">
+          <div className="w-2 h-4 bg-white dark:bg-gray-100 rounded-t-full"></div>
+          <div className="w-2 h-3 bg-white dark:bg-gray-100 rounded-t-full mt-1"></div>
+          <div className="w-2 h-4 bg-white dark:bg-gray-100 rounded-t-full"></div>
         </div>
       </div>
-    </div>
 
-    {/* Connection Lines to Corners */}
-    <svg className="absolute inset-0 w-full h-full z-10" viewBox="0 0 400 600">
-      <defs>
-        <linearGradient id="connectionLine" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-          <stop offset="50%" stopColor="#1d4ed8" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="#1e40af" stopOpacity="0.2" />
-        </linearGradient>
-        <linearGradient id="dataFlow" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#60a5fa" stopOpacity="0">
-            <animate attributeName="stop-opacity" values="0;1;0" dur="2s" repeatCount="indefinite" />
-          </stop>
-          <stop offset="50%" stopColor="#3b82f6" stopOpacity="1">
-            <animate attributeName="stop-opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.3s" />
-          </stop>
-          <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0">
-            <animate attributeName="stop-opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.6s" />
-          </stop>
-        </linearGradient>
-      </defs>
-      
-      {/* Main Connection Lines */}
-      <line x1="200" y1="300" x2="50" y2="100" stroke="url(#connectionLine)" strokeWidth="3" strokeDasharray="8 4" className="animate-pulse" />
-      <line x1="200" y1="300" x2="350" y2="100" stroke="url(#connectionLine)" strokeWidth="3" strokeDasharray="8 4" className="animate-pulse" />
-      <line x1="200" y1="300" x2="50" y2="500" stroke="url(#connectionLine)" strokeWidth="3" strokeDasharray="8 4" className="animate-pulse" />
-      <line x1="200" y1="300" x2="350" y2="500" stroke="url(#connectionLine)" strokeWidth="3" strokeDasharray="8 4" className="animate-pulse" />
-      
-      {/* Data Flow Lines */}
-      <line x1="200" y1="300" x2="50" y2="100" stroke="url(#dataFlow)" strokeWidth="2" />
-      <line x1="200" y1="300" x2="350" y2="100" stroke="url(#dataFlow)" strokeWidth="2" />
-      <line x1="200" y1="300" x2="50" y2="500" stroke="url(#dataFlow)" strokeWidth="2" />
-      <line x1="200" y1="300" x2="350" y2="500" stroke="url(#dataFlow)" strokeWidth="2" />
-    </svg>
-
-    {/* Connection Nodes */}
-    {[
-      { x: '12%', y: '20%', delay: '0s' },
-      { x: '88%', y: '20%', delay: '0.5s' },
-      { x: '12%', y: '80%', delay: '1s' },
-      { x: '88%', y: '80%', delay: '1.5s' },
-      { x: '25%', y: '15%', delay: '2s' },
-      { x: '75%', y: '15%', delay: '2.5s' },
-      { x: '25%', y: '85%', delay: '3s' },
-      { x: '75%', y: '85%', delay: '3.5s' }
-    ].map((node, i) => (
-      <div 
-        key={i}
-        className="absolute w-4 h-4 bg-blue-400 dark:bg-blue-300 rounded-full shadow-lg animate-ping z-20"
-        style={{
-          left: node.x,
-          top: node.y,
-          animationDelay: node.delay,
-          animationDuration: '2s'
-        }}
-      >
-        <div className="absolute inset-0 bg-blue-500 dark:bg-blue-400 rounded-full animate-pulse"></div>
+      {/* Tokyo Tower - Japan */}
+      <div className="absolute top-8 -right-12 animate-bounce" style={{ animationDelay: '3s', animationDuration: '3s' }}>
+        <div className="w-1 h-10 bg-red-500 dark:bg-red-400"></div>
+        <div className="w-3 h-1 bg-red-500 dark:bg-red-400 -mt-6 -ml-1"></div>
+        <div className="w-2 h-1 bg-red-500 dark:bg-red-400 -mt-2 -ml-0.5"></div>
       </div>
-    ))}
 
-    {/* Floating Data Packets */}
-    {Array.from({ length: 12 }).map((_, i) => (
-      <div 
-        key={i}
-        className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-bounce z-15"
-        style={{
-          left: `${15 + (i * 6)}%`,
-          top: `${30 + Math.sin(i) * 20}%`,
-          animationDelay: `${i * 0.3}s`,
-          animationDuration: `${2 + (i % 3)}s`
-        }}
-      />
-    ))}
+      {/* Hot Air Balloon */}
+      <div className="absolute -top-16 left-12 animate-bounce" style={{ animationDelay: '0s', animationDuration: '4s' }}>
+        <div className="w-6 h-8 bg-gradient-to-b from-red-400 to-red-500 dark:from-red-500 dark:to-red-600 rounded-full"></div>
+        <div className="w-0.5 h-4 bg-gray-600 dark:bg-gray-400 mx-auto"></div>
+        <div className="w-3 h-2 bg-amber-600 dark:bg-amber-500 mx-auto rounded-sm"></div>
+      </div>
 
-    {/* Signal Waves from Center */}
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-5">
-      {[80, 120, 160, 200, 240].map((size, i) => (
-        <div 
-          key={size}
-          className="absolute border-2 border-blue-400/30 dark:border-blue-300/40 rounded-full animate-ping"
-          style={{
-            width: `${size}px`,
-            height: `${size}px`,
-            left: `${-size/2}px`,
-            top: `${-size/2}px`,
-            animationDelay: `${i * 0.5}s`,
-            animationDuration: '3s'
-          }}
-        />
-      ))}
+      {/* Simple Connection Lines */}
+      <div className="absolute inset-0">
+        {/* Dotted lines connecting landmarks to earth */}
+        <svg className="w-full h-full absolute inset-0" viewBox="0 0 200 200">
+          <defs>
+            <pattern id="dottedLine" patternUnits="userSpaceOnUse" width="8" height="8">
+              <circle cx="4" cy="4" r="1" fill="#3b82f6" opacity="0.6">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+              </circle>
+            </pattern>
+          </defs>
+          
+          {/* Connection lines from landmarks to center */}
+          <line x1="40" y1="30" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
+          <line x1="160" y1="25" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
+          <line x1="170" y1="120" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
+          <line x1="130" y1="180" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
+          <line x1="60" y1="180" x2="100" y2="100" stroke="url(#dottedLine)" strokeWidth="2" className="animate-pulse" />
+        </svg>
+      </div>
     </div>
+
+    {/* Simple floating icons */}
+    <div className="absolute top-1/4 left-1/4">
+      <div className="w-4 h-4 bg-blue-500 dark:bg-blue-400 rounded-full animate-ping"></div>
+    </div>
+    <div className="absolute top-3/4 right-1/4">
+      <div className="w-3 h-3 bg-green-500 dark:bg-green-400 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+    </div>
+    <div className="absolute top-1/3 right-1/3">
+      <div className="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '2s' }}></div>
+    </div>
+
   </div>
 );
 
