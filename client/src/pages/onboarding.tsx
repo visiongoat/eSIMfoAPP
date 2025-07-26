@@ -81,10 +81,7 @@ export default function OnboardingScreen() {
   const colors = getColorClasses(currentStepData.color);
 
   return (
-    <div className="mobile-screen relative">
-      {/* Background */}
-      <div className="absolute inset-0 bg-white dark:bg-gray-900"></div>
-      
+    <div className="mobile-screen relative bg-white dark:bg-gray-900">
       {/* Skip button */}
       <div className="absolute top-4 right-4 z-20">
         <Button
@@ -97,7 +94,7 @@ export default function OnboardingScreen() {
       </div>
 
       {/* Main content */}
-      <div className="flex flex-col h-full px-6 py-8">
+      <div className="flex flex-col min-h-screen px-6 py-8">
         
         {/* Progress indicators */}
         <div className="flex justify-center space-x-2 mb-8">
