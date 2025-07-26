@@ -37,6 +37,12 @@ export default function OnboardingScreen() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [, setLocation] = useLocation();
+  
+  // Touch gesture states
+  const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
+  const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
+  const [isSwiping, setIsSwiping] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
 
   const handleNext = () => {
     setIsAnimating(true);
@@ -66,6 +72,54 @@ export default function OnboardingScreen() {
     const timer = setTimeout(() => setIsAnimating(false), 300);
     return () => clearTimeout(timer);
   }, []);
+
+  // Touch gesture handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setTouchStart({ x: touch.clientX, y: touch.clientY });
+    setTouchEnd({ x: touch.clientX, y: touch.clientY });
+    setIsSwiping(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isSwiping) return;
+    const touch = e.touches[0];
+    setTouchEnd({ x: touch.clientX, y: touch.clientY });
+    
+    // Show swipe direction feedback
+    const deltaX = touchStart.x - touch.clientX;
+    if (Math.abs(deltaX) > 20) {
+      setSwipeDirection(deltaX > 0 ? 'left' : 'right');
+    } else {
+      setSwipeDirection(null);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!isSwiping) return;
+    setIsSwiping(false);
+    setSwipeDirection(null);
+    
+    const deltaX = touchStart.x - touchEnd.x;
+    const deltaY = touchStart.y - touchEnd.y;
+    const minSwipeDistance = 50;
+    
+    // Check if horizontal swipe is more significant than vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+      // Haptic feedback simulation
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+      
+      if (deltaX > 0) {
+        // Swipe left - next step
+        handleNext();
+      } else {
+        // Swipe right - previous step
+        handlePrevious();
+      }
+    }
+  };
 
   const handleSkip = () => {
     setLocation("/home");
@@ -106,7 +160,12 @@ export default function OnboardingScreen() {
   const colors = getColorClasses(currentStepData.color);
 
   return (
-    <div className="mobile-screen relative overflow-hidden">
+    <div 
+      className="mobile-screen relative overflow-hidden select-none"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Dynamic Background with Pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* Animated Background Pattern */}
@@ -182,10 +241,46 @@ export default function OnboardingScreen() {
           </div>
         </div>
 
-        {/* Content area - reduced spacing */}
-        <div className={`flex-1 flex flex-col items-center justify-center text-center space-y-6 transition-all duration-500 ${
+        {/* Content area with swipe indicators */}
+        <div className={`flex-1 flex flex-col items-center justify-center text-center space-y-6 transition-all duration-500 relative ${
           isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
-        }`}>
+        } ${swipeDirection === 'left' ? 'transform -translate-x-2' : swipeDirection === 'right' ? 'transform translate-x-2' : ''}`}>
+          
+          {/* Dynamic swipe indicators */}
+          {currentStep > 0 && (
+            <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-all duration-200 ${
+              swipeDirection === 'right' ? 'opacity-80 scale-110 text-blue-500' : 'opacity-30 dark:opacity-20'
+            }`}>
+              <div className="flex items-center space-x-1 text-gray-400">
+                <svg className={`w-4 h-4 transition-all duration-200 ${swipeDirection === 'right' ? 'text-blue-500 animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                <span className="text-xs font-medium">Swipe</span>
+              </div>
+            </div>
+          )}
+          
+          {currentStep < onboardingSteps.length - 1 && (
+            <div className={`absolute right-4 top-1/2 transform -translate-y-1/2 transition-all duration-200 ${
+              swipeDirection === 'left' ? 'opacity-80 scale-110 text-blue-500' : 'opacity-30 dark:opacity-20'
+            }`}>
+              <div className="flex items-center space-x-1 text-gray-400">
+                <span className="text-xs font-medium">Swipe</span>
+                <svg className={`w-4 h-4 transition-all duration-200 ${swipeDirection === 'left' ? 'text-blue-500 animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          )}
+          
+          {/* Swipe hint on first load */}
+          {currentStep === 0 && !isAnimating && (
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
+              <div className="bg-black/20 dark:bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-gray-600 dark:text-gray-300">
+                👈 Swipe to navigate 👉
+              </div>
+            </div>
+          )}
           
           {/* Enhanced Icon Container - compact */}
           <div className="relative">
