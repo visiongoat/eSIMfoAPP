@@ -364,21 +364,22 @@ export default function DestinationsScreen() {
       />
 
       <div className="px-4 pt-4 pb-20">
-        {/* Enhanced Search Bar with Smart Features */}
-        <div className="relative z-[9999] mb-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg focus-within:shadow-xl focus-within:border-blue-500 focus-within:border-2 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group">
-            {/* Animated Search Icon */}
-            <div className="relative">
-              <Search className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 group-focus-within:scale-110 transition-all duration-200" />
-              {/* Pulse effect when focused */}
+        {/* Premium Search Bar with Advanced Interactions */}
+        <div className="relative z-[9999] mb-6">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg focus-within:shadow-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group backdrop-blur-sm">
+            {/* Enhanced Animated Search Icon */}
+            <div className="relative flex-shrink-0">
+              <Search className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 group-focus-within:scale-110 transition-all duration-300" />
+              {/* Multiple pulse effects */}
               <div className="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-focus-within:opacity-20 group-focus-within:animate-ping"></div>
+              <div className="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-focus-within:opacity-10 group-focus-within:animate-pulse delay-75"></div>
             </div>
 
             <input
               type="text"
               value={searchQuery}
               placeholder={searchQuery ? "Type country name..." : placeholderText}
-              className="text-gray-700 dark:text-gray-300 text-base flex-1 outline-none bg-transparent placeholder-gray-500 dark:placeholder-gray-400 font-medium"
+              className="text-gray-900 dark:text-gray-100 text-base flex-1 outline-none bg-transparent placeholder-gray-500 dark:placeholder-gray-400 font-medium tracking-wide"
               onChange={(e) => {
                 setSearchQuery(e.target.value);
                 setShowSearchResults(e.target.value.length > 0);
@@ -488,8 +489,8 @@ export default function DestinationsScreen() {
           )}
         </div>
 
-        {/* Tab Filters */}
-        <div className="flex mb-4 bg-gray-200 dark:bg-gray-700 rounded-xl p-1">
+        {/* Premium Tab Filters */}
+        <div className="flex mb-6 bg-gray-200 dark:bg-gray-700 rounded-xl p-1 shadow-inner">
           {[
             { key: 'countries', label: 'Countries', icon: MapPin },
             { key: 'regions', label: 'Regions', icon: Globe },
@@ -498,53 +499,75 @@ export default function DestinationsScreen() {
             <button
               key={tab.key}
               onClick={() => setSelectedTab(tab.key as any)}
-              className={`flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center space-x-2 ${
+              className={`relative flex-1 py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2 transform ${
                 selectedTab === tab.key
-                  ? 'bg-white dark:bg-gray-500 text-gray-900 dark:text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300'
+                  ? 'bg-white dark:bg-gray-500 text-gray-900 dark:text-white shadow-lg scale-[1.02] ring-2 ring-white/50 dark:ring-gray-400/50'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-600/50 hover:scale-[1.01]'
               }`}
             >
-              <tab.icon className="w-4 h-4" />
-              <span>{tab.label}</span>
+              <tab.icon className={`w-4 h-4 transition-transform duration-200 ${selectedTab === tab.key ? 'scale-110' : ''}`} />
+              <span className="tracking-wide">{tab.label}</span>
+              {selectedTab === tab.key && (
+                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-500 rounded-t-full animate-slideIn"></div>
+              )}
             </button>
           ))}
         </div>
 
 
 
-        {/* Alphabet Filter (only for countries) */}
+        {/* Enhanced Alphabet Filter (only for countries) */}
         {selectedTab === 'countries' && (
-          <div className="mb-6">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {alphabetFilterGroups.map((group) => (
+          <div className="mb-8">
+            <div className="flex flex-wrap gap-2 mb-6">
+              {alphabetFilterGroups.map((group, index) => (
                 <button
                   key={group.value}
                   onClick={() => setSelectedFilter(group.value)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  style={{ animationDelay: `${index * 50}ms` }}
+                  className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 animate-fadeInUp ${
                     selectedFilter === group.value
-                      ? 'bg-gray-600 dark:bg-gray-500 text-white'
-                      : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/25 scale-105'
+                      : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 hover:scale-105 hover:shadow-md'
                   }`}
                 >
                   {group.label}
                 </button>
               ))}
             </div>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Countries</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">Countries</h2>
           </div>
         )}
 
-        {/* Content Area */}
+        {/* Enhanced Content Area */}
         {isLoading ? (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {Array.from({ length: 8 }).map((_, index) => (
-              <div key={index} className="mobile-card p-4">
-                <div className="flex items-center space-x-3">
-                  <div className="skeleton w-10 h-10 rounded-lg"></div>
-                  <div className="flex-1">
-                    <div className="skeleton w-32 h-4 rounded mb-2"></div>
-                    <div className="skeleton w-20 h-3 rounded"></div>
+              <div 
+                key={index} 
+                className="mobile-card p-4 animate-pulse"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="flex items-center space-x-4">
+                  {/* Flag skeleton with shimmer */}
+                  <div className="relative w-10 h-7 rounded-md bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer"></div>
                   </div>
+                  
+                  <div className="flex-1 space-y-2">
+                    {/* Country name skeleton */}
+                    <div className="relative h-4 bg-gray-200 dark:bg-gray-700 rounded-md w-32 overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" style={{ animationDelay: `${index * 150}ms` }}></div>
+                    </div>
+                    
+                    {/* Price skeleton */}
+                    <div className="relative h-3 bg-gray-200 dark:bg-gray-700 rounded w-20 overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" style={{ animationDelay: `${index * 200}ms` }}></div>
+                    </div>
+                  </div>
+                  
+                  {/* Chevron skeleton */}
+                  <div className="w-5 h-5 bg-gray-200 dark:bg-gray-700 rounded"></div>
                 </div>
               </div>
             ))}
@@ -552,26 +575,51 @@ export default function DestinationsScreen() {
         ) : (
           <div className="space-y-3">
             {selectedTab === 'countries' ? (
-              // Countries List
-              finalFilteredData.map((country: any) => (
+              // Premium Countries List with Stagger Animation
+              finalFilteredData.map((country: any, index: number) => (
                 <button
                   key={country.id}
                   onClick={() => handleCountrySelect(country)}
-                  className="mobile-card p-4 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 active:scale-[0.98]"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                  className="mobile-card p-4 w-full text-left hover:bg-gray-50 dark:hover:bg-gray-700/70 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 active:scale-[0.98] group animate-fadeInUp border border-transparent hover:border-blue-500/20 dark:hover:border-blue-400/20"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <img 
-                        src={country.flagUrl} 
-                        alt={`${country.name} flag`} 
-                        className="w-8 h-6 rounded object-cover" 
-                      />
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{country.name}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">From €{getMinPrice(country.id)}</p>
+                    <div className="flex items-center space-x-4">
+                      {/* Enhanced Flag Container */}
+                      <div className="relative">
+                        <img 
+                          src={country.flagUrl} 
+                          alt={`${country.name} flag`} 
+                          className="w-10 h-7 rounded-md object-cover shadow-sm ring-1 ring-gray-200 dark:ring-gray-600" 
+                        />
+                        <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-transparent to-white/10"></div>
+                      </div>
+                      
+                      {/* Country Info */}
+                      <div className="flex-1">
+                        <p className="font-semibold text-gray-900 dark:text-gray-100 text-base tracking-wide group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {country.name}
+                        </p>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                            From €{getMinPrice(country.id)}
+                          </p>
+                          {/* Premium Badge for Select Countries */}
+                          {(['United States', 'United Kingdom', 'Germany', 'France', 'Japan'].includes(country.name)) && (
+                            <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">
+                              Popular
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <span className="text-gray-400 dark:text-gray-500">›</span>
+                    
+                    {/* Enhanced Chevron */}
+                    <div className="flex items-center space-x-2">
+                      <svg className="w-5 h-5 text-gray-300 dark:text-gray-600 group-hover:text-blue-500 dark:group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   </div>
                 </button>
               ))
