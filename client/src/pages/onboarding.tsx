@@ -381,27 +381,13 @@ export default function OnboardingScreen() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,119,198,0.2),transparent_50%)]"></div>
       </div>
 
-      {/* Back and Skip buttons */}
-      {currentStep > 0 && (
-        <button
-          onClick={handlePrevious}
-          className="absolute top-6 left-6 flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 z-50 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back
-        </button>
-      )}
-      
-      {currentStep === 0 && (
-        <button
-          onClick={handleSkip}
-          className="absolute top-6 right-6 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 z-50 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full"
-        >
-          Skip
-        </button>
-      )}
+      {/* Skip button - always visible */}
+      <button
+        onClick={handleSkip}
+        className="absolute top-6 right-6 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 z-50 bg-white/20 dark:bg-black/20 backdrop-blur-sm rounded-full"
+      >
+        Skip
+      </button>
 
       {/* Main content - optimized height */}
       <div className="flex flex-col h-screen px-6 py-6 relative z-10">
