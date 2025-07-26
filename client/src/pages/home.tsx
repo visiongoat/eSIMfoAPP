@@ -833,9 +833,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                    </svg>
+                    <img src="https://simplemaps.com/static/demos/resources/svg-library/svgs/europe.svg" alt="Europe" className="w-7 h-7 opacity-80"/>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Europa</h3>
@@ -851,12 +849,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-7 h-7 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 100 80">
-                      {/* Asia simplified silhouette */}
-                      <path d="M15,25 Q20,15 35,20 L45,10 Q55,5 70,15 L85,20 Q90,30 85,40 L90,50 Q85,65 70,60 L50,70 Q35,75 25,65 L15,55 Q10,40 15,25Z"/>
-                      <circle cx="70" cy="35" r="3"/>
-                      <circle cx="25" cy="45" r="2"/>
-                    </svg>
+                    <img src="https://www.svgrepo.com/download/155398/australia.svg" alt="Asia" className="w-7 h-7 opacity-80" style={{transform: 'scale(1.5)'}}/>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Asia</h3>
@@ -872,11 +865,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-7 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 60 100">
-                      {/* Americas simplified silhouette */}
-                      <path d="M20,5 Q30,0 35,10 L40,25 Q45,35 40,45 L35,60 Q30,70 25,75 L20,85 Q15,95 10,85 L5,70 Q0,50 5,35 L10,20 Q15,5 20,5Z"/>
-                      <path d="M25,40 Q35,35 40,50 L45,70 Q50,85 45,95 L35,90 Q25,85 30,70 L25,55 Q20,45 25,40Z"/>
-                    </svg>
+                    <img src="https://www.svgrepo.com/download/154046/south-america.svg" alt="Americas" className="w-7 h-7 opacity-80"/>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Americas</h3>
@@ -892,11 +881,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-7 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 70 100">
-                      {/* Africa simplified silhouette */}
-                      <path d="M25,5 Q35,0 45,10 L50,20 Q55,30 50,40 L55,50 Q60,65 55,75 L50,85 Q45,95 35,90 L25,85 Q15,80 10,70 L5,55 Q0,40 5,25 L10,15 Q15,5 25,5Z"/>
-                      <path d="M35,35 Q40,30 45,35 L50,45 Q45,50 40,45 L35,35Z"/>
-                    </svg>
+                    <img src="https://www.svgrepo.com/download/480953/africa-continent.svg" alt="Africa" className="w-7 h-7 opacity-80"/>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Africa</h3>
@@ -912,12 +897,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 80 70">
-                      {/* Middle East simplified silhouette */}
-                      <path d="M10,25 Q20,15 35,20 L50,15 Q65,20 70,35 L75,45 Q70,55 55,50 L40,55 Q25,60 15,50 L10,40 Q5,30 10,25Z"/>
-                      <circle cx="45" cy="35" r="2"/>
-                      <circle cx="25" cy="40" r="1.5"/>
-                    </svg>
+                    <img src="https://www.svgrepo.com/download/155398/australia.svg" alt="Middle East" className="w-7 h-7 opacity-80" style={{transform: 'scale(0.8)'}}/>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Middle East</h3>
@@ -933,14 +913,7 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-7 h-5 text-teal-600 dark:text-teal-400" fill="currentColor" viewBox="0 0 100 60">
-                      {/* Oceania simplified silhouette */}
-                      <path d="M15,25 Q25,15 40,20 L55,18 Q70,25 65,35 L60,45 Q50,50 40,45 L25,40 Q15,35 15,25Z"/>
-                      <circle cx="85" cy="20" r="3"/>
-                      <circle cx="90" cy="35" r="2"/>
-                      <circle cx="10" cy="45" r="1.5"/>
-                      <circle cx="75" cy="50" r="1"/>
-                    </svg>
+                    <img src="https://www.svgrepo.com/download/155398/australia.svg" alt="Oceania" className="w-7 h-7 opacity-80"/>
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Oceania</h3>
