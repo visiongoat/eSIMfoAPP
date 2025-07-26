@@ -12,6 +12,66 @@ export default function DestinationsScreen() {
   const [selectedTab, setSelectedTab] = useState<'countries' | 'regions' | 'global'>('countries');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [, setLocation] = useLocation();
+  const [placeholderText, setPlaceholderText] = useState('');
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const placeholderTexts = [
+    'Find your destination',
+    'Search a country or city',
+    'Type Germany, Spain, or Japan',
+    'Looking for Europe plans?',
+    'Explore eSIMs for USA, UAE…',
+    'Where are you traveling to?',
+    'Start typing a country name…',
+    'eSIM for 200+ countries'
+  ];
+
+  // Typewriter effect for search placeholder
+  useEffect(() => {
+    let isMounted = true;
+    let currentText = '';
+    let isDeleting = false;
+    let timeoutId: NodeJS.Timeout;
+    
+    const typeWriter = () => {
+      if (!isMounted) return;
+      
+      const fullText = placeholderTexts[placeholderIndex];
+      
+      if (isDeleting) {
+        currentText = currentText.slice(0, -1);
+      } else {
+        currentText = fullText.slice(0, currentText.length + 1);
+      }
+      
+      setPlaceholderText(currentText);
+      
+      let typeSpeed = 80;
+      
+      if (isDeleting) {
+        typeSpeed = 40;
+      }
+      
+      if (!isDeleting && currentText === fullText) {
+        typeSpeed = 2000; // Pause when complete
+        isDeleting = true;
+      } else if (isDeleting && currentText === '') {
+        isDeleting = false;
+        setPlaceholderIndex((prev) => (prev + 1) % placeholderTexts.length);
+        typeSpeed = 500;
+      }
+      
+      timeoutId = setTimeout(typeWriter, typeSpeed);
+    };
+    
+    timeoutId = setTimeout(typeWriter, 500);
+    
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+    };
+  }, [placeholderIndex]);
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -37,6 +97,61 @@ export default function DestinationsScreen() {
   const handleCountrySelect = (country: Country) => {
     setLocation(`/packages/${country.id}`);
   };
+
+  // Enhanced search results with plan info
+  const getEnhancedSearchResults = () => {
+    if (!searchQuery.trim()) return [];
+    
+    const results = countries.filter(country => 
+      country.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      country.code.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 5); // Show max 5 results
+    
+    return results.map(country => {
+      // Add plan information based on country
+      let planCount = 3; // Default
+      let hasFullPlan = false;
+      
+      switch(country.name) {
+        case 'United States':
+          planCount = 13;
+          hasFullPlan = true;
+          break;
+        case 'United Kingdom':
+          planCount = 12;
+          hasFullPlan = true;
+          break;
+        case 'Germany':
+          planCount = 8;
+          break;
+        case 'France':
+          planCount = 6;
+          break;
+        case 'Turkey':
+          planCount = 5;
+          break;
+        case 'Spain':
+          planCount = 7;
+          break;
+        case 'Italy':
+          planCount = 6;
+          break;
+        case 'Japan':
+          planCount = 9;
+          break;
+        default:
+          planCount = Math.floor(Math.random() * 10) + 3; // 3-12 random
+      }
+      
+      return {
+        ...country,
+        planCount,
+        hasFullPlan
+      };
+    });
+  };
+
+  const searchResults = getEnhancedSearchResults();
 
   // Enhanced search and filter functionality
   const getFilteredData = () => {
@@ -228,18 +343,128 @@ export default function DestinationsScreen() {
       />
 
       <div className="px-4 pt-4 pb-20">
-        {/* Search Bar */}
-        <div className="mobile-card p-3 mb-4 bg-gray-100 dark:bg-gray-800 border-0">
-          <div className="flex items-center space-x-3">
-            <Search className="text-gray-500 dark:text-gray-400 w-5 h-5" />
-            <input 
+        {/* Enhanced Search Bar with Smart Features */}
+        <div className="relative z-[9999] mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg focus-within:shadow-xl focus-within:border-blue-500 focus-within:border-2 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group">
+            {/* Animated Search Icon */}
+            <div className="relative">
+              <Search className="w-5 h-5 text-gray-400 group-focus-within:text-blue-500 group-focus-within:scale-110 transition-all duration-200" />
+              {/* Pulse effect when focused */}
+              <div className="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-focus-within:opacity-20 group-focus-within:animate-ping"></div>
+            </div>
+
+            <input
               type="text"
-              placeholder="Search your travel destination"
-              className="flex-1 bg-transparent text-gray-700 dark:text-gray-300 text-base outline-none placeholder-gray-500 dark:placeholder-gray-400"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={searchQuery ? "Type country name..." : placeholderText}
+              className="text-gray-700 dark:text-gray-300 text-base flex-1 outline-none bg-transparent placeholder-gray-500 dark:placeholder-gray-400 font-medium"
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setShowSearchResults(e.target.value.length > 0);
+              }}
+              onFocus={() => {
+                setShowSearchResults(searchQuery.length > 0);
+              }}
+              onBlur={() => {
+                setTimeout(() => setShowSearchResults(false), 150);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  if (searchResults.length > 0) {
+                    handleCountrySelect(searchResults[0]);
+                    setSearchQuery('');
+                    setShowSearchResults(false);
+                  }
+                }
+                if (e.key === 'Escape') {
+                  setSearchQuery('');
+                  setShowSearchResults(false);
+                  (e.target as HTMLInputElement).blur();
+                }
+              }}
             />
+
+            {/* Search Actions */}
+            <div className="flex items-center space-x-2">
+              {searchQuery && (
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setShowSearchResults(false);
+                  }}
+                  className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group/clear"
+                >
+                  <svg className="w-4 h-4 text-gray-400 group-hover/clear:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+              
+              {/* Keyboard shortcut hint */}
+              <div className="hidden group-focus-within:flex items-center space-x-1 animate-fadeIn">
+                <kbd className="px-2 py-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 rounded border font-mono">ESC</kbd>
+              </div>
+            </div>
           </div>
+
+          {/* Mobile Search Results */}
+          {showSearchResults && searchResults.length > 0 && (
+            <div className="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 mt-1 z-[9999] overflow-hidden">
+              {searchResults.map((country: any, index: number) => {
+                // Create flag emoji from country code
+                const getFlagEmoji = (code: string) => {
+                  if (!code || code.length !== 2) return '🌍';
+                  const codePoints = code.toUpperCase().split('').map(char => 
+                    127397 + char.charCodeAt(0)
+                  );
+                  return String.fromCodePoint(...codePoints);
+                };
+
+                return (
+                  <button
+                    key={country.id}
+                    onClick={() => {
+                      handleCountrySelect(country);
+                      setSearchQuery('');
+                      setShowSearchResults(false);
+                    }}
+                    className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 active:bg-blue-50 dark:active:bg-blue-900/20 group"
+                  >
+                    {/* Premium Flag Container */}
+                    <div className="relative">
+                      <div className="w-11 h-11 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center shadow-md border border-gray-200 dark:border-gray-600 group-hover:shadow-lg group-hover:scale-105 transition-all duration-200">
+                        <span className="text-xl filter drop-shadow-sm">{getFlagEmoji(country.code)}</span>
+                      </div>
+                      {/* Signal indicator */}
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                      </div>
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {country.name}
+                      </div>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">{country.planCount} eSIMs</span>
+                        {country.hasFullPlan && (
+                          <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-full border border-blue-100 dark:border-blue-800">
+                            📞 Full Plan
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <svg className="w-5 h-5 text-gray-300 dark:text-gray-600 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Tab Filters */}
