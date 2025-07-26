@@ -489,59 +489,70 @@ export default function DestinationsScreen() {
           )}
         </div>
 
-        {/* Consistent Tab Filters (Home Style) */}
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-1 mb-6">
-          <div className="flex space-x-1">
-            {[
-              { 
-                id: 'countries', 
-                label: 'Countries', 
-                icon: <MapPin className="w-4 h-4" />, 
-                color: 'bg-blue-500' 
-              },
-              { 
-                id: 'regions', 
-                label: 'Regions', 
-                icon: <Globe className="w-4 h-4" />, 
-                color: 'bg-green-500' 
-              },
-              { 
-                id: 'global', 
-                label: 'Global', 
-                icon: <Navigation className="w-4 h-4" />, 
-                color: 'bg-purple-500' 
-              }
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setSelectedTab(tab.id as any)}
-                className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform relative group ${
-                  selectedTab === tab.id
-                    ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-gray-600/80 hover:shadow-md hover:scale-102 active:scale-95'
-                }`}
-                style={{willChange: 'transform'}}
-              >
-                <div className="flex items-center justify-center space-x-2 relative z-10">
-                  <div className={`transition-transform duration-300 ${selectedTab === tab.id ? 'scale-110' : 'group-hover:scale-105'}`}>
-                    {tab.icon}
-                  </div>
-                  <span className="tracking-wide">{tab.label}</span>
+        {/* Modern Pill-Style Tabs - Exact Match from Home */}
+        <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40 mb-6">
+          {[
+            { 
+              id: 'countries', 
+              label: 'Countries', 
+              icon: (
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              ),
+              color: 'bg-blue-500'
+            },
+            { 
+              id: 'regions', 
+              label: 'Regions', 
+              icon: (
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+              ),
+              color: 'bg-green-500'
+            },
+            { 
+              id: 'global', 
+              label: 'Global', 
+              icon: (
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              ),
+              color: 'bg-purple-500'
+            }
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setSelectedTab(tab.id as any)}
+              className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform relative group ${
+                selectedTab === tab.id
+                  ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-gray-600/80 hover:shadow-md hover:scale-102 active:scale-95'
+              }`}
+              style={{willChange: 'transform'}}
+            >
+              <div className="flex items-center justify-center space-x-2 relative z-10">
+                <div className={`transition-transform duration-300 ${selectedTab === tab.id ? 'scale-110' : 'group-hover:scale-105'}`}>
+                  {tab.icon}
                 </div>
-                
-                {/* Enhanced effects for active tab */}
-                {selectedTab === tab.id && (
-                  <>
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 rounded-xl opacity-80"></div>
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 rounded-xl"></div>
-                  </>
-                )}
-                
-                {/* Ripple effect on click */}
-                <div className="absolute inset-0 rounded-xl opacity-0 group-active:opacity-30 transition-opacity duration-200 bg-white/20"></div>
-              </button>
-            ))}
-          </div>
+                <span className="tracking-wide">{tab.label}</span>
+              </div>
+              
+              {/* Enhanced effects for active tab */}
+              {selectedTab === tab.id && (
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 rounded-xl opacity-80"></div>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 rounded-xl"></div>
+                </>
+              )}
+              
+              {/* Ripple effect on click */}
+              <div className="absolute inset-0 rounded-xl opacity-0 group-active:opacity-30 transition-opacity duration-200 bg-white/20"></div>
+            </button>
+          ))}
         </div>
 
 
