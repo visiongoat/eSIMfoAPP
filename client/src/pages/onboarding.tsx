@@ -449,32 +449,7 @@ export default function OnboardingScreen() {
           isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
         } ${swipeDirection === 'left' ? 'transform -translate-x-2' : swipeDirection === 'right' ? 'transform translate-x-2' : ''}`}>
           
-          {/* Dynamic swipe indicators */}
-          {currentStep > 0 && (
-            <div className={`absolute left-4 top-1/2 transform -translate-y-1/2 transition-all duration-200 ${
-              swipeDirection === 'right' ? 'opacity-80 scale-110 text-blue-500' : 'opacity-30 dark:opacity-20'
-            }`}>
-              <div className="flex items-center space-x-1 text-gray-400">
-                <svg className={`w-4 h-4 transition-all duration-200 ${swipeDirection === 'right' ? 'text-blue-500 animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                <span className="text-xs font-medium">Swipe</span>
-              </div>
-            </div>
-          )}
-          
-          {currentStep < onboardingSteps.length - 1 && (
-            <div className={`absolute right-4 top-1/2 transform -translate-y-1/2 transition-all duration-200 ${
-              swipeDirection === 'left' ? 'opacity-80 scale-110 text-blue-500' : 'opacity-30 dark:opacity-20'
-            }`}>
-              <div className="flex items-center space-x-1 text-gray-400">
-                <span className="text-xs font-medium">Swipe</span>
-                <svg className={`w-4 h-4 transition-all duration-200 ${swipeDirection === 'left' ? 'text-blue-500 animate-pulse' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </div>
-          )}
+
 
           {/* Icon Container */}
           <div className="relative">
