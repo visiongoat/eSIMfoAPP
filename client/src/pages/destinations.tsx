@@ -373,8 +373,8 @@ export default function DestinationsScreen() {
         showBack={false}
       />
 
-      {/* Fixed Search Bar */}
-      <div className="fixed top-11 left-0 right-0 bg-gradient-to-br from-gray-50/95 via-white/95 to-gray-100/95 dark:bg-gradient-to-br dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 z-10 py-3 px-4 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50">
+      {/* Fixed Search Bar - Seamlessly attached to NavigationBar */}
+      <div className="fixed top-11 left-0 right-0 bg-gradient-to-br from-gray-50/95 via-white/95 to-gray-100/95 dark:bg-gradient-to-br dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 z-10 py-2 px-4 backdrop-blur-md border-t border-gray-200/30 dark:border-gray-700/30">
         <div className="max-w-md mx-auto">
           <div className="bg-gradient-to-r from-white via-gray-50 to-white dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750 dark:to-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:via-white hover:to-blue-50 dark:hover:from-gray-750 dark:hover:via-gray-700 dark:hover:to-gray-750 focus-within:shadow-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group backdrop-blur-sm">
             {/* Enhanced Animated Search Icon */}
@@ -432,7 +432,7 @@ export default function DestinationsScreen() {
         </div>
       </div>
 
-      <div className="px-4 pt-24 pb-20">
+      <div className="px-4 pt-20 pb-20">
         {/* Search Results Container - Position relative for absolute positioning */}
         <div className="relative">
           {/* Mobile Search Results */}
