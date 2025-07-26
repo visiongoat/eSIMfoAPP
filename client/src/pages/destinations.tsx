@@ -601,8 +601,8 @@ export default function DestinationsScreen() {
                           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                             From €{getMinPrice(country.id)}
                           </p>
-                          {/* Premium Badge for Select Countries */}
-                          {(['United States', 'United Kingdom', 'Germany', 'France', 'Japan'].includes(country.name)) && (
+                          {/* Premium Badge for Popular Countries */}
+                          {(['United States', 'France', 'China', 'Spain', 'Italy', 'Turkey', 'United Kingdom', 'Germany', 'Mexico', 'Thailand', 'Hong Kong', 'Malaysia', 'Greece', 'Canada', 'South Korea', 'Japan', 'Singapore', 'Aruba', 'Afghanistan', 'Anguilla'].includes(country.name)) && (
                             <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">
                               Popular
                             </span>
