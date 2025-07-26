@@ -1,58 +1,131 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 
-// Telecom Animation Components
+// Full-Screen Global Connection Animation
 const GlobalConnectionAnimation = () => (
-  <div className="relative w-64 h-64 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 rounded-3xl flex items-center justify-center overflow-hidden">
-    {/* Background Grid Pattern */}
-    <div className="absolute inset-0 opacity-10">
-      <div className="grid grid-cols-8 grid-rows-8 h-full w-full">
-        {Array.from({ length: 64 }).map((_, i) => (
-          <div key={i} className="border border-blue-300 dark:border-blue-700"></div>
-        ))}
-      </div>
+  <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-blue-900/10 via-blue-800/5 to-purple-900/10 dark:from-blue-900/20 dark:via-blue-800/10 dark:to-purple-900/20">
+    {/* World Map Background Pattern */}
+    <div className="absolute inset-0 opacity-5 dark:opacity-10">
+      <svg className="w-full h-full" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+        {/* Simplified World Map Paths */}
+        <path d="M100 150 Q200 100 350 120 T600 180 L650 200 Q700 220 750 180 L800 200 L800 400 Q600 350 400 380 T100 400 Z" 
+              fill="currentColor" opacity="0.3" />
+        <path d="M50 300 Q150 280 250 300 T450 320 L500 340 Q550 360 600 340 L650 360 L650 500 Q450 480 250 500 T50 500 Z" 
+              fill="currentColor" opacity="0.2" />
+      </svg>
     </div>
-    
-    {/* Central Globe */}
-    <div className="relative z-10">
-      <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
-        <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center">
-          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
-          </svg>
+
+    {/* Central Globe - Much Larger */}
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+      <div className="relative">
+        {/* Outer Glow Ring */}
+        <div className="absolute -inset-8 bg-gradient-to-r from-blue-400/20 to-purple-400/20 dark:from-blue-300/30 dark:to-purple-300/30 rounded-full blur-xl animate-pulse"></div>
+        
+        {/* Main Globe */}
+        <div className="relative w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-full shadow-2xl flex items-center justify-center">
+          {/* Inner Earth */}
+          <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center shadow-inner">
+            <svg className="w-10 h-10 text-white/90" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
+            </svg>
+          </div>
+          
+          {/* Rotating Ring */}
+          <div className="absolute inset-0 border-2 border-blue-300/50 dark:border-blue-200/50 rounded-full animate-spin" style={{ animationDuration: '8s' }}></div>
         </div>
       </div>
     </div>
-    
-    {/* Animated Connection Lines */}
-    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 256 256">
+
+    {/* Connection Lines to Corners */}
+    <svg className="absolute inset-0 w-full h-full z-10" viewBox="0 0 400 600">
       <defs>
-        <linearGradient id="connectionGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="connectionLine" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0.2" />
+          <stop offset="50%" stopColor="#1d4ed8" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#1e40af" stopOpacity="0.2" />
+        </linearGradient>
+        <linearGradient id="dataFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#60a5fa" stopOpacity="0">
+            <animate attributeName="stop-opacity" values="0;1;0" dur="2s" repeatCount="indefinite" />
+          </stop>
+          <stop offset="50%" stopColor="#3b82f6" stopOpacity="1">
+            <animate attributeName="stop-opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.3s" />
+          </stop>
+          <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0">
+            <animate attributeName="stop-opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.6s" />
+          </stop>
         </linearGradient>
       </defs>
       
-      {/* Radiating Lines */}
-      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
-        <g key={angle} style={{ transformOrigin: '128px 128px', transform: `rotate(${angle}deg)` }}>
-          <line 
-            x1="128" y1="128" x2="200" y2="128" 
-            stroke="url(#connectionGrad1)" 
-            strokeWidth="2" 
-            strokeDasharray="4 4"
-            className="animate-pulse"
-            style={{ animationDelay: `${i * 200}ms` }}
-          />
-          <circle 
-            cx="200" cy="128" r="4" 
-            fill="#3b82f6" 
-            className="animate-ping"
-            style={{ animationDelay: `${i * 200}ms` }}
-          />
-        </g>
-      ))}
+      {/* Main Connection Lines */}
+      <line x1="200" y1="300" x2="50" y2="100" stroke="url(#connectionLine)" strokeWidth="3" strokeDasharray="8 4" className="animate-pulse" />
+      <line x1="200" y1="300" x2="350" y2="100" stroke="url(#connectionLine)" strokeWidth="3" strokeDasharray="8 4" className="animate-pulse" />
+      <line x1="200" y1="300" x2="50" y2="500" stroke="url(#connectionLine)" strokeWidth="3" strokeDasharray="8 4" className="animate-pulse" />
+      <line x1="200" y1="300" x2="350" y2="500" stroke="url(#connectionLine)" strokeWidth="3" strokeDasharray="8 4" className="animate-pulse" />
+      
+      {/* Data Flow Lines */}
+      <line x1="200" y1="300" x2="50" y2="100" stroke="url(#dataFlow)" strokeWidth="2" />
+      <line x1="200" y1="300" x2="350" y2="100" stroke="url(#dataFlow)" strokeWidth="2" />
+      <line x1="200" y1="300" x2="50" y2="500" stroke="url(#dataFlow)" strokeWidth="2" />
+      <line x1="200" y1="300" x2="350" y2="500" stroke="url(#dataFlow)" strokeWidth="2" />
     </svg>
+
+    {/* Connection Nodes */}
+    {[
+      { x: '12%', y: '20%', delay: '0s' },
+      { x: '88%', y: '20%', delay: '0.5s' },
+      { x: '12%', y: '80%', delay: '1s' },
+      { x: '88%', y: '80%', delay: '1.5s' },
+      { x: '25%', y: '15%', delay: '2s' },
+      { x: '75%', y: '15%', delay: '2.5s' },
+      { x: '25%', y: '85%', delay: '3s' },
+      { x: '75%', y: '85%', delay: '3.5s' }
+    ].map((node, i) => (
+      <div 
+        key={i}
+        className="absolute w-4 h-4 bg-blue-400 dark:bg-blue-300 rounded-full shadow-lg animate-ping z-20"
+        style={{
+          left: node.x,
+          top: node.y,
+          animationDelay: node.delay,
+          animationDuration: '2s'
+        }}
+      >
+        <div className="absolute inset-0 bg-blue-500 dark:bg-blue-400 rounded-full animate-pulse"></div>
+      </div>
+    ))}
+
+    {/* Floating Data Packets */}
+    {Array.from({ length: 12 }).map((_, i) => (
+      <div 
+        key={i}
+        className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-bounce z-15"
+        style={{
+          left: `${15 + (i * 6)}%`,
+          top: `${30 + Math.sin(i) * 20}%`,
+          animationDelay: `${i * 0.3}s`,
+          animationDuration: `${2 + (i % 3)}s`
+        }}
+      />
+    ))}
+
+    {/* Signal Waves from Center */}
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-5">
+      {[80, 120, 160, 200, 240].map((size, i) => (
+        <div 
+          key={size}
+          className="absolute border-2 border-blue-400/30 dark:border-blue-300/40 rounded-full animate-ping"
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            left: `${-size/2}px`,
+            top: `${-size/2}px`,
+            animationDelay: `${i * 0.5}s`,
+            animationDuration: '3s'
+          }}
+        />
+      ))}
+    </div>
   </div>
 );
 
@@ -206,58 +279,63 @@ export default function OnboardingScreen() {
   }, [currentStep]);
 
   return (
-    <div className="mobile-screen">
-      <div className={`flex flex-col items-center justify-center h-screen px-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-all duration-500 ${currentStepData.bgGradient}`}>
-        
-        {/* Animation Container */}
-        <div className={`mb-8 transition-all duration-500 transform ${
-          isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
-        }`}>
-          <currentStepData.component />
-        </div>
-        
-        {/* Content */}
+    <div className="mobile-screen relative">
+      {/* Full-Screen Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800"></div>
+      
+      {/* Animation Layer */}
+      <div className={`absolute inset-0 transition-all duration-500 transform ${
+        isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
+      }`}>
+        <currentStepData.component />
+      </div>
+      
+      {/* Content Overlay */}
+      <div className="relative z-30 flex flex-col items-center justify-end h-screen px-8 pb-20">
         <div className={`text-center transition-all duration-500 transform ${
           isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
         }`}>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            {currentStepData.title}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-12 max-w-sm">
-            {currentStepData.description}
-          </p>
-        </div>
-        
-        {/* Step Indicators */}
-        <div className="flex space-x-3 mb-8">
-          {onboardingSteps.map((_, index) => (
-            <div
-              key={index}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentStep 
-                  ? 'w-8 bg-blue-500 dark:bg-blue-400' 
-                  : 'w-2 bg-gray-300 dark:bg-gray-600'
-              }`}
-            />
-          ))}
-        </div>
-        
-        {/* Action Buttons */}
-        <div className="w-full max-w-sm space-y-4">
-          <button 
-            onClick={handleNext}
-            disabled={isAnimating}
-            className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg disabled:opacity-50"
-          >
-            {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
-          </button>
-          
-          <button 
-            onClick={handleSkip}
-            className="w-full py-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
-          >
-            Skip
-          </button>
+          {/* Content Background */}
+          <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20 dark:border-gray-800/20">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              {currentStepData.title}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8 max-w-sm mx-auto">
+              {currentStepData.description}
+            </p>
+            
+            {/* Step Indicators */}
+            <div className="flex justify-center space-x-3 mb-8">
+              {onboardingSteps.map((_, index) => (
+                <div
+                  key={index}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === currentStep 
+                      ? 'w-8 bg-blue-500 dark:bg-blue-400' 
+                      : 'w-2 bg-gray-300 dark:bg-gray-600'
+                  }`}
+                />
+              ))}
+            </div>
+            
+            {/* Action Buttons */}
+            <div className="w-full max-w-sm mx-auto space-y-4">
+              <button 
+                onClick={handleNext}
+                disabled={isAnimating}
+                className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-2xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg disabled:opacity-50"
+              >
+                {currentStep === onboardingSteps.length - 1 ? 'Get Started' : 'Continue'}
+              </button>
+              
+              <button 
+                onClick={handleSkip}
+                className="w-full py-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
+              >
+                Skip
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
