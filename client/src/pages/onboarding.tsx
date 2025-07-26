@@ -230,45 +230,201 @@ export default function OnboardingScreen() {
         
         {/* Upper Half - Visual Content Area */}
         <div className="flex-1 flex items-center justify-center relative overflow-hidden">
-          {/* Real Image/Illustration Placeholder */}
-          <div className={`transition-all duration-500 transform ${
+          {/* Professional Visual Content */}
+          <div className={`transition-all duration-700 transform ${
             isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
           }`}>
-            {/* Step 1: Globe with Connectivity */}
+            
+            {/* Step 1: Global Network Visualization */}
             {currentStep === 0 && (
-              <div className="relative">
-                <div className="w-48 h-48 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 dark:from-blue-500 dark:via-blue-600 dark:to-blue-700 shadow-2xl flex items-center justify-center">
-                  <div className="text-6xl">🌍</div>
-                  {/* Connection dots around globe */}
-                  <div className="absolute inset-0 animate-pulse">
-                    <div className="absolute top-4 right-8 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
-                    <div className="absolute bottom-8 left-12 w-2 h-2 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-                    <div className="absolute top-12 left-4 w-2 h-2 bg-red-400 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+              <div className="relative w-72 h-72">
+                {/* Central Earth Globe */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-blue-800 dark:from-blue-600 dark:via-blue-700 dark:to-blue-900 shadow-2xl relative overflow-hidden">
+                    {/* Continents on globe */}
+                    <div className="absolute inset-2 rounded-full bg-gradient-to-br from-green-400/30 to-green-600/30">
+                      <div className="absolute top-2 left-3 w-4 h-3 bg-green-500/50 rounded-full"></div>
+                      <div className="absolute bottom-3 right-4 w-6 h-4 bg-green-500/50 rounded-lg"></div>
+                      <div className="absolute top-1/2 left-1 w-3 h-5 bg-green-500/50 rounded-full"></div>
+                    </div>
+                    {/* Globe shine effect */}
+                    <div className="absolute top-3 left-4 w-8 h-8 bg-white/20 rounded-full blur-sm"></div>
                   </div>
                 </div>
+                
+                {/* Orbital Connection Rings */}
+                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '20s' }}>
+                  <div className="w-full h-full border-2 border-blue-300/30 dark:border-blue-400/30 rounded-full"></div>
+                </div>
+                <div className="absolute inset-8 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}>
+                  <div className="w-full h-full border-2 border-purple-300/30 dark:border-purple-400/30 rounded-full border-dashed"></div>
+                </div>
+                
+                {/* Satellite Connection Points */}
+                <div className="absolute top-4 right-8">
+                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse shadow-lg"></div>
+                  <div className="absolute inset-0 w-3 h-3 bg-green-400/30 rounded-full animate-ping"></div>
+                </div>
+                <div className="absolute bottom-8 left-4">
+                  <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse shadow-lg" style={{ animationDelay: '0.5s' }}></div>
+                  <div className="absolute inset-0 w-3 h-3 bg-blue-400/30 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+                </div>
+                <div className="absolute top-8 left-8">
+                  <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse shadow-lg" style={{ animationDelay: '1s' }}></div>
+                  <div className="absolute inset-0 w-3 h-3 bg-purple-400/30 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+                </div>
+                <div className="absolute bottom-4 right-4">
+                  <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse shadow-lg" style={{ animationDelay: '1.5s' }}></div>
+                  <div className="absolute inset-0 w-3 h-3 bg-yellow-400/30 rounded-full animate-ping" style={{ animationDelay: '1.5s' }}></div>
+                </div>
+                
+                {/* Connection Lines */}
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 288 288">
+                  <defs>
+                    <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.6"/>
+                      <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.2"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M50 50 Q144 100 238 50" stroke="url(#connectionGradient)" strokeWidth="2" fill="none" opacity="0.7">
+                    <animate attributeName="stroke-dasharray" values="0,1000;100,1000;0,1000" dur="3s" repeatCount="indefinite"/>
+                  </path>
+                  <path d="M50 238 Q144 188 238 238" stroke="url(#connectionGradient)" strokeWidth="2" fill="none" opacity="0.7">
+                    <animate attributeName="stroke-dasharray" values="0,1000;100,1000;0,1000" dur="3s" repeatCount="indefinite" begin="1s"/>
+                  </path>
+                </svg>
               </div>
             )}
             
-            {/* Step 2: Mobile Device with eSIM */}
+            {/* Step 2: Advanced eSIM Technology */}
             {currentStep === 1 && (
-              <div className="relative">
-                <div className="w-40 h-64 bg-gray-900 dark:bg-gray-800 rounded-3xl shadow-2xl relative">
-                  <div className="w-full h-full bg-gradient-to-b from-blue-100 to-blue-200 dark:from-gray-700 dark:to-gray-800 rounded-3xl p-4 flex flex-col items-center justify-center">
-                    <div className="text-4xl mb-4">📱</div>
-                    <div className="w-16 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
-                      <div className="text-white text-xs font-bold">eSIM</div>
+              <div className="relative w-64 h-80">
+                {/* Modern Smartphone */}
+                <div className="w-48 h-72 bg-gradient-to-b from-gray-800 to-gray-900 dark:from-gray-900 dark:to-black rounded-[2.5rem] shadow-2xl relative mx-auto">
+                  {/* Screen */}
+                  <div className="absolute inset-3 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-gray-800 dark:to-gray-900 rounded-[2rem] overflow-hidden">
+                    {/* Status Bar */}
+                    <div className="h-8 bg-black/5 dark:bg-white/5 flex items-center justify-between px-4">
+                      <div className="flex space-x-1">
+                        <div className="w-1 h-1 bg-green-500 rounded-full"></div>
+                        <div className="w-1 h-1 bg-green-500 rounded-full"></div>
+                        <div className="w-1 h-1 bg-green-500 rounded-full"></div>
+                      </div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">eSIM Active</div>
+                    </div>
+                    
+                    {/* Main Screen Content */}
+                    <div className="flex-1 p-6 flex flex-col items-center justify-center space-y-4">
+                      {/* eSIM Card Visualization */}
+                      <div className="relative">
+                        <div className="w-20 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg shadow-lg relative">
+                          {/* Chip contacts */}
+                          <div className="absolute top-2 left-2 grid grid-cols-3 gap-0.5">
+                            {[...Array(6)].map((_, i) => (
+                              <div key={i} className="w-1 h-1 bg-gold-400 rounded-sm"></div>
+                            ))}
+                          </div>
+                          {/* eSIM Label */}
+                          <div className="absolute bottom-1 right-1 text-xs text-white font-bold opacity-80">eSIM</div>
+                        </div>
+                        {/* Glow effect */}
+                        <div className="absolute inset-0 w-20 h-12 bg-blue-400/30 rounded-lg blur animate-pulse"></div>
+                      </div>
+                      
+                      {/* Connection Status */}
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">Connected</span>
+                      </div>
+                      
+                      {/* Network Bars */}
+                      <div className="flex items-end space-x-1">
+                        {[1, 2, 3, 4, 5].map((bar) => (
+                          <div
+                            key={bar}
+                            className={`w-2 bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-sm animate-pulse`}
+                            style={{ 
+                              height: `${bar * 4 + 8}px`,
+                              animationDelay: `${bar * 0.1}s`
+                            }}
+                          ></div>
+                        ))}
+                      </div>
                     </div>
                   </div>
+                  
+                  {/* Home indicator */}
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-white/20 rounded-full"></div>
+                </div>
+                
+                {/* Floating Data Packets */}
+                <div className="absolute top-8 -right-4 w-8 h-8 bg-blue-500/20 rounded-lg animate-float">
+                  <div className="w-full h-full bg-blue-500 rounded-lg animate-pulse opacity-60"></div>
+                </div>
+                <div className="absolute bottom-16 -left-4 w-6 h-6 bg-purple-500/20 rounded-lg animate-float" style={{ animationDelay: '1s' }}>
+                  <div className="w-full h-full bg-purple-500 rounded-lg animate-pulse opacity-60"></div>
                 </div>
               </div>
             )}
             
-            {/* Step 3: Happy Traveler */}
+            {/* Step 3: Global Travel Freedom */}
             {currentStep === 2 && (
-              <div className="relative">
-                <div className="w-48 h-48 rounded-full bg-gradient-to-br from-green-400 via-green-500 to-green-600 dark:from-green-500 dark:via-green-600 dark:to-green-700 shadow-2xl flex items-center justify-center">
-                  <div className="text-6xl">✈️</div>
-                  <div className="absolute -top-4 -right-4 text-4xl">😊</div>
+              <div className="relative w-80 h-64">
+                {/* World Map Silhouette */}
+                <div className="absolute inset-0 opacity-20 dark:opacity-30">
+                  <svg viewBox="0 0 320 256" className="w-full h-full">
+                    <path d="M50 80 L120 60 L180 80 L240 70 L280 90 L270 140 L200 160 L140 150 L80 160 L40 140 Z" 
+                          fill="currentColor" className="text-blue-500 dark:text-blue-400"/>
+                    <path d="M60 180 L130 170 L190 180 L250 175 L290 190 L280 220 L210 230 L150 225 L90 230 L50 220 Z" 
+                          fill="currentColor" className="text-green-500 dark:text-green-400"/>
+                  </svg>
+                </div>
+                
+                {/* Airplane Path */}
+                <div className="absolute inset-0">
+                  <svg viewBox="0 0 320 256" className="w-full h-full">
+                    <path id="flightPath" d="M50 128 Q160 80 270 128" stroke="none" fill="none"/>
+                    <circle r="3" fill="#3B82F6" className="drop-shadow-lg">
+                      <animateMotion dur="4s" repeatCount="indefinite" rotate="auto">
+                        <mpath href="#flightPath"/>
+                      </animateMotion>
+                    </circle>
+                    {/* Flight trail */}
+                    <path d="M50 128 Q160 80 270 128" stroke="#3B82F6" strokeWidth="2" 
+                          fill="none" opacity="0.3" strokeDasharray="5,5">
+                      <animate attributeName="stroke-dashoffset" values="0;-10" dur="1s" repeatCount="indefinite"/>
+                    </path>
+                  </svg>
+                </div>
+                
+                {/* Connection Points on Map */}
+                <div className="absolute top-16 left-16">
+                  <div className="w-4 h-4 bg-green-400 rounded-full animate-ping shadow-lg"></div>
+                  <div className="absolute inset-1 w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="absolute top-20 right-20">
+                  <div className="w-4 h-4 bg-blue-400 rounded-full animate-ping shadow-lg" style={{ animationDelay: '1s' }}></div>
+                  <div className="absolute inset-1 w-2 h-2 bg-blue-500 rounded-full"></div>
+                </div>
+                <div className="absolute bottom-20 left-1/3">
+                  <div className="w-4 h-4 bg-purple-400 rounded-full animate-ping shadow-lg" style={{ animationDelay: '2s' }}></div>
+                  <div className="absolute inset-1 w-2 h-2 bg-purple-500 rounded-full"></div>
+                </div>
+                <div className="absolute bottom-16 right-16">
+                  <div className="w-4 h-4 bg-yellow-400 rounded-full animate-ping shadow-lg" style={{ animationDelay: '0.5s' }}></div>
+                  <div className="absolute inset-1 w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+                
+                {/* Success Checkmarks */}
+                <div className="absolute top-8 right-8 text-green-500 animate-bounce" style={{ animationDelay: '2s' }}>
+                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                  </svg>
+                </div>
+                <div className="absolute bottom-8 left-8 text-blue-500 animate-bounce" style={{ animationDelay: '2.5s' }}>
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                  </svg>
                 </div>
               </div>
             )}
