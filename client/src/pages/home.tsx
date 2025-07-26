@@ -808,7 +808,7 @@ export default function HomeScreen() {
             {/* More Destinations Button */}
             <button 
               onClick={() => setLocation('/destinations')}
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl p-4 text-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] mb-8 relative overflow-hidden group"
+              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl p-4 text-center transition-colors duration-200 shadow-lg hover:shadow-xl mb-8 relative overflow-hidden group"
             >
               {/* Background shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>

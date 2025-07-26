@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { Search, Globe, MapPin, Navigation } from "lucide-react";
@@ -12,6 +12,20 @@ export default function DestinationsScreen() {
   const [selectedTab, setSelectedTab] = useState<'countries' | 'regions' | 'global'>('countries');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   const [, setLocation] = useLocation();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    // Force immediate scroll reset
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    
+    // Additional reset for mobile devices
+    const mobileContainer = document.querySelector('.mobile-container');
+    if (mobileContainer) {
+      mobileContainer.scrollTop = 0;
+    }
+  }, []);
 
   const { data: countries = [], isLoading } = useQuery<Country[]>({
     queryKey: ["/api/countries"],
@@ -207,7 +221,7 @@ export default function DestinationsScreen() {
   const finalFilteredData = selectedTab === 'countries' ? getAlphabetFilteredCountries() : filteredData;
 
   return (
-    <div className="mobile-screen bg-gray-50 dark:bg-gray-900">
+    <div className="mobile-screen bg-gray-50 dark:bg-gray-900" style={{ scrollBehavior: 'auto' }}>
       <NavigationBar 
         title="Buy eSIM"
         showBack={true}
