@@ -235,123 +235,81 @@ export default function OnboardingScreen() {
             isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
           }`}>
             
-            {/* Step 1: Simple World Connectivity */}
+            {/* Step 1: Professional Globe */}
             {currentStep === 0 && (
-              <div className="relative w-64 h-64 flex items-center justify-center">
-                {/* Clean Earth Globe */}
-                <div className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-blue-800 dark:from-blue-600 dark:via-blue-700 dark:to-blue-900 shadow-2xl relative overflow-hidden">
-                  {/* Continents */}
-                  <div className="absolute top-4 left-6 w-8 h-6 bg-green-500/60 rounded-full"></div>
-                  <div className="absolute bottom-6 right-8 w-12 h-8 bg-green-500/60 rounded-lg"></div>
-                  <div className="absolute top-1/2 left-2 w-6 h-10 bg-green-500/60 rounded-full"></div>
-                  {/* Globe shine */}
-                  <div className="absolute top-6 left-8 w-12 h-12 bg-white/20 rounded-full blur-sm"></div>
-                </div>
-                
-                {/* Connection Points around Globe */}
-                <div className="absolute top-8 right-8 w-4 h-4 bg-green-400 rounded-full shadow-lg"></div>
-                <div className="absolute bottom-12 left-8 w-4 h-4 bg-blue-400 rounded-full shadow-lg"></div>
-                <div className="absolute top-12 left-12 w-4 h-4 bg-purple-400 rounded-full shadow-lg"></div>
-                <div className="absolute bottom-8 right-12 w-4 h-4 bg-yellow-400 rounded-full shadow-lg"></div>
-                
-                {/* Simple Connection Lines */}
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 256 256">
-                  <path d="M50 50 L128 128" stroke="#3B82F6" strokeWidth="2" opacity="0.4"/>
-                  <path d="M206 50 L128 128" stroke="#8B5CF6" strokeWidth="2" opacity="0.4"/>
-                  <path d="M50 206 L128 128" stroke="#10B981" strokeWidth="2" opacity="0.4"/>
-                  <path d="M206 206 L128 128" stroke="#F59E0B" strokeWidth="2" opacity="0.4"/>
-                </svg>
-              </div>
-            )}
-            
-            {/* Step 2: Clean eSIM Phone */}
-            {currentStep === 1 && (
-              <div className="relative w-64 h-80 flex items-center justify-center">
-                {/* Simple Smartphone */}
-                <div className="w-44 h-64 bg-gradient-to-b from-gray-800 to-gray-900 dark:from-gray-900 dark:to-black rounded-[2rem] shadow-2xl relative">
-                  {/* Screen */}
-                  <div className="absolute inset-2 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-gray-800 dark:to-gray-900 rounded-[1.5rem] overflow-hidden">
-                    {/* Status Bar */}
-                    <div className="h-6 bg-black/5 dark:bg-white/5 flex items-center justify-between px-3">
-                      <div className="flex space-x-1">
-                        <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                        <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                        <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                      </div>
-                      <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">eSIM</div>
-                    </div>
-                    
-                    {/* eSIM Card in Center */}
-                    <div className="flex-1 flex items-center justify-center">
-                      <div className="relative">
-                        <div className="w-24 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl shadow-lg relative">
-                          {/* Chip Pattern */}
-                          <div className="absolute top-3 left-3 grid grid-cols-4 gap-1">
-                            {[...Array(8)].map((_, i) => (
-                              <div key={i} className="w-1.5 h-1.5 bg-yellow-400 rounded-sm"></div>
-                            ))}
-                          </div>
-                          {/* eSIM Text */}
-                          <div className="absolute bottom-2 right-3 text-sm text-white font-bold">eSIM</div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Signal Bars at Bottom */}
-                    <div className="h-8 flex items-center justify-center space-x-1">
-                      <div className="w-2 h-3 bg-blue-500 rounded-t-sm"></div>
-                      <div className="w-2 h-4 bg-blue-500 rounded-t-sm"></div>
-                      <div className="w-2 h-5 bg-blue-500 rounded-t-sm"></div>
-                      <div className="w-2 h-6 bg-blue-500 rounded-t-sm"></div>
-                      <div className="w-2 h-7 bg-blue-500 rounded-t-sm"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Home Indicator */}
-                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-white/30 rounded-full"></div>
-                </div>
-              </div>
-            )}
-            
-            {/* Step 3: Travel Success */}
-            {currentStep === 2 && (
-              <div className="relative w-80 h-64 flex items-center justify-center">
-                {/* World Map Background */}
-                <div className="absolute inset-0 opacity-15 dark:opacity-25">
-                  <svg viewBox="0 0 320 256" className="w-full h-full">
-                    <path d="M50 80 L120 60 L180 80 L240 70 L280 90 L270 140 L200 160 L140 150 L80 160 L40 140 Z" 
-                          fill="currentColor" className="text-blue-500"/>
-                    <path d="M60 180 L130 170 L190 180 L250 175 L290 190 L280 220 L210 230 L150 225 L90 230 L50 220 Z" 
-                          fill="currentColor" className="text-green-500"/>
+              <div className="relative w-72 h-72 flex items-center justify-center">
+                {/* Professional Globe SVG */}
+                <div className="w-48 h-48 text-blue-600 dark:text-blue-400">
+                  <svg viewBox="0 0 24 24" className="w-full h-full drop-shadow-2xl">
+                    <path fill="currentColor" d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2zm0 2C7.589 4 4 7.589 4 12s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8zm4.8 3.6c.4 0 .8.4.8.8 0 .5-.4.8-.8.8s-.8-.4-.8-.8c0-.5.4-.8.8-.8zm-9.6 0c.4 0 .8.4.8.8 0 .5-.4.8-.8.8s-.8-.4-.8-.8c0-.5.4-.8.8-.8zM12 6c3.314 0 6 2.686 6 6s-2.686 6-6 6-6-2.686-6-6 2.686-6 6-6zm0 2c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
                   </svg>
                 </div>
                 
-                {/* Central Success Icon */}
+                {/* Connection indicators */}
+                <div className="absolute top-16 right-16 w-3 h-3 bg-green-500 rounded-full shadow-lg"></div>
+                <div className="absolute bottom-20 left-20 w-3 h-3 bg-blue-500 rounded-full shadow-lg"></div>
+                <div className="absolute top-20 left-16 w-3 h-3 bg-purple-500 rounded-full shadow-lg"></div>
+                <div className="absolute bottom-16 right-20 w-3 h-3 bg-orange-500 rounded-full shadow-lg"></div>
+              </div>
+            )}
+            
+            {/* Step 2: Professional Phone SVG */}
+            {currentStep === 1 && (
+              <div className="relative w-72 h-80 flex items-center justify-center">
+                {/* Professional Phone SVG */}
+                <div className="w-32 h-48 text-gray-800 dark:text-gray-300">
+                  <svg viewBox="0 0 101 101" className="w-full h-full drop-shadow-2xl">
+                    <path fill="currentColor" d="M74.185,0h-47.37c-2.178,0-3.949,1.772-3.949,3.95v93.101c0,2.178,1.771,3.949,3.949,3.949h47.37c2.178,0,3.948-1.771,3.948-3.949V3.95C78.134,1.772,76.363,0,74.185,0z M46.627,92.5c0-2.14,1.732-3.875,3.873-3.875c2.144,0,3.873,1.735,3.873,3.875c0,2.141-1.729,3.875-3.873,3.875C48.359,96.375,46.627,94.641,46.627,92.5z M25.867,85.859V12.281h49.268v73.578H25.867z"/>
+                  </svg>
+                </div>
+                
+                {/* eSIM indicator */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-blue-600 dark:bg-blue-400 text-white dark:text-gray-900 px-3 py-1 rounded-lg text-sm font-bold shadow-lg">
+                    eSIM
+                  </div>
+                </div>
+                
+                {/* Signal indicators */}
+                <div className="absolute top-8 right-8 flex space-x-1">
+                  <div className="w-1 h-3 bg-green-500 rounded-sm"></div>
+                  <div className="w-1 h-4 bg-green-500 rounded-sm"></div>
+                  <div className="w-1 h-5 bg-green-500 rounded-sm"></div>
+                  <div className="w-1 h-6 bg-green-500 rounded-sm"></div>
+                </div>
+              </div>
+            )}
+            
+            {/* Step 3: Professional World Map Success */}
+            {currentStep === 2 && (
+              <div className="relative w-80 h-64 flex items-center justify-center">
+                {/* Professional World Map Background */}
+                <div className="absolute inset-0 opacity-20 dark:opacity-30 text-gray-600 dark:text-gray-400">
+                  <svg viewBox="0 0 2000 857" className="w-full h-full">
+                    <path d="M1383 261.6l1.5 1.8-2.9 0.8-2.4 1.1-5.9 0.8-5.3 1.3-2.4 2.8 1.9 2.7 1.4 3.2-2 2.7 0.8 2.5-0.9 2.3-5.2-0.2 3.1 4.2-3.1 1.7-1.4 3.8 1.1 3.9-1.8 1.8-2.1-0.6-4 0.9-0.2 1.7-4.1 0-2.3 3.7 0.8 5.4-6.6 2.7-3.9-0.6-0.9 1.4-3.4-0.8-5.3 1-9.6-3.3 3.9-5.8-1.1-4.1-4.3-1.1-1.2-4.1-2.7-5.1 1.6-3.5-2.5-1 0.5-4.7 0.6-8 5.9 2.5 3.9-0.9 0.4-2.9 4-0.9 2.6-2-0.2-5.1 4.2-1.3 0.3-2.2 2.9 1.7 1.6 0.2 3 0 4.3 1.4 1.8 0.7 3.4-2 2.1 1.2 0.9-2.9 3.2 0.1 0.6-0.9-0.2-2.6 1.7-2.2 3.3 1.4-0.1 2 1.7 0.3 0.9 5.4 2.7 2.1 1.5-1.4 2.2-0.6 2.5-2.9 3.8 0.5 5.4 0z" fill="currentColor"/>
+                    <path d="M1088 228l0.4 1.2 1.4-0.6 1.2 1.7 1.3 0.7 0.6 2.3-0.5 2.2 1 2.7 2.3 1.5 0.1 1.7-1.7 0.9-0.1 2.1-2.2 3.1-0.9-0.4-0.2-1.4-3.1-2.2-0.7-3 0.1-4.4 0.5-1.9-0.9-1-0.5-2.1 1.9-3.1z" fill="currentColor"/>
+                  </svg>
+                </div>
+                
+                {/* Central Success Checkmark */}
                 <div className="relative z-10">
-                  <div className="w-32 h-32 bg-gradient-to-br from-green-400 to-green-600 dark:from-green-500 dark:to-green-700 rounded-full shadow-2xl flex items-center justify-center">
-                    <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 dark:from-green-400 dark:to-green-500 rounded-full shadow-2xl flex items-center justify-center">
+                    <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                     </svg>
                   </div>
                 </div>
                 
-                {/* Connection Points */}
-                <div className="absolute top-12 left-12 w-6 h-6 bg-blue-500 rounded-full shadow-lg"></div>
-                <div className="absolute top-16 right-16 w-6 h-6 bg-purple-500 rounded-full shadow-lg"></div>
-                <div className="absolute bottom-16 left-16 w-6 h-6 bg-yellow-500 rounded-full shadow-lg"></div>
-                <div className="absolute bottom-12 right-12 w-6 h-6 bg-pink-500 rounded-full shadow-lg"></div>
+                {/* Location markers */}
+                <div className="absolute top-12 left-12 w-4 h-4 bg-blue-500 rounded-full shadow-md"></div>
+                <div className="absolute top-16 right-16 w-4 h-4 bg-purple-500 rounded-full shadow-md"></div>
+                <div className="absolute bottom-16 left-16 w-4 h-4 bg-orange-500 rounded-full shadow-md"></div>
+                <div className="absolute bottom-12 right-12 w-4 h-4 bg-pink-500 rounded-full shadow-md"></div>
                 
-                {/* Simple Connection Lines */}
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 256">
-                  <path d="M48 48 L160 128" stroke="#3B82F6" strokeWidth="2" opacity="0.3"/>
-                  <path d="M272 64 L160 128" stroke="#8B5CF6" strokeWidth="2" opacity="0.3"/>
-                  <path d="M64 208 L160 128" stroke="#EAB308" strokeWidth="2" opacity="0.3"/>
-                  <path d="M256 208 L160 128" stroke="#EC4899" strokeWidth="2" opacity="0.3"/>
-                </svg>
-                
-                {/* Travel Icons */}
-                <div className="absolute top-8 right-8 text-2xl">✈️</div>
-                <div className="absolute bottom-8 left-8 text-2xl">🌍</div>
+                {/* Success text */}
+                <div className="absolute bottom-8 text-center">
+                  <div className="text-sm font-medium text-green-600 dark:text-green-400">Connected Globally</div>
+                </div>
               </div>
             )}
           </div>
