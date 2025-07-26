@@ -158,19 +158,28 @@ export default function OnboardingScreen() {
       <div className="flex flex-col h-screen px-6 py-6 relative z-10">
         
         {/* Progress indicators */}
-        <div className="flex justify-center space-x-3 mb-8">
-          {onboardingSteps.map((_, index) => (
-            <div
-              key={index}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                index === currentStep 
-                  ? 'w-12 bg-blue-600 dark:bg-blue-400 shadow-sm' 
-                  : index < currentStep
-                  ? 'w-3 bg-blue-300 dark:bg-blue-600'
-                  : 'w-3 bg-gray-200 dark:bg-gray-700'
-              }`}
-            />
-          ))}
+        <div className="mb-6">
+          <div className="flex justify-center space-x-3 mb-3">
+            {onboardingSteps.map((_, index) => (
+              <div
+                key={index}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  index === currentStep 
+                    ? 'w-12 bg-blue-600 dark:bg-blue-400 shadow-sm' 
+                    : index < currentStep
+                    ? 'w-3 bg-blue-300 dark:bg-blue-600'
+                    : 'w-3 bg-gray-200 dark:bg-gray-700'
+                }`}
+              />
+            ))}
+          </div>
+          
+          {/* Step counter moved here */}
+          <div className="text-center">
+            <span className="text-sm font-medium text-gray-400 dark:text-gray-500">
+              Step {currentStep + 1} of {onboardingSteps.length}
+            </span>
+          </div>
         </div>
 
         {/* Content area - reduced spacing */}
@@ -221,8 +230,8 @@ export default function OnboardingScreen() {
               {currentStepData.description}
             </p>
             
-            {/* Enhanced Feature highlights - compact */}
-            <div className="flex flex-wrap justify-center gap-2 mt-6">
+            {/* Enhanced Feature highlights - single row */}
+            <div className="flex justify-center gap-2 mt-6 flex-nowrap">
               {currentStepData.features.map((feature, index) => (
                 <div
                   key={index}
@@ -231,8 +240,8 @@ export default function OnboardingScreen() {
                   }`}
                   style={{ transitionDelay: `${300 + index * 150}ms` }}
                 >
-                  {/* Feature badge with enhanced design */}
-                  <div className={`relative px-3 py-1.5 rounded-xl text-xs font-semibold ${colors.bg} ${colors.icon} border border-current/30 shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:shadow-xl`}>
+                  {/* Feature badge with enhanced design - smaller */}
+                  <div className={`relative px-2.5 py-1 rounded-lg text-xs font-semibold ${colors.bg} ${colors.icon} border border-current/30 shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:shadow-xl whitespace-nowrap`}>
                     {/* Background shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     
@@ -310,9 +319,9 @@ export default function OnboardingScreen() {
             </Button>
           )}
           
-          {/* Enhanced step counter with dots */}
+          {/* Interactive step dots */}
           <div className="text-center pt-4">
-            <div className="flex items-center justify-center space-x-2 mb-2">
+            <div className="flex items-center justify-center space-x-2">
               {onboardingSteps.map((_, index) => (
                 <button
                   key={index}
@@ -328,9 +337,6 @@ export default function OnboardingScreen() {
                 ></button>
               ))}
             </div>
-            <span className="text-sm font-medium text-gray-400 dark:text-gray-500">
-              Step {currentStep + 1} of {onboardingSteps.length}
-            </span>
           </div>
         </div>
       </div>
