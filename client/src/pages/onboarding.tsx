@@ -169,8 +169,14 @@ export default function OnboardingScreen() {
       case 0: // Global Coverage
         return (
           <>
-            {/* Layer 0: Grid notebook background */}
-            <div className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]">
+            {/* Layer 0: Grid notebook background with fade */}
+            <div 
+              className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]"
+              style={{
+                maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+              }}
+            >
               <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
                 {/* Vertical lines */}
                 {[...Array(20)].map((_, i) => (
@@ -231,8 +237,14 @@ export default function OnboardingScreen() {
       case 1: // Easy Setup
         return (
           <>
-            {/* Layer 0: Grid notebook background */}
-            <div className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]">
+            {/* Layer 0: Grid notebook background with fade */}
+            <div 
+              className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]"
+              style={{
+                maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+              }}
+            >
               <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
                 {/* Vertical lines */}
                 {[...Array(20)].map((_, i) => (
@@ -303,8 +315,14 @@ export default function OnboardingScreen() {
       case 2: // Instant Activation
         return (
           <>
-            {/* Layer 0: Grid notebook background */}
-            <div className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]">
+            {/* Layer 0: Grid notebook background with fade */}
+            <div 
+              className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]"
+              style={{
+                maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+              }}
+            >
               <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
                 {/* Vertical lines */}
                 {[...Array(20)].map((_, i) => (
