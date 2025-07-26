@@ -319,25 +319,7 @@ export default function OnboardingScreen() {
             </Button>
           )}
           
-          {/* Interactive step dots */}
-          <div className="text-center pt-4">
-            <div className="flex items-center justify-center space-x-2">
-              {onboardingSteps.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => !isAnimating && setCurrentStep(index)}
-                  disabled={isAnimating}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentStep
-                      ? `${colors.bg} scale-125 shadow-lg`
-                      : index < currentStep
-                      ? 'bg-gray-400 dark:bg-gray-600 hover:scale-110'
-                      : 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600'
-                  }`}
-                ></button>
-              ))}
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
