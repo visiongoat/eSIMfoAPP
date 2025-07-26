@@ -375,7 +375,7 @@ export default function DestinationsScreen() {
 
       <div className="px-4 pt-4 pb-20">
         {/* Premium Search Bar with Advanced Interactions - Sticky */}
-        <div className="sticky top-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative z-[9999] mb-6 py-2 -mx-4 px-4 backdrop-blur-sm">
+        <div className="sticky top-11 bg-gradient-to-br from-gray-50/95 via-white/95 to-gray-100/95 dark:bg-gradient-to-br dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 z-10 mb-6 py-3 -mx-4 px-4 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50">
           <div className="bg-gradient-to-r from-white via-gray-50 to-white dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750 dark:to-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg hover:bg-gradient-to-r hover:from-blue-50 hover:via-white hover:to-blue-50 dark:hover:from-gray-750 dark:hover:via-gray-700 dark:hover:to-gray-750 focus-within:shadow-xl focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-500 focus-within:scale-[1.02] transition-all duration-300 border border-gray-200 dark:border-gray-700 group backdrop-blur-sm">
             {/* Enhanced Animated Search Icon */}
             <div className="relative flex-shrink-0">
