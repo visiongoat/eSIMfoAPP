@@ -807,7 +807,7 @@ export default function HomeScreen() {
             
             {/* More Destinations Button */}
             <button 
-              onClick={() => setLocation('/search')}
+              onClick={() => setLocation('/destinations')}
               className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl p-4 text-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] mb-8 relative overflow-hidden group"
             >
               {/* Background shimmer effect */}

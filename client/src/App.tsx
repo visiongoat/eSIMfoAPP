@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/contexts/theme-context";
 import SplashScreen from "@/pages/splash";
 import OnboardingScreen from "@/pages/onboarding";
 import HomeScreen from "@/pages/home";
-import SearchScreen from "@/pages/search";
+import DestinationsScreen from "@/pages/destinations";
 import PackagesScreen from "@/pages/packages";
 import PurchaseScreen from "@/pages/purchase";
 import QRCodeScreen from "@/pages/qr-code";
@@ -25,7 +25,7 @@ function Router() {
       <Route path="/" component={SplashScreen} />
       <Route path="/onboarding" component={OnboardingScreen} />
       <Route path="/home" component={HomeScreen} />
-      <Route path="/search" component={SearchScreen} />
+      <Route path="/destinations" component={DestinationsScreen} />
       <Route path="/packages/:countryId" component={PackagesScreen} />
       <Route path="/purchase/:packageId" component={PurchaseScreen} />
       <Route path="/qr/:esimId" component={QRCodeScreen} />
