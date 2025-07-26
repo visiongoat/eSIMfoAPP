@@ -500,10 +500,13 @@ export default function OnboardingScreen() {
           </div>
         </div>
 
-        {/* Content area with responsive spacing */}
-        <div className={`flex-1 flex flex-col items-center justify-center text-center space-y-4 sm:space-y-6 md:space-y-8 transition-all duration-500 relative px-2 ${
+        {/* Content area with fixed positioning */}
+        <div className={`flex-1 flex flex-col text-center transition-all duration-500 relative px-2 ${
           isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
         } ${swipeDirection === 'left' ? 'transform -translate-x-2' : swipeDirection === 'right' ? 'transform translate-x-2' : ''}`}>
+          
+          {/* Fixed Content Container - consistent height */}
+          <div className="flex flex-col items-center justify-center space-y-6 sm:space-y-8" style={{ height: '450px' }}>
           
 
 
@@ -562,10 +565,11 @@ export default function OnboardingScreen() {
               ))}
             </div>
           </div>
+          
         </div>
 
-        {/* Navigation - moved higher with responsive padding */}
-        <div className={`space-y-4 pt-4 pb-8 sm:pb-12 md:pb-16 transition-all duration-300 ${
+        {/* Navigation - fixed position for all screens */}
+        <div className={`space-y-4 pt-6 pb-12 sm:pb-16 md:pb-20 transition-all duration-300 ${
           isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
         }`}>
           <div className="relative">
@@ -618,6 +622,7 @@ export default function OnboardingScreen() {
               Back
             </button>
           )}
+          </div>
         </div>
       </div>
     </div>
