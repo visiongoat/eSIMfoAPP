@@ -297,8 +297,67 @@ export default function OnboardingScreen() {
               {/* Multiple rotating rings */}
               <div className="absolute inset-4 border border-current/10 rounded-2xl animate-spin" style={{ animationDuration: '12s' }}></div>
               
-              {/* Central icon with enhanced effects */}
-              <IconComponent className={`w-16 h-16 ${colors.icon} relative z-20 transition-all duration-500 animate-icon-bounce filter drop-shadow-lg`} />
+              {/* Central icon with micro-animations */}
+              {currentStepData.title === "Global Coverage" ? (
+                // Enhanced Globe with world map animation
+                <div className="relative w-16 h-16 z-20">
+                  {/* Base globe with rotation */}
+                  <svg className="w-16 h-16 animate-spin [animation-duration:8s] filter drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                  </svg>
+                  
+                  {/* Animated world continents overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative w-10 h-10">
+                      {/* Continent dots with staggered animations */}
+                      <div className="absolute top-2 left-3 w-1 h-1 bg-current rounded-full animate-pulse [animation-delay:0s]"></div>
+                      <div className="absolute top-3 right-2 w-0.5 h-0.5 bg-current rounded-full animate-pulse [animation-delay:0.5s]"></div>
+                      <div className="absolute bottom-3 left-2 w-0.5 h-0.5 bg-current rounded-full animate-pulse [animation-delay:1s]"></div>
+                      <div className="absolute bottom-2 right-3 w-1 h-1 bg-current rounded-full animate-pulse [animation-delay:1.5s]"></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-0.5 h-0.5 bg-current rounded-full animate-pulse [animation-delay:2s]"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Connection lines animation */}
+                  <div className="absolute inset-0 opacity-30">
+                    <svg className="w-full h-full animate-pulse [animation-duration:2s]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.5} d="M8 12h8M8 8l8 8M16 8l-8 8" opacity="0.6" />
+                    </svg>
+                  </div>
+                </div>
+              ) : currentStepData.title === "Instant Setup" ? (
+                // Enhanced Setup icon with gear animation
+                <div className="relative w-16 h-16 z-20">
+                  <svg className="w-16 h-16 animate-spin [animation-duration:4s] filter drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  {/* Inner pulse */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-6 h-6 bg-current rounded-full opacity-20 animate-ping"></div>
+                  </div>
+                </div>
+              ) : currentStepData.title === "Secure Connection" ? (
+                // Enhanced Shield with scanning lines
+                <div className="relative w-16 h-16 z-20">
+                  <svg className="w-16 h-16 filter drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                  {/* Scanning line animation */}
+                  <div className="absolute inset-0 overflow-hidden rounded-full">
+                    <div className="absolute inset-x-0 h-0.5 bg-current opacity-40 animate-bounce transform -translate-y-8 [animation-duration:2s]"></div>
+                  </div>
+                  {/* Check mark pulse */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <svg className="w-8 h-8 opacity-60 animate-pulse [animation-delay:1s]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                </div>
+              ) : (
+                // Default icon with basic animation
+                <IconComponent className={`w-16 h-16 ${colors.icon} relative z-20 transition-all duration-500 animate-icon-bounce filter drop-shadow-lg`} />
+              )}
               
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-shimmer"></div>
