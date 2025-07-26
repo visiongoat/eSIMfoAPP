@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
+import globeIcon from '@assets/globe.svg';
+import phoneIcon from '@assets/phone.svg';
+import worldMapIcon from '@assets/world-map.svg';
 
 // Simple World with Landmarks Animation - Inspired by Travel Apps
 const GlobalConnectionAnimation = () => (
@@ -238,11 +241,9 @@ export default function OnboardingScreen() {
             {/* Step 1: Professional Globe */}
             {currentStep === 0 && (
               <div className="relative w-72 h-72 flex items-center justify-center">
-                {/* Professional Globe SVG */}
-                <div className="w-48 h-48 text-blue-600 dark:text-blue-400">
-                  <svg viewBox="0 0 24 24" className="w-full h-full drop-shadow-2xl">
-                    <path fill="currentColor" d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2zm0 2C7.589 4 4 7.589 4 12s3.589 8 8 8 8-3.589 8-8-3.589-8-8-8zm4.8 3.6c.4 0 .8.4.8.8 0 .5-.4.8-.8.8s-.8-.4-.8-.8c0-.5.4-.8.8-.8zm-9.6 0c.4 0 .8.4.8.8 0 .5-.4.8-.8.8s-.8-.4-.8-.8c0-.5.4-.8.8-.8zM12 6c3.314 0 6 2.686 6 6s-2.686 6-6 6-6-2.686-6-6 2.686-6 6-6zm0 2c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
-                  </svg>
+                {/* Professional Globe SVG from Internet */}
+                <div className="w-48 h-48 text-blue-600 dark:text-blue-400 drop-shadow-2xl">
+                  <img src={globeIcon} alt="Global Network" className="w-full h-full" />
                 </div>
                 
                 {/* Connection indicators */}
@@ -256,11 +257,9 @@ export default function OnboardingScreen() {
             {/* Step 2: Professional Phone SVG */}
             {currentStep === 1 && (
               <div className="relative w-72 h-80 flex items-center justify-center">
-                {/* Professional Phone SVG */}
-                <div className="w-32 h-48 text-gray-800 dark:text-gray-300">
-                  <svg viewBox="0 0 101 101" className="w-full h-full drop-shadow-2xl">
-                    <path fill="currentColor" d="M74.185,0h-47.37c-2.178,0-3.949,1.772-3.949,3.95v93.101c0,2.178,1.771,3.949,3.949,3.949h47.37c2.178,0,3.948-1.771,3.948-3.949V3.95C78.134,1.772,76.363,0,74.185,0z M46.627,92.5c0-2.14,1.732-3.875,3.873-3.875c2.144,0,3.873,1.735,3.873,3.875c0,2.141-1.729,3.875-3.873,3.875C48.359,96.375,46.627,94.641,46.627,92.5z M25.867,85.859V12.281h49.268v73.578H25.867z"/>
-                  </svg>
+                {/* Professional Phone SVG from Internet */}
+                <div className="w-32 h-48 drop-shadow-2xl">
+                  <img src={phoneIcon} alt="eSIM Phone" className="w-full h-full" style={{ filter: 'invert(0.2) sepia(1) saturate(2) hue-rotate(200deg)' }} />
                 </div>
                 
                 {/* eSIM indicator */}
@@ -283,12 +282,9 @@ export default function OnboardingScreen() {
             {/* Step 3: Professional World Map Success */}
             {currentStep === 2 && (
               <div className="relative w-80 h-64 flex items-center justify-center">
-                {/* Professional World Map Background */}
-                <div className="absolute inset-0 opacity-20 dark:opacity-30 text-gray-600 dark:text-gray-400">
-                  <svg viewBox="0 0 2000 857" className="w-full h-full">
-                    <path d="M1383 261.6l1.5 1.8-2.9 0.8-2.4 1.1-5.9 0.8-5.3 1.3-2.4 2.8 1.9 2.7 1.4 3.2-2 2.7 0.8 2.5-0.9 2.3-5.2-0.2 3.1 4.2-3.1 1.7-1.4 3.8 1.1 3.9-1.8 1.8-2.1-0.6-4 0.9-0.2 1.7-4.1 0-2.3 3.7 0.8 5.4-6.6 2.7-3.9-0.6-0.9 1.4-3.4-0.8-5.3 1-9.6-3.3 3.9-5.8-1.1-4.1-4.3-1.1-1.2-4.1-2.7-5.1 1.6-3.5-2.5-1 0.5-4.7 0.6-8 5.9 2.5 3.9-0.9 0.4-2.9 4-0.9 2.6-2-0.2-5.1 4.2-1.3 0.3-2.2 2.9 1.7 1.6 0.2 3 0 4.3 1.4 1.8 0.7 3.4-2 2.1 1.2 0.9-2.9 3.2 0.1 0.6-0.9-0.2-2.6 1.7-2.2 3.3 1.4-0.1 2 1.7 0.3 0.9 5.4 2.7 2.1 1.5-1.4 2.2-0.6 2.5-2.9 3.8 0.5 5.4 0z" fill="currentColor"/>
-                    <path d="M1088 228l0.4 1.2 1.4-0.6 1.2 1.7 1.3 0.7 0.6 2.3-0.5 2.2 1 2.7 2.3 1.5 0.1 1.7-1.7 0.9-0.1 2.1-2.2 3.1-0.9-0.4-0.2-1.4-3.1-2.2-0.7-3 0.1-4.4 0.5-1.9-0.9-1-0.5-2.1 1.9-3.1z" fill="currentColor"/>
-                  </svg>
+                {/* Professional World Map Background from SimpleMaps */}
+                <div className="absolute inset-0 opacity-15 dark:opacity-25">
+                  <img src={worldMapIcon} alt="World Map" className="w-full h-full object-contain" />
                 </div>
                 
                 {/* Central Success Checkmark */}
