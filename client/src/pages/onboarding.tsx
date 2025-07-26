@@ -430,30 +430,38 @@ export default function OnboardingScreen() {
       {/* Skip button with color clouds */}
       <div className="absolute top-6 right-6 z-50">
         {/* Color clouds based on current step */}
-        <div className="absolute -inset-8 opacity-10">
+        <div className="absolute -inset-12 opacity-20 dark:opacity-15">
           <div 
-            className={`absolute top-2 right-8 w-12 h-8 rounded-full blur-md animate-pulse ${
-              currentStep === 0 ? 'bg-blue-400' : 
-              currentStep === 1 ? 'bg-emerald-400' : 
-              'bg-purple-400'
+            className={`absolute top-1 right-10 w-16 h-12 rounded-full blur-xl animate-pulse ${
+              currentStep === 0 ? 'bg-blue-400/60' : 
+              currentStep === 1 ? 'bg-emerald-400/60' : 
+              'bg-purple-400/60'
             }`}
             style={{ animationDuration: '3s' }}
           />
           <div 
-            className={`absolute top-6 right-2 w-8 h-6 rounded-full blur-lg animate-pulse ${
-              currentStep === 0 ? 'bg-blue-300' : 
-              currentStep === 1 ? 'bg-emerald-300' : 
-              'bg-purple-300'
+            className={`absolute top-8 right-1 w-12 h-8 rounded-full blur-lg animate-pulse ${
+              currentStep === 0 ? 'bg-blue-300/50' : 
+              currentStep === 1 ? 'bg-emerald-300/50' : 
+              'bg-purple-300/50'
             }`}
             style={{ animationDuration: '4s', animationDelay: '1s' }}
           />
           <div 
-            className={`absolute top-0 right-4 w-6 h-4 rounded-full blur-sm animate-pulse ${
-              currentStep === 0 ? 'bg-blue-500' : 
-              currentStep === 1 ? 'bg-emerald-500' : 
-              'bg-purple-500'
+            className={`absolute -top-2 right-6 w-10 h-6 rounded-full blur-md animate-pulse ${
+              currentStep === 0 ? 'bg-blue-500/40' : 
+              currentStep === 1 ? 'bg-emerald-500/40' : 
+              'bg-purple-500/40'
             }`}
             style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}
+          />
+          <div 
+            className={`absolute top-4 right-12 w-8 h-4 rounded-full blur-sm animate-pulse ${
+              currentStep === 0 ? 'bg-blue-600/30' : 
+              currentStep === 1 ? 'bg-emerald-600/30' : 
+              'bg-purple-600/30'
+            }`}
+            style={{ animationDuration: '3.5s', animationDelay: '2s' }}
           />
         </div>
         
