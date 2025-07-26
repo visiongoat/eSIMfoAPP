@@ -493,8 +493,8 @@ export default function DestinationsScreen() {
 
         {/* Alphabet Filter (only for countries) */}
         {selectedTab === 'countries' && (
-          <div className="mb-4">
-            <div className="flex flex-wrap gap-2">
+          <div className="mb-6">
+            <div className="flex flex-wrap gap-2 mb-4">
               {alphabetFilterGroups.map((group) => (
                 <button
                   key={group.value}
@@ -509,6 +509,7 @@ export default function DestinationsScreen() {
                 </button>
               ))}
             </div>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">Countries</h2>
           </div>
         )}
 
@@ -636,9 +637,7 @@ export default function DestinationsScreen() {
               ))}
             </div>
 
-            <div className="mt-8 mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">All Countries</h2>
-            </div>
+
           </>
         )}
       </div>
