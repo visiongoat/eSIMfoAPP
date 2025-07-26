@@ -227,84 +227,8 @@ export default function DestinationsScreen() {
       // Show individual countries
       filteredData = filteredData;
     } else if (selectedTab === 'regions') {
-      // Group by regions - for demo purposes, create regional data
-      const regions = [
-        {
-          id: 'europe',
-          name: 'Europe',
-          countryCount: 33,
-          price: '€0.89',
-          icon: '🌍',
-          countries: ['Germany', 'France', 'Spain', 'Italy']
-        },
-        {
-          id: 'balkans',
-          name: 'Balkans',
-          countryCount: 12,
-          price: '€1.20',
-          icon: '🏔️',
-          countries: ['Turkey', 'Greece', 'Bulgaria']
-        },
-        {
-          id: 'asia-pacific',
-          name: 'Asia Pacific',
-          countryCount: 15,
-          price: '€2.40',
-          icon: '🌏',
-          countries: ['Japan', 'South Korea', 'Australia']
-        },
-        {
-          id: 'southeast-asia',
-          name: 'Southeast Asia',
-          countryCount: 7,
-          price: '€1.80',
-          icon: '🏝️',
-          countries: ['Thailand', 'Vietnam', 'Indonesia']  
-        },
-        {
-          id: 'middle-asia',
-          name: 'Central Asia',
-          countryCount: 6,
-          price: '€3.20',
-          icon: '🕌',
-          countries: ['UAE', 'Saudi Arabia', 'Qatar']
-        },
-        {
-          id: 'north-america',
-          name: 'North America',
-          countryCount: 3,
-          price: '€4.50',
-          icon: '🍁',
-          countries: ['USA', 'Canada', 'Mexico']
-        },
-        {
-          id: 'south-america',
-          name: 'South America',
-          countryCount: 12,
-          price: '€5.80',
-          icon: '🌎',
-          countries: ['Brazil', 'Argentina', 'Chile']
-        },
-        {
-          id: 'middle-east',
-          name: 'Middle East',
-          countryCount: 8,
-          price: '€2.90',
-          icon: '🐪',
-          countries: ['Egypt', 'Jordan', 'Lebanon']
-        },
-        {
-          id: 'caribbean',
-          name: 'Caribbean',
-          countryCount: 14,
-          price: '€7.20',
-          icon: '🏖️',
-          countries: ['Jamaica', 'Bahamas', 'Barbados']
-        }
-      ];
-      return regions.filter(region =>
-        searchQuery ? region.name.toLowerCase().includes(searchQuery.toLowerCase()) : true
-      );
+      // Return empty array for regions - UI will handle the display directly
+      return [];
     } else if (selectedTab === 'global') {
       // Global packages
       const globalPackages = [
@@ -702,27 +626,122 @@ export default function DestinationsScreen() {
                 </button>
               ))
             ) : selectedTab === 'regions' ? (
-              // Regions List
-              finalFilteredData.map((region: any) => (
-                <button
-                  key={region.id}
-                  onClick={() => {/* Handle region selection */}}
-                  className="mobile-card p-4 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 active:scale-[0.98]"
-                >
-                  <div className="flex items-center justify-between">
+              // Regional Continents - Premium Cards with Animations
+              <div className="space-y-3 mb-2">
+                {/* Europa */}
+                <div className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded-lg flex items-center justify-center text-xl">
-                        {region.icon}
+                      <div className="continent-icon w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{region.name}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{region.countryCount} countries</p>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Europa</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">30+ countries • From €9.99</p>
                       </div>
                     </div>
-                    <span className="text-gray-400 dark:text-gray-500">›</span>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
                   </div>
-                </button>
-              ))
+                </div>
+                
+                {/* Asia */}
+                <div className="continent-card continent-asia rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-1 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <circle cx="12" cy="12" r="10"/>
+                          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                          <path d="M2 12h20"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Asia</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">25+ countries • From €12.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+                
+                {/* Americas */}
+                <div className="continent-card continent-americas rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-2 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Americas</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">35+ countries • From €7.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+
+                {/* Africa */}
+                <div className="continent-card continent-africa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-3 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <circle cx="12" cy="12" r="10"/>
+                          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                          <path d="M2 12h20"/>
+                          <path d="M8 12l2 2 4-4"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Africa</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">50+ countries • From €5.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+
+                {/* Middle East */}
+                <div className="continent-card continent-middle-east rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-4 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Middle East</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">12+ countries • From €16.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+
+                {/* Oceania */}
+                <div className="continent-card continent-oceania rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-5 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-xl flex items-center justify-center">
+                        <svg className="w-6 h-6 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                          <circle cx="18" cy="5" r="3"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Oceania</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">6+ countries • From €18.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+              </div>
             ) : (
               // Global Packages List
               finalFilteredData.map((globalPkg: any) => (
