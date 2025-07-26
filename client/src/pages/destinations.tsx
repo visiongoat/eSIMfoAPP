@@ -400,7 +400,7 @@ export default function DestinationsScreen() {
         showBack={false}
       />
 
-      <div className="px-4 pt-4 pb-20">
+      <div className="px-4 pt-4 pb-6">
         {/* Search Bar - Becomes fixed when scrolled */}
         <div 
           ref={searchBarRef}
@@ -651,7 +651,7 @@ export default function DestinationsScreen() {
             ))}
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-3 mb-16">
             {selectedTab === 'countries' ? (
               // Premium Countries List with Stagger Animation
               finalFilteredData.map((country: any, index: number) => (
