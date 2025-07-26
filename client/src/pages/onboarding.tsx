@@ -154,11 +154,11 @@ export default function OnboardingScreen() {
         </Button>
       </div>
 
-      {/* Main content */}
-      <div className="flex flex-col min-h-screen px-6 py-8 relative z-10">
+      {/* Main content - optimized height */}
+      <div className="flex flex-col h-screen px-6 py-6 relative z-10">
         
         {/* Progress indicators */}
-        <div className="flex justify-center space-x-3 mb-12">
+        <div className="flex justify-center space-x-3 mb-8">
           {onboardingSteps.map((_, index) => (
             <div
               key={index}
@@ -173,18 +173,18 @@ export default function OnboardingScreen() {
           ))}
         </div>
 
-        {/* Content area */}
-        <div className={`flex-1 flex flex-col items-center justify-center text-center space-y-8 transition-all duration-500 ${
+        {/* Content area - reduced spacing */}
+        <div className={`flex-1 flex flex-col items-center justify-center text-center space-y-6 transition-all duration-500 ${
           isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'
         }`}>
           
-          {/* Enhanced Icon Container with Premium Effects */}
-          <div className="relative mb-4">
+          {/* Enhanced Icon Container - compact */}
+          <div className="relative">
             {/* Outer glow ring */}
-            <div className={`absolute inset-0 w-44 h-44 rounded-full ${colors.bg} opacity-20 blur-xl animate-pulse`}></div>
+            <div className={`absolute inset-0 w-32 h-32 rounded-full ${colors.bg} opacity-20 blur-xl animate-pulse`}></div>
             
-            {/* Main icon container */}
-            <div className={`w-40 h-40 rounded-3xl ${colors.bg} flex items-center justify-center shadow-2xl relative overflow-hidden transition-all duration-700 hover:scale-110 hover:shadow-3xl hover:rotate-3 ${
+            {/* Main icon container - smaller */}
+            <div className={`w-28 h-28 rounded-3xl ${colors.bg} flex items-center justify-center shadow-2xl relative overflow-hidden transition-all duration-700 hover:scale-110 hover:shadow-3xl hover:rotate-3 ${
               isAnimating ? 'scale-90 rotate-6' : 'scale-100 rotate-0'
             }`}>
               {/* Gradient overlay */}
@@ -192,46 +192,37 @@ export default function OnboardingScreen() {
               
               {/* Animated micro-patterns */}
               <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-3 right-3 w-4 h-4 rounded-full bg-current animate-bounce" style={{ animationDelay: '0s' }}></div>
-                <div className="absolute bottom-6 left-6 w-3 h-3 rounded-full bg-current animate-bounce" style={{ animationDelay: '0.5s' }}></div>
-                <div className="absolute top-1/2 left-3 w-2 h-2 rounded-full bg-current animate-bounce" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute top-6 left-1/2 w-2 h-2 rounded-full bg-current animate-bounce" style={{ animationDelay: '1.5s' }}></div>
+                <div className="absolute top-2 right-2 w-3 h-3 rounded-full bg-current animate-bounce" style={{ animationDelay: '0s' }}></div>
+                <div className="absolute bottom-4 left-4 w-2 h-2 rounded-full bg-current animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                <div className="absolute top-1/2 left-2 w-1.5 h-1.5 rounded-full bg-current animate-bounce" style={{ animationDelay: '1s' }}></div>
               </div>
               
               {/* Multiple rotating rings */}
-              <div className="absolute inset-6 border border-current/10 rounded-2xl animate-spin" style={{ animationDuration: '12s' }}></div>
-              <div className="absolute inset-8 border border-current/5 rounded-xl animate-spin" style={{ animationDuration: '8s', animationDirection: 'reverse' }}></div>
+              <div className="absolute inset-4 border border-current/10 rounded-2xl animate-spin" style={{ animationDuration: '12s' }}></div>
               
               {/* Central icon with enhanced effects */}
-              <IconComponent className={`w-20 h-20 ${colors.icon} relative z-20 transition-all duration-500 animate-icon-bounce filter drop-shadow-lg`} />
+              <IconComponent className={`w-16 h-16 ${colors.icon} relative z-20 transition-all duration-500 animate-icon-bounce filter drop-shadow-lg`} />
               
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-shimmer"></div>
             </div>
-            
-            {/* Stats badge */}
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-              <div className={`${colors.bg} ${colors.icon} px-3 py-1 rounded-full text-xs font-bold shadow-lg border border-current/20 backdrop-blur-sm`}>
-                {currentStepData.stats}
-              </div>
-            </div>
           </div>
 
-          {/* Title and description with stagger animation */}
-          <div className="max-w-sm space-y-6">
-            <h1 className={`text-4xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-300 ${
+          {/* Title and description - compact */}
+          <div className="max-w-sm space-y-4">
+            <h1 className={`text-3xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-300 ${
               isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'
             }`}>
               {currentStepData.title}
             </h1>
-            <p className={`text-lg text-gray-600 dark:text-gray-300 leading-relaxed transition-all duration-300 delay-100 ${
+            <p className={`text-base text-gray-600 dark:text-gray-300 leading-relaxed transition-all duration-300 delay-100 ${
               isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'
             }`}>
               {currentStepData.description}
             </p>
             
-            {/* Enhanced Feature highlights */}
-            <div className="flex flex-wrap justify-center gap-3 mt-8">
+            {/* Enhanced Feature highlights - compact */}
+            <div className="flex flex-wrap justify-center gap-2 mt-6">
               {currentStepData.features.map((feature, index) => (
                 <div
                   key={index}
@@ -241,7 +232,7 @@ export default function OnboardingScreen() {
                   style={{ transitionDelay: `${300 + index * 150}ms` }}
                 >
                   {/* Feature badge with enhanced design */}
-                  <div className={`relative px-4 py-2 rounded-2xl text-sm font-semibold ${colors.bg} ${colors.icon} border border-current/30 shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:shadow-xl`}>
+                  <div className={`relative px-3 py-1.5 rounded-xl text-xs font-semibold ${colors.bg} ${colors.icon} border border-current/30 shadow-md backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:shadow-xl`}>
                     {/* Background shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                     
@@ -249,29 +240,16 @@ export default function OnboardingScreen() {
                     <span className="relative z-10">{feature}</span>
                     
                     {/* Subtle dot indicator */}
-                    <div className="absolute -top-1 -right-1 w-2 h-2 bg-current rounded-full opacity-60"></div>
+                    <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-current rounded-full opacity-60"></div>
                   </div>
                 </div>
               ))}
             </div>
-            
-            {/* Additional visual enhancements */}
-            <div className="mt-8 flex justify-center">
-              <div className="flex space-x-1">
-                {[...Array(3)].map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-1 h-1 rounded-full ${colors.bg} opacity-60 animate-pulse`}
-                    style={{ animationDelay: `${i * 0.3}s` }}
-                  ></div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Premium navigation with particle effects */}
-        <div className={`space-y-6 pt-8 transition-all duration-300 ${
+        {/* Premium navigation - compact */}
+        <div className={`space-y-4 pt-6 transition-all duration-300 ${
           isAnimating ? 'translate-y-4 opacity-50' : 'translate-y-0 opacity-100'
         }`}>
           {/* Main action button with premium effects */}
