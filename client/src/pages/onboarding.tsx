@@ -219,7 +219,7 @@ export default function OnboardingScreen() {
   return (
     <div className="mobile-screen relative">
       {/* Full-Screen Background - Apple-style Blue Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 dark:from-gray-900 dark:to-gray-800"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-500 via-blue-600 to-blue-800 dark:from-gray-900 dark:to-gray-800"></div>
       
       {/* Animation Layer */}
       <div className={`absolute inset-0 transition-all duration-500 transform ${
@@ -250,49 +250,50 @@ export default function OnboardingScreen() {
             
             {/* Step 1: Apple-style Global Connectivity */}
             {currentStep === 0 && (
-              <div className="relative w-full h-80 flex flex-col items-center justify-center">
+              <div className="relative w-full h-full flex flex-col items-center justify-center px-8 pt-16">
                 
-                {/* Floating decorative dots */}
-                <div className="absolute top-8 left-8 w-4 h-4 bg-green-400/60 rounded-full"></div>
-                <div className="absolute top-12 right-12 w-3 h-3 bg-blue-300/50 rounded-full"></div>
-                <div className="absolute top-20 left-1/4 w-2 h-2 bg-purple-400/40 rounded-full"></div>
-                <div className="absolute bottom-16 right-8 w-5 h-5 bg-orange-400/50 rounded-full"></div>
-                <div className="absolute bottom-20 left-12 w-3 h-3 bg-cyan-300/40 rounded-full"></div>
-                <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-pink-400/30 rounded-full"></div>
+                {/* Floating decorative dots - smaller and better positioned */}
+                <div className="absolute top-20 left-12 w-3 h-3 bg-green-400/80 rounded-full"></div>
+                <div className="absolute top-32 right-16 w-2 h-2 bg-blue-300/70 rounded-full"></div>
+                <div className="absolute top-40 left-1/4 w-2 h-2 bg-purple-400/60 rounded-full"></div>
+                <div className="absolute bottom-32 right-12 w-4 h-4 bg-orange-400/80 rounded-full"></div>
+                <div className="absolute bottom-40 left-16 w-2 h-2 bg-cyan-300/60 rounded-full"></div>
+                <div className="absolute top-1/2 right-8 w-2 h-2 bg-pink-400/50 rounded-full"></div>
+                <div className="absolute top-1/3 left-8 w-3 h-3 bg-yellow-400/70 rounded-full"></div>
                 
-                {/* Main icon container */}
-                <div className="relative flex items-center justify-center mb-8">
-                  {/* Globe background */}
-                  <div className="w-32 h-32 text-blue-400">
+                {/* Main icon container - Much larger */}
+                <div className="relative flex items-center justify-center mb-12">
+                  {/* Globe - Much bigger */}
+                  <div className="w-40 h-40 text-blue-400">
                     <img src={globeIcon} alt="Global Network" className="w-full h-full" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(96%) saturate(1180%) hue-rotate(200deg) brightness(98%) contrast(101%)' }} />
                   </div>
                   
-                  {/* SIM card overlay */}
-                  <div className="absolute -bottom-4 -right-4 w-16 h-20 bg-white rounded-lg shadow-xl flex items-center justify-center">
-                    <div className="w-12 h-14 bg-gray-100 rounded border-2 border-gray-300 flex flex-col items-center justify-center">
-                      {/* SIM card grid pattern */}
-                      <div className="grid grid-cols-3 gap-1 w-8 h-8">
-                        <div className="bg-gray-400 rounded-sm"></div>
-                        <div className="bg-gray-400 rounded-sm"></div>
-                        <div className="bg-gray-400 rounded-sm"></div>
-                        <div className="bg-gray-400 rounded-sm"></div>
-                        <div className="bg-gray-600 rounded-sm"></div>
-                        <div className="bg-gray-400 rounded-sm"></div>
-                        <div className="bg-gray-400 rounded-sm"></div>
-                        <div className="bg-gray-400 rounded-sm"></div>
-                        <div className="bg-gray-400 rounded-sm"></div>
+                  {/* SIM card overlay - Positioned like reference */}
+                  <div className="absolute -bottom-2 -right-2 w-20 h-24 bg-white rounded-xl shadow-2xl flex items-center justify-center">
+                    <div className="w-16 h-18 bg-gray-50 rounded-lg border border-gray-200 flex flex-col items-center justify-center">
+                      {/* SIM card contact grid */}
+                      <div className="grid grid-cols-3 gap-0.5 w-10 h-10">
+                        <div className="bg-gray-700 rounded-sm"></div>
+                        <div className="bg-gray-700 rounded-sm"></div>
+                        <div className="bg-gray-700 rounded-sm"></div>
+                        <div className="bg-gray-700 rounded-sm"></div>
+                        <div className="bg-gray-800 rounded-sm"></div>
+                        <div className="bg-gray-700 rounded-sm"></div>
+                        <div className="bg-gray-700 rounded-sm"></div>
+                        <div className="bg-gray-700 rounded-sm"></div>
+                        <div className="bg-gray-700 rounded-sm"></div>
                       </div>
                     </div>
                   </div>
                 </div>
                 
-                {/* Title and description */}
-                <div className="text-center px-8">
-                  <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
+                {/* Title and description - Better spacing */}
+                <div className="text-center">
+                  <h1 className="text-4xl font-bold text-white mb-6 leading-tight">
                     Stay Connected<br />
                     Worldwide
-                  </h2>
-                  <p className="text-lg text-blue-100 leading-relaxed max-w-sm mx-auto">
+                  </h1>
+                  <p className="text-xl text-blue-100/90 leading-relaxed max-w-xs mx-auto">
                     Get instant data connectivity in<br />
                     200+ countries without changing<br />
                     your SIM card
