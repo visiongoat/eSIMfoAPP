@@ -11,6 +11,15 @@ export default function DestinationsScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTab, setSelectedTab] = useState<'countries' | 'regions' | 'global'>('countries');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
+  
+  // URL parametresini kontrol et ve tab'ı ayarla
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab');
+    if (tabParam && ['countries', 'regions', 'global'].includes(tabParam)) {
+      setSelectedTab(tabParam as 'countries' | 'regions' | 'global');
+    }
+  }, []);
   const [, setLocation] = useLocation();
   const [placeholderText, setPlaceholderText] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
