@@ -108,9 +108,7 @@ export default function CheckoutModal({
                   <span className="font-medium text-gray-900 dark:text-white">Enable auto-renewal</span>
                   <HelpCircle className="w-4 h-4 text-gray-400" />
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  Your subscription will auto-renew in 30 days for €{total.toFixed(2)}
-                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Auto-renew in 30 days for €{total.toFixed(2)}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
