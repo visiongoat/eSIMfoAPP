@@ -339,8 +339,8 @@ export default function PackagesScreen() {
           </div>
         </div>
 
-        {/* Dynamic bottom spacing for sticky section */}
-        <div className={`${expandedSections.features ? 'h-24' : 'h-6'} transition-all duration-300`}></div>
+        {/* Bottom spacing for sticky section */}
+        <div className="h-6"></div>
       </div>
 
       {/* Sticky Bottom Section */}
