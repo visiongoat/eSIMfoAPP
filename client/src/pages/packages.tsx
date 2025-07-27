@@ -49,8 +49,7 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "€7",
       pricePerDay: "€7 /day",
-      signalStrength: 5,
-      isSelected: true
+      signalStrength: 5
     },
     {
       id: 2,
@@ -150,7 +149,7 @@ export default function PackagesScreen() {
               key={pkg.id}
               onClick={() => handlePackageSelect(pkg.id)}
               className={`w-full p-3 rounded-xl border-2 transition-all ${
-                selectedPackage === pkg.id || pkg.isSelected
+                selectedPackage === pkg.id
                   ? 'border-orange-500 bg-orange-50 dark:bg-gray-800'
                   : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
