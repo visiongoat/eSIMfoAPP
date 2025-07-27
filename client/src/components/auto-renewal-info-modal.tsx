@@ -38,7 +38,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
 
         {/* Title */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             Stay connected with auto-renewal
           </h1>
         </div>
