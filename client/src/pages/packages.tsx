@@ -367,7 +367,8 @@ export default function PackagesScreen() {
           </div>
         </div>
 
-
+        {/* Bottom spacing for sticky section */}
+        <div className="h-16"></div>
       </div>
 
       {/* Sticky Bottom Section */}
