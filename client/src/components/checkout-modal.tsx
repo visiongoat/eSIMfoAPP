@@ -141,7 +141,7 @@ export default function CheckoutModal({
                   <button
                     key={method.id}
                     onClick={() => setSelectedPayment(method.id)}
-                    className={`w-full flex items-center justify-between p-3 rounded-xl border-2 transition-all ${
+                    className={`w-full flex items-center justify-between py-2 px-3 rounded-xl border-2 transition-all ${
                       selectedPayment === method.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                         : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'
