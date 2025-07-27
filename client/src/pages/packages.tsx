@@ -26,14 +26,14 @@ export default function PackagesScreen() {
     enabled: !!countryId,
   });
 
-  // Demo packages for US - based on the design
+  // Demo packages - based on the design
   const demoPackages = [
     {
       id: 1,
       duration: "1 day",
       data: "∞ GB",
-      price: "$7",
-      pricePerDay: "$7 /day",
+      price: "€7",
+      pricePerDay: "€7 /day",
       discount: null,
       isSelected: true
     },
@@ -41,24 +41,24 @@ export default function PackagesScreen() {
       id: 2,
       duration: "7 days",
       data: "∞ GB",
-      price: "$24",
-      pricePerDay: "$3.43 /day",
+      price: "€24",
+      pricePerDay: "€3.43 /day",
       discount: "-51%"
     },
     {
       id: 3,
       duration: "15 days",
       data: "∞ GB",
-      price: "$33",
-      pricePerDay: "$2.20 /day",
+      price: "€33",
+      pricePerDay: "€2.20 /day",
       discount: "-69%"
     },
     {
       id: 4,
       duration: "30 days",
       data: "∞ GB",
-      price: "$48",
-      pricePerDay: "$1.60 /day",
+      price: "€48",
+      pricePerDay: "€1.60 /day",
       discount: "-77%"
     }
   ];
@@ -154,15 +154,15 @@ export default function PackagesScreen() {
 
         {/* Plan Details */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Plan detayları</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Plan details</h3>
           
           <div className="space-y-3">
             <div className="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-3">
                 <Globe className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                 <div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">ÜLKELER VE AĞ OPERATÖRLERI</div>
-                  <div className="text-gray-900 dark:text-white">1 ülke</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">COUNTRIES AND NETWORK OPERATORS</div>
+                  <div className="text-gray-900 dark:text-white">1 country</div>
                 </div>
               </div>
               <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400 rotate-180" />
@@ -171,9 +171,9 @@ export default function PackagesScreen() {
             <div className="flex items-center space-x-3 py-3">
               <Cpu className="w-5 h-5 text-gray-500 dark:text-gray-400" />
               <div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">PLAN TÜRÜ:</div>
+                <div className="text-sm text-gray-500 dark:text-gray-400">PLAN TYPE:</div>
                 <div className="text-gray-900 dark:text-white">
-                  {selectedTab === 'data' ? 'Sadece veri' : 'Veri + Arama + SMS'}
+                  {selectedTab === 'data' ? 'Data only' : 'Data + Calls + Text'}
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function PackagesScreen() {
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4 mx-auto max-w-md">
         {/* eSIM Count Selector */}
         <div className="flex items-center justify-between mb-4">
-          <div className="text-lg font-semibold text-gray-900 dark:text-white">eSIM sayısını seçin</div>
+          <div className="text-lg font-semibold text-gray-900 dark:text-white">Choose eSIM quantity</div>
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setEsimCount(Math.max(1, esimCount - 1))}
@@ -212,7 +212,7 @@ export default function PackagesScreen() {
           disabled={!selectedPackage}
           className="w-full py-4 bg-gray-900 dark:bg-white text-white dark:text-black font-semibold text-lg rounded-xl hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
         >
-          Ödeme — €48
+          Payment — €48
         </Button>
       </div>
     </div>
