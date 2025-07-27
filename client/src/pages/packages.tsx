@@ -31,16 +31,29 @@ export default function PackagesScreen() {
       [section]: !prev[section]
     }));
     
-    // Only auto-scroll for Features section when expanding (since it's at bottom)
-    if (section === 'features' && !isCurrentlyExpanded) {
+    // Auto-scroll for Plan and Features sections when expanding
+    if ((section === 'plan' || section === 'features') && !isCurrentlyExpanded) {
       setTimeout(() => {
-        const sectionElement = document.querySelector(`[data-section="features"]`);
-        if (sectionElement) {
-          sectionElement.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start',
-            inline: 'nearest'
-          });
+        if (section === 'plan') {
+          // For Plan, scroll to show both Plan content and Features title
+          const planElement = document.querySelector(`[data-section="plan"]`);
+          if (planElement) {
+            planElement.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
+        } else if (section === 'features') {
+          // For Features, scroll to show Features content
+          const featuresElement = document.querySelector(`[data-section="features"]`);
+          if (featuresElement) {
+            featuresElement.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
         }
       }, 150);
     }
