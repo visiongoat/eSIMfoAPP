@@ -52,134 +52,111 @@ export default function HomeScreen() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const isOnline = useOnlineStatus();
 
-  // Device compatibility check function
-  const checkDeviceCompatibility = () => {
-    const userAgent = navigator.userAgent;
-    const platform = navigator.platform;
+  // Device compatibility check function with real device data
+  const checkDeviceCompatibility = async () => {
+    let deviceBrand = 'Unknown';
+    let deviceModel = 'Device';
+    let supportsESIM = false;
     
-    // iOS devices
-    if (/iPhone|iPad/.test(userAgent)) {
-      const match = userAgent.match(/iPhone OS (\d+)/);
-      const version = match ? parseInt(match[1]) : 0;
-      
-      if (/iPhone/.test(userAgent)) {
-        // More accurate iPhone detection
-        const screenHeight = window.screen.height;
-        const screenWidth = window.screen.width;
-        const pixelRatio = window.devicePixelRatio || 1;
+    try {
+      // Modern User-Agent Client Hints API (Chrome/Edge)
+      if ('userAgentData' in navigator) {
+        const uaData = (navigator as any).userAgentData;
         
-        let deviceName = 'iPhone';
-        let modelYear = 'Unknown';
+        // Get high entropy values for detailed device info
+        const highEntropyValues = await uaData.getHighEntropyValues([
+          'model', 'platform', 'platformVersion', 'architecture', 'mobile'
+        ]);
         
-        // iPhone model detection based on screen specs
-        const maxDimension = Math.max(screenHeight, screenWidth);
-        const minDimension = Math.min(screenHeight, screenWidth);
+        deviceBrand = uaData.brands?.[0]?.brand || 'Unknown';
+        deviceModel = highEntropyValues.model || 'Unknown Model';
         
-        if (maxDimension === 932 && minDimension === 430) {
-          deviceName = 'iPhone 15 Pro Max';
-          modelYear = '2023';
-        } else if (maxDimension === 852 && minDimension === 393) {
-          deviceName = 'iPhone 15 Pro';
-          modelYear = '2023';
-        } else if (maxDimension === 844 && minDimension === 390) {
-          deviceName = 'iPhone 15';
-          modelYear = '2023';
-        } else if (maxDimension === 926 && minDimension === 428) {
-          deviceName = 'iPhone 14 Pro Max';
-          modelYear = '2022';
-        } else if (maxDimension === 844 && minDimension === 390) {
-          deviceName = 'iPhone 14';
-          modelYear = '2022';
-        } else if (maxDimension >= 812) {
-          deviceName = 'iPhone X or newer';
-          modelYear = '2017+';
-        } else if (maxDimension === 736) {
-          deviceName = 'iPhone 8 Plus';
-          modelYear = '2017';
-        } else if (maxDimension === 667) {
-          deviceName = 'iPhone 8';
-          modelYear = '2017';
-        } else {
-          deviceName = 'iPhone (older model)';
-          modelYear = 'Pre-2017';
+        // Check if it's a mobile device
+        const isMobile = uaData.mobile || highEntropyValues.mobile;
+        
+        if (isMobile) {
+          // eSIM support detection for modern devices
+          supportsESIM = true; // Most modern mobile devices support eSIM
         }
-        
-        // eSIM support check - more specific
-        const supportsESIM = version >= 12 && (
-          modelYear === '2023' || 
-          modelYear === '2022' || 
-          modelYear === '2017+' ||
-          deviceName.includes('iPhone X') ||
-          deviceName.includes('iPhone 11') ||
-          deviceName.includes('iPhone 12') ||
-          deviceName.includes('iPhone 13') ||
-          deviceName.includes('iPhone 14') ||
-          deviceName.includes('iPhone 15')
-        );
-        
-        setCompatibilityResult({
-          isCompatible: supportsESIM,
-          deviceName: `${deviceName}`,
-          details: supportsESIM 
-            ? `Your ${deviceName} supports eSIM technology. You can install multiple eSIM profiles for international travel.` 
-            : `Your ${deviceName} may not support eSIM technology. eSIM is available on iPhone XS, XR, and newer models with iOS 12.1+.`
-        });
-      } else {
-        // iPad
-        const isCompatible = version >= 13; // iPad eSIM support varies
-        setCompatibilityResult({
-          isCompatible,
-          deviceName: 'iPad',
-          details: isCompatible 
-            ? 'Your iPad supports eSIM technology for cellular models.'
-            : 'Your iPad may not support eSIM or requires a newer iOS version.'
-        });
       }
-    }
-    // Android devices
-    else if (/Android/.test(userAgent)) {
-      const match = userAgent.match(/Android (\d+)/);
-      const version = match ? parseInt(match[1]) : 0;
-      
-      // Popular eSIM compatible Android devices
-      const esimCompatibleBrands = [
-        'samsung', 'google', 'pixel', 'galaxy', 'oneplus', 'huawei', 'xiaomi', 'oppo'
-      ];
-      
-      const userAgentLower = userAgent.toLowerCase();
-      const isKnownCompatible = esimCompatibleBrands.some(brand => 
-        userAgentLower.includes(brand)
-      );
-      
-      let deviceName = 'Android Device';
-      
-      // Try to identify specific device
-      if (userAgentLower.includes('samsung') || userAgentLower.includes('galaxy')) {
-        deviceName = 'Samsung Galaxy';
-      } else if (userAgentLower.includes('pixel') || userAgentLower.includes('google')) {
-        deviceName = 'Google Pixel';
-      } else if (userAgentLower.includes('oneplus')) {
-        deviceName = 'OnePlus';
+      // Fallback to traditional User-Agent parsing
+      else {
+        const userAgent = navigator.userAgent;
+        
+        // Extract device information from User-Agent
+        if (/iPhone/.test(userAgent)) {
+          deviceBrand = 'Apple';
+          
+          // Try to extract more specific model info
+          const modelMatch = userAgent.match(/iPhone(\d+,\d+)/);
+          if (modelMatch) {
+            deviceModel = `iPhone (${modelMatch[1]})`;
+          } else {
+            deviceModel = 'iPhone';
+          }
+          
+          // Check iOS version
+          const iosMatch = userAgent.match(/OS (\d+)_(\d+)/);
+          const iosVersion = iosMatch ? parseInt(iosMatch[1]) : 0;
+          supportsESIM = iosVersion >= 12; // iOS 12.1+ supports eSIM
+        }
+        else if (/iPad/.test(userAgent)) {
+          deviceBrand = 'Apple';
+          deviceModel = 'iPad';
+          supportsESIM = true;
+        }
+        else if (/Android/.test(userAgent)) {
+          // Android device detection
+          const brandMatch = userAgent.match(/(Samsung|Google|OnePlus|Huawei|Xiaomi|Oppo|Vivo)/i);
+          deviceBrand = brandMatch ? brandMatch[1] : 'Android';
+          
+          // Model detection
+          if (/Galaxy/i.test(userAgent)) {
+            const galaxyMatch = userAgent.match(/Galaxy ([^;]+)/i);
+            deviceModel = galaxyMatch ? `Galaxy ${galaxyMatch[1]}` : 'Galaxy';
+          } else if (/Pixel/i.test(userAgent)) {
+            const pixelMatch = userAgent.match(/Pixel ([^;]+)/i);
+            deviceModel = pixelMatch ? `Pixel ${pixelMatch[1]}` : 'Pixel';
+          } else {
+            deviceModel = 'Android Device';
+          }
+          
+          // Android version check
+          const androidMatch = userAgent.match(/Android (\d+)/);
+          const androidVersion = androidMatch ? parseInt(androidMatch[1]) : 0;
+          supportsESIM = androidVersion >= 9 && deviceBrand !== 'Unknown';
+        }
+        else {
+          // Desktop/Other devices
+          if (/Windows/i.test(userAgent)) {
+            deviceBrand = 'Microsoft';
+            deviceModel = 'Windows PC';
+          } else if (/Mac/i.test(userAgent)) {
+            deviceBrand = 'Apple';
+            deviceModel = 'Mac';
+          } else {
+            deviceBrand = 'Desktop';
+            deviceModel = 'Computer';
+          }
+          supportsESIM = false;
+        }
       }
-      
-      const isCompatible = version >= 9 && isKnownCompatible; // Android 9+ with known brand
-      
-      setCompatibilityResult({
-        isCompatible,
-        deviceName,
-        details: isCompatible 
-          ? 'Your Android device supports eSIM technology. You can download and install eSIM profiles.'
-          : 'Your device may not support eSIM. Please check with your manufacturer or try a newer Android version.'
-      });
+    } catch (error) {
+      // Fallback if APIs fail
+      deviceBrand = 'Unknown';
+      deviceModel = 'Device';
+      supportsESIM = false;
     }
-    // Desktop/Other devices
-    else {
-      setCompatibilityResult({
-        isCompatible: false,
-        deviceName: 'Desktop/Other Device',
-        details: 'eSIM technology is only available on compatible smartphones and tablets. Please check from your mobile device.'
-      });
-    }
+    
+    const fullDeviceName = `${deviceBrand} ${deviceModel}`;
+    
+    setCompatibilityResult({
+      isCompatible: supportsESIM,
+      deviceName: fullDeviceName,
+      details: supportsESIM 
+        ? `Your ${fullDeviceName} supports eSIM technology. You can install and manage multiple eSIM profiles for international travel.`
+        : `Your ${fullDeviceName} may not support eSIM technology. eSIM is available on newer smartphones like iPhone XS+, Google Pixel 3+, and Samsung Galaxy S20+.`
+    });
     
     setShowCompatibilityCheck(true);
   };
