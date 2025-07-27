@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { X, HelpCircle, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AutoRenewalInfoModal } from "./auto-renewal-info-modal";
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ export default function CheckoutModal({
   const [autoRenewal, setAutoRenewal] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<string>("");
   const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+  const [showAutoRenewalInfo, setShowAutoRenewalInfo] = useState(false);
 
   if (!isOpen) return null;
 
@@ -107,7 +109,10 @@ export default function CheckoutModal({
                 <div className="flex-1">
                   <div className="flex items-center space-x-2">
                     <span className="font-medium text-gray-900 dark:text-white">Enable auto-renewal</span>
-                    <HelpCircle className="w-4 h-4 text-gray-400" />
+                    <HelpCircle 
+                      className="w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer" 
+                      onClick={() => setShowAutoRenewalInfo(true)}
+                    />
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Auto-renew in 30 days for €{total.toFixed(2)}</p>
                 </div>
@@ -194,6 +199,12 @@ export default function CheckoutModal({
           <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
         </div>
       </div>
+
+      {/* Auto Renewal Info Modal */}
+      <AutoRenewalInfoModal 
+        isOpen={showAutoRenewalInfo} 
+        onClose={() => setShowAutoRenewalInfo(false)} 
+      />
     </div>
   );
 }
