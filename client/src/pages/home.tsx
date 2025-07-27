@@ -52,13 +52,7 @@ export default function HomeScreen() {
     handleTabChange(tabOrder[prevIndex]);
   };
 
-  // Enable tab swipe navigation
-  useTabSwipe({
-    enabled: true,
-    threshold: 50,
-    onSwipeLeft: handleSwipeLeft,
-    onSwipeRight: handleSwipeRight
-  });
+
   const [placeholderText, setPlaceholderText] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [showLiveChat, setShowLiveChat] = useState(false);
@@ -76,6 +70,14 @@ export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const isOnline = useOnlineStatus();
+
+  // Enable tab swipe navigation
+  useTabSwipe({
+    enabled: true,
+    threshold: 50,
+    onSwipeLeft: handleSwipeLeft,
+    onSwipeRight: handleSwipeRight
+  });
 
   // Real device detection using all available web APIs
   const checkDeviceCompatibility = async () => {
@@ -743,7 +745,7 @@ export default function HomeScreen() {
   }
   
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen pb-20">
+    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen pb-20 swipe-container">
       {/* Compact Header with Search */}
       <div className="relative sticky top-0 z-10 py-4">
         <div className="max-w-screen-md mx-auto px-4">
