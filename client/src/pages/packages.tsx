@@ -189,8 +189,12 @@ export default function PackagesScreen() {
             </div>
 
             <div className="flex items-center space-x-3">
-              <div className="w-5 h-5 flex items-center justify-center">
-                <div className="w-4 h-3 border-2 border-gray-500 dark:border-gray-400 rounded-sm"></div>
+              <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.592 4.142a1 1 0 01-.514 1.051L4.5 9.5a10.003 10.003 0 006 6l1.471-1.717a1 1 0 011.051-.514l4.142.592A1 1 0 0118 15.153V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  <path d="M15 2a1 1 0 011 1v2a1 1 0 11-2 0V4h-1a1 1 0 110-2h2z" />
+                  <path d="M18 6a1 1 0 01-1 1h-2a1 1 0 110-2h1V4a1 1 0 112 0v2z" />
+                </svg>
               </div>
               <div>
                 <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium">Network Technology</div>
