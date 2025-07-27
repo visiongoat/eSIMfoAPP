@@ -35,7 +35,6 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "$7",
       pricePerDay: "$7 /day",
-      originalPrice: null,
       discount: null,
       isSelected: true
     },
@@ -45,7 +44,6 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "$24",
       pricePerDay: "$3.43 /day",
-      originalPrice: "$49",
       discount: "-51%"
     },
     {
@@ -54,7 +52,6 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "$33",
       pricePerDay: "$2.20 /day",
-      originalPrice: "$105",
       discount: "-69%"
     },
     {
@@ -63,7 +60,6 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "$48",
       pricePerDay: "$1.60 /day",
-      originalPrice: "$210",
       discount: "-77%"
     }
   ];
@@ -130,7 +126,7 @@ export default function PackagesScreen() {
             <button
               key={pkg.id}
               onClick={() => handlePackageSelect(pkg.id)}
-              className={`w-full p-4 rounded-xl border-2 transition-all ${
+              className={`w-full p-3 rounded-xl border-2 transition-all ${
                 selectedPackage === pkg.id || pkg.isSelected
                   ? 'border-orange-500 bg-orange-50 dark:bg-gray-800'
                   : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600'
@@ -143,9 +139,6 @@ export default function PackagesScreen() {
                 </div>
                 <div className="text-center flex-1">
                   <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.price}</div>
-                  {pkg.originalPrice && (
-                    <div className="text-gray-500 dark:text-gray-500 text-sm line-through">{pkg.originalPrice}</div>
-                  )}
                   <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.pricePerDay}</div>
                 </div>
                 <div className="text-right">
