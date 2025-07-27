@@ -537,7 +537,6 @@ export default function DestinationsScreen() {
                 </button>
               ))}
             </div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4 tracking-tight">Countries</h2>
           </div>
         )}
 
