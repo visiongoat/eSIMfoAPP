@@ -49,7 +49,7 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "€7",
       pricePerDay: "€7 /day",
-      signalStrength: 3,
+      signalStrength: 5,
       isSelected: true
     },
     {
@@ -58,7 +58,7 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "€24",
       pricePerDay: "€3.43 /day",
-      signalStrength: 4
+      signalStrength: 5
     },
     {
       id: 3,
@@ -74,7 +74,7 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "€48",
       pricePerDay: "€1.60 /day",
-      signalStrength: 4
+      signalStrength: 5
     }
   ];
 
