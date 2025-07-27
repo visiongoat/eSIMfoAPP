@@ -99,14 +99,14 @@ export default function PackagesScreen() {
   return (
     <div className="mobile-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       {/* Custom Header */}
-      <div className="flex items-center justify-between p-4">
-        <button onClick={handleBackClick} className="p-2">
-          <ArrowLeft className="w-6 h-6 text-gray-900 dark:text-white" />
+      <div className="flex items-center justify-between px-4 py-2">
+        <button onClick={handleBackClick} className="p-1">
+          <ArrowLeft className="w-5 h-5 text-gray-900 dark:text-white" />
         </button>
-        <h1 className="text-lg font-semibold text-center flex-1 text-gray-900 dark:text-white">
+        <h1 className="text-base font-medium text-center flex-1 text-gray-900 dark:text-white">
           {country?.name || "Loading..."}
         </h1>
-        <div className="text-orange-500 dark:text-orange-400 font-semibold">€, EUR</div>
+        <div className="text-orange-500 dark:text-orange-400 font-medium text-sm">€, EUR</div>
       </div>
 
       <div className="px-4">
