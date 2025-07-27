@@ -137,7 +137,7 @@ export default function PackagesScreen() {
                   <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
                   <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
                 </div>
-                <div className="text-center flex-1">
+                <div className="text-left flex-1">
                   <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.price}</div>
                   <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.pricePerDay}</div>
                 </div>
