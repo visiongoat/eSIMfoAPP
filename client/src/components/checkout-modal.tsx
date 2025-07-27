@@ -20,7 +20,6 @@ export default function CheckoutModal({
   setEsimCount 
 }: CheckoutModalProps) {
   const [autoRenewal, setAutoRenewal] = useState(false);
-  const [activateLater, setActivateLater] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<string>("");
   const [showPaymentMethods, setShowPaymentMethods] = useState(false);
 
@@ -29,7 +28,6 @@ export default function CheckoutModal({
   // Calculate pricing
   const basePrice = selectedPackage ? parseFloat(selectedPackage.price.replace('€', '')) : 0;
   const total = basePrice * esimCount;
-  const cashback = total * 0.05; // 5% cashback
 
   const paymentMethods = [
     { id: 'apple-pay', name: 'Apple Pay', icon: '🍎' },
@@ -100,11 +98,6 @@ export default function CheckoutModal({
               <span className="text-lg font-medium text-gray-900 dark:text-white">Total</span>
               <span className="text-lg font-bold text-gray-900 dark:text-white">€{total.toFixed(2)}</span>
             </div>
-            
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Cashback 5%</span>
-              <span className="text-sm font-medium text-orange-600 dark:text-orange-400">+ €{cashback.toFixed(2)} 🪙</span>
-            </div>
           </div>
 
           {/* Auto-renewal */}
@@ -124,27 +117,6 @@ export default function CheckoutModal({
                   type="checkbox"
                   checked={autoRenewal}
                   onChange={(e) => setAutoRenewal(e.target.checked)}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              </label>
-            </div>
-          </div>
-
-          {/* Activate later */}
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center space-x-2">
-                  <span className="font-medium text-gray-900 dark:text-white">Activate later</span>
-                  <HelpCircle className="w-4 h-4 text-gray-400" />
-                </div>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={activateLater}
-                  onChange={(e) => setActivateLater(e.target.checked)}
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
