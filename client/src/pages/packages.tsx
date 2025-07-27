@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import { ArrowLeft, Globe, Cpu, Minus, Plus } from "lucide-react";
+import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import NavigationBar from "@/components/navigation-bar";
@@ -15,6 +15,38 @@ export default function PackagesScreen() {
   const [selectedTab, setSelectedTab] = useState<'data' | 'data-calls-text'>('data');
   const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
   const [esimCount, setEsimCount] = useState(1);
+  const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
+    network: true,
+    plan: true,
+    features: true
+  });
+  const [showTooltip, setShowTooltip] = useState<string | null>(null);
+
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
+  const Tooltip = ({ text, id }: { text: string; id: string }) => (
+    <div className="relative inline-block">
+      <button
+        onMouseEnter={() => setShowTooltip(id)}
+        onMouseLeave={() => setShowTooltip(null)}
+        onClick={() => setShowTooltip(showTooltip === id ? null : id)}
+        className="w-4 h-4 bg-gray-400 dark:bg-gray-500 rounded-full flex items-center justify-center ml-1 hover:bg-gray-500 dark:hover:bg-gray-400 transition-colors"
+      >
+        <Info className="w-2.5 h-2.5 text-white" />
+      </button>
+      {showTooltip === id && (
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs rounded-lg shadow-lg whitespace-nowrap z-10">
+          {text}
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900 dark:border-t-gray-100"></div>
+        </div>
+      )}
+    </div>
+  );
 
   const { data: country } = useQuery<Country>({
     queryKey: ["/api/countries", countryId],
@@ -186,74 +218,140 @@ export default function PackagesScreen() {
 
           {/* Network Section */}
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-3">
-            <div className="flex items-center mb-3">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
-              <span className="text-sm font-medium text-gray-900 dark:text-white">Network</span>
+            <div 
+              className="flex items-center justify-between mb-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 -m-2 p-2 rounded-lg transition-colors"
+              onClick={() => toggleSection('network')}
+            >
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">Network</span>
+                <Tooltip text="Information about network providers and technology" id="network-info" />
+              </div>
+              {expandedSections.network ? (
+                <ChevronUp className="w-4 h-4 text-gray-400" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-gray-400" />
+              )}
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">Provider</span>
-                <span className="text-sm font-medium text-gray-900 dark:text-white">T-Mobile • Verizon</span>
+            {expandedSections.network && (
+              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Provider</span>
+                    <Tooltip text="Main network operators in United States" id="provider-info" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">T-Mobile • Verizon</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Technology</span>
+                    <Tooltip text="4G LTE network with 5G compatibility" id="tech-info" />
+                  </div>
+                  <span className="text-sm font-medium text-green-600 dark:text-green-400">LTE Ready</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">IP Routing</span>
+                    <Tooltip text="You'll get a US-based IP address" id="ip-info" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">Local US IP</span>
+                </div>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">Technology</span>
-                <span className="text-sm font-medium text-green-600 dark:text-green-400">LTE Ready</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">IP Routing</span>
-                <span className="text-sm font-medium text-gray-900 dark:text-white">Local US IP</span>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Plan Section */}
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-3">
-            <div className="flex items-center mb-3">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-              <span className="text-sm font-medium text-gray-900 dark:text-white">Plan</span>
+            <div 
+              className="flex items-center justify-between mb-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 -m-2 p-2 rounded-lg transition-colors"
+              onClick={() => toggleSection('plan')}
+            >
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">Plan</span>
+                <Tooltip text="Details about your eSIM plan configuration" id="plan-info" />
+              </div>
+              {expandedSections.plan ? (
+                <ChevronUp className="w-4 h-4 text-gray-400" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-gray-400" />
+              )}
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">Category</span>
-                <span className="text-sm font-medium text-gray-900 dark:text-white">Data Only</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">Type</span>
-                <span className="text-sm font-medium text-gray-900 dark:text-white">eSIM Package</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">Roaming</span>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">Yes</span>
+            {expandedSections.plan && (
+              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Category</span>
+                    <Tooltip text="Data only plan - no voice or SMS" id="category-info" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">Data Only</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Type</span>
+                    <Tooltip text="Digital eSIM profile for compatible devices" id="type-info" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">eSIM Package</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Roaming</span>
+                    <Tooltip text="Works internationally without extra charges" id="roaming-info" />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">Yes</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Features Section */}
           <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
-            <div className="flex items-center mb-3">
-              <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
-              <span className="text-sm font-medium text-gray-900 dark:text-white">Features</span>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">eKYC Required</span>
-                <span className="text-sm font-medium text-red-600 dark:text-red-400">No</span>
+            <div 
+              className="flex items-center justify-between mb-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 -m-2 p-2 rounded-lg transition-colors"
+              onClick={() => toggleSection('features')}
+            >
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">Features</span>
+                <Tooltip text="Additional features and configuration details" id="features-info" />
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">Top-up</span>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">Available</span>
+              {expandedSections.features ? (
+                <ChevronUp className="w-4 h-4 text-gray-400" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-gray-400" />
+              )}
+            </div>
+            {expandedSections.features && (
+              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">eKYC Required</span>
+                    <Tooltip text="No identity verification needed for activation" id="ekyc-info" />
+                  </div>
+                  <span className="text-sm font-medium text-red-600 dark:text-red-400">No</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Top-up</span>
+                    <Tooltip text="Add more data when you run out" id="topup-info" />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">Available</span>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600 dark:text-gray-300">APN</span>
+                    <Tooltip text="Access Point Name for internet connection" id="apn-info" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">internet</span>
                 </div>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600 dark:text-gray-300">APN</span>
-                <span className="text-sm font-medium text-gray-900 dark:text-white">internet</span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 
