@@ -588,7 +588,11 @@ export default function PackagesScreen() {
                 <div>
                   <div className="flex items-center space-x-2">
                     <span className="font-semibold text-gray-900 dark:text-white">
-                      {demoPackages.find(p => p.id === selectedPackage)?.duration}
+                      {(() => {
+                        const dataPackage = demoPackages.find(p => p.id === selectedPackage);
+                        const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
+                        return dataPackage?.duration || comboPackage?.duration;
+                      })()}
                     </span>
                     <div className="flex items-center space-x-1">
                       {[1, 2, 3, 4, 5].map((bar) => (
@@ -600,17 +604,48 @@ export default function PackagesScreen() {
                       ))}
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
-                    {demoPackages.find(p => p.id === selectedPackage)?.data}
+                  <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                    <div>
+                      {(() => {
+                        const dataPackage = demoPackages.find(p => p.id === selectedPackage);
+                        const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
+                        return dataPackage?.data || comboPackage?.data;
+                      })()}
+                    </div>
+                    {/* Show voice and SMS for combo packages */}
+                    {dataCallsTextPackages.find(p => p.id === selectedPackage) && (
+                      <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-1">
+                          <span className="text-xs text-green-600 dark:text-green-400">📞</span>
+                          <span className="text-xs text-gray-600 dark:text-gray-400">
+                            {dataCallsTextPackages.find(p => p.id === selectedPackage)?.voice}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <span className="text-xs text-blue-600 dark:text-blue-400">💬</span>
+                          <span className="text-xs text-gray-600 dark:text-gray-400">
+                            {dataCallsTextPackages.find(p => p.id === selectedPackage)?.sms}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
               <div className="text-right">
                 <div className="text-xl font-bold text-gray-900 dark:text-white">
-                  {demoPackages.find(p => p.id === selectedPackage)?.price}
+                  {(() => {
+                    const dataPackage = demoPackages.find(p => p.id === selectedPackage);
+                    const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
+                    return dataPackage?.price || comboPackage?.price;
+                  })()}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {demoPackages.find(p => p.id === selectedPackage)?.pricePerDay}
+                  {(() => {
+                    const dataPackage = demoPackages.find(p => p.id === selectedPackage);
+                    const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
+                    return dataPackage?.pricePerDay || comboPackage?.pricePerDay;
+                  })()}
                 </div>
               </div>
             </div>
@@ -630,7 +665,11 @@ export default function PackagesScreen() {
             </div>
           ) : (
             <>
-              Buy {selectedPackage ? demoPackages.find(p => p.id === selectedPackage)?.price : '€0'}
+              Buy {selectedPackage ? (() => {
+                const dataPackage = demoPackages.find(p => p.id === selectedPackage);
+                const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
+                return dataPackage?.price || comboPackage?.price || '€0';
+              })() : '€0'}
             </>
           )}
         </Button>
