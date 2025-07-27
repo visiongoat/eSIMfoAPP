@@ -85,7 +85,7 @@ export default function PackagesScreen() {
   return (
     <div className="mobile-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       {/* Custom Header */}
-      <div className="flex items-center justify-between p-4 pt-12">
+      <div className="flex items-center justify-between p-4">
         <button onClick={handleBackClick} className="p-2">
           <ArrowLeft className="w-6 h-6 text-gray-900 dark:text-white" />
         </button>
