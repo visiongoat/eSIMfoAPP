@@ -14,25 +14,26 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-white dark:bg-gray-900 z-50 overflow-y-auto">
-      {/* Header with icon and close button */}
-      <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-3 flex justify-between items-center">
-        <div className="flex-1 flex justify-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-            <svg width="32" height="32" viewBox="0 0 122.88 122.88" className="fill-white">
-              <path d="M64.89,32.65,59.81,58.5l-5.16-7.77C43.54,55.19,37.3,62.54,36.38,73.86c-9.13-16-3.59-30.25,8-38.63L39.09,27.3l25.8,5.35ZM61.44,0A61.46,61.46,0,1,1,18,18,61.21,61.21,0,0,1,61.44,0ZM97.56,25.32a51.08,51.08,0,1,0,15,36.12,51,51,0,0,0-15-36.12ZM56.64,91.8,61.72,66l5.16,7.77C78,69.26,84.23,61.91,85.15,50.59c9.13,16,3.59,30.25-8,38.63l5.26,7.93L56.64,91.8Z"/>
-            </svg>
-          </div>
-        </div>
+      {/* Header with close button */}
+      <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-2 flex justify-end">
         <button
           onClick={onClose}
-          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors absolute right-4"
+          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
         >
           <X className="w-7 h-7 text-gray-500" />
         </button>
       </div>
 
       {/* Content */}
-      <div className="px-4 pb-4 pt-1">
+      <div className="px-4 pb-4 pt-2">
+        {/* Hero Icon */}
+        <div className="flex justify-center mb-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
+            <svg width="32" height="32" viewBox="0 0 122.88 122.88" className="fill-white">
+              <path d="M64.89,32.65,59.81,58.5l-5.16-7.77C43.54,55.19,37.3,62.54,36.38,73.86c-9.13-16-3.59-30.25,8-38.63L39.09,27.3l25.8,5.35ZM61.44,0A61.46,61.46,0,1,1,18,18,61.21,61.21,0,0,1,61.44,0ZM97.56,25.32a51.08,51.08,0,1,0,15,36.12,51,51,0,0,0-15-36.12ZM56.64,91.8,61.72,66l5.16,7.77C78,69.26,84.23,61.91,85.15,50.59c9.13,16,3.59,30.25-8,38.63l5.26,7.93L56.64,91.8Z"/>
+            </svg>
+          </div>
+        </div>
 
         {/* Title */}
         <div className="text-center mb-4">
