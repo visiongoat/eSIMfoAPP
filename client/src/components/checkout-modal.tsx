@@ -148,13 +148,7 @@ export default function CheckoutModal({
                     }`}
                   >
                     <div className="flex items-center space-x-3">
-                      {method.id === 'apple-pay' ? (
-                        <svg width="32" height="32" viewBox="0 -34.55 120.3 120.3" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="text-gray-900 dark:text-white">
-                          <path d="M22.8 6.6c1.4-1.8 2.4-4.2 2.1-6.6-2.1.1-4.6 1.4-6.1 3.1-1.3 1.5-2.5 4-2.2 6.3 2.4.3 4.7-1 6.2-2.8M24.9 10c-3.4-.2-6.3 1.9-7.9 1.9-1.6 0-4.1-1.8-6.8-1.8-3.5.1-6.7 2-8.5 5.2-3.6 6.3-1 15.6 2.6 20.7 1.7 2.5 3.8 5.3 6.5 5.2 2.6-.1 3.6-1.7 6.7-1.7s4 1.7 6.8 1.6 4.6-2.5 6.3-5.1c2-2.9 2.8-5.7 2.8-5.8-.1-.1-5.5-2.1-5.5-8.3-.1-5.2 4.2-7.7 4.4-7.8-2.3-3.6-6.1-4-7.4-4.1"/>
-                        </svg>
-                      ) : (
-                        <span className="text-xl">{method.icon}</span>
-                      )}
+                      <span className="text-xl">{method.icon}</span>
                       <div className="text-left">
                         <div className="font-medium text-gray-900 dark:text-white">{method.name}</div>
                         {method.subtitle && (
