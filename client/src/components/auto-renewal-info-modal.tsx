@@ -29,10 +29,11 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
         {/* Hero Icon */}
         <div className="flex justify-center mb-4">
           <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="text-white">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" 
-                    fill="currentColor" stroke="currentColor" strokeWidth="1"/>
-            </svg>
+            <img 
+              src="/assets/sync-icon.svg" 
+              alt="Sync" 
+              className="w-8 h-8 filter brightness-0 invert"
+            />
           </div>
         </div>
 
