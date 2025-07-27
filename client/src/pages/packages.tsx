@@ -14,6 +14,15 @@ export default function PackagesScreen() {
   
   const [selectedTab, setSelectedTab] = useState<'data' | 'data-calls-text'>('data');
   const [selectedPackage, setSelectedPackage] = useState<number | null>(1);
+  
+  // Update default selection when tab changes
+  useEffect(() => {
+    if (selectedTab === 'data') {
+      setSelectedPackage(1); // First data package
+    } else {
+      setSelectedPackage(5); // First data/calls/text package
+    }
+  }, [selectedTab]);
   const [esimCount, setEsimCount] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
@@ -301,7 +310,7 @@ export default function PackagesScreen() {
                 onClick={() => handlePackageSelect(pkg.id)}
                 className={`w-full p-3 rounded-xl border-2 transition-all ${
                   selectedPackage === pkg.id
-                    ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-400'
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400'
                     : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
                 }`}
               >
