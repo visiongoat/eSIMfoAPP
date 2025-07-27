@@ -231,6 +231,93 @@ export default function OnboardingScreen() {
               <div className="absolute top-40 right-20 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-50 animate-bounce" style={{ animationDelay: '1s' }}/>
               <div className="absolute bottom-32 left-1/3 w-1 h-1 bg-blue-300 rounded-full opacity-70 animate-bounce" style={{ animationDelay: '2s' }}/>
             </div>
+
+            {/* Layer 4: Floating Satellite Animation */}
+            <div className="absolute inset-0 opacity-25 dark:opacity-40 pointer-events-none">
+              {/* Main Floating Satellite */}
+              <div 
+                className="absolute"
+                style={{
+                  left: '60%',
+                  top: '25%',
+                  animation: 'float 8s ease-in-out infinite'
+                }}
+              >
+                {/* Signal waves around satellite */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full border border-blue-300 opacity-20 animate-ping" style={{ animationDuration: '3s' }}></div>
+                  <div className="absolute w-8 h-8 rounded-full border border-blue-400 opacity-30 animate-ping" style={{ animationDuration: '2s', animationDelay: '0.5s' }}></div>
+                  <div className="absolute w-6 h-6 rounded-full border border-blue-500 opacity-40 animate-ping" style={{ animationDuration: '1.5s', animationDelay: '1s' }}></div>
+                </div>
+                
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-blue-400 relative z-10">
+                  {/* Satellite body */}
+                  <rect x="10" y="8" width="4" height="8" rx="1" fill="currentColor" opacity="0.8"/>
+                  {/* Solar panels */}
+                  <rect x="6" y="10" width="3" height="4" rx="0.5" fill="currentColor" opacity="0.6"/>
+                  <rect x="15" y="10" width="3" height="4" rx="0.5" fill="currentColor" opacity="0.6"/>
+                  {/* Antenna */}
+                  <line x1="12" y1="8" x2="12" y2="5" stroke="currentColor" strokeWidth="1" opacity="0.7"/>
+                  <circle cx="12" cy="5" r="1" fill="currentColor" opacity="0.5"/>
+                </svg>
+              </div>
+
+              {/* Secondary Satellite */}
+              <div 
+                className="absolute"
+                style={{
+                  left: '25%',
+                  top: '65%',
+                  animation: 'float 10s ease-in-out infinite 2s'
+                }}
+              >
+                {/* Signal waves around secondary satellite */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full border border-blue-300 opacity-15 animate-ping" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
+                  <div className="absolute w-7 h-7 rounded-full border border-blue-400 opacity-25 animate-ping" style={{ animationDuration: '2.5s', animationDelay: '1.5s' }}></div>
+                </div>
+                
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-blue-300 relative z-10">
+                  <rect x="10" y="8" width="4" height="8" rx="1" fill="currentColor" opacity="0.7"/>
+                  <rect x="6" y="10" width="3" height="4" rx="0.5" fill="currentColor" opacity="0.5"/>
+                  <rect x="15" y="10" width="3" height="4" rx="0.5" fill="currentColor" opacity="0.5"/>
+                  <line x1="12" y1="8" x2="12" y2="5" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                  <circle cx="12" cy="5" r="1" fill="currentColor" opacity="0.4"/>
+                </svg>
+              </div>
+
+              {/* Orbital Path Indicators */}
+              <div className="absolute inset-0">
+                <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+                  <ellipse cx="200" cy="200" rx="120" ry="80" stroke="currentColor" strokeWidth="0.5" opacity="0.1" strokeDasharray="5,10"/>
+                  <ellipse cx="200" cy="200" rx="160" ry="100" stroke="currentColor" strokeWidth="0.5" opacity="0.1" strokeDasharray="8,15"/>
+                </svg>
+              </div>
+
+              {/* Earth/Planet Glow Effect */}
+              <div 
+                className="absolute"
+                style={{
+                  left: '15%',
+                  bottom: '20%',
+                  width: '60px',
+                  height: '60px'
+                }}
+              >
+                <div className="relative w-full h-full">
+                  {/* Planet glow */}
+                  <div className="absolute inset-0 rounded-full bg-blue-400 opacity-10 animate-pulse" style={{ animationDuration: '4s' }}></div>
+                  <div className="absolute inset-2 rounded-full bg-blue-500 opacity-15 animate-pulse" style={{ animationDuration: '3s', animationDelay: '1s' }}></div>
+                  <div className="absolute inset-4 rounded-full bg-blue-600 opacity-20"></div>
+                  
+                  {/* Connection beams to satellites */}
+                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 60 60" fill="none">
+                    <line x1="30" y1="30" x2="45" y2="10" stroke="currentColor" strokeWidth="0.5" opacity="0.1" strokeDasharray="2,4"/>
+                    <line x1="30" y1="30" x2="10" y2="5" stroke="currentColor" strokeWidth="0.5" opacity="0.1" strokeDasharray="2,4"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
           </>
         );
         

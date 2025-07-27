@@ -8,6 +8,22 @@
   100% { transform: translateX(400%) rotate(45deg); }
 }
 
+/* Floating Satellite Animation */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% { 
+    transform: translateY(-8px) translateX(4px) rotate(2deg);
+  }
+  50% { 
+    transform: translateY(-12px) translateX(0px) rotate(0deg);
+  }
+  75% { 
+    transform: translateY(-6px) translateX(-4px) rotate(-2deg);
+  }
+}
+
 
 
 :root {
