@@ -82,11 +82,7 @@ export default function PackagesScreen() {
   };
 
   const handlePackageSelect = (packageId: number) => {
-    // Temporarily show selection, but revert to package 1 after a brief moment
     setSelectedPackage(packageId);
-    setTimeout(() => {
-      setSelectedPackage(1);
-    }, 200);
   };
 
   const handlePurchase = () => {
