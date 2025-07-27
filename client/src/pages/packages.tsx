@@ -129,7 +129,7 @@ export default function PackagesScreen() {
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
             }`}
           >
-            Data <span className="text-xs opacity-60 ml-1">{demoPackages.length}</span>
+            Data ({demoPackages.length})
           </button>
           <button
             onClick={() => setSelectedTab('data-calls-text')}
@@ -139,7 +139,7 @@ export default function PackagesScreen() {
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
             }`}
           >
-            Data / Calls / Text <span className="text-xs opacity-60 ml-1">0</span>
+            Data / Calls / Text (0)
           </button>
         </div>
 
