@@ -15,12 +15,12 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
   return (
     <div className="fixed inset-0 bg-white dark:bg-gray-900 z-50 overflow-y-auto">
       {/* Header */}
-      <div className="sticky top-0 bg-white dark:bg-gray-900 p-4 flex justify-end items-center">
+      <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-2 flex justify-end items-center">
         <button
           onClick={onClose}
-          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
         >
-          <X className="w-6 h-6 text-gray-500" />
+          <X className="w-5 h-5 text-gray-500" />
         </button>
       </div>
 
@@ -131,20 +131,8 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
           </div>
         </div>
 
-        {/* More info */}
-        <div className="mb-4">
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-900 dark:text-white">More about auto-renewal</span>
-              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
         {/* Cancel info */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-4">
           <p className="text-sm text-gray-500 dark:text-gray-400">Cancel anytime</p>
         </div>
 
