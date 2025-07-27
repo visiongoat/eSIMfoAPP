@@ -4,6 +4,7 @@ import { useLocation } from "wouter";
 import { MessageCircle } from "lucide-react";
 import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
 import { useOnlineStatus } from "@/hooks/use-online-status";
+import { useTabSwipe } from "@/hooks/use-tab-swipe";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
@@ -18,6 +19,9 @@ export default function HomeScreen() {
   const [, setLocation] = useLocation();
   const [selectedTab, setSelectedTab] = useState('local');
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Tab order for swipe navigation
+  const tabOrder = ['local', 'regional', 'global'];
 
   // Handle tab change with smooth animation
   const handleTabChange = (newTab: string) => {
@@ -34,6 +38,27 @@ export default function HomeScreen() {
       }, 150);
     }, 150);
   };
+
+  // Swipe navigation handlers
+  const handleSwipeLeft = () => {
+    const currentIndex = tabOrder.indexOf(selectedTab);
+    const nextIndex = (currentIndex + 1) % tabOrder.length;
+    handleTabChange(tabOrder[nextIndex]);
+  };
+
+  const handleSwipeRight = () => {
+    const currentIndex = tabOrder.indexOf(selectedTab);
+    const prevIndex = currentIndex === 0 ? tabOrder.length - 1 : currentIndex - 1;
+    handleTabChange(tabOrder[prevIndex]);
+  };
+
+  // Enable tab swipe navigation
+  useTabSwipe({
+    enabled: true,
+    threshold: 50,
+    onSwipeLeft: handleSwipeLeft,
+    onSwipeRight: handleSwipeRight
+  });
   const [placeholderText, setPlaceholderText] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [showLiveChat, setShowLiveChat] = useState(false);
