@@ -82,6 +82,7 @@ export default function PackagesScreen() {
   };
 
   const handlePackageSelect = (packageId: number) => {
+    console.log('Selected package:', packageId);
     setSelectedPackage(packageId);
   };
 
@@ -144,13 +145,15 @@ export default function PackagesScreen() {
 
         {/* Package List */}
         <div className="space-y-3 mb-6">
+          {/* Debug info */}
+          <div className="text-xs text-gray-500">Selected: {selectedPackage || 'none'}</div>
           {demoPackages.map((pkg) => (
             <button
               key={pkg.id}
               onClick={() => handlePackageSelect(pkg.id)}
               className={`w-full p-3 rounded-xl border-2 transition-all ${
                 selectedPackage === pkg.id
-                  ? 'border-orange-500 bg-orange-50 dark:bg-gray-800'
+                  ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20'
                   : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
