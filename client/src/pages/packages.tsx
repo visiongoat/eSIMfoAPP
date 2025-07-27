@@ -5,7 +5,6 @@ import { ArrowLeft, Globe, Cpu, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import NavigationBar from "@/components/navigation-bar";
-import TabBar from "@/components/tab-bar";
 import type { Country, Package } from "@shared/schema";
 
 export default function PackagesScreen() {
@@ -181,8 +180,14 @@ export default function PackagesScreen() {
           </div>
         </div>
 
+        {/* Bottom spacing for sticky section */}
+        <div className="h-32"></div>
+      </div>
+
+      {/* Sticky Bottom Section */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4 mx-auto max-w-md">
         {/* eSIM Count Selector */}
-        <div className="flex items-center justify-between mb-6 py-4">
+        <div className="flex items-center justify-between mb-4">
           <div className="text-lg font-semibold text-gray-900 dark:text-white">eSIM sayısını seçin</div>
           <div className="flex items-center space-x-4">
             <button
@@ -205,13 +210,11 @@ export default function PackagesScreen() {
         <Button
           onClick={handlePurchase}
           disabled={!selectedPackage}
-          className="w-full py-4 bg-gray-900 dark:bg-white text-white dark:text-black font-semibold text-lg rounded-xl hover:bg-gray-800 dark:hover:bg-gray-100 mb-20 transition-colors"
+          className="w-full py-4 bg-gray-900 dark:bg-white text-white dark:text-black font-semibold text-lg rounded-xl hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
         >
-          Ödeme — $7
+          Ödeme — €48
         </Button>
       </div>
-
-      <TabBar />
     </div>
   );
 }
