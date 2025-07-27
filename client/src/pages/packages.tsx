@@ -156,113 +156,103 @@ export default function PackagesScreen() {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Plan details</h3>
           
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.592 4.142a1 1 0 01-.514 1.051L4.5 9.5a10.003 10.003 0 006 6l1.471-1.717a1 1 0 011.051-.514l4.142.592A1 1 0 0118 15.153V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">Network Provider</div>
+          {/* Quick Facts */}
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 text-center">
+              <div className="w-6 h-6 mx-auto mb-1 text-green-600 dark:text-green-400">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
               </div>
-              <div className="text-gray-900 dark:text-white font-medium">T-Mobile • Verizon</div>
+              <div className="text-xs text-green-700 dark:text-green-300 font-medium">LTE Ready</div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">Network Technology</div>
+            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 text-center">
+              <div className="w-6 h-6 mx-auto mb-1 text-blue-600 dark:text-blue-400">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
               </div>
-              <div className="text-green-600 dark:text-green-400 font-medium">LTE Ready</div>
+              <div className="text-xs text-blue-700 dark:text-blue-300 font-medium">No eKYC</div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">Plan Category</div>
+            <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-center">
+              <div className="w-6 h-6 mx-auto mb-1 text-purple-600 dark:text-purple-400">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
               </div>
-              <div className="text-gray-900 dark:text-white font-medium">Data Only</div>
+              <div className="text-xs text-purple-700 dark:text-purple-300 font-medium">US IP</div>
             </div>
+          </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">Package Type</div>
-              </div>
-              <div className="text-gray-900 dark:text-white font-medium">eSIM Package</div>
+          {/* Network Section */}
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-3">
+            <div className="flex items-center mb-3">
+              <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">Network</span>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">Roaming Support</div>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Provider</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">T-Mobile • Verizon</span>
               </div>
-              <div className="text-gray-900 dark:text-white font-medium">Yes</div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Technology</span>
+                <span className="text-sm font-medium text-green-600 dark:text-green-400">LTE Ready</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">IP Routing</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">Local US IP</span>
+              </div>
             </div>
+          </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">IP Routing</div>
-              </div>
-              <div className="text-gray-900 dark:text-white font-medium">Local United States IP</div>
+          {/* Plan Section */}
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-3">
+            <div className="flex items-center mb-3">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">Plan</span>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">eKYC Verification</div>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Category</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">Data Only</span>
               </div>
-              <div className="text-gray-900 dark:text-white font-medium">Not Required</div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Type</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">eSIM Package</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Roaming</span>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">Yes</span>
+                </div>
+              </div>
             </div>
+          </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">APN Value</div>
-              </div>
-              <div className="text-gray-900 dark:text-white font-medium">internet</div>
+          {/* Features Section */}
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
+            <div className="flex items-center mb-3">
+              <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">Features</span>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
-                  <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="text-gray-600 dark:text-gray-300 text-sm">Top-up Option</div>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">eKYC Required</span>
+                <span className="text-sm font-medium text-red-600 dark:text-red-400">No</span>
               </div>
-              <div className="text-gray-900 dark:text-white font-medium">Available</div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Top-up</span>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">Available</span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">APN</span>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">internet</span>
+              </div>
             </div>
           </div>
         </div>
