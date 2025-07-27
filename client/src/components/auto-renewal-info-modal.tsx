@@ -44,7 +44,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
 
         {/* Perfect for section */}
         <div className="mb-4">
-          <div className="bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-100 dark:border-gray-700">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">Auto-renewal is perfect for</h2>
             <div className="grid grid-cols-3 gap-3">
               <div className="text-center">
@@ -80,7 +80,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
 
         {/* Benefits section */}
         <div className="mb-4">
-          <div className="bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-lg border border-gray-100 dark:border-gray-700">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Enjoy these benefits</h2>
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
