@@ -582,7 +582,7 @@ export default function DestinationsScreen() {
                   key={country.id}
                   onClick={() => handleCountrySelect(country)}
                   style={{ animationDelay: `${index * 50}ms` }}
-                  className="mobile-card bg-gradient-to-br from-white via-blue-50/20 to-gray-50/40 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750/30 dark:to-gray-800 p-4 w-full text-left hover:bg-gradient-to-br hover:from-blue-50/60 hover:via-white hover:to-purple-50/30 dark:hover:bg-gradient-to-r dark:hover:from-gray-700/70 dark:hover:via-gray-600/70 dark:hover:to-gray-700/70 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 active:scale-[0.98] group animate-fadeInUp border border-transparent hover:border-blue-500/20 dark:hover:border-blue-400/20"
+                  className="mobile-card bg-gradient-to-br from-white via-blue-50/20 to-gray-50/40 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-750/30 dark:to-gray-800 py-3 px-4 w-full text-left hover:bg-gradient-to-br hover:from-blue-50/60 hover:via-white hover:to-purple-50/30 dark:hover:bg-gradient-to-r dark:hover:from-gray-700/70 dark:hover:via-gray-600/70 dark:hover:to-gray-700/70 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 active:scale-[0.98] group animate-fadeInUp border border-transparent hover:border-blue-500/20 dark:hover:border-blue-400/20"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
