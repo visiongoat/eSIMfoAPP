@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
 import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp } from "lucide-react";
@@ -28,6 +28,19 @@ export default function PackagesScreen() {
       [section]: !prev[section]
     }));
   };
+
+  // Auto scroll when features section opens
+  useEffect(() => {
+    if (expandedSections.features) {
+      // Scroll to bottom to show features content
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.body.scrollHeight - window.innerHeight,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
+  }, [expandedSections.features]);
 
 
 
