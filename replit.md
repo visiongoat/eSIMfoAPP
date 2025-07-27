@@ -157,3 +157,14 @@ The application is designed to be deployed as a single Node.js application servi
 - **Badge layout refinement**: Global Coverage badges optimized to single row display with compact text ("200+ Countries", "No Fees", "Global")
 - **Responsive safe area support**: Perfect iPhone notch and home indicator compatibility across all screen sizes
 - **Premium visual hierarchy**: All onboarding steps now maintain identical element positioning and sizing for professional consistency
+
+### Premium Packages Page Design (January 27, 2025)
+- **Example-inspired layout**: Based on provided screenshot design with dark theme adaptation to light/dark mode support
+- **Tab system implementation**: "Data" and "Data / Calls / Text" toggle buttons with active state styling
+- **Package card design**: Card-based layout with duration, data amount, pricing, and discount badges (-51%, -69%, -77%)
+- **Interactive selection**: Orange border highlight for selected packages with smooth transitions
+- **Plan details section**: Countries/operators info and plan type display with icons
+- **eSIM quantity selector**: Plus/minus buttons for quantity selection with responsive design
+- **Payment button integration**: Bottom-positioned purchase button with dynamic pricing
+- **Full theme compatibility**: Complete light mode support with dark mode fallback using Tailwind dark: variants
+- **Mobile-optimized UX**: Touch-friendly buttons, proper spacing, and responsive typography

@@ -87,16 +87,16 @@ export default function PackagesScreen() {
   }
 
   return (
-    <div className="mobile-screen bg-gray-900 text-white min-h-screen">
+    <div className="mobile-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       {/* Custom Header */}
       <div className="flex items-center justify-between p-4 pt-12">
         <button onClick={handleBackClick} className="p-2">
-          <ArrowLeft className="w-6 h-6 text-white" />
+          <ArrowLeft className="w-6 h-6 text-gray-900 dark:text-white" />
         </button>
-        <h1 className="text-lg font-semibold text-center flex-1">
+        <h1 className="text-lg font-semibold text-center flex-1 text-gray-900 dark:text-white">
           {country?.name || "Loading..."}
         </h1>
-        <div className="text-orange-400 font-semibold">€, EUR</div>
+        <div className="text-orange-500 dark:text-orange-400 font-semibold">€, EUR</div>
       </div>
 
       <div className="px-4">
@@ -104,20 +104,20 @@ export default function PackagesScreen() {
         <div className="flex mb-6">
           <button
             onClick={() => setSelectedTab('data')}
-            className={`flex-1 py-3 px-4 rounded-l-lg font-medium ${
+            className={`flex-1 py-3 px-4 rounded-l-lg font-medium transition-colors ${
               selectedTab === 'data'
-                ? 'bg-gray-600 text-white'
-                : 'bg-gray-700 text-gray-300'
+                ? 'bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
             }`}
           >
             Data
           </button>
           <button
             onClick={() => setSelectedTab('data-calls-text')}
-            className={`flex-1 py-3 px-4 rounded-r-lg font-medium ${
+            className={`flex-1 py-3 px-4 rounded-r-lg font-medium transition-colors ${
               selectedTab === 'data-calls-text'
-                ? 'bg-gray-600 text-white'
-                : 'bg-gray-700 text-gray-300'
+                ? 'bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white'
+                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
             }`}
           >
             Data / Calls / Text
@@ -132,18 +132,18 @@ export default function PackagesScreen() {
               onClick={() => handlePackageSelect(pkg.id)}
               className={`w-full p-4 rounded-xl border-2 transition-all ${
                 selectedPackage === pkg.id || pkg.isSelected
-                  ? 'border-orange-500 bg-gray-800'
-                  : 'border-gray-700 bg-gray-800 hover:border-gray-600'
+                  ? 'border-orange-500 bg-orange-50 dark:bg-gray-800'
+                  : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
               <div className="flex items-center justify-between">
                 <div className="text-left">
-                  <div className="text-xl font-bold text-white">{pkg.duration}</div>
-                  <div className="text-gray-400 text-sm">{pkg.data}</div>
+                  <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
+                  <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
                 </div>
                 <div className="text-right">
                   <div className="flex items-center space-x-2">
-                    <div className="text-xl font-bold text-white">{pkg.price}</div>
+                    <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.price}</div>
                     {pkg.discount && (
                       <div className="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
                         {pkg.discount}
@@ -151,9 +151,9 @@ export default function PackagesScreen() {
                     )}
                   </div>
                   {pkg.originalPrice && (
-                    <div className="text-gray-500 text-sm line-through">{pkg.originalPrice}</div>
+                    <div className="text-gray-500 dark:text-gray-500 text-sm line-through">{pkg.originalPrice}</div>
                   )}
-                  <div className="text-gray-400 text-sm">{pkg.pricePerDay}</div>
+                  <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.pricePerDay}</div>
                 </div>
               </div>
             </button>
@@ -162,25 +162,25 @@ export default function PackagesScreen() {
 
         {/* Plan Details */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-4">Plan detayları</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Plan detayları</h3>
           
           <div className="space-y-3">
-            <div className="flex items-center justify-between py-3 border-b border-gray-700">
+            <div className="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center space-x-3">
-                <Globe className="w-5 h-5 text-gray-400" />
+                <Globe className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                 <div>
-                  <div className="text-sm text-gray-400">ÜLKELER VE AĞ OPERATÖRLERI</div>
-                  <div className="text-white">1 ülke</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">ÜLKELER VE AĞ OPERATÖRLERI</div>
+                  <div className="text-gray-900 dark:text-white">1 ülke</div>
                 </div>
               </div>
-              <ArrowLeft className="w-5 h-5 text-gray-400 rotate-180" />
+              <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-gray-400 rotate-180" />
             </div>
 
             <div className="flex items-center space-x-3 py-3">
-              <Cpu className="w-5 h-5 text-gray-400" />
+              <Cpu className="w-5 h-5 text-gray-500 dark:text-gray-400" />
               <div>
-                <div className="text-sm text-gray-400">PLAN TÜRÜ:</div>
-                <div className="text-white">
+                <div className="text-sm text-gray-500 dark:text-gray-400">PLAN TÜRÜ:</div>
+                <div className="text-gray-900 dark:text-white">
                   {selectedTab === 'data' ? 'Sadece veri' : 'Veri + Arama + SMS'}
                 </div>
               </div>
@@ -190,18 +190,18 @@ export default function PackagesScreen() {
 
         {/* eSIM Count Selector */}
         <div className="flex items-center justify-between mb-6 py-4">
-          <div className="text-lg font-semibold">eSIM sayısını seçin</div>
+          <div className="text-lg font-semibold text-gray-900 dark:text-white">eSIM sayısını seçin</div>
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setEsimCount(Math.max(1, esimCount - 1))}
-              className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
+              className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             >
               <Minus className="w-4 h-4" />
             </button>
-            <span className="w-8 text-center font-semibold">{esimCount}</span>
+            <span className="w-8 text-center font-semibold text-gray-900 dark:text-white">{esimCount}</span>
             <button
               onClick={() => setEsimCount(esimCount + 1)}
-              className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center"
+              className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             >
               <Plus className="w-4 h-4" />
             </button>
@@ -212,7 +212,7 @@ export default function PackagesScreen() {
         <Button
           onClick={handlePurchase}
           disabled={!selectedPackage}
-          className="w-full py-4 bg-white text-black font-semibold text-lg rounded-xl hover:bg-gray-100 mb-20"
+          className="w-full py-4 bg-gray-900 dark:bg-white text-white dark:text-black font-semibold text-lg rounded-xl hover:bg-gray-800 dark:hover:bg-gray-100 mb-20 transition-colors"
         >
           Ödeme — $7
         </Button>
