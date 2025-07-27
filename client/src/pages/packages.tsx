@@ -118,7 +118,7 @@ export default function PackagesScreen() {
         <div className="text-orange-500 dark:text-orange-400 font-medium text-sm">€, EUR</div>
       </div>
 
-      <div className="px-4">
+      <div className="px-4 mt-4">
         {/* Tab System */}
         <div className="flex mb-6">
           <button
