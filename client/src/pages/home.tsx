@@ -52,190 +52,27 @@ export default function HomeScreen() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const isOnline = useOnlineStatus();
 
-  // Advanced device detection with detailed specifications
+  // Real device detection using all available web APIs
   const checkDeviceCompatibility = async () => {
-    let deviceBrand = 'Unknown';
-    let deviceModel = 'Device';
-
+    let deviceBrand = '';
+    let deviceModel = '';
     let supportsESIM = false;
     
+    console.log('Starting device detection...');
+    
     try {
-      const userAgent = navigator.userAgent;
-      const platform = navigator.platform;
+      // Get comprehensive device information
+      const deviceInfo = await getDeviceInformation();
+      console.log('Device info detected:', deviceInfo);
       
-
-      
-      // Modern User-Agent Client Hints API
-      if ('userAgentData' in navigator) {
-        const uaData = (navigator as any).userAgentData;
-        
-        try {
-          const highEntropyValues = await uaData.getHighEntropyValues([
-            'model', 'platform', 'platformVersion', 'architecture', 'mobile', 'brands'
-          ]);
-          
-          // Extract brand information
-          const primaryBrand = uaData.brands?.find((brand: any) => 
-            !brand.brand.includes('Not') && !brand.brand.includes('Chromium')
-          );
-          deviceBrand = primaryBrand?.brand || uaData.brands?.[0]?.brand || 'Unknown';
-          
-          // Get detailed model info
-          if (highEntropyValues.model && highEntropyValues.model !== '') {
-            deviceModel = highEntropyValues.model;
-          } else {
-            deviceModel = `${highEntropyValues.platform} Device`;
-          }
-          
-
-          
-          // eSIM support for mobile devices
-          supportsESIM = uaData.mobile && deviceBrand !== 'Unknown';
-        } catch (e) {
-          // Fallback to basic uaData info
-          deviceBrand = uaData.brands?.[0]?.brand || 'Unknown';
-          deviceModel = uaData.mobile ? 'Mobile Device' : 'Desktop';
-          supportsESIM = uaData.mobile;
-        }
-      }
-      
-      // Enhanced User-Agent parsing as fallback
-      if (deviceBrand === 'Unknown' || deviceModel === 'Device') {
-        // iPhone detailed detection
-        if (/iPhone/.test(userAgent)) {
-          deviceBrand = 'Apple';
-          
-          // Extract iPhone model from User-Agent patterns
-          const modelPatterns = {
-            'iPhone16,1': 'iPhone 15 Pro',
-            'iPhone16,2': 'iPhone 15 Pro Max', 
-            'iPhone15,4': 'iPhone 15',
-            'iPhone15,5': 'iPhone 15 Plus',
-            'iPhone15,2': 'iPhone 14 Pro',
-            'iPhone15,3': 'iPhone 14 Pro Max',
-            'iPhone14,7': 'iPhone 14',
-            'iPhone14,8': 'iPhone 14 Plus',
-            'iPhone14,2': 'iPhone 13 Pro',
-            'iPhone14,3': 'iPhone 13 Pro Max',
-            'iPhone14,4': 'iPhone 13 mini',
-            'iPhone14,5': 'iPhone 13'
-          };
-          
-          // Try to find exact model
-          let foundModel = false;
-          for (const [pattern, model] of Object.entries(modelPatterns)) {
-            if (userAgent.includes(pattern)) {
-              deviceModel = model;
-              foundModel = true;
-              break;
-            }
-          }
-          
-          if (!foundModel) {
-            // Generic iPhone detection without screen assumptions
-            deviceModel = 'iPhone';
-          }
-          
-          // iOS version detection
-          const iosMatch = userAgent.match(/OS (\d+)_(\d+)_?(\d+)?/);
-          let iosVersion = '';
-          if (iosMatch) {
-            iosVersion = `iOS ${iosMatch[1]}.${iosMatch[2]}`;
-            if (iosMatch[3]) iosVersion += `.${iosMatch[3]}`;
-            supportsESIM = parseInt(iosMatch[1]) >= 12;
-          }
-          
-
-        }
-        
-        // Android detailed detection
-        else if (/Android/.test(userAgent)) {
-          // Extract Android version
-          const androidMatch = userAgent.match(/Android (\d+)\.?(\d+)?\.?(\d+)?/);
-          let androidVersion = '';
-          if (androidMatch) {
-            androidVersion = `Android ${androidMatch[1]}`;
-            if (androidMatch[2]) androidVersion += `.${androidMatch[2]}`;
-          }
-          
-          // Samsung Galaxy detection
-          if (/Samsung|SM-|Galaxy/i.test(userAgent)) {
-            deviceBrand = 'Samsung';
-            
-            // Try to extract specific Galaxy model
-            const galaxyMatch = userAgent.match(/(Galaxy [^;)]+)/i);
-            if (galaxyMatch) {
-              deviceModel = galaxyMatch[1].replace(/[\s]+/g, ' ').trim();
-            } else {
-              deviceModel = 'Galaxy Series';
-            }
-            
-            supportsESIM = androidMatch ? parseInt(androidMatch[1]) >= 9 : false;
-          }
-          
-          // Google Pixel detection  
-          else if (/Pixel/i.test(userAgent)) {
-            deviceBrand = 'Google';
-            
-            const pixelMatch = userAgent.match(/Pixel ([^;)]+)/i);
-            if (pixelMatch) {
-              deviceModel = `Pixel ${pixelMatch[1].trim()}`;
-            } else {
-              deviceModel = 'Pixel';
-            }
-            
-            supportsESIM = true; // All Pixels support eSIM
-          }
-          
-          // OnePlus detection
-          else if (/OnePlus|OP/i.test(userAgent)) {
-            deviceBrand = 'OnePlus';
-            
-            const onePlusMatch = userAgent.match(/(OnePlus [^;)]+|OP[^;)]+)/i);
-            if (onePlusMatch) {
-              deviceModel = onePlusMatch[1].trim();
-            } else {
-              deviceModel = 'OnePlus';
-            }
-            
-            supportsESIM = androidMatch ? parseInt(androidMatch[1]) >= 10 : false;
-          }
-          
-          // Generic Android
-          else {
-            deviceBrand = 'Android';
-            deviceModel = 'Device';
-            supportsESIM = false;
-          }
-          
-
-        }
-        
-        // Desktop detection
-        else {
-          if (/Windows NT/i.test(userAgent)) {
-            deviceBrand = 'Microsoft';
-            const winMatch = userAgent.match(/Windows NT (\d+\.\d+)/);
-            deviceModel = winMatch ? `Windows ${winMatch[1]}` : 'Windows';
-          } else if (/Mac OS X/i.test(userAgent)) {
-            deviceBrand = 'Apple';
-            const macMatch = userAgent.match(/Mac OS X (\d+_\d+)/);
-            deviceModel = macMatch ? `macOS ${macMatch[1].replace('_', '.')}` : 'macOS';
-          } else {
-            deviceBrand = 'Desktop';
-            deviceModel = 'Computer';
-          }
-          
-
-          supportsESIM = false;
-        }
-      }
+      deviceBrand = deviceInfo.brand;
+      deviceModel = deviceInfo.model;
+      supportsESIM = deviceInfo.supportsESIM;
       
     } catch (error) {
-      console.error('Device detection error:', error);
+      console.error('Device detection failed:', error);
       deviceBrand = 'Unknown';
       deviceModel = 'Device';
-      deviceSpecs = 'Unable to detect specifications';
       supportsESIM = false;
     }
     
@@ -250,6 +87,261 @@ export default function HomeScreen() {
     });
     
     setShowCompatibilityCheck(true);
+  };
+
+  // Comprehensive device information extraction
+  const getDeviceInformation = async () => {
+    const userAgent = navigator.userAgent;
+    const platform = navigator.platform;
+    
+    console.log('User Agent:', userAgent);
+    console.log('Platform:', platform);
+    
+    // Try multiple detection methods
+    const methods = [
+      detectFromUserAgentData,
+      detectFromUserAgent,
+      detectFromWebGL,
+      detectFromCSS,
+      detectFromTouchEvents
+    ];
+    
+    for (const method of methods) {
+      try {
+        const result = await method();
+        if (result.brand !== 'Unknown' && result.model !== 'Device') {
+          console.log(`Detection successful with method: ${method.name}`, result);
+          return result;
+        }
+      } catch (error) {
+        console.log(`Method ${method.name} failed:`, error);
+        continue;
+      }
+    }
+    
+    return { brand: 'Unknown', model: 'Device', supportsESIM: false };
+  };
+
+  // Method 1: User-Agent Client Hints API (most reliable)
+  const detectFromUserAgentData = async () => {
+    if (!('userAgentData' in navigator)) {
+      throw new Error('UserAgentData not available');
+    }
+    
+    const uaData = (navigator as any).userAgentData;
+    
+    const highEntropyValues = await uaData.getHighEntropyValues([
+      'model', 'platform', 'platformVersion', 'architecture', 'mobile', 'brands', 'fullVersionList'
+    ]);
+    
+    console.log('High entropy values:', highEntropyValues);
+    
+    let brand = 'Unknown';
+    let model = 'Device';
+    
+    // Extract brand from brands array
+    if (uaData.brands && uaData.brands.length > 0) {
+      const filteredBrands = uaData.brands.filter((b: any) => 
+        !b.brand.includes('Not') && 
+        !b.brand.includes('Chromium') && 
+        !b.brand.includes('Google Chrome')
+      );
+      
+      if (filteredBrands.length > 0) {
+        brand = filteredBrands[0].brand;
+      } else {
+        brand = uaData.brands[uaData.brands.length - 1].brand; // Use last brand as fallback
+      }
+    }
+    
+    // Extract model
+    if (highEntropyValues.model && highEntropyValues.model !== '') {
+      model = highEntropyValues.model;
+    } else if (highEntropyValues.platform) {
+      model = `${highEntropyValues.platform} Device`;
+    }
+    
+    const supportsESIM = uaData.mobile && brand !== 'Unknown';
+    
+    return { brand, model, supportsESIM };
+  };
+
+  // Method 2: Enhanced User-Agent parsing
+  const detectFromUserAgent = async () => {
+    const userAgent = navigator.userAgent;
+    
+    // iPhone detection with extensive pattern matching
+    if (/iPhone/.test(userAgent)) {
+      let model = 'iPhone';
+      
+      // Hardware identifier patterns
+      const hardwarePatterns = {
+        'iPhone16,1': 'iPhone 15 Pro',
+        'iPhone16,2': 'iPhone 15 Pro Max',
+        'iPhone15,4': 'iPhone 15',
+        'iPhone15,5': 'iPhone 15 Plus',
+        'iPhone15,2': 'iPhone 14 Pro', 
+        'iPhone15,3': 'iPhone 14 Pro Max',
+        'iPhone14,7': 'iPhone 14',
+        'iPhone14,8': 'iPhone 14 Plus',
+        'iPhone14,2': 'iPhone 13 Pro',
+        'iPhone14,3': 'iPhone 13 Pro Max',
+        'iPhone14,4': 'iPhone 13 mini',
+        'iPhone14,5': 'iPhone 13',
+        'iPhone13,1': 'iPhone 12 mini',
+        'iPhone13,2': 'iPhone 12',
+        'iPhone13,3': 'iPhone 12 Pro',
+        'iPhone13,4': 'iPhone 12 Pro Max',
+        'iPhone12,1': 'iPhone 11',
+        'iPhone12,3': 'iPhone 11 Pro',
+        'iPhone12,5': 'iPhone 11 Pro Max',
+        'iPhone11,2': 'iPhone XS',
+        'iPhone11,4': 'iPhone XS Max',
+        'iPhone11,6': 'iPhone XS Max',
+        'iPhone11,8': 'iPhone XR'
+      };
+      
+      // Try hardware identifier first
+      for (const [pattern, modelName] of Object.entries(hardwarePatterns)) {
+        if (userAgent.includes(pattern)) {
+          model = modelName;
+          break;
+        }
+      }
+      
+      // If no hardware identifier, try webkit version method
+      if (model === 'iPhone') {
+        const webkitMatch = userAgent.match(/Version\/(\d+\.\d+)/);
+        const iosMatch = userAgent.match(/OS (\d+)_(\d+)/);
+        
+        if (iosMatch) {
+          const majorVersion = parseInt(iosMatch[1]);
+          const minorVersion = parseInt(iosMatch[2]);
+          
+          // Estimate based on iOS version and release dates
+          if (majorVersion >= 17) {
+            model = 'iPhone 15 series';
+          } else if (majorVersion >= 16) {
+            model = 'iPhone 14 series';
+          } else if (majorVersion >= 15) {
+            model = 'iPhone 13 series';
+          } else if (majorVersion >= 14) {
+            model = 'iPhone 12 series';
+          } else if (majorVersion >= 13) {
+            model = 'iPhone 11 series';
+          } else {
+            model = 'iPhone (Legacy)';
+          }
+        }
+      }
+      
+      const iosMatch = userAgent.match(/OS (\d+)/);
+      const supportsESIM = iosMatch ? parseInt(iosMatch[1]) >= 12 : false;
+      
+      return { brand: 'Apple', model, supportsESIM };
+    }
+    
+    // Android detection
+    if (/Android/.test(userAgent)) {
+      let brand = 'Android';
+      let model = 'Device';
+      
+      // Samsung detection
+      if (/Samsung|SM-/i.test(userAgent)) {
+        brand = 'Samsung';
+        const modelMatch = userAgent.match(/SM-([A-Z0-9]+)/i);
+        if (modelMatch) {
+          // Map Samsung model codes to readable names
+          const samsungModels: { [key: string]: string } = {
+            'S928': 'Galaxy S24 Ultra',
+            'S926': 'Galaxy S24+',
+            'S921': 'Galaxy S24',
+            'S918': 'Galaxy S23 Ultra',
+            'S916': 'Galaxy S23+',
+            'S911': 'Galaxy S23',
+            'S908': 'Galaxy S22 Ultra',
+            'S906': 'Galaxy S22+',
+            'S901': 'Galaxy S22'
+          };
+          
+          const modelCode = modelMatch[1].substring(0, 4);
+          model = samsungModels[modelCode] || `Galaxy ${modelMatch[1]}`;
+        } else {
+          model = 'Galaxy Series';
+        }
+      }
+      
+      // Google Pixel detection
+      else if (/Pixel/i.test(userAgent)) {
+        brand = 'Google';
+        const pixelMatch = userAgent.match(/Pixel ([^;)]+)/i);
+        model = pixelMatch ? `Pixel ${pixelMatch[1].trim()}` : 'Pixel';
+      }
+      
+      const androidMatch = userAgent.match(/Android (\d+)/);
+      const supportsESIM = androidMatch ? parseInt(androidMatch[1]) >= 9 : false;
+      
+      return { brand, model, supportsESIM };
+    }
+    
+    throw new Error('Not a mobile device');
+  };
+
+  // Method 3: WebGL Renderer detection
+  const detectFromWebGL = async () => {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    
+    if (!gl) throw new Error('WebGL not available');
+    
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    if (!debugInfo) throw new Error('Debug renderer info not available');
+    
+    const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_GL);
+    const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_GL);
+    
+    console.log('WebGL Renderer:', renderer);
+    console.log('WebGL Vendor:', vendor);
+    
+    // Apple GPU detection
+    if (renderer.includes('Apple') || vendor.includes('Apple')) {
+      return { brand: 'Apple', model: 'iPhone/iPad', supportsESIM: true };
+    }
+    
+    // Adreno GPU (Qualcomm - Android devices)
+    if (renderer.includes('Adreno')) {
+      return { brand: 'Android', model: 'Qualcomm Device', supportsESIM: true };
+    }
+    
+    throw new Error('Could not determine device from WebGL');
+  };
+
+  // Method 4: CSS Media Query detection
+  const detectFromCSS = async () => {
+    // Check for device-specific CSS capabilities
+    const supportsTouch = 'ontouchstart' in window;
+    const maxTouchPoints = navigator.maxTouchPoints || 0;
+    
+    if (supportsTouch && maxTouchPoints > 0) {
+      return { brand: 'Mobile', model: 'Touch Device', supportsESIM: true };
+    }
+    
+    throw new Error('Not a touch device');
+  };
+
+  // Method 5: Touch event detection
+  const detectFromTouchEvents = async () => {
+    if ('ontouchstart' in window) {
+      const maxTouchPoints = navigator.maxTouchPoints || 0;
+      
+      if (maxTouchPoints > 5) {
+        return { brand: 'Multi-touch', model: 'Advanced Touch Device', supportsESIM: true };
+      } else if (maxTouchPoints > 0) {
+        return { brand: 'Touch', model: 'Touch Device', supportsESIM: true };
+      }
+    }
+    
+    throw new Error('Touch not supported');
   };
   
   const placeholderTexts = [
