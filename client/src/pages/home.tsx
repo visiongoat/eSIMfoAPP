@@ -63,33 +63,66 @@ export default function HomeScreen() {
       const version = match ? parseInt(match[1]) : 0;
       
       if (/iPhone/.test(userAgent)) {
-        // iPhone detection with model estimation
+        // More accurate iPhone detection
         const screenHeight = window.screen.height;
         const screenWidth = window.screen.width;
+        const pixelRatio = window.devicePixelRatio || 1;
         
         let deviceName = 'iPhone';
+        let modelYear = 'Unknown';
         
-        // Estimate iPhone model based on screen dimensions
-        if (screenHeight === 926 || screenWidth === 926) {
+        // iPhone model detection based on screen specs
+        const maxDimension = Math.max(screenHeight, screenWidth);
+        const minDimension = Math.min(screenHeight, screenWidth);
+        
+        if (maxDimension === 932 && minDimension === 430) {
           deviceName = 'iPhone 15 Pro Max';
-        } else if (screenHeight === 852 || screenWidth === 852) {
+          modelYear = '2023';
+        } else if (maxDimension === 852 && minDimension === 393) {
           deviceName = 'iPhone 15 Pro';
-        } else if (screenHeight === 844 || screenWidth === 844) {
+          modelYear = '2023';
+        } else if (maxDimension === 844 && minDimension === 390) {
           deviceName = 'iPhone 15';
-        } else if (screenHeight >= 812) {
-          deviceName = 'iPhone (Face ID model)';
+          modelYear = '2023';
+        } else if (maxDimension === 926 && minDimension === 428) {
+          deviceName = 'iPhone 14 Pro Max';
+          modelYear = '2022';
+        } else if (maxDimension === 844 && minDimension === 390) {
+          deviceName = 'iPhone 14';
+          modelYear = '2022';
+        } else if (maxDimension >= 812) {
+          deviceName = 'iPhone X or newer';
+          modelYear = '2017+';
+        } else if (maxDimension === 736) {
+          deviceName = 'iPhone 8 Plus';
+          modelYear = '2017';
+        } else if (maxDimension === 667) {
+          deviceName = 'iPhone 8';
+          modelYear = '2017';
         } else {
-          deviceName = 'iPhone (Home Button model)';
+          deviceName = 'iPhone (older model)';
+          modelYear = 'Pre-2017';
         }
         
-        const isCompatible = version >= 12; // iOS 12.1+ supports eSIM
+        // eSIM support check - more specific
+        const supportsESIM = version >= 12 && (
+          modelYear === '2023' || 
+          modelYear === '2022' || 
+          modelYear === '2017+' ||
+          deviceName.includes('iPhone X') ||
+          deviceName.includes('iPhone 11') ||
+          deviceName.includes('iPhone 12') ||
+          deviceName.includes('iPhone 13') ||
+          deviceName.includes('iPhone 14') ||
+          deviceName.includes('iPhone 15')
+        );
         
         setCompatibilityResult({
-          isCompatible,
-          deviceName,
-          details: isCompatible 
-            ? 'Your iPhone supports eSIM technology. You can install and use eSIMs for international travel.' 
-            : 'Your iPhone model or iOS version may not support eSIM. Please update to iOS 12.1 or newer.'
+          isCompatible: supportsESIM,
+          deviceName: `${deviceName}`,
+          details: supportsESIM 
+            ? `Your ${deviceName} supports eSIM technology. You can install multiple eSIM profiles for international travel.` 
+            : `Your ${deviceName} may not support eSIM technology. eSIM is available on iPhone XS, XR, and newer models with iOS 12.1+.`
         });
       } else {
         // iPad
