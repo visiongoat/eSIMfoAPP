@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
 import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp } from "lucide-react";
@@ -30,6 +30,53 @@ export default function PackagesScreen() {
     plan: false,
     features: false
   });
+
+  // Swipe navigation for tab switching
+  const touchStartX = useRef<number>(0);
+  const touchStartY = useRef<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      touchStartX.current = touch.clientX;
+      touchStartY.current = touch.clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!touchStartX.current || !touchStartY.current) return;
+
+      const touch = e.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX.current;
+      const deltaY = touch.clientY - touchStartY.current;
+
+      // Check if it's a horizontal swipe (more horizontal than vertical)
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX > 0 && selectedTab === 'data-calls-text') {
+          // Swipe right: data-calls-text -> data
+          setSelectedTab('data');
+        } else if (deltaX < 0 && selectedTab === 'data') {
+          // Swipe left: data -> data-calls-text
+          setSelectedTab('data-calls-text');
+        }
+      }
+
+      // Reset
+      touchStartX.current = 0;
+      touchStartY.current = 0;
+    };
+
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [selectedTab]);
 
 
   const toggleSection = (section: string) => {
@@ -213,7 +260,7 @@ export default function PackagesScreen() {
   }
 
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20">
+    <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20">
       {/* Custom Header */}
       <div className="flex items-center justify-between px-4 py-2">
         <button onClick={handleBackClick} className="p-1">
