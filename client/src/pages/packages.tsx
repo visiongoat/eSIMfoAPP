@@ -24,18 +24,26 @@ export default function PackagesScreen() {
 
 
   const toggleSection = (section: string) => {
+    const isCurrentlyExpanded = expandedSections[section];
+    
     setExpandedSections(prev => ({
       ...prev,
       [section]: !prev[section]
     }));
     
-    // Auto-scroll to section when expanded
-    setTimeout(() => {
-      const sectionElement = document.querySelector(`[data-section="${section}"]`);
-      if (sectionElement && !expandedSections[section]) {
-        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 100);
+    // Only auto-scroll for Features section when expanding (since it's at bottom)
+    if (section === 'features' && !isCurrentlyExpanded) {
+      setTimeout(() => {
+        const sectionElement = document.querySelector(`[data-section="features"]`);
+        if (sectionElement) {
+          sectionElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start',
+            inline: 'nearest'
+          });
+        }
+      }, 150);
+    }
   };
 
   // Auto scroll when features section opens
@@ -360,7 +368,7 @@ export default function PackagesScreen() {
         </div>
 
         {/* Bottom spacing for sticky section */}
-        <div className="h-32"></div>
+        <div className="h-24"></div>
       </div>
 
       {/* Sticky Bottom Section */}
