@@ -191,8 +191,8 @@ export default function PackagesScreen() {
               onClick={() => handlePackageSelect(pkg.id)}
               className={`w-full p-3 rounded-xl border-2 transition-all ${
                 selectedPackage === pkg.id
-                  ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/30 dark:border-orange-400'
-                  : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
+                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400'
+                  : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
               }`}
             >
               <div className="flex items-center">
