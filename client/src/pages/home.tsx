@@ -39,12 +39,117 @@ export default function HomeScreen() {
   const [showLiveChat, setShowLiveChat] = useState(false);
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [showCompatibilityCheck, setShowCompatibilityCheck] = useState(false);
+  const [compatibilityResult, setCompatibilityResult] = useState<{
+    isCompatible: boolean;
+    deviceName: string;
+    details: string;
+  } | null>(null);
   const [startY, setStartY] = useState(0);
   const [currentY, setCurrentY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const isOnline = useOnlineStatus();
+
+  // Device compatibility check function
+  const checkDeviceCompatibility = () => {
+    const userAgent = navigator.userAgent;
+    const platform = navigator.platform;
+    
+    // iOS devices
+    if (/iPhone|iPad/.test(userAgent)) {
+      const match = userAgent.match(/iPhone OS (\d+)/);
+      const version = match ? parseInt(match[1]) : 0;
+      
+      if (/iPhone/.test(userAgent)) {
+        // iPhone detection with model estimation
+        const screenHeight = window.screen.height;
+        const screenWidth = window.screen.width;
+        
+        let deviceName = 'iPhone';
+        
+        // Estimate iPhone model based on screen dimensions
+        if (screenHeight === 926 || screenWidth === 926) {
+          deviceName = 'iPhone 15 Pro Max';
+        } else if (screenHeight === 852 || screenWidth === 852) {
+          deviceName = 'iPhone 15 Pro';
+        } else if (screenHeight === 844 || screenWidth === 844) {
+          deviceName = 'iPhone 15';
+        } else if (screenHeight >= 812) {
+          deviceName = 'iPhone (Face ID model)';
+        } else {
+          deviceName = 'iPhone (Home Button model)';
+        }
+        
+        const isCompatible = version >= 12; // iOS 12.1+ supports eSIM
+        
+        setCompatibilityResult({
+          isCompatible,
+          deviceName,
+          details: isCompatible 
+            ? 'Your iPhone supports eSIM technology. You can install and use eSIMs for international travel.' 
+            : 'Your iPhone model or iOS version may not support eSIM. Please update to iOS 12.1 or newer.'
+        });
+      } else {
+        // iPad
+        const isCompatible = version >= 13; // iPad eSIM support varies
+        setCompatibilityResult({
+          isCompatible,
+          deviceName: 'iPad',
+          details: isCompatible 
+            ? 'Your iPad supports eSIM technology for cellular models.'
+            : 'Your iPad may not support eSIM or requires a newer iOS version.'
+        });
+      }
+    }
+    // Android devices
+    else if (/Android/.test(userAgent)) {
+      const match = userAgent.match(/Android (\d+)/);
+      const version = match ? parseInt(match[1]) : 0;
+      
+      // Popular eSIM compatible Android devices
+      const esimCompatibleBrands = [
+        'samsung', 'google', 'pixel', 'galaxy', 'oneplus', 'huawei', 'xiaomi', 'oppo'
+      ];
+      
+      const userAgentLower = userAgent.toLowerCase();
+      const isKnownCompatible = esimCompatibleBrands.some(brand => 
+        userAgentLower.includes(brand)
+      );
+      
+      let deviceName = 'Android Device';
+      
+      // Try to identify specific device
+      if (userAgentLower.includes('samsung') || userAgentLower.includes('galaxy')) {
+        deviceName = 'Samsung Galaxy';
+      } else if (userAgentLower.includes('pixel') || userAgentLower.includes('google')) {
+        deviceName = 'Google Pixel';
+      } else if (userAgentLower.includes('oneplus')) {
+        deviceName = 'OnePlus';
+      }
+      
+      const isCompatible = version >= 9 && isKnownCompatible; // Android 9+ with known brand
+      
+      setCompatibilityResult({
+        isCompatible,
+        deviceName,
+        details: isCompatible 
+          ? 'Your Android device supports eSIM technology. You can download and install eSIM profiles.'
+          : 'Your device may not support eSIM. Please check with your manufacturer or try a newer Android version.'
+      });
+    }
+    // Desktop/Other devices
+    else {
+      setCompatibilityResult({
+        isCompatible: false,
+        deviceName: 'Desktop/Other Device',
+        details: 'eSIM technology is only available on compatible smartphones and tablets. Please check from your mobile device.'
+      });
+    }
+    
+    setShowCompatibilityCheck(true);
+  };
   
   const placeholderTexts = [
     'Find your destination',
@@ -105,7 +210,7 @@ export default function HomeScreen() {
 
   // Prevent body scroll when modal is open + Safari viewport fix
   useEffect(() => {
-    if (showLiveChat || showHowItWorks) {
+    if (showLiveChat || showHowItWorks || showCompatibilityCheck) {
       const scrollY = window.scrollY;
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
@@ -1320,10 +1425,119 @@ export default function HomeScreen() {
             </div>
           </div>
         )}
+
+        {/* eSIM Compatibility Check Modal */}
+        {showCompatibilityCheck && compatibilityResult && (
+          <div 
+            className="fixed inset-0 bg-black/50 flex items-end justify-center z-[9999]" 
+            onClick={() => setShowCompatibilityCheck(false)}
+            style={{ 
+              position: 'fixed', 
+              top: 0, 
+              left: 0, 
+              right: 0, 
+              bottom: 0,
+              zIndex: 9999
+            }}
+          >
+            <div 
+              className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative"
+              onClick={(e) => e.stopPropagation()}
+              style={{ zIndex: 10000 }}
+            >
+              {/* Header */}
+              <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">eSIM Compatibility Check</h2>
+                  <button 
+                    onClick={() => setShowCompatibilityCheck(false)}
+                    className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Device compatibility results</p>
+              </div>
+
+              {/* Content */}
+              <div className="px-4 py-6">
+                {/* Result Icon and Status */}
+                <div className="text-center mb-6">
+                  <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 ${
+                    compatibilityResult.isCompatible 
+                      ? 'bg-green-100 dark:bg-green-900/30' 
+                      : 'bg-red-100 dark:bg-red-900/30'
+                  }`}>
+                    {compatibilityResult.isCompatible ? (
+                      <svg className="w-10 h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      <svg className="w-10 h-10 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    )}
+                  </div>
+                  
+                  <h3 className={`text-xl font-bold mb-2 ${
+                    compatibilityResult.isCompatible 
+                      ? 'text-green-700 dark:text-green-300' 
+                      : 'text-red-700 dark:text-red-300'
+                  }`}>
+                    {compatibilityResult.isCompatible ? 'Compatible!' : 'Not Compatible'}
+                  </h3>
+                  
+                  <p className="text-gray-900 dark:text-gray-100 font-medium text-lg mb-1">
+                    {compatibilityResult.deviceName}
+                  </p>
+                  
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                    {compatibilityResult.details}
+                  </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="space-y-3">
+                  {compatibilityResult.isCompatible ? (
+                    <>
+                      <button 
+                        onClick={() => {
+                          setShowCompatibilityCheck(false);
+                          setLocation('/destinations');
+                        }}
+                        className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-5 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2"
+                      >
+                        <span>Browse eSIM Plans</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </button>
+                      <button 
+                        onClick={() => setShowCompatibilityCheck(false)}
+                        className="w-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium py-3 px-5 rounded-xl transition-colors duration-200"
+                      >
+                        Got it, thanks!
+                      </button>
+                    </>
+                  ) : (
+                    <button 
+                      onClick={() => setShowCompatibilityCheck(false)}
+                      className="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-5 rounded-xl transition-colors duration-200"
+                    >
+                      Understand
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* How Does eSIMfo Work - Compact Button */}
-      <div className="max-w-screen-md mx-auto px-4 pb-4 pt-1">
+      <div className="max-w-screen-md mx-auto px-4 pb-2 pt-1">
         <button 
           onClick={() => setShowHowItWorks(true)}
           className="w-full bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 text-left"
@@ -1335,6 +1549,24 @@ export default function HomeScreen() {
             </div>
             <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </button>
+      </div>
+
+      {/* eSIM Compatibility Check - Compact Button */}
+      <div className="max-w-screen-md mx-auto px-4 pb-4">
+        <button 
+          onClick={checkDeviceCompatibility}
+          className="w-full bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 text-left"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Check eSIM Compatibility</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">Verify if your device supports eSIM technology</p>
+            </div>
+            <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
         </button>
