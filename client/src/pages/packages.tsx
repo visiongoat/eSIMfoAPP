@@ -435,10 +435,10 @@ export default function PackagesScreen() {
             <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-center">
               <div className="w-6 h-6 mx-auto mb-1 text-purple-600 dark:text-purple-400">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
                 </svg>
               </div>
-              <div className="text-xs text-purple-700 dark:text-purple-300 font-medium">US IP</div>
+              <div className="text-xs text-purple-700 dark:text-purple-300 font-medium">1</div>
             </div>
           </div>
 
