@@ -168,3 +168,13 @@ The application is designed to be deployed as a single Node.js application servi
 - **Payment button integration**: Bottom-positioned purchase button with dynamic pricing
 - **Full theme compatibility**: Complete light mode support with dark mode fallback using Tailwind dark: variants
 - **Mobile-optimized UX**: Touch-friendly buttons, proper spacing, and responsive typography
+
+### Plan Details Collapsible System (January 27, 2025)
+- **Compact collapsible sections**: Network, Plan, and Features sections with chevron indicators
+- **Smart initial state**: Network section opens by default (most important info), Plan and Features collapsed
+- **Color-coded organization**: Blue for Network, Green for Plan, Purple for Features sections
+- **Quick Facts grid**: LTE Ready, No eKYC, US IP badges prominently displayed at top
+- **Minimal design approach**: Clean sections without info icons or tooltips per user preference
+- **Dynamic padding system**: Collapsed sections use p-2 (compact), expanded sections use p-4 (comfortable)
+- **Smooth animations**: Slide-in effects and hover states for better interaction feedback
+- **Mobile-first spacing**: Optimized margins and padding for mobile viewing experience
