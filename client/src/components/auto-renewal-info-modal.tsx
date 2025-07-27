@@ -43,88 +43,80 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
         </div>
 
         {/* Perfect for section */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">Auto-renewal is perfect for</h2>
-          <div className="grid grid-cols-3 gap-3">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                  <path d="M14 6V4h-4v2c0 .55-.45 1-1 1s-1-.45-1-1V4H6C4.89 4 4 4.89 4 6v2h16V6c0-1.11-.89-2-2-2h-2v2c0 .55-.45 1-1 1s-1-.45-1-1z"/>
-                  <path d="M4 20c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V10H4v10z"/>
-                </svg>
+        <div className="mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 text-center">Auto-renewal is perfect for</h2>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M14 6V4h-4v2c0 .55-.45 1-1 1s-1-.45-1-1V4H6C4.89 4 4 4.89 4 6v2h16V6c0-1.11-.89-2-2-2h-2v2c0 .55-.45 1-1 1s-1-.45-1-1z"/>
+                    <path d="M4 20c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V10H4v10z"/>
+                  </svg>
+                </div>
+                <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Business travels</div>
               </div>
-              <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Business trips</div>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                  <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM10 6a2 2 0 0 1 4 0v1h-4V6zm2 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-                </svg>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM10 6a2 2 0 0 1 4 0v1h-4V6zm2 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                  </svg>
+                </div>
+                <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Long journeys</div>
               </div>
-              <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Extended trips</div>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                  <path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
-                </svg>
+              
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+                  </svg>
+                </div>
+                <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Remote work</div>
               </div>
-              <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Remote work</div>
             </div>
           </div>
         </div>
 
         {/* Benefits section */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Enjoy these benefits</h2>
-          <div className="space-y-3">
-            <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L20 8l-8 8z"/>
-                </svg>
+        <div className="mb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Enjoy these benefits</h2>
+            <div className="space-y-3">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L20 8l-8 8z"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-900 dark:text-white">One-time activation</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">No need to set up a new SIM card every time, recharge your current one</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="font-medium text-gray-900 dark:text-white">Seamless activation</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">No need to purchase a new eSIM each time, your current plan automatically extends</p>
-              </div>
-            </div>
 
-            <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/>
-                </svg>
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-900 dark:text-white">Priority support</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Your requests will receive priority attention in our ticketing system</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="font-medium text-gray-900 dark:text-white">Priority support</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Your requests receive priority handling in our support system</p>
-              </div>
-            </div>
 
-            <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                  <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-medium text-gray-900 dark:text-white">Fast refund</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">If it doesn't work - your refund request gets prioritized</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                  <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-medium text-gray-900 dark:text-white">Enhanced security</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Your connection gets upgraded security features and monitoring</p>
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-900 dark:text-white">Expedited return</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">If it doesn't work - your refund request will be prioritized</p>
+                </div>
               </div>
             </div>
           </div>
