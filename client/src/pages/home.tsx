@@ -746,14 +746,14 @@ export default function HomeScreen() {
                 </div>
               ) : (
                 [
-                  { name: 'United States', flagColors: ['#B22234', '#FFFFFF', '#3C3B6E'], price: '$4.50', countryId: 73 },
+                  { name: 'United States', flagColors: ['#B22234', '#FFFFFF', '#3C3B6E'], price: '€4.99' },
                   { name: 'France', flagColors: ['#0055A4', '#FFFFFF', '#EF4135'], price: '€3.49' },
                   { name: 'China', flagColors: ['#DE2910'], price: '€5.99' },
                   { name: 'Spain', flagColors: ['#C60B1E', '#FFC400'], price: '€3.49' },
                   { name: 'Italy', flagColors: ['#009246', '#FFFFFF', '#CE2B37'], price: '€3.99' },
                   { name: 'Turkey', flagColors: ['#E30A17'], price: '€2.99' },
                   { name: 'United Kingdom', flagColors: ['#012169', '#FFFFFF', '#C8102E'], price: '€3.99' },
-                  { name: 'Germany', flagColors: ['#000000', '#DD0000', '#FFCE00'], price: '€8.90', countryId: 6 },
+                  { name: 'Germany', flagColors: ['#000000', '#DD0000', '#FFCE00'], price: '€3.49' },
                   { name: 'Mexico', flagColors: ['#006847', '#FFFFFF', '#CE1126'], price: '€4.49' },
                   { name: 'Thailand', flagColors: ['#ED1C24', '#FFFFFF', '#241D4F'], price: '€3.99' },
                   { name: 'Hong Kong', flagColors: ['#DE2910'], price: '€5.49' },
@@ -775,13 +775,7 @@ export default function HomeScreen() {
                   return (
                     <button
                       key={index}
-                      onClick={() => {
-                        if (country.countryId) {
-                          setLocation(`/packages/${country.countryId}`);
-                        } else {
-                          handleCountrySelect(countries[0]);
-                        }
-                      }}
+                      onClick={() => handleCountrySelect(countries[0])}
                       className={`bg-white dark:bg-gray-800 rounded-xl p-3 text-left shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${staggerDelay}`}
                     >
                     <div className="flex items-center space-x-3">
