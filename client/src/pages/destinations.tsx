@@ -379,7 +379,7 @@ export default function DestinationsScreen() {
         showBack={false}
       />
 
-      <div className="px-4 pt-4">
+      <div className="px-4 pt-2">
         {/* Search Bar - Becomes fixed when scrolled */}
         <div 
           ref={searchBarRef}
