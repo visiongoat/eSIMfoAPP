@@ -204,8 +204,20 @@ The application is designed to be deployed as a single Node.js application servi
 - **Realistic pricing**: Premium pricing for combination packages reflecting added voice and SMS value
 
 ### Swipe Navigation System (January 27, 2025)
+- **Home page swipe**: Horizontal swipe gestures for tab switching between Local → Regional → Global
 - **Packages page swipe**: Horizontal swipe gestures for tab switching between Data and Data/Calls/Text
 - **Destinations page swipe**: Three-tab navigation with swipe support (Countries → Regions → Global)
 - **Touch sensitivity**: 50px minimum swipe distance with horizontal dominance detection
 - **Smooth transitions**: Natural left/right swipe behavior matching mobile app standards
 - **Touch event handling**: Passive event listeners for optimal performance without interfering with scrolling
+- **Debug logging**: Console messages for swipe detection testing and development
+
+### Floating Satellite Animation System (January 27, 2025)
+- **Global Coverage onboarding**: Premium floating satellite animations in space-like environment
+- **Realistic satellite design**: SVG satellites with solar panels, antenna, and main body components
+- **Smooth floating motion**: Custom CSS keyframe animation with 8s and 10s cycles, Y/X translation and rotation
+- **Signal wave effects**: Concentric ping animations around each satellite for communication visualization
+- **Orbital path indicators**: Elliptical dashed paths showing satellite trajectories
+- **Earth/Planet glow**: Pulsing blue glow effect representing Earth with connection beams to satellites
+- **Layered animation**: Non-intrusive overlay system preserving existing onboarding design integrity
+- **Performance optimized**: GPU-accelerated transforms with opacity-based visibility control
