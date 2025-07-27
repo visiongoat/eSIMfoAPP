@@ -121,7 +121,7 @@ export default function PackagesScreen() {
   }
 
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen">
       {/* Custom Header */}
       <div className="flex items-center justify-between px-4 py-2">
         <button onClick={handleBackClick} className="p-1">
@@ -149,8 +149,8 @@ export default function PackagesScreen() {
             onClick={() => setSelectedTab('data')}
             className={`flex-1 py-3 px-4 rounded-l-lg font-medium transition-colors ${
               selectedTab === 'data'
-                ? 'bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+                ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
+                : 'bg-gray-100 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400'
             }`}
           >
             Data ({demoPackages.length})
@@ -159,8 +159,8 @@ export default function PackagesScreen() {
             onClick={() => setSelectedTab('data-calls-text')}
             className={`flex-1 py-3 px-4 rounded-r-lg font-medium transition-colors ${
               selectedTab === 'data-calls-text'
-                ? 'bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+                ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
+                : 'bg-gray-100 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400'
             }`}
           >
             Data / Calls / Text (0)
@@ -175,8 +175,8 @@ export default function PackagesScreen() {
               onClick={() => handlePackageSelect(pkg.id)}
               className={`w-full p-3 rounded-xl border-2 transition-all ${
                 selectedPackage === pkg.id
-                  ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20'
-                  : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600'
+                  ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/30 dark:border-orange-400'
+                  : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
               }`}
             >
               <div className="flex items-center">
