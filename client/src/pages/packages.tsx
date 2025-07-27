@@ -103,9 +103,18 @@ export default function PackagesScreen() {
         <button onClick={handleBackClick} className="p-1">
           <ArrowLeft className="w-5 h-5 text-gray-900 dark:text-white" />
         </button>
-        <h1 className="text-base font-medium text-center flex-1 text-gray-900 dark:text-white">
-          {country?.name || "Loading..."}
-        </h1>
+        <div className="flex items-center justify-center flex-1">
+          {country?.flagUrl && (
+            <img 
+              src={country.flagUrl} 
+              alt={`${country.name} flag`}
+              className="w-5 h-4 mr-2 rounded-sm object-cover"
+            />
+          )}
+          <h1 className="text-base font-medium text-gray-900 dark:text-white">
+            {country?.name || "Loading..."}
+          </h1>
+        </div>
         <div className="text-orange-500 dark:text-orange-400 font-medium text-sm">€, EUR</div>
       </div>
 
