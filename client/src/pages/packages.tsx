@@ -345,36 +345,50 @@ export default function PackagesScreen() {
 
       {/* Sticky Bottom Section */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
-        {/* Simple Quantity & Purchase */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-4">
-            <span className="text-lg font-medium text-gray-900 dark:text-white">Quantity</span>
-            <div className="flex items-center space-x-3">
+        {/* Selected Package Info */}
+        {selectedPackage && (
+          <div className="flex items-center justify-between mb-3 text-sm">
+            <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+              <span>{demoPackages.find(p => p.id === selectedPackage)?.duration}</span>
+              <span>•</span>
+              <span>{demoPackages.find(p => p.id === selectedPackage)?.data}</span>
+            </div>
+            <span className="font-semibold text-gray-900 dark:text-white">
+              {demoPackages.find(p => p.id === selectedPackage)?.price}
+            </span>
+          </div>
+        )}
+
+        {/* Quantity & Purchase Row */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <span className="text-sm font-medium text-gray-900 dark:text-white">Qty</span>
+            <div className="flex items-center space-x-2">
               <button
                 onClick={() => setEsimCount(Math.max(1, esimCount - 1))}
-                className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
-                <Minus className="w-4 h-4" />
+                <Minus className="w-3 h-3" />
               </button>
-              <span className="w-8 text-center font-semibold text-lg text-gray-900 dark:text-white">{esimCount}</span>
+              <span className="w-6 text-center font-semibold text-gray-900 dark:text-white">{esimCount}</span>
               <button
                 onClick={() => setEsimCount(esimCount + 1)}
-                className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
               >
-                <Plus className="w-4 h-4" />
+                <Plus className="w-3 h-3" />
               </button>
             </div>
           </div>
+          
+          {/* Purchase Button */}
+          <Button
+            onClick={handlePurchase}
+            disabled={!selectedPackage}
+            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02]"
+          >
+            Buy €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') * esimCount : 0}
+          </Button>
         </div>
-
-        {/* Purchase Button */}
-        <Button
-          onClick={handlePurchase}
-          disabled={!selectedPackage}
-          className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg rounded-xl transition-colors"
-        >
-          Continue — €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') * esimCount : 0}
-        </Button>
       </div>
     </div>
   );
