@@ -31,10 +31,20 @@ export default function PackagesScreen() {
       [section]: !prev[section]
     }));
     
-    // Auto-scroll for Plan and Features sections when expanding
-    if ((section === 'plan' || section === 'features') && !isCurrentlyExpanded) {
+    // Auto-scroll for Network, Plan and Features sections when expanding
+    if ((section === 'network' || section === 'plan' || section === 'features') && !isCurrentlyExpanded) {
       setTimeout(() => {
-        if (section === 'plan') {
+        if (section === 'network') {
+          // For Network, scroll to show Network content + Plan and Features titles
+          const networkElement = document.querySelector(`[data-section="network"]`);
+          if (networkElement) {
+            networkElement.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start',
+              inline: 'nearest'
+            });
+          }
+        } else if (section === 'plan') {
           // For Plan, scroll to show both Plan content and Features title
           const planElement = document.querySelector(`[data-section="plan"]`);
           if (planElement) {
