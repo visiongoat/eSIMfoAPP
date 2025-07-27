@@ -386,8 +386,19 @@ export default function PackagesScreen() {
                   />
                 )}
                 <div>
-                  <div className="font-semibold text-gray-900 dark:text-white">
-                    {demoPackages.find(p => p.id === selectedPackage)?.duration}
+                  <div className="flex items-center space-x-2">
+                    <span className="font-semibold text-gray-900 dark:text-white">
+                      {demoPackages.find(p => p.id === selectedPackage)?.duration}
+                    </span>
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4, 5].map((bar) => (
+                        <div
+                          key={bar}
+                          className="w-1 rounded-sm bg-green-500"
+                          style={{ height: `${4 + bar * 2}px` }}
+                        />
+                      ))}
+                    </div>
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
                     {demoPackages.find(p => p.id === selectedPackage)?.data}
