@@ -5,6 +5,7 @@ import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp } from "luci
 import { Button } from "@/components/ui/button";
 
 import NavigationBar from "@/components/navigation-bar";
+import CheckoutModal from "@/components/checkout-modal";
 import type { Country, Package } from "@shared/schema";
 
 export default function PackagesScreen() {
@@ -25,6 +26,7 @@ export default function PackagesScreen() {
   }, [selectedTab]);
   const [esimCount, setEsimCount] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
     network: true,
     plan: false,
@@ -238,21 +240,15 @@ export default function PackagesScreen() {
     setSelectedPackage(packageId);
   };
 
-  const handlePurchase = async () => {
+  const handlePurchase = () => {
     if (!selectedPackage) return;
-    
-    setIsProcessing(true);
     
     // Haptic feedback simulation
     if (navigator.vibrate) {
       navigator.vibrate(50);
     }
     
-    // Simulate processing time
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsProcessing(false);
-    setLocation(`/purchase/${selectedPackage}`);
+    setShowCheckoutModal(true);
   };
 
   if (!countryId) {
@@ -754,6 +750,20 @@ export default function PackagesScreen() {
           )}
         </Button>
       </div>
+
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        selectedPackage={(() => {
+          const dataPackage = demoPackages.find(p => p.id === selectedPackage);
+          const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
+          return dataPackage || comboPackage;
+        })()}
+        country={country}
+        esimCount={esimCount}
+        setEsimCount={setEsimCount}
+      />
     </div>
   );
 }
