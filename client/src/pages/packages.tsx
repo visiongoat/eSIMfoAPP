@@ -98,31 +98,31 @@ export default function PackagesScreen() {
   const demoPackages = [
     {
       id: 1,
-      duration: "1 day",
+      duration: "7 gün",
       data: "1 GB",
       price: "€7",
-      pricePerDay: "€7 /day",
+      pricePerDay: "€1.00 /day",
       signalStrength: 5
     },
     {
       id: 2,
-      duration: "7 days",
+      duration: "15 gün",
       data: "3 GB",
       price: "€24",
-      pricePerDay: "€3.43 /day",
+      pricePerDay: "€1.60 /day",
       signalStrength: 5
     },
     {
       id: 3,
-      duration: "15 days",
+      duration: "20 gün",
       data: "5 GB",
       price: "€33",
-      pricePerDay: "€2.20 /day",
+      pricePerDay: "€1.65 /day",
       signalStrength: 5
     },
     {
       id: 4,
-      duration: "30 days",
+      duration: "30 gün",
       data: "10 GB",
       price: "€48",
       pricePerDay: "€1.60 /day",
