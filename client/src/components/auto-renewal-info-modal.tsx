@@ -86,7 +86,10 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L20 8l-8 8z"/>
+                    <path d="M12 2l-2 4v6l-3 3v7h10v-7l-3-3V6l-2-4z"/>
+                    <circle cx="8" cy="8" r="1"/>
+                    <circle cx="16" cy="8" r="1"/>
+                    <path d="M6 6c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="white" strokeWidth="1"/>
                   </svg>
                 </div>
                 <div className="flex-1">
@@ -98,7 +101,8 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/>
+                    <path d="M12 1C8.5 1 5.6 3.4 5.6 6.4v2.7c-1.5.3-2.6 1.6-2.6 3.2v4.4c0 1.8 1.5 3.3 3.3 3.3h1.4v-8.8c0-2.2 1.8-4 4-4s4 1.8 4 4v8.8h1.4c1.8 0 3.3-1.5 3.3-3.3v-4.4c0-1.6-1.1-2.9-2.6-3.2V6.4C18.4 3.4 15.5 1 12 1z"/>
+                    <circle cx="7" cy="16" r="1.5" fill="orange"/>
                   </svg>
                 </div>
                 <div className="flex-1">
