@@ -17,8 +17,8 @@ export default function PackagesScreen() {
   const [esimCount, setEsimCount] = useState(1);
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
     network: true,
-    plan: true,
-    features: true
+    plan: false,
+    features: false
   });
 
 
