@@ -300,15 +300,36 @@ export default function PackagesScreen() {
             {expandedSections.network && (
               <div className="space-y-2 animate-in slide-in-from-top-2 duration-200 mt-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Provider</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-blue-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Provider</span>
+                  </div>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">T-Mobile • Verizon</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Technology</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-green-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Technology</span>
+                  </div>
                   <span className="text-sm font-medium text-green-600 dark:text-green-400">LTE Ready</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">IP Routing</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-purple-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">IP Routing</span>
+                  </div>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">Local US IP</span>
                 </div>
               </div>
@@ -334,15 +355,36 @@ export default function PackagesScreen() {
             {expandedSections.plan && (
               <div className="space-y-2 animate-in slide-in-from-top-2 duration-200 mt-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Category</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-blue-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Category</span>
+                  </div>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">Data Only</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Type</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-green-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Type</span>
+                  </div>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">eSIM Package</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Roaming</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-purple-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Roaming</span>
+                  </div>
                   <div className="flex items-center">
                     <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
                     <span className="text-sm font-medium text-gray-900 dark:text-white">Yes</span>
@@ -371,18 +413,39 @@ export default function PackagesScreen() {
             {expandedSections.features && (
               <div className="space-y-2 animate-in slide-in-from-top-2 duration-200 mt-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">eKYC Required</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-red-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L12 10.5 8.5 8 12 5.5 15.5 8zM12 13.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm0 4c-1.48 0-2.75-.81-3.45-2H6.88c.3.78.76 1.47 1.32 2.02L12 21.5l3.8-3.98c.56-.55 1.02-1.24 1.32-2.02H13.45c-.7 1.19-1.97 2-3.45 2z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">eKYC Required</span>
+                  </div>
                   <span className="text-sm font-medium text-red-600 dark:text-red-400">No</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">Top-up</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-green-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">Top-up</span>
+                  </div>
                   <div className="flex items-center">
                     <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
                     <span className="text-sm font-medium text-gray-900 dark:text-white">Available</span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">APN</span>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 mr-2 text-purple-500">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-600 dark:text-gray-300">APN</span>
+                  </div>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">internet</span>
                 </div>
               </div>
