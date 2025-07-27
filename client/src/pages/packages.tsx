@@ -567,8 +567,8 @@ export default function PackagesScreen() {
           </div>
         </div>
 
-        {/* Bottom spacing for sticky section */}
-        <div className="h-12"></div>
+        {/* Bottom spacing for sticky section - adjust for combo packages */}
+        <div className={`${selectedTab === 'data-calls-text' ? 'h-16' : 'h-12'}`}></div>
       </div>
 
       {/* Sticky Bottom Section */}
