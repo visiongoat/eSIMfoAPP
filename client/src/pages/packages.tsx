@@ -568,7 +568,7 @@ export default function PackagesScreen() {
         </div>
 
         {/* Bottom spacing for sticky section */}
-        <div className={`${selectedTab === 'data-calls-text' ? 'h-20' : 'h-12'}`}></div>
+        <div className="h-12"></div>
       </div>
 
       {/* Sticky Bottom Section */}
@@ -614,7 +614,7 @@ export default function PackagesScreen() {
                     </div>
                     {/* Show voice and SMS for combo packages */}
                     {dataCallsTextPackages.find(p => p.id === selectedPackage) && (
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-3 -mt-1">
                         <div className="flex items-center space-x-1">
                           <span className="text-xs text-green-600 dark:text-green-400">📞</span>
                           <span className="text-xs text-gray-600 dark:text-gray-400">
