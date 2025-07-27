@@ -82,7 +82,6 @@ export default function PackagesScreen() {
   };
 
   const handlePackageSelect = (packageId: number) => {
-    console.log('Selected package:', packageId);
     setSelectedPackage(packageId);
   };
 
@@ -145,8 +144,6 @@ export default function PackagesScreen() {
 
         {/* Package List */}
         <div className="space-y-3 mb-6">
-          {/* Debug info */}
-          <div className="text-xs text-gray-500">Selected: {selectedPackage || 'none'}</div>
           {demoPackages.map((pkg) => (
             <button
               key={pkg.id}
