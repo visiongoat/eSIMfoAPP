@@ -256,17 +256,21 @@ export default function PackagesScreen() {
           {/* Quick Facts */}
           <div className="grid grid-cols-3 gap-3 mb-4">
             <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 text-center">
-              <div className="w-6 h-6 mx-auto mb-1 text-green-600 dark:text-green-400">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+              <div className="flex items-center justify-center space-x-0.5 w-6 h-6 mx-auto mb-1">
+                {[1, 2, 3, 4].map((bar) => (
+                  <div
+                    key={bar}
+                    className="w-1 rounded-sm bg-green-600 dark:bg-green-400"
+                    style={{ height: `${8 + bar * 2}px` }}
+                  />
+                ))}
               </div>
               <div className="text-xs text-green-700 dark:text-green-300 font-medium">LTE Ready</div>
             </div>
             <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 text-center">
               <div className="w-6 h-6 mx-auto mb-1 text-blue-600 dark:text-blue-400">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
                 </svg>
               </div>
               <div className="text-xs text-blue-700 dark:text-blue-300 font-medium">No eKYC</div>
@@ -274,7 +278,7 @@ export default function PackagesScreen() {
             <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-center">
               <div className="w-6 h-6 mx-auto mb-1 text-purple-600 dark:text-purple-400">
                 <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
               </div>
               <div className="text-xs text-purple-700 dark:text-purple-300 font-medium">US IP</div>
