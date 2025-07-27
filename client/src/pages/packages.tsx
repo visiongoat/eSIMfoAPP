@@ -156,57 +156,74 @@ export default function PackagesScreen() {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Plan details</h3>
           
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 space-y-3">
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Globe className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+              <div className="flex items-center space-x-3">
+                <Globe className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                 <div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 uppercase">Countries</div>
-                  <div className="text-gray-900 dark:text-white text-sm font-medium">1 country</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium">Countries and network operators</div>
+                  <div className="text-gray-900 dark:text-white font-medium">1 country</div>
                 </div>
               </div>
               <ArrowLeft className="w-4 h-4 text-gray-400 dark:text-gray-500 rotate-180" />
             </div>
 
-            <div className="flex items-center space-x-2">
-              <Cpu className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+            <div className="flex items-center space-x-3">
+              <Cpu className="w-5 h-5 text-gray-500 dark:text-gray-400" />
               <div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase">Plan type</div>
-                <div className="text-gray-900 dark:text-white text-sm font-medium">
+                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium">Plan type</div>
+                <div className="text-gray-900 dark:text-white font-medium">
                   {selectedTab === 'data' ? 'Data only' : 'Data + Calls + Text'}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 flex items-center justify-center">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div className="flex items-center space-x-3">
+              <div className="w-5 h-5 flex items-center justify-center">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               </div>
               <div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase">Activation</div>
-                <div className="text-gray-900 dark:text-white text-sm font-medium">Instant or delayed</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium">Plan activation</div>
+                <div className="text-gray-900 dark:text-white font-medium">Instant activation or delayed for 365 days</div>
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 text-gray-500 dark:text-gray-400">
+            <div className="flex items-center space-x-3">
+              <div className="w-5 h-5 flex items-center justify-center">
+                <div className="w-4 h-3 border-2 border-gray-500 dark:border-gray-400 rounded-sm"></div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium">Balance top-up</div>
+                <div className="text-gray-900 dark:text-white font-medium">Available</div>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <div className="w-5 h-5 text-gray-500 dark:text-gray-400">
                 <svg viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
               </div>
               <div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase">Hotspot</div>
-                <div className="text-gray-900 dark:text-white text-sm font-medium">Available</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium">Hotspot</div>
+                <div className="text-gray-900 dark:text-white font-medium">Depends on operator</div>
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 flex items-center justify-center">
-                <div className="w-3 h-2 border border-gray-500 dark:border-gray-400 rounded-sm"></div>
+            <div className="flex items-start space-x-3 pt-2 border-t border-gray-200 dark:border-gray-700">
+              <div className="w-5 h-5 text-gray-500 dark:text-gray-400 mt-0.5">
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
+                </svg>
               </div>
-              <div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase">Top-up</div>
-                <div className="text-gray-900 dark:text-white text-sm font-medium">Available</div>
+              <div className="flex-1">
+                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium flex items-center">
+                  Speed limitation 
+                  <div className="w-4 h-4 bg-gray-400 rounded-full flex items-center justify-center ml-1">
+                    <span className="text-white text-xs">?</span>
+                  </div>
+                </div>
+                <div className="text-gray-900 dark:text-white font-medium text-sm">Some network providers may reduce speed as part of their Fair Usage Policy</div>
               </div>
             </div>
           </div>
