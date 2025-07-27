@@ -410,36 +410,73 @@ export default function PackagesScreen() {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Plan details</h3>
           
-          {/* Quick Facts */}
+          {/* Quick Facts - Different content based on selected tab */}
           <div className="grid grid-cols-3 gap-3 mb-4">
-            <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 text-center">
-              <div className="flex items-center justify-center space-x-0.5 w-6 h-6 mx-auto mb-1">
-                {[1, 2, 3, 4].map((bar) => (
-                  <div
-                    key={bar}
-                    className="w-1 rounded-sm bg-green-600 dark:bg-green-400"
-                    style={{ height: `${8 + bar * 2}px` }}
-                  />
-                ))}
-              </div>
-              <div className="text-xs text-green-700 dark:text-green-300 font-medium">LTE Ready</div>
-            </div>
-            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 text-center">
-              <div className="w-6 h-6 mx-auto mb-1 text-blue-600 dark:text-blue-400">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
-                </svg>
-              </div>
-              <div className="text-xs text-blue-700 dark:text-blue-300 font-medium">No eKYC</div>
-            </div>
-            <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-center">
-              <div className="w-6 h-6 mx-auto mb-1 text-purple-600 dark:text-purple-400">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
-                </svg>
-              </div>
-              <div className="text-xs text-purple-700 dark:text-purple-300 font-medium">1</div>
-            </div>
+            {selectedTab === 'data-calls-text' ? (
+              // Data/Calls/Text packages: Phone Number - LTE Ready - No eKYC
+              <>
+                <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-center">
+                  <div className="w-6 h-6 mx-auto mb-1 text-purple-600 dark:text-purple-400">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+                    </svg>
+                  </div>
+                  <div className="text-xs text-purple-700 dark:text-purple-300 font-medium">Phone Number</div>
+                </div>
+                <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 text-center">
+                  <div className="flex items-center justify-center space-x-0.5 w-6 h-6 mx-auto mb-1">
+                    {[1, 2, 3, 4].map((bar) => (
+                      <div
+                        key={bar}
+                        className="w-1 rounded-sm bg-green-600 dark:bg-green-400"
+                        style={{ height: `${8 + bar * 2}px` }}
+                      />
+                    ))}
+                  </div>
+                  <div className="text-xs text-green-700 dark:text-green-300 font-medium">LTE Ready</div>
+                </div>
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 text-center">
+                  <div className="w-6 h-6 mx-auto mb-1 text-blue-600 dark:text-blue-400">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                    </svg>
+                  </div>
+                  <div className="text-xs text-blue-700 dark:text-blue-300 font-medium">No eKYC</div>
+                </div>
+              </>
+            ) : (
+              // Data only packages: LTE Ready - No eKYC - US IP
+              <>
+                <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 text-center">
+                  <div className="flex items-center justify-center space-x-0.5 w-6 h-6 mx-auto mb-1">
+                    {[1, 2, 3, 4].map((bar) => (
+                      <div
+                        key={bar}
+                        className="w-1 rounded-sm bg-green-600 dark:bg-green-400"
+                        style={{ height: `${8 + bar * 2}px` }}
+                      />
+                    ))}
+                  </div>
+                  <div className="text-xs text-green-700 dark:text-green-300 font-medium">LTE Ready</div>
+                </div>
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 text-center">
+                  <div className="w-6 h-6 mx-auto mb-1 text-blue-600 dark:text-blue-400">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                    </svg>
+                  </div>
+                  <div className="text-xs text-blue-700 dark:text-blue-300 font-medium">No eKYC</div>
+                </div>
+                <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 text-center">
+                  <div className="w-6 h-6 mx-auto mb-1 text-purple-600 dark:text-purple-400">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                  </div>
+                  <div className="text-xs text-purple-700 dark:text-purple-300 font-medium">US IP</div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Network Section */}
