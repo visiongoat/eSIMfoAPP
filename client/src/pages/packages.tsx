@@ -133,15 +133,15 @@ export default function PackagesScreen() {
               }`}
             >
               <div className="flex items-center justify-between">
-                <div className="text-left">
+                <div className="text-left flex-1">
                   <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
                   <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
                 </div>
-                <div className="text-left flex-1">
+                <div className="text-left flex-1 flex flex-col items-center">
                   <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.price}</div>
                   <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.pricePerDay}</div>
                 </div>
-                <div className="text-right">
+                <div className="text-right flex-1 flex justify-end">
                   {pkg.discount && (
                     <div className="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
                       {pkg.discount}
