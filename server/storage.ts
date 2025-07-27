@@ -157,14 +157,16 @@ export class MemStorage implements IStorage {
 
     // Seed packages
     const seedPackages = [
-      // US packages (countryId 11 - United States)
-      { countryId: 11, name: "1GB / 7 Days", data: "1GB", validity: "7 Days", price: "4.50", originalPrice: "6.00", description: "Perfect for short trips", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
-      { countryId: 11, name: "3GB / 15 Days", data: "3GB", validity: "15 Days", price: "12.90", originalPrice: null, description: "Most popular choice", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
-      { countryId: 11, name: "10GB / 30 Days", data: "10GB", validity: "30 Days", price: "28.50", originalPrice: null, description: "Extended stay package", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
+      // US packages (countryId 73 - United States)
+      { countryId: 73, name: "1GB / 7 Days", data: "1GB", validity: "7 Days", price: "$4.50", originalPrice: "$6.00", description: "Perfect for short trips", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
+      { countryId: 73, name: "3GB / 15 Days", data: "3GB", validity: "15 Days", price: "$12.90", originalPrice: null, description: "Most popular choice", features: ["5G", "No expiry", "Instant"], isPopular: true, networkType: "5G" },
+      { countryId: 73, name: "10GB / 30 Days", data: "10GB", validity: "30 Days", price: "$28.50", originalPrice: null, description: "Extended stay package", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
+      { countryId: 73, name: "20GB / 60 Days", data: "20GB", validity: "60 Days", price: "$45.90", originalPrice: "$65.00", description: "Long term package", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
       
-      // Germany packages (countryId 7)
-      { countryId: 7, name: "2GB / 10 Days", data: "2GB", validity: "10 Days", price: "8.90", originalPrice: null, description: "Great for business trips", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
-      { countryId: 7, name: "5GB / 20 Days", data: "5GB", validity: "20 Days", price: "18.50", originalPrice: null, description: "Extended Europe stay", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
+      // Germany packages (countryId 6 - Germany)
+      { countryId: 6, name: "2GB / 10 Days", data: "2GB", validity: "10 Days", price: "€8.90", originalPrice: null, description: "Great for business trips", features: ["5G", "No expiry", "Instant"], isPopular: true, networkType: "5G" },
+      { countryId: 6, name: "5GB / 20 Days", data: "5GB", validity: "20 Days", price: "€18.50", originalPrice: null, description: "Extended Europe stay", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
+      { countryId: 6, name: "12GB / 45 Days", data: "12GB", validity: "45 Days", price: "€35.90", originalPrice: "€48.00", description: "Germany explorer package", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
       
       // Japan packages (countryId 8)
       { countryId: 8, name: "1GB / 5 Days", data: "1GB", validity: "5 Days", price: "6.90", originalPrice: null, description: "Short Tokyo visit", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
