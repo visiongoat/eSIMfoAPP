@@ -39,6 +39,61 @@ export default function DestinationsScreen() {
   const [isScrolled, setIsScrolled] = useState(false);
   const searchBarRef = useRef<HTMLDivElement>(null);
 
+  // Swipe navigation for tab switching
+  const touchStartX = useRef<number>(0);
+  const touchStartY = useRef<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      touchStartX.current = touch.clientX;
+      touchStartY.current = touch.clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!touchStartX.current || !touchStartY.current) return;
+
+      const touch = e.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX.current;
+      const deltaY = touch.clientY - touchStartY.current;
+
+      // Check if it's a horizontal swipe (more horizontal than vertical)
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+          // Swipe right: move to previous tab
+          if (selectedTab === 'global') {
+            setSelectedTab('regions');
+          } else if (selectedTab === 'regions') {
+            setSelectedTab('countries');
+          }
+        } else if (deltaX < 0) {
+          // Swipe left: move to next tab
+          if (selectedTab === 'countries') {
+            setSelectedTab('regions');
+          } else if (selectedTab === 'regions') {
+            setSelectedTab('global');
+          }
+        }
+      }
+
+      // Reset
+      touchStartX.current = 0;
+      touchStartY.current = 0;
+    };
+
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [selectedTab]);
+
   const placeholderTexts = [
     'Find your destination',
     'Search a country or city',
@@ -318,7 +373,7 @@ export default function DestinationsScreen() {
   const finalFilteredData = selectedTab === 'countries' ? getAlphabetFilteredCountries() : filteredData;
 
   return (
-    <div className="mobile-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/20 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" style={{ scrollBehavior: 'auto' }}>
+    <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/20 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" style={{ scrollBehavior: 'auto' }}>
       <NavigationBar 
         title="Buy eSIM fo"
         showBack={false}

@@ -202,3 +202,10 @@ The application is designed to be deployed as a single Node.js application servi
 - **Smart layout design**: Data/duration on left, voice/SMS in middle, price/signal on right for combination packages
 - **Visual differentiation**: Orange border styling for Data/Calls/Text packages vs blue for data-only
 - **Realistic pricing**: Premium pricing for combination packages reflecting added voice and SMS value
+
+### Swipe Navigation System (January 27, 2025)
+- **Packages page swipe**: Horizontal swipe gestures for tab switching between Data and Data/Calls/Text
+- **Destinations page swipe**: Three-tab navigation with swipe support (Countries → Regions → Global)
+- **Touch sensitivity**: 50px minimum swipe distance with horizontal dominance detection
+- **Smooth transitions**: Natural left/right swipe behavior matching mobile app standards
+- **Touch event handling**: Passive event listeners for optimal performance without interfering with scrolling
