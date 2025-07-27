@@ -28,6 +28,14 @@ export default function PackagesScreen() {
       ...prev,
       [section]: !prev[section]
     }));
+    
+    // Auto-scroll to section when expanded
+    setTimeout(() => {
+      const sectionElement = document.querySelector(`[data-section="${section}"]`);
+      if (sectionElement && !expandedSections[section]) {
+        sectionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   };
 
   // Auto scroll when features section opens
@@ -243,7 +251,7 @@ export default function PackagesScreen() {
           </div>
 
           {/* Network Section */}
-          <div className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.network ? 'p-4 mb-3' : 'p-2 mb-2'}`}>
+          <div data-section="network" className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.network ? 'p-4 mb-3' : 'p-2 mb-2'}`}>
             <div 
               className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors p-2 -m-2"
               onClick={() => toggleSection('network')}
@@ -277,7 +285,7 @@ export default function PackagesScreen() {
           </div>
 
           {/* Plan Section */}
-          <div className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.plan ? 'p-4 mb-3' : 'p-2 mb-2'}`}>
+          <div data-section="plan" className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.plan ? 'p-4 mb-3' : 'p-2 mb-2'}`}>
             <div 
               className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors p-2 -m-2"
               onClick={() => toggleSection('plan')}
@@ -314,7 +322,7 @@ export default function PackagesScreen() {
           </div>
 
           {/* Features Section */}
-          <div className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.features ? 'p-4' : 'p-2'}`}>
+          <div data-section="features" className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.features ? 'p-4' : 'p-2'}`}>
             <div 
               className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors p-2 -m-2"
               onClick={() => toggleSection('features')}
@@ -352,7 +360,7 @@ export default function PackagesScreen() {
         </div>
 
         {/* Bottom spacing for sticky section */}
-        <div className="h-6"></div>
+        <div className="h-32"></div>
       </div>
 
       {/* Sticky Bottom Section */}
