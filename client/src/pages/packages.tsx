@@ -200,9 +200,9 @@ export default function PackagesScreen() {
           </div>
 
           {/* Network Section */}
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-3">
+          <div className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.network ? 'p-4 mb-3' : 'p-2 mb-2'}`}>
             <div 
-              className="flex items-center justify-between mb-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 -m-2 p-2 rounded-lg transition-colors"
+              className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors p-2 -m-2"
               onClick={() => toggleSection('network')}
             >
               <div className="flex items-center">
@@ -216,7 +216,7 @@ export default function PackagesScreen() {
               )}
             </div>
             {expandedSections.network && (
-              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200">
+              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200 mt-3">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600 dark:text-gray-300">Provider</span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">T-Mobile • Verizon</span>
@@ -234,9 +234,9 @@ export default function PackagesScreen() {
           </div>
 
           {/* Plan Section */}
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-3">
+          <div className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.plan ? 'p-4 mb-3' : 'p-2 mb-2'}`}>
             <div 
-              className="flex items-center justify-between mb-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 -m-2 p-2 rounded-lg transition-colors"
+              className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors p-2 -m-2"
               onClick={() => toggleSection('plan')}
             >
               <div className="flex items-center">
@@ -250,7 +250,7 @@ export default function PackagesScreen() {
               )}
             </div>
             {expandedSections.plan && (
-              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200">
+              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200 mt-3">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600 dark:text-gray-300">Category</span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">Data Only</span>
@@ -271,9 +271,9 @@ export default function PackagesScreen() {
           </div>
 
           {/* Features Section */}
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
+          <div className={`bg-gray-50 dark:bg-gray-800 rounded-xl ${expandedSections.features ? 'p-4' : 'p-2'}`}>
             <div 
-              className="flex items-center justify-between mb-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 -m-2 p-2 rounded-lg transition-colors"
+              className="flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors p-2 -m-2"
               onClick={() => toggleSection('features')}
             >
               <div className="flex items-center">
@@ -287,7 +287,7 @@ export default function PackagesScreen() {
               )}
             </div>
             {expandedSections.features && (
-              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200">
+              <div className="space-y-2 animate-in slide-in-from-top-2 duration-200 mt-3">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600 dark:text-gray-300">eKYC Required</span>
                   <span className="text-sm font-medium text-red-600 dark:text-red-400">No</span>
