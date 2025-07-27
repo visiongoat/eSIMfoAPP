@@ -141,19 +141,19 @@ export default function PackagesScreen() {
                   <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
                   <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
                 </div>
-                <div className="text-right">
-                  <div className="flex items-center space-x-2">
-                    <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.price}</div>
-                    {pkg.discount && (
-                      <div className="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
-                        {pkg.discount}
-                      </div>
-                    )}
-                  </div>
+                <div className="text-center flex-1">
+                  <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.price}</div>
                   {pkg.originalPrice && (
                     <div className="text-gray-500 dark:text-gray-500 text-sm line-through">{pkg.originalPrice}</div>
                   )}
                   <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.pricePerDay}</div>
+                </div>
+                <div className="text-right">
+                  {pkg.discount && (
+                    <div className="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
+                      {pkg.discount}
+                    </div>
+                  )}
                 </div>
               </div>
             </button>
