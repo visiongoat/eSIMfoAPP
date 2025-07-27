@@ -665,7 +665,7 @@ export default function PackagesScreen() {
             </div>
           ) : (
             <>
-              Buy {selectedPackage ? (() => {
+              Checkout {selectedPackage ? (() => {
                 const dataPackage = demoPackages.find(p => p.id === selectedPackage);
                 const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
                 return dataPackage?.price || comboPackage?.price || '€0';
