@@ -403,20 +403,6 @@ export default function PackagesScreen() {
                 </div>
               </div>
             </div>
-            
-            {/* Signal Strength */}
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Network Quality</span>
-              <div className="flex items-center space-x-1">
-                {[1, 2, 3, 4, 5].map((bar) => (
-                  <div
-                    key={bar}
-                    className="w-1 rounded-sm bg-green-500"
-                    style={{ height: `${4 + bar * 2}px` }}
-                  />
-                ))}
-              </div>
-            </div>
           </div>
         )}
 
