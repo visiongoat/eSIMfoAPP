@@ -18,9 +18,9 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
       <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-2 flex justify-end items-center">
         <button
           onClick={onClose}
-          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
         >
-          <X className="w-5 h-5 text-gray-500" />
+          <X className="w-7 h-7 text-gray-500" />
         </button>
       </div>
 
@@ -46,33 +46,33 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
         <div className="mb-3">
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-lg border border-gray-100 dark:border-gray-700">
             <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-3 text-center">Auto-renewal is perfect for</h2>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-3">
               <div className="text-center">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mx-auto mb-1 shadow-md">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                     <path d="M14 6V4h-4v2c0 .55-.45 1-1 1s-1-.45-1-1V4H6C4.89 4 4 4.89 4 6v2h16V6c0-1.11-.89-2-2-2h-2v2c0 .55-.45 1-1 1s-1-.45-1-1z"/>
                     <path d="M4 20c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V10H4v10z"/>
                   </svg>
                 </div>
-                <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Business travels</div>
+                <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Business travels</div>
               </div>
               
               <div className="text-center">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center mx-auto mb-1 shadow-md">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                     <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM10 6a2 2 0 0 1 4 0v1h-4V6zm2 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
                   </svg>
                 </div>
-                <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Long journeys</div>
+                <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Long journeys</div>
               </div>
               
               <div className="text-center">
-                <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center mx-auto mb-1 shadow-md">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                     <path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
                   </svg>
                 </div>
-                <div className="text-xs font-medium text-gray-800 dark:text-gray-200">Remote work</div>
+                <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Remote work</div>
               </div>
             </div>
           </div>
