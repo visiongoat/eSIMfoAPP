@@ -193,8 +193,8 @@ export default function PackagesScreen() {
                 <div className="w-4 h-3 border-2 border-gray-500 dark:border-gray-400 rounded-sm"></div>
               </div>
               <div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium">Balance top-up</div>
-                <div className="text-gray-900 dark:text-white font-medium">Available</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 uppercase font-medium">Network Technology</div>
+                <div className="text-gray-900 dark:text-white font-medium">LTE Ready</div>
               </div>
             </div>
 
