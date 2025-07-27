@@ -15,6 +15,7 @@ export default function PackagesScreen() {
   const [selectedTab, setSelectedTab] = useState<'data' | 'data-calls-text'>('data');
   const [selectedPackage, setSelectedPackage] = useState<number | null>(1);
   const [esimCount, setEsimCount] = useState(1);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
     network: true,
     plan: false,
@@ -98,10 +99,21 @@ export default function PackagesScreen() {
     setSelectedPackage(packageId);
   };
 
-  const handlePurchase = () => {
-    if (selectedPackage) {
-      setLocation(`/purchase/${selectedPackage}`);
+  const handlePurchase = async () => {
+    if (!selectedPackage) return;
+    
+    setIsProcessing(true);
+    
+    // Haptic feedback simulation
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
     }
+    
+    // Simulate processing time
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsProcessing(false);
+    setLocation(`/purchase/${selectedPackage}`);
   };
 
   if (!countryId) {
@@ -349,13 +361,19 @@ export default function PackagesScreen() {
         {selectedPackage && (
           <div className="flex items-center justify-between mb-3 text-sm">
             <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
-              <span>{demoPackages.find(p => p.id === selectedPackage)?.duration}</span>
-              <span>•</span>
+              <div className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full text-xs font-medium">
+                {demoPackages.find(p => p.id === selectedPackage)?.duration}
+              </div>
               <span>{demoPackages.find(p => p.id === selectedPackage)?.data}</span>
             </div>
-            <span className="font-semibold text-gray-900 dark:text-white">
-              {demoPackages.find(p => p.id === selectedPackage)?.price}
-            </span>
+            <div className="text-right">
+              <div className="font-semibold text-gray-900 dark:text-white transition-all duration-300">
+                €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') * esimCount : 0}
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') : 0}/day
+              </div>
+            </div>
           </div>
         )}
 
@@ -366,14 +384,14 @@ export default function PackagesScreen() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setEsimCount(Math.max(1, esimCount - 1))}
-                className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 transform active:scale-95"
               >
                 <Minus className="w-3 h-3" />
               </button>
-              <span className="w-6 text-center font-semibold text-gray-900 dark:text-white">{esimCount}</span>
+              <span className="w-6 text-center font-semibold text-gray-900 dark:text-white transition-all duration-300">{esimCount}</span>
               <button
                 onClick={() => setEsimCount(esimCount + 1)}
-                className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 transform active:scale-95"
               >
                 <Plus className="w-3 h-3" />
               </button>
@@ -383,10 +401,19 @@ export default function PackagesScreen() {
           {/* Purchase Button */}
           <Button
             onClick={handlePurchase}
-            disabled={!selectedPackage}
-            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02]"
+            disabled={!selectedPackage || isProcessing}
+            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none"
           >
-            Buy €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') * esimCount : 0}
+            {isProcessing ? (
+              <div className="flex items-center space-x-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>Processing...</span>
+              </div>
+            ) : (
+              <>
+                Buy €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') * esimCount : 0}
+              </>
+            )}
           </Button>
         </div>
       </div>
