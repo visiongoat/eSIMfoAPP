@@ -183,7 +183,7 @@ export default function CheckoutModal({
                 disabled={!selectedPayment}
                 className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium rounded-xl transition-colors"
               >
-                Choose
+                {selectedPayment ? paymentMethods.find(m => m.id === selectedPayment)?.name || 'Choose' : 'Choose'}
               </Button>
             </div>
           )}
