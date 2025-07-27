@@ -194,3 +194,11 @@ The application is designed to be deployed as a single Node.js application servi
 - **Debug logging system**: Console output showing detection method success/failure chain
 - **eSIM compatibility logic**: Version-based eSIM support determination for different platforms
 - **Future native integration**: Foundation ready for react-native-device-info integration
+
+### Enhanced Package System with Voice/SMS Support (January 27, 2025)
+- **Dual tab system**: Separate Data and Data/Calls/Text package categories
+- **Voice and SMS integration**: Data/Calls/Text packages include voice minutes and SMS counts
+- **Package duration updates**: 7, 15, 20, 30 day periods with corresponding GB allocations (1GB, 3GB, 5GB, 10GB)
+- **Smart layout design**: Data/duration on left, voice/SMS in middle, price/signal on right for combination packages
+- **Visual differentiation**: Orange border styling for Data/Calls/Text packages vs blue for data-only
+- **Realistic pricing**: Premium pricing for combination packages reflecting added voice and SMS value

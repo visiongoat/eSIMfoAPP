@@ -130,6 +130,50 @@ export default function PackagesScreen() {
     }
   ];
 
+  // Data/Calls/Text packages with voice and SMS
+  const dataCallsTextPackages = [
+    {
+      id: 5,
+      duration: "1 GB",
+      data: "7 gün",
+      voice: "100 dk",
+      sms: "50 SMS",
+      price: "€12",
+      pricePerDay: "€1.71 /day",
+      signalStrength: 5
+    },
+    {
+      id: 6,
+      duration: "3 GB",
+      data: "15 gün",
+      voice: "200 dk",
+      sms: "100 SMS",
+      price: "€28",
+      pricePerDay: "€1.87 /day",
+      signalStrength: 5
+    },
+    {
+      id: 7,
+      duration: "5 GB",
+      data: "20 gün",
+      voice: "300 dk",
+      sms: "150 SMS",
+      price: "€42",
+      pricePerDay: "€2.10 /day",
+      signalStrength: 5
+    },
+    {
+      id: 8,
+      duration: "10 GB",
+      data: "30 gün",
+      voice: "500 dk",
+      sms: "200 SMS",
+      price: "€58",
+      pricePerDay: "€1.93 /day",
+      signalStrength: 5
+    }
+  ];
+
   const handleBackClick = () => {
     setLocation("/destinations");
   };
@@ -202,51 +246,108 @@ export default function PackagesScreen() {
                 : 'bg-gray-100 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400'
             }`}
           >
-            Data / Calls / Text (0)
+            Data / Calls / Text ({dataCallsTextPackages.length})
           </button>
         </div>
 
         {/* Package List */}
         <div className="space-y-3 mb-6">
-          {demoPackages.map((pkg) => (
-            <button
-              key={pkg.id}
-              onClick={() => handlePackageSelect(pkg.id)}
-              className={`w-full p-3 rounded-xl border-2 transition-all ${
-                selectedPackage === pkg.id
-                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400'
-                  : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
-              }`}
-            >
-              <div className="flex items-center">
-                <div className="text-left flex-1">
-                  <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
-                  <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
-                </div>
-                <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                  <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.price}</div>
-                  <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.pricePerDay}</div>
-                </div>
-                <div className="flex-1 flex justify-end items-center">
-                  <div className="flex items-center space-x-1">
-                    {[1, 2, 3, 4, 5].map((bar) => (
-                      <div
-                        key={bar}
-                        className={`w-1 rounded-sm ${
-                          bar <= pkg.signalStrength
-                            ? bar <= 2 ? 'bg-red-500 h-2'
-                              : bar <= 3 ? 'bg-yellow-500 h-3'
-                              : bar <= 4 ? 'bg-green-500 h-4'
-                              : 'bg-green-600 h-5'
-                            : 'bg-gray-300 dark:bg-gray-600 h-2'
-                        }`}
-                      />
-                    ))}
+          {selectedTab === 'data' ? (
+            // Data Only Packages
+            demoPackages.map((pkg) => (
+              <button
+                key={pkg.id}
+                onClick={() => handlePackageSelect(pkg.id)}
+                className={`w-full p-3 rounded-xl border-2 transition-all ${
+                  selectedPackage === pkg.id
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400'
+                    : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
+                }`}
+              >
+                <div className="flex items-center">
+                  <div className="text-left flex-1">
+                    <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
+                  </div>
+                  <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                    <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.price}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.pricePerDay}</div>
+                  </div>
+                  <div className="flex-1 flex justify-end items-center">
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4, 5].map((bar) => (
+                        <div
+                          key={bar}
+                          className={`w-1 rounded-sm ${
+                            bar <= pkg.signalStrength
+                              ? bar <= 2 ? 'bg-red-500 h-2'
+                                : bar <= 3 ? 'bg-yellow-500 h-3'
+                                : bar <= 4 ? 'bg-green-500 h-4'
+                                : 'bg-green-600 h-5'
+                              : 'bg-gray-300 dark:bg-gray-600 h-2'
+                          }`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            ))
+          ) : (
+            // Data/Calls/Text Packages
+            dataCallsTextPackages.map((pkg) => (
+              <button
+                key={pkg.id}
+                onClick={() => handlePackageSelect(pkg.id)}
+                className={`w-full p-3 rounded-xl border-2 transition-all ${
+                  selectedPackage === pkg.id
+                    ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-400'
+                    : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
+                }`}
+              >
+                <div className="flex items-center">
+                  {/* Left side - Data & Duration */}
+                  <div className="text-left flex-1">
+                    <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
+                  </div>
+                  
+                  {/* Middle - Voice & SMS */}
+                  <div className="flex-1 flex flex-col items-start justify-center">
+                    <div className="flex items-center space-x-1 mb-1">
+                      <span className="text-sm text-green-600 dark:text-green-400">📞</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{pkg.voice}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <span className="text-sm text-blue-600 dark:text-blue-400">💬</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">{pkg.sms}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Right side - Price & Signal */}
+                  <div className="flex-1 flex flex-col items-end justify-center">
+                    <div className="text-xl font-bold text-gray-900 dark:text-white mb-1">{pkg.price}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-sm mb-2">{pkg.pricePerDay}</div>
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4, 5].map((bar) => (
+                        <div
+                          key={bar}
+                          className={`w-1 rounded-sm ${
+                            bar <= pkg.signalStrength
+                              ? bar <= 2 ? 'bg-red-500 h-2'
+                                : bar <= 3 ? 'bg-yellow-500 h-3'
+                                : bar <= 4 ? 'bg-green-500 h-4'
+                                : 'bg-green-600 h-5'
+                              : 'bg-gray-300 dark:bg-gray-600 h-2'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </button>
+            ))
+          )}
         </div>
 
         {/* Plan Details */}
