@@ -123,23 +123,29 @@ export default function PackagesScreen() {
         <div className="flex mb-6">
           <button
             onClick={() => setSelectedTab('data')}
-            className={`flex-1 py-3 px-4 rounded-l-lg font-medium transition-colors ${
+            className={`flex-1 py-3 px-4 rounded-l-lg font-medium transition-colors flex items-center justify-center gap-2 ${
               selectedTab === 'data'
                 ? 'bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white'
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
             }`}
           >
-            Data
+            <span>Data</span>
+            <span className="bg-gray-300 dark:bg-gray-500 text-gray-700 dark:text-gray-300 text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+              {demoPackages.length}
+            </span>
           </button>
           <button
             onClick={() => setSelectedTab('data-calls-text')}
-            className={`flex-1 py-3 px-4 rounded-r-lg font-medium transition-colors ${
+            className={`flex-1 py-3 px-4 rounded-r-lg font-medium transition-colors flex items-center justify-center gap-2 ${
               selectedTab === 'data-calls-text'
                 ? 'bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white'
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
             }`}
           >
-            Data / Calls / Text
+            <span>Data / Calls / Text</span>
+            <span className="bg-gray-300 dark:bg-gray-500 text-gray-700 dark:text-gray-300 text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+              0
+            </span>
           </button>
         </div>
 
