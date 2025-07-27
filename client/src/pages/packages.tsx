@@ -13,7 +13,7 @@ export default function PackagesScreen() {
   const countryId = params?.countryId ? parseInt(params.countryId) : null;
   
   const [selectedTab, setSelectedTab] = useState<'data' | 'data-calls-text'>('data');
-  const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<number | null>(1);
   const [esimCount, setEsimCount] = useState(1);
   const [expandedSections, setExpandedSections] = useState<{[key: string]: boolean}>({
     network: true,
@@ -82,7 +82,11 @@ export default function PackagesScreen() {
   };
 
   const handlePackageSelect = (packageId: number) => {
+    // Temporarily show selection, but revert to package 1 after a brief moment
     setSelectedPackage(packageId);
+    setTimeout(() => {
+      setSelectedPackage(1);
+    }, 200);
   };
 
   const handlePurchase = () => {
