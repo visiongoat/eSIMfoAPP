@@ -49,7 +49,7 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "€7",
       pricePerDay: "€7 /day",
-      discount: null,
+      signalStrength: 3,
       isSelected: true
     },
     {
@@ -58,7 +58,7 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "€24",
       pricePerDay: "€3.43 /day",
-      discount: "-51%"
+      signalStrength: 4
     },
     {
       id: 3,
@@ -66,7 +66,7 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "€33",
       pricePerDay: "€2.20 /day",
-      discount: "-69%"
+      signalStrength: 5
     },
     {
       id: 4,
@@ -74,7 +74,7 @@ export default function PackagesScreen() {
       data: "∞ GB",
       price: "€48",
       pricePerDay: "€1.60 /day",
-      discount: "-77%"
+      signalStrength: 4
     }
   ];
 
@@ -165,11 +165,21 @@ export default function PackagesScreen() {
                   <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.pricePerDay}</div>
                 </div>
                 <div className="flex-1 flex justify-end items-center">
-                  {pkg.discount && (
-                    <div className="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
-                      {pkg.discount}
-                    </div>
-                  )}
+                  <div className="flex items-center space-x-1">
+                    {[1, 2, 3, 4, 5].map((bar) => (
+                      <div
+                        key={bar}
+                        className={`w-1 rounded-sm ${
+                          bar <= pkg.signalStrength
+                            ? bar <= 2 ? 'bg-red-500 h-2'
+                              : bar <= 3 ? 'bg-yellow-500 h-3'
+                              : bar <= 4 ? 'bg-green-500 h-4'
+                              : 'bg-green-600 h-5'
+                            : 'bg-gray-300 dark:bg-gray-600 h-2'
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </button>
