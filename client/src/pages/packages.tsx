@@ -373,65 +373,70 @@ export default function PackagesScreen() {
 
       {/* Sticky Bottom Section */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
-        {/* Selected Package Info */}
+        {/* Selected Package Details */}
         {selectedPackage && (
-          <div className="flex items-center justify-between mb-3 text-sm">
-            <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
-              <div className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full text-xs font-medium">
-                {demoPackages.find(p => p.id === selectedPackage)?.duration}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center space-x-3">
+                {country?.flagUrl && (
+                  <img 
+                    src={country.flagUrl} 
+                    alt={`${country.name} flag`}
+                    className="w-6 h-4 rounded-sm object-cover"
+                  />
+                )}
+                <div>
+                  <div className="font-semibold text-gray-900 dark:text-white">
+                    {demoPackages.find(p => p.id === selectedPackage)?.duration}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {demoPackages.find(p => p.id === selectedPackage)?.data}
+                  </div>
+                </div>
               </div>
-              <span>{demoPackages.find(p => p.id === selectedPackage)?.data}</span>
+              <div className="text-right">
+                <div className="text-xl font-bold text-gray-900 dark:text-white">
+                  {demoPackages.find(p => p.id === selectedPackage)?.price}
+                </div>
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  {demoPackages.find(p => p.id === selectedPackage)?.pricePerDay}
+                </div>
+              </div>
             </div>
-            <div className="text-right">
-              <div className="font-semibold text-gray-900 dark:text-white transition-all duration-300">
-                €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') * esimCount : 0}
-              </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">
-                €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') : 0}/day
+            
+            {/* Signal Strength */}
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600 dark:text-gray-400">Network Quality</span>
+              <div className="flex items-center space-x-1">
+                {[1, 2, 3, 4, 5].map((bar) => (
+                  <div
+                    key={bar}
+                    className="w-1 rounded-sm bg-green-500"
+                    style={{ height: `${4 + bar * 2}px` }}
+                  />
+                ))}
               </div>
             </div>
           </div>
         )}
 
-        {/* Quantity & Purchase Row */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <span className="text-sm font-medium text-gray-900 dark:text-white">Qty</span>
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => setEsimCount(Math.max(1, esimCount - 1))}
-                className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 transform active:scale-95"
-              >
-                <Minus className="w-3 h-3" />
-              </button>
-              <span className="w-6 text-center font-semibold text-gray-900 dark:text-white transition-all duration-300">{esimCount}</span>
-              <button
-                onClick={() => setEsimCount(esimCount + 1)}
-                className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 transform active:scale-95"
-              >
-                <Plus className="w-3 h-3" />
-              </button>
+        {/* Purchase Button */}
+        <Button
+          onClick={handlePurchase}
+          disabled={!selectedPackage || isProcessing}
+          className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold text-lg rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none"
+        >
+          {isProcessing ? (
+            <div className="flex items-center justify-center space-x-2">
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <span>Processing...</span>
             </div>
-          </div>
-          
-          {/* Purchase Button */}
-          <Button
-            onClick={handlePurchase}
-            disabled={!selectedPackage || isProcessing}
-            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:transform-none"
-          >
-            {isProcessing ? (
-              <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                <span>Processing...</span>
-              </div>
-            ) : (
-              <>
-                Buy €{selectedPackage ? parseInt(demoPackages.find(p => p.id === selectedPackage)?.price.replace('€', '') || '0') * esimCount : 0}
-              </>
-            )}
-          </Button>
-        </div>
+          ) : (
+            <>
+              Buy {selectedPackage ? demoPackages.find(p => p.id === selectedPackage)?.price : '€0'}
+            </>
+          )}
+        </Button>
       </div>
     </div>
   );
