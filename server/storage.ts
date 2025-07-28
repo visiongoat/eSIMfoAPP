@@ -197,19 +197,79 @@ export class MemStorage implements IStorage {
     };
     this.users.set(demoUser.id, demoUser);
 
-    // Seed demo eSIM (Turkey package)
-    const demoEsim: Esim = {
-      id: this.currentEsimId++,
-      userId: 1,
-      packageId: 10, // Turkey package: "2GB / 7 Days"
-      qrCode: "QR_CODE_DATA_HERE",
-      status: "Active",
-      dataUsed: "450",
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
-      activatedAt: new Date(),
-      createdAt: new Date()
-    };
-    this.esims.set(demoEsim.id, demoEsim);
+    // Seed multiple demo eSIMs
+    const demoEsims: Esim[] = [
+      {
+        id: this.currentEsimId++,
+        userId: 1,
+        packageId: 10, // Turkey package
+        qrCode: "QR_CODE_TURKEY_DATA",
+        status: "Active",
+        dataUsed: "2500", // 83% of 3GB (3000MB) - triggers warning
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(),
+        createdAt: new Date()
+      },
+      {
+        id: this.currentEsimId++,
+        userId: 1,
+        packageId: 11, // Spain package
+        qrCode: "QR_CODE_SPAIN_DATA",
+        status: "Active",
+        dataUsed: "4200", // 84% of 5GB (5000MB) - triggers warning
+        expiresAt: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(),
+        createdAt: new Date()
+      },
+      {
+        id: this.currentEsimId++,
+        userId: 1,
+        packageId: 12, // France package
+        qrCode: "QR_CODE_FRANCE_DATA",
+        status: "Active",
+        dataUsed: "1200", // 40% of 3GB (3000MB) - normal usage
+        expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(),
+        createdAt: new Date()
+      },
+      {
+        id: this.currentEsimId++,
+        userId: 1,
+        packageId: 13, // Italy package
+        qrCode: "QR_CODE_ITALY_DATA",
+        status: "Active",
+        dataUsed: "500", // 25% of 2GB (2000MB) - low usage
+        expiresAt: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(),
+        createdAt: new Date()
+      },
+      {
+        id: this.currentEsimId++,
+        userId: 1,
+        packageId: 14, // Germany package
+        qrCode: "QR_CODE_GERMANY_EXPIRED",
+        status: "Expired",
+        dataUsed: "3000", // 100% of 3GB (3000MB) - fully used
+        expiresAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), // 15 days ago
+        activatedAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000),
+        createdAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: this.currentEsimId++,
+        userId: 1,
+        packageId: 15, // UK package
+        qrCode: "QR_CODE_UK_EXPIRED",
+        status: "Expired",
+        dataUsed: "4800", // 96% of 5GB (5000MB) - almost fully used
+        expiresAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
+        activatedAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000),
+        createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000)
+      }
+    ];
+    
+    demoEsims.forEach(esim => {
+      this.esims.set(esim.id, esim);
+    });
 
     // Seed partner stats
     const demoPartnerStats: PartnerStats = {

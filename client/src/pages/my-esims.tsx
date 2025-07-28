@@ -8,12 +8,15 @@ import EsimCard from "@/components/esim-card";
 import EsimfoLogo from "@/components/esimfo-logo";
 import type { Esim, Package, Country } from "@shared/schema";
 
+type FilterType = 'all' | 'active' | 'expired';
+
 export default function MyEsimsScreen() {
   const [, setLocation] = useLocation();
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [selectedEsim, setSelectedEsim] = useState<Esim | null>(null);
   const [notifications, setNotifications] = useState<string[]>([]);
+  const [filter, setFilter] = useState<FilterType>('all');
 
   const { data: esims = [], isLoading } = useQuery<(Esim & { package?: Package; country?: Country })[]>({
     queryKey: ["/api/esims"],
@@ -29,7 +32,21 @@ export default function MyEsimsScreen() {
     }
   };
 
+  // Filter eSIMs based on selected filter
+  const getFilteredEsims = () => {
+    switch (filter) {
+      case 'active':
+        return esims.filter(esim => esim.status === 'Active');
+      case 'expired':
+        return esims.filter(esim => esim.status === 'Expired');
+      default:
+        return esims;
+    }
+  };
+
+  const filteredEsims = getFilteredEsims();
   const activeEsims = esims.filter(esim => esim.status === 'Active');
+  const expiredEsims = esims.filter(esim => esim.status === 'Expired');
   const recentEsims = esims.filter(esim => esim.status !== 'Active');
 
   // Calculate statistics with better data visualization
@@ -146,19 +163,40 @@ export default function MyEsimsScreen() {
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="text-base font-semibold text-gray-900 dark:text-white">Active eSIMs</h2>
                   <div className="flex items-center space-x-2">
-                    <span className="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                    <button
+                      onClick={() => setFilter('all')}
+                      className={`text-xs px-2 py-1 rounded transition-colors ${
+                        filter === 'all'
+                          ? 'bg-gray-600 dark:bg-gray-300 text-white dark:text-gray-900 font-medium'
+                          : 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                      }`}
+                    >
                       All
-                    </span>
-                    <span className="text-xs text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded">
+                    </button>
+                    <button
+                      onClick={() => setFilter('active')}
+                      className={`text-xs px-2 py-1 rounded transition-colors ${
+                        filter === 'active'
+                          ? 'bg-green-600 dark:bg-green-500 text-white font-medium'
+                          : 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30'
+                      }`}
+                    >
                       {activeEsims.length} active
-                    </span>
-                    <span className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded">
-                      1 expired
-                    </span>
+                    </button>
+                    <button
+                      onClick={() => setFilter('expired')}
+                      className={`text-xs px-2 py-1 rounded transition-colors ${
+                        filter === 'expired'
+                          ? 'bg-red-600 dark:bg-red-500 text-white font-medium'
+                          : 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30'
+                      }`}
+                    >
+                      {expiredEsims.length} expired
+                    </button>
                   </div>
                 </div>
                 <div className="space-y-1">
-                  {activeEsims.map((esim) => (
+                  {filteredEsims.map((esim) => (
                     <EsimCard
                       key={esim.id}
                       esim={esim}
