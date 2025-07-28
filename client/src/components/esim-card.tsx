@@ -59,14 +59,9 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
         
         {/* Package Details */}
         <div className="bg-gray-25 dark:bg-gray-800/50 rounded-lg p-3">
-          <div className="flex items-center justify-between">
-            <p className="text-base font-medium text-gray-900 dark:text-white">
-              {esim.package?.name || '5GB / 30 Days'}
-            </p>
-            <span className="text-sm font-medium text-gray-900 dark:text-white">
-              {esim.package?.price || '€12.90'}
-            </span>
-          </div>
+          <p className="text-base font-medium text-gray-900 dark:text-white text-center">
+            {esim.package?.name || '5GB / 30 Days'}
+          </p>
         </div>
         
         {/* Progress Bar for Active eSIMs */}
