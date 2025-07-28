@@ -282,7 +282,7 @@ export default function PackagesScreen() {
         <div className="flex mb-6">
           <button
             onClick={() => setSelectedTab('data')}
-            className={`flex-1 py-3 px-4 rounded-l-lg font-medium transition-colors ${
+            className={`flex-1 py-3 px-2 sm:px-4 rounded-l-lg font-medium transition-colors text-xs sm:text-sm ${
               selectedTab === 'data'
                 ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
                 : 'bg-gray-100 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400'
@@ -292,13 +292,13 @@ export default function PackagesScreen() {
           </button>
           <button
             onClick={() => setSelectedTab('data-calls-text')}
-            className={`flex-1 py-3 px-4 rounded-r-lg font-medium transition-colors ${
+            className={`flex-1 py-3 px-2 sm:px-4 rounded-r-lg font-medium transition-colors text-xs sm:text-sm ${
               selectedTab === 'data-calls-text'
                 ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white'
                 : 'bg-gray-100 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400'
             }`}
           >
-            <span className="hidden sm:inline">Data / </span>Voice+SMS ({dataCallsTextPackages.length})
+            Data/Voice/SMS ({dataCallsTextPackages.length})
           </button>
         </div>
 
