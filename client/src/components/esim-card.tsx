@@ -29,70 +29,56 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
   };
 
   return (
-    <div className="mobile-card p-4 mb-3">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center space-x-3">
+    <div className="mobile-card p-3 mb-2">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3 flex-1">
           {esim.country && (
             <img 
               src={esim.country.flagUrl} 
               alt={`${esim.country.name} flag`} 
-              className="flag-icon" 
+              className="w-6 h-4 rounded object-cover" 
             />
           )}
-          <div>
-            <p className="font-semibold">{esim.country?.name}</p>
-            <p className="text-sm text-muted-foreground">{esim.package?.name}</p>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center space-x-2">
+              <p className="font-medium text-gray-900 dark:text-white text-sm truncate">{esim.country?.name || 'eSIM'}</p>
+              <span className={`px-2 py-0.5 text-xs rounded-full flex-shrink-0 ${getStatusColor(esim.status)}`}>
+                {esim.status}
+              </span>
+            </div>
+            <div className="flex items-center justify-between mt-1">
+              <p className="text-xs text-gray-600 dark:text-gray-400 truncate">{esim.package?.name}</p>
+              {esim.status === 'Active' && (
+                <p className="text-xs text-gray-600 dark:text-gray-400 flex-shrink-0">
+                  {esim.dataUsed}MB/{esim.package?.data}
+                </p>
+              )}
+            </div>
           </div>
         </div>
-        <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(esim.status)}`}>
-          {esim.status}
-        </span>
-      </div>
-
-      {esim.status === 'Active' && (
-        <div className="mb-3">
-          <div className="flex justify-between text-sm mb-1">
-            <span className="text-muted-foreground">Data Used</span>
-            <span className="font-medium">
-              {esim.dataUsed}MB / {esim.package?.data}
-            </span>
-          </div>
-          <div className="usage-bar">
-            <div 
-              className="usage-fill" 
-              style={{ width: `${calculateUsagePercentage()}%` }}
-            ></div>
-          </div>
-        </div>
-      )}
-
-      <div className="flex justify-between text-sm text-muted-foreground">
-        <span>
-          {esim.status === 'Active' ? 'Expires:' : 'Used:'} {' '}
-          {esim.expiresAt ? new Date(esim.expiresAt).toLocaleDateString() : 'N/A'}
-        </span>
-        <div className="flex space-x-2">
+        
+        <div className="flex items-center space-x-2 ml-3">
           {esim.status === 'Active' && onViewQR && (
             <button 
               onClick={() => onViewQR(esim)}
-              className="text-primary font-medium"
+              className="text-blue-600 dark:text-blue-400 text-xs font-medium"
             >
-              View QR
+              QR
             </button>
           )}
           {esim.status === 'Expired' && onReorder && (
             <button 
               onClick={() => onReorder(esim)}
-              className="text-primary font-medium"
+              className="text-blue-600 dark:text-blue-400 text-xs font-medium"
             >
-              Reorder
+              Tekrar
             </button>
           )}
           {onShare && (
             <button 
               onClick={() => onShare(esim)}
-              className="text-gray-600 dark:text-gray-400 hover:text-primary font-medium"
-              title="Share eSIM"
+              className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+              title="Paylaş"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />

@@ -102,6 +102,29 @@ export default function MyEsimsScreen() {
       />
 
       <div className="px-4 pt-4">
+        {/* Kullanım Özeti - Üstte ve Kompakt */}
+        <div className="mobile-card p-4 mb-4">
+          <h3 className="font-semibold mb-3 text-gray-900 dark:text-white text-center">Kullanım Özeti</h3>
+          <div className="grid grid-cols-4 gap-4 text-center">
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalEsims}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">eSIM</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-green-600 dark:text-green-400">{countriesVisited}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">Ülke</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">{totalDataUsed.toFixed(0)}GB</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">Kullanım</p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">€{totalSaved}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">Tasarruf</p>
+            </div>
+          </div>
+        </div>
+
         {/* Data Usage Notifications */}
         {notifications.length > 0 && (
           <div className="mb-4 space-y-2">
@@ -124,26 +147,28 @@ export default function MyEsimsScreen() {
           </div>
         ) : (
           <>
-            {/* Active eSIMs */}
+            {/* Active eSIMs - Kompakt Liste */}
             {activeEsims.length > 0 && (
               <div className="mb-4">
-                <h2 className="text-lg font-semibold mb-3">Active eSIMs</h2>
-                {activeEsims.map((esim) => (
-                  <EsimCard
-                    key={esim.id}
-                    esim={esim}
-                    onViewQR={handleViewQR}
-                    onShare={handleShareEsim}
-                  />
-                ))}
+                <h2 className="text-base font-semibold mb-2 text-gray-900 dark:text-white">Aktif eSIM'ler</h2>
+                <div className="space-y-1">
+                  {activeEsims.map((esim) => (
+                    <EsimCard
+                      key={esim.id}
+                      esim={esim}
+                      onViewQR={handleViewQR}
+                      onShare={handleShareEsim}
+                    />
+                  ))}
+                </div>
               </div>
             )}
 
-            {/* Recent eSIMs */}
+            {/* Recent eSIMs - Kompakt Liste */}
             {recentEsims.length > 0 && (
               <div className="mb-4">
-                <h2 className="text-lg font-semibold mb-3">Recent eSIMs</h2>
-                <div className="space-y-3">
+                <h2 className="text-base font-semibold mb-2 text-gray-900 dark:text-white">Geçmiş eSIM'ler</h2>
+                <div className="space-y-1">
                   {recentEsims.map((esim) => (
                     <EsimCard
                       key={esim.id}
@@ -156,90 +181,20 @@ export default function MyEsimsScreen() {
               </div>
             )}
 
-            {/* Enhanced Usage Statistics with Progress Bars */}
-            <div className="mobile-card p-4 mb-4">
-              <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Usage Overview</h3>
-              <div className="space-y-4">
-                {/* Compact Stats Row */}
-                <div className="grid grid-cols-4 gap-3 text-center">
-                  <div>
-                    <p className="text-xl font-bold text-blue-600 dark:text-blue-400">{totalEsims}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">eSIMs</p>
-                  </div>
-                  <div>
-                    <p className="text-xl font-bold text-green-600 dark:text-green-400">{countriesVisited}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">Countries</p>
-                  </div>
-                  <div>
-                    <p className="text-xl font-bold text-purple-600 dark:text-purple-400">{totalDataUsed.toFixed(0)}GB</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">Used</p>
-                  </div>
-                  <div>
-                    <p className="text-xl font-bold text-orange-600 dark:text-orange-400">€{totalSaved}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">Saved</p>
-                  </div>
-                </div>
 
-                {/* Data Usage Progress for Active eSIMs */}
-                {activeEsims.length > 0 && (
-                  <div className="space-y-3">
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">Active Data Usage</h4>
-                    {activeEsims.slice(0, 2).map((esim) => {
-                      const used = parseFloat(esim.dataUsed || '0');
-                      const total = parseFloat(esim.package?.data?.replace('GB', '') || '0') * 1000;
-                      const percentage = total > 0 ? (used / total) * 100 : 0;
-                      
-                      return (
-                        <div key={esim.id} className="space-y-1">
-                          <div className="flex justify-between items-center">
-                            <span className="text-xs text-gray-600 dark:text-gray-400">eSIM #{esim.id}</span>
-                            <span className="text-xs text-gray-600 dark:text-gray-400">{(used/1000).toFixed(1)}GB</span>
-                          </div>
-                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                            <div 
-                              className={`h-2 rounded-full transition-all duration-300 ${
-                                percentage >= 80 ? 'bg-red-500' : 
-                                percentage >= 60 ? 'bg-orange-500' : 'bg-green-500'
-                              }`}
-                              style={{ width: `${Math.min(percentage, 100)}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
 
-            {/* Multiple eSIM Management - Only show if user has multiple eSIMs */}
+            {/* Multiple eSIM Management - Kompakt Tasarım */}
             {activeEsims.length > 1 && (
-              <div className="mobile-card p-4 mb-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Multi-eSIM Control</h3>
-                  <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full">
-                    {activeEsims.length} Active
+              <div className="mobile-card p-3 mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-medium text-gray-900 dark:text-white text-sm">Çoklu eSIM</h3>
+                  <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">
+                    {activeEsims.length} Aktif
                   </span>
                 </div>
-                <div className="space-y-2">
-                  {activeEsims.map((esim) => (
-                    <div key={esim.id} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">eSIM #{esim.id}</span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">• Primary</span>
-                      </div>
-                      <button className="text-xs text-blue-600 dark:text-blue-400 font-medium hover:underline">
-                        Manage
-                      </button>
-                    </div>
-                  ))}
-                  <div className="mt-2 p-2 border border-gray-200 dark:border-gray-700 border-dashed rounded-lg text-center">
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Auto-switching enabled • Data from cheapest • Calls from primary
-                    </p>
-                  </div>
-                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                  Otomatik geçiş aktif • En ucuz data kullanımda
+                </p>
               </div>
             )}
 
