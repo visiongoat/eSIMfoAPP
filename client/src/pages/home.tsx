@@ -1393,7 +1393,7 @@ export default function HomeScreen() {
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3 mt-6">
           <button 
-            onClick={() => setLocation('/search')}
+            onClick={() => setLocation('/destinations')}
             className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 hover:from-green-100 hover:to-green-150 dark:hover:from-green-800/40 dark:hover:to-green-700/40 border border-green-200 dark:border-green-700 rounded-xl p-4 text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
           >
             <div className="flex items-center justify-between mb-3">
