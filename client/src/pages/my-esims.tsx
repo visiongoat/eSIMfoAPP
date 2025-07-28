@@ -38,7 +38,7 @@ export default function MyEsimsScreen() {
   const totalDataUsed = esims.reduce((sum, esim) => {
     return sum + (parseFloat(esim.dataUsed || '0') / 1000); // Convert MB to GB
   }, 0);
-  const totalSaved = 156; // Static for demo
+  // Remove totalSaved - no calculation logic needed
 
   // Data usage notifications (80% threshold) - only check once
   useEffect(() => {
@@ -102,26 +102,19 @@ export default function MyEsimsScreen() {
       />
 
       <div className="px-4 pt-4">
-        {/* Kullanım Özeti - Üstte ve Kompakt */}
-        <div className="mobile-card p-4 mb-4">
-          <h3 className="font-semibold mb-3 text-gray-900 dark:text-white text-center">Kullanım Özeti</h3>
-          <div className="grid grid-cols-4 gap-4 text-center">
-            <div className="space-y-1">
-              <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalEsims}</p>
-              <p className="text-xs text-gray-600 dark:text-gray-400">eSIM</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-2xl font-bold text-green-600 dark:text-green-400">{countriesVisited}</p>
-              <p className="text-xs text-gray-600 dark:text-gray-400">Ülke</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">{totalDataUsed.toFixed(0)}GB</p>
-              <p className="text-xs text-gray-600 dark:text-gray-400">Kullanım</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">€{totalSaved}</p>
-              <p className="text-xs text-gray-600 dark:text-gray-400">Tasarruf</p>
-            </div>
+        {/* Dashboard Stats - Clean & Professional */}
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div className="mobile-card p-3 text-center">
+            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalEsims}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Total eSIMs</p>
+          </div>
+          <div className="mobile-card p-3 text-center">
+            <p className="text-2xl font-bold text-green-600 dark:text-green-400">{countriesVisited}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Countries</p>
+          </div>
+          <div className="mobile-card p-3 text-center">
+            <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">{totalDataUsed.toFixed(0)}GB</p>
+            <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Data Used</p>
           </div>
         </div>
 
@@ -147,10 +140,15 @@ export default function MyEsimsScreen() {
           </div>
         ) : (
           <>
-            {/* Active eSIMs - Kompakt Liste */}
+            {/* Active eSIMs - Dashboard Section */}
             {activeEsims.length > 0 && (
               <div className="mb-4">
-                <h2 className="text-base font-semibold mb-2 text-gray-900 dark:text-white">Aktif eSIM'ler</h2>
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-base font-semibold text-gray-900 dark:text-white">Active eSIMs</h2>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">
+                    {activeEsims.length} active
+                  </span>
+                </div>
                 <div className="space-y-1">
                   {activeEsims.map((esim) => (
                     <EsimCard
@@ -164,10 +162,15 @@ export default function MyEsimsScreen() {
               </div>
             )}
 
-            {/* Recent eSIMs - Kompakt Liste */}
+            {/* Recent eSIMs - Dashboard Section */}
             {recentEsims.length > 0 && (
               <div className="mb-4">
-                <h2 className="text-base font-semibold mb-2 text-gray-900 dark:text-white">Geçmiş eSIM'ler</h2>
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-base font-semibold text-gray-900 dark:text-white">Recent eSIMs</h2>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">
+                    {recentEsims.length} total
+                  </span>
+                </div>
                 <div className="space-y-1">
                   {recentEsims.map((esim) => (
                     <EsimCard
@@ -183,17 +186,17 @@ export default function MyEsimsScreen() {
 
 
 
-            {/* Multiple eSIM Management - Kompakt Tasarım */}
+            {/* Multi-eSIM Status - Dashboard Style */}
             {activeEsims.length > 1 && (
-              <div className="mobile-card p-3 mb-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-medium text-gray-900 dark:text-white text-sm">Çoklu eSIM</h3>
-                  <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">
-                    {activeEsims.length} Aktif
+              <div className="mobile-card p-3 mb-4 bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 border border-blue-200 dark:border-blue-700">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="font-medium text-gray-900 dark:text-white text-sm">Multi-eSIM Active</h3>
+                  <span className="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-1 rounded-full font-medium">
+                    {activeEsims.length} Active
                   </span>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                  Otomatik geçiş aktif • En ucuz data kullanımda
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  ⚡ Auto-switching enabled • 🌐 Optimized routing
                 </p>
               </div>
             )}

@@ -71,14 +71,14 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
               onClick={() => onReorder(esim)}
               className="text-blue-600 dark:text-blue-400 text-xs font-medium"
             >
-              Tekrar
+              Reorder
             </button>
           )}
           {onShare && (
             <button 
               onClick={() => onShare(esim)}
               className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
-              title="Paylaş"
+              title="Share"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
