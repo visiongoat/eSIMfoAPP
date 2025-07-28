@@ -39,8 +39,17 @@ export default function CheckoutModal({
     { id: 'crypto', name: 'Pay with crypto', icon: '₿', subtitle: 'Funds are refunded only to the wallet balance' }
   ];
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end">
+    <div 
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end"
+      onClick={handleBackdropClick}
+    >
       {/* Modal content */}
       <div className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md mx-auto max-h-[90vh] overflow-y-auto">
         {/* Header */}
