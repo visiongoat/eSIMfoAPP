@@ -87,24 +87,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Create package details based on esim data
         const packageDetails = (() => {
           switch (esim.id) {
-            case 1: return { name: "3GB / 30 Days", data: "3GB", duration: "30 days", price: "€19.99", discount: "-50%" };
-            case 2: return { name: "5GB / 30 Days", data: "5GB", duration: "30 days", price: "€24.99", discount: "-50%" };
-            case 3: return { name: "3GB / 15 Days", data: "3GB", duration: "15 days", price: "€16.99", discount: "-43%" };
-            case 4: return { name: "2GB / 20 Days", data: "2GB", duration: "20 days", price: "€14.99", discount: "-40%" };
-            case 5: return { name: "3GB / 30 Days", data: "3GB", duration: "30 days", price: "€22.99", discount: "-49%" };
-            case 6: return { name: "5GB / 30 Days", data: "5GB", duration: "30 days", price: "€29.99", discount: "-50%" };
+            case 1: return { name: "5GB / 30 Days", data: "5GB", duration: "30 days", price: "€29.99", discount: "-50%" }; // UK - first purchase
+            case 2: return { name: "3GB / 30 Days", data: "3GB", duration: "30 days", price: "€22.99", discount: "-49%" }; // Germany - second purchase
+            case 3: return { name: "3GB / 30 Days", data: "3GB", duration: "30 days", price: "€19.99", discount: "-50%" }; // Turkey - third purchase
+            case 4: return { name: "5GB / 30 Days", data: "5GB", duration: "30 days", price: "€24.99", discount: "-50%" }; // Spain - fourth purchase
+            case 5: return { name: "3GB / 15 Days", data: "3GB", duration: "15 days", price: "€16.99", discount: "-43%" }; // France - fifth purchase
+            case 6: return { name: "2GB / 20 Days", data: "2GB", duration: "20 days", price: "€14.99", discount: "-40%" }; // Italy - sixth purchase (newest)
             default: return null;
           }
         })();
 
         const countryDetails = (() => {
           switch (esim.id) {
-            case 1: return { name: "Turkey", code: "TR", flagUrl: "https://flagcdn.com/w40/tr.png" };
-            case 2: return { name: "Spain", code: "ES", flagUrl: "https://flagcdn.com/w40/es.png" };
-            case 3: return { name: "France", code: "FR", flagUrl: "https://flagcdn.com/w40/fr.png" };
-            case 4: return { name: "Italy", code: "IT", flagUrl: "https://flagcdn.com/w40/it.png" };
-            case 5: return { name: "Germany", code: "DE", flagUrl: "https://flagcdn.com/w40/de.png" };
-            case 6: return { name: "United Kingdom", code: "GB", flagUrl: "https://flagcdn.com/w40/gb.png" };
+            case 1: return { name: "United Kingdom", code: "GB", flagUrl: "https://flagcdn.com/w40/gb.png" }; // First purchase
+            case 2: return { name: "Germany", code: "DE", flagUrl: "https://flagcdn.com/w40/de.png" }; // Second purchase
+            case 3: return { name: "Turkey", code: "TR", flagUrl: "https://flagcdn.com/w40/tr.png" }; // Third purchase
+            case 4: return { name: "Spain", code: "ES", flagUrl: "https://flagcdn.com/w40/es.png" }; // Fourth purchase
+            case 5: return { name: "France", code: "FR", flagUrl: "https://flagcdn.com/w40/fr.png" }; // Fifth purchase
+            case 6: return { name: "Italy", code: "IT", flagUrl: "https://flagcdn.com/w40/it.png" }; // Sixth purchase (newest)
             default: return null;
           }
         })();

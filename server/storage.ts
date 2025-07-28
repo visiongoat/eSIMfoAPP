@@ -197,73 +197,73 @@ export class MemStorage implements IStorage {
     };
     this.users.set(demoUser.id, demoUser);
 
-    // Seed multiple demo eSIMs
+    // Seed multiple demo eSIMs - ordered by purchase date (oldest to newest)
     const demoEsims: Esim[] = [
       {
-        id: this.currentEsimId++,
-        userId: 1,
-        packageId: 10, // Turkey package
-        qrCode: "QR_CODE_TURKEY_DATA",
-        status: "Active",
-        dataUsed: "2500", // 83% of 3GB (3000MB) - triggers warning
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        activatedAt: new Date(),
-        createdAt: new Date()
-      },
-      {
-        id: this.currentEsimId++,
-        userId: 1,
-        packageId: 11, // Spain package
-        qrCode: "QR_CODE_SPAIN_DATA",
-        status: "Active",
-        dataUsed: "4200", // 84% of 5GB (5000MB) - triggers warning
-        expiresAt: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-        activatedAt: new Date(),
-        createdAt: new Date()
-      },
-      {
-        id: this.currentEsimId++,
-        userId: 1,
-        packageId: 12, // France package
-        qrCode: "QR_CODE_FRANCE_DATA",
-        status: "Active",
-        dataUsed: "1200", // 40% of 3GB (3000MB) - normal usage
-        expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
-        activatedAt: new Date(),
-        createdAt: new Date()
-      },
-      {
-        id: this.currentEsimId++,
-        userId: 1,
-        packageId: 13, // Italy package
-        qrCode: "QR_CODE_ITALY_DATA",
-        status: "Active",
-        dataUsed: "500", // 25% of 2GB (2000MB) - low usage
-        expiresAt: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000),
-        activatedAt: new Date(),
-        createdAt: new Date()
-      },
-      {
-        id: this.currentEsimId++,
-        userId: 1,
-        packageId: 14, // Germany package
-        qrCode: "QR_CODE_GERMANY_EXPIRED",
-        status: "Expired",
-        dataUsed: "3000", // 100% of 3GB (3000MB) - fully used
-        expiresAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), // 15 days ago
-        activatedAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000),
-        createdAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000)
-      },
-      {
-        id: this.currentEsimId++,
+        id: this.currentEsimId++, // ID 1 - First purchase (oldest - expired)
         userId: 1,
         packageId: 15, // UK package
         qrCode: "QR_CODE_UK_EXPIRED",
         status: "Expired",
         dataUsed: "4800", // 96% of 5GB (5000MB) - almost fully used
         expiresAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
-        activatedAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000), // 60 days ago - first purchase
         createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: this.currentEsimId++, // ID 2 - Second purchase (expired)
+        userId: 1,
+        packageId: 14, // Germany package
+        qrCode: "QR_CODE_GERMANY_EXPIRED",
+        status: "Expired",
+        dataUsed: "3000", // 100% of 3GB (3000MB) - fully used
+        expiresAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000), // 15 days ago
+        activatedAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000), // 45 days ago - second purchase
+        createdAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: this.currentEsimId++, // ID 3 - Third purchase (active)
+        userId: 1,
+        packageId: 10, // Turkey package
+        qrCode: "QR_CODE_TURKEY_DATA",
+        status: "Active",
+        dataUsed: "2500", // 83% of 3GB (3000MB) - triggers warning
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago - third purchase
+        createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: this.currentEsimId++, // ID 4 - Fourth purchase (active)
+        userId: 1,
+        packageId: 11, // Spain package
+        qrCode: "QR_CODE_SPAIN_DATA",
+        status: "Active",
+        dataUsed: "4200", // 84% of 5GB (5000MB) - triggers warning
+        expiresAt: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000), // 20 days ago - fourth purchase
+        createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: this.currentEsimId++, // ID 5 - Fifth purchase (active)
+        userId: 1,
+        packageId: 12, // France package
+        qrCode: "QR_CODE_FRANCE_DATA",
+        status: "Active",
+        dataUsed: "1200", // 40% of 3GB (3000MB) - normal usage
+        expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000), // 10 days ago - fifth purchase
+        createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: this.currentEsimId++, // ID 6 - Sixth purchase (active - newest)
+        userId: 1,
+        packageId: 13, // Italy package
+        qrCode: "QR_CODE_ITALY_DATA",
+        status: "Active",
+        dataUsed: "500", // 25% of 2GB (2000MB) - low usage
+        expiresAt: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000),
+        activatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago - newest purchase
+        createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
       }
     ];
     
