@@ -127,13 +127,28 @@ export default function SplashScreen() {
                 <div className="absolute inset-0 rounded-2xl border border-white/20 dark:border-gray-600/30"></div>
               </div>
               
-              {/* Animated Border Shimmer */}
-              <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-white/20 to-transparent dark:via-white/10 transition-opacity duration-1000 ${
+              {/* Animated Border Shimmer - Different for Light/Dark Mode */}
+              <div className={`absolute inset-0 rounded-3xl transition-opacity duration-1000 ${
                 logoScale ? 'opacity-100' : 'opacity-0'
-              }`} style={{ 
-                background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%)',
-                animation: logoScale ? 'shimmer 2s ease-in-out infinite' : 'none'
-              }}></div>
+              }`}>
+                {/* Light Mode Shimmer - Bright & Flashy */}
+                <div 
+                  className="absolute inset-0 rounded-3xl dark:hidden"
+                  style={{ 
+                    background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%)',
+                    animation: logoScale ? 'shimmer 2s ease-in-out infinite' : 'none'
+                  }}
+                ></div>
+                
+                {/* Dark Mode Shimmer - Soft & Elegant */}
+                <div 
+                  className="absolute inset-0 rounded-3xl hidden dark:block"
+                  style={{ 
+                    background: 'linear-gradient(35deg, transparent 20%, rgba(147,197,253,0.15) 40%, rgba(196,181,253,0.12) 60%, transparent 80%)',
+                    animation: logoScale ? 'shimmer-dark 3s ease-in-out infinite' : 'none'
+                  }}
+                ></div>
+              </div>
             </div>
           </div>
 

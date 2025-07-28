@@ -8,6 +8,12 @@
   100% { transform: translateX(400%) rotate(45deg); }
 }
 
+@keyframes shimmer-dark {
+  0% { transform: translateX(-100%) rotate(35deg); opacity: 0; }
+  50% { opacity: 0.3; }
+  100% { transform: translateX(400%) rotate(35deg); opacity: 0; }
+}
+
 /* Floating Satellite Animation */
 @keyframes float {
   0%, 100% { 
