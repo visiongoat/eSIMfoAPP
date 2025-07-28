@@ -1603,12 +1603,15 @@ export default function HomeScreen() {
               <div className="px-5 py-4 space-y-4">
                 {/* Step 1 */}
                 <div className="flex items-start space-x-3 animate-in slide-in-from-left duration-500 delay-100">
-                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
+                  <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
                     <img 
                       src={locationPinIcon} 
                       alt="Choose destination"
                       className="w-12 h-12 object-contain"
                     />
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center shadow-sm">
+                      <span className="text-white text-xs font-bold">1</span>
+                    </div>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Choose Your Destination and Plan</h3>
@@ -1618,12 +1621,15 @@ export default function HomeScreen() {
 
                 {/* Step 2 */}
                 <div className="flex items-start space-x-3 animate-in slide-in-from-left duration-500 delay-200">
-                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
+                  <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
                     <img 
                       src={qrScanIcon} 
                       alt="QR scan setup"
                       className="w-12 h-12 object-contain"
                     />
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-sm">
+                      <span className="text-white text-xs font-bold">2</span>
+                    </div>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Set Up Your eSIM</h3>
@@ -1633,12 +1639,15 @@ export default function HomeScreen() {
 
                 {/* Step 3 */}
                 <div className="flex items-start space-x-3 animate-in slide-in-from-left duration-500 delay-300">
-                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
+                  <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
                     <img 
                       src={signalEsimIcon} 
                       alt="Activate eSIM"
                       className="w-12 h-12 object-contain"
                     />
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center shadow-sm">
+                      <span className="text-white text-xs font-bold">3</span>
+                    </div>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Activate Your eSIM</h3>
