@@ -101,23 +101,30 @@ export default function SplashScreen() {
               <div className="absolute inset-2 rounded-full bg-gradient-to-r from-cyan-400/20 to-pink-400/20 dark:from-cyan-400/15 dark:to-pink-400/15 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             </div>
             
-            {/* Logo Container with Glass Effect */}
-            <div className={`relative w-36 h-36 bg-white/90 dark:bg-gray-800/90 rounded-3xl shadow-2xl dark:shadow-2xl dark:shadow-black/60 flex items-center justify-center backdrop-blur-xl border border-white/20 dark:border-gray-700/30 transition-all duration-800 ${
+            {/* Logo Container with Enhanced Glass Effect */}
+            <div className={`relative w-36 h-36 bg-white/95 dark:bg-gray-800/95 rounded-3xl shadow-2xl dark:shadow-2xl dark:shadow-black/60 flex items-center justify-center backdrop-blur-xl border border-white/30 dark:border-gray-600/40 transition-all duration-800 ${
               logoScale ? 'scale-105' : 'scale-100'
             }`}>
               
-              {/* Inner Glow Ring */}
-              <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-400/15 dark:to-purple-400/15"></div>
+              {/* Enhanced Inner Glow Ring for Better Logo Visibility */}
+              <div className="absolute inset-3 rounded-2xl bg-gradient-to-br from-blue-500/8 via-purple-500/6 to-cyan-500/8 dark:from-blue-400/12 dark:via-purple-400/10 dark:to-cyan-400/12"></div>
               
-              {/* e-simfo Logo with Premium Styling */}
-              <div className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl transition-all duration-600 ${
-                logoScale ? 'scale-110 shadow-blue-500/50' : 'scale-100'
+              {/* Logo Background with Better Contrast */}
+              <div className={`relative w-24 h-24 bg-white/60 dark:bg-gray-700/60 rounded-2xl flex items-center justify-center shadow-lg dark:shadow-xl transition-all duration-600 backdrop-blur-sm ${
+                logoScale ? 'scale-110 shadow-blue-500/30 dark:shadow-blue-400/40' : 'scale-100'
               }`}>
-                <img 
-                  src={esimfoLogo} 
-                  alt="e-simfo Logo"
-                  className="w-full h-full object-contain"
-                />
+                
+                {/* Logo with Enhanced Sizing */}
+                <div className="w-20 h-20 flex items-center justify-center">
+                  <img 
+                    src={esimfoLogo} 
+                    alt="e-simfo Logo"
+                    className="w-full h-full object-contain drop-shadow-sm"
+                  />
+                </div>
+                
+                {/* Subtle Inner Border for Logo Container */}
+                <div className="absolute inset-0 rounded-2xl border border-white/20 dark:border-gray-600/30"></div>
               </div>
               
               {/* Animated Border Shimmer */}
