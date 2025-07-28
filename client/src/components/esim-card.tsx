@@ -41,25 +41,25 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
             <img 
               src={esim.country?.flagUrl || 'https://flagcdn.com/w320/tr.png'} 
               alt={`${esim.country?.name || 'Turkey'} flag`} 
-              className="w-10 h-7 rounded object-cover border border-gray-200 dark:border-gray-600 shadow-sm" 
+              className="w-12 h-8 rounded object-cover border border-gray-200 dark:border-gray-600 shadow-sm" 
             />
             <div>
-              <p className="font-semibold text-gray-900 dark:text-white text-base">
+              <p className="font-medium text-gray-900 dark:text-white text-base">
                 {esim.country?.name || 'Turkey'}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 eSIM #{esim.id}
               </p>
             </div>
           </div>
-          <span className={`px-2 py-1 text-xs rounded-full font-medium ${getStatusColor(esim.status)}`}>
+          <span className={`px-1.5 py-0.5 text-xs rounded-full font-medium ${getStatusColor(esim.status)}`}>
             {esim.status}
           </span>
         </div>
         
         {/* Package Details */}
         <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3">
-          <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">
+          <p className="text-base font-medium text-gray-900 dark:text-white mb-1">
             {esim.package?.name || '5GB Istanbul Travel'}
           </p>
           <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
