@@ -298,7 +298,7 @@ export default function PackagesScreen() {
                 : 'bg-gray-100 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400'
             }`}
           >
-            Voice+SMS ({dataCallsTextPackages.length})
+            <span className="hidden sm:inline">Data / </span>Voice+SMS ({dataCallsTextPackages.length})
           </button>
         </div>
 
