@@ -298,7 +298,7 @@ export default function PackagesScreen() {
                 : 'bg-gray-100 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400'
             }`}
           >
-            Data/Voice/SMS ({dataCallsTextPackages.length})
+            Voice+SMS ({dataCallsTextPackages.length})
           </button>
         </div>
 
