@@ -143,8 +143,8 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
         <div className="mb-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-lg border border-gray-100 dark:border-gray-700">
             <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-4">Enjoy these benefits</h2>
-            <div className="space-y-6">
-              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-750 rounded-xl p-2 -m-2">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl p-2 -m-2">
                 <div className="transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <img 
                     src={oneTimeActivationIcon} 
@@ -160,7 +160,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-750 rounded-xl p-2 -m-2">
+              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl p-2 -m-2">
                 <div className="transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <img 
                     src={prioritySupportIcon} 
@@ -176,7 +176,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-750 rounded-xl p-2 -m-2">
+              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl p-2 -m-2">
                 <div className="transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <img 
                     src={expeditedReturnIcon} 
