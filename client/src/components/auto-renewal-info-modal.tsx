@@ -17,6 +17,47 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
   isOpen,
   onClose
 }) => {
+  // Handle ESC key and swipe down to close
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    let startY = 0;
+    let currentY = 0;
+    const handleTouchStart = (event: TouchEvent) => {
+      startY = event.touches[0].clientY;
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      currentY = event.touches[0].clientY;
+    };
+
+    const handleTouchEnd = () => {
+      const diff = currentY - startY;
+      // Swipe down more than 100px to close
+      if (diff > 100) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('touchstart', handleTouchStart, { passive: true });
+      document.addEventListener('touchmove', handleTouchMove, { passive: true });
+      document.addEventListener('touchend', handleTouchEnd);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
@@ -39,6 +80,8 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
             src={autoRenewalIcon} 
             alt="Auto Renewal"
             className="w-24 h-24 object-contain"
+            loading="eager"
+            style={{ imageRendering: 'crisp-edges' }}
           />
         </div>
 
@@ -60,6 +103,8 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
                     src={businessTravelsIcon} 
                     alt="Business travels"
                     className="w-12 h-12 object-contain"
+                    loading="lazy"
+                    style={{ imageRendering: 'crisp-edges' }}
                   />
                 </div>
                 <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Business travels</div>
@@ -71,6 +116,8 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
                     src={longJourneysIcon} 
                     alt="Long journeys"
                     className="w-12 h-12 object-contain"
+                    loading="lazy"
+                    style={{ imageRendering: 'crisp-edges' }}
                   />
                 </div>
                 <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Long journeys</div>
@@ -82,6 +129,8 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
                     src={remoteWorkIcon} 
                     alt="Remote work"
                     className="w-12 h-12 object-contain"
+                    loading="lazy"
+                    style={{ imageRendering: 'crisp-edges' }}
                   />
                 </div>
                 <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Remote work</div>
@@ -95,39 +144,51 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-lg border border-gray-100 dark:border-gray-700">
             <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-4">Enjoy these benefits</h2>
             <div className="space-y-6">
-              <div className="flex items-center space-x-5">
-                <img 
-                  src={oneTimeActivationIcon} 
-                  alt="One-time activation"
-                  className="w-12 h-12 object-contain flex-shrink-0"
-                />
+              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-750 rounded-xl p-2 -m-2">
+                <div className="transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <img 
+                    src={oneTimeActivationIcon} 
+                    alt="One-time activation"
+                    className="w-12 h-12 object-contain flex-shrink-0"
+                    loading="lazy"
+                    style={{ imageRendering: 'crisp-edges' }}
+                  />
+                </div>
                 <div className="flex-1 min-h-[48px] flex flex-col justify-center">
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">One-time activation</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">No need to set up a new SIM card every time, recharge your current one</p>
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1 transition-colors duration-300 group-hover:text-orange-600 dark:group-hover:text-orange-400">One-time activation</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed transition-colors duration-300 group-hover:text-gray-700 dark:group-hover:text-gray-300">No need to set up a new SIM card every time, recharge your current one</p>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-5">
-                <img 
-                  src={prioritySupportIcon} 
-                  alt="Priority support"
-                  className="w-12 h-12 object-contain flex-shrink-0"
-                />
+              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-750 rounded-xl p-2 -m-2">
+                <div className="transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <img 
+                    src={prioritySupportIcon} 
+                    alt="Priority support"
+                    className="w-12 h-12 object-contain flex-shrink-0"
+                    loading="lazy"
+                    style={{ imageRendering: 'crisp-edges' }}
+                  />
+                </div>
                 <div className="flex-1 min-h-[48px] flex flex-col justify-center">
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">Priority support</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Your requests will receive priority attention in our ticketing system</p>
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1 transition-colors duration-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">Priority support</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed transition-colors duration-300 group-hover:text-gray-700 dark:group-hover:text-gray-300">Your requests will receive priority attention in our ticketing system</p>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-5">
-                <img 
-                  src={expeditedReturnIcon} 
-                  alt="Expedited return"
-                  className="w-12 h-12 object-contain flex-shrink-0"
-                />
+              <div className="flex items-center space-x-5 group cursor-pointer transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-750 rounded-xl p-2 -m-2">
+                <div className="transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+                  <img 
+                    src={expeditedReturnIcon} 
+                    alt="Expedited return"
+                    className="w-12 h-12 object-contain flex-shrink-0"
+                    loading="lazy"
+                    style={{ imageRendering: 'crisp-edges' }}
+                  />
+                </div>
                 <div className="flex-1 min-h-[48px] flex flex-col justify-center">
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">Expedited return</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">If it doesn't work - your refund request will be prioritized</p>
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1 transition-colors duration-300 group-hover:text-green-600 dark:group-hover:text-green-400">Expedited return</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed transition-colors duration-300 group-hover:text-gray-700 dark:group-hover:text-gray-300">If it doesn't work - your refund request will be prioritized</p>
                 </div>
               </div>
             </div>
