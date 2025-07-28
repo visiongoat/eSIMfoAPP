@@ -60,7 +60,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
         {/* Package Details */}
         <div className="bg-gray-25 dark:bg-gray-800/50 rounded-lg p-3">
           <p className="text-base font-medium text-gray-900 dark:text-white mb-1">
-            {esim.package?.name || '5GB Istanbul Travel'}
+            {esim.package?.name || '5GB / 30 Days'}
           </p>
           <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
             <span>{esim.package?.data || '5GB'}</span>

@@ -87,12 +87,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Create package details based on esim data
         const packageDetails = (() => {
           switch (esim.id) {
-            case 1: return { name: "Istanbul Travel", data: "3GB", duration: "30 days", price: "€19.99", discount: "-50%" };
-            case 2: return { name: "Madrid Explorer", data: "5GB", duration: "30 days", price: "€24.99", discount: "-50%" };
-            case 3: return { name: "Paris Connection", data: "3GB", duration: "15 days", price: "€16.99", discount: "-43%" };
-            case 4: return { name: "Rome Classic", data: "2GB", duration: "20 days", price: "€14.99", discount: "-40%" };
-            case 5: return { name: "Berlin Business", data: "3GB", duration: "30 days", price: "€22.99", discount: "-49%" };
-            case 6: return { name: "London Premium", data: "5GB", duration: "30 days", price: "€29.99", discount: "-50%" };
+            case 1: return { name: "3GB / 30 Days", data: "3GB", duration: "30 days", price: "€19.99", discount: "-50%" };
+            case 2: return { name: "5GB / 30 Days", data: "5GB", duration: "30 days", price: "€24.99", discount: "-50%" };
+            case 3: return { name: "3GB / 15 Days", data: "3GB", duration: "15 days", price: "€16.99", discount: "-43%" };
+            case 4: return { name: "2GB / 20 Days", data: "2GB", duration: "20 days", price: "€14.99", discount: "-40%" };
+            case 5: return { name: "3GB / 30 Days", data: "3GB", duration: "30 days", price: "€22.99", discount: "-49%" };
+            case 6: return { name: "5GB / 30 Days", data: "5GB", duration: "30 days", price: "€29.99", discount: "-50%" };
             default: return null;
           }
         })();
