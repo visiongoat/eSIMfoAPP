@@ -32,7 +32,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
           <img 
             src={autoRenewalIcon} 
             alt="Auto Renewal"
-            className="w-16 h-16 object-contain"
+            className="w-24 h-24 object-contain"
           />
         </div>
 
