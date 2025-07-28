@@ -16,7 +16,7 @@ export default function MyEsimsScreen() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [selectedEsim, setSelectedEsim] = useState<Esim | null>(null);
 
-  const [filter, setFilter] = useState<FilterType>('all');
+  const [filter, setFilter] = useState<FilterType>('active');
 
   const { data: esims = [], isLoading } = useQuery<(Esim & { package?: Package; country?: Country })[]>({
     queryKey: ["/api/esims"],
