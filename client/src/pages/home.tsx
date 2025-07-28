@@ -1601,11 +1601,11 @@ export default function HomeScreen() {
               <div className="px-4 py-3 space-y-3">
                 {/* Step 1 */}
                 <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
                     <img 
                       src={locationPinIcon} 
                       alt="Choose destination"
-                      className="w-8 h-8 object-contain"
+                      className="w-12 h-12 object-contain"
                     />
                   </div>
                   <div className="flex-1">
