@@ -1,7 +1,10 @@
-import type { Esim, Package, Country } from "@shared/schema";
+import { Esim } from "@shared/schema";
 
 interface EsimCardProps {
-  esim: Esim & { package?: Package; country?: Country };
+  esim: Esim & {
+    country?: { name: string; flagUrl: string };
+    package?: { name: string; data: string; duration: string; price: string };
+  };
   onViewQR?: (esim: Esim) => void;
   onReorder?: (esim: Esim) => void;
   onShare?: (esim: Esim) => void;
@@ -9,119 +12,127 @@ interface EsimCardProps {
 
 export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCardProps) {
   const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'active':
-        return 'bg-secondary text-white';
-      case 'expired':
-        return 'bg-gray-100 text-gray-600';
-      case 'ready':
-        return 'bg-blue-100 text-blue-600';
+    switch (status) {
+      case 'Active':
+        return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
+      case 'Expired':
+        return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+      case 'Inactive':
+        return 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300';
       default:
-        return 'bg-gray-100 text-gray-600';
+        return 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300';
     }
   };
 
   const calculateUsagePercentage = () => {
     if (!esim.package?.data || !esim.dataUsed) return 0;
-    const total = parseFloat(esim.package.data.replace('GB', '')) * 1000; // Convert to MB
+    const totalGB = parseFloat(esim.package.data.replace('GB', ''));
+    const total = totalGB * 1000; // Convert GB to MB
     const used = parseFloat(esim.dataUsed);
     return Math.min((used / total) * 100, 100);
   };
 
   return (
     <div className="mobile-card p-3 mb-2">
-      <div className="flex items-start space-x-3">
-        {/* Flag and Country Info */}
-        <div className="flex-shrink-0">
-          {esim.country && (
-            <img 
-              src={esim.country.flagUrl} 
-              alt={`${esim.country.name} flag`} 
-              className="w-8 h-6 rounded object-cover border border-gray-200 dark:border-gray-600" 
-            />
-          )}
+      <div className="space-y-2">
+        {/* Header with Flag, Country, and Status */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            {esim.country && (
+              <img 
+                src={esim.country.flagUrl} 
+                alt={`${esim.country.name} flag`} 
+                className="w-10 h-7 rounded object-cover border border-gray-200 dark:border-gray-600 shadow-sm" 
+              />
+            )}
+            <div>
+              <p className="font-semibold text-gray-900 dark:text-white text-base">
+                {esim.country?.name || 'Unknown Country'}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                eSIM #{esim.id}
+              </p>
+            </div>
+          </div>
+          <span className={`px-2 py-1 text-xs rounded-full font-medium ${getStatusColor(esim.status)}`}>
+            {esim.status}
+          </span>
         </div>
         
-        {/* Main Content */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between mb-1">
-            <div className="flex items-center space-x-2">
-              <p className="font-medium text-gray-900 dark:text-white text-sm truncate">
-                {esim.country?.name || 'eSIM'}
-              </p>
-              <span className={`px-2 py-0.5 text-xs rounded-full flex-shrink-0 ${getStatusColor(esim.status)}`}>
-                {esim.status}
+        {/* Package Details */}
+        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-2">
+          <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">
+            {esim.package?.name || 'Package Details'}
+          </p>
+          <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
+            <span>{esim.package?.data}</span>
+            <span>•</span>
+            <span>{esim.package?.duration}</span>
+            <span>•</span>
+            <span>€{esim.package?.price}</span>
+          </div>
+        </div>
+        
+        {/* Progress Bar for Active eSIMs */}
+        {esim.status === 'Active' && (
+          <div className="space-y-1">
+            <div className="flex justify-between text-xs">
+              <span className="text-gray-600 dark:text-gray-400">Data Usage</span>
+              <span className={`font-medium ${calculateUsagePercentage() >= 80 ? 'text-orange-600 dark:text-orange-400' : 'text-gray-900 dark:text-white'}`}>
+                {esim.dataUsed}MB / {esim.package?.data}
+                {calculateUsagePercentage() >= 80 && (
+                  <span className="ml-1 text-orange-500">⚠️</span>
+                )}
               </span>
             </div>
-            
-            {/* Action Buttons */}
-            <div className="flex items-center space-x-2">
-              {esim.status === 'Active' && onViewQR && (
-                <button 
-                  onClick={() => onViewQR(esim)}
-                  className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline"
-                >
-                  View QR
-                </button>
-              )}
-              {esim.status === 'Expired' && onReorder && (
-                <button 
-                  onClick={() => onReorder(esim)}
-                  className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline"
-                >
-                  Reorder
-                </button>
-              )}
-              {onShare && (
-                <button 
-                  onClick={() => onShare(esim)}
-                  className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
-                  title="Share"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                  </svg>
-                </button>
-              )}
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+              <div 
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  calculateUsagePercentage() >= 80 ? 'bg-orange-500' : 
+                  calculateUsagePercentage() >= 60 ? 'bg-yellow-500' : 'bg-green-500'
+                }`}
+                style={{ width: `${Math.min(calculateUsagePercentage(), 100)}%` }}
+              ></div>
             </div>
           </div>
-          
-          {/* Package Details */}
-          <div className="mb-2">
-            <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">
-              {esim.package?.name} • {esim.package?.data} • {esim.package?.duration}
-            </p>
-            
-            {/* Progress Bar for Active eSIMs */}
-            {esim.status === 'Active' && (
-              <div className="space-y-1">
-                <div className="flex justify-between text-xs">
-                  <span className="text-gray-600 dark:text-gray-400">Data Used</span>
-                  <span className={`font-medium ${calculateUsagePercentage() >= 80 ? 'text-orange-600 dark:text-orange-400' : 'text-gray-900 dark:text-white'}`}>
-                    {esim.dataUsed}MB / {esim.package?.data}
-                    {calculateUsagePercentage() >= 80 && (
-                      <span className="ml-1 text-orange-500">⚠️</span>
-                    )}
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                  <div 
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      calculateUsagePercentage() >= 80 ? 'bg-orange-500' : 
-                      calculateUsagePercentage() >= 60 ? 'bg-yellow-500' : 'bg-green-500'
-                    }`}
-                    style={{ width: `${Math.min(calculateUsagePercentage(), 100)}%` }}
-                  ></div>
-                </div>
-              </div>
-            )}
-          </div>
-          
-          {/* Expiry Date */}
+        )}
+        
+        {/* Footer with Actions and Date */}
+        <div className="flex items-center justify-between">
           <p className="text-xs text-gray-500 dark:text-gray-400">
             {esim.status === 'Active' ? 'Expires:' : 'Used:'} {' '}
             {esim.expiresAt ? new Date(esim.expiresAt).toLocaleDateString() : 'N/A'}
           </p>
+          
+          <div className="flex items-center space-x-3">
+            {esim.status === 'Active' && onViewQR && (
+              <button 
+                onClick={() => onViewQR(esim)}
+                className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline"
+              >
+                View QR
+              </button>
+            )}
+            {esim.status === 'Expired' && onReorder && (
+              <button 
+                onClick={() => onReorder(esim)}
+                className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline"
+              >
+                Reorder
+              </button>
+            )}
+            {onShare && (
+              <button 
+                onClick={() => onShare(esim)}
+                className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                title="Share"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
