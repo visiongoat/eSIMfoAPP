@@ -75,9 +75,11 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
         {esim.status === 'Active' && (
           <div className="space-y-1">
             <div className="flex justify-between text-xs">
-              <span className="text-gray-600 dark:text-gray-400">Data Usage</span>
+              <span className="text-gray-600 dark:text-gray-400">
+                {esim.dataUsed}MB used of {esim.package?.data}
+              </span>
               <span className={`font-medium ${calculateUsagePercentage() >= 80 ? 'text-orange-600 dark:text-orange-400' : 'text-gray-900 dark:text-white'}`}>
-                {esim.dataUsed}MB / {esim.package?.data}
+                {Math.round(calculateUsagePercentage())}%
                 {calculateUsagePercentage() >= 80 && (
                   <span className="ml-1 text-orange-500">⚠️</span>
                 )}

@@ -15,7 +15,7 @@ export default function MyEsimsScreen() {
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [selectedEsim, setSelectedEsim] = useState<Esim | null>(null);
-  const [notifications, setNotifications] = useState<string[]>([]);
+
   const [filter, setFilter] = useState<FilterType>('all');
 
   const { data: esims = [], isLoading } = useQuery<(Esim & { package?: Package; country?: Country })[]>({
@@ -57,23 +57,7 @@ export default function MyEsimsScreen() {
   }, 0);
   // Remove totalSaved - no calculation logic needed
 
-  // Data usage notifications (80% threshold) - only check once
-  useEffect(() => {
-    if (esims.length === 0) return;
-    
-    const newNotifications: string[] = [];
-    esims.filter(esim => esim.status === 'Active').forEach(esim => {
-      const used = parseFloat(esim.dataUsed || '0');
-      const total = parseFloat(esim.package?.data?.replace('GB', '') || '0') * 1000; // Convert to MB
-      if (used / total >= 0.8 && used / total < 1) {
-        newNotifications.push(`eSIM data ${Math.round((used/total)*100)}% used`);
-      }
-    });
-    
-    if (notifications.length !== newNotifications.length) {
-      setNotifications(newNotifications);
-    }
-  }, [esims.length]);
+  // Remove data usage notifications
 
   // Share eSIM functionality
   const handleShareEsim = (esim: Esim) => {
@@ -135,17 +119,7 @@ export default function MyEsimsScreen() {
           </div>
         </div>
 
-        {/* Data Usage Notifications */}
-        {notifications.length > 0 && (
-          <div className="mb-4 space-y-2">
-            {notifications.map((notification, index) => (
-              <div key={index} className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-3 flex items-center space-x-3">
-                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-                <p className="text-orange-800 dark:text-orange-200 text-sm font-medium">{notification}</p>
-              </div>
-            ))}
-          </div>
-        )}
+
 
         {isLoading ? (
           <div className="space-y-3">
