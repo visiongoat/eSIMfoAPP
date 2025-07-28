@@ -32,16 +32,21 @@ export default function MyEsimsScreen() {
     }
   };
 
-  // Filter eSIMs based on selected filter
+  // Filter eSIMs based on selected filter and sort by ID descending (newest first)
   const getFilteredEsims = () => {
+    let filtered;
     switch (filter) {
       case 'active':
-        return esims.filter(esim => esim.status === 'Active');
+        filtered = esims.filter(esim => esim.status === 'Active');
+        break;
       case 'expired':
-        return esims.filter(esim => esim.status === 'Expired');
+        filtered = esims.filter(esim => esim.status === 'Expired');
+        break;
       default:
-        return esims;
+        filtered = esims;
     }
+    // Sort by ID descending (newest purchases first)
+    return filtered.sort((a, b) => b.id - a.id);
   };
 
   const filteredEsims = getFilteredEsims();
