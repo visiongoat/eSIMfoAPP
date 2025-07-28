@@ -158,10 +158,10 @@ export class MemStorage implements IStorage {
     // Seed packages
     const seedPackages = [
       // US packages (countryId 73 - United States)
-      { countryId: 73, name: "1GB / 7 Days", data: "1GB", validity: "7 Days", price: "$4.50", originalPrice: "$6.00", description: "Perfect for short trips", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
-      { countryId: 73, name: "3GB / 15 Days", data: "3GB", validity: "15 Days", price: "$12.90", originalPrice: null, description: "Most popular choice", features: ["5G", "No expiry", "Instant"], isPopular: true, networkType: "5G" },
-      { countryId: 73, name: "10GB / 30 Days", data: "10GB", validity: "30 Days", price: "$28.50", originalPrice: null, description: "Extended stay package", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
-      { countryId: 73, name: "20GB / 60 Days", data: "20GB", validity: "60 Days", price: "$45.90", originalPrice: "$65.00", description: "Long term package", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
+      { countryId: 73, name: "1GB / 7 Days", data: "1GB", validity: "7 Days", price: "4.50", originalPrice: "6.00", description: "Perfect for short trips", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
+      { countryId: 73, name: "3GB / 15 Days", data: "3GB", validity: "15 Days", price: "12.90", originalPrice: null, description: "Most popular choice", features: ["5G", "No expiry", "Instant"], isPopular: true, networkType: "5G" },
+      { countryId: 73, name: "10GB / 30 Days", data: "10GB", validity: "30 Days", price: "28.50", originalPrice: null, description: "Extended stay package", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
+      { countryId: 73, name: "20GB / 60 Days", data: "20GB", validity: "60 Days", price: "45.90", originalPrice: "65.00", description: "Long term package", features: ["5G", "No expiry", "Instant"], isPopular: false, networkType: "5G" },
       
       // Germany packages (countryId 6 - Germany)
       { countryId: 6, name: "2GB / 10 Days", data: "2GB", validity: "10 Days", price: "€8.90", originalPrice: null, description: "Great for business trips", features: ["5G", "No expiry", "Instant"], isPopular: true, networkType: "5G" },
