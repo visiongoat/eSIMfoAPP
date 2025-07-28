@@ -10,6 +10,7 @@ import asiaIcon from "@assets/asiamap.png";
 import americasIcon from "@assets/americasmaps.png";
 import africaIcon from "@assets/africacontinentmap.png";
 import middleEastIcon from "@assets/middleeastcontinentmap.png";
+import oceaniaIcon from "@assets/oceaniacontinentmap.png";
 import type { Country } from "@shared/schema";
 
 export default function DestinationsScreen() {
@@ -792,10 +793,11 @@ export default function DestinationsScreen() {
                   <div className="flex items-center justify-between relative z-10">
                     <div className="flex items-center space-x-3">
                       <div className="continent-icon w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-xl flex items-center justify-center">
-                        <svg className="w-6 h-6 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                          <circle cx="18" cy="5" r="3"/>
-                        </svg>
+                        <img 
+                          src={oceaniaIcon} 
+                          alt="Oceania"
+                          className="w-10 h-10 object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Oceania</h3>
