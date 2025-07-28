@@ -93,7 +93,8 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
                     style={{ 
                       animation: 'progress-breathe 3s ease-in-out infinite',
                       right: '-8px',
-                      top: '-4px'
+                      top: '-4px',
+                      transformOrigin: 'center'
                     }}
                   ></div>
                 )}
