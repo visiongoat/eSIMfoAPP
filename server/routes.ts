@@ -89,8 +89,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const country = pkg ? await storage.getCountry(pkg.countryId) : null;
           return {
             ...esim,
-            package: pkg,
-            country: country
+            package: pkg ? {
+              name: pkg.name,
+              data: pkg.data,
+              duration: pkg.validity,
+              price: pkg.price
+            } : null,
+            country: country ? {
+              name: country.name,
+              flagUrl: country.flagUrl
+            } : null
           };
         })
       );
