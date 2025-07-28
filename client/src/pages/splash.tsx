@@ -109,14 +109,10 @@ export default function SplashScreen() {
               <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-400/15 dark:to-purple-400/15"></div>
               
               {/* e-simfo Logo with Premium Styling */}
-              <div className={`w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl transition-all duration-600 ${
+              <div className={`w-20 h-20 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 dark:from-blue-400 dark:via-blue-500 dark:to-indigo-500 rounded-2xl flex items-center justify-center shadow-xl transition-all duration-600 ${
                 logoScale ? 'scale-110 shadow-blue-500/50' : 'scale-100'
               }`}>
-                <img 
-                  src="/attached_assets/{4153A1B9-59F5-4F64-8203-DC281654BBB9}_1753693175999.png" 
-                  alt="e-simfo Logo"
-                  className="w-full h-full object-contain"
-                />
+                <span className="text-white text-3xl font-black tracking-tight drop-shadow-lg">e</span>
               </div>
               
               {/* Animated Border Shimmer */}
