@@ -1,6 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import autoRenewalIcon from '@assets/auto-renewal1.png';
+import businessTravelsIcon from '@assets/businesstravels.png';
 
 interface AutoRenewalInfoModalProps {
   isOpen: boolean;
@@ -49,11 +50,12 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
             <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-3 text-center">Auto-renewal is perfect for</h2>
             <div className="grid grid-cols-3 gap-3">
               <div className="text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                    <path d="M14 6V4h-4v2c0 .55-.45 1-1 1s-1-.45-1-1V4H6C4.89 4 4 4.89 4 6v2h16V6c0-1.11-.89-2-2-2h-2v2c0 .55-.45 1-1 1s-1-.45-1-1z"/>
-                    <path d="M4 20c0 1.11.89 2 2 2h12c1.11 0 2-.89 2-2V10H4v10z"/>
-                  </svg>
+                <div className="flex justify-center mx-auto mb-2">
+                  <img 
+                    src={businessTravelsIcon} 
+                    alt="Business travels"
+                    className="w-12 h-12 object-contain"
+                  />
                 </div>
                 <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Business travels</div>
               </div>
