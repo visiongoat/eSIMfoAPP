@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom glow effect */
+.shadow-glow {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
 /* Splash Screen Animations */
 @keyframes shimmer {
   0% { transform: translateX(-100%) rotate(45deg); }

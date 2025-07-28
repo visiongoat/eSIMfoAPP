@@ -33,7 +33,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
   };
 
   return (
-    <div className="mobile-card p-4 mb-3">
+    <div className="mobile-card p-4 mb-3 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ease-out cursor-pointer border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600 group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 hover:from-blue-50 hover:to-indigo-50 dark:hover:from-gray-700 dark:hover:to-blue-900/20">
       <div className="space-y-3">
         {/* Header with Flag, Country, and Status */}
         <div className="flex items-center justify-between">
@@ -41,18 +41,18 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
             <img 
               src={esim.country?.flagUrl || 'https://flagcdn.com/w320/tr.png'} 
               alt={`${esim.country?.name || 'Turkey'} flag`} 
-              className="w-12 h-8 rounded object-cover border border-gray-200 dark:border-gray-600 shadow-sm" 
+              className="w-12 h-8 rounded object-cover border border-gray-200 dark:border-gray-600 shadow-sm group-hover:shadow-md group-hover:scale-105 transition-all duration-300" 
             />
             <div>
-              <p className="font-medium text-gray-900 dark:text-white text-base">
+              <p className="font-medium text-gray-900 dark:text-white text-base group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
                 {esim.country?.name || 'Turkey'}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-300">
                 {esim.package?.name || '5GB / 30 Days'} • eSIM #{esim.id}
               </p>
             </div>
           </div>
-          <span className={`px-1.5 py-0.5 text-xs rounded-full font-medium ${getStatusColor(esim.status)}`}>
+          <span className={`px-1.5 py-0.5 text-xs rounded-full font-medium transition-all duration-300 group-hover:scale-110 group-hover:shadow-sm ${getStatusColor(esim.status)}`}>
             {esim.status}
           </span>
         </div>
@@ -75,11 +75,11 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
                 )}
               </span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 group-hover:h-2.5 transition-all duration-300 overflow-hidden">
               <div 
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  calculateUsagePercentage() >= 80 ? 'bg-red-400' : 
-                  calculateUsagePercentage() >= 60 ? 'bg-yellow-400' : 'bg-green-400'
+                className={`h-full rounded-full transition-all duration-500 group-hover:shadow-glow ${
+                  calculateUsagePercentage() >= 80 ? 'bg-gradient-to-r from-red-400 to-red-500 group-hover:from-red-300 group-hover:to-red-400' : 
+                  calculateUsagePercentage() >= 60 ? 'bg-gradient-to-r from-yellow-400 to-orange-400 group-hover:from-yellow-300 group-hover:to-orange-300' : 'bg-gradient-to-r from-green-400 to-emerald-400 group-hover:from-green-300 group-hover:to-emerald-300'
                 }`}
                 style={{ width: `${Math.min(calculateUsagePercentage(), 100)}%` }}
               ></div>
@@ -98,7 +98,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
             {esim.status === 'Active' && onViewQR && (
               <button 
                 onClick={() => onViewQR(esim)}
-                className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline"
+                className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 hover:scale-105 active:scale-95"
               >
                 Setup eSIM
               </button>
@@ -106,7 +106,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
             {esim.status === 'Expired' && onReorder && (
               <button 
                 onClick={() => onReorder(esim)}
-                className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline"
+                className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 hover:scale-105 active:scale-95"
               >
                 Reorder
               </button>
@@ -114,7 +114,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
             {onShare && (
               <button 
                 onClick={() => onShare(esim)}
-                className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 hover:scale-110 active:scale-95 hover:rotate-12"
                 title="Share"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
