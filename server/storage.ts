@@ -172,9 +172,9 @@ export class MemStorage implements IStorage {
       { countryId: 8, name: "1GB / 5 Days", data: "1GB", validity: "5 Days", price: "6.90", originalPrice: null, description: "Short Tokyo visit", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
       { countryId: 8, name: "3GB / 14 Days", data: "3GB", validity: "14 Days", price: "16.50", originalPrice: null, description: "Explore Japan package", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
       
-      // Turkey packages (countryId 9)
-      { countryId: 9, name: "2GB / 7 Days", data: "2GB", validity: "7 Days", price: "5.90", originalPrice: null, description: "Istanbul visit", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
-      { countryId: 9, name: "5GB / 15 Days", data: "5GB", validity: "15 Days", price: "12.50", originalPrice: null, description: "Turkey explorer", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
+      // Turkey packages (countryId 48)
+      { countryId: 48, name: "2GB / 7 Days", data: "2GB", validity: "7 Days", price: "5.90", originalPrice: null, description: "Istanbul visit", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
+      { countryId: 48, name: "5GB / 15 Days", data: "5GB", validity: "15 Days", price: "12.50", originalPrice: null, description: "Turkey explorer", features: ["4G/5G", "No expiry", "Instant"], isPopular: false, networkType: "4G/5G" },
       
       // France packages (countryId 6)
       { countryId: 6, name: "3GB / 14 Days", data: "3GB", validity: "14 Days", price: "11.90", originalPrice: null, description: "Paris vacation", features: ["4G/5G", "No expiry", "Instant"], isPopular: true, networkType: "4G/5G" },
@@ -201,7 +201,7 @@ export class MemStorage implements IStorage {
     const demoEsim: Esim = {
       id: this.currentEsimId++,
       userId: 1,
-      packageId: 12, // Turkey package: "2GB / 7 Days"
+      packageId: 10, // Turkey package: "2GB / 7 Days"
       qrCode: "QR_CODE_DATA_HERE",
       status: "Active",
       dataUsed: "450",

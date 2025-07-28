@@ -14,7 +14,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Active':
-        return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
+        return 'bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 text-blue-700 dark:text-blue-300';
       case 'Expired':
         return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
       case 'Inactive':
@@ -58,7 +58,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
         </div>
         
         {/* Package Details */}
-        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3">
+        <div className="bg-gray-25 dark:bg-gray-800/50 rounded-lg p-3">
           <p className="text-base font-medium text-gray-900 dark:text-white mb-1">
             {esim.package?.name || '5GB Istanbul Travel'}
           </p>
@@ -86,8 +86,8 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div 
                 className={`h-2 rounded-full transition-all duration-300 ${
-                  calculateUsagePercentage() >= 80 ? 'bg-orange-500' : 
-                  calculateUsagePercentage() >= 60 ? 'bg-yellow-500' : 'bg-green-500'
+                  calculateUsagePercentage() >= 80 ? 'bg-red-400' : 
+                  calculateUsagePercentage() >= 60 ? 'bg-yellow-400' : 'bg-green-400'
                 }`}
                 style={{ width: `${Math.min(calculateUsagePercentage(), 100)}%` }}
               ></div>
