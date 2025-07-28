@@ -75,14 +75,24 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
                 )}
               </span>
             </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 group-hover:h-2.5 transition-all duration-300 overflow-hidden">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 group-hover:h-2.5 transition-all duration-300 relative">
               <div 
-                className={`h-full rounded-full transition-all duration-500 group-hover:shadow-glow ${
+                className={`h-full rounded-full transition-all duration-500 group-hover:shadow-glow relative ${
                   calculateUsagePercentage() >= 80 ? 'bg-gradient-to-r from-red-400 to-red-500 group-hover:from-red-300 group-hover:to-red-400' : 
                   calculateUsagePercentage() >= 60 ? 'bg-gradient-to-r from-yellow-400 to-orange-400 group-hover:from-yellow-300 group-hover:to-orange-300' : 'bg-gradient-to-r from-green-400 to-emerald-400 group-hover:from-green-300 group-hover:to-emerald-300'
                 }`}
                 style={{ width: `${Math.min(calculateUsagePercentage(), 100)}%` }}
-              ></div>
+              >
+                {/* Progress indicator dot */}
+                {calculateUsagePercentage() > 0 && (
+                  <div 
+                    className={`absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 group-hover:w-4 group-hover:h-4 transition-all duration-300 animate-pulse ${
+                      calculateUsagePercentage() >= 80 ? 'bg-red-500' : 
+                      calculateUsagePercentage() >= 60 ? 'bg-orange-500' : 'bg-green-500'
+                    }`}
+                  ></div>
+                )}
+              </div>
             </div>
           </div>
         )}
