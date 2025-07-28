@@ -128,7 +128,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
                 </div>
                 <div className="flex-1">
                   <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">Expedited return</h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">If it doesn't work - your refund request will be prioritized</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">If it doesn't work - your refund request<br />will be prioritized</p>
                 </div>
               </div>
             </div>
