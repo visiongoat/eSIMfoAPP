@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
+import esimfoLogo from "@assets/160x160esimfologo.png";
 
 export default function SplashScreen() {
   const [, setLocation] = useLocation();
@@ -113,7 +114,7 @@ export default function SplashScreen() {
                 logoScale ? 'scale-110 shadow-blue-500/50' : 'scale-100'
               }`}>
                 <img 
-                  src="/attached_assets/160x160esimfologo.png" 
+                  src={esimfoLogo} 
                   alt="e-simfo Logo"
                   className="w-full h-full object-contain"
                 />
