@@ -1612,7 +1612,7 @@ export default function HomeScreen() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Choose Your Destination and Plan</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Select from over 200 countries and pick the plan that suits you best</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Select your country and data plan</p>
                   </div>
                 </div>
 
@@ -1627,7 +1627,7 @@ export default function HomeScreen() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Set Up Your eSIM</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Scan the QR code to install your eSIM on your phone</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Scan QR code to install eSIM</p>
                   </div>
                 </div>
 
@@ -1642,7 +1642,7 @@ export default function HomeScreen() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Activate Your eSIM</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Turn on your eSIM during your trip and get connected instantly</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">Enable and connect instantly</p>
                   </div>
                 </div>
 
