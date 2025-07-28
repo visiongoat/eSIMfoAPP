@@ -2,6 +2,8 @@ import React from 'react';
 import { X } from 'lucide-react';
 import autoRenewalIcon from '@assets/auto-renewal1.png';
 import businessTravelsIcon from '@assets/businesstravels.png';
+import longJourneysIcon from '@assets/Longjourneys.png';
+import remoteWorkIcon from '@assets/Remotework.png';
 
 interface AutoRenewalInfoModalProps {
   isOpen: boolean;
@@ -61,19 +63,23 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                    <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM10 6a2 2 0 0 1 4 0v1h-4V6zm2 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
-                  </svg>
+                <div className="flex justify-center mx-auto mb-2">
+                  <img 
+                    src={longJourneysIcon} 
+                    alt="Long journeys"
+                    className="w-12 h-12 object-contain"
+                  />
                 </div>
                 <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Long journeys</div>
               </div>
               
               <div className="text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-2 shadow-md">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                    <path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
-                  </svg>
+                <div className="flex justify-center mx-auto mb-2">
+                  <img 
+                    src={remoteWorkIcon} 
+                    alt="Remote work"
+                    className="w-12 h-12 object-contain"
+                  />
                 </div>
                 <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Remote work</div>
               </div>
