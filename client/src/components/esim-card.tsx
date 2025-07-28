@@ -48,7 +48,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
                 {esim.country?.name || 'Turkey'}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                eSIM #{esim.id}
+                eSIM #{esim.id} • {esim.package?.name || '5GB / 30 Days'}
               </p>
             </div>
           </div>
@@ -57,13 +57,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
           </span>
         </div>
         
-        {/* Package Details */}
-        <div className="bg-gray-25 dark:bg-gray-800/50 rounded-lg p-3">
-          <p className="text-base font-medium text-gray-900 dark:text-white text-center">
-            {esim.package?.name || '5GB / 30 Days'}
-          </p>
-        </div>
-        
+
         {/* Progress Bar for Active eSIMs */}
         {esim.status === 'Active' && (
           <div className="space-y-1">
