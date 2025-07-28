@@ -110,7 +110,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
                 onClick={() => onViewQR(esim)}
                 className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline"
               >
-                View QR
+                Setup eSIM
               </button>
             )}
             {esim.status === 'Expired' && onReorder && (
