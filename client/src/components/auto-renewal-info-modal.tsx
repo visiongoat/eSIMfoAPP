@@ -21,33 +21,28 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-white dark:bg-gray-900 z-50 overflow-y-auto">
-      {/* Header with close button */}
-      <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-2 flex justify-end">
-        <button
-          onClick={onClose}
-          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
-        >
-          <X className="w-7 h-7 text-gray-500" />
-        </button>
-      </div>
-
-      {/* Content */}
-      <div className="px-4 pb-4 pt-2">
-        {/* Hero Icon */}
-        <div className="flex justify-center mb-4">
+      {/* Compact header with title and close button */}
+      <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center space-x-3">
           <img 
             src={autoRenewalIcon} 
             alt="Auto Renewal"
-            className="w-24 h-24 object-contain"
+            className="w-8 h-8 object-contain"
           />
-        </div>
-
-        {/* Title */}
-        <div className="text-center mb-4">
           <h1 className="text-lg font-bold text-gray-900 dark:text-white">
             Stay connected with auto-renewal
           </h1>
         </div>
+        <button
+          onClick={onClose}
+          className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+        >
+          <X className="w-6 h-6 text-gray-500" />
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className="px-4 pb-4 pt-3">
 
         {/* Perfect for section */}
         <div className="mb-3">
