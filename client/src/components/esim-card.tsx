@@ -67,7 +67,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
             <span>•</span>
             <span>{esim.package?.duration || '15 Days'}</span>
             <span>•</span>
-            <span>€{esim.package?.price || '12.90'}</span>
+            <span>{esim.package?.price || '€12.90'}</span>
           </div>
         </div>
         
