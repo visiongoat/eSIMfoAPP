@@ -63,7 +63,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
           <div className="space-y-1">
             <div className="flex justify-between text-xs">
               <span className="text-gray-600 dark:text-gray-400 flex items-center">
-                <svg className="w-3 h-3 mr-1 group-hover:spin-once transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 mr-1 data-icon transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
                 </svg>
                 {esim.dataUsed}MB used of {esim.package?.data}

@@ -32,7 +32,7 @@
 }
 
 /* Data icon single spin animation for hover */
-.group:hover .group-hover\\:spin-once {
+.group:hover .data-icon {
   transform: rotate(360deg);
 }
 
