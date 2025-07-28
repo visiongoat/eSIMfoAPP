@@ -33,11 +33,11 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
   };
 
   return (
-    <div className="mobile-card p-3 mb-2">
-      <div className="space-y-2">
+    <div className="mobile-card p-4 mb-3">
+      <div className="space-y-3">
         {/* Header with Flag, Country, and Status */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-4">
             <img 
               src={esim.country?.flagUrl || 'https://flagcdn.com/w320/tr.png'} 
               alt={`${esim.country?.name || 'Turkey'} flag`} 
@@ -58,7 +58,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
         </div>
         
         {/* Package Details */}
-        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-2">
+        <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3">
           <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">
             {esim.package?.name || '5GB Istanbul Travel'}
           </p>
