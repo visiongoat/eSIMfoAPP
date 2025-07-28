@@ -47,7 +47,6 @@ export default function MyEsimsScreen() {
   const filteredEsims = getFilteredEsims();
   const activeEsims = esims.filter(esim => esim.status === 'Active');
   const expiredEsims = esims.filter(esim => esim.status === 'Expired');
-  const recentEsims = esims.filter(esim => esim.status !== 'Active');
 
   // Calculate statistics with better data visualization
   const totalEsims = esims.length;
@@ -182,27 +181,7 @@ export default function MyEsimsScreen() {
               </div>
             )}
 
-            {/* Recent eSIMs - Dashboard Section */}
-            {recentEsims.length > 0 && (
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h2 className="text-base font-semibold text-gray-900 dark:text-white">Recent eSIMs</h2>
-                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">
-                    {recentEsims.length} total
-                  </span>
-                </div>
-                <div className="space-y-1">
-                  {recentEsims.map((esim) => (
-                    <EsimCard
-                      key={esim.id}
-                      esim={esim}
-                      onReorder={handleReorder}
-                      onShare={handleShareEsim}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
+
 
 
 
