@@ -197,11 +197,11 @@ export class MemStorage implements IStorage {
     };
     this.users.set(demoUser.id, demoUser);
 
-    // Seed demo eSIM
+    // Seed demo eSIM (Turkey package)
     const demoEsim: Esim = {
       id: this.currentEsimId++,
       userId: 1,
-      packageId: 1,
+      packageId: 12, // Turkey package: "2GB / 7 Days"
       qrCode: "QR_CODE_DATA_HERE",
       status: "Active",
       dataUsed: "450",
