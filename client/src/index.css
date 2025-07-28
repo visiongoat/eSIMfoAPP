@@ -31,9 +31,9 @@
   }
 }
 
-/* Data icon spin animation for hover */
-.group:hover .group-hover\\:animate-spin {
-  animation: spin 0.5s ease-in-out;
+/* Data icon single spin animation for hover */
+.group:hover .group-hover\\:spin-once {
+  transform: rotate(360deg);
 }
 
 /* Splash Screen Animations */
