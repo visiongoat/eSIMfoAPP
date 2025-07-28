@@ -5,6 +5,7 @@ import businessTravelsIcon from '@assets/businesstravels.png';
 import longJourneysIcon from '@assets/Longjourneys.png';
 import remoteWorkIcon from '@assets/Remotework.png';
 import oneTimeActivationIcon from '@assets/onetimeactivation.png';
+import prioritySupportIcon from '@assets/prioritysupport.png';
 
 interface AutoRenewalInfoModalProps {
   isOpen: boolean;
@@ -106,10 +107,11 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
               </div>
 
               <div className="flex items-center space-x-5">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="#3b82f6" className="flex-shrink-0">
-                  <path d="M12 1C8.5 1 5.6 3.4 5.6 6.4v2.7c-1.5.3-2.6 1.6-2.6 3.2v4.4c0 1.8 1.5 3.3 3.3 3.3h1.4v-8.8c0-2.2 1.8-4 4-4s4 1.8 4 4v8.8h1.4c1.8 0 3.3-1.5 3.3-3.3v-4.4c0-1.6-1.1-2.9-2.6-3.2V6.4C18.4 3.4 15.5 1 12 1z"/>
-                  <circle cx="7" cy="16" r="1.5" fill="#f97316"/>
-                </svg>
+                <img 
+                  src={prioritySupportIcon} 
+                  alt="Priority support"
+                  className="w-12 h-12 object-contain flex-shrink-0"
+                />
                 <div className="flex-1 min-h-[48px] flex flex-col justify-center">
                   <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">Priority support</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Your requests will receive priority attention in our ticketing system</p>
