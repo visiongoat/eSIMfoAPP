@@ -5,7 +5,7 @@ import { MessageCircle } from "lucide-react";
 import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
 import { useOnlineStatus } from "@/hooks/use-online-status";
 import { useTabSwipe } from "@/hooks/use-tab-swipe";
-import europaIcon from "@assets/europa.png";
+import europaIcon from "@assets/europamap.png";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";

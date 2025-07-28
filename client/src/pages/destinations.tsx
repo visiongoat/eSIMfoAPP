@@ -5,7 +5,7 @@ import { Search, Globe, MapPin, Navigation, X } from "lucide-react";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
-import europaIcon from "@assets/europa.png";
+import europaIcon from "@assets/europamap.png";
 import type { Country } from "@shared/schema";
 
 export default function DestinationsScreen() {
