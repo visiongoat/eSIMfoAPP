@@ -1567,7 +1567,7 @@ export default function HomeScreen() {
         {/* How It Works Modal */}
         {showHowItWorks && (
           <div 
-            className="fixed inset-0 bg-black/50 flex items-end justify-center z-[9999]" 
+            className="fixed inset-0 bg-black/50 flex items-end justify-center z-[9999] animate-in fade-in duration-300" 
             onClick={() => setShowHowItWorks(false)}
             style={{ 
               position: 'fixed', 
@@ -1579,7 +1579,7 @@ export default function HomeScreen() {
             }}
           >
             <div 
-              className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative"
+              className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-lg transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative"
               onClick={(e) => e.stopPropagation()}
               style={{ zIndex: 10000 }}
             >
@@ -1600,10 +1600,10 @@ export default function HomeScreen() {
               </div>
 
               {/* Content */}
-              <div className="px-4 py-3 space-y-3">
+              <div className="px-5 py-4 space-y-4">
                 {/* Step 1 */}
-                <div className="flex items-start space-x-3">
-                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start space-x-3 animate-in slide-in-from-left duration-500 delay-100">
+                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
                     <img 
                       src={locationPinIcon} 
                       alt="Choose destination"
@@ -1617,8 +1617,8 @@ export default function HomeScreen() {
                 </div>
 
                 {/* Step 2 */}
-                <div className="flex items-start space-x-3">
-                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start space-x-3 animate-in slide-in-from-left duration-500 delay-200">
+                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
                     <img 
                       src={qrScanIcon} 
                       alt="QR scan setup"
@@ -1632,8 +1632,8 @@ export default function HomeScreen() {
                 </div>
 
                 {/* Step 3 */}
-                <div className="flex items-start space-x-3">
-                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                <div className="flex items-start space-x-3 animate-in slide-in-from-left duration-500 delay-300">
+                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
                     <img 
                       src={signalEsimIcon} 
                       alt="Activate eSIM"
@@ -1647,13 +1647,13 @@ export default function HomeScreen() {
                 </div>
 
                 {/* Get Started Button */}
-                <div className="pt-2">
+                <div className="pt-3 animate-in slide-in-from-bottom duration-500 delay-400">
                   <button 
                     onClick={() => {
                       setShowHowItWorks(false);
                       setLocation('/search');
                     }}
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-5 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2"
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-5 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2 hover:shadow-lg"
                   >
                     <span>Get Started Now</span>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
