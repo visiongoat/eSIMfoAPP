@@ -232,3 +232,11 @@ The application is designed to be deployed as a single Node.js application servi
 - **Brand consistency**: Custom-designed map icons maintaining esimfo visual identity
 - **Responsive design**: Icons scale properly with hover effects and touch feedback
 - **Complete SVG replacement**: All continent regional icons now use custom PNG assets with transparent backgrounds
+
+### "How Does eSIMfo Work?" Modal Icon System (January 28, 2025)
+- **Complete custom icon integration**: All three steps now use custom PNG icons instead of generic SVG icons
+- **Step-specific icons**: locationpin.png (destination), qrscan.png (setup), signalesim.png (activation)
+- **Consistent sizing**: 64x64px source icons displayed at 48x48px (w-12 h-12) for optimal clarity
+- **Container-free design**: Removed circular background containers to showcase custom icon designs
+- **Professional appearance**: Transparent background PNG assets maintain clean, modern aesthetics
+- **Brand consistency**: Custom-designed icons align with esimfo visual identity and mobile app standards
