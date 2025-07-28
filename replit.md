@@ -243,3 +243,4 @@ The application is designed to be deployed as a single Node.js application servi
 - **Enhanced modal animations**: Stagger animations for step reveal, icon hover effects, and smooth transitions
 - **Step numbering system**: Color-coded gradient badges (red, blue, green) with step numbers for clear progression
 - **Improved spacing**: Wider modal container (max-w-lg) with increased padding for better content readability
+- **Flow connection lines**: Subtle dotted lines between steps to visualize progression flow with fade-in animations

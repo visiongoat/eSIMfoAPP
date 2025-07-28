@@ -1600,7 +1600,7 @@ export default function HomeScreen() {
               </div>
 
               {/* Content */}
-              <div className="px-5 py-4 space-y-4">
+              <div className="px-5 py-4">
                 {/* Step 1 */}
                 <div className="flex items-start space-x-3 animate-in slide-in-from-left duration-500 delay-100">
                   <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
@@ -1619,6 +1619,11 @@ export default function HomeScreen() {
                   </div>
                 </div>
 
+                {/* Connection Line 1 */}
+                <div className="flex justify-start ml-6 my-2">
+                  <div className="w-0.5 h-6 border-l-2 border-dashed border-gray-300 dark:border-gray-600 animate-in fade-in duration-300 delay-150"></div>
+                </div>
+
                 {/* Step 2 */}
                 <div className="flex items-start space-x-3 animate-in slide-in-from-left duration-500 delay-200">
                   <div className="relative w-12 h-12 flex items-center justify-center flex-shrink-0 hover:scale-110 transition-transform duration-200 cursor-pointer">
@@ -1635,6 +1640,11 @@ export default function HomeScreen() {
                     <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Set Up Your eSIM</h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm">Scan QR code to install eSIM</p>
                   </div>
+                </div>
+
+                {/* Connection Line 2 */}
+                <div className="flex justify-start ml-6 my-2">
+                  <div className="w-0.5 h-6 border-l-2 border-dashed border-gray-300 dark:border-gray-600 animate-in fade-in duration-300 delay-250"></div>
                 </div>
 
                 {/* Step 3 */}
