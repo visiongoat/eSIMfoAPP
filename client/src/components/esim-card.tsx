@@ -92,9 +92,8 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
                     }`}
                     style={{ 
                       animation: 'progress-breathe 3s ease-in-out infinite',
-                      left: `calc(100% - 6px)`,
-                      top: '50%',
-                      transform: 'translateY(-50%) translateY(-2px)'
+                      right: '-6px',
+                      top: '2px'
                     }}
                   ></div>
                 )}
