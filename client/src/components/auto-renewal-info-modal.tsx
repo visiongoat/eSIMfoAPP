@@ -4,6 +4,7 @@ import autoRenewalIcon from '@assets/auto-renewal1.png';
 import businessTravelsIcon from '@assets/businesstravels.png';
 import longJourneysIcon from '@assets/Longjourneys.png';
 import remoteWorkIcon from '@assets/Remotework.png';
+import oneTimeActivationIcon from '@assets/onetimeactivation.png';
 
 interface AutoRenewalInfoModalProps {
   isOpen: boolean;
@@ -93,12 +94,11 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
             <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-4">Enjoy these benefits</h2>
             <div className="space-y-6">
               <div className="flex items-center space-x-5">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="#f97316" className="flex-shrink-0">
-                  <path d="M12 2l-2 4v6l-3 3v7h10v-7l-3-3V6l-2-4z"/>
-                  <circle cx="8" cy="8" r="1"/>
-                  <circle cx="16" cy="8" r="1"/>
-                  <path d="M6 6c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="#f97316" strokeWidth="1"/>
-                </svg>
+                <img 
+                  src={oneTimeActivationIcon} 
+                  alt="One-time activation"
+                  className="w-12 h-12 object-contain flex-shrink-0"
+                />
                 <div className="flex-1 min-h-[48px] flex flex-col justify-center">
                   <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-1">One-time activation</h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">No need to set up a new SIM card every time, recharge your current one</p>
