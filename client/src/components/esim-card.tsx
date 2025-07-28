@@ -86,10 +86,11 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
                 {/* Progress indicator dot */}
                 {calculateUsagePercentage() > 0 && (
                   <div 
-                    className={`absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 group-hover:w-4 group-hover:h-4 transition-all duration-300 animate-pulse ${
+                    className={`absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800 group-hover:w-4 group-hover:h-4 transition-all duration-300 ${
                       calculateUsagePercentage() >= 80 ? 'bg-red-500' : 
                       calculateUsagePercentage() >= 60 ? 'bg-orange-500' : 'bg-green-500'
                     }`}
+                    style={{ animation: 'progress-breathe 3s ease-in-out infinite' }}
                   ></div>
                 )}
               </div>

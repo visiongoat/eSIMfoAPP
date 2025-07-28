@@ -7,15 +7,27 @@
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
-/* Progress dot pulse animation */
-@keyframes progress-pulse {
+/* Progress dot creative breathing animation */
+@keyframes progress-breathe {
   0%, 100% {
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
     opacity: 1;
+    box-shadow: 0 0 0 rgba(59, 130, 246, 0);
+  }
+  25% {
+    transform: scale(1.08) rotate(5deg);
+    opacity: 0.9;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.18) rotate(0deg);
     opacity: 0.8;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+  }
+  75% {
+    transform: scale(1.08) rotate(-5deg);
+    opacity: 0.9;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
   }
 }
 
