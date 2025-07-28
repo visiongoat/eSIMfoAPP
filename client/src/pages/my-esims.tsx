@@ -168,7 +168,7 @@ export default function MyEsimsScreen() {
                     </button>
                   </div>
                 </div>
-                <div className="space-y-1">
+                <div className="space-y-3">
                   {filteredEsims.map((esim) => (
                     <EsimCard
                       key={esim.id}
