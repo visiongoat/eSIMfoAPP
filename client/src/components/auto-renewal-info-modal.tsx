@@ -135,8 +135,14 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
           </div>
         </div>
 
+        {/* Spacer for sticky button */}
+        <div className="h-16"></div>
+      </div>
+
+      {/* Sticky bottom section */}
+      <div className="sticky bottom-0 bg-white dark:bg-gray-900 p-4 border-t border-gray-100 dark:border-gray-700">
         {/* Cancel info */}
-        <div className="text-center mb-2">
+        <div className="text-center mb-3">
           <p className="text-xs text-gray-500 dark:text-gray-400">Cancel anytime</p>
         </div>
 
