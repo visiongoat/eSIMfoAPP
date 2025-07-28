@@ -14,7 +14,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Active':
-        return 'bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 text-blue-700 dark:text-blue-300';
+        return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
       case 'Expired':
         return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
       case 'Inactive':
