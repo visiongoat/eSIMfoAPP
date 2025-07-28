@@ -145,9 +145,17 @@ export default function MyEsimsScreen() {
               <div className="mb-4">
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="text-base font-semibold text-gray-900 dark:text-white">Active eSIMs</h2>
-                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">
-                    {activeEsims.length} active
-                  </span>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                      All
+                    </span>
+                    <span className="text-xs text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded">
+                      {activeEsims.length} active
+                    </span>
+                    <span className="text-xs text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded">
+                      1 expired
+                    </span>
+                  </div>
                 </div>
                 <div className="space-y-1">
                   {activeEsims.map((esim) => (
