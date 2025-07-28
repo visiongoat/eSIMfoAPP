@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import NavigationBar from "@/components/navigation-bar";
@@ -251,6 +251,153 @@ export default function PackagesScreen() {
     setShowCheckoutModal(true);
   };
 
+  // Device detection utility
+  const detectPlatform = () => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isIOS = /iphone|ipad|ipod/.test(userAgent);
+    const isAndroid = /android/.test(userAgent);
+    const isApp = window.navigator.userAgent.includes('esimfoApp'); // Custom app identifier
+    
+    return { isIOS, isAndroid, isApp };
+  };
+
+  const generateShareMessage = (countryName: string) => {
+    const { isApp } = detectPlatform();
+    const baseUrl = window.location.origin;
+    
+    if (isApp) {
+      // App version - redirect to app download since we can't route to specific countries
+      return `${countryName} eSIM Plans
+
+Get instant connectivity for your travels!
+Download esimfo app for the best eSIM experience:
+
+📱 iOS: https://apps.apple.com/app/esimfo
+🤖 Android: https://play.google.com/store/apps/details?id=com.esimfo
+
+Instant activation, no physical SIM needed!`;
+    } else {
+      // Web version - link to specific country with live content
+      const currentPackages = selectedTab === 'data' ? demoPackages : dataCallsTextPackages;
+      const packageSummary = currentPackages.slice(0, 4).map(pkg => 
+        selectedTab === 'data' 
+          ? `${pkg.duration} - ${pkg.data} - ${pkg.price}`
+          : `${pkg.duration} - ${pkg.data} - ${pkg.price}`
+      ).join('\n');
+      
+      return `${countryName} eSIM Plans
+
+${packageSummary}
+...and ${Math.max(0, currentPackages.length - 4)} more plans
+
+Instant activation, no physical SIM needed!
+View all plans & buy online:
+${baseUrl}/packages/${countryId}`;
+    }
+  };
+
+  const handleShare = async () => {
+    const countryName = country?.name || "eSIM";
+    const shareMessage = generateShareMessage(countryName);
+    const { isIOS, isAndroid, isApp } = detectPlatform();
+
+    // Haptic feedback
+    if (navigator.vibrate) {
+      navigator.vibrate(30);
+    }
+
+    try {
+      // Check if native sharing is available
+      if (navigator.share && (isIOS || isApp)) {
+        // iOS or App - use native share sheet
+        await navigator.share({
+          title: `${countryName} eSIM Plans`,
+          text: shareMessage,
+          url: isApp ? undefined : `${window.location.origin}/packages/${countryId}`
+        });
+      } else if (isAndroid && !isApp) {
+        // Android web - show platform options
+        showAndroidShareOptions(shareMessage);
+      } else {
+        // Fallback - copy to clipboard
+        await navigator.clipboard.writeText(shareMessage);
+        // Show toast notification (you can implement this)
+        console.log('Copied to clipboard!');
+      }
+    } catch (error) {
+      // Fallback to clipboard
+      try {
+        await navigator.clipboard.writeText(shareMessage);
+        console.log('Copied to clipboard!');
+      } catch (clipboardError) {
+        console.error('Share failed:', clipboardError);
+      }
+    }
+  };
+
+  const showAndroidShareOptions = (message: string) => {
+    // Create a modal for Android sharing options
+    const shareModal = document.createElement('div');
+    shareModal.className = 'fixed inset-0 bg-black/50 flex items-end z-50';
+    shareModal.innerHTML = `
+      <div class="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Share via</h3>
+        <div class="space-y-3">
+          <button onclick="shareToWhatsApp('${encodeURIComponent(message)}')" class="w-full flex items-center space-x-3 p-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.087"/>
+            </svg>
+            <span>WhatsApp</span>
+          </button>
+          <button onclick="shareToTelegram('${encodeURIComponent(message)}')" class="w-full flex items-center space-x-3 p-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12 12-5.373 12-12S18.626 0 12 0zm5.568 8.16l-1.61 7.59c-.12.553-.44.69-.89.43l-2.46-1.81-1.19 1.14c-.13.13-.24.24-.49.24l.17-2.43 4.5-4.07c.2-.17-.04-.27-.31-.1l-5.57 3.5-2.4-.75c-.52-.16-.53-.52.11-.77l9.39-3.61c.43-.16.81.1.67.75z"/>
+            </svg>
+            <span>Telegram</span>
+          </button>
+          <button onclick="copyToClipboard('${message.replace(/'/g, "\\'")}'); closeShareModal()" class="w-full flex items-center space-x-3 p-3 bg-gray-500 text-white rounded-xl hover:bg-gray-600 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            <span>Copy to Clipboard</span>
+          </button>
+        </div>
+        <button onclick="closeShareModal()" class="w-full mt-4 p-3 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-xl hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors">
+          Cancel
+        </button>
+      </div>
+    `;
+
+    document.body.appendChild(shareModal);
+
+    // Add event listener to close on backdrop click
+    shareModal.addEventListener('click', (e) => {
+      if (e.target === shareModal) {
+        document.body.removeChild(shareModal);
+      }
+    });
+
+    // Global functions for share buttons
+    (window as any).shareToWhatsApp = (message: string) => {
+      window.open(`https://wa.me/?text=${message}`, '_blank');
+      document.body.removeChild(shareModal);
+    };
+
+    (window as any).shareToTelegram = (message: string) => {
+      window.open(`https://t.me/share/url?text=${message}`, '_blank');
+      document.body.removeChild(shareModal);
+    };
+
+    (window as any).copyToClipboard = (message: string) => {
+      navigator.clipboard.writeText(message);
+      console.log('Copied to clipboard!');
+    };
+
+    (window as any).closeShareModal = () => {
+      document.body.removeChild(shareModal);
+    };
+  };
+
   if (!countryId) {
     return <div>Invalid country ID</div>;
   }
@@ -274,7 +421,15 @@ export default function PackagesScreen() {
             {country?.name || "Loading..."}
           </h1>
         </div>
-        <div className="text-orange-500 dark:text-orange-400 font-medium text-sm">€, EUR</div>
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={handleShare}
+            className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors active:scale-95 touch-manipulation"
+          >
+            <Share className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+          </button>
+          <div className="text-orange-500 dark:text-orange-400 font-medium text-sm">€, EUR</div>
+        </div>
       </div>
 
       <div className="px-4 mt-4">
