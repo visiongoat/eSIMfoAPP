@@ -38,16 +38,14 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
         {/* Header with Flag, Country, and Status */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            {esim.country && (
-              <img 
-                src={esim.country.flagUrl} 
-                alt={`${esim.country.name} flag`} 
-                className="w-10 h-7 rounded object-cover border border-gray-200 dark:border-gray-600 shadow-sm" 
-              />
-            )}
+            <img 
+              src={esim.country?.flagUrl || 'https://flagcdn.com/w320/tr.png'} 
+              alt={`${esim.country?.name || 'Turkey'} flag`} 
+              className="w-10 h-7 rounded object-cover border border-gray-200 dark:border-gray-600 shadow-sm" 
+            />
             <div>
               <p className="font-semibold text-gray-900 dark:text-white text-base">
-                {esim.country?.name || 'Unknown Country'}
+                {esim.country?.name || 'Turkey'}
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 eSIM #{esim.id}
@@ -62,14 +60,14 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
         {/* Package Details */}
         <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-2">
           <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">
-            {esim.package?.name || 'Package Details'}
+            {esim.package?.name || '5GB Istanbul Travel'}
           </p>
           <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
-            <span>{esim.package?.data}</span>
+            <span>{esim.package?.data || '5GB'}</span>
             <span>•</span>
-            <span>{esim.package?.duration}</span>
+            <span>{esim.package?.duration || '15 Days'}</span>
             <span>•</span>
-            <span>€{esim.package?.price}</span>
+            <span>€{esim.package?.price || '12.90'}</span>
           </div>
         </div>
         
