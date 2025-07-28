@@ -106,7 +106,13 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
         <div className="flex items-center justify-between">
           <p className="text-xs text-gray-500 dark:text-gray-400">
             {esim.status === 'Active' ? 'Expires:' : 'Used:'} {' '}
-            {esim.expiresAt ? new Date(esim.expiresAt).toLocaleDateString() : 'N/A'}
+            {esim.expiresAt ? new Date(esim.expiresAt).toLocaleDateString('en-GB', {
+              day: '2-digit',
+              month: '2-digit', 
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            }) : 'N/A'}
           </p>
           
           <div className="flex items-center space-x-3">
