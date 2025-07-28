@@ -18,6 +18,11 @@ export default function MyEsimsScreen() {
 
   const [filter, setFilter] = useState<FilterType>('active');
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { data: esims = [], isLoading } = useQuery<(Esim & { package?: Package; country?: Country })[]>({
     queryKey: ["/api/esims"],
   });
