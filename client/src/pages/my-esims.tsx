@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 
@@ -11,6 +11,9 @@ import type { Esim, Package, Country } from "@shared/schema";
 export default function MyEsimsScreen() {
   const [, setLocation] = useLocation();
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [selectedEsim, setSelectedEsim] = useState<Esim | null>(null);
+  const [notifications, setNotifications] = useState<string[]>([]);
 
   const { data: esims = [], isLoading } = useQuery<(Esim & { package?: Package; country?: Country })[]>({
     queryKey: ["/api/esims"],
@@ -29,13 +32,60 @@ export default function MyEsimsScreen() {
   const activeEsims = esims.filter(esim => esim.status === 'Active');
   const recentEsims = esims.filter(esim => esim.status !== 'Active');
 
-  // Calculate statistics
+  // Calculate statistics with better data visualization
   const totalEsims = esims.length;
   const countriesVisited = new Set(esims.map(esim => esim.country?.name)).size;
   const totalDataUsed = esims.reduce((sum, esim) => {
     return sum + (parseFloat(esim.dataUsed || '0') / 1000); // Convert MB to GB
   }, 0);
   const totalSaved = 156; // Static for demo
+
+  // Data usage notifications (80% threshold) - only check once
+  useEffect(() => {
+    if (esims.length === 0) return;
+    
+    const newNotifications: string[] = [];
+    esims.filter(esim => esim.status === 'Active').forEach(esim => {
+      const used = parseFloat(esim.dataUsed || '0');
+      const total = parseFloat(esim.package?.data?.replace('GB', '') || '0') * 1000; // Convert to MB
+      if (used / total >= 0.8 && used / total < 1) {
+        newNotifications.push(`eSIM data ${Math.round((used/total)*100)}% used`);
+      }
+    });
+    
+    if (notifications.length !== newNotifications.length) {
+      setNotifications(newNotifications);
+    }
+  }, [esims.length]);
+
+  // Share eSIM functionality
+  const handleShareEsim = (esim: Esim) => {
+    setSelectedEsim(esim);
+    setShowShareModal(true);
+  };
+
+  const shareEsimDetails = async () => {
+    if (!selectedEsim) return;
+    
+    const shareData = {
+      title: `eSIM Details`,
+      text: `eSIM Status: ${selectedEsim.status}\nData Used: ${selectedEsim.dataUsed}MB`,
+      url: `${window.location.origin}/qr/${selectedEsim.id}`
+    };
+
+    if (navigator.share && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.log('Share cancelled');
+      }
+    } else {
+      // Fallback - copy to clipboard
+      navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
+      alert('eSIM details copied to clipboard!');
+    }
+    setShowShareModal(false);
+  };
 
   return (
     <div className="mobile-screen">
@@ -52,6 +102,18 @@ export default function MyEsimsScreen() {
       />
 
       <div className="px-4 pt-4">
+        {/* Data Usage Notifications */}
+        {notifications.length > 0 && (
+          <div className="mb-4 space-y-2">
+            {notifications.map((notification, index) => (
+              <div key={index} className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-3 flex items-center space-x-3">
+                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                <p className="text-orange-800 dark:text-orange-200 text-sm font-medium">{notification}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
         {isLoading ? (
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, index) => (
@@ -71,6 +133,7 @@ export default function MyEsimsScreen() {
                     key={esim.id}
                     esim={esim}
                     onViewQR={handleViewQR}
+                    onShare={handleShareEsim}
                   />
                 ))}
               </div>
@@ -86,34 +149,99 @@ export default function MyEsimsScreen() {
                       key={esim.id}
                       esim={esim}
                       onReorder={handleReorder}
+                      onShare={handleShareEsim}
                     />
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Usage Statistics */}
+            {/* Enhanced Usage Statistics with Progress Bars */}
             <div className="mobile-card p-4 mb-4">
-              <h3 className="font-semibold mb-3">Usage Statistics</h3>
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div>
-                  <p className="text-2xl font-bold text-primary">{totalEsims}</p>
-                  <p className="text-sm text-muted-foreground">Total eSIMs</p>
+              <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Usage Overview</h3>
+              <div className="space-y-4">
+                {/* Compact Stats Row */}
+                <div className="grid grid-cols-4 gap-3 text-center">
+                  <div>
+                    <p className="text-xl font-bold text-blue-600 dark:text-blue-400">{totalEsims}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">eSIMs</p>
+                  </div>
+                  <div>
+                    <p className="text-xl font-bold text-green-600 dark:text-green-400">{countriesVisited}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Countries</p>
+                  </div>
+                  <div>
+                    <p className="text-xl font-bold text-purple-600 dark:text-purple-400">{totalDataUsed.toFixed(0)}GB</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Used</p>
+                  </div>
+                  <div>
+                    <p className="text-xl font-bold text-orange-600 dark:text-orange-400">€{totalSaved}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Saved</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-primary">{countriesVisited}</p>
-                  <p className="text-sm text-muted-foreground">Countries Visited</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-primary">{totalDataUsed.toFixed(0)}GB</p>
-                  <p className="text-sm text-muted-foreground">Data Used</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-primary">€{totalSaved}</p>
-                  <p className="text-sm text-muted-foreground">Total Saved</p>
-                </div>
+
+                {/* Data Usage Progress for Active eSIMs */}
+                {activeEsims.length > 0 && (
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">Active Data Usage</h4>
+                    {activeEsims.slice(0, 2).map((esim) => {
+                      const used = parseFloat(esim.dataUsed || '0');
+                      const total = parseFloat(esim.package?.data?.replace('GB', '') || '0') * 1000;
+                      const percentage = total > 0 ? (used / total) * 100 : 0;
+                      
+                      return (
+                        <div key={esim.id} className="space-y-1">
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs text-gray-600 dark:text-gray-400">eSIM #{esim.id}</span>
+                            <span className="text-xs text-gray-600 dark:text-gray-400">{(used/1000).toFixed(1)}GB</span>
+                          </div>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div 
+                              className={`h-2 rounded-full transition-all duration-300 ${
+                                percentage >= 80 ? 'bg-red-500' : 
+                                percentage >= 60 ? 'bg-orange-500' : 'bg-green-500'
+                              }`}
+                              style={{ width: `${Math.min(percentage, 100)}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
+
+            {/* Multiple eSIM Management - Only show if user has multiple eSIMs */}
+            {activeEsims.length > 1 && (
+              <div className="mobile-card p-4 mb-4">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-semibold text-gray-900 dark:text-white">Multi-eSIM Control</h3>
+                  <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full">
+                    {activeEsims.length} Active
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {activeEsims.map((esim) => (
+                    <div key={esim.id} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">eSIM #{esim.id}</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400">• Primary</span>
+                      </div>
+                      <button className="text-xs text-blue-600 dark:text-blue-400 font-medium hover:underline">
+                        Manage
+                      </button>
+                    </div>
+                  ))}
+                  <div className="mt-2 p-2 border border-gray-200 dark:border-gray-700 border-dashed rounded-lg text-center">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Auto-switching enabled • Data from cheapest • Calls from primary
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Empty State */}
             {esims.length === 0 && (
@@ -213,6 +341,53 @@ export default function MyEsimsScreen() {
                 </div>
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Share Modal */}
+      {showShareModal && selectedEsim && (
+        <div className="fixed inset-0 bg-black/50 flex items-end z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4 animate-slide-up">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Share eSIM</h3>
+              <button
+                onClick={() => setShowShareModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-4">
+              <div className="flex items-center space-x-3 mb-2">
+                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">eSIM #{selectedEsim.id}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Status: {selectedEsim.status}</p>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Data Used: {selectedEsim.dataUsed}MB • QR Code & Setup Details
+              </p>
+            </div>
+            
+            <button
+              onClick={shareEsimDetails}
+              className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors"
+            >
+              Share eSIM Details
+            </button>
+            
+            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+              Shares QR code link and usage information
+            </p>
           </div>
         </div>
       )}
