@@ -8,6 +8,7 @@ import { useTabSwipe } from "@/hooks/use-tab-swipe";
 import europaIcon from "@assets/europamap.png";
 import asiaIcon from "@assets/asiamap.png";
 import americasIcon from "@assets/americasmaps.png";
+import africaIcon from "@assets/africacontinentmap.png";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
@@ -1221,12 +1222,11 @@ export default function HomeScreen() {
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
                   <div className="continent-icon w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="10"/>
-                      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                      <path d="M2 12h20"/>
-                      <path d="M8 12l2 2 4-4"/>
-                    </svg>
+                    <img 
+                      src={africaIcon} 
+                      alt="Africa"
+                      className="w-10 h-10 object-contain"
+                    />
                   </div>
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-gray-100">Africa</h3>
