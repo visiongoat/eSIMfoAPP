@@ -195,8 +195,8 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
           </div>
         </div>
 
-        {/* Spacer for sticky button */}
-        <div className="h-16"></div>
+        {/* Spacer for sticky button - match home page standard */}
+        <div className="h-20"></div>
       </div>
 
       {/* Sticky bottom section */}
