@@ -21,6 +21,7 @@ import CountryCard from "@/components/country-card";
 import SkeletonCard from "@/components/skeleton-card";
 import ErrorBoundary from "@/components/error-boundary";
 import OfflinePage from "@/components/offline-page";
+import CheckoutModal from "@/components/checkout-modal";
 
 import type { Country, Package } from "@shared/schema";
 
@@ -31,6 +32,23 @@ export default function HomeScreen() {
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
   const [showCountriesModal, setShowCountriesModal] = useState(false);
   const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number>(1); // Default to first plan
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [esimCount, setEsimCount] = useState(1);
+
+  // Europa plan data
+  const europaPlans = [
+    { id: 1, duration: '10 Days', data: 'Unlimited', price: '€21.50', dailyPrice: '€2.15 /day' },
+    { id: 2, duration: '180 Days', data: '100 GB', price: '€89.99', dailyPrice: '€0.50 /day' },
+    { id: 3, duration: '30 Days', data: '50 GB', price: '€45.99', dailyPrice: '€1.53 /day' },
+    { id: 4, duration: '15 Days', data: '20 GB', price: '€29.99', dailyPrice: '€2.00 /day' }
+  ];
+
+  // Mock Europa country for checkout modal
+  const europaCountry = {
+    name: 'Europe',
+    code: 'EU',
+    flagUrl: 'https://flagcdn.com/w40/eu.png'
+  };
 
   // Tab order for swipe navigation
   const tabOrder = ['local', 'regional', 'global'];
@@ -1224,7 +1242,7 @@ export default function HomeScreen() {
                       <div 
                         onClick={(e) => {
                           e.stopPropagation();
-                          setLocation('/packages');
+                          setShowCheckoutModal(true);
                         }}
                         className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
                       >
@@ -1255,7 +1273,7 @@ export default function HomeScreen() {
                       <div 
                         onClick={(e) => {
                           e.stopPropagation();
-                          setLocation('/packages');
+                          setShowCheckoutModal(true);
                         }}
                         className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
                       >
@@ -1286,7 +1304,7 @@ export default function HomeScreen() {
                       <div 
                         onClick={(e) => {
                           e.stopPropagation();
-                          setLocation('/packages');
+                          setShowCheckoutModal(true);
                         }}
                         className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
                       >
@@ -1317,7 +1335,7 @@ export default function HomeScreen() {
                       <div 
                         onClick={(e) => {
                           e.stopPropagation();
-                          setLocation('/packages');
+                          setShowCheckoutModal(true);
                         }}
                         className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
                       >
@@ -2005,6 +2023,18 @@ export default function HomeScreen() {
       </div>
 
       <TabBar onPlusClick={() => setShowQuickActions(true)} />
+
+      {/* Checkout Modal */}
+      {showCheckoutModal && (
+        <CheckoutModal
+          isOpen={showCheckoutModal}
+          onClose={() => setShowCheckoutModal(false)}
+          selectedPackage={europaPlans.find(plan => plan.id === selectedEuropaPlan)}
+          country={europaCountry}
+          esimCount={esimCount}
+          setEsimCount={setEsimCount}
+        />
+      )}
 
       {/* Quick Actions Modal - Premium Machine Feel */}
       {showQuickActions && (
