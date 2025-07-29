@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { X, HelpCircle, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AutoRenewalInfoModal } from "./auto-renewal-info-modal";
@@ -30,6 +30,31 @@ export default function CheckoutModal({
   const [currentY, setCurrentY] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = '0';
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -67,18 +92,19 @@ export default function CheckoutModal({
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return;
     
-    // Prevent scrolling when dragging
-    e.preventDefault();
-    
     const touch = e.touches[0];
     const deltaY = touch.clientY - startY;
     
     setCurrentY(touch.clientY);
     
-    // Only allow downward swipes (positive deltaY)
-    if (deltaY > 0 && modalRef.current) {
-      modalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
-      modalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+    // Only allow downward swipes (positive deltaY) and prevent default scrolling
+    if (deltaY > 0) {
+      e.preventDefault(); // Prevent body scroll only during downward drag
+      
+      if (modalRef.current) {
+        modalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        modalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
     }
   };
 
@@ -117,9 +143,10 @@ export default function CheckoutModal({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         style={{ 
-          touchAction: 'pan-y',
+          touchAction: 'manipulation',
           userSelect: 'none',
-          WebkitUserSelect: 'none'
+          WebkitUserSelect: 'none',
+          WebkitTouchCallout: 'none'
         }}
       >
         {/* Swipe Handle */}
