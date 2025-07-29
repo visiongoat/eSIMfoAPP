@@ -1180,9 +1180,9 @@ export default function HomeScreen() {
             {/* Show continent plans if selected, otherwise show continent list */}
             {selectedContinent === 'europa' ? (
               // Europa eSIM Plans
-              <div className="space-y-3">
-                <div className="text-center mb-6">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Europe eSIM Plans</h2>
+              <div className="space-y-2">
+                <div className="text-center mb-3">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">Europe eSIM Plans</h2>
                   <button 
                     onClick={() => setShowCountriesModal(true)}
                     className="inline-flex items-center space-x-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group"
