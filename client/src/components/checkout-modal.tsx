@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { X, HelpCircle, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AutoRenewalInfoModal } from "./auto-renewal-info-modal";
@@ -24,6 +24,12 @@ export default function CheckoutModal({
   const [selectedPayment, setSelectedPayment] = useState<string>("");
   const [showPaymentMethods, setShowPaymentMethods] = useState(false);
   const [showAutoRenewalInfo, setShowAutoRenewalInfo] = useState(false);
+  
+  // Touch/swipe states for modal dismissal
+  const [startY, setStartY] = useState<number>(0);
+  const [currentY, setCurrentY] = useState<number>(0);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   if (!isOpen) return null;
 
@@ -45,13 +51,82 @@ export default function CheckoutModal({
     }
   };
 
+  // Touch event handlers for swipe-down dismissal
+  const handleTouchStart = (e: React.TouchEvent) => {
+    // Only allow swipe if modal is not scrolled
+    if (modalRef.current && modalRef.current.scrollTop > 0) {
+      return;
+    }
+    
+    const touch = e.touches[0];
+    setStartY(touch.clientY);
+    setCurrentY(touch.clientY);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    
+    // Prevent scrolling when dragging
+    e.preventDefault();
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - startY;
+    
+    setCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY)
+    if (deltaY > 0 && modalRef.current) {
+      modalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+      modalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    
+    const deltaY = currentY - startY;
+    
+    // If swiped down more than 100px, close modal
+    if (deltaY > 100 && modalRef.current) {
+      // Animate out
+      modalRef.current.style.transform = 'translateY(100%)';
+      modalRef.current.style.opacity = '0';
+      setTimeout(onClose, 200); // Wait for animation to complete
+    } else if (modalRef.current) {
+      // Snap back to original position
+      modalRef.current.style.transform = 'translateY(0)';
+      modalRef.current.style.opacity = '1';
+    }
+    
+    setIsDragging(false);
+    setStartY(0);
+    setCurrentY(0);
+  };
+
   return (
     <div 
       className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end"
       onClick={handleBackdropClick}
     >
       {/* Modal content */}
-      <div className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md mx-auto max-h-[90vh] overflow-y-auto">
+      <div 
+        ref={modalRef}
+        className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md mx-auto max-h-[90vh] overflow-y-auto transition-all duration-200 select-none"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{ 
+          touchAction: 'pan-y',
+          userSelect: 'none',
+          WebkitUserSelect: 'none'
+        }}
+      >
+        {/* Swipe Handle */}
+        <div className="flex justify-center pt-3 pb-1">
+          <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+        </div>
+
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Checkout</h2>
