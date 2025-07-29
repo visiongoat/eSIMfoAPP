@@ -1179,155 +1179,135 @@ export default function HomeScreen() {
             {/* Show continent plans if selected, otherwise show continent list */}
             {selectedContinent === 'europa' ? (
               // Europa eSIM Plans
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <div className="text-center mb-6">
                   <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Europe eSIM Plans</h2>
                   <p className="text-sm text-gray-500 dark:text-gray-400">Available regional packages for Europe</p>
                 </div>
 
                 {/* Europa Plan 1 - Unlimited */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-2">
-                      <img 
-                        src={signalEsimIcon} 
-                        alt="Signal"
-                        className="w-5 h-5"
-                      />
-                      <div>
-                        <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">Eurolink</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">36 countries • 5G</p>
-                      </div>
+                <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                  <div className="flex items-center">
+                    <div className="text-left flex-1">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">10 Days</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-sm">Unlimited</div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-lg font-bold text-blue-500 dark:text-blue-400">21.50 €</p>
+                    <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">21.50 €</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-sm">2.15 € /day</div>
+                    </div>
+                    <div className="flex-1 flex justify-end items-center">
+                      <div className="flex items-center space-x-1">
+                        {[1, 2, 3, 4, 5].map((bar) => (
+                          <div
+                            key={bar}
+                            className={`w-1 rounded-sm ${
+                              bar <= 5
+                                ? bar <= 2 ? 'bg-red-500 h-2'
+                                  : bar <= 3 ? 'bg-yellow-500 h-3'
+                                  : bar <= 4 ? 'bg-green-500 h-4'
+                                  : 'bg-green-600 h-5'
+                                : 'bg-gray-300 dark:bg-gray-600 h-2'
+                            }`}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">DATA</p>
-                        <p className="font-bold text-gray-900 dark:text-gray-100">Unlimited</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">VALIDITY</p>
-                        <p className="font-bold text-gray-900 dark:text-gray-100">10 Days</p>
-                      </div>
-                    </div>
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                      BUY NOW
-                    </button>
-                  </div>
-                </div>
+                </button>
 
                 {/* Europa Plan 2 - 100GB */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-2">
-                      <img 
-                        src={signalEsimIcon} 
-                        alt="Signal"
-                        className="w-5 h-5"
-                      />
-                      <div>
-                        <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">Eurolink</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">36 countries • 5G</p>
-                      </div>
+                <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                  <div className="flex items-center">
+                    <div className="text-left flex-1">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">180 Days</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-sm">100 GB</div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-lg font-bold text-blue-500 dark:text-blue-400">89.99 €</p>
+                    <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">89.99 €</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-sm">0.50 € /day</div>
+                    </div>
+                    <div className="flex-1 flex justify-end items-center">
+                      <div className="flex items-center space-x-1">
+                        {[1, 2, 3, 4, 5].map((bar) => (
+                          <div
+                            key={bar}
+                            className={`w-1 rounded-sm ${
+                              bar <= 4
+                                ? bar <= 2 ? 'bg-red-500 h-2'
+                                  : bar <= 3 ? 'bg-yellow-500 h-3'
+                                  : bar <= 4 ? 'bg-green-500 h-4'
+                                  : 'bg-green-600 h-5'
+                                : 'bg-gray-300 dark:bg-gray-600 h-2'
+                            }`}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">DATA</p>
-                        <p className="font-bold text-gray-900 dark:text-gray-100">100 GB</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">VALIDITY</p>
-                        <p className="font-bold text-gray-900 dark:text-gray-100">180 Days</p>
-                      </div>
-                    </div>
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                      BUY NOW
-                    </button>
-                  </div>
-                </div>
+                </button>
 
                 {/* Europa Plan 3 - 50GB */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-2">
-                      <img 
-                        src={signalEsimIcon} 
-                        alt="Signal"
-                        className="w-5 h-5"
-                      />
-                      <div>
-                        <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">EuroNet</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">33 countries • 5G</p>
-                      </div>
+                <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                  <div className="flex items-center">
+                    <div className="text-left flex-1">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">30 Days</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-sm">50 GB</div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-lg font-bold text-blue-500 dark:text-blue-400">45.99 €</p>
+                    <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">45.99 €</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-sm">1.53 € /day</div>
+                    </div>
+                    <div className="flex-1 flex justify-end items-center">
+                      <div className="flex items-center space-x-1">
+                        {[1, 2, 3, 4, 5].map((bar) => (
+                          <div
+                            key={bar}
+                            className={`w-1 rounded-sm ${
+                              bar <= 5
+                                ? bar <= 2 ? 'bg-red-500 h-2'
+                                  : bar <= 3 ? 'bg-yellow-500 h-3'
+                                  : bar <= 4 ? 'bg-green-500 h-4'
+                                  : 'bg-green-600 h-5'
+                                : 'bg-gray-300 dark:bg-gray-600 h-2'
+                            }`}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">DATA</p>
-                        <p className="font-bold text-gray-900 dark:text-gray-100">50 GB</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">VALIDITY</p>
-                        <p className="font-bold text-gray-900 dark:text-gray-100">30 Days</p>
-                      </div>
-                    </div>
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                      BUY NOW
-                    </button>
-                  </div>
-                </div>
+                </button>
 
                 {/* Europa Plan 4 - 20GB */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-2">
-                      <img 
-                        src={signalEsimIcon} 
-                        alt="Signal"
-                        className="w-5 h-5"
-                      />
-                      <div>
-                        <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">EU Mobile</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">28 countries • 5G</p>
-                      </div>
+                <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                  <div className="flex items-center">
+                    <div className="text-left flex-1">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">15 Days</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-sm">20 GB</div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-lg font-bold text-blue-500 dark:text-blue-400">29.99 €</p>
+                    <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">29.99 €</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-sm">2.00 € /day</div>
+                    </div>
+                    <div className="flex-1 flex justify-end items-center">
+                      <div className="flex items-center space-x-1">
+                        {[1, 2, 3, 4, 5].map((bar) => (
+                          <div
+                            key={bar}
+                            className={`w-1 rounded-sm ${
+                              bar <= 4
+                                ? bar <= 2 ? 'bg-red-500 h-2'
+                                  : bar <= 3 ? 'bg-yellow-500 h-3'
+                                  : bar <= 4 ? 'bg-green-500 h-4'
+                                  : 'bg-green-600 h-5'
+                                : 'bg-gray-300 dark:bg-gray-600 h-2'
+                            }`}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">DATA</p>
-                        <p className="font-bold text-gray-900 dark:text-gray-100">20 GB</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">VALIDITY</p>
-                        <p className="font-bold text-gray-900 dark:text-gray-100">15 Days</p>
-                      </div>
-                    </div>
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                      BUY NOW
-                    </button>
-                  </div>
-                </div>
+                </button>
               </div>
             ) : (
               // Continent List
