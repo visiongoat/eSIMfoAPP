@@ -1195,7 +1195,7 @@ export default function HomeScreen() {
                 </div>
 
                 {/* Europa Plan 1 - Unlimited */}
-                <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                <button className="w-full p-2.5 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
                   <div className="flex items-center">
                     <div className="text-left flex-1">
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">10 Days</div>
@@ -1226,7 +1226,7 @@ export default function HomeScreen() {
                 </button>
 
                 {/* Europa Plan 2 - 100GB */}
-                <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                <button className="w-full p-2.5 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
                   <div className="flex items-center">
                     <div className="text-left flex-1">
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">180 Days</div>
@@ -1257,7 +1257,7 @@ export default function HomeScreen() {
                 </button>
 
                 {/* Europa Plan 3 - 50GB */}
-                <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                <button className="w-full p-2.5 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
                   <div className="flex items-center">
                     <div className="text-left flex-1">
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">30 Days</div>
@@ -1288,7 +1288,7 @@ export default function HomeScreen() {
                 </button>
 
                 {/* Europa Plan 4 - 20GB */}
-                <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                <button className="w-full p-2.5 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
                   <div className="flex items-center">
                     <div className="text-left flex-1">
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">15 Days</div>
