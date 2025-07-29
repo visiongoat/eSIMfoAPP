@@ -1189,41 +1189,32 @@ export default function HomeScreen() {
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
-                      <div className="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      </div>
+                      <img 
+                        src={signalEsimIcon} 
+                        alt="Signal"
+                        className="w-5 h-5"
+                      />
                       <div>
                         <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">Eurolink</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Coverage: Europe</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      <span className="text-xs text-green-600 dark:text-green-400 font-medium">5G</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-4">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">DATA</p>
-                        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">Unlimited</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">VALIDITY</p>
-                        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">10 Days</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">36 countries • 5G</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">PRICE</p>
                       <p className="text-lg font-bold text-blue-500 dark:text-blue-400">21.50 €</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <button className="text-xs text-blue-500 dark:text-blue-400 font-medium hover:underline">
-                      36 European countries →
-                    </button>
+                    <div className="flex items-center space-x-4">
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">DATA</p>
+                        <p className="font-bold text-gray-900 dark:text-gray-100">Unlimited</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">VALIDITY</p>
+                        <p className="font-bold text-gray-900 dark:text-gray-100">10 Days</p>
+                      </div>
+                    </div>
                     <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                       BUY NOW
                     </button>
@@ -1234,41 +1225,32 @@ export default function HomeScreen() {
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
-                      <div className="w-6 h-6 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      </div>
+                      <img 
+                        src={signalEsimIcon} 
+                        alt="Signal"
+                        className="w-5 h-5"
+                      />
                       <div>
                         <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">Eurolink</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Coverage: Europe</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      <span className="text-xs text-green-600 dark:text-green-400 font-medium">5G</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-4">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">DATA</p>
-                        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">100 GB</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">VALIDITY</p>
-                        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">180 Days</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">36 countries • 5G</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">PRICE</p>
                       <p className="text-lg font-bold text-blue-500 dark:text-blue-400">89.99 €</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <button className="text-xs text-blue-500 dark:text-blue-400 font-medium hover:underline">
-                      36 European countries →
-                    </button>
+                    <div className="flex items-center space-x-4">
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">DATA</p>
+                        <p className="font-bold text-gray-900 dark:text-gray-100">100 GB</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">VALIDITY</p>
+                        <p className="font-bold text-gray-900 dark:text-gray-100">180 Days</p>
+                      </div>
+                    </div>
                     <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                       BUY NOW
                     </button>
@@ -1279,41 +1261,32 @@ export default function HomeScreen() {
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
-                      <div className="w-6 h-6 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
+                      <img 
+                        src={signalEsimIcon} 
+                        alt="Signal"
+                        className="w-5 h-5"
+                      />
                       <div>
                         <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">EuroNet</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Coverage: Europe</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      <span className="text-xs text-green-600 dark:text-green-400 font-medium">5G</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-4">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">DATA</p>
-                        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">50 GB</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">VALIDITY</p>
-                        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">30 Days</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">33 countries • 5G</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">PRICE</p>
                       <p className="text-lg font-bold text-blue-500 dark:text-blue-400">45.99 €</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <button className="text-xs text-blue-500 dark:text-blue-400 font-medium hover:underline">
-                      33 European countries →
-                    </button>
+                    <div className="flex items-center space-x-4">
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">DATA</p>
+                        <p className="font-bold text-gray-900 dark:text-gray-100">50 GB</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">VALIDITY</p>
+                        <p className="font-bold text-gray-900 dark:text-gray-100">30 Days</p>
+                      </div>
+                    </div>
                     <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                       BUY NOW
                     </button>
@@ -1324,41 +1297,32 @@ export default function HomeScreen() {
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
-                      <div className="w-6 h-6 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      </div>
+                      <img 
+                        src={signalEsimIcon} 
+                        alt="Signal"
+                        className="w-5 h-5"
+                      />
                       <div>
                         <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">EU Mobile</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">Coverage: Europe</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      <span className="text-xs text-green-600 dark:text-green-400 font-medium">5G</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-4">
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">DATA</p>
-                        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">20 GB</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">VALIDITY</p>
-                        <p className="text-lg font-bold text-gray-900 dark:text-gray-100">15 Days</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">28 countries • 5G</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-gray-500 dark:text-gray-400 uppercase">PRICE</p>
                       <p className="text-lg font-bold text-blue-500 dark:text-blue-400">29.99 €</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <button className="text-xs text-blue-500 dark:text-blue-400 font-medium hover:underline">
-                      28 European countries →
-                    </button>
+                    <div className="flex items-center space-x-4">
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">DATA</p>
+                        <p className="font-bold text-gray-900 dark:text-gray-100">20 GB</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">VALIDITY</p>
+                        <p className="font-bold text-gray-900 dark:text-gray-100">15 Days</p>
+                      </div>
+                    </div>
                     <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                       BUY NOW
                     </button>
