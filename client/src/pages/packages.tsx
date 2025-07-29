@@ -497,10 +497,10 @@ ${baseUrl}/packages/${countryId}`;
               <button
                 key={pkg.id}
                 onClick={() => handlePackageSelect(pkg.id)}
-                className={`w-full p-2.5 rounded-xl border-2 transition-all ${
+                className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
                   selectedPackage === pkg.id
-                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400'
-                    : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
+                    : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
                 }`}
               >
                 <div className="flex items-center">
@@ -538,10 +538,10 @@ ${baseUrl}/packages/${countryId}`;
               <button
                 key={pkg.id}
                 onClick={() => handlePackageSelect(pkg.id)}
-                className={`w-full p-2.5 rounded-xl border-2 transition-all ${
+                className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
                   selectedPackage === pkg.id
-                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400'
-                    : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500'
+                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
+                    : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
                 }`}
               >
                 <div className="flex items-center">
