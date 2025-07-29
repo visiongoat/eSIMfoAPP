@@ -1221,20 +1221,14 @@ export default function HomeScreen() {
                       <div className="text-gray-600 dark:text-gray-400 text-xs">2.15 € /day</div>
                     </div>
                     <div className="flex-1 flex justify-end items-center">
-                      <div className="flex items-center space-x-1">
-                        {[1, 2, 3, 4, 5].map((bar) => (
-                          <div
-                            key={bar}
-                            className={`w-1 rounded-sm ${
-                              bar <= 5
-                                ? bar <= 2 ? 'bg-red-500 h-2'
-                                  : bar <= 3 ? 'bg-yellow-500 h-3'
-                                  : bar <= 4 ? 'bg-green-500 h-4'
-                                  : 'bg-green-600 h-5'
-                                : 'bg-gray-300 dark:bg-gray-600 h-2'
-                            }`}
-                          />
-                        ))}
+                      <div 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLocation('/packages');
+                        }}
+                        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                      >
+                        Buy
                       </div>
                     </div>
                   </div>
@@ -1258,20 +1252,14 @@ export default function HomeScreen() {
                       <div className="text-gray-600 dark:text-gray-400 text-xs">0.50 € /day</div>
                     </div>
                     <div className="flex-1 flex justify-end items-center">
-                      <div className="flex items-center space-x-1">
-                        {[1, 2, 3, 4, 5].map((bar) => (
-                          <div
-                            key={bar}
-                            className={`w-1 rounded-sm ${
-                              bar <= 4
-                                ? bar <= 2 ? 'bg-red-500 h-2'
-                                  : bar <= 3 ? 'bg-yellow-500 h-3'
-                                  : bar <= 4 ? 'bg-green-500 h-4'
-                                  : 'bg-green-600 h-5'
-                                : 'bg-gray-300 dark:bg-gray-600 h-2'
-                            }`}
-                          />
-                        ))}
+                      <div 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLocation('/packages');
+                        }}
+                        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                      >
+                        Buy
                       </div>
                     </div>
                   </div>
@@ -1295,20 +1283,14 @@ export default function HomeScreen() {
                       <div className="text-gray-600 dark:text-gray-400 text-xs">1.53 € /day</div>
                     </div>
                     <div className="flex-1 flex justify-end items-center">
-                      <div className="flex items-center space-x-1">
-                        {[1, 2, 3, 4, 5].map((bar) => (
-                          <div
-                            key={bar}
-                            className={`w-1 rounded-sm ${
-                              bar <= 5
-                                ? bar <= 2 ? 'bg-red-500 h-2'
-                                  : bar <= 3 ? 'bg-yellow-500 h-3'
-                                  : bar <= 4 ? 'bg-green-500 h-4'
-                                  : 'bg-green-600 h-5'
-                                : 'bg-gray-300 dark:bg-gray-600 h-2'
-                            }`}
-                          />
-                        ))}
+                      <div 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLocation('/packages');
+                        }}
+                        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                      >
+                        Buy
                       </div>
                     </div>
                   </div>
@@ -1332,20 +1314,14 @@ export default function HomeScreen() {
                       <div className="text-gray-600 dark:text-gray-400 text-xs">2.00 € /day</div>
                     </div>
                     <div className="flex-1 flex justify-end items-center">
-                      <div className="flex items-center space-x-1">
-                        {[1, 2, 3, 4, 5].map((bar) => (
-                          <div
-                            key={bar}
-                            className={`w-1 rounded-sm ${
-                              bar <= 4
-                                ? bar <= 2 ? 'bg-red-500 h-2'
-                                  : bar <= 3 ? 'bg-yellow-500 h-3'
-                                  : bar <= 4 ? 'bg-green-500 h-4'
-                                  : 'bg-green-600 h-5'
-                                : 'bg-gray-300 dark:bg-gray-600 h-2'
-                            }`}
-                          />
-                        ))}
+                      <div 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLocation('/packages');
+                        }}
+                        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                      >
+                        Buy
                       </div>
                     </div>
                   </div>
