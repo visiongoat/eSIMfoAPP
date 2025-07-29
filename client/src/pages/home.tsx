@@ -1182,13 +1182,13 @@ export default function HomeScreen() {
               // Europa eSIM Plans
               <div className="space-y-3">
                 <div className="text-center mb-6">
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Europe eSIM Plans</h2>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Europe eSIM Plans</h2>
                   <button 
                     onClick={() => setShowCountriesModal(true)}
-                    className="inline-flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group"
+                    className="inline-flex items-center space-x-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group"
                   >
                     <span>Coverage in 36 European Countries</span>
-                    <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
@@ -1198,12 +1198,12 @@ export default function HomeScreen() {
                 <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
                   <div className="flex items-center">
                     <div className="text-left flex-1">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">10 Days</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">10 Days</div>
                       <div className="text-gray-600 dark:text-gray-400 text-sm">Unlimited</div>
                     </div>
                     <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">21.50 €</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-sm">2.15 € /day</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">21.50 €</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-xs">2.15 € /day</div>
                     </div>
                     <div className="flex-1 flex justify-end items-center">
                       <div className="flex items-center space-x-1">
@@ -1229,12 +1229,12 @@ export default function HomeScreen() {
                 <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
                   <div className="flex items-center">
                     <div className="text-left flex-1">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">180 Days</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">180 Days</div>
                       <div className="text-gray-600 dark:text-gray-400 text-sm">100 GB</div>
                     </div>
                     <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">89.99 €</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-sm">0.50 € /day</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">89.99 €</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-xs">0.50 € /day</div>
                     </div>
                     <div className="flex-1 flex justify-end items-center">
                       <div className="flex items-center space-x-1">
@@ -1260,12 +1260,12 @@ export default function HomeScreen() {
                 <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
                   <div className="flex items-center">
                     <div className="text-left flex-1">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">30 Days</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">30 Days</div>
                       <div className="text-gray-600 dark:text-gray-400 text-sm">50 GB</div>
                     </div>
                     <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">45.99 €</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-sm">1.53 € /day</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">45.99 €</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-xs">1.53 € /day</div>
                     </div>
                     <div className="flex-1 flex justify-end items-center">
                       <div className="flex items-center space-x-1">
@@ -1291,12 +1291,12 @@ export default function HomeScreen() {
                 <button className="w-full p-3 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
                   <div className="flex items-center">
                     <div className="text-left flex-1">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">15 Days</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">15 Days</div>
                       <div className="text-gray-600 dark:text-gray-400 text-sm">20 GB</div>
                     </div>
                     <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">29.99 €</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-sm">2.00 € /day</div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">29.99 €</div>
+                      <div className="text-gray-600 dark:text-gray-400 text-xs">2.00 € /day</div>
                     </div>
                     <div className="flex-1 flex justify-end items-center">
                       <div className="flex items-center space-x-1">
