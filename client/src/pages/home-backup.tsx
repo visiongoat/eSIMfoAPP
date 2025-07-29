@@ -1,1 +1,2 @@
-// Backup of broken home.tsx file before replacement
+// Backup of home.tsx before animation implementation
+// This can be restored if animation implementation fails

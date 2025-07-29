@@ -28,7 +28,6 @@ export default function HomeScreen() {
   const [, setLocation] = useLocation();
   const [selectedTab, setSelectedTab] = useState('local');
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
 
   // Tab order for swipe navigation
   const tabOrder = ['local', 'regional', 'global'];
@@ -597,76 +596,8 @@ export default function HomeScreen() {
 
   const greeting = getTimeBasedGreeting();
 
-  // Regional Plans Data - Europa
-  const europaPlans = [
-    {
-      id: 1,
-      name: "Eurolink Basic",
-      coverage: "Europe",
-      countries: 28,
-      data: "5 GB",
-      validity: "15 Days",
-      network: "Regional Network",
-      technology: "5G Ready",
-      price: "€12.50",
-      originalPrice: "€15.99",
-      discount: "-22%",
-      features: ["Works with Eurolink", "No eKYC required", "Instant activation"]
-    },
-    {
-      id: 2,
-      name: "Eurolink Standard", 
-      coverage: "Europe",
-      countries: 32,
-      data: "15 GB",
-      validity: "30 Days",
-      network: "Regional Network",
-      technology: "5G Ready",
-      price: "€21.50",
-      originalPrice: "€28.99",
-      discount: "-26%",
-      features: ["Works with Eurolink", "No eKYC required", "Top-up available"]
-    },
-    {
-      id: 3,
-      name: "Eurolink Premium",
-      coverage: "Europe", 
-      countries: 36,
-      data: "50 GB",
-      validity: "60 Days",
-      network: "Regional Network",
-      technology: "5G Ready",
-      price: "€45.99",
-      originalPrice: "€62.99",
-      discount: "-27%",
-      features: ["Works with Eurolink", "No eKYC required", "Priority network", "Free roaming"]
-    },
-    {
-      id: 4,
-      name: "Eurolink Unlimited",
-      coverage: "Europe",
-      countries: 36,
-      data: "Unlimited",
-      validity: "30 Days", 
-      network: "Regional Network",
-      technology: "5G Ready",
-      price: "€89.99",
-      originalPrice: "€119.99",
-      discount: "-25%",
-      features: ["Works with Eurolink", "No eKYC required", "Fair usage 100GB", "Premium support"]
-    }
-  ];
-
   const handleCountrySelect = (country: Country) => {
     setLocation(`/packages/${country.id}`);
-  };
-
-  const handleContinentSelect = (continent: string) => {
-    setSelectedContinent(continent);
-  };
-
-  const handleBackToContinent = () => {
-    setSelectedContinent(null);
   };
 
   // Helper function to detect error type
@@ -1231,511 +1162,87 @@ export default function HomeScreen() {
           </div>
         ) : selectedTab === 'regional' ? (
           <div className="space-y-3">
-            {!selectedContinent ? (
-              // Continent Selection
-              <>
-                {/* Europa */}
-                <div 
-                  onClick={() => handleContinentSelect('europa')}
-                  className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer"
-                >
-                  <div className="flex items-center justify-between relative z-10">
-                    <div className="flex items-center space-x-3">
-                      <div className="continent-icon w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
-                        <img 
-                          src={europaIcon} 
-                          alt="Europa"
-                          className="w-10 h-10 object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Europa</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">36 countries • From €12.50</p>
-                      </div>
-                    </div>
-                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+            {/* Europa */}
+            <div className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center space-x-3">
+                  <div className="continent-icon w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
+                    <img 
+                      src={europaIcon} 
+                      alt="Europa"
+                      className="w-10 h-10 object-contain"
+                    />
                   </div>
-                </div>
-              </>
-            ) : selectedContinent === 'europa' ? (
-              // Europa Plans
-              <div className="space-y-4">
-                {/* Header with back button */}
-                <div className="flex items-center space-x-3 mb-4">
-                  <button 
-                    onClick={handleBackToContinent}
-                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                  >
-                    <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
                   <div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">Europe eSIM Plans</h2>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Available regional packages for Europe</p>
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100">Europa</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">30+ countries • From €9.99</p>
                   </div>
                 </div>
-
-                {/* Plans */}
-                {europaPlans.map((plan, index) => (
-                  <div 
-                    key={plan.id}
-                    className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700 animate-stagger-fade touch-feedback cursor-pointer hover:shadow-md transition-all"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    {/* Plan Header */}
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center space-x-3">
-                        <div className="flex items-center space-x-1">
-                          {[1, 2, 3, 4].map((bar) => (
-                            <div
-                              key={bar}
-                              className="w-1 rounded-sm bg-green-500"
-                              style={{ height: `${8 + bar * 2}px` }}
-                            />
-                          ))}
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900 dark:text-white">{plan.name}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">Coverage: {plan.coverage}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded-full">
-                          {plan.technology}
-                        </span>
-                        {plan.discount && (
-                          <span className="px-2 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs font-medium rounded-full">
-                            {plan.discount}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Plan Details Grid */}
-                    <div className="grid grid-cols-2 gap-4 mb-3">
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">DATA</span>
-                          <span className="text-lg font-bold text-gray-900 dark:text-white">{plan.data}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">VALIDITY</span>
-                          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{plan.validity}</span>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">COVERAGE</span>
-                          <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">
-                            {plan.countries} European countries →
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">PRICE</span>
-                          <div className="text-right">
-                            <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{plan.price}</span>
-                            {plan.originalPrice && (
-                              <span className="text-sm text-gray-400 dark:text-gray-500 line-through ml-2">{plan.originalPrice}</span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Network Info */}
-                    <div className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                      {plan.network} • {plan.features.join(' • ')}
-                    </div>
-
-                    {/* Buy Button */}
-                    <button className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors">
-                      BUY NOW
-                    </button>
-                  </div>
-                ))}
+                <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
               </div>
-            ) : null}
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {/* Global Plans */}
-            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-6 text-white">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-bold mb-1">Global eSIM</h3>
-                  <p className="text-green-100 text-sm">200+ countries • From €29.99</p>
-                </div>
-                <button className="bg-white/20 hover:bg-white/30 rounded-xl px-4 py-2 font-medium transition-colors">
-                  View
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* How Does eSIMfo Work Modal */}
-      {showHowItWorks && (
-        <div 
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          onClick={() => setShowHowItWorks(false)}
-        >
-          <div 
-            className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full p-6 space-y-6 animate-slide-up"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">How Does eSIMfo Work?</h2>
-              <button
-                onClick={() => setShowHowItWorks(false)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-              >
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="space-y-6">
-              {/* Step 1 */}
-              <div className="flex items-start space-x-4 animate-in slide-in-from-left-4 duration-500">
-                <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                  1
-                </div>
-                <div className="flex items-center space-x-4 flex-1">
-                  <img 
-                    src={locationPinIcon} 
-                    alt="Choose destination"
-                    className="w-12 h-12 object-contain"
-                  />
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Choose Your Destination</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Select the country or region where you're traveling</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Connection Line */}
-              <div className="ml-4 w-0.5 h-4 bg-gray-200 dark:bg-gray-700 animate-in fade-in duration-700 delay-300"></div>
-
-              {/* Step 2 */}
-              <div className="flex items-start space-x-4 animate-in slide-in-from-left-4 duration-500 delay-200">
-                <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                  2
-                </div>
-                <div className="flex items-center space-x-4 flex-1">
-                  <img 
-                    src={qrScanIcon} 
-                    alt="Setup eSIM"
-                    className="w-12 h-12 object-contain"
-                  />
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Easy Setup</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Scan QR code to install your eSIM in seconds</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Connection Line */}
-              <div className="ml-4 w-0.5 h-4 bg-gray-200 dark:bg-gray-700 animate-in fade-in duration-700 delay-500"></div>
-
-              {/* Step 3 */}
-              <div className="flex items-start space-x-4 animate-in slide-in-from-left-4 duration-500 delay-400">
-                <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                  3
-                </div>
-                <div className="flex items-center space-x-4 flex-1">
-                  <img 
-                    src={signalEsimIcon} 
-                    alt="Stay connected"
-                    className="w-12 h-12 object-contain"
-                  />
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Stay Connected</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">Enjoy instant data connection when you land</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setShowHowItWorks(false)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors"
-            >
-              Got it!
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Live Chat Modal */}
-      {showLiveChat && (
-        <div 
-          className="fixed inset-0 bg-black/50 flex items-end z-50"
-          onClick={() => setShowLiveChat(false)}
-        >
-          <div 
-            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full max-w-md mx-auto"
-            style={{ height: '85vh' }}
-            onClick={(e) => e.stopPropagation()}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            {/* Handle bar */}
-            <div className="flex justify-center pt-3 pb-2">
-              <div 
-                className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full cursor-grab"
-                style={{
-                  transform: isDragging ? `translateY(${Math.max(0, currentY - startY) / 3}px)` : 'translateY(0px)',
-                  transition: isDragging ? 'none' : 'transform 0.3s ease'
-                }}
-              ></div>
-            </div>
-
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-semibold text-sm">ES</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">eSIMfo Support</h3>
-                  <div className="flex items-center space-x-1">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Online</span>
-                  </div>
-                </div>
-              </div>
-              <button
-                onClick={() => setShowLiveChat(false)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-              >
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Chat Area */}
-            <div className="flex-1 p-4 space-y-4 overflow-y-auto">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-semibold text-xs">ES</span>
-                </div>
-                <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-tl-sm p-3 max-w-[80%]">
-                  <p className="text-gray-900 dark:text-white text-sm">Hi! Welcome to eSIMfo 👋</p>
-                  <p className="text-gray-900 dark:text-white text-sm mt-1">How can I help you today?</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-semibold text-xs">ES</span>
-                </div>
-                <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl rounded-tl-sm p-3 max-w-[80%]">
-                  <p className="text-gray-900 dark:text-white text-sm">Common questions:</p>
-                  <div className="mt-2 space-y-1">
-                    <button className="block w-full text-left text-blue-600 dark:text-blue-400 text-sm hover:underline">
-                      • How to install eSIM?
-                    </button>
-                    <button className="block w-full text-left text-blue-600 dark:text-blue-400 text-sm hover:underline">
-                      • Which devices are supported?
-                    </button>
-                    <button className="block w-full text-left text-blue-600 dark:text-blue-400 text-sm hover:underline">
-                      • How to top up data?
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Message Input */}
-            <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="text"
-                  placeholder="Type your message..."
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-full bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <button className="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Compatibility Check Modal */}
-      {showCompatibilityCheck && (
-        <div 
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          onClick={() => setShowCompatibilityCheck(false)}
-        >
-          <div 
-            className="bg-white dark:bg-gray-800 rounded-2xl max-w-sm w-full p-6 animate-slide-up"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="text-center space-y-4">
-              <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center ${
-                compatibilityResult?.isCompatible 
-                  ? 'bg-green-100 dark:bg-green-900' 
-                  : 'bg-red-100 dark:bg-red-900'
-              }`}>
-                {compatibilityResult?.isCompatible ? (
-                  <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                ) : (
-                  <svg className="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                )}
-              </div>
-
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                  {compatibilityResult?.isCompatible ? 'Device Compatible!' : 'Limited Compatibility'}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                  {compatibilityResult?.details}
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <button
-                  onClick={() => setShowCompatibilityCheck(false)}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors"
-                >
-                  {compatibilityResult?.isCompatible ? 'Great!' : 'Got it'}
-                </button>
-                
-                {!compatibilityResult?.isCompatible && (
-                  <button
-                    onClick={() => {
-                      setShowCompatibilityCheck(false);
-                      setShowLiveChat(true);
-                    }}
-                    className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold py-3 rounded-xl transition-colors"
-                  >
-                    Contact Support
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Quick Actions Modal */}
-      {showQuickActions && (
-        <div 
-          className="fixed inset-0 bg-black/50 flex items-end z-50"
-          onClick={() => setShowQuickActions(false)}
-        >
-          <div 
-            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4 animate-slide-up"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Quick Actions</h3>
-              <button
-                onClick={() => setShowQuickActions(false)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-              >
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
             </div>
             
-            <div className="grid grid-cols-1 gap-3">
-              {/* My eSIMs */}
-              <button 
-                onClick={() => {
-                  setShowQuickActions(false);
-                  setLocation('/my-esims');
-                }}
-                className="w-full bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800/30 dark:hover:to-blue-700/30 rounded-2xl p-4 border border-blue-200 dark:border-blue-700 transition-all duration-200 group active:scale-[0.98]"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                    </div>
-                    <div className="text-left">
-                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">My eSIMs</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Manage active plans</p>
-                    </div>
+            {/* Asia */}
+            <div className="continent-card continent-asia rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-1 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center space-x-3">
+                  <div className="continent-icon w-12 h-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
+                    <img 
+                      src={asiaIcon} 
+                      alt="Asia"
+                      className="w-10 h-10 object-contain"
+                    />
                   </div>
-                  <svg className="w-5 h-5 text-blue-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </button>
-
-              {/* Regional eSIMs */}
-              <button 
-                onClick={() => {
-                  setShowQuickActions(false);
-                  setLocation('/destinations?tab=regions');
-                }}
-                className="w-full bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 hover:from-green-100 hover:to-green-200 dark:hover:from-green-800/30 dark:hover:to-green-700/30 rounded-2xl p-4 border border-green-200 dark:border-green-700 transition-all duration-200 group active:scale-[0.98]"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <div className="text-left">
-                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Regional eSIMs</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Multi-country plans</p>
-                    </div>
+                  <div>
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100">Asia</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">25+ countries • From €12.99</p>
                   </div>
-                  <svg className="w-5 h-5 text-green-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
                 </div>
-              </button>
-
-              {/* Global eSIMs */}
-              <button 
-                onClick={() => {
-                  setShowQuickActions(false);
-                  setLocation('/destinations?tab=global');
-                }}
-                className="w-full bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 hover:from-purple-100 hover:to-purple-200 dark:hover:from-purple-800/30 dark:hover:to-purple-700/30 rounded-2xl p-4 border border-purple-200 dark:border-purple-700 transition-all duration-200 group active:scale-[0.98]"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div className="text-left">
-                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Global eSIMs</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Worldwide coverage plans</p>
-                    </div>
-                  </div>
-                  <svg className="w-5 h-5 text-purple-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </button>
+                <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+            
+            {/* Americas */}
+            <div className="continent-card continent-americas rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-2 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center space-x-3">
+                  <div className="continent-icon w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
+                    <img 
+                      src={americasIcon} 
+                      alt="Americas"
+                      className="w-10 h-10 object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100">Americas</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">20+ countries • From €11.99</p>
+                  </div>
+                </div>
+                <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+              </div>
+            </div>
+
+            {/* Africa */}
+            <div className="continent-card continent-africa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-3 touch-feedback cursor-pointer">
+              <div className="flex items-center justify-between relative z-10">
+                <div className="flex items-center space-x-3">
+                  <div className="continent-icon w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
+                    <img 
+                      src={africaIcon} 
+                      alt="Africa"
+                      className="w-10 h-10 object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100">Africa</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">15+ countries • From €14.99</p>
+                  </div>
+                </div>
+                <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+              </div>
+            </div>
+
+            {/* Middle East */}
             <div className="continent-card continent-middle-east rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-4 touch-feedback cursor-pointer">
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
@@ -1926,12 +1433,17 @@ export default function HomeScreen() {
             </div>
           </button>
         </div>
-      </div>
+        </div>
 
-      <TabBar onPlusClick={() => setShowQuickActions(true)} />
-    </div>
-  );
-}
+        {/* Live Chat Modal - Bottom slide-up design */}
+        {showLiveChat && (
+          <div className="modal-overlay flex items-end" style={{ touchAction: 'none' }}>
+            {/* Backdrop */}
+            <div 
+              className="modal-overlay bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+              onClick={() => setShowLiveChat(false)}
+              style={{ backdropFilter: 'blur(4px)' }}
+            />
             
             {/* Modal Content */}
             <div 
