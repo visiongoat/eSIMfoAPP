@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { X, HelpCircle, Minus, Plus } from "lucide-react";
+import { X, HelpCircle, Minus, Plus, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AutoRenewalInfoModal } from "./auto-renewal-info-modal";
 
@@ -244,9 +244,10 @@ export default function CheckoutModal({
           {!showPaymentMethods ? (
             <Button
               onClick={() => setShowPaymentMethods(true)}
-              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors"
+              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors flex items-center justify-center space-x-2"
             >
-              Choose a payment method
+              <span>Choose a payment method</span>
+              <Lock className="w-4 h-4" />
             </Button>
           ) : (
             <div className="space-y-3">
