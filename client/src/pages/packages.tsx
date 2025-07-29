@@ -505,12 +505,12 @@ ${baseUrl}/packages/${countryId}`;
               >
                 <div className="flex items-center">
                   <div className="text-left flex-1">
-                    <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
+                    <div className="text-lg font-semibold text-gray-900 dark:text-white">{pkg.duration}</div>
                     <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
                   </div>
                   <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                    <div className="text-xl font-bold text-gray-900 dark:text-white">{convertPrice(pkg.price, selectedCurrency)}</div>
-                    <div className="text-gray-600 dark:text-gray-400 text-sm">{convertPrice(pkg.pricePerDay.split(' ')[0], selectedCurrency)} /day</div>
+                    <div className="text-lg font-semibold text-gray-900 dark:text-white">{convertPrice(pkg.price, selectedCurrency)}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-xs">{convertPrice(pkg.pricePerDay.split(' ')[0], selectedCurrency)} /day</div>
                   </div>
                   <div className="flex-1 flex justify-end items-center">
                     <div className="flex items-center space-x-1">
@@ -547,7 +547,7 @@ ${baseUrl}/packages/${countryId}`;
                 <div className="flex items-center">
                   {/* Left side - Data & Duration */}
                   <div className="text-left flex-1">
-                    <div className="text-xl font-bold text-gray-900 dark:text-white">{pkg.duration}</div>
+                    <div className="text-lg font-semibold text-gray-900 dark:text-white">{pkg.duration}</div>
                     <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.data}</div>
                   </div>
                   
@@ -565,8 +565,8 @@ ${baseUrl}/packages/${countryId}`;
                   
                   {/* Right side - Price & Signal */}
                   <div className="flex-1 flex flex-col items-end justify-center">
-                    <div className="text-xl font-bold text-gray-900 dark:text-white mb-1">{convertPrice(pkg.price, selectedCurrency)}</div>
-                    <div className="text-gray-600 dark:text-gray-400 text-sm mb-2">{convertPrice(pkg.pricePerDay.split(' ')[0], selectedCurrency)} /day</div>
+                    <div className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{convertPrice(pkg.price, selectedCurrency)}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-xs mb-2">{convertPrice(pkg.pricePerDay.split(' ')[0], selectedCurrency)} /day</div>
                     <div className="flex items-center space-x-1">
                       {[1, 2, 3, 4, 5].map((bar) => (
                         <div
@@ -900,7 +900,7 @@ ${baseUrl}/packages/${countryId}`;
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-xl font-bold text-gray-900 dark:text-white">
+                <div className="text-lg font-semibold text-gray-900 dark:text-white">
                   {(() => {
                     const dataPackage = demoPackages.find(p => p.id === selectedPackage);
                     const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
