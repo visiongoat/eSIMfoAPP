@@ -29,6 +29,7 @@ export default function HomeScreen() {
   const [selectedTab, setSelectedTab] = useState('local');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
+  const [showCountriesModal, setShowCountriesModal] = useState(false);
 
   // Tab order for swipe navigation
   const tabOrder = ['local', 'regional', 'global'];
@@ -1182,9 +1183,15 @@ export default function HomeScreen() {
               <div className="space-y-3">
                 <div className="text-center mb-6">
                   <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Europe eSIM Plans</h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 cursor-pointer hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
-                    Stay Connected Across 36 European Countries
-                  </p>
+                  <button 
+                    onClick={() => setShowCountriesModal(true)}
+                    className="inline-flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group"
+                  >
+                    <span>Coverage in 36 European Countries</span>
+                    <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
                 </div>
 
                 {/* Europa Plan 1 - Unlimited */}
@@ -2100,6 +2107,58 @@ export default function HomeScreen() {
                   </svg>
                 </div>
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* European Countries Modal */}
+      {showCountriesModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-end z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4 animate-slide-up max-h-[80vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">European Coverage</h3>
+              <button
+                onClick={() => setShowCountriesModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              Our Europe eSIM plans provide seamless connectivity across these 36 countries:
+            </p>
+            
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              {[
+                'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic',
+                'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece',
+                'Hungary', 'Iceland', 'Ireland', 'Italy', 'Latvia', 'Lithuania',
+                'Luxembourg', 'Malta', 'Netherlands', 'Norway', 'Poland', 'Portugal',
+                'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland',
+                'United Kingdom', 'Albania', 'Bosnia & Herzegovina', 'Montenegro',
+                'North Macedonia', 'Serbia'
+              ].map((country, index) => (
+                <div key={index} className="flex items-center space-x-2 p-2 rounded-lg bg-gray-50 dark:bg-gray-700/50">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-gray-900 dark:text-gray-100">{country}</span>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+              <div className="flex items-center space-x-2 mb-2">
+                <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="font-medium text-blue-900 dark:text-blue-100">Coverage Details</span>
+              </div>
+              <p className="text-sm text-blue-800 dark:text-blue-200">
+                All plans include 5G/4G LTE connectivity where available. No roaming fees between covered countries.
+              </p>
             </div>
           </div>
         </div>
