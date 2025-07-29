@@ -30,6 +30,7 @@ export default function HomeScreen() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
   const [showCountriesModal, setShowCountriesModal] = useState(false);
+  const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number>(1); // Default to first plan
 
   // Tab order for swipe navigation
   const tabOrder = ['local', 'regional', 'global'];
@@ -1195,7 +1196,13 @@ export default function HomeScreen() {
                 </div>
 
                 {/* Europa Plan 1 - Unlimited */}
-                <button className="w-full p-2.5 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                <button 
+                  onClick={() => setSelectedEuropaPlan(1)}
+                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                    selectedEuropaPlan === 1
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
+                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                  }`}>
                   <div className="flex items-center">
                     <div className="text-left flex-1">
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">10 Days</div>
@@ -1226,7 +1233,13 @@ export default function HomeScreen() {
                 </button>
 
                 {/* Europa Plan 2 - 100GB */}
-                <button className="w-full p-2.5 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                <button 
+                  onClick={() => setSelectedEuropaPlan(2)}
+                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                    selectedEuropaPlan === 2
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
+                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                  }`}>
                   <div className="flex items-center">
                     <div className="text-left flex-1">
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">180 Days</div>
@@ -1257,7 +1270,13 @@ export default function HomeScreen() {
                 </button>
 
                 {/* Europa Plan 3 - 50GB */}
-                <button className="w-full p-2.5 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                <button 
+                  onClick={() => setSelectedEuropaPlan(3)}
+                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                    selectedEuropaPlan === 3
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
+                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                  }`}>
                   <div className="flex items-center">
                     <div className="text-left flex-1">
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">30 Days</div>
@@ -1288,7 +1307,13 @@ export default function HomeScreen() {
                 </button>
 
                 {/* Europa Plan 4 - 20GB */}
-                <button className="w-full p-2.5 rounded-xl border-2 transition-all border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500">
+                <button 
+                  onClick={() => setSelectedEuropaPlan(4)}
+                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                    selectedEuropaPlan === 4
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
+                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                  }`}>
                   <div className="flex items-center">
                     <div className="text-left flex-1">
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">15 Days</div>
