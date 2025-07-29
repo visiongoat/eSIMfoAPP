@@ -1182,7 +1182,9 @@ export default function HomeScreen() {
               <div className="space-y-3">
                 <div className="text-center mb-6">
                   <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Europe eSIM Plans</h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Stay Connected Across All European Destinations</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 cursor-pointer hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
+                    Stay Connected Across 36 European Countries
+                  </p>
                 </div>
 
                 {/* Europa Plan 1 - Unlimited */}
