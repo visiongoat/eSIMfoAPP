@@ -2166,7 +2166,7 @@ export default function HomeScreen() {
               </button>
             </div>
 
-            {/* Global plan cards - same as Europa style */}
+            {/* Global plan cards - Premium style with subtle indicators */}
             {globalPlanType === 'data' ? (
               // Data Only Plans
               <div className="space-y-2">
@@ -2174,15 +2174,24 @@ export default function HomeScreen() {
                   <button 
                     key={plan.id}
                     onClick={() => setSelectedGlobalPlan(plan.id)}
-                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                    className={`relative w-full p-2.5 rounded-xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
                       selectedGlobalPlan === plan.id
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
-                        : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                        ? 'border-blue-500 bg-gradient-to-r from-blue-50 to-blue-50/70 dark:from-blue-900/20 dark:to-blue-900/10 dark:border-blue-400 scale-[1.02] shadow-md'
+                        : 'border-gray-200 dark:border-gray-600 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800/50 dark:to-gray-800/30 hover:border-blue-300 dark:hover:border-blue-500 hover:scale-[1.01]'
                     }`}
                   >
+                    {/* Premium Global Badge */}
+                    <div className="absolute top-2 right-2">
+                      <div className="px-2 py-0.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full shadow-sm border border-blue-400/20">
+                        🌍 GLOBAL
+                      </div>
+                    </div>
+
                     <div className="flex items-center">
                       <div className="text-left flex-1">
-                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                        <div className="flex items-center space-x-2">
+                          <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                        </div>
                         <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
                       </div>
                       <div className="flex-1 flex flex-col items-start justify-center pl-16">
@@ -2195,7 +2204,7 @@ export default function HomeScreen() {
                             e.stopPropagation();
                             setShowCheckoutModal(true);
                           }}
-                          className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                          className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-lg active:scale-95 ml-2 cursor-pointer"
                         >
                           Buy
                         </div>
@@ -2211,15 +2220,24 @@ export default function HomeScreen() {
                   <button 
                     key={plan.id}
                     onClick={() => setSelectedGlobalPlan(plan.id)}
-                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                    className={`relative w-full p-2.5 rounded-xl border-2 transition-all duration-200 shadow-sm hover:shadow-md ${
                       selectedGlobalPlan === plan.id
-                        ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-400 scale-[1.02] shadow-md'
-                        : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                        ? 'border-orange-500 bg-gradient-to-r from-orange-50 to-amber-50/70 dark:from-orange-900/20 dark:to-amber-900/10 dark:border-orange-400 scale-[1.02] shadow-md'
+                        : 'border-gray-200 dark:border-gray-600 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800/50 dark:to-gray-800/30 hover:border-orange-300 dark:hover:border-orange-500 hover:scale-[1.01]'
                     }`}
                   >
+                    {/* Premium Global Badge */}
+                    <div className="absolute top-2 right-2">
+                      <div className="px-2 py-0.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs font-bold rounded-full shadow-sm border border-amber-400/20">
+                        ⭐ PREMIUM
+                      </div>
+                    </div>
+
                     <div className="flex items-center">
                       <div className="text-left flex-1">
-                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                        <div className="flex items-center space-x-2">
+                          <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                        </div>
                         <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
                       </div>
                       <div className="flex-1 flex flex-col items-start justify-center pl-8">
@@ -2236,7 +2254,7 @@ export default function HomeScreen() {
                             e.stopPropagation();
                             setShowCheckoutModal(true);
                           }}
-                          className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer hover:transform hover:scale-105"
+                          className="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-lg active:scale-95 ml-2 cursor-pointer hover:transform hover:scale-105"
                         >
                           Buy
                         </div>
