@@ -36,14 +36,6 @@ export default function HomeScreen() {
   const [esimCount, setEsimCount] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Filter European coverage based on search query
-  const filteredEuropeanCoverage = europeanCoverage.filter(item =>
-    item.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.operators.some(operator => 
-      operator.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
-
   // Europa plan data
   const europaPlans = [
     { id: 1, duration: '10 Days', data: 'Unlimited', price: '€21.50', dailyPrice: '€2.15 /day' },
@@ -318,6 +310,14 @@ export default function HomeScreen() {
       ]
     }
   ];
+
+  // Filter European coverage based on search query
+  const filteredEuropeanCoverage = europeanCoverage.filter(item =>
+    item.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.operators.some(operator => 
+      operator.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
 
   // Tab order for swipe navigation
   const tabOrder = ['local', 'regional', 'global'];
