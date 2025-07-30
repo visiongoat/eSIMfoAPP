@@ -3155,6 +3155,22 @@ export default function HomeScreen() {
                 </div>
               </div>
 
+              {/* Other Information Section */}
+              <div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                  <svg className="w-4 h-4 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Other Information
+                </h4>
+                
+                <div className="p-3 bg-orange-50 dark:bg-orange-900/10 rounded-lg border border-orange-100 dark:border-orange-800/30">
+                  <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-400">
+                    This eSIM includes a US-based (+1) number for global use. Voicemail and call forwarding are not supported. Usage in Turkey is limited to 91 days. Call minutes are split between local (75%) and international (25%) calls.
+                  </p>
+                </div>
+              </div>
+
               {/* Countries Coverage Info */}
               <div className="mt-4 sm:mt-6">
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 rounded-xl p-4 border border-blue-100 dark:border-blue-800/30">
