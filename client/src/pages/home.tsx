@@ -3166,7 +3166,7 @@ export default function HomeScreen() {
                 
                 <div className="p-3 bg-orange-50 dark:bg-orange-900/10 rounded-lg border border-orange-100 dark:border-orange-800/30">
                   <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-400">
-                    This eSIM includes a US-based (+1) number for global use. Voicemail and call forwarding are not supported. Usage in Turkey is limited to 91 days. Call minutes are split between local (75%) and international (25%) calls.
+                    +1 US number included. Voicemail & call forwarding not supported. Max 91 days in Turkey. Calls: 75% local, 25% international.
                   </p>
                 </div>
               </div>
