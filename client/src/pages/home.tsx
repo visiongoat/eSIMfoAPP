@@ -2161,169 +2161,83 @@ export default function HomeScreen() {
               <p className="text-xs text-gray-500 dark:text-gray-400">Coverage in 200+ Countries Worldwide</p>
             </div>
 
-            {/* Display plans based on selected type */}
+            {/* Global plan cards - same as Europa style */}
             {globalPlanType === 'data' ? (
-              // Data Only Plans - Premium Global Design
-              <div className="space-y-3">
-                {globalDataPlans.map((plan, index) => (
-                  <div 
+              // Data Only Plans
+              <div className="space-y-2">
+                {globalDataPlans.map((plan) => (
+                  <button 
                     key={plan.id}
                     onClick={() => setSelectedGlobalPlan(plan.id)}
-                    className={`relative w-full p-4 rounded-2xl border-2 transition-all duration-300 cursor-pointer group overflow-hidden ${
+                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
                       selectedGlobalPlan === plan.id
-                        ? 'border-blue-500 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 dark:border-blue-400 scale-[1.02] shadow-lg'
-                        : 'border-gray-200/80 dark:border-gray-600/80 bg-gradient-to-r from-white to-gray-50/50 dark:from-gray-800/80 dark:to-gray-700/50 hover:border-blue-300 dark:hover:border-blue-500 hover:scale-[1.01] hover:shadow-md'
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
+                        : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
                     }`}
                   >
-                    {/* Premium gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    {/* Global badge */}
-                    <div className="absolute top-2 right-2">
-                      <div className={`px-2 py-1 rounded-full text-xs font-bold ${
-                        index === 0 ? 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300' :
-                        index === 1 ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' :
-                        index === 2 ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300' :
-                        'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300'
-                      }`}>
-                        🌍 GLOBAL
+                    <div className="flex items-center">
+                      <div className="text-left flex-1">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
                       </div>
-                    </div>
-                    
-                    <div className="relative z-10 flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        {/* Plan icon with gradient */}
-                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${
-                          index === 0 ? 'bg-gradient-to-br from-green-400 to-emerald-500' :
-                          index === 1 ? 'bg-gradient-to-br from-blue-400 to-cyan-500' :
-                          index === 2 ? 'bg-gradient-to-br from-purple-400 to-pink-500' :
-                          'bg-gradient-to-br from-orange-400 to-red-500'
-                        }`}>
-                          <span className="text-2xl">
-                            {index === 0 ? '🚀' : index === 1 ? '📡' : index === 2 ? '⚡' : '🔥'}
-                          </span>
-                        </div>
-                        
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-2 mb-1">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">{plan.duration}</h3>
-                            <div className="w-1 h-1 bg-gray-300 rounded-full" />
-                            <span className="text-lg font-semibold text-gray-700 dark:text-gray-300">{plan.data}</span>
-                          </div>
-                          <div className="flex items-center space-x-3 text-sm text-gray-500 dark:text-gray-400">
-                            <span>📍 200+ Countries</span>
-                            <span>⚡ Instant Setup</span>
-                          </div>
-                        </div>
+                      <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.price}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-xs">{plan.dailyPrice}</div>
                       </div>
-                      
-                      <div className="text-right space-y-2">
-                        <div className="text-2xl font-bold text-gray-900 dark:text-white">{plan.price}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{plan.dailyPrice}</div>
+                      <div className="flex-1 flex justify-end items-center">
                         <div 
                           onClick={(e) => {
                             e.stopPropagation();
                             setShowCheckoutModal(true);
                           }}
-                          className={`px-4 py-2 rounded-xl text-sm font-bold text-white transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95 cursor-pointer ${
-                            index === 0 ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700' :
-                            index === 1 ? 'bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700' :
-                            index === 2 ? 'bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700' :
-                            'bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700'
-                          }`}
+                          className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
                         >
-                          Buy Now
+                          Buy
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             ) : (
-              // Data + Voice + SMS Plans - Premium Global Design
-              <div className="space-y-3">
-                {globalVoiceSmsPlans.map((plan, index) => (
-                  <div 
+              // Data + Voice + SMS Plans
+              <div className="space-y-2">
+                {globalVoiceSmsPlans.map((plan) => (
+                  <button 
                     key={plan.id}
                     onClick={() => setSelectedGlobalPlan(plan.id)}
-                    className={`relative w-full p-4 rounded-2xl border-2 transition-all duration-300 cursor-pointer group overflow-hidden ${
+                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
                       selectedGlobalPlan === plan.id
-                        ? 'border-orange-500 bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 dark:border-orange-400 scale-[1.02] shadow-lg'
-                        : 'border-gray-200/80 dark:border-gray-600/80 bg-gradient-to-r from-white to-gray-50/50 dark:from-gray-800/80 dark:to-gray-700/50 hover:border-orange-300 dark:hover:border-orange-500 hover:scale-[1.01] hover:shadow-md'
+                        ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-400 scale-[1.02] shadow-md'
+                        : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
                     }`}
                   >
-                    {/* Premium gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    {/* Premium badge */}
-                    <div className="absolute top-2 right-2">
-                      <div className={`px-2 py-1 rounded-full text-xs font-bold ${
-                        index === 0 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300' :
-                        index === 1 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300' :
-                        index === 2 ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300' :
-                        'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300'
-                      }`}>
-                        ⭐ PREMIUM
+                    <div className="flex items-center">
+                      <div className="text-left flex-1">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
                       </div>
-                    </div>
-                    
-                    <div className="relative z-10 flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        {/* Plan icon with gradient */}
-                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${
-                          index === 0 ? 'bg-gradient-to-br from-emerald-400 to-teal-500' :
-                          index === 1 ? 'bg-gradient-to-br from-amber-400 to-orange-500' :
-                          index === 2 ? 'bg-gradient-to-br from-rose-400 to-pink-500' :
-                          'bg-gradient-to-br from-violet-400 to-purple-500'
-                        }`}>
-                          <span className="text-2xl">
-                            {index === 0 ? '📞' : index === 1 ? '💬' : index === 2 ? '🌟' : '👑'}
-                          </span>
-                        </div>
-                        
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-2 mb-2">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">{plan.duration}</h3>
-                            <div className="w-1 h-1 bg-gray-300 rounded-full" />
-                            <span className="text-lg font-semibold text-gray-700 dark:text-gray-300">{plan.data}</span>
-                          </div>
-                          <div className="flex items-center space-x-4 text-sm">
-                            <div className="flex items-center space-x-1">
-                              <span className="text-green-500">📞</span>
-                              <span className="font-medium text-gray-700 dark:text-gray-300">{plan.voice}</span>
-                            </div>
-                            <div className="flex items-center space-x-1">
-                              <span className="text-blue-500">💬</span>
-                              <span className="font-medium text-gray-700 dark:text-gray-300">{plan.sms}</span>
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-3 text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            <span>🌍 Global Coverage</span>
-                            <span>⚡ Instant</span>
-                          </div>
-                        </div>
+                      <div className="flex-1 flex flex-col items-start justify-center pl-8">
+                        <div className="text-sm text-gray-600 dark:text-gray-400">{plan.voice}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">{plan.sms}</div>
                       </div>
-                      
-                      <div className="text-right space-y-2">
-                        <div className="text-2xl font-bold text-gray-900 dark:text-white">{plan.price}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{plan.dailyPrice}</div>
+                      <div className="flex-1 flex flex-col items-start justify-center pl-8">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.price}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-xs">{plan.dailyPrice}</div>
+                      </div>
+                      <div className="flex-1 flex justify-end items-center">
                         <div 
                           onClick={(e) => {
                             e.stopPropagation();
                             setShowCheckoutModal(true);
                           }}
-                          className={`px-4 py-2 rounded-xl text-sm font-bold text-white transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95 cursor-pointer ${
-                            index === 0 ? 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700' :
-                            index === 1 ? 'bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700' :
-                            index === 2 ? 'bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700' :
-                            'bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700'
-                          }`}
+                          className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
                         >
-                          Buy Now
+                          Buy
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
