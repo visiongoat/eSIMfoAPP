@@ -34,6 +34,10 @@ export default function HomeScreen() {
   const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number>(1); // Default to first plan
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [esimCount, setEsimCount] = useState(1);
+  
+  // Global tab states
+  const [globalPlanType, setGlobalPlanType] = useState<'data' | 'data-voice-sms'>('data');
+  const [selectedGlobalPlan, setSelectedGlobalPlan] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const scrollableContentRef = useRef<HTMLDivElement>(null);
   const [showPlanInfoModal, setShowPlanInfoModal] = useState(false);
@@ -45,6 +49,22 @@ export default function HomeScreen() {
     { id: 2, duration: '180 Days', data: '100 GB', price: '€89.99', dailyPrice: '€0.50 /day' },
     { id: 3, duration: '30 Days', data: '50 GB', price: '€45.99', dailyPrice: '€1.53 /day' },
     { id: 4, duration: '15 Days', data: '20 GB', price: '€29.99', dailyPrice: '€2.00 /day' }
+  ];
+
+  // Global plan data - Data only
+  const globalDataPlans = [
+    { id: 1, duration: '7 Days', data: '1 GB', price: '€9.99', dailyPrice: '€1.43 /day' },
+    { id: 2, duration: '15 Days', data: '3 GB', price: '€19.99', dailyPrice: '€1.33 /day' },
+    { id: 3, duration: '20 Days', data: '5 GB', price: '€29.99', dailyPrice: '€1.50 /day' },
+    { id: 4, duration: '30 Days', data: '10 GB', price: '€49.99', dailyPrice: '€1.67 /day' }
+  ];
+
+  // Global plan data - Data + Voice + SMS
+  const globalVoiceSmsPlans = [
+    { id: 1, duration: '7 Days', data: '1 GB', voice: '100 min', sms: '50 SMS', price: '€14.99', dailyPrice: '€2.14 /day' },
+    { id: 2, duration: '15 Days', data: '3 GB', voice: '200 min', sms: '100 SMS', price: '€28.99', dailyPrice: '€1.93 /day' },
+    { id: 3, duration: '20 Days', data: '5 GB', voice: '300 min', sms: '150 SMS', price: '€42.99', dailyPrice: '€2.15 /day' },
+    { id: 4, duration: '30 Days', data: '10 GB', voice: '500 min', sms: '250 SMS', price: '€69.99', dailyPrice: '€2.33 /day' }
   ];
 
   // Mock Europa country for checkout modal
@@ -2110,110 +2130,117 @@ export default function HomeScreen() {
             )}
           </div>
         ) : (
-          <div className="space-y-4">
-            {/* Global Plans */}
-            <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-6 text-white">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <span className="text-3xl">🌍</span>
-                    <div>
-                      <h3 className="font-bold text-lg">Global eSIM</h3>
-                      <p className="text-green-100 text-sm">200+ countries coverage</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4 text-sm">
-                    <span>From $19.99</span>
-                    <span>•</span>
-                    <span>5+ plans</span>
-                  </div>
-                  <button 
-                    onClick={() => setLocation('/packages/global')}
-                    className="mt-4 bg-white text-green-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-green-50 transition-colors"
-                  >
-                    View Global Plans
-                  </button>
-                </div>
-                <div className="text-right">
-                  <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded-lg text-xs font-bold mb-2">
-                    BEST VALUE
-                  </div>
-                </div>
-              </div>
+          <div className="space-y-3 animate-slide-in-left" key="global-plans">
+            {/* Tab system for Data vs Data+Voice+SMS */}
+            <div className="flex space-x-2 mb-4">
+              <button
+                onClick={() => setGlobalPlanType('data')}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  globalPlanType === 'data'
+                    ? 'bg-blue-500 text-white shadow-md'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                Data
+              </button>
+              <button
+                onClick={() => setGlobalPlanType('data-voice-sms')}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  globalPlanType === 'data-voice-sms'
+                    ? 'bg-orange-500 text-white shadow-md'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                Data / Calls / Text
+              </button>
             </div>
 
-            {/* Global Plan Options */}
-            <div className="grid grid-cols-1 gap-3">
-              <div className="bg-white rounded-xl p-4 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                      <span className="text-xl">📱</span>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">1GB Global</h3>
-                      <p className="text-xs text-gray-500">30 days • 200+ countries</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-gray-900">$19.99</div>
-                    <button className="text-blue-500 text-xs font-medium">Select</button>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-xl p-4 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                      <span className="text-xl">📶</span>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">5GB Global</h3>
-                      <p className="text-xs text-gray-500">30 days • 200+ countries</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-gray-900">$49.99</div>
-                    <button className="text-blue-500 text-xs font-medium">Select</button>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-xl p-4 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                      <span className="text-xl">🚀</span>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900">10GB Global</h3>
-                      <p className="text-xs text-gray-500">30 days • 200+ countries</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-gray-900">$89.99</div>
-                    <button className="text-blue-500 text-xs font-medium">Select</button>
-                  </div>
-                </div>
-              </div>
+            {/* Global Plan Cards */}
+            <div className="text-center mb-2">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Global eSIM Plans</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Coverage in 200+ Countries Worldwide</p>
             </div>
-            
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-3 mt-4">
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-blue-600">200+</div>
-                <div className="text-xs text-gray-600">Countries</div>
+
+            {/* Display plans based on selected type */}
+            {globalPlanType === 'data' ? (
+              // Data Only Plans
+              <div className="space-y-2">
+                {globalDataPlans.map((plan) => (
+                  <button 
+                    key={plan.id}
+                    onClick={() => setSelectedGlobalPlan(plan.id)}
+                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                      selectedGlobalPlan === plan.id
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
+                        : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <div className="text-left flex-1">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
+                      </div>
+                      <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.price}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-xs">{plan.dailyPrice}</div>
+                      </div>
+                      <div className="flex-1 flex justify-end items-center">
+                        <div 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowCheckoutModal(true);
+                          }}
+                          className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                        >
+                          Buy
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                ))}
               </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-green-600">5min</div>
-                <div className="text-xs text-gray-600">Activation</div>
+            ) : (
+              // Data + Voice + SMS Plans
+              <div className="space-y-2">
+                {globalVoiceSmsPlans.map((plan) => (
+                  <button 
+                    key={plan.id}
+                    onClick={() => setSelectedGlobalPlan(plan.id)}
+                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                      selectedGlobalPlan === plan.id
+                        ? 'border-orange-500 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-400 scale-[1.02] shadow-md'
+                        : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <div className="text-left flex-1">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
+                      </div>
+                      <div className="flex-1 flex flex-col items-start justify-center pl-8">
+                        <div className="text-sm text-gray-600 dark:text-gray-400">{plan.voice}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">{plan.sms}</div>
+                      </div>
+                      <div className="flex-1 flex flex-col items-start justify-center pl-8">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.price}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-xs">{plan.dailyPrice}</div>
+                      </div>
+                      <div className="flex-1 flex justify-end items-center">
+                        <div 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowCheckoutModal(true);
+                          }}
+                          className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                        >
+                          Buy
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                ))}
               </div>
-              <div className="bg-white rounded-xl p-4 text-center shadow-sm">
-                <div className="text-2xl font-bold text-yellow-600">24/7</div>
-                <div className="text-xs text-gray-600">Support</div>
-              </div>
-            </div>
+            )}
           </div>
         )}
 
