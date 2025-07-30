@@ -36,6 +36,8 @@ export default function HomeScreen() {
   const [esimCount, setEsimCount] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const scrollableContentRef = useRef<HTMLDivElement>(null);
+  const [showPlanInfoModal, setShowPlanInfoModal] = useState(false);
+  const planInfoModalRef = useRef<HTMLDivElement>(null);
 
   // Europa plan data
   const europaPlans = [
@@ -376,6 +378,11 @@ export default function HomeScreen() {
   const [isModalDragging, setIsModalDragging] = useState<boolean>(false);
   const coverageModalRef = useRef<HTMLDivElement>(null);
 
+  // Touch/swipe states for plan info modal dismissal
+  const [planModalStartY, setPlanModalStartY] = useState<number>(0);
+  const [planModalCurrentY, setPlanModalCurrentY] = useState<number>(0);
+  const [isPlanModalDragging, setIsPlanModalDragging] = useState<boolean>(false);
+
   // Prevent body scroll when coverage modal is open
   useEffect(() => {
     if (showCountriesModal) {
@@ -400,6 +407,82 @@ export default function HomeScreen() {
       document.body.style.top = '';
     };
   }, [showCountriesModal]);
+
+  // Prevent body scroll when plan info modal is open
+  useEffect(() => {
+    if (showPlanInfoModal) {
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = '0';
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [showPlanInfoModal]);
+
+  // Touch event handlers for plan info modal swipe-down dismissal
+  const handlePlanInfoModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setPlanModalStartY(touch.clientY);
+    setPlanModalCurrentY(touch.clientY);
+    setIsPlanModalDragging(true);
+  };
+
+  const handlePlanInfoModalTouchMove = (e: React.TouchEvent) => {
+    if (!isPlanModalDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - planModalStartY;
+    
+    setPlanModalCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY)
+    if (deltaY > 0) {
+      e.preventDefault();
+      
+      if (planInfoModalRef.current) {
+        planInfoModalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        planInfoModalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
+    }
+  };
+
+  const handlePlanInfoModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isPlanModalDragging) return;
+    
+    const deltaY = planModalCurrentY - planModalStartY;
+    
+    // If swiped down more than 80px, close modal
+    if (deltaY > 80 && planInfoModalRef.current) {
+      // Animate out
+      planInfoModalRef.current.style.transform = 'translateY(100%)';
+      planInfoModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowPlanInfoModal(false);
+      }, 200);
+    } else if (planInfoModalRef.current) {
+      // Snap back to original position
+      planInfoModalRef.current.style.transform = 'translateY(0)';
+      planInfoModalRef.current.style.opacity = '1';
+    }
+    
+    setIsPlanModalDragging(false);
+    setPlanModalStartY(0);
+    setPlanModalCurrentY(0);
+  };
 
   // Touch event handlers for coverage modal swipe-down dismissal
   const handleCoverageModalTouchStart = (e: React.TouchEvent) => {
@@ -1566,7 +1649,18 @@ export default function HomeScreen() {
               // Europa eSIM Plans
               <div className="space-y-2">
                 <div className="text-center mb-2">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-0.5">Europe eSIM Plans</h2>
+                  <div className="flex items-center justify-center space-x-2 mb-0.5">
+                    <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Europe eSIM Plans</h2>
+                    <button
+                      onClick={() => setShowPlanInfoModal(true)}
+                      className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors group"
+                      title="Plan Information"
+                    >
+                      <svg className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </button>
+                  </div>
                   <button 
                     onClick={() => setShowCountriesModal(true)}
                     className="inline-flex items-center space-x-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group"
@@ -2671,6 +2765,115 @@ export default function HomeScreen() {
                   }
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Plan Information Modal */}
+      {showPlanInfoModal && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowPlanInfoModal(false);
+            }
+          }}
+        >
+          <div 
+            ref={planInfoModalRef}
+            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-6 animate-slide-up transition-all duration-200 select-none"
+            onTouchStart={handlePlanInfoModalTouchStart}
+            onTouchMove={handlePlanInfoModalTouchMove}
+            onTouchEnd={handlePlanInfoModalTouchEnd}
+            style={{ 
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
+            }}
+          >
+            {/* Swipe Handle */}
+            <div className="flex justify-center pt-0 pb-3">
+              <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            </div>
+
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Plan Information</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Europe eSIM Plans Details</p>
+              </div>
+              <button
+                onClick={() => setShowPlanInfoModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Plan Details */}
+            <div className="space-y-4">
+              {/* Plan Type */}
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-medium text-gray-900 dark:text-white">Plan Type</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Regional Data Plans for European Countries</p>
+                </div>
+              </div>
+
+              {/* Roaming Support */}
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 01-2-2v-1a2 2 0 00-2-2h-.5A2.5 2.5 0 018 10.5V9a2 2 0 00-2-2H4.512" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-medium text-gray-900 dark:text-white">Roaming Support</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Full roaming across 36 European countries without additional charges</p>
+                </div>
+              </div>
+
+              {/* eKYC Verification */}
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-medium text-gray-900 dark:text-white">eKYC Verification</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">No identity verification required - instant activation</p>
+                </div>
+              </div>
+
+              {/* Hotspot */}
+              <div className="flex items-start space-x-4">
+                <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-medium text-gray-900 dark:text-white">Hotspot</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Personal hotspot enabled - share data with multiple devices</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Note */}
+            <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+              <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
+                All Europe eSIM plans include premium network access with 5G/LTE connectivity where available
+              </p>
             </div>
           </div>
         </div>
