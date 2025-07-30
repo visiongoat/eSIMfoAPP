@@ -2871,7 +2871,7 @@ export default function HomeScreen() {
       {/* European Coverage Modal - Operators & Networks */}
       {showCountriesModal && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-60"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-[9999]"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setShowCountriesModal(false);
