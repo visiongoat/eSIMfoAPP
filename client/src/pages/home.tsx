@@ -398,11 +398,23 @@ export default function HomeScreen() {
   // Prevent body scroll when coverage modal is open
   useEffect(() => {
     if (showCountriesModal) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
       // Lock body scroll
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
-      document.body.style.top = '0';
+      document.body.style.top = `-${scrollY}px`;
+      
+      // Cleanup function to restore scroll position
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
     } else {
       // Restore body scroll
       document.body.style.overflow = '';
@@ -410,24 +422,28 @@ export default function HomeScreen() {
       document.body.style.width = '';
       document.body.style.top = '';
     }
-
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.top = '';
-    };
   }, [showCountriesModal]);
 
   // Prevent body scroll when plan info modal is open
   useEffect(() => {
     if (showPlanInfoModal) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
       // Lock body scroll
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
-      document.body.style.top = '0';
+      document.body.style.top = `-${scrollY}px`;
+      
+      // Cleanup function to restore scroll position
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
     } else {
       // Restore body scroll
       document.body.style.overflow = '';
@@ -435,14 +451,6 @@ export default function HomeScreen() {
       document.body.style.width = '';
       document.body.style.top = '';
     }
-
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.top = '';
-    };
   }, [showPlanInfoModal]);
 
   // Prevent body scroll when "How it Works" modal is open
