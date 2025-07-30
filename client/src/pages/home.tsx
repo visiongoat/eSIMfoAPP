@@ -2142,24 +2142,24 @@ export default function HomeScreen() {
               </button>
             </div>
 
-            {/* Tab system for Data vs Data+Voice+SMS - Full width like main tabs */}
-            <div className="flex space-x-1 mb-4 bg-gray-100 dark:bg-gray-800 p-1 rounded-2xl">
+            {/* Premium Tab system for Data vs Data+Voice+SMS - Enhanced gradients */}
+            <div className="flex space-x-1 mb-4 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 p-1 rounded-2xl shadow-sm">
               <button
                 onClick={() => setGlobalPlanType('data')}
-                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                   globalPlanType === 'data'
-                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white shadow-lg transform scale-[1.02]'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20'
                 }`}
               >
                 Data
               </button>
               <button
                 onClick={() => setGlobalPlanType('data-voice-sms')}
-                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                   globalPlanType === 'data-voice-sms'
-                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-600 dark:from-amber-400 dark:to-orange-500 text-white shadow-lg transform scale-[1.02]'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-amber-700 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20'
                 }`}
               >
                 Data / Calls / Text
@@ -2176,8 +2176,8 @@ export default function HomeScreen() {
                     onClick={() => setSelectedGlobalPlan(plan.id)}
                     className={`relative w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                       selectedGlobalPlan === plan.id
-                        ? 'border-blue-500 bg-gradient-to-r from-blue-50 to-blue-50/70 dark:from-blue-900/20 dark:to-blue-900/10 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
-                        : 'border-gray-200 dark:border-gray-600 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800/50 dark:to-gray-800/30 hover:border-blue-300 dark:hover:border-blue-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
+                        ? 'border-blue-500 bg-gradient-to-r from-blue-100 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
+                        : 'border-gray-200 dark:border-gray-600 bg-gradient-to-r from-gray-100 to-blue-50/30 dark:from-gray-800/50 dark:to-blue-900/10 hover:border-blue-400 dark:hover:border-blue-400 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                     }`}
                   >
                     <div className="flex items-center">
@@ -2195,7 +2195,7 @@ export default function HomeScreen() {
                             e.stopPropagation();
                             setShowCheckoutModal(true);
                           }}
-                          className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/30 active:scale-95 ml-2 cursor-pointer"
+                          className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/40 active:scale-95 ml-2 cursor-pointer"
                         >
                           Buy
                         </div>
@@ -2213,8 +2213,8 @@ export default function HomeScreen() {
                     onClick={() => setSelectedGlobalPlan(plan.id)}
                     className={`relative w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                       selectedGlobalPlan === plan.id
-                        ? 'border-orange-500 bg-gradient-to-r from-orange-50 to-amber-50/70 dark:from-orange-900/20 dark:to-amber-900/10 dark:border-orange-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
-                        : 'border-gray-200 dark:border-gray-600 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800/50 dark:to-gray-800/30 hover:border-orange-300 dark:hover:border-orange-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
+                        ? 'border-orange-500 bg-gradient-to-r from-amber-100 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/20 dark:border-orange-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
+                        : 'border-gray-200 dark:border-gray-600 bg-gradient-to-r from-gray-100 to-amber-50/30 dark:from-gray-800/50 dark:to-amber-900/10 hover:border-amber-400 dark:hover:border-amber-400 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                     }`}
                   >
                     <div className="flex items-center">
@@ -2236,7 +2236,7 @@ export default function HomeScreen() {
                             e.stopPropagation();
                             setShowCheckoutModal(true);
                           }}
-                          className="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-amber-500/30 active:scale-95 ml-2 cursor-pointer hover:transform hover:scale-105"
+                          className="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-amber-500/40 active:scale-95 ml-2 cursor-pointer hover:transform hover:scale-105"
                         >
                           Buy
                         </div>
