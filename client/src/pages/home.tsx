@@ -2162,10 +2162,10 @@ export default function HomeScreen() {
             </div>
 
             {/* Premium Tab system for Data vs Data+Voice+SMS - Enhanced gradients */}
-            <div className="flex space-x-1 mb-4 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 p-1 rounded-2xl shadow-sm">
+            <div className="flex mb-4 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 p-1 rounded-2xl shadow-sm">
               <button
                 onClick={() => setGlobalPlanType('data')}
-                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                className={`w-1/2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 text-center ${
                   globalPlanType === 'data'
                     ? 'bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 text-white shadow-lg transform scale-[1.02]'
                     : 'text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20'
@@ -2175,7 +2175,7 @@ export default function HomeScreen() {
               </button>
               <button
                 onClick={() => setGlobalPlanType('data-voice-sms')}
-                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                className={`w-1/2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 text-center ${
                   globalPlanType === 'data-voice-sms'
                     ? 'bg-gradient-to-r from-amber-500 to-orange-600 dark:from-amber-400 dark:to-orange-500 text-white shadow-lg transform scale-[1.02]'
                     : 'text-gray-600 dark:text-gray-300 hover:text-amber-700 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20'
