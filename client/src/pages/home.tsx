@@ -2201,8 +2201,8 @@ export default function HomeScreen() {
                   >
                     <div className="flex items-center">
                       <div className="text-left flex-1">
-                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
-                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.data}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.duration}</div>
                       </div>
                       <div className="flex-1 flex flex-col items-start justify-center pl-16">
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.price}</div>
@@ -2238,8 +2238,8 @@ export default function HomeScreen() {
                   >
                     <div className="flex items-center">
                       <div className="text-left flex-1">
-                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
-                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.data}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.duration}</div>
                       </div>
                       <div className="flex-1 flex flex-col items-start justify-center pl-8">
                         <div className="text-sm text-gray-600 dark:text-gray-400">{plan.voice}</div>
