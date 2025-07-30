@@ -3166,7 +3166,7 @@ export default function HomeScreen() {
                 
                 <div className="p-3 bg-orange-50 dark:bg-orange-900/10 rounded-lg border border-orange-100 dark:border-orange-800/30">
                   <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-400">
-                    +1 US number included. Voicemail & call forwarding not supported. Max 91 days in Turkey. Calls: 75% local, 25% international.
+                    +1 global number, 91-day Turkey limit. 75% local / 25% intl. calls.
                   </p>
                 </div>
               </div>
