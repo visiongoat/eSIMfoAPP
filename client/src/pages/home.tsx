@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { MessageCircle } from "lucide-react";
@@ -368,6 +368,94 @@ export default function HomeScreen() {
   const [isDragging, setIsDragging] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const isOnline = useOnlineStatus();
+
+  // Touch/swipe states for coverage modal dismissal
+  const [modalStartY, setModalStartY] = useState<number>(0);
+  const [modalCurrentY, setModalCurrentY] = useState<number>(0);
+  const [isModalDragging, setIsModalDragging] = useState<boolean>(false);
+  const coverageModalRef = useRef<HTMLDivElement>(null);
+
+  // Prevent body scroll when coverage modal is open
+  useEffect(() => {
+    if (showCountriesModal) {
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = '0';
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [showCountriesModal]);
+
+  // Touch event handlers for coverage modal swipe-down dismissal
+  const handleCoverageModalTouchStart = (e: React.TouchEvent) => {
+    // Only allow swipe if modal is not scrolled
+    if (coverageModalRef.current && coverageModalRef.current.scrollTop > 0) {
+      return;
+    }
+    
+    const touch = e.touches[0];
+    setModalStartY(touch.clientY);
+    setModalCurrentY(touch.clientY);
+    setIsModalDragging(true);
+  };
+
+  const handleCoverageModalTouchMove = (e: React.TouchEvent) => {
+    if (!isModalDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - modalStartY;
+    
+    setModalCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY) and prevent default scrolling
+    if (deltaY > 0) {
+      e.preventDefault(); // Prevent body scroll only during downward drag
+      
+      if (coverageModalRef.current) {
+        coverageModalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        coverageModalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
+    }
+  };
+
+  const handleCoverageModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isModalDragging) return;
+    
+    const deltaY = modalCurrentY - modalStartY;
+    
+    // If swiped down more than 100px, close modal
+    if (deltaY > 100 && coverageModalRef.current) {
+      // Animate out
+      coverageModalRef.current.style.transform = 'translateY(100%)';
+      coverageModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowCountriesModal(false);
+        setSearchQuery('');
+      }, 200); // Wait for animation to complete
+    } else if (coverageModalRef.current) {
+      // Snap back to original position
+      coverageModalRef.current.style.transform = 'translateY(0)';
+      coverageModalRef.current.style.opacity = '1';
+    }
+    
+    setIsModalDragging(false);
+    setModalStartY(0);
+    setModalCurrentY(0);
+  };
 
   // Enable tab swipe navigation
   useTabSwipe({
@@ -2421,8 +2509,33 @@ export default function HomeScreen() {
 
       {/* European Coverage Modal - Operators & Networks */}
       {showCountriesModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-end z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4 animate-slide-up max-h-[85vh] overflow-y-auto">
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowCountriesModal(false);
+              setSearchQuery('');
+            }
+          }}
+        >
+          <div 
+            ref={coverageModalRef}
+            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4 animate-slide-up max-h-[85vh] overflow-y-auto transition-all duration-200 select-none"
+            onTouchStart={handleCoverageModalTouchStart}
+            onTouchMove={handleCoverageModalTouchMove}
+            onTouchEnd={handleCoverageModalTouchEnd}
+            style={{ 
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
+            }}
+          >
+            {/* Swipe Handle */}
+            <div className="flex justify-center pt-0 pb-3">
+              <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            </div>
+
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">European Coverage</h3>
