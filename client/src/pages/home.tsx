@@ -3137,7 +3137,7 @@ export default function HomeScreen() {
 
               {/* Network Configuration Section */}
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
                   <svg className="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
                   </svg>
@@ -3183,6 +3183,26 @@ export default function HomeScreen() {
                       <span className="text-sm text-gray-600 dark:text-gray-400">Protocol Support</span>
                     </div>
                     <span className="font-semibold text-gray-900 dark:text-white">IPv4/IPv6</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">eKYC Verification</span>
+                    </div>
+                    <span className="font-semibold text-red-600 dark:text-red-400">Not Required</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">TOP-UP Option</span>
+                    </div>
+                    <span className="font-semibold text-blue-600 dark:text-blue-400">Available</span>
                   </div>
                 </div>
               </div>
