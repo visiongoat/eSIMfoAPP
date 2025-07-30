@@ -389,6 +389,12 @@ export default function HomeScreen() {
   const [isHowItWorksDragging, setIsHowItWorksDragging] = useState<boolean>(false);
   const howItWorksModalRef = useRef<HTMLDivElement>(null);
 
+  // Touch/swipe states for compatibility check modal dismissal
+  const [compatibilityStartY, setCompatibilityStartY] = useState<number>(0);
+  const [compatibilityCurrentY, setCompatibilityCurrentY] = useState<number>(0);
+  const [isCompatibilityDragging, setIsCompatibilityDragging] = useState<boolean>(false);
+  const compatibilityModalRef = useRef<HTMLDivElement>(null);
+
   // Prevent body scroll when coverage modal is open
   useEffect(() => {
     if (showCountriesModal) {
@@ -463,6 +469,31 @@ export default function HomeScreen() {
       document.body.style.top = '';
     };
   }, [showHowItWorks]);
+
+  // Prevent body scroll when compatibility check modal is open
+  useEffect(() => {
+    if (showCompatibilityCheck) {
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = '0';
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [showCompatibilityCheck]);
 
   // Touch event handlers for plan info modal swipe-down dismissal
   const handlePlanInfoModalTouchStart = (e: React.TouchEvent) => {
@@ -564,6 +595,57 @@ export default function HomeScreen() {
     setIsHowItWorksDragging(false);
     setHowItWorksStartY(0);
     setHowItWorksCurrentY(0);
+  };
+
+  // Touch event handlers for compatibility check modal swipe-down dismissal
+  const handleCompatibilityModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setCompatibilityStartY(touch.clientY);
+    setCompatibilityCurrentY(touch.clientY);
+    setIsCompatibilityDragging(true);
+  };
+
+  const handleCompatibilityModalTouchMove = (e: React.TouchEvent) => {
+    if (!isCompatibilityDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - compatibilityStartY;
+    
+    setCompatibilityCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY)
+    if (deltaY > 0) {
+      e.preventDefault();
+      
+      if (compatibilityModalRef.current) {
+        compatibilityModalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        compatibilityModalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
+    }
+  };
+
+  const handleCompatibilityModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isCompatibilityDragging) return;
+    
+    const deltaY = compatibilityCurrentY - compatibilityStartY;
+    
+    // If swiped down more than 80px, close modal
+    if (deltaY > 80 && compatibilityModalRef.current) {
+      // Animate out
+      compatibilityModalRef.current.style.transform = 'translateY(100%)';
+      compatibilityModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowCompatibilityCheck(false);
+      }, 200);
+    } else if (compatibilityModalRef.current) {
+      // Snap back to original position
+      compatibilityModalRef.current.style.transform = 'translateY(0)';
+      compatibilityModalRef.current.style.opacity = '1';
+    }
+    
+    setIsCompatibilityDragging(false);
+    setCompatibilityStartY(0);
+    setCompatibilityCurrentY(0);
   };
 
   // Touch event handlers for coverage modal swipe-down dismissal
@@ -2444,10 +2526,25 @@ export default function HomeScreen() {
             }}
           >
             <div 
-              className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative"
+              ref={compatibilityModalRef}
+              className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative select-none"
               onClick={(e) => e.stopPropagation()}
-              style={{ zIndex: 10000 }}
+              onTouchStart={handleCompatibilityModalTouchStart}
+              onTouchMove={handleCompatibilityModalTouchMove}
+              onTouchEnd={handleCompatibilityModalTouchEnd}
+              style={{ 
+                zIndex: 10000,
+                touchAction: 'manipulation',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                WebkitTouchCallout: 'none'
+              }}
             >
+              {/* Drag Handle */}
+              <div className="flex justify-center py-2">
+                <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+              </div>
+
               {/* Header */}
               <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
                 <div className="flex items-center justify-between">
