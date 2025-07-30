@@ -3050,7 +3050,7 @@ export default function HomeScreen() {
         >
           <div 
             ref={planInfoModalRef}
-            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-6 animate-slide-up transition-all duration-200 select-none"
+            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-4 sm:p-6 space-y-4 sm:space-y-6 animate-slide-up transition-all duration-200 select-none"
             onTouchStart={handlePlanInfoModalTouchStart}
             onTouchMove={handlePlanInfoModalTouchMove}
             onTouchEnd={handlePlanInfoModalTouchEnd}
@@ -3062,15 +3062,15 @@ export default function HomeScreen() {
             }}
           >
             {/* Swipe Handle */}
-            <div className="flex justify-center pt-0 pb-3">
+            <div className="flex justify-center pt-0 pb-2">
               <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
             </div>
 
             {/* Header */}
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Technical Specifications</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">1 GB • 7 Days • Global</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Technical Specifications</h3>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">1 GB • 7 Days • Global</p>
               </div>
               <button
                 onClick={() => setShowPlanInfoModal(false)}
@@ -3083,54 +3083,54 @@ export default function HomeScreen() {
             </div>
 
             {/* Package Information Section */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center text-sm sm:text-base">
                   <svg className="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
                   Package Information
                 </h4>
                 
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <div className="flex items-center space-x-3">
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                       </svg>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">Package Type</span>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Package Type</span>
                     </div>
-                    <span className="font-semibold text-gray-900 dark:text-white">global</span>
+                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">global</span>
                   </div>
                   
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
                       </svg>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">Data Allowance</span>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Data Allowance</span>
                     </div>
-                    <span className="font-semibold text-gray-900 dark:text-white">1 GB</span>
+                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">1 GB</span>
                   </div>
                   
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">Validity Period</span>  
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Validity Period</span>  
                     </div>
-                    <span className="font-semibold text-gray-900 dark:text-white">7 days</span>
+                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">7 days</span>
                   </div>
                   
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <div className="flex items-center space-x-3">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                       </svg>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">Price</span>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Price</span>
                     </div>
-                    <span className="font-semibold text-gray-900 dark:text-white">€4.61</span>
+                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">€4.61</span>
                   </div>
                 </div>
               </div>
@@ -3144,15 +3144,15 @@ export default function HomeScreen() {
                   Network Configuration
                 </h4>
                 
-                <div className="space-y-2">
+                <div className="space-y-1.5 sm:space-y-2">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center space-x-2">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
                       </svg>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
                     </div>
-                    <span className="font-semibold text-gray-900 dark:text-white">5G Ready, LTE/4G</span>
+                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">5G Ready, LTE/4G</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
