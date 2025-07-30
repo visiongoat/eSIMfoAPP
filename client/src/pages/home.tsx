@@ -383,6 +383,12 @@ export default function HomeScreen() {
   const [planModalCurrentY, setPlanModalCurrentY] = useState<number>(0);
   const [isPlanModalDragging, setIsPlanModalDragging] = useState<boolean>(false);
 
+  // Touch/swipe states for "How it Works" modal dismissal
+  const [howItWorksStartY, setHowItWorksStartY] = useState<number>(0);
+  const [howItWorksCurrentY, setHowItWorksCurrentY] = useState<number>(0);
+  const [isHowItWorksDragging, setIsHowItWorksDragging] = useState<boolean>(false);
+  const howItWorksModalRef = useRef<HTMLDivElement>(null);
+
   // Prevent body scroll when coverage modal is open
   useEffect(() => {
     if (showCountriesModal) {
@@ -433,6 +439,31 @@ export default function HomeScreen() {
     };
   }, [showPlanInfoModal]);
 
+  // Prevent body scroll when "How it Works" modal is open
+  useEffect(() => {
+    if (showHowItWorks) {
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = '0';
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [showHowItWorks]);
+
   // Touch event handlers for plan info modal swipe-down dismissal
   const handlePlanInfoModalTouchStart = (e: React.TouchEvent) => {
     const touch = e.touches[0];
@@ -482,6 +513,57 @@ export default function HomeScreen() {
     setIsPlanModalDragging(false);
     setPlanModalStartY(0);
     setPlanModalCurrentY(0);
+  };
+
+  // Touch event handlers for "How it Works" modal swipe-down dismissal
+  const handleHowItWorksModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setHowItWorksStartY(touch.clientY);
+    setHowItWorksCurrentY(touch.clientY);
+    setIsHowItWorksDragging(true);
+  };
+
+  const handleHowItWorksModalTouchMove = (e: React.TouchEvent) => {
+    if (!isHowItWorksDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - howItWorksStartY;
+    
+    setHowItWorksCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY)
+    if (deltaY > 0) {
+      e.preventDefault();
+      
+      if (howItWorksModalRef.current) {
+        howItWorksModalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        howItWorksModalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
+    }
+  };
+
+  const handleHowItWorksModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isHowItWorksDragging) return;
+    
+    const deltaY = howItWorksCurrentY - howItWorksStartY;
+    
+    // If swiped down more than 80px, close modal
+    if (deltaY > 80 && howItWorksModalRef.current) {
+      // Animate out
+      howItWorksModalRef.current.style.transform = 'translateY(100%)';
+      howItWorksModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowHowItWorks(false);
+      }, 200);
+    } else if (howItWorksModalRef.current) {
+      // Snap back to original position
+      howItWorksModalRef.current.style.transform = 'translateY(0)';
+      howItWorksModalRef.current.style.opacity = '1';
+    }
+    
+    setIsHowItWorksDragging(false);
+    setHowItWorksStartY(0);
+    setHowItWorksCurrentY(0);
   };
 
   // Touch event handlers for coverage modal swipe-down dismissal
@@ -2226,10 +2308,25 @@ export default function HomeScreen() {
             }}
           >
             <div 
-              className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-lg transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative"
+              ref={howItWorksModalRef}
+              className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-lg transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative select-none"
               onClick={(e) => e.stopPropagation()}
-              style={{ zIndex: 10000 }}
+              onTouchStart={handleHowItWorksModalTouchStart}
+              onTouchMove={handleHowItWorksModalTouchMove}
+              onTouchEnd={handleHowItWorksModalTouchEnd}
+              style={{ 
+                zIndex: 10000,
+                touchAction: 'manipulation',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                WebkitTouchCallout: 'none'
+              }}
             >
+              {/* Drag Handle */}
+              <div className="flex justify-center py-2">
+                <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+              </div>
+
               {/* Header */}
               <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
                 <div className="flex items-center justify-between">
