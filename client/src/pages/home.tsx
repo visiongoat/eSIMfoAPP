@@ -2520,7 +2520,7 @@ export default function HomeScreen() {
         >
           <div 
             ref={coverageModalRef}
-            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4 animate-slide-up max-h-[85vh] overflow-y-auto transition-all duration-200 select-none"
+            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4 animate-slide-up transition-all duration-200 select-none modal-fixed-height flex flex-col"
             onTouchStart={handleCoverageModalTouchStart}
             onTouchMove={handleCoverageModalTouchMove}
             onTouchEnd={handleCoverageModalTouchEnd}
@@ -2532,11 +2532,12 @@ export default function HomeScreen() {
             }}
           >
             {/* Swipe Handle */}
-            <div className="flex justify-center pt-0 pb-3">
+            <div className="flex justify-center pt-0 pb-3 flex-shrink-0">
               <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
             </div>
 
-            <div className="flex items-center justify-between mb-4">
+            {/* Header - Fixed */}
+            <div className="flex items-center justify-between mb-4 flex-shrink-0">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">European Coverage</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Operators & Network Technologies</p>
@@ -2554,8 +2555,8 @@ export default function HomeScreen() {
               </button>
             </div>
 
-            {/* Search Bar */}
-            <div className="relative mb-4">
+            {/* Search Bar - Fixed */}
+            <div className="relative mb-4 flex-shrink-0">
               <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -2578,8 +2579,10 @@ export default function HomeScreen() {
               )}
             </div>
 
-            {/* Countries with Operators */}
-            <div className="space-y-3">
+            {/* Scrollable Content Area */}
+            <div className="flex-1 overflow-y-auto">
+              {/* Countries with Operators */}
+              <div className="space-y-3 pb-4">
               {filteredEuropeanCoverage.length === 0 ? (
                 <div className="text-center py-8">
                   <svg className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2640,20 +2643,21 @@ export default function HomeScreen() {
               )}
             </div>
 
-            {/* Coverage Summary */}
-            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
-              <div className="flex items-center space-x-2 mb-2">
-                <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-medium text-blue-900 dark:text-blue-100">Coverage Summary</span>
+              {/* Coverage Summary */}
+              <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+                <div className="flex items-center space-x-2 mb-2">
+                  <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="font-medium text-blue-900 dark:text-blue-100">Coverage Summary</span>
+                </div>
+                <p className="text-sm text-blue-800 dark:text-blue-200">
+                  {searchQuery 
+                    ? `Showing ${filteredEuropeanCoverage.length} matching countries`
+                    : `${europeanCoverage.length} European countries with premium network operators. All plans include 5G/LTE connectivity where available.`
+                  }
+                </p>
               </div>
-              <p className="text-sm text-blue-800 dark:text-blue-200">
-                {searchQuery 
-                  ? `Showing ${filteredEuropeanCoverage.length} matching countries`
-                  : `${europeanCoverage.length} European countries with premium network operators. All plans include 5G/LTE connectivity where available.`
-                }
-              </p>
             </div>
           </div>
         </div>

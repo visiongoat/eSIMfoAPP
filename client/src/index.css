@@ -64,6 +64,34 @@
   }
 }
 
+/* Mobile Safari Viewport Fix for Modal */
+.modal-fixed-height {
+  height: 85vh !important;
+  max-height: 85vh !important;
+  min-height: 85vh !important;
+}
+
+/* Support for visual viewport API on mobile */
+@supports (height: 100dvh) {
+  .modal-fixed-height {
+    height: 85dvh !important;
+    max-height: 85dvh !important; 
+    min-height: 85dvh !important;
+  }
+}
+
+/* Prevent viewport changes on mobile keyboard */
+@media screen and (max-width: 768px) {
+  .modal-fixed-height {
+    position: fixed !important;
+    top: 15vh !important;
+    bottom: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+  }
+}
+
 
 
 :root {
