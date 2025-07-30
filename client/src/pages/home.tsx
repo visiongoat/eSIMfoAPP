@@ -2881,7 +2881,9 @@ export default function HomeScreen() {
             {/* Header - Fixed */}
             <div className="flex items-center justify-between mb-4 flex-shrink-0">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">European Coverage</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {selectedTab === 'global' ? 'Global Coverage' : 'European Coverage'}
+                </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Operators & Network Technologies</p>
               </div>
               <button
