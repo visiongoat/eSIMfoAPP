@@ -2180,17 +2180,13 @@ export default function HomeScreen() {
                         : 'border-gray-200 dark:border-gray-600 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800/50 dark:to-gray-800/30 hover:border-blue-300 dark:hover:border-blue-500 hover:scale-[1.01]'
                     }`}
                   >
-                    {/* Premium Global Badge */}
-                    <div className="absolute top-2 right-2">
-                      <div className="px-2 py-0.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full shadow-sm border border-blue-400/20">
-                        🌍 GLOBAL
-                      </div>
-                    </div>
-
                     <div className="flex items-center">
                       <div className="text-left flex-1">
                         <div className="flex items-center space-x-2">
                           <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                          <div className="px-1.5 py-0.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-md shadow-sm">
+                            🌍
+                          </div>
                         </div>
                         <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
                       </div>
@@ -2226,17 +2222,13 @@ export default function HomeScreen() {
                         : 'border-gray-200 dark:border-gray-600 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800/50 dark:to-gray-800/30 hover:border-orange-300 dark:hover:border-orange-500 hover:scale-[1.01]'
                     }`}
                   >
-                    {/* Premium Global Badge */}
-                    <div className="absolute top-2 right-2">
-                      <div className="px-2 py-0.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs font-bold rounded-full shadow-sm border border-amber-400/20">
-                        ⭐ PREMIUM
-                      </div>
-                    </div>
-
                     <div className="flex items-center">
                       <div className="text-left flex-1">
                         <div className="flex items-center space-x-2">
                           <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.duration}</div>
+                          <div className="px-1.5 py-0.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs font-bold rounded-md shadow-sm">
+                            ⭐
+                          </div>
                         </div>
                         <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.data}</div>
                       </div>
