@@ -2131,6 +2131,12 @@ export default function HomeScreen() {
           </div>
         ) : (
           <div className="space-y-3 animate-slide-in-left" key="global-plans">
+            {/* Global Plan Cards Header */}
+            <div className="text-center mb-3">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Global eSIM Plans</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Coverage in 200+ Countries Worldwide</p>
+            </div>
+
             {/* Tab system for Data vs Data+Voice+SMS - Full width like main tabs */}
             <div className="flex space-x-1 mb-4 bg-gray-100 dark:bg-gray-800 p-1 rounded-2xl">
               <button
@@ -2153,12 +2159,6 @@ export default function HomeScreen() {
               >
                 Data / Calls / Text
               </button>
-            </div>
-
-            {/* Global Plan Cards */}
-            <div className="text-center mb-2">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Global eSIM Plans</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Coverage in 200+ Countries Worldwide</p>
             </div>
 
             {/* Global plan cards - same as Europa style */}
