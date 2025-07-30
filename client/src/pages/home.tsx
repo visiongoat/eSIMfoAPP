@@ -3070,7 +3070,7 @@ export default function HomeScreen() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Technical Specifications</h3>
-                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">1 GB • 7 Days • Global</p>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Network & Compatibility Details</p>
               </div>
               <button
                 onClick={() => setShowPlanInfoModal(false)}
