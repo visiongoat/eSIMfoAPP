@@ -1875,10 +1875,10 @@ export default function HomeScreen() {
                 {/* Europa Plan 1 - Unlimited */}
                 <button 
                   onClick={() => setSelectedEuropaPlan(1)}
-                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                     selectedEuropaPlan === 1
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
-                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
+                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                   }`}>
                   <div className="flex items-center">
                     <div className="text-left flex-1">
@@ -1906,10 +1906,10 @@ export default function HomeScreen() {
                 {/* Europa Plan 2 - 100GB */}
                 <button 
                   onClick={() => setSelectedEuropaPlan(2)}
-                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                     selectedEuropaPlan === 2
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
-                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
+                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                   }`}>
                   <div className="flex items-center">
                     <div className="text-left flex-1">
@@ -1937,10 +1937,10 @@ export default function HomeScreen() {
                 {/* Europa Plan 3 - 50GB */}
                 <button 
                   onClick={() => setSelectedEuropaPlan(3)}
-                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                     selectedEuropaPlan === 3
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
-                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
+                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                   }`}>
                   <div className="flex items-center">
                     <div className="text-left flex-1">
@@ -1968,10 +1968,10 @@ export default function HomeScreen() {
                 {/* Europa Plan 4 - 20GB */}
                 <button 
                   onClick={() => setSelectedEuropaPlan(4)}
-                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-200 ${
+                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                     selectedEuropaPlan === 4
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-md'
-                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01]'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
+                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                   }`}>
                   <div className="flex items-center">
                     <div className="text-left flex-1">
