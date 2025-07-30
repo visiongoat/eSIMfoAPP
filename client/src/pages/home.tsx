@@ -2131,24 +2131,24 @@ export default function HomeScreen() {
           </div>
         ) : (
           <div className="space-y-3 animate-slide-in-left" key="global-plans">
-            {/* Tab system for Data vs Data+Voice+SMS */}
-            <div className="flex space-x-2 mb-4">
+            {/* Tab system for Data vs Data+Voice+SMS - Full width like main tabs */}
+            <div className="flex space-x-1 mb-4 bg-gray-100 dark:bg-gray-800 p-1 rounded-2xl">
               <button
                 onClick={() => setGlobalPlanType('data')}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                   globalPlanType === 'data'
-                    ? 'bg-blue-500 text-white shadow-md'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 Data
               </button>
               <button
                 onClick={() => setGlobalPlanType('data-voice-sms')}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                   globalPlanType === 'data-voice-sms'
-                    ? 'bg-orange-500 text-white shadow-md'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 Data / Calls / Text
