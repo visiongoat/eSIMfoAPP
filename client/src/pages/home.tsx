@@ -3210,7 +3210,7 @@ export default function HomeScreen() {
               {/* Countries Coverage Button */}
               <div className="mt-4 sm:mt-6">
                 <button 
-                  onClick={() => setShowCoverageModal(true)}
+                  onClick={() => setShowCountriesModal(true)}
                   className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-2 shadow-lg"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
