@@ -1800,9 +1800,14 @@ export default function HomeScreen() {
               // Continent List
               <div className="space-y-3">
                 {/* Europa */}
-                <div 
-                  onClick={() => setSelectedContinent('europa')}
-                  className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer hover:shadow-md transition-shadow duration-200"
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Europa clicked, setting continent to europa');
+                    setSelectedContinent('europa');
+                  }}
+                  className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer hover:shadow-md transition-shadow duration-200 w-full text-left"
                 >
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
@@ -1818,9 +1823,9 @@ export default function HomeScreen() {
                     <p className="text-xs text-gray-500 dark:text-gray-400">30+ countries • From €9.99</p>
                   </div>
                 </div>
-                <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                <span className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</span>
               </div>
-            </div>
+            </button>
             
             {/* Asia */}
             <div className="continent-card continent-asia rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-1 touch-feedback cursor-pointer">
