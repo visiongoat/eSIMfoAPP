@@ -2146,7 +2146,9 @@ export default function HomeScreen() {
                     <span className="text-xs font-medium text-gray-700 dark:text-gray-300">137 Countries</span>
                   </button>
                   
-                  <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+                  <div className="flex items-center justify-center mx-1">
+                    <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
+                  </div>
                   
                   <button 
                     onClick={() => setShowPlanInfoModal(true)}
