@@ -2134,7 +2134,12 @@ export default function HomeScreen() {
             {/* Global Plan Cards Header */}
             <div className="text-center mb-3">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Global eSIM Plans</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Coverage in 200+ Countries Worldwide</p>
+              <button 
+                onClick={() => setShowCountriesModal(true)}
+                className="text-xs text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-200 hover:underline"
+              >
+                Coverage in 137 Countries Worldwide
+              </button>
             </div>
 
             {/* Tab system for Data vs Data+Voice+SMS - Full width like main tabs */}
