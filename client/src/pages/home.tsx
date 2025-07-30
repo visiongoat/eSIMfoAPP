@@ -2236,7 +2236,7 @@ export default function HomeScreen() {
                             e.stopPropagation();
                             setShowCheckoutModal(true);
                           }}
-                          className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                          className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer hover:transform hover:scale-105"
                         >
                           Buy
                         </div>
