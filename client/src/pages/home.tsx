@@ -1826,8 +1826,8 @@ export default function HomeScreen() {
             
             {/* Show continent plans if selected, otherwise show continent list */}
             {selectedContinent === 'europa' ? (
-              // Europa eSIM Plans
-              <div className="space-y-2">
+              // Europa eSIM Plans with smooth fade-in animation
+              <div className="space-y-2 animate-in fade-in-0 slide-in-from-right-4 duration-300">
                 <div className="text-center mb-2">
                   <div className="flex items-center justify-center space-x-2 mb-0.5">
                     <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Europe eSIM Plans</h2>
@@ -1977,8 +1977,8 @@ export default function HomeScreen() {
                 </button>
               </div>
             ) : (
-              // Continent List
-              <div className="space-y-3">
+              // Continent List with smooth fade-in animation
+              <div className="space-y-3 animate-in fade-in-0 slide-in-from-left-4 duration-300">
                 {/* Europa */}
                 <button 
                   onClick={(e) => {
