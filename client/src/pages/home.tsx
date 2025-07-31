@@ -489,17 +489,24 @@ export default function HomeScreen() {
     }
   }, [showPlanInfoModal]);
 
+  // Store scroll position for How It Works modal
+  const [howItWorksScrollY, setHowItWorksScrollY] = useState(0);
+
   // Prevent body scroll when "How it Works" modal is open
   useEffect(() => {
     if (showHowItWorks) {
       // Save current scroll position
       const scrollY = window.scrollY;
+      setHowItWorksScrollY(scrollY);
       
-      // Lock body scroll
+      // Lock body scroll with more aggressive approach
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
       document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.documentElement.style.overflow = 'hidden';
       
       // Cleanup function to restore scroll position
       return () => {
@@ -507,16 +514,16 @@ export default function HomeScreen() {
         document.body.style.position = '';
         document.body.style.width = '';
         document.body.style.top = '';
-        window.scrollTo(0, scrollY);
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.documentElement.style.overflow = '';
+        // Use stored scroll position
+        setTimeout(() => {
+          window.scrollTo(0, howItWorksScrollY);
+        }, 0);
       };
-    } else {
-      // Restore body scroll
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.top = '';
     }
-  }, [showHowItWorks]);
+  }, [showHowItWorks, howItWorksScrollY]);
 
   // Prevent body scroll when compatibility check modal is open
   useEffect(() => {
