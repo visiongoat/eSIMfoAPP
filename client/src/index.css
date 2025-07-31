@@ -7,6 +7,19 @@
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
+/* Tab shadow effects for colors */
+.shadow-blue-500\/30 {
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3), 0 4px 6px -2px rgba(59, 130, 246, 0.05);
+}
+
+.shadow-green-500\/30 {
+  box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.3), 0 4px 6px -2px rgba(34, 197, 94, 0.05);
+}
+
+.shadow-orange-500\/30 {
+  box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.3), 0 4px 6px -2px rgba(249, 115, 22, 0.05);
+}
+
 /* Progress dot creative breathing animation */
 @keyframes progress-breathe {
   0%, 100% {
