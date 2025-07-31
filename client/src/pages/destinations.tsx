@@ -509,7 +509,12 @@ export default function DestinationsScreen() {
               onFocus={() => {
                 setShowSearchResults(searchQuery.length > 0);
               }}
-              onBlur={() => {
+              onBlur={(e) => {
+                // Don't hide results if X button is being clicked
+                const relatedTarget = e.relatedTarget as HTMLButtonElement;
+                if (relatedTarget && relatedTarget.closest('.clear-button')) {
+                  return;
+                }
                 setTimeout(() => setShowSearchResults(false), 150);
               }}
               onKeyDown={(e) => {
@@ -530,8 +535,20 @@ export default function DestinationsScreen() {
             <div className="flex items-center space-x-2">
               {searchQuery && (
                 <button
-                  onClick={clearSearch}
-                  className="flex-shrink-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    clearSearch();
+                  }}
+                  className="clear-button flex-shrink-0 w-6 h-6 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 hover:scale-110 active:scale-95 touch-manipulation"
                 >
                   <X className="w-3 h-3" />
                 </button>
