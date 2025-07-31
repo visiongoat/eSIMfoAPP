@@ -1985,7 +1985,7 @@ export default function HomeScreen() {
                     }`}>
                     {/* Popular Badge for 3GB 30 Days plan */}
                     {plan.id === 4 && (
-                      <div className="absolute -top-2 right-3 z-10">
+                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10">
                         <div className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-sm">
                           POPULAR
                         </div>
