@@ -45,6 +45,7 @@ export default function HomeScreen() {
   const [showPlanInfoModal, setShowPlanInfoModal] = useState(false);
   const [showEuropePlanInfoModal, setShowEuropePlanInfoModal] = useState(false);
   const planInfoModalRef = useRef<HTMLDivElement>(null);
+  const europePlanInfoModalRef = useRef<HTMLDivElement>(null);
 
   // Europa plan data
   const europaPlans = [
@@ -418,6 +419,11 @@ export default function HomeScreen() {
   const [isCompatibilityDragging, setIsCompatibilityDragging] = useState<boolean>(false);
   const compatibilityModalRef = useRef<HTMLDivElement>(null);
 
+  // Touch/swipe states for Europe plan info modal dismissal
+  const [europePlanModalStartY, setEuropePlanModalStartY] = useState<number>(0);
+  const [europePlanModalCurrentY, setEuropePlanModalCurrentY] = useState<number>(0);
+  const [isEuropePlanModalDragging, setIsEuropePlanModalDragging] = useState<boolean>(false);
+
   // Prevent body scroll when coverage modal is open
   useEffect(() => {
     if (showCountriesModal) {
@@ -533,6 +539,35 @@ export default function HomeScreen() {
       document.body.style.top = '';
     }
   }, [showCompatibilityCheck]);
+
+  // Prevent body scroll when Europe plan info modal is open
+  useEffect(() => {
+    if (showEuropePlanInfoModal) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollY}px`;
+      
+      // Cleanup function to restore scroll position
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+  }, [showEuropePlanInfoModal]);
 
   // Touch event handlers for plan info modal swipe-down dismissal
   const handlePlanInfoModalTouchStart = (e: React.TouchEvent) => {
@@ -685,6 +720,57 @@ export default function HomeScreen() {
     setIsCompatibilityDragging(false);
     setCompatibilityStartY(0);
     setCompatibilityCurrentY(0);
+  };
+
+  // Touch event handlers for Europe plan info modal swipe-down dismissal
+  const handleEuropePlanInfoModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setEuropePlanModalStartY(touch.clientY);
+    setEuropePlanModalCurrentY(touch.clientY);
+    setIsEuropePlanModalDragging(true);
+  };
+
+  const handleEuropePlanInfoModalTouchMove = (e: React.TouchEvent) => {
+    if (!isEuropePlanModalDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - europePlanModalStartY;
+    
+    setEuropePlanModalCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY)
+    if (deltaY > 0) {
+      e.preventDefault();
+      
+      if (europePlanInfoModalRef.current) {
+        europePlanInfoModalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        europePlanInfoModalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
+    }
+  };
+
+  const handleEuropePlanInfoModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isEuropePlanModalDragging) return;
+    
+    const deltaY = europePlanModalCurrentY - europePlanModalStartY;
+    
+    // If swiped down more than 80px, close modal
+    if (deltaY > 80 && europePlanInfoModalRef.current) {
+      // Animate out
+      europePlanInfoModalRef.current.style.transform = 'translateY(100%)';
+      europePlanInfoModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowEuropePlanInfoModal(false);
+      }, 200);
+    } else if (europePlanInfoModalRef.current) {
+      // Snap back to original position
+      europePlanInfoModalRef.current.style.transform = 'translateY(0)';
+      europePlanInfoModalRef.current.style.opacity = '1';
+    }
+    
+    setIsEuropePlanModalDragging(false);
+    setEuropePlanModalStartY(0);
+    setEuropePlanModalCurrentY(0);
   };
 
   // Touch event handlers for coverage modal swipe-down dismissal
@@ -3215,7 +3301,11 @@ export default function HomeScreen() {
           }}
         >
           <div 
+            ref={europePlanInfoModalRef}
             className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-4 sm:p-6 space-y-4 sm:space-y-6 animate-slide-up transition-all duration-200 select-none"
+            onTouchStart={handleEuropePlanInfoModalTouchStart}
+            onTouchMove={handleEuropePlanInfoModalTouchMove}
+            onTouchEnd={handleEuropePlanInfoModalTouchEnd}
             style={{ 
               touchAction: 'manipulation',
               userSelect: 'none',
