@@ -65,6 +65,7 @@ export default function DestinationsScreen() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<any>(null);
   
   // Smart search states (from home page)
   const [smartSearchResults, setSmartSearchResults] = useState<{
@@ -876,7 +877,7 @@ export default function DestinationsScreen() {
                             <div 
                               onClick={(e) => {
                                 e.stopPropagation();
-                                setShowCheckoutModal(true);
+                                setSelectedPlan(plan);
                               }}
                               className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
                             >
@@ -1030,7 +1031,46 @@ export default function DestinationsScreen() {
         </div>
       </div>
 
-
+      {/* Sticky Checkout Menu */}
+      {selectedPlan && (
+        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4 shadow-xl z-50">
+          <div className="flex items-center justify-between max-w-md mx-auto">
+            <div className="flex-1">
+              <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {selectedPlan.data} • {selectedPlan.duration}
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                Europe Regional Plan
+              </div>
+            </div>
+            <div className="flex items-center space-x-3">
+              <div className="text-right">
+                <div className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                  {selectedPlan.price}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">
+                  {selectedPlan.dailyPrice}
+                </div>
+              </div>
+              <button
+                onClick={() => setShowCheckoutModal(true)}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl font-medium transition-colors duration-200 shadow-lg hover:shadow-xl active:scale-95"
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
+          {/* Close button */}
+          <button
+            onClick={() => setSelectedPlan(null)}
+            className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+          >
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
 
       {/* Quick Actions Modal - Same as Home */}
       {showQuickActions && (
