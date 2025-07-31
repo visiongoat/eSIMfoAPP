@@ -86,6 +86,100 @@ export default function HomeScreen() {
     flagUrl: 'https://flagcdn.com/w40/eu.png'
   };
 
+  // Global coverage data for modal
+  const globalCoverage = [
+    {
+      name: "United States",
+      code: "US",
+      operators: [
+        { name: "Verizon", networks: ["5G", "LTE"] },
+        { name: "AT&T", networks: ["5G", "LTE"] },
+        { name: "T-Mobile", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "Canada",
+      code: "CA",
+      operators: [
+        { name: "Bell", networks: ["5G", "LTE"] },
+        { name: "Rogers", networks: ["5G", "LTE"] },
+        { name: "Telus", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "United Kingdom",
+      code: "GB",
+      operators: [
+        { name: "EE", networks: ["5G", "LTE"] },
+        { name: "O2", networks: ["5G", "LTE"] },
+        { name: "Vodafone", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "Germany",
+      code: "DE",
+      operators: [
+        { name: "Deutsche Telekom", networks: ["5G", "LTE"] },
+        { name: "Vodafone", networks: ["5G", "LTE"] },
+        { name: "O2", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "France",
+      code: "FR",
+      operators: [
+        { name: "Orange", networks: ["5G", "LTE"] },
+        { name: "SFR", networks: ["5G", "LTE"] },
+        { name: "Bouygues", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "Japan",
+      code: "JP",
+      operators: [
+        { name: "NTT Docomo", networks: ["5G", "LTE"] },
+        { name: "SoftBank", networks: ["5G", "LTE"] },
+        { name: "KDDI", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "Singapore",
+      code: "SG",
+      operators: [
+        { name: "Singtel", networks: ["5G", "LTE"] },
+        { name: "StarHub", networks: ["5G", "LTE"] },
+        { name: "M1", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "Australia",
+      code: "AU",
+      operators: [
+        { name: "Telstra", networks: ["5G", "LTE"] },
+        { name: "Optus", networks: ["5G", "LTE"] },
+        { name: "Vodafone", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "Turkey",
+      code: "TR",
+      operators: [
+        { name: "Turkcell", networks: ["5G", "LTE"] },
+        { name: "Vodafone", networks: ["5G", "LTE"] },
+        { name: "Türk Telekom", networks: ["5G", "LTE"] }
+      ]
+    },
+    {
+      name: "Thailand",
+      code: "TH",
+      operators: [
+        { name: "AIS", networks: ["5G", "LTE"] },
+        { name: "TrueMove", networks: ["5G", "LTE"] },
+        { name: "dtac", networks: ["5G", "LTE"] }
+      ]
+    }
+  ];
+
   // European countries with operators and network types
   const europeanCoverage = [
     {
@@ -346,13 +440,7 @@ export default function HomeScreen() {
     }
   ];
 
-  // Filter European coverage based on search query
-  const filteredEuropeanCoverage = europeanCoverage.filter(item =>
-    item.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.operators.some(operator => 
-      operator.name.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
+
 
   // Tab order for swipe navigation
   const tabOrder = ['local', 'regional', 'global'];
@@ -431,6 +519,32 @@ export default function HomeScreen() {
   const [europePlanModalStartY, setEuropePlanModalStartY] = useState<number>(0);
   const [europePlanModalCurrentY, setEuropePlanModalCurrentY] = useState<number>(0);
   const [isEuropePlanModalDragging, setIsEuropePlanModalDragging] = useState<boolean>(false);
+
+  // Filter European coverage based on search
+  const filteredEuropeanCoverage = europeanCoverage.filter(item => {
+    if (!searchQuery) return true;
+    
+    const query = searchQuery.toLowerCase();
+    const countryMatch = item.country.toLowerCase().includes(query);
+    const operatorMatch = item.operators.some(op => 
+      op.name.toLowerCase().includes(query)
+    );
+    
+    return countryMatch || operatorMatch;
+  });
+
+  // Filter Global coverage based on search
+  const filteredGlobalCoverage = globalCoverage.filter(item => {
+    if (!searchQuery) return true;
+    
+    const query = searchQuery.toLowerCase();
+    const countryMatch = item.name.toLowerCase().includes(query);
+    const operatorMatch = item.operators.some(op => 
+      op.name.toLowerCase().includes(query)
+    );
+    
+    return countryMatch || operatorMatch;
+  });
 
   // Prevent body scroll when coverage modal is open
   useEffect(() => {
@@ -3133,7 +3247,7 @@ export default function HomeScreen() {
             <div className="flex items-center justify-between mb-4 flex-shrink-0">
               <div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white">Global Coverage</h3>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Worldwide Network Partners</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Operators & Network Technologies</p>
               </div>
               <button
                 onClick={() => {
@@ -3155,130 +3269,108 @@ export default function HomeScreen() {
               </svg>
               <input
                 type="text"
-                placeholder="Search global regions or operators..."
+                placeholder="Search countries or operators..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  if (scrollableContentRef.current) {
+                    scrollableContentRef.current.scrollTop = 0;
+                  }
+                }}
+                className="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
-            {/* Global Content - Different from European */}
-            <div className="flex-1 overflow-y-auto">
-              <div className="space-y-2 pb-4">
-                {/* Global regions instead of countries */}
-                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-2xl p-3 border border-purple-100 dark:border-purple-800/50">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Americas</h4>
-                    </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 bg-purple-200 dark:bg-purple-700 px-2 py-0.5 rounded-full">
-                      45 countries
-                    </span>
+            {/* Global Content - Country-based like European modal */}
+            <div 
+              ref={scrollableContentRef}
+              className="flex-1 overflow-y-auto"
+              style={{ 
+                maxHeight: 'calc(100vh - 300px)',
+                touchAction: 'pan-y',
+                WebkitOverflowScrolling: 'touch'
+              }}
+            >
+              {filteredGlobalCoverage.length === 0 ? (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
                   </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-gray-800 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                        <span className="text-xs font-medium text-gray-900 dark:text-gray-100">Verizon (US)</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">5G</span>
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">LTE</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-gray-800 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                        <span className="text-xs font-medium text-gray-900 dark:text-gray-100">Bell (CA)</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">5G</span>
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">LTE</span>
-                      </div>
-                    </div>
-                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">No countries found</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Try searching with different terms</p>
                 </div>
-
-                {/* Asia Pacific */}
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl p-3 border border-blue-100 dark:border-blue-800/50">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+              ) : (
+                <div className="space-y-2 pb-4">
+                  {filteredGlobalCoverage.map((country, index) => (
+                    <div 
+                      key={`${country.name}-${index}`} 
+                      className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-3 border border-blue-100 dark:border-blue-800/50"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <span className="text-white font-bold text-xs">{country.code}</span>
+                          </div>
+                          <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{country.name}</h4>
+                        </div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 bg-blue-200 dark:bg-blue-700 px-2 py-0.5 rounded-full">
+                          {country.operators.length} operators
+                        </span>
                       </div>
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Asia Pacific</h4>
+                      <div className="space-y-1">
+                        {country.operators.map((operator, opIndex) => (
+                          <div key={`${country.code}-${operator.name}-${opIndex}`} className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-gray-800 rounded-lg">
+                            <div className="flex items-center space-x-2">
+                              <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                              <span className="text-xs font-medium text-gray-900 dark:text-gray-100">{operator.name}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              {operator.networks.map((network, netIndex) => (
+                                <span 
+                                  key={`${country.code}-${operator.name}-${network}-${netIndex}`}
+                                  className={`text-xs px-1.5 py-0.5 rounded font-medium ${
+                                    network === '5G' 
+                                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                                      : network === 'LTE' || network === '4G'
+                                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                                      : 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400'
+                                  }`}
+                                >
+                                  {network}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 bg-blue-200 dark:bg-blue-700 px-2 py-0.5 rounded-full">
-                      52 countries
-                    </span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-gray-800 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                        <span className="text-xs font-medium text-gray-900 dark:text-gray-100">SingTel (SG)</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">5G</span>
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">LTE</span>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
-
-                {/* Europe & Africa */}
-                <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-2xl p-3 border border-emerald-100 dark:border-emerald-800/50">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Europe & Africa</h4>
-                    </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 bg-emerald-200 dark:bg-emerald-700 px-2 py-0.5 rounded-full">
-                      90 countries
-                    </span>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-gray-800 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                        <span className="text-xs font-medium text-gray-900 dark:text-gray-100">Vodafone (EU)</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">5G</span>
-                        <span className="text-xs px-1.5 py-0.5 rounded font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">LTE</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              )}
 
               {/* Global Summary Stats */}
-              <div className="mt-3 p-3 bg-gradient-to-r from-gray-50 to-purple-50 dark:from-gray-900/50 dark:to-purple-900/20 rounded-2xl border border-gray-200 dark:border-purple-800/50">
+              <div className="mt-3 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-100 dark:border-blue-800/50">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
                       <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Global Network</p>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">Worldwide premium partnerships</p>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Coverage Summary</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        {searchQuery 
+                          ? `${filteredGlobalCoverage.length} matching countries`
+                          : `${globalCoverage.length} countries • Premium 5G/LTE networks`
+                        }
+                      </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-bold text-purple-600 dark:text-purple-400">187</p>
+                    <p className="text-lg font-bold text-blue-600 dark:text-blue-400">{filteredGlobalCoverage.length}</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">Countries</p>
                   </div>
                 </div>
