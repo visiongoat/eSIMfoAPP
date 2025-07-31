@@ -799,8 +799,8 @@ export default function DestinationsScreen() {
                 </button>
               ))
             ) : selectedTab === 'regions' ? (
-              // Regional Continents - Premium Cards with Animations
-              <div className="space-y-3 mb-2">
+              // Regional Continents - Premium Cards with Animations  
+              <div className="space-y-3">
                 {/* Europa */}
                 <div className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer">
                   <div className="flex items-center justify-between relative z-10">
