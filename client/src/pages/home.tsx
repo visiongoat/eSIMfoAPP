@@ -49,10 +49,17 @@ export default function HomeScreen() {
 
   // Europa plan data
   const europaPlans = [
-    { id: 1, duration: '10 Days', data: 'Unlimited', price: '€21.50', dailyPrice: '€2.15 /day' },
-    { id: 2, duration: '180 Days', data: '100 GB', price: '€89.99', dailyPrice: '€0.50 /day' },
-    { id: 3, duration: '30 Days', data: '50 GB', price: '€45.99', dailyPrice: '€1.53 /day' },
-    { id: 4, duration: '15 Days', data: '20 GB', price: '€29.99', dailyPrice: '€2.00 /day' }
+    { id: 1, duration: '3 Days', data: '500 MB', price: '€4.99', dailyPrice: '€1.66 /day' },
+    { id: 2, duration: '7 Days', data: '1 GB', price: '€7.99', dailyPrice: '€1.14 /day' },
+    { id: 3, duration: '15 Days', data: '2 GB', price: '€12.99', dailyPrice: '€0.87 /day' },
+    { id: 4, duration: '30 Days', data: '3 GB', price: '€19.99', dailyPrice: '€0.67 /day' },
+    { id: 5, duration: '30 Days', data: '5 GB', price: '€24.99', dailyPrice: '€0.83 /day' },
+    { id: 6, duration: '30 Days', data: '10 GB', price: '€34.99', dailyPrice: '€1.17 /day' },
+    { id: 7, duration: '30 Days', data: '20 GB', price: '€49.99', dailyPrice: '€1.67 /day' },
+    { id: 8, duration: '30 Days', data: '50 GB', price: '€69.99', dailyPrice: '€2.33 /day' },
+    { id: 9, duration: '90 Days', data: '50 GB', price: '€89.99', dailyPrice: '€1.00 /day' },
+    { id: 10, duration: '180 Days', data: '100 GB', price: '€129.99', dailyPrice: '€0.72 /day' },
+    { id: 11, duration: '10 Days', data: 'Unlimited', price: '€39.99', dailyPrice: '€4.00 /day' }
   ];
 
   // Global plan data - Data only
@@ -1966,129 +1973,39 @@ export default function HomeScreen() {
                   </div>
                 </div>
 
-                {/* Europa Plan 4 - 20GB - Cheapest First */}
-                <button 
-                  onClick={() => setSelectedEuropaPlan(4)}
-                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
-                    selectedEuropaPlan === 4
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
-                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
-                  }`}>
-                  <div className="flex items-center">
-                    <div className="text-left flex-1">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">20 GB</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-sm">15 Days</div>
-                    </div>
-                    <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">29.99 €</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-xs">2.00 € /day</div>
-                    </div>
-                    <div className="flex-1 flex justify-end items-center">
-                      <div 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowCheckoutModal(true);
-                        }}
-                        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
-                      >
-                        Buy
+                {/* Dynamic Europa Plans */}
+                {europaPlans.map((plan) => (
+                  <button 
+                    key={plan.id}
+                    onClick={() => setSelectedEuropaPlan(plan.id)}
+                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
+                      selectedEuropaPlan === plan.id
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
+                        : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
+                    }`}>
+                    <div className="flex items-center">
+                      <div className="text-left flex-1">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.data}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.duration}</div>
+                      </div>
+                      <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.price}</div>
+                        <div className="text-gray-600 dark:text-gray-400 text-xs">{plan.dailyPrice}</div>
+                      </div>
+                      <div className="flex-1 flex justify-end items-center">
+                        <div 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowCheckoutModal(true);
+                          }}
+                          className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                        >
+                          Buy
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </button>
-
-                {/* Europa Plan 3 - 50GB */}
-                <button 
-                  onClick={() => setSelectedEuropaPlan(3)}
-                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
-                    selectedEuropaPlan === 3
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
-                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
-                  }`}>
-                  <div className="flex items-center">
-                    <div className="text-left flex-1">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">50 GB</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-sm">30 Days</div>
-                    </div>
-                    <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">45.99 €</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-xs">1.53 € /day</div>
-                    </div>
-                    <div className="flex-1 flex justify-end items-center">
-                      <div 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowCheckoutModal(true);
-                        }}
-                        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
-                      >
-                        Buy
-                      </div>
-                    </div>
-                  </div>
-                </button>
-
-                {/* Europa Plan 2 - 100GB */}
-                <button 
-                  onClick={() => setSelectedEuropaPlan(2)}
-                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
-                    selectedEuropaPlan === 2
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
-                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
-                  }`}>
-                  <div className="flex items-center">
-                    <div className="text-left flex-1">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">100 GB</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-sm">180 Days</div>
-                    </div>
-                    <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">89.99 €</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-xs">0.50 € /day</div>
-                    </div>
-                    <div className="flex-1 flex justify-end items-center">
-                      <div 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowCheckoutModal(true);
-                        }}
-                        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
-                      >
-                        Buy
-                      </div>
-                    </div>
-                  </div>
-                </button>
-
-                {/* Europa Plan 1 - Unlimited - Most Expensive */}
-                <button 
-                  onClick={() => setSelectedEuropaPlan(1)}
-                  className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
-                    selectedEuropaPlan === 1
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
-                      : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
-                  }`}>
-                  <div className="flex items-center">
-                    <div className="text-left flex-1">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">Unlimited</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-sm">10 Days</div>
-                    </div>
-                    <div className="flex-1 flex flex-col items-start justify-center pl-16">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">21.50 €</div>
-                      <div className="text-gray-600 dark:text-gray-400 text-xs">2.15 € /day</div>
-                    </div>
-                    <div className="flex-1 flex justify-end items-center">
-                      <div 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowCheckoutModal(true);
-                        }}
-                        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
-                      >
-                        Buy
-                      </div>
-                    </div>
-                  </div>
-                </button>
+                  </button>
+                ))}
               </div>
             ) : (
               // Continent List with smooth fade-in animation
