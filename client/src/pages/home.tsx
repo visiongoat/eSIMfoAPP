@@ -1997,7 +1997,7 @@ export default function HomeScreen() {
                       <div className="flex-1 flex justify-end items-center">
                         {/* Popular indicator for 3GB plan */}
                         {plan.id === 4 && (
-                          <div className="mr-3">
+                          <div className="flex justify-center mr-6">
                             <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">Popular</span>
                           </div>
                         )}
