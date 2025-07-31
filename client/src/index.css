@@ -156,18 +156,23 @@
 }
 
 /* Popular card moving border animation */
-@keyframes border-dance {
+@keyframes move-border {
   0% {
-    border-image-source: linear-gradient(90deg, #f59e0b 0%, #f59e0b 25%, transparent 25%, transparent 50%, #f59e0b 50%, #f59e0b 75%, transparent 75%, transparent 100%);
+    background-position: 0 0, 0 0, 0 0, 0 0;
   }
   100% {
-    border-image-source: linear-gradient(90deg, transparent 0%, transparent 25%, #f59e0b 25%, #f59e0b 50%, transparent 50%, transparent 75%, #f59e0b 75%, #f59e0b 100%);
+    background-position: 16px 0, -16px 100%, 0 -16px, 100% 16px;
   }
 }
 
 .popular-moving-border {
-  border-image: linear-gradient(90deg, #f59e0b 25%, transparent 25%, transparent 50%, #f59e0b 50%, #f59e0b 75%, transparent 75%) 1;
-  animation: border-dance 2s linear infinite;
+  border: 2px solid transparent;
+  background: 
+    linear-gradient(90deg, #f59e0b 50%, transparent 50%) 0 0 / 16px 2px repeat-x,
+    linear-gradient(90deg, #f59e0b 50%, transparent 50%) 0 100% / 16px 2px repeat-x,
+    linear-gradient(0deg, #f59e0b 50%, transparent 50%) 0 0 / 2px 16px repeat-y,
+    linear-gradient(0deg, #f59e0b 50%, transparent 50%) 100% 0 / 2px 16px repeat-y;
+  animation: move-border 1s linear infinite;
 }
 
 .dark {
