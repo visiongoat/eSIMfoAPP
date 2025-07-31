@@ -1981,7 +1981,9 @@ export default function HomeScreen() {
                     className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl relative ${
                       selectedEuropaPlan === plan.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
-                        : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
+                        : plan.id === 4 
+                          ? 'border-amber-300 dark:border-amber-600 bg-gradient-to-r from-amber-50 via-yellow-50 to-transparent dark:from-amber-900/20 dark:via-yellow-900/20 dark:to-transparent hover:border-amber-400 dark:hover:border-amber-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
+                          : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                     }`}>
                     <div className="flex items-center">
                       <div className="text-left flex-1">
@@ -1993,6 +1995,12 @@ export default function HomeScreen() {
                         <div className="text-gray-600 dark:text-gray-400 text-xs">{plan.dailyPrice}</div>
                       </div>
                       <div className="flex-1 flex justify-end items-center">
+                        {/* Popular indicator for 3GB plan */}
+                        {plan.id === 4 && (
+                          <div className="mr-3">
+                            <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">Popular</span>
+                          </div>
+                        )}
                         <div 
                           onClick={(e) => {
                             e.stopPropagation();
