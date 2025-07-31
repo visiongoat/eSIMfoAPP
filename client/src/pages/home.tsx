@@ -3340,7 +3340,7 @@ export default function HomeScreen() {
                         </svg>
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Europa Coverage</div>
+                        <div className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Europe Coverage</div>
                         <div className="text-xs text-gray-500 dark:text-gray-400">Available across Europe</div>
                       </div>
                     </div>
