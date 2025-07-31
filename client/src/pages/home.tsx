@@ -492,36 +492,22 @@ export default function HomeScreen() {
   // Store scroll position for How It Works modal
   const [howItWorksScrollY, setHowItWorksScrollY] = useState(0);
 
-  // Prevent body scroll when "How it Works" modal is open
+  // Restore scroll when How It Works modal closes
   useEffect(() => {
-    if (showHowItWorks) {
-      // Save current scroll position
-      const scrollY = window.scrollY;
-      setHowItWorksScrollY(scrollY);
+    if (!showHowItWorks && howItWorksScrollY > 0) {
+      // Restore body styles
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.documentElement.style.overflow = '';
       
-      // Lock body scroll with more aggressive approach
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.documentElement.style.overflow = 'hidden';
-      
-      // Cleanup function to restore scroll position
-      return () => {
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        document.body.style.top = '';
-        document.body.style.left = '';
-        document.body.style.right = '';
-        document.documentElement.style.overflow = '';
-        // Use stored scroll position
-        setTimeout(() => {
-          window.scrollTo(0, howItWorksScrollY);
-        }, 0);
-      };
+      // Restore scroll position immediately
+      requestAnimationFrame(() => {
+        window.scrollTo(0, howItWorksScrollY);
+      });
     }
   }, [showHowItWorks, howItWorksScrollY]);
 
@@ -2508,7 +2494,11 @@ export default function HomeScreen() {
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">How Does eSIMfo Work?</h2>
                   <button 
-                    onClick={() => setShowHowItWorks(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setShowHowItWorks(false);
+                    }}
                     className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   >
                     <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2735,6 +2725,20 @@ export default function HomeScreen() {
         <button 
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
+            // Store current scroll position immediately
+            const currentScrollY = window.scrollY;
+            setHowItWorksScrollY(currentScrollY);
+            
+            // Apply immediate scroll lock
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${currentScrollY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
+            document.documentElement.style.overflow = 'hidden';
+            
             setShowHowItWorks(true);
           }}
           className="w-full bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 text-left"
