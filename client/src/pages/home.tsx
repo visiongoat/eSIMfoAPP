@@ -1912,6 +1912,12 @@ export default function HomeScreen() {
                 if (e.key === 'Escape') {
                   setSearchQuery('');
                   setShowSearchResults(false);
+                  setSearchResults({
+                    localCountry: null,
+                    regionalPackages: null,
+                    globalPackages: null,
+                    coverageType: 'none'
+                  });
                   (e.target as HTMLInputElement).blur();
                 }
               }}
@@ -1924,6 +1930,12 @@ export default function HomeScreen() {
                   onClick={() => {
                     setSearchQuery('');
                     setShowSearchResults(false);
+                    setSearchResults({
+                      localCountry: null,
+                      regionalPackages: null,
+                      globalPackages: null,
+                      coverageType: 'none'
+                    });
                   }}
                   className="p-1.5 rounded-full hover:bg-gray-100 transition-colors group/clear"
                 >
