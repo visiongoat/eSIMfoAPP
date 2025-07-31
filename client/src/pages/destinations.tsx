@@ -802,27 +802,8 @@ export default function DestinationsScreen() {
               // Empty regions content
               <div></div>
             ) : (
-              // Global Packages List
-              finalFilteredData.map((globalPkg: any) => (
-                <button
-                  key={globalPkg.id}
-                  onClick={() => {/* Handle global package selection */}}
-                  className="mobile-card p-4 w-full text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 active:scale-[0.98]"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded-lg flex items-center justify-center text-xl">
-                        {globalPkg.icon}
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{globalPkg.name}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{globalPkg.countryCount} countries</p>
-                      </div>
-                    </div>
-                    <span className="text-gray-400 dark:text-gray-500">›</span>
-                  </div>
-                </button>
-              ))
+              // Empty global content
+              <div></div>
             )}
           </div>
         )}
