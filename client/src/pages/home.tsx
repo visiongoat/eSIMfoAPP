@@ -2459,7 +2459,11 @@ export default function HomeScreen() {
         {showHowItWorks && (
           <div 
             className="fixed inset-0 bg-black/50 flex items-end justify-center z-[9999] animate-in fade-in duration-300" 
-            onClick={() => setShowHowItWorks(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setShowHowItWorks(false);
+            }}
             style={{ 
               position: 'fixed', 
               top: 0, 
@@ -2578,7 +2582,9 @@ export default function HomeScreen() {
                 {/* Get Started Button */}
                 <div className="pt-3 animate-in slide-in-from-bottom duration-500 delay-400">
                   <button 
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
                       setShowHowItWorks(false);
                       setLocation('/search');
                     }}
