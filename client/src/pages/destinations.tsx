@@ -329,6 +329,28 @@ export default function DestinationsScreen() {
     }
   }, [showCountriesModal, showEuropePlanInfoModal]);
 
+  // Global touch event prevention when modal is open
+  useEffect(() => {
+    if (showCountriesModal) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      
+      const preventTouchMove = (e: TouchEvent) => {
+        e.preventDefault();
+      };
+      
+      document.addEventListener('touchmove', preventTouchMove, { passive: false });
+      
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.removeEventListener('touchmove', preventTouchMove);
+      };
+    }
+  }, [showCountriesModal]);
+
   // Scroll listener for sticky search bar
   useEffect(() => {
     const handleScroll = () => {
@@ -364,8 +386,10 @@ export default function DestinationsScreen() {
     setModalStartY(touch.clientY);
     setModalCurrentY(touch.clientY);
     setIsModalDragging(true);
-    // Disable body scroll during modal drag
+    // Always disable body scroll during modal interaction
     document.body.style.overflow = 'hidden';
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   const handleCoverageModalTouchMove = (e: React.TouchEvent) => {
@@ -1711,12 +1735,27 @@ export default function DestinationsScreen() {
               ref={scrollableContentRef} 
               className="flex-1 overflow-y-auto"
               onTouchStart={(e) => {
-                // Allow scrolling within modal content but prevent propagation to background
+                // Allow scrolling within modal content
                 e.stopPropagation();
               }}
               onTouchMove={(e) => {
-                // Allow scrolling within modal content but prevent propagation to background
-                e.stopPropagation();
+                // Allow vertical scrolling within content area only
+                const element = e.currentTarget;
+                const scrollTop = element.scrollTop;
+                const scrollHeight = element.scrollHeight;
+                const clientHeight = element.clientHeight;
+                
+                // Check if we're at the top or bottom and prevent overscroll
+                const isAtTop = scrollTop === 0;
+                const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+                
+                // Allow scrolling if not at boundaries
+                if (!isAtTop || !isAtBottom) {
+                  e.stopPropagation();
+                } else {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }
               }}
               style={{ 
                 touchAction: 'pan-y',
