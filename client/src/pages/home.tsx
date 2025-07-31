@@ -2933,7 +2933,7 @@ export default function HomeScreen() {
         </div>
       )}
 
-      {/* European Coverage Modal - Operators & Networks */}
+      {/* European Coverage Modal - Operators & Networks - New Compact Design */}
       {showCountriesModal && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-[9999]"
@@ -2946,7 +2946,7 @@ export default function HomeScreen() {
         >
           <div 
             ref={coverageModalRef}
-            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-6 space-y-4 animate-slide-up transition-all duration-200 select-none modal-fixed-height flex flex-col"
+            className="bg-white dark:bg-gray-900 rounded-t-3xl w-full px-4 py-5 animate-slide-up transition-all duration-200 select-none modal-fixed-height flex flex-col"
             onTouchStart={handleCoverageModalTouchStart}
             onTouchMove={handleCoverageModalTouchMove}
             onTouchEnd={handleCoverageModalTouchEnd}
@@ -2958,33 +2958,33 @@ export default function HomeScreen() {
             }}
           >
             {/* Swipe Handle */}
-            <div className="flex justify-center pt-0 pb-3 flex-shrink-0">
-              <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            <div className="flex justify-center pb-4 flex-shrink-0">
+              <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
             </div>
 
-            {/* Header - Fixed */}
+            {/* Compact Header */}
             <div className="flex items-center justify-between mb-4 flex-shrink-0">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                   {selectedTab === 'global' ? 'Global Coverage' : 'European Coverage'}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Operators & Network Technologies</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Operators & Network Technologies</p>
               </div>
               <button
                 onClick={() => {
                   setShowCountriesModal(false);
                   setSearchQuery('');
                 }}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
               >
-                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
 
-            {/* Search Bar - Fixed */}
-            <div className="relative mb-4 flex-shrink-0">
+            {/* Compact Search Bar */}
+            <div className="relative mb-3 flex-shrink-0">
               <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -2994,18 +2994,11 @@ export default function HomeScreen() {
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  // Auto scroll to top when typing to show results
                   if (scrollableContentRef.current) {
                     scrollableContentRef.current.scrollTop = 0;
                   }
                 }}
-                onFocus={() => {
-                  // Scroll to top when search is focused
-                  if (scrollableContentRef.current) {
-                    scrollableContentRef.current.scrollTop = 0;
-                  }
-                }}
-                className="w-full pl-10 pr-4 py-2.5 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {searchQuery && (
                 <button
@@ -3019,76 +3012,91 @@ export default function HomeScreen() {
               )}
             </div>
 
-            {/* Scrollable Content Area */}
+            {/* Compact Countries Grid */}
             <div ref={scrollableContentRef} className="flex-1 overflow-y-auto">
-              {/* Countries with Operators */}
-              <div className="space-y-3 pb-4">
               {filteredEuropeanCoverage.length === 0 ? (
                 <div className="text-center py-8">
-                  <svg className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                   <p className="text-gray-500 dark:text-gray-400 text-sm">No countries or operators found</p>
                 </div>
               ) : (
-                filteredEuropeanCoverage.map((coverage, index) => (
-                  <div key={index} className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-100 dark:border-gray-600">
-                    {/* Country Header */}
-                    <div className="flex items-center space-x-3 mb-3">
-                      <img 
-                        src={coverage.flag} 
-                        alt={coverage.country}
-                        className="w-8 h-6 rounded shadow-sm"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100">{coverage.country}</h4>
-                      <span className="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
-                        {coverage.operators.length} operator{coverage.operators.length !== 1 ? 's' : ''}
-                      </span>
-                    </div>
-
-                    {/* Operators List */}
-                    <div className="grid grid-cols-1 gap-2">
-                      {coverage.operators.map((operator, opIndex) => (
-                        <div key={opIndex} className="flex items-center justify-between p-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-600">
-                          <div className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-gray-500 dark:bg-gray-400 rounded-full"></div>
-                            <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{operator.name}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            {operator.networks.map((network, netIndex) => (
-                              <span 
-                                key={netIndex}
-                                className="text-xs px-2 py-1 rounded-md font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                              >
-                                {network}
-                              </span>
-                            ))}
-                          </div>
+                <div className="space-y-2 pb-4">
+                  {filteredEuropeanCoverage.map((coverage, index) => (
+                    <div key={index} className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-3 border border-gray-100 dark:border-gray-700/50">
+                      {/* Country Header - Compact */}
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-2">
+                          <img 
+                            src={coverage.flag} 
+                            alt={coverage.country}
+                            className="w-6 h-4 rounded shadow-sm"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                          <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{coverage.country}</h4>
                         </div>
-                      ))}
+                        <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded-full">
+                          {coverage.operators.length} ops
+                        </span>
+                      </div>
+
+                      {/* Operators Grid - Ultra Compact */}
+                      <div className="space-y-1">
+                        {coverage.operators.map((operator, opIndex) => (
+                          <div key={opIndex} className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-gray-800 rounded-lg">
+                            <div className="flex items-center space-x-2">
+                              <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                              <span className="text-xs font-medium text-gray-900 dark:text-gray-100">{operator.name}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              {operator.networks.map((network, netIndex) => (
+                                <span 
+                                  key={netIndex}
+                                  className={`text-xs px-1.5 py-0.5 rounded font-medium ${
+                                    network === '5G' 
+                                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' 
+                                      : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                                  }`}
+                                >
+                                  {network}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Compact Summary Stats */}
+              <div className="mt-3 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-100 dark:border-blue-800/50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Coverage Summary</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        {searchQuery 
+                          ? `${filteredEuropeanCoverage.length} matching countries`
+                          : `${europeanCoverage.length} countries • Premium 5G/LTE networks`
+                        }
+                      </p>
                     </div>
                   </div>
-                ))
-              )}
-            </div>
-
-              {/* Coverage Summary */}
-              <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
-                <div className="flex items-center space-x-2 mb-2">
-                  <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span className="font-medium text-gray-900 dark:text-gray-100">Coverage Summary</span>
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-blue-600 dark:text-blue-400">{filteredEuropeanCoverage.length}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Countries</p>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-800 dark:text-gray-200">
-                  {searchQuery 
-                    ? `Showing ${filteredEuropeanCoverage.length} matching countries`
-                    : `${europeanCoverage.length} European countries with premium network operators. All plans include 5G/LTE connectivity where available.`
-                  }
-                </p>
               </div>
             </div>
           </div>
