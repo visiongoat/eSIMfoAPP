@@ -18,6 +18,22 @@ export default function DestinationsScreen() {
   const [selectedTab, setSelectedTab] = useState<'countries' | 'regions' | 'global'>('countries');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   
+  // Regional tab states from home page
+  const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
+  const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number | null>(null);
+  const [showCountriesModal, setShowCountriesModal] = useState(false);
+  const [showEuropePlanInfoModal, setShowEuropePlanInfoModal] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  
+  // Europa plans data from home page
+  const europaPlans = [
+    { id: 1, data: '1GB', duration: '7 Days', price: '€9.99', dailyPrice: '€1.43/day' },
+    { id: 2, data: '2GB', duration: '15 Days', price: '€14.99', dailyPrice: '€1.00/day' },
+    { id: 3, data: '5GB', duration: '30 Days', price: '€24.99', dailyPrice: '€0.83/day' },
+    { id: 4, data: '3GB', duration: '15 Days', price: '€16.99', dailyPrice: '€1.13/day' },
+    { id: 5, data: '10GB', duration: '30 Days', price: '€34.99', dailyPrice: '€1.17/day' }
+  ];
+  
   // URL parametresini kontrol et ve tab'ı ayarla
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -42,6 +58,7 @@ export default function DestinationsScreen() {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   
   // Smart search states (from home page)
   const [smartSearchResults, setSmartSearchResults] = useState<{
@@ -55,7 +72,6 @@ export default function DestinationsScreen() {
     globalPackages: null,
     coverageType: 'none'
   });
-  const [isScrolled, setIsScrolled] = useState(false);
   const searchBarRef = useRef<HTMLDivElement>(null);
 
   // Swipe navigation for tab switching
@@ -198,13 +214,6 @@ export default function DestinationsScreen() {
     'Hungary', 'Iceland', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 
     'Luxembourg', 'Malta', 'Netherlands', 'Norway', 'Poland', 'Portugal', 
     'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland'
-  ];
-
-  const europaPlans = [
-    { id: 1, data: '500 MB', duration: 3, price: '€4.99' },
-    { id: 2, data: '1 GB', duration: 7, price: '€7.99' },
-    { id: 3, data: '3 GB', duration: 15, price: '€14.99' },
-    { id: 4, data: '5 GB', duration: 30, price: '€24.99' }
   ];
 
   const globalDataPlans = [
@@ -799,8 +808,238 @@ export default function DestinationsScreen() {
                 </button>
               ))
             ) : selectedTab === 'regions' ? (
-              // Empty regions content
-              <div></div>
+              // Regional content from home page
+              <div className="space-y-3">
+                {/* Elegant breadcrumb navigation */}
+                {selectedContinent && (
+                  <div className="mb-4">
+                    <div className="flex items-center space-x-2 text-sm">
+                      <button
+                        onClick={() => setSelectedContinent(null)}
+                        className="inline-flex items-center space-x-1 text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 group"
+                      >
+                        <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+                        </svg>
+                        <span className="font-medium">Regional</span>
+                      </button>
+                      <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+                      </svg>
+                      <span className="text-blue-600 dark:text-blue-400 font-medium">Europe</span>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Show continent plans if selected, otherwise show continent list */}
+                {selectedContinent === 'europa' ? (
+                  // Europa eSIM Plans with smooth fade-in animation
+                  <div id="regional-content" key="europa-plans" className="space-y-2 animate-slide-in-right">
+                    <div className="text-center mb-3">
+                      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Europe eSIM Plans</h2>
+                      
+                      {/* Pill-Style Button Strip - Same as Global */}
+                      <div className="flex items-center justify-center mt-2">
+                        <div className="flex bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 rounded-full p-1 shadow-sm border border-gray-200 dark:border-gray-600">
+                          <button 
+                            onClick={() => setShowCountriesModal(true)}
+                            className="flex items-center space-x-1.5 px-4 py-2 bg-white dark:bg-gray-900 rounded-full shadow-sm hover:shadow-md transition-all duration-200 active:scale-95 border border-gray-200 dark:border-gray-600"
+                          >
+                            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">36 Countries</span>
+                          </button>
+                          
+                          <div className="flex items-center justify-center mx-1">
+                            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
+                          </div>
+                          
+                          <button 
+                            onClick={() => setShowEuropePlanInfoModal(true)}
+                            className="flex items-center space-x-1.5 px-4 py-2 bg-white dark:bg-gray-900 rounded-full shadow-sm hover:shadow-md transition-all duration-200 active:scale-95 border border-gray-200 dark:border-gray-600"
+                          >
+                            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Plan Details</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Dynamic Europa Plans */}
+                    {europaPlans.map((plan) => (
+                      <button 
+                        key={plan.id}
+                        onClick={() => setSelectedEuropaPlan(plan.id)}
+                        className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl relative ${
+                          selectedEuropaPlan === plan.id
+                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
+                            : plan.id === 4 
+                              ? 'popular-moving-border bg-gray-100 dark:bg-gray-800/50 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
+                              : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
+                        }`}>
+                        <div className="flex items-center">
+                          <div className="text-left flex-1">
+                            <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.data}</div>
+                            <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.duration}</div>
+                          </div>
+                          <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                            <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.price}</div>
+                            <div className="text-gray-600 dark:text-gray-400 text-xs">{plan.dailyPrice}</div>
+                          </div>
+                          <div className="flex-1 flex justify-end items-center">
+                            {/* Popular indicator for 3GB plan */}
+                            {plan.id === 4 && (
+                              <div className="flex justify-center mr-6">
+                                <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 animate-pulse">Popular</span>
+                              </div>
+                            )}
+                            <div 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setShowCheckoutModal(true);
+                              }}
+                              className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                            >
+                              Buy
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  // Continent List with smooth fade-in animation
+                  <div key="continent-list" className="space-y-3 animate-slide-in-left">
+                    {/* Europa */}
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Europa clicked, setting continent to europa');
+                        setSelectedContinent('europa');
+                        setSelectedEuropaPlan(null); // Reset plan selection
+                      }}
+                      className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer hover:shadow-md transition-shadow duration-200 w-full text-left"
+                    >
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
+                        <img 
+                          src={europaIcon} 
+                          alt="Europa"
+                          className="w-10 h-10 object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Europa</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">30+ countries • From €9.99</p>
+                      </div>
+                    </div>
+                    <span className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</span>
+                  </div>
+                </button>
+                
+                {/* Asia */}
+                <div className="continent-card continent-asia rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-1 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-green-100 dark:bg-green-900 rounded-xl flex items-center justify-center">
+                        <img 
+                          src={asiaIcon} 
+                          alt="Asia"
+                          className="w-10 h-10 object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Asia</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">25+ countries • From €12.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+                
+                {/* Americas */}
+                <div className="continent-card continent-americas rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-2 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
+                        <img 
+                          src={americasIcon} 
+                          alt="Americas"
+                          className="w-10 h-10 object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Americas</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">20+ countries • From €11.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+
+                {/* Africa */}
+                <div className="continent-card continent-africa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-3 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center">
+                        <img 
+                          src={africaIcon} 
+                          alt="Africa"
+                          className="w-10 h-10 object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Africa</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">15+ countries • From €14.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+
+                {/* Middle East */}
+                <div className="continent-card continent-middle-east rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-4 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
+                        <img 
+                          src={middleEastIcon} 
+                          alt="Middle East"
+                          className="w-10 h-10 object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Middle East</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">12+ countries • From €16.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+
+                {/* Oceania */}
+                <div className="continent-card continent-oceania rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-5 touch-feedback cursor-pointer">
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center space-x-3">
+                      <div className="continent-icon w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-xl flex items-center justify-center">
+                        <img 
+                          src={oceaniaIcon} 
+                          alt="Oceania"
+                          className="w-10 h-10 object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-medium text-gray-900 dark:text-gray-100">Oceania</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">8+ countries • From €18.99</p>
+                      </div>
+                    </div>
+                    <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
+                  </div>
+                </div>
+                  </div>
+                )}
+              </div>
             ) : (
               // Empty global content
               <div></div>
