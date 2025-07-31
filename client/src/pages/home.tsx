@@ -1898,7 +1898,12 @@ export default function HomeScreen() {
               onFocus={() => {
                 setShowSearchResults(searchQuery.length > 0);
               }}
-              onBlur={() => {
+              onBlur={(e) => {
+                // Don't hide results if X button is being clicked
+                const relatedTarget = e.relatedTarget as HTMLButtonElement;
+                if (relatedTarget && relatedTarget.closest('.clear-button')) {
+                  return;
+                }
                 setTimeout(() => setShowSearchResults(false), 150);
               }}
               onKeyDown={(e) => {
@@ -1927,7 +1932,17 @@ export default function HomeScreen() {
             <div className="flex items-center space-x-2">
               {searchQuery && (
                 <button
-                  onClick={() => {
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     setSearchQuery('');
                     setShowSearchResults(false);
                     setSearchResults({
@@ -1937,7 +1952,7 @@ export default function HomeScreen() {
                       coverageType: 'none'
                     });
                   }}
-                  className="p-1.5 rounded-full hover:bg-gray-100 transition-colors group/clear"
+                  className="clear-button p-1.5 rounded-full hover:bg-gray-100 transition-colors group/clear"
                 >
                   <svg className="w-4 h-4 text-gray-400 group-hover/clear:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
