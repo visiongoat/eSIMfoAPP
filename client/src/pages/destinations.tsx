@@ -322,6 +322,13 @@ export default function DestinationsScreen() {
     }
   }, []);
 
+  // Modal kapatıldığında body scroll'unu geri aktive et
+  useEffect(() => {
+    if (!showCountriesModal && !showEuropePlanInfoModal) {
+      document.body.style.overflow = '';
+    }
+  }, [showCountriesModal, showEuropePlanInfoModal]);
+
   // Scroll listener for sticky search bar
   useEffect(() => {
     const handleScroll = () => {
@@ -357,6 +364,8 @@ export default function DestinationsScreen() {
     setModalStartY(touch.clientY);
     setModalCurrentY(touch.clientY);
     setIsModalDragging(true);
+    // Disable body scroll during modal drag
+    document.body.style.overflow = 'hidden';
   };
 
   const handleCoverageModalTouchMove = (e: React.TouchEvent) => {
@@ -378,6 +387,9 @@ export default function DestinationsScreen() {
     if (!isModalDragging) return;
     
     const deltaY = modalCurrentY - modalStartY;
+    
+    // Re-enable body scroll
+    document.body.style.overflow = '';
     
     if (deltaY > 80 && coverageModalRef.current) {
       coverageModalRef.current.style.transform = 'translateY(100%)';
@@ -402,6 +414,8 @@ export default function DestinationsScreen() {
     setEuropePlanModalStartY(touch.clientY);
     setEuropePlanModalCurrentY(touch.clientY);
     setIsEuropePlanModalDragging(true);
+    // Disable body scroll during modal drag
+    document.body.style.overflow = 'hidden';
   };
 
   const handleEuropePlanInfoModalTouchMove = (e: React.TouchEvent) => {
@@ -423,6 +437,9 @@ export default function DestinationsScreen() {
     if (!isEuropePlanModalDragging) return;
     
     const deltaY = europePlanModalCurrentY - europePlanModalStartY;
+    
+    // Re-enable body scroll
+    document.body.style.overflow = '';
     
     if (deltaY > 80 && europePlanInfoModalRef.current) {
       europePlanInfoModalRef.current.style.transform = 'translateY(100%)';
