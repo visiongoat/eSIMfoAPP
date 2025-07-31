@@ -1973,15 +1973,45 @@ export default function HomeScreen() {
               {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
                 <div className="p-3 border-b border-gray-100 dark:border-gray-700">
                   <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Europa Regional Plans</div>
-                  {searchResults.regionalPackages.slice(0, 2).map((plan: any, index: number) => (
+                  
+                  {/* Show only first plan */}
+                  <button
+                    onClick={() => {
+                      // Switch to regional tab and scroll to Europa
+                      setSelectedTab('regional');
+                      setSearchQuery('');
+                      setShowSearchResults(false);
+                      // Small delay to ensure tab switch completes before scrolling
+                      setTimeout(() => {
+                        const regionElement = document.getElementById('regional-content');
+                        if (regionElement) {
+                          regionElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }}
+                    className="w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-2 text-left transition-all duration-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.regionalPackages[0].data}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">{searchResults.regionalPackages[0].duration} days • Europa</div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="text-lg font-bold text-green-600 dark:text-green-400">{searchResults.regionalPackages[0].price}</div>
+                        <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
+
+                  {/* More plans indicator */}
+                  {searchResults.regionalPackages.length > 1 && (
                     <button
-                      key={index}
                       onClick={() => {
-                        // Switch to regional tab and scroll to Europa
                         setSelectedTab('regional');
                         setSearchQuery('');
                         setShowSearchResults(false);
-                        // Small delay to ensure tab switch completes before scrolling
                         setTimeout(() => {
                           const regionElement = document.getElementById('regional-content');
                           if (regionElement) {
@@ -1989,22 +2019,14 @@ export default function HomeScreen() {
                           }
                         }, 100);
                       }}
-                      className="w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-1 last:mb-0 text-left transition-all duration-200"
+                      className="w-full px-3 py-2 flex items-center justify-center space-x-2 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-all duration-200 group"
                     >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-medium text-gray-900 dark:text-gray-100">{plan.data}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">{plan.duration} days • Europa</div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <div className="text-lg font-bold text-green-600 dark:text-green-400">{plan.price}</div>
-                          <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      </div>
+                      <span className="text-sm font-medium">+{searchResults.regionalPackages.length - 1} more Europa plans</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </button>
-                  ))}
+                  )}
                 </div>
               )}
 
@@ -2012,15 +2034,45 @@ export default function HomeScreen() {
               {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
                 <div className="p-3">
                   <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Global Plans</div>
-                  {searchResults.globalPackages.slice(0, 2).map((plan: any, index: number) => (
+                  
+                  {/* Show only first plan */}
+                  <button
+                    onClick={() => {
+                      // Switch to global tab
+                      setSelectedTab('global');
+                      setSearchQuery('');
+                      setShowSearchResults(false);
+                      // Small delay to ensure tab switch completes before scrolling
+                      setTimeout(() => {
+                        const globalElement = document.getElementById('global-content');
+                        if (globalElement) {
+                          globalElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }}
+                    className="w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-2 text-left transition-all duration-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.globalPackages[0].data}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">{searchResults.globalPackages[0].duration} days • Global</div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="text-lg font-bold text-orange-600 dark:text-orange-400">{searchResults.globalPackages[0].price}</div>
+                        <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
+
+                  {/* More plans indicator */}
+                  {searchResults.globalPackages.length > 1 && (
                     <button
-                      key={index}
                       onClick={() => {
-                        // Switch to global tab
                         setSelectedTab('global');
                         setSearchQuery('');
                         setShowSearchResults(false);
-                        // Small delay to ensure tab switch completes before scrolling
                         setTimeout(() => {
                           const globalElement = document.getElementById('global-content');
                           if (globalElement) {
@@ -2028,22 +2080,14 @@ export default function HomeScreen() {
                           }
                         }, 100);
                       }}
-                      className="w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-1 last:mb-0 text-left transition-all duration-200"
+                      className="w-full px-3 py-2 flex items-center justify-center space-x-2 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-all duration-200 group"
                     >
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <div className="font-medium text-gray-900 dark:text-gray-100">{plan.data}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">{plan.duration} days • Global</div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <div className="text-lg font-bold text-orange-600 dark:text-orange-400">{plan.price}</div>
-                          <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      </div>
+                      <span className="text-sm font-medium">+{searchResults.globalPackages.length - 1} more Global plans</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </button>
-                  ))}
+                  )}
                 </div>
               )}
 
