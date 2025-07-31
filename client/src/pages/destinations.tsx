@@ -15,15 +15,15 @@ import type { Country } from "@shared/schema";
 
 export default function DestinationsScreen() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTab, setSelectedTab] = useState<'countries' | 'regions' | 'global'>('countries');
+  const [selectedTab, setSelectedTab] = useState<'local' | 'regional' | 'global'>('local');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   
   // URL parametresini kontrol et ve tab'ı ayarla
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tabParam = urlParams.get('tab');
-    if (tabParam && ['countries', 'regions', 'global'].includes(tabParam)) {
-      setSelectedTab(tabParam as 'countries' | 'regions' | 'global');
+    if (tabParam && ['local', 'regional', 'global'].includes(tabParam)) {
+      setSelectedTab(tabParam as 'local' | 'regional' | 'global');
     }
   }, []);
 
@@ -85,15 +85,15 @@ export default function DestinationsScreen() {
         if (deltaX > 0) {
           // Swipe right: move to previous tab
           if (selectedTab === 'global') {
-            setSelectedTab('regions');
-          } else if (selectedTab === 'regions') {
-            setSelectedTab('countries');
+            setSelectedTab('regional');
+          } else if (selectedTab === 'regional') {
+            setSelectedTab('local');
           }
         } else if (deltaX < 0) {
           // Swipe left: move to next tab
-          if (selectedTab === 'countries') {
-            setSelectedTab('regions');
-          } else if (selectedTab === 'regions') {
+          if (selectedTab === 'local') {
+            setSelectedTab('regional');
+          } else if (selectedTab === 'regional') {
             setSelectedTab('global');
           }
         }
@@ -121,7 +121,7 @@ export default function DestinationsScreen() {
     'Explore eSIMs for USA, UAE…',
     'Where are you traveling to?',
     'Start typing a country name…',
-    'eSIM for 200+ countries'
+    'eSIM for 200+ local'
   ];
 
   // Typewriter effect for search placeholder
@@ -184,8 +184,8 @@ export default function DestinationsScreen() {
     }
   }, []);
 
-  const { data: countries = [], isLoading } = useQuery<Country[]>({
-    queryKey: ["/api/countries"],
+  const { data: local = [], isLoading } = useQuery<Country[]>({
+    queryKey: ["/api/local"],
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     staleTime: 5 * 60 * 1000,
@@ -233,7 +233,7 @@ export default function DestinationsScreen() {
     const searchTerm = query.toLowerCase().trim();
     
     // Find matching local country
-    const matchingCountry = countries.find(country => 
+    const matchingCountry = local.find(country => 
       country.name.toLowerCase().includes(searchTerm)
     );
 
@@ -315,7 +315,7 @@ export default function DestinationsScreen() {
   const getEnhancedSearchResults = () => {
     if (!searchQuery.trim()) return [];
     
-    const results = countries.filter(country => 
+    const results = local.filter(country => 
       country.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       country.code.toLowerCase().includes(searchQuery.toLowerCase())
     ).slice(0, 5); // Show max 5 results
@@ -370,7 +370,7 @@ export default function DestinationsScreen() {
 
   // Enhanced search and filter functionality
   const getFilteredData = () => {
-    let filteredData = [...countries];
+    let filteredData = [...local];
 
     // Apply search filter
     if (searchQuery) {
@@ -380,11 +380,11 @@ export default function DestinationsScreen() {
     }
 
     // Apply tab-based categorization
-    if (selectedTab === 'countries') {
-      // Show individual countries
+    if (selectedTab === 'local') {
+      // Show individual local
       filteredData = filteredData;
-    } else if (selectedTab === 'regions') {
-      // Return empty array for regions - UI will handle the display directly
+    } else if (selectedTab === 'regional') {
+      // Return empty array for regional - UI will handle the display directly
       return [];
     } else if (selectedTab === 'global') {
       // Global packages
@@ -411,7 +411,7 @@ export default function DestinationsScreen() {
           countryCount: 40,
           price: '€15.99',
           icon: '🇺🇸',
-          description: 'America and allied countries'
+          description: 'America and allied local'
         },
         {
           id: 'africa-europe',
@@ -432,7 +432,7 @@ export default function DestinationsScreen() {
 
   const filteredData = getFilteredData();
 
-  // Alphabet filter groups for countries
+  // Alphabet filter groups for local
   const alphabetFilterGroups = [
     { label: 'All', value: 'all' },
     { label: 'A-D', value: 'A-D' },
@@ -472,7 +472,7 @@ export default function DestinationsScreen() {
     }
   };
 
-  const finalFilteredData = selectedTab === 'countries' ? getAlphabetFilteredCountries() : filteredData;
+  const finalFilteredData = selectedTab === 'local' ? getAlphabetFilteredCountries() : filteredData;
 
   return (
     <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/20 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" style={{ scrollBehavior: 'auto' }}>
@@ -622,75 +622,77 @@ export default function DestinationsScreen() {
         </div>
 
         {/* Modern Pill-Style Tabs - Exact Match from Home */}
-        <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40 mb-6 overflow-hidden">
-          {[
-            { 
-              id: 'countries', 
-              label: 'Countries', 
-              icon: (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              ),
-              color: 'bg-blue-500'
-            },
-            { 
-              id: 'regions', 
-              label: 'Regions', 
-              icon: (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                </svg>
-              ),
-              color: 'bg-green-500'
-            },
-            { 
-              id: 'global', 
-              label: 'Global', 
-              icon: (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              ),
-              color: 'bg-purple-500'
-            }
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setSelectedTab(tab.id as any)}
-              className={`flex-1 py-3 px-2 sm:px-4 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 transform relative group min-w-0 ${
-                selectedTab === tab.id
-                  ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-gray-600/80 hover:shadow-md hover:scale-102 active:scale-95'
-              }`}
-              style={{willChange: 'transform'}}
-            >
-              <div className="flex items-center justify-center space-x-2 relative z-10">
-                <div className={`transition-transform duration-300 ${selectedTab === tab.id ? 'scale-110' : 'group-hover:scale-105'}`}>
-                  {tab.icon}
+        <div className="max-w-screen-md mx-auto px-4 -mb-2">
+          <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40">
+            {[
+              { 
+                id: 'local', 
+                label: 'Local', 
+                icon: (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                ),
+                color: 'bg-blue-500'
+              },
+              { 
+                id: 'regional', 
+                label: 'Regional', 
+                icon: (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                ),
+                color: 'bg-green-500'
+              },
+              { 
+                id: 'global', 
+                label: 'Global', 
+                icon: (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                ),
+                color: 'bg-orange-500'
+              }
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedTab(tab.id as any)}
+                className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform relative group ${
+                  selectedTab === tab.id
+                    ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-gray-600/80 hover:shadow-md hover:scale-102 active:scale-95'
+                }`}
+                style={{willChange: 'transform'}}
+              >
+                <div className="flex items-center justify-center space-x-2 relative z-10">
+                  <div className={`transition-transform duration-300 ${selectedTab === tab.id ? 'scale-110' : 'group-hover:scale-105'}`}>
+                    {tab.icon}
+                  </div>
+                  <span className="tracking-wide">{tab.label}</span>
                 </div>
-                <span className="tracking-wide truncate">{tab.label}</span>
-              </div>
-              
-              {/* Enhanced effects for active tab */}
-              {selectedTab === tab.id && (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 rounded-xl opacity-80"></div>
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 rounded-xl"></div>
-                </>
-              )}
-              
-              {/* Ripple effect on click */}
-              <div className="absolute inset-0 rounded-xl opacity-0 group-active:opacity-30 transition-opacity duration-200 bg-white/20"></div>
-            </button>
-          ))}
+                
+                {/* Enhanced effects for active tab */}
+                {selectedTab === tab.id && (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-white/20 to-white/10 rounded-xl opacity-80"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 rounded-xl"></div>
+                  </>
+                )}
+                
+                {/* Ripple effect on click */}
+                <div className="absolute inset-0 rounded-xl opacity-0 group-active:opacity-30 transition-opacity duration-200 bg-white/20"></div>
+              </button>
+            ))}
+          </div>
         </div>
 
 
 
-        {/* Enhanced Alphabet Filter (only for countries) */}
-        {selectedTab === 'countries' && (
+        {/* Enhanced Alphabet Filter (only for local) */}
+        {selectedTab === 'local' && (
           <div className="mb-8">
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               {alphabetFilterGroups.map((group, index) => (
@@ -746,7 +748,7 @@ export default function DestinationsScreen() {
           </div>
         ) : (
           <div className="space-y-3 mb-2">
-            {selectedTab === 'countries' ? (
+            {selectedTab === 'local' ? (
               // Premium Countries List with Stagger Animation
               finalFilteredData.map((country: any, index: number) => (
                 <button
@@ -795,7 +797,7 @@ export default function DestinationsScreen() {
                   </div>
                 </button>
               ))
-            ) : selectedTab === 'regions' ? (
+            ) : selectedTab === 'regional' ? (
               // Regional Continents - Premium Cards with Animations
               <div className="space-y-3 mb-2">
                 {/* Europa */}
@@ -811,7 +813,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Europa</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">30+ countries • From €9.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">30+ local • From €9.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -831,7 +833,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Asia</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">25+ countries • From €12.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">25+ local • From €12.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -851,7 +853,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Americas</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">35+ countries • From €7.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">35+ local • From €7.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -871,7 +873,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Africa</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">50+ countries • From €5.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">50+ local • From €5.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -891,7 +893,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Middle East</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">12+ countries • From €16.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">12+ local • From €16.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -911,7 +913,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Oceania</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">6+ countries • From €18.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">6+ local • From €18.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -933,7 +935,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <p className="font-medium text-gray-900 dark:text-gray-100">{globalPkg.name}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{globalPkg.countryCount} countries</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{globalPkg.countryCount} local</p>
                       </div>
                     </div>
                     <span className="text-gray-400 dark:text-gray-500">›</span>
@@ -983,7 +985,7 @@ export default function DestinationsScreen() {
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setSelectedTab('countries');
+                  setSelectedTab('local');
                 }}
                 className="w-full bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800/30 dark:hover:to-blue-700/30 rounded-2xl p-4 border border-blue-200 dark:border-blue-700 transition-all duration-200 group active:scale-[0.98]"
               >
@@ -1010,7 +1012,7 @@ export default function DestinationsScreen() {
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setSelectedTab('regions');
+                  setSelectedTab('regional');
                 }}
                 className="w-full bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 hover:from-green-100 hover:to-green-200 dark:hover:from-green-800/30 dark:hover:to-green-700/30 rounded-2xl p-4 border border-green-200 dark:border-green-700 transition-all duration-200 group active:scale-[0.98]"
               >
