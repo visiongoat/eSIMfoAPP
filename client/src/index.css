@@ -153,6 +153,25 @@
   --mobile-border: hsl(240, 5.9%, 90%);
   --tab-bg: hsl(240, 20%, 98%);
   --status-bar: hsl(0, 0%, 0%);
+}
+
+/* Popular card rotating border animation */
+@keyframes rotate-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.popular-card-border {
+  background: linear-gradient(45deg, #f59e0b, #f97316, #eab308, #f59e0b);
+  background-size: 300% 300%;
+  animation: rotate-border 3s ease-in-out infinite;
   --gradient-start: hsl(264, 83%, 70%);
   --gradient-end: hsl(219, 100%, 61%);
 }
