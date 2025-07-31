@@ -1978,11 +1978,19 @@ export default function HomeScreen() {
                   <button 
                     key={plan.id}
                     onClick={() => setSelectedEuropaPlan(plan.id)}
-                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
+                    className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl relative ${
                       selectedEuropaPlan === plan.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
                         : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                     }`}>
+                    {/* Popular Badge for 3GB 30 Days plan */}
+                    {plan.id === 4 && (
+                      <div className="absolute -top-2 left-3 z-10">
+                        <div className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                          POPULAR
+                        </div>
+                      </div>
+                    )}
                     <div className="flex items-center">
                       <div className="text-left flex-1">
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.data}</div>
