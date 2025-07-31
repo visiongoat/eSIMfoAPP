@@ -3374,7 +3374,7 @@ export default function HomeScreen() {
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Roaming Support</span>
                     </div>
-                    <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-gray-100">EU Wide</span>
+                    <span className="font-semibold text-xs sm:text-sm text-blue-600 dark:text-blue-400">Yes</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
