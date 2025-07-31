@@ -621,9 +621,9 @@ export default function DestinationsScreen() {
           )}
         </div>
 
-        {/* Modern Pill-Style Tabs - Compact Design */}
-        <div className="px-4 mb-6">
-          <div className="flex gap-1 p-1 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-200/40 dark:border-gray-700/40 max-w-sm mx-auto">
+        {/* Modern Pill-Style Tabs - Exact Match from Home */}
+        <div className="max-w-screen-md mx-auto px-4 -mb-2">
+          <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40">
             {[
               { 
                 id: 'countries', 
@@ -660,7 +660,7 @@ export default function DestinationsScreen() {
               <button
                 key={tab.id}
                 onClick={() => setSelectedTab(tab.id as any)}
-                className={`flex-1 py-2 px-3 rounded-lg font-semibold text-xs transition-all duration-300 transform relative group ${
+                className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 transform relative group ${
                   selectedTab === tab.id
                     ? `${tab.color} text-white shadow-lg shadow-${tab.color.split('-')[1]}-500/30 scale-105`
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-gray-600/80 hover:shadow-md hover:scale-102 active:scale-95'
@@ -693,8 +693,8 @@ export default function DestinationsScreen() {
 
         {/* Enhanced Alphabet Filter (only for countries) */}
         {selectedTab === 'countries' && (
-          <div className="mb-8 mt-4">
-            <div className="flex flex-wrap justify-center gap-2 mb-6 px-4">
+          <div className="mb-8 mt-6">
+            <div className="flex flex-wrap justify-center gap-2 mb-6">
               {alphabetFilterGroups.map((group, index) => (
                 <button
                   key={group.value}
