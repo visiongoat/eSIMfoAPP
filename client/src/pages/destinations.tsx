@@ -714,7 +714,7 @@ export default function DestinationsScreen() {
         )}
 
         {/* Enhanced Content Area */}
-        <div className="px-2 mt-4">
+        <div className="mt-4">
         {isLoading ? (
           <div className="space-y-4">
             {Array.from({ length: 8 }).map((_, index) => (
