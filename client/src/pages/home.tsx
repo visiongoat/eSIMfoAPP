@@ -1983,20 +1983,20 @@ export default function HomeScreen() {
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
                         : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                     }`}>
-                    {/* Popular Badge for 3GB 30 Days plan */}
-                    {plan.id === 4 && (
-                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10">
-                        <div className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-sm">
-                          POPULAR
-                        </div>
-                      </div>
-                    )}
                     <div className="flex items-center">
                       <div className="text-left flex-1">
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.data}</div>
                         <div className="text-gray-600 dark:text-gray-400 text-sm">{plan.duration}</div>
                       </div>
-                      <div className="flex-1 flex flex-col items-start justify-center pl-16">
+                      <div className="flex-1 flex flex-col items-start justify-center pl-16 relative">
+                        {/* Popular Badge for 3GB 30 Days plan */}
+                        {plan.id === 4 && (
+                          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                            <div className="bg-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
+                              POPULAR
+                            </div>
+                          </div>
+                        )}
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">{plan.price}</div>
                         <div className="text-gray-600 dark:text-gray-400 text-xs">{plan.dailyPrice}</div>
                       </div>
