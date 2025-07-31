@@ -3,9 +3,10 @@ import { useHaptic } from "@/hooks/use-haptic";
 
 interface TabBarProps {
   onPlusClick?: () => void;
+  onShopClick?: () => void; // Shop button special handler
 }
 
-export default function TabBar({ onPlusClick }: TabBarProps) {
+export default function TabBar({ onPlusClick, onShopClick }: TabBarProps) {
   const [location, setLocation] = useLocation();
   const { hapticFeedback } = useHaptic();
 
@@ -52,9 +53,15 @@ export default function TabBar({ onPlusClick }: TabBarProps) {
     },
   ];
 
-  const handleTabClick = (path: string) => {
+  const handleTabClick = (path: string, tabId?: string) => {
     hapticFeedback();
-    setLocation(path);
+    
+    // Special handling for shop button
+    if (tabId === 'shop' && onShopClick) {
+      onShopClick();
+    } else {
+      setLocation(path);
+    }
   };
 
   return (
@@ -101,7 +108,7 @@ export default function TabBar({ onPlusClick }: TabBarProps) {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => handleTabClick(tab.path)}
+                  onClick={() => handleTabClick(tab.path, tab.id)}
                   className={`flex-1 flex flex-col items-center py-1.5 px-2 transition-all duration-300 transform relative group rounded-xl ${
                     isActive 
                       ? 'scale-105' 
@@ -147,7 +154,7 @@ export default function TabBar({ onPlusClick }: TabBarProps) {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => handleTabClick(tab.path)}
+                  onClick={() => handleTabClick(tab.path, tab.id)}
                   className={`flex-1 flex flex-col items-center py-1.5 px-2 transition-all duration-300 transform relative group rounded-xl ${
                     isActive 
                       ? 'scale-105' 

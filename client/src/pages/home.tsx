@@ -3006,7 +3006,15 @@ export default function HomeScreen() {
         </button>
       </div>
 
-      <TabBar onPlusClick={() => setShowQuickActions(true)} />
+      <TabBar 
+        onPlusClick={() => setShowQuickActions(true)}
+        onShopClick={() => {
+          // If we're in global or regional tab, switch to local tab
+          if (selectedTab === 'global' || selectedTab === 'regional') {
+            setSelectedTab('local');
+          }
+        }}
+      />
 
       {/* Checkout Modal */}
       {showCheckoutModal && (
