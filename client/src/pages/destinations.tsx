@@ -693,7 +693,7 @@ export default function DestinationsScreen() {
 
         {/* Enhanced Alphabet Filter (only for countries) */}
         {selectedTab === 'countries' && (
-          <div className="mb-8 mt-8">
+          <div className="mb-4 mt-8">
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               {alphabetFilterGroups.map((group, index) => (
                 <button
