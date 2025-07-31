@@ -274,3 +274,13 @@ The application is designed to be deployed as a single Node.js application servi
 - **Multi-eSIM status panel**: Gradient background panel for users with 2+ active eSIMs showing auto-switching capabilities
 - **English consistency**: All labels maintained in English for professional mobile app feel
 - **Design-first approach**: Static demo data (Turkey flag, Istanbul Travel package) for visual design validation
+
+### Critical "How Does eSIMfo Work?" Modal Scroll Fix (January 31, 2025)
+- **Persistent scroll issue resolution**: Multiple attempts to fix modal causing page scroll to top when opened
+- **Button element replacement**: Changed from HTML button to div element to eliminate native button behaviors
+- **Event handling optimization**: Added preventDefault and stopPropagation to prevent default actions
+- **Comprehensive scroll locking**: Implemented aggressive scroll event blocking (scroll, touchmove, wheel) with passive: false
+- **State-based scroll restoration**: Store and restore exact scroll position when modal closes
+- **Accessibility preservation**: Maintained role="button" and tabIndex for keyboard navigation
+- **React SyntheticEvent compatibility**: Removed stopImmediatePropagation (not available in React events)
+- **Final solution confirmed**: User confirmed scroll position now maintained when modal opens/closes
