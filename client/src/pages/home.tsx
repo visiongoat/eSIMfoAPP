@@ -3232,7 +3232,7 @@ export default function HomeScreen() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Technical Specifications</h3>
-                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Network & Compatibility Details</p>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Europe eSIM Plan Details</p>
               </div>
               <button
                 onClick={() => setShowEuropePlanInfoModal(false)}
@@ -3251,7 +3251,7 @@ export default function HomeScreen() {
                   <svg className="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                   </svg>
-                  Technical Specifications
+                  Network & Plan Information
                 </h4>
                 
                 <div className="grid gap-2 sm:gap-3">
