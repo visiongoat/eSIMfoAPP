@@ -156,28 +156,32 @@
 }
 
 /* Popular card rotating border animation */
-@keyframes border-spin {
+@keyframes border-rotate {
   0% {
-    border-image: linear-gradient(0deg, #f59e0b, transparent, transparent, transparent) 1;
+    background: conic-gradient(from 0deg, #f59e0b 0deg 90deg, transparent 90deg 360deg);
   }
   25% {
-    border-image: linear-gradient(90deg, transparent, #f59e0b, transparent, transparent) 1;
+    background: conic-gradient(from 90deg, #f59e0b 0deg 90deg, transparent 90deg 360deg);
   }
   50% {
-    border-image: linear-gradient(180deg, transparent, transparent, #f59e0b, transparent) 1;
+    background: conic-gradient(from 180deg, #f59e0b 0deg 90deg, transparent 90deg 360deg);
   }
   75% {
-    border-image: linear-gradient(270deg, transparent, transparent, transparent, #f59e0b) 1;
+    background: conic-gradient(from 270deg, #f59e0b 0deg 90deg, transparent 90deg 360deg);
   }
   100% {
-    border-image: linear-gradient(360deg, #f59e0b, transparent, transparent, transparent) 1;
+    background: conic-gradient(from 360deg, #f59e0b 0deg 90deg, transparent 90deg 360deg);
   }
 }
 
-.popular-rotating-border {
-  animation: border-spin 2s linear infinite;
-  --gradient-start: hsl(264, 83%, 70%);
-  --gradient-end: hsl(219, 100%, 61%);
+.popular-rotating-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from 0deg, #f59e0b 0deg 90deg, transparent 90deg 360deg);
+  border-radius: inherit;
+  animation: border-rotate 2s linear infinite;
+  z-index: -1;
 }
 
 .dark {
