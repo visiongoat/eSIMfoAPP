@@ -3039,7 +3039,7 @@ export default function HomeScreen() {
                           <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{coverage.country}</h4>
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded-full">
-                          {coverage.operators.length} ops
+                          {coverage.operators.length} operators
                         </span>
                       </div>
 
