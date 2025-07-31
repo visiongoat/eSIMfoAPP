@@ -42,6 +42,19 @@ export default function DestinationsScreen() {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  
+  // Smart search states (from home page)
+  const [smartSearchResults, setSmartSearchResults] = useState<{
+    localCountry: Country | null;
+    regionalPackages: any[] | null;
+    globalPackages: any[] | null;
+    coverageType: 'europa' | 'global' | 'none';
+  }>({
+    localCountry: null,
+    regionalPackages: null,
+    globalPackages: null,
+    coverageType: 'none'
+  });
   const [isScrolled, setIsScrolled] = useState(false);
   const searchBarRef = useRef<HTMLDivElement>(null);
 
@@ -178,8 +191,91 @@ export default function DestinationsScreen() {
     staleTime: 5 * 60 * 1000,
   });
 
+  // Smart search data (copied from home page)
+  const europaCoverageCountries = [
+    'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic', 
+    'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 
+    'Hungary', 'Iceland', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 
+    'Luxembourg', 'Malta', 'Netherlands', 'Norway', 'Poland', 'Portugal', 
+    'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland'
+  ];
+
+  const europaPlans = [
+    { id: 1, data: '500 MB', duration: 3, price: '€4.99' },
+    { id: 2, data: '1 GB', duration: 7, price: '€7.99' },
+    { id: 3, data: '3 GB', duration: 15, price: '€14.99' },
+    { id: 4, data: '5 GB', duration: 30, price: '€24.99' }
+  ];
+
+  const globalDataPlans = [
+    { id: 1, data: '1 GB', duration: 7, price: '€12.99' },
+    { id: 2, data: '3 GB', duration: 15, price: '€29.99' },
+    { id: 3, data: '5 GB', duration: 30, price: '€49.99' },
+    { id: 4, data: '10 GB', duration: 30, price: '€89.99' }
+  ];
+
   const handleCountrySelect = (country: Country) => {
     setLocation(`/packages/${country.id}`);
+  };
+
+  // Smart search function (from home page)
+  const performSmartSearch = (query: string) => {
+    if (!query.trim()) {
+      setSmartSearchResults({
+        localCountry: null,
+        regionalPackages: null,
+        globalPackages: null,
+        coverageType: 'none'
+      });
+      return;
+    }
+
+    const searchTerm = query.toLowerCase().trim();
+    
+    // Find matching local country
+    const matchingCountry = countries.find(country => 
+      country.name.toLowerCase().includes(searchTerm)
+    );
+
+    // Check if country is in Europa coverage
+    const isInEuropa = europaCoverageCountries.some(europaCountry => 
+      europaCountry.toLowerCase().includes(searchTerm) || 
+      searchTerm.includes(europaCountry.toLowerCase())
+    );
+
+    // For global, assume any country not specifically in Europa is global
+    const isInGlobal = !isInEuropa && matchingCountry;
+
+    let coverageType: 'europa' | 'global' | 'none' = 'none';
+    let regionalPackages = null;
+    let globalPackages = null;
+
+    if (isInEuropa) {
+      coverageType = 'europa';
+      regionalPackages = europaPlans;
+    } else if (isInGlobal) {
+      coverageType = 'global';
+      globalPackages = globalDataPlans;
+    }
+
+    setSmartSearchResults({
+      localCountry: matchingCountry || null,
+      regionalPackages,
+      globalPackages,
+      coverageType
+    });
+  };
+
+  // Handle search input changes with smart search
+  const handleSmartSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setShowSearchResults(query.length > 0);
+    
+    // Debounce smart search
+    setTimeout(() => {
+      performSmartSearch(query);
+    }, 300);
   };
 
   // Clear search and reset states
@@ -409,10 +505,7 @@ export default function DestinationsScreen() {
               type="text"
               placeholder={placeholderText || "Search destinations..."}
               value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setShowSearchResults(e.target.value.length > 0);
-              }}
+              onChange={handleSmartSearchChange}
               onFocus={() => {
                 setShowSearchResults(searchQuery.length > 0);
               }}
