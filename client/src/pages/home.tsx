@@ -1982,7 +1982,7 @@ export default function HomeScreen() {
                       selectedEuropaPlan === plan.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
                         : plan.id === 4 
-                          ? 'border-amber-300 dark:border-amber-600 bg-gradient-to-r from-amber-50 via-yellow-50 to-transparent dark:from-amber-900/20 dark:via-yellow-900/20 dark:to-transparent hover:border-amber-400 dark:hover:border-amber-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px] popular-rotating-border'
+                          ? 'border-amber-300 dark:border-amber-600 bg-gray-100 dark:bg-gray-800/50 hover:border-amber-400 dark:hover:border-amber-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px] popular-rotating-border'
                           : 'border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 hover:scale-[1.01] hover:transform hover:translate-y-[-3px]'
                     }`}>
                     <div className="flex items-center">
