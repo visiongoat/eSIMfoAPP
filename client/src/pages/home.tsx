@@ -2768,7 +2768,6 @@ export default function HomeScreen() {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            e.stopImmediatePropagation();
             const currentScrollY = window.scrollY;
             setHowItWorksScrollY(currentScrollY);
             setShowHowItWorks(true);
