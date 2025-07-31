@@ -155,7 +155,20 @@
   --status-bar: hsl(0, 0%, 0%);
 }
 
+/* Popular card moving border animation */
+@keyframes border-dance {
+  0% {
+    border-image-source: linear-gradient(90deg, #f59e0b 0%, #f59e0b 25%, transparent 25%, transparent 50%, #f59e0b 50%, #f59e0b 75%, transparent 75%, transparent 100%);
+  }
+  100% {
+    border-image-source: linear-gradient(90deg, transparent 0%, transparent 25%, #f59e0b 25%, #f59e0b 50%, transparent 50%, transparent 75%, #f59e0b 75%, #f59e0b 100%);
+  }
+}
 
+.popular-moving-border {
+  border-image: linear-gradient(90deg, #f59e0b 25%, transparent 25%, transparent 50%, #f59e0b 50%, #f59e0b 75%, transparent 75%) 1;
+  animation: border-dance 2s linear infinite;
+}
 
 .dark {
   --background: hsl(240, 10%, 3.9%);
