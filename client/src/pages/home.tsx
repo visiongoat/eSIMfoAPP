@@ -14,6 +14,7 @@ import oceaniaIcon from "@assets/oceaniacontinentmap.png";
 import locationPinIcon from "@assets/locationpin.png";
 import qrScanIcon from "@assets/qrscan.png";
 import signalEsimIcon from "@assets/signalesim.png";
+import europeCoverageIcon from "@assets/europecoverage.png";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
@@ -3335,7 +3336,7 @@ export default function HomeScreen() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <img src="/attached_assets/europecoverage.png" alt="Europe Coverage" className="w-8 h-8" />
+                        <img src={europeCoverageIcon} alt="Europe Coverage" className="w-8 h-8" />
                       </div>
                       <div>
                         <div className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Europe Coverage</div>
