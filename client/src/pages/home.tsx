@@ -34,6 +34,12 @@ export default function HomeScreen() {
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
   const [showCountriesModal, setShowCountriesModal] = useState(false);
   const [showGlobalCoverageModal, setShowGlobalCoverageModal] = useState(false);
+
+  // Touch/swipe states for global coverage modal dismissal
+  const [globalCoverageModalStartY, setGlobalCoverageModalStartY] = useState<number>(0);
+  const [globalCoverageModalCurrentY, setGlobalCoverageModalCurrentY] = useState<number>(0);
+  const [isGlobalCoverageModalDragging, setIsGlobalCoverageModalDragging] = useState<boolean>(false);
+  const globalCoverageModalRef = useRef<HTMLDivElement>(null);
   const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number | null>(null); // No default selection
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [esimCount, setEsimCount] = useState(1);
@@ -575,6 +581,35 @@ export default function HomeScreen() {
     }
   }, [showCountriesModal]);
 
+  // Prevent body scroll when global coverage modal is open
+  useEffect(() => {
+    if (showGlobalCoverageModal) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollY}px`;
+      
+      // Cleanup function to restore scroll position
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+  }, [showGlobalCoverageModal]);
+
   // Prevent body scroll when plan info modal is open
   useEffect(() => {
     if (showPlanInfoModal) {
@@ -860,6 +895,58 @@ export default function HomeScreen() {
     setIsCompatibilityDragging(false);
     setCompatibilityStartY(0);
     setCompatibilityCurrentY(0);
+  };
+
+  // Touch event handlers for global coverage modal swipe-down dismissal
+  const handleGlobalCoverageModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setGlobalCoverageModalStartY(touch.clientY);
+    setGlobalCoverageModalCurrentY(touch.clientY);
+    setIsGlobalCoverageModalDragging(true);
+  };
+
+  const handleGlobalCoverageModalTouchMove = (e: React.TouchEvent) => {
+    if (!isGlobalCoverageModalDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - globalCoverageModalStartY;
+    
+    setGlobalCoverageModalCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY)
+    if (deltaY > 0) {
+      e.preventDefault();
+      
+      if (globalCoverageModalRef.current) {
+        globalCoverageModalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        globalCoverageModalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
+    }
+  };
+
+  const handleGlobalCoverageModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isGlobalCoverageModalDragging) return;
+    
+    const deltaY = globalCoverageModalCurrentY - globalCoverageModalStartY;
+    
+    // If swiped down more than 80px, close modal
+    if (deltaY > 80 && globalCoverageModalRef.current) {
+      // Animate out
+      globalCoverageModalRef.current.style.transform = 'translateY(100%)';
+      globalCoverageModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowGlobalCoverageModal(false);
+        setSearchQuery('');
+      }, 200);
+    } else if (globalCoverageModalRef.current) {
+      // Snap back to original position
+      globalCoverageModalRef.current.style.transform = 'translateY(0)';
+      globalCoverageModalRef.current.style.opacity = '1';
+    }
+    
+    setIsGlobalCoverageModalDragging(false);
+    setGlobalCoverageModalStartY(0);
+    setGlobalCoverageModalCurrentY(0);
   };
 
   // Touch event handlers for Europe plan info modal swipe-down dismissal
@@ -3230,7 +3317,11 @@ export default function HomeScreen() {
           }}
         >
           <div 
+            ref={globalCoverageModalRef}
             className="bg-white dark:bg-gray-900 rounded-t-3xl w-full px-4 py-5 animate-slide-up transition-all duration-200 select-none modal-fixed-height flex flex-col"
+            onTouchStart={handleGlobalCoverageModalTouchStart}
+            onTouchMove={handleGlobalCoverageModalTouchMove}
+            onTouchEnd={handleGlobalCoverageModalTouchEnd}
             style={{ 
               touchAction: 'manipulation',
               userSelect: 'none',
