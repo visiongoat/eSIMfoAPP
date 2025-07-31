@@ -3262,7 +3262,7 @@ export default function HomeScreen() {
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
                     </div>
-                    <span className="font-semibold text-sm sm:text-base text-blue-600 dark:text-blue-400">5G/LTE/3G</span>
+                    <span className="font-semibold text-xs sm:text-sm text-blue-600 dark:text-blue-400">5G/LTE/3G</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -3272,7 +3272,7 @@ export default function HomeScreen() {
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Activation Method</span>
                     </div>
-                    <span className="font-semibold text-sm sm:text-base text-green-600 dark:text-green-400">QR Code Scan</span>
+                    <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">QR Code Scan</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -3282,7 +3282,7 @@ export default function HomeScreen() {
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">eKYC Verification</span>
                     </div>
-                    <span className="font-semibold text-sm sm:text-base text-orange-600 dark:text-orange-400">Not Required</span>
+                    <span className="font-semibold text-xs sm:text-sm text-orange-600 dark:text-orange-400">Not Required</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -3292,7 +3292,7 @@ export default function HomeScreen() {
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Roaming Support</span>
                     </div>
-                    <span className="font-semibold text-sm sm:text-base text-purple-600 dark:text-purple-400">EU Wide</span>
+                    <span className="font-semibold text-xs sm:text-sm text-purple-600 dark:text-purple-400">EU Wide</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -3302,7 +3302,7 @@ export default function HomeScreen() {
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Protocol Support</span>
                     </div>
-                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">IPv4/IPv6</span>
+                    <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">IPv4/IPv6</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -3312,7 +3312,7 @@ export default function HomeScreen() {
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Plan Category</span>
                     </div>
-                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">Data Only</span>
+                    <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">Data Only</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -3322,7 +3322,7 @@ export default function HomeScreen() {
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">TOP-UP Option</span>
                     </div>
-                    <span className="font-semibold text-sm sm:text-base text-blue-600 dark:text-blue-400">Available</span>
+                    <span className="font-semibold text-xs sm:text-sm text-blue-600 dark:text-blue-400">Available</span>
                   </div>
                 </div>
               </div>
