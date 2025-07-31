@@ -3265,8 +3265,8 @@ export default function HomeScreen() {
                 <div className="grid gap-2 sm:gap-3">
                   <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center space-x-2 sm:space-x-3">
-                      <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 1.5-5 1.5-5 .5 1.5 1 3 2.5 2s2.5-1.5 2.5-1.5c0 2.5-2.5 4-5 4 2 2 5 2 5 2a8 8 0 01-2.343 1.657z" />
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 717.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
                     </div>
