@@ -155,34 +155,7 @@
   --status-bar: hsl(0, 0%, 0%);
 }
 
-/* Popular card rotating border animation */
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
-.popular-rotating-border::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  background: conic-gradient(from 0deg, #f59e0b, transparent, transparent, transparent, #f59e0b);
-  border-radius: 12px;
-  animation: rotate 2s linear infinite;
-  z-index: -1;
-}
-
-.popular-rotating-border::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: inherit;
-  border-radius: inherit;
-  z-index: 1;
-}
 
 .dark {
   --background: hsl(240, 10%, 3.9%);
