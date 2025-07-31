@@ -693,7 +693,7 @@ export default function DestinationsScreen() {
 
         {/* Enhanced Alphabet Filter (only for countries) */}
         {selectedTab === 'countries' && (
-          <div className="mb-8 mt-6">
+          <div className="mb-8 mt-6 max-w-screen-md mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               {alphabetFilterGroups.map((group, index) => (
                 <button
@@ -714,6 +714,7 @@ export default function DestinationsScreen() {
         )}
 
         {/* Enhanced Content Area */}
+        <div className="max-w-screen-md mx-auto px-4">
         {isLoading ? (
           <div className="space-y-4">
             {Array.from({ length: 8 }).map((_, index) => (
@@ -945,6 +946,7 @@ export default function DestinationsScreen() {
             )}
           </div>
         )}
+        </div>
       </div>
 
       <TabBar onPlusClick={() => setShowQuickActions(true)} />
