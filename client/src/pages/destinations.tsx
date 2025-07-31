@@ -1630,11 +1630,22 @@ export default function DestinationsScreen() {
           <div 
             ref={coverageModalRef}
             className="bg-white dark:bg-gray-900 rounded-t-3xl w-full px-4 py-5 animate-slide-up transition-all duration-200 select-none modal-fixed-height flex flex-col"
-            onTouchStart={handleCoverageModalTouchStart}
-            onTouchMove={handleCoverageModalTouchMove}
-            onTouchEnd={handleCoverageModalTouchEnd}
+            onTouchStart={(e) => {
+              handleCoverageModalTouchStart(e);
+              document.body.style.overflow = 'hidden';
+              e.stopPropagation();
+            }}
+            onTouchMove={(e) => {
+              handleCoverageModalTouchMove(e);
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            onTouchEnd={(e) => {
+              handleCoverageModalTouchEnd(e);
+              e.stopPropagation();
+            }}
             style={{ 
-              touchAction: 'manipulation',
+              touchAction: 'none',
               userSelect: 'none',
               WebkitUserSelect: 'none',
               WebkitTouchCallout: 'none'
@@ -1696,7 +1707,22 @@ export default function DestinationsScreen() {
             </div>
 
             {/* Compact Countries Grid */}
-            <div ref={scrollableContentRef} className="flex-1 overflow-y-auto">
+            <div 
+              ref={scrollableContentRef} 
+              className="flex-1 overflow-y-auto"
+              onTouchStart={(e) => {
+                // Allow scrolling within modal content but prevent propagation to background
+                e.stopPropagation();
+              }}
+              onTouchMove={(e) => {
+                // Allow scrolling within modal content but prevent propagation to background
+                e.stopPropagation();
+              }}
+              style={{ 
+                touchAction: 'pan-y',
+                overscrollBehavior: 'contain'
+              }}
+            >
               {filteredEuropeanCoverage.length === 0 ? (
                 <div className="text-center py-8">
                   <svg className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
