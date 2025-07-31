@@ -2726,7 +2726,10 @@ export default function HomeScreen() {
       {/* How Does eSIMfo Work - Compact Button */}
       <div className="max-w-screen-md mx-auto px-4 pb-2 pt-1">
         <button 
-          onClick={() => setShowHowItWorks(true)}
+          onClick={(e) => {
+            e.preventDefault();
+            setShowHowItWorks(true);
+          }}
           className="w-full bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200 text-left"
         >
           <div className="flex items-center justify-between">
