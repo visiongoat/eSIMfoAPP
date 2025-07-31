@@ -33,7 +33,7 @@ export default function HomeScreen() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
   const [showCountriesModal, setShowCountriesModal] = useState(false);
-  const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number>(1); // Default to first plan
+  const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number | null>(null); // No default selection
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [esimCount, setEsimCount] = useState(1);
   
@@ -2100,6 +2100,7 @@ export default function HomeScreen() {
                     e.stopPropagation();
                     console.log('Europa clicked, setting continent to europa');
                     setSelectedContinent('europa');
+                    setSelectedEuropaPlan(null); // Reset plan selection
                   }}
                   className="continent-card continent-europa rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-0 touch-feedback cursor-pointer hover:shadow-md transition-shadow duration-200 w-full text-left"
                 >
