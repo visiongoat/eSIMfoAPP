@@ -3317,21 +3317,7 @@ export default function HomeScreen() {
                 </div>
               </div>
 
-              {/* Other Information Section */}
-              <div>
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
-                  <svg className="w-4 h-4 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Other Information
-                </h4>
-                
-                <div className="p-3 bg-orange-50 dark:bg-orange-900/10 rounded-lg border border-orange-100 dark:border-orange-800/30">
-                  <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-400">
-                    EU number, 90-day usage limit. Premium network partners across all European countries.
-                  </p>
-                </div>
-              </div>
+
 
               {/* Countries Coverage Info - Europe Specific */}
               <div className="mt-4 sm:mt-6">
