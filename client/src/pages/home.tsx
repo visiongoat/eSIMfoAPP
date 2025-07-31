@@ -3255,17 +3255,17 @@ export default function HomeScreen() {
                 </h4>
                 
                 <div className="grid gap-2 sm:gap-3">
-                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-blue-50 dark:bg-blue-900/10 rounded-lg">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center space-x-2 sm:space-x-3">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 717.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
                       </svg>
                       <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
                     </div>
                     <span className="font-semibold text-sm sm:text-base text-blue-600 dark:text-blue-400">5G/LTE/3G</span>
                   </div>
                   
-                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-green-50 dark:bg-green-900/10 rounded-lg">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center space-x-2 sm:space-x-3">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -3275,7 +3275,7 @@ export default function HomeScreen() {
                     <span className="font-semibold text-sm sm:text-base text-green-600 dark:text-green-400">QR Code Scan</span>
                   </div>
                   
-                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-orange-50 dark:bg-orange-900/10 rounded-lg">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center space-x-2 sm:space-x-3">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -3285,7 +3285,7 @@ export default function HomeScreen() {
                     <span className="font-semibold text-sm sm:text-base text-orange-600 dark:text-orange-400">Not Required</span>
                   </div>
                   
-                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-purple-50 dark:bg-purple-900/10 rounded-lg">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center space-x-2 sm:space-x-3">
                       <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
