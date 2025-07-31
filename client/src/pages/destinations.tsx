@@ -1030,7 +1030,7 @@ export default function DestinationsScreen() {
         </div>
       </div>
 
-      <TabBar onPlusClick={() => setShowQuickActions(true)} />
+
 
       {/* Quick Actions Modal - Same as Home */}
       {showQuickActions && (
