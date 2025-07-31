@@ -41,6 +41,7 @@ export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const scrollableContentRef = useRef<HTMLDivElement>(null);
   const [showPlanInfoModal, setShowPlanInfoModal] = useState(false);
+  const [showEuropePlanInfoModal, setShowEuropePlanInfoModal] = useState(false);
   const planInfoModalRef = useRef<HTMLDivElement>(null);
 
   // Europa plan data
@@ -1867,7 +1868,7 @@ export default function HomeScreen() {
                       </div>
                       
                       <button 
-                        onClick={() => setShowPlanInfoModal(true)}
+                        onClick={() => setShowEuropePlanInfoModal(true)}
                         className="flex items-center space-x-1.5 px-4 py-2 bg-white dark:bg-gray-900 rounded-full shadow-sm hover:shadow-md transition-all duration-200 active:scale-95 border border-gray-200 dark:border-gray-600"
                       >
                         <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
@@ -3193,6 +3194,162 @@ export default function HomeScreen() {
                     </div>
                     <div className="text-right">
                       <div className="font-bold text-lg text-blue-600 dark:text-blue-400">137</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Countries</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Europe Plan Information Modal */}
+      {showEuropePlanInfoModal && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowEuropePlanInfoModal(false);
+            }
+          }}
+        >
+          <div 
+            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-4 sm:p-6 space-y-4 sm:space-y-6 animate-slide-up transition-all duration-200 select-none"
+            style={{ 
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
+            }}
+          >
+            {/* Swipe Handle */}
+            <div className="flex justify-center pt-0 pb-2">
+              <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            </div>
+
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Technical Specifications</h3>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Network & Compatibility Details</p>
+              </div>
+              <button
+                onClick={() => setShowEuropePlanInfoModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="space-y-4 sm:space-y-6">
+              {/* Technical Specifications Section */}
+              <div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                  <svg className="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                  Technical Specifications
+                </h4>
+                
+                <div className="grid gap-2 sm:gap-3">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-blue-50 dark:bg-blue-900/10 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
+                    </div>
+                    <span className="font-semibold text-sm sm:text-base text-blue-600 dark:text-blue-400">5G/LTE/3G</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-green-50 dark:bg-green-900/10 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Activation Method</span>
+                    </div>
+                    <span className="font-semibold text-sm sm:text-base text-green-600 dark:text-green-400">QR Code Scan</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-orange-50 dark:bg-orange-900/10 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">eKYC Verification</span>
+                    </div>
+                    <span className="font-semibold text-sm sm:text-base text-orange-600 dark:text-orange-400">Not Required</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-purple-50 dark:bg-purple-900/10 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Roaming Support</span>
+                    </div>
+                    <span className="font-semibold text-sm sm:text-base text-purple-600 dark:text-purple-400">EU Wide</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Protocol Support</span>
+                    </div>
+                    <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">IPv4/IPv6</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">TOP-UP Option</span>
+                    </div>
+                    <span className="font-semibold text-sm sm:text-base text-blue-600 dark:text-blue-400">Available</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Other Information Section */}
+              <div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                  <svg className="w-4 h-4 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Other Information
+                </h4>
+                
+                <div className="p-3 bg-orange-50 dark:bg-orange-900/10 rounded-lg border border-orange-100 dark:border-orange-800/30">
+                  <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-400">
+                    EU number, 90-day usage limit. Premium network partners across all European countries.
+                  </p>
+                </div>
+              </div>
+
+              {/* Countries Coverage Info - Europe Specific */}
+              <div className="mt-4 sm:mt-6">
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 rounded-xl p-4 border border-blue-100 dark:border-blue-800/30">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Europa Coverage</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">Available across Europe</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-lg text-blue-600 dark:text-blue-400">36</div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">Countries</div>
                     </div>
                   </div>
