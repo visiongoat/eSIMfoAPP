@@ -25,6 +25,279 @@ export default function DestinationsScreen() {
   const [showEuropePlanInfoModal, setShowEuropePlanInfoModal] = useState(false);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   
+  // Modal refs and touch handlers for swipe-down dismissal
+  const coverageModalRef = useRef<HTMLDivElement>(null);
+  const europePlanInfoModalRef = useRef<HTMLDivElement>(null);
+  const scrollableContentRef = useRef<HTMLDivElement>(null);
+  
+  // Touch/swipe states for modal dismissal
+  const [modalStartY, setModalStartY] = useState<number>(0);
+  const [modalCurrentY, setModalCurrentY] = useState<number>(0);
+  const [isModalDragging, setIsModalDragging] = useState<boolean>(false);
+  const [europePlanModalStartY, setEuropePlanModalStartY] = useState<number>(0);
+  const [europePlanModalCurrentY, setEuropePlanModalCurrentY] = useState<number>(0);
+  const [isEuropePlanModalDragging, setIsEuropePlanModalDragging] = useState<boolean>(false);
+  
+  // European countries with operators and network types
+  const europeanCoverage = [
+    {
+      country: 'Austria',
+      flag: 'https://flagcdn.com/w40/at.png',
+      operators: [
+        { name: 'A1', networks: ['LTE', '5G'] },
+        { name: 'T-Mobile', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Belgium',
+      flag: 'https://flagcdn.com/w40/be.png',
+      operators: [
+        { name: 'Base', networks: ['LTE', '5G'] },
+        { name: 'Orange', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Bulgaria',
+      flag: 'https://flagcdn.com/w40/bg.png',
+      operators: [
+        { name: 'Vivacom', networks: ['LTE', '5G'] },
+        { name: 'Telenor', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Croatia',
+      flag: 'https://flagcdn.com/w40/hr.png',
+      operators: [
+        { name: 'Tele2', networks: ['LTE', '5G'] },
+        { name: 'T-Mobile', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Cyprus',
+      flag: 'https://flagcdn.com/w40/cy.png',
+      operators: [
+        { name: 'Epic', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Czech Republic',
+      flag: 'https://flagcdn.com/w40/cz.png',
+      operators: [
+        { name: 'TMobile', networks: ['LTE', '5G'] },
+        { name: 'O2', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Denmark',
+      flag: 'https://flagcdn.com/w40/dk.png',
+      operators: [
+        { name: 'TDC/nuuday', networks: ['LTE', '5G'] },
+        { name: 'Telenor', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Estonia',
+      flag: 'https://flagcdn.com/w40/ee.png',
+      operators: [
+        { name: 'Elisa', networks: ['LTE', '5G'] },
+        { name: 'Tele2', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Finland',
+      flag: 'https://flagcdn.com/w40/fi.png',
+      operators: [
+        { name: 'Alcom', networks: ['LTE', '5G'] },
+        { name: 'Elisa', networks: ['LTE', '5G'] },
+        { name: 'DNA', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'France',
+      flag: 'https://flagcdn.com/w40/fr.png',
+      operators: [
+        { name: 'Bouygues/DigiCel', networks: ['3G', 'LTE'] },
+        { name: 'Bouygues', networks: ['LTE', '5G'] },
+        { name: 'Orange', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Germany',
+      flag: 'https://flagcdn.com/w40/de.png',
+      operators: [
+        { name: 'O2', networks: ['LTE', '5G'] },
+        { name: 'TMobile', networks: ['LTE', '5G'] },
+        { name: 'Vodafone', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Greece',
+      flag: 'https://flagcdn.com/w40/gr.png',
+      operators: [
+        { name: 'Wind', networks: ['LTE', '5G'] },
+        { name: 'Cosmote', networks: ['LTE', '5G'] },
+        { name: 'Vodafone', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Hungary',
+      flag: 'https://flagcdn.com/w40/hu.png',
+      operators: [
+        { name: 'Telenor', networks: ['LTE', '5G'] },
+        { name: 'T-Mobile', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Iceland',
+      flag: 'https://flagcdn.com/w40/is.png',
+      operators: [
+        { name: 'Fjarskipti(VF)', networks: ['LTE', '5G'] },
+        { name: 'Nova', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Ireland',
+      flag: 'https://flagcdn.com/w40/ie.png',
+      operators: [
+        { name: 'Meteor', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Italy',
+      flag: 'https://flagcdn.com/w40/it.png',
+      operators: [
+        { name: 'Wind Italy', networks: ['LTE', '5G'] },
+        { name: 'Vodafone', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Latvia',
+      flag: 'https://flagcdn.com/w40/lv.png',
+      operators: [
+        { name: 'Bite', networks: ['LTE', '5G'] },
+        { name: 'Tele2', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Lithuania',
+      flag: 'https://flagcdn.com/w40/lt.png',
+      operators: [
+        { name: 'Bite', networks: ['LTE', '5G'] },
+        { name: 'Tele2', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Luxembourg',
+      flag: 'https://flagcdn.com/w40/lu.png',
+      operators: [
+        { name: 'Orange', networks: ['LTE', '5G'] },
+        { name: 'Tango', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Malta',
+      flag: 'https://flagcdn.com/w40/mt.png',
+      operators: [
+        { name: 'Vodafone', networks: ['LTE', '5G'] },
+        { name: 'Melita', networks: ['LTE', '5G'] },
+        { name: 'GO', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Netherlands',
+      flag: 'https://flagcdn.com/w40/nl.png',
+      operators: [
+        { name: 'KPN', networks: ['LTE', '5G'] },
+        { name: 'Vodafone', networks: ['LTE', '5G'] },
+        { name: 'Odido', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Norway',
+      flag: 'https://flagcdn.com/w40/no.png',
+      operators: [
+        { name: 'Telenor', networks: ['LTE', '5G'] },
+        { name: 'Telia', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Poland',
+      flag: 'https://flagcdn.com/w40/pl.png',
+      operators: [
+        { name: 'Plus', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Portugal',
+      flag: 'https://flagcdn.com/w40/pt.png',
+      operators: [
+        { name: 'Optimus', networks: ['LTE', '5G'] },
+        { name: 'Vodafone', networks: ['LTE', '5G'] },
+        { name: 'TMN', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Romania',
+      flag: 'https://flagcdn.com/w40/ro.png',
+      operators: [
+        { name: 'Orange', networks: ['LTE', '5G'] },
+        { name: 'DIGI', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Slovakia',
+      flag: 'https://flagcdn.com/w40/sk.png',
+      operators: [
+        { name: 'O2', networks: ['LTE', '5G'] },
+        { name: 'SlovakTelekom (DT)', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Slovenia',
+      flag: 'https://flagcdn.com/w40/si.png',
+      operators: [
+        { name: 'Telemach', networks: ['LTE', '5G'] },
+        { name: 'A1', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Spain',
+      flag: 'https://flagcdn.com/w40/es.png',
+      operators: [
+        { name: 'Movistar', networks: ['LTE', '5G'] },
+        { name: 'Orange', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Sweden',
+      flag: 'https://flagcdn.com/w40/se.png',
+      operators: [
+        { name: 'Telenor(Vodafone)', networks: ['LTE', '5G'] },
+        { name: '3', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'Switzerland',
+      flag: 'https://flagcdn.com/w40/ch.png',
+      operators: [
+        { name: 'Salt', networks: ['LTE', '5G'] },
+        { name: 'Sunrise', networks: ['LTE', '5G'] }
+      ]
+    },
+    {
+      country: 'United Kingdom',
+      flag: 'https://flagcdn.com/w40/gb.png',
+      operators: [
+        { name: 'Sure Guernsey', networks: ['3G', 'LTE'] },
+        { name: 'Manx Telecom', networks: ['3G', 'LTE'] },
+        { name: 'O2', networks: ['LTE', '5G'] },
+        { name: 'EE', networks: ['LTE', '5G'] },
+        { name: 'Vodafone', networks: ['LTE', '5G'] },
+        { name: 'H3G', networks: ['LTE', '5G'] }
+      ]
+    }
+  ];
+
   // Europa plans data from home page (11 plans)
   const europaPlans = [
     { id: 1, duration: '3 Days', data: '500 MB', price: '€4.99', dailyPrice: '€1.66 /day' },
@@ -67,6 +340,106 @@ export default function DestinationsScreen() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<any>(null);
   
+  // Filter European coverage based on search query
+  const filteredEuropeanCoverage = europeanCoverage.filter(coverage =>
+    coverage.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    coverage.operators.some(operator => 
+      operator.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      operator.networks.some(network => 
+        network.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    )
+  );
+
+  // Touch event handlers for coverage modal swipe-down dismissal
+  const handleCoverageModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setModalStartY(touch.clientY);
+    setModalCurrentY(touch.clientY);
+    setIsModalDragging(true);
+  };
+
+  const handleCoverageModalTouchMove = (e: React.TouchEvent) => {
+    if (!isModalDragging) return;
+    
+    const touch = e.touches[0];
+    setModalCurrentY(touch.clientY);
+    
+    const deltaY = touch.clientY - modalStartY;
+    
+    if (deltaY > 0 && coverageModalRef.current) {
+      const opacity = Math.max(1 - deltaY / 300, 0.3);
+      coverageModalRef.current.style.transform = `translateY(${deltaY}px)`;
+      coverageModalRef.current.style.opacity = `${opacity}`;
+    }
+  };
+
+  const handleCoverageModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isModalDragging) return;
+    
+    const deltaY = modalCurrentY - modalStartY;
+    
+    if (deltaY > 80 && coverageModalRef.current) {
+      coverageModalRef.current.style.transform = 'translateY(100%)';
+      coverageModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowCountriesModal(false);
+        setSearchQuery('');
+      }, 200);
+    } else if (coverageModalRef.current) {
+      coverageModalRef.current.style.transform = 'translateY(0)';
+      coverageModalRef.current.style.opacity = '1';
+    }
+    
+    setIsModalDragging(false);
+    setModalStartY(0);
+    setModalCurrentY(0);
+  };
+
+  // Touch event handlers for Europe plan info modal swipe-down dismissal
+  const handleEuropePlanInfoModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setEuropePlanModalStartY(touch.clientY);
+    setEuropePlanModalCurrentY(touch.clientY);
+    setIsEuropePlanModalDragging(true);
+  };
+
+  const handleEuropePlanInfoModalTouchMove = (e: React.TouchEvent) => {
+    if (!isEuropePlanModalDragging) return;
+    
+    const touch = e.touches[0];
+    setEuropePlanModalCurrentY(touch.clientY);
+    
+    const deltaY = touch.clientY - europePlanModalStartY;
+    
+    if (deltaY > 0 && europePlanInfoModalRef.current) {
+      const opacity = Math.max(1 - deltaY / 300, 0.3);
+      europePlanInfoModalRef.current.style.transform = `translateY(${deltaY}px)`;
+      europePlanInfoModalRef.current.style.opacity = `${opacity}`;
+    }
+  };
+
+  const handleEuropePlanInfoModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isEuropePlanModalDragging) return;
+    
+    const deltaY = europePlanModalCurrentY - europePlanModalStartY;
+    
+    if (deltaY > 80 && europePlanInfoModalRef.current) {
+      europePlanInfoModalRef.current.style.transform = 'translateY(100%)';
+      europePlanInfoModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowEuropePlanInfoModal(false);
+      }, 200);
+    } else if (europePlanInfoModalRef.current) {
+      europePlanInfoModalRef.current.style.transform = 'translateY(0)';
+      europePlanInfoModalRef.current.style.opacity = '1';
+    }
+    
+    setIsEuropePlanModalDragging(false);
+    setEuropePlanModalStartY(0);
+    setEuropePlanModalCurrentY(0);
+  };
+
   // Smart search states (from home page)
   const [smartSearchResults, setSmartSearchResults] = useState<{
     countriesCountry: Country | null;
@@ -1207,6 +1580,304 @@ export default function DestinationsScreen() {
                   </svg>
                 </div>
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* European Coverage Modal - Operators & Networks - New Compact Design */}
+      {showCountriesModal && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-[9999]"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowCountriesModal(false);
+              setSearchQuery('');
+            }
+          }}
+        >
+          <div 
+            ref={coverageModalRef}
+            className="bg-white dark:bg-gray-900 rounded-t-3xl w-full px-4 py-5 animate-slide-up transition-all duration-200 select-none modal-fixed-height flex flex-col"
+            onTouchStart={handleCoverageModalTouchStart}
+            onTouchMove={handleCoverageModalTouchMove}
+            onTouchEnd={handleCoverageModalTouchEnd}
+            style={{ 
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
+            }}
+          >
+            {/* Swipe Handle */}
+            <div className="flex justify-center pb-4 flex-shrink-0">
+              <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            </div>
+
+            {/* Compact Header */}
+            <div className="flex items-center justify-between mb-4 flex-shrink-0">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  European Coverage
+                </h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Operators & Network Technologies</p>
+              </div>
+              <button
+                onClick={() => {
+                  setShowCountriesModal(false);
+                  setSearchQuery('');
+                }}
+                className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Compact Search Bar */}
+            <div className="relative mb-3 flex-shrink-0">
+              <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                placeholder="Search countries or operators..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  if (scrollableContentRef.current) {
+                    scrollableContentRef.current.scrollTop = 0;
+                  }
+                }}
+                className="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border-0 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 hover:text-gray-600"
+                >
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            {/* Compact Countries Grid */}
+            <div ref={scrollableContentRef} className="flex-1 overflow-y-auto">
+              {filteredEuropeanCoverage.length === 0 ? (
+                <div className="text-center py-8">
+                  <svg className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">No countries or operators found</p>
+                </div>
+              ) : (
+                <div className="space-y-2 pb-4">
+                  {filteredEuropeanCoverage.map((coverage, index) => (
+                    <div key={index} className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-3 border border-gray-100 dark:border-gray-700/50">
+                      {/* Country Header - Compact */}
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-2">
+                          <img 
+                            src={coverage.flag} 
+                            alt={coverage.country}
+                            className="w-6 h-4 rounded shadow-sm"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                          <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{coverage.country}</h4>
+                        </div>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded-full">
+                          {coverage.operators.length} operators
+                        </span>
+                      </div>
+
+                      {/* Operators Grid - Ultra Compact */}
+                      <div className="space-y-1">
+                        {coverage.operators.map((operator, opIndex) => (
+                          <div key={opIndex} className="flex items-center justify-between px-2 py-1.5 bg-white dark:bg-gray-800 rounded-lg">
+                            <div className="flex items-center space-x-2">
+                              <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                              <span className="text-xs font-medium text-gray-900 dark:text-gray-100">{operator.name}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              {operator.networks.map((network, netIndex) => (
+                                <span 
+                                  key={netIndex}
+                                  className={`text-xs px-1.5 py-0.5 rounded font-medium ${
+                                    network === '5G' 
+                                      ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300' 
+                                      : network === 'LTE' 
+                                        ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                                  }`}
+                                >
+                                  {network}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Europe Plan Information Modal */}
+      {showEuropePlanInfoModal && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end z-50"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowEuropePlanInfoModal(false);
+            }
+          }}
+        >
+          <div 
+            ref={europePlanInfoModalRef}
+            className="bg-white dark:bg-gray-800 rounded-t-2xl w-full p-4 sm:p-6 space-y-4 sm:space-y-6 animate-slide-up transition-all duration-200 select-none"
+            onTouchStart={handleEuropePlanInfoModalTouchStart}
+            onTouchMove={handleEuropePlanInfoModalTouchMove}
+            onTouchEnd={handleEuropePlanInfoModalTouchEnd}
+            style={{ 
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
+            }}
+          >
+            {/* Swipe Handle */}
+            <div className="flex justify-center pt-0 pb-2">
+              <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            </div>
+
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Technical Specifications</h3>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">Europe eSIM Plan Details</p>
+              </div>
+              <button
+                onClick={() => setShowEuropePlanInfoModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="space-y-4 sm:space-y-6">
+              {/* Technical Specifications Section */}
+              <div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                  <svg className="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                  Network & Plan Information
+                </h4>
+                
+                <div className="grid gap-2 sm:gap-3">
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 717.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
+                    </div>
+                    <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">5G/LTE/3G</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Activation Method</span>
+                    </div>
+                    <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">QR Code Scan</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">eKYC Verification</span>
+                    </div>
+                    <span className="font-semibold text-xs sm:text-sm text-red-600 dark:text-red-400">Not Required</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Roaming Support</span>
+                    </div>
+                    <span className="font-semibold text-xs sm:text-sm text-blue-600 dark:text-blue-400">Yes</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Protocol Support</span>
+                    </div>
+                    <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">IPv4/IPv6</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Plan Category</span>
+                    </div>
+                    <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">Data Only</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                      <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">TOP-UP Option</span>
+                    </div>
+                    <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">Available</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Countries Coverage Info - Europe Specific */}
+              <div className="mt-4 sm:mt-6">
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 rounded-xl p-4 border border-blue-100 dark:border-blue-800/30">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                        <img src={europaIcon} alt="Europe Coverage" className="w-8 h-8" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Europe Coverage</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">Available across Europe</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-lg text-gray-900 dark:text-gray-100">36</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Countries</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
