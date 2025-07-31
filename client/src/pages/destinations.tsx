@@ -371,6 +371,10 @@ export default function DestinationsScreen() {
   const handleCoverageModalTouchMove = (e: React.TouchEvent) => {
     if (!isModalDragging) return;
     
+    // Prevent default behavior and stop propagation to avoid background scroll
+    e.preventDefault();
+    e.stopPropagation();
+    
     const touch = e.touches[0];
     setModalCurrentY(touch.clientY);
     
@@ -420,6 +424,10 @@ export default function DestinationsScreen() {
 
   const handleEuropePlanInfoModalTouchMove = (e: React.TouchEvent) => {
     if (!isEuropePlanModalDragging) return;
+    
+    // Prevent default behavior and stop propagation to avoid background scroll
+    e.preventDefault();
+    e.stopPropagation();
     
     const touch = e.touches[0];
     setEuropePlanModalCurrentY(touch.clientY);
@@ -1610,8 +1618,14 @@ export default function DestinationsScreen() {
             if (e.target === e.currentTarget) {
               setShowCountriesModal(false);
               setSearchQuery('');
+              document.body.style.overflow = '';
             }
           }}
+          onTouchMove={(e) => {
+            // Prevent background scroll when modal is open
+            e.preventDefault();
+          }}
+          style={{ touchAction: 'none' }}
         >
           <div 
             ref={coverageModalRef}
@@ -1755,8 +1769,14 @@ export default function DestinationsScreen() {
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setShowEuropePlanInfoModal(false);
+              document.body.style.overflow = '';
             }
           }}
+          onTouchMove={(e) => {
+            // Prevent background scroll when modal is open
+            e.preventDefault();
+          }}
+          style={{ touchAction: 'none' }}
         >
           <div 
             ref={europePlanInfoModalRef}
