@@ -92,6 +92,16 @@ export default function HomeScreen() {
     flagUrl: 'https://flagcdn.com/w40/eu.png'
   };
 
+  // Europa coverage countries - these are in regional packages
+  const europaCoverageCountries = [
+    'france', 'germany', 'spain', 'italy', 'netherlands', 'belgium', 'austria', 
+    'portugal', 'greece', 'poland', 'czech republic', 'hungary', 'romania', 
+    'bulgaria', 'croatia', 'slovakia', 'slovenia', 'estonia', 'latvia', 
+    'lithuania', 'luxembourg', 'malta', 'cyprus', 'ireland', 'denmark', 
+    'sweden', 'finland', 'norway', 'iceland', 'switzerland', 'united kingdom',
+    'turkey', 'albania', 'bosnia and herzegovina', 'montenegro', 'serbia'
+  ];
+
   // Global coverage data for modal
   const globalCoverage = [
     {
@@ -495,7 +505,19 @@ export default function HomeScreen() {
   const [startY, setStartY] = useState(0);
   const [currentY, setCurrentY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  // Smart search states
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchResults, setSearchResults] = useState<{
+    localCountry: Country | null;
+    regionalPackages: any[] | null;
+    globalPackages: any[] | null;
+    coverageType: 'europa' | 'global' | 'none';
+  }>({
+    localCountry: null,
+    regionalPackages: null,
+    globalPackages: null,
+    coverageType: 'none'
+  });
   const isOnline = useOnlineStatus();
 
   // Touch/swipe states for coverage modal dismissal
@@ -1577,6 +1599,64 @@ export default function HomeScreen() {
     setLocation(`/packages/${country.id}`);
   };
 
+  // Smart search function
+  const performSearch = (query: string) => {
+    if (!query.trim()) {
+      setShowSearchResults(false);
+      return;
+    }
+
+    const searchTerm = query.toLowerCase().trim();
+    
+    // Find matching local country
+    const matchingCountry = countries.find(country => 
+      country.name.toLowerCase().includes(searchTerm)
+    );
+
+    // Check if country is in Europa coverage
+    const isInEuropa = europaCoverageCountries.some(europaCountry => 
+      europaCountry.toLowerCase().includes(searchTerm) || 
+      searchTerm.includes(europaCountry.toLowerCase())
+    );
+
+    // For global, assume any country not specifically in Europa is global
+    const isInGlobal = !isInEuropa && (matchingCountry || globalCoverage.some(globalCountry => 
+      globalCountry.name.toLowerCase().includes(searchTerm)
+    ));
+
+    let coverageType: 'europa' | 'global' | 'none' = 'none';
+    let regionalPackages = null;
+    let globalPackages = null;
+
+    if (isInEuropa) {
+      coverageType = 'europa';
+      regionalPackages = europaPlans;
+    } else if (isInGlobal || matchingCountry) {
+      coverageType = 'global';
+      globalPackages = globalDataPlans;
+    }
+
+    setSearchResults({
+      localCountry: matchingCountry || null,
+      regionalPackages,
+      globalPackages,
+      coverageType
+    });
+
+    setShowSearchResults(true);
+  };
+
+  // Handle search input changes
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    
+    // Debounce search
+    setTimeout(() => {
+      performSearch(query);
+    }, 300);
+  };
+
   // Helper function to detect error type
   const getErrorType = (error: any): 'network' | 'server' | 'timeout' | 'generic' => {
     if (!navigator.onLine) return 'network';
@@ -1701,7 +1781,7 @@ export default function HomeScreen() {
     });
   };
 
-  const searchResults = getEnhancedSearchResults();
+
 
   // Show offline page when user is offline
   if (!isOnline) {
@@ -1814,10 +1894,7 @@ export default function HomeScreen() {
               value={searchQuery}
               placeholder={searchQuery ? "Type country name..." : placeholderText}
               className="text-gray-700 dark:text-gray-300 text-base flex-1 outline-none bg-transparent placeholder-gray-500 dark:placeholder-gray-400 font-medium"
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setShowSearchResults(e.target.value.length > 0);
-              }}
+              onChange={handleSearchChange}
               onFocus={() => {
                 setShowSearchResults(searchQuery.length > 0);
               }}
@@ -1826,8 +1903,8 @@ export default function HomeScreen() {
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  if (searchResults.length > 0) {
-                    handleCountrySelect(searchResults[0]);
+                  if (searchResults.localCountry) {
+                    handleCountrySelect(searchResults.localCountry);
                     setSearchQuery('');
                     setShowSearchResults(false);
                   }
@@ -1863,62 +1940,78 @@ export default function HomeScreen() {
             </div>
           </div>
 
-          {/* Mobile Search Results */}
-          {showSearchResults && searchResults.length > 0 && (
+          {/* Smart Search Results */}
+          {showSearchResults && (
             <div className="absolute top-full left-0 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 mt-1 z-[9999] overflow-hidden" style={{position: 'absolute', zIndex: 99999}}>
-              {searchResults.map((country, index) => {
-                // Create flag emoji from country code
-                const getFlagEmoji = (code: string) => {
-                  if (!code || code.length !== 2) return '🌍';
-                  const codePoints = code.toUpperCase().split('').map(char => 
-                    127397 + char.charCodeAt(0)
-                  );
-                  return String.fromCodePoint(...codePoints);
-                };
-
-                return (
+              {/* Local Country Result */}
+              {searchResults.localCountry && (
+                <div className="p-3 border-b border-gray-100 dark:border-gray-700">
+                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Local Plans</div>
                   <button
-                    key={country.id}
                     onClick={() => {
-                      handleCountrySelect(country);
+                      handleCountrySelect(searchResults.localCountry!);
                       setSearchQuery('');
                       setShowSearchResults(false);
                     }}
-                    className="w-full px-4 py-3.5 flex items-center space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-600 last:border-b-0 text-left transition-all duration-200 active:bg-blue-50 dark:active:bg-blue-900/20 group"
+                    className="w-full px-3 py-2 flex items-center space-x-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg text-left transition-all duration-200 group"
                   >
-                    {/* Premium Flag Container */}
-                    <div className="relative">
-                      <div className="w-11 h-11 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center shadow-md border border-gray-200 dark:border-gray-600 group-hover:shadow-lg group-hover:scale-105 transition-all duration-200">
-                        <span className="text-xl filter drop-shadow-sm">{getFlagEmoji(country.code)}</span>
-                      </div>
-                      {/* Signal indicator */}
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-sm flex items-center justify-center">
-                        <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                      </div>
+                    <div className="w-8 h-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center shadow-sm border border-gray-200 dark:border-gray-600">
+                      <span className="text-lg">{searchResults.localCountry.code === 'TR' ? '🇹🇷' : searchResults.localCountry.code === 'FR' ? '🇫🇷' : '🌍'}</span>
                     </div>
-
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-gray-900 dark:text-gray-100 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {country.name}
-                      </div>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">{country.planCount} eSIMs</span>
-                        {country.hasFullPlan && (
-                          <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-full border border-blue-100 dark:border-blue-800">
-                            📞 Full Plan
-                          </span>
-                        )}
-                      </div>
+                    <div className="flex-1">
+                      <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.localCountry.name}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Local eSIM plans available</div>
                     </div>
-                    
-                    <div className="flex items-center">
-                      <svg className="w-5 h-5 text-gray-300 dark:text-gray-600 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
+                    <svg className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </button>
-                );
-              })}
+                </div>
+              )}
+
+              {/* Regional Packages */}
+              {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
+                <div className="p-3 border-b border-gray-100 dark:border-gray-700">
+                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Europa Regional Plans</div>
+                  {searchResults.regionalPackages.slice(0, 2).map((plan: any, index: number) => (
+                    <div key={index} className="px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-1 last:mb-0">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-medium text-gray-900 dark:text-gray-100">{plan.data}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">{plan.duration} days • Europa</div>
+                        </div>
+                        <div className="text-lg font-bold text-green-600 dark:text-green-400">{plan.price}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Global Packages */}
+              {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
+                <div className="p-3">
+                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Global Plans</div>
+                  {searchResults.globalPackages.slice(0, 2).map((plan: any, index: number) => (
+                    <div key={index} className="px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-1 last:mb-0">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-medium text-gray-900 dark:text-gray-100">{plan.data}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">{plan.duration} days • Global</div>
+                        </div>
+                        <div className="text-lg font-bold text-orange-600 dark:text-orange-400">{plan.price}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* No Results */}
+              {!searchResults.localCountry && !searchResults.regionalPackages && !searchResults.globalPackages && (
+                <div className="p-4 text-center">
+                  <div className="text-gray-500 dark:text-gray-400">No results found for "{searchQuery}"</div>
+                  <div className="text-sm text-gray-400 dark:text-gray-500 mt-1">Try searching for a country name</div>
+                </div>
+              )}
             </div>
           )}
         </div>
