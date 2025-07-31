@@ -844,6 +844,31 @@ export default function DestinationsScreen() {
                   <div id="regional-content" key="europa-plans" className="space-y-2 animate-slide-in-right">
                     <div className="text-center mb-3">
                       <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Europe eSIM Plans</h2>
+                      
+                      {/* Pill-Style Button Strip - Same as Global */}
+                      <div className="flex items-center justify-center mt-2">
+                        <div className="flex bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 rounded-full p-1 shadow-sm border border-gray-200 dark:border-gray-600">
+                          <button 
+                            onClick={() => setShowCountriesModal(true)}
+                            className="flex items-center space-x-1.5 px-4 py-2 bg-white dark:bg-gray-900 rounded-full shadow-sm hover:shadow-md transition-all duration-200 active:scale-95 border border-gray-200 dark:border-gray-600"
+                          >
+                            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">36 Countries</span>
+                          </button>
+                          
+                          <div className="flex items-center justify-center mx-1">
+                            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
+                          </div>
+                          
+                          <button 
+                            onClick={() => setShowEuropePlanInfoModal(true)}
+                            className="flex items-center space-x-1.5 px-4 py-2 bg-white dark:bg-gray-900 rounded-full shadow-sm hover:shadow-md transition-all duration-200 active:scale-95 border border-gray-200 dark:border-gray-600"
+                          >
+                            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Plan Details</span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
 
                     {/* Dynamic Europa Plans */}
