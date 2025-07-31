@@ -621,8 +621,8 @@ export default function DestinationsScreen() {
           )}
         </div>
 
-        {/* Modern Pill-Style Tabs - Full Width */}
-        <div className="px-4 -mb-2">
+        {/* Modern Pill-Style Tabs - Matched spacing */}
+        <div className="max-w-screen-md mx-auto px-4 -mb-2">
           <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40">
             {[
               { 
