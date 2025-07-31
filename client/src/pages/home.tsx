@@ -1848,28 +1848,33 @@ export default function HomeScreen() {
             {selectedContinent === 'europa' ? (
               // Europa eSIM Plans with smooth fade-in animation
               <div key="europa-plans" className="space-y-2 animate-slide-in-right">
-                <div className="text-center mb-2">
-                  <div className="flex items-center justify-center space-x-2 mb-0.5">
-                    <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Europe eSIM Plans</h2>
-                    <button
-                      onClick={() => setShowPlanInfoModal(true)}
-                      className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors group"
-                      title="Plan Information"
-                    >
-                      <svg className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clipRule="evenodd" />
-                      </svg>
-                    </button>
+                <div className="text-center mb-3">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Europe eSIM Plans</h2>
+                  
+                  {/* Pill-Style Button Strip - Same as Global */}
+                  <div className="flex items-center justify-center mt-2">
+                    <div className="flex bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 rounded-full p-1 shadow-sm border border-gray-200 dark:border-gray-600">
+                      <button 
+                        onClick={() => setShowCountriesModal(true)}
+                        className="flex items-center space-x-1.5 px-4 py-2 bg-white dark:bg-gray-900 rounded-full shadow-sm hover:shadow-md transition-all duration-200 active:scale-95 border border-gray-200 dark:border-gray-600"
+                      >
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">36 Countries</span>
+                      </button>
+                      
+                      <div className="flex items-center justify-center mx-1">
+                        <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
+                      </div>
+                      
+                      <button 
+                        onClick={() => setShowPlanInfoModal(true)}
+                        className="flex items-center space-x-1.5 px-4 py-2 bg-white dark:bg-gray-900 rounded-full shadow-sm hover:shadow-md transition-all duration-200 active:scale-95 border border-gray-200 dark:border-gray-600"
+                      >
+                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Plan Details</span>
+                      </button>
+                    </div>
                   </div>
-                  <button 
-                    onClick={() => setShowCountriesModal(true)}
-                    className="inline-flex items-center space-x-1.5 text-xs text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group"
-                  >
-                    <span>Coverage in 36 European Countries</span>
-                    <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
                 </div>
 
                 {/* Europa Plan 4 - 20GB - Cheapest First */}
