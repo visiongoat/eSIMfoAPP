@@ -15,15 +15,15 @@ import type { Country } from "@shared/schema";
 
 export default function DestinationsScreen() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTab, setSelectedTab] = useState<'local' | 'regional' | 'global'>('local');
+  const [selectedTab, setSelectedTab] = useState<'countries' | 'regions' | 'global'>('countries');
   const [selectedFilter, setSelectedFilter] = useState<string>('all');
   
   // URL parametresini kontrol et ve tab'ı ayarla
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tabParam = urlParams.get('tab');
-    if (tabParam && ['local', 'regional', 'global'].includes(tabParam)) {
-      setSelectedTab(tabParam as 'local' | 'regional' | 'global');
+    if (tabParam && ['countries', 'regions', 'global'].includes(tabParam)) {
+      setSelectedTab(tabParam as 'countries' | 'regions' | 'global');
     }
   }, []);
 
@@ -45,13 +45,13 @@ export default function DestinationsScreen() {
   
   // Smart search states (from home page)
   const [smartSearchResults, setSmartSearchResults] = useState<{
-    localCountry: Country | null;
-    regionalPackages: any[] | null;
+    countriesCountry: Country | null;
+    regionsPackages: any[] | null;
     globalPackages: any[] | null;
     coverageType: 'europa' | 'global' | 'none';
   }>({
-    localCountry: null,
-    regionalPackages: null,
+    countriesCountry: null,
+    regionsPackages: null,
     globalPackages: null,
     coverageType: 'none'
   });
@@ -85,15 +85,15 @@ export default function DestinationsScreen() {
         if (deltaX > 0) {
           // Swipe right: move to previous tab
           if (selectedTab === 'global') {
-            setSelectedTab('regional');
-          } else if (selectedTab === 'regional') {
-            setSelectedTab('local');
+            setSelectedTab('regions');
+          } else if (selectedTab === 'regions') {
+            setSelectedTab('countries');
           }
         } else if (deltaX < 0) {
           // Swipe left: move to next tab
-          if (selectedTab === 'local') {
-            setSelectedTab('regional');
-          } else if (selectedTab === 'regional') {
+          if (selectedTab === 'countries') {
+            setSelectedTab('regions');
+          } else if (selectedTab === 'regions') {
             setSelectedTab('global');
           }
         }
@@ -121,7 +121,7 @@ export default function DestinationsScreen() {
     'Explore eSIMs for USA, UAE…',
     'Where are you traveling to?',
     'Start typing a country name…',
-    'eSIM for 200+ local'
+    'eSIM for 200+ countries'
   ];
 
   // Typewriter effect for search placeholder
@@ -184,8 +184,8 @@ export default function DestinationsScreen() {
     }
   }, []);
 
-  const { data: local = [], isLoading } = useQuery<Country[]>({
-    queryKey: ["/api/local"],
+  const { data: countries = [], isLoading } = useQuery<Country[]>({
+    queryKey: ["/api/countries"],
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     staleTime: 5 * 60 * 1000,
@@ -222,8 +222,8 @@ export default function DestinationsScreen() {
   const performSmartSearch = (query: string) => {
     if (!query.trim()) {
       setSmartSearchResults({
-        localCountry: null,
-        regionalPackages: null,
+        countriesCountry: null,
+        regionsPackages: null,
         globalPackages: null,
         coverageType: 'none'
       });
@@ -232,8 +232,8 @@ export default function DestinationsScreen() {
 
     const searchTerm = query.toLowerCase().trim();
     
-    // Find matching local country
-    const matchingCountry = local.find(country => 
+    // Find matching countries country
+    const matchingCountry = countries.find(country => 
       country.name.toLowerCase().includes(searchTerm)
     );
 
@@ -247,20 +247,20 @@ export default function DestinationsScreen() {
     const isInGlobal = !isInEuropa && matchingCountry;
 
     let coverageType: 'europa' | 'global' | 'none' = 'none';
-    let regionalPackages = null;
+    let regionsPackages = null;
     let globalPackages = null;
 
     if (isInEuropa) {
       coverageType = 'europa';
-      regionalPackages = europaPlans;
+      regionsPackages = europaPlans;
     } else if (isInGlobal) {
       coverageType = 'global';
       globalPackages = globalDataPlans;
     }
 
     setSmartSearchResults({
-      localCountry: matchingCountry || null,
-      regionalPackages,
+      countriesCountry: matchingCountry || null,
+      regionsPackages,
       globalPackages,
       coverageType
     });
@@ -315,7 +315,7 @@ export default function DestinationsScreen() {
   const getEnhancedSearchResults = () => {
     if (!searchQuery.trim()) return [];
     
-    const results = local.filter(country => 
+    const results = countries.filter(country => 
       country.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       country.code.toLowerCase().includes(searchQuery.toLowerCase())
     ).slice(0, 5); // Show max 5 results
@@ -370,7 +370,7 @@ export default function DestinationsScreen() {
 
   // Enhanced search and filter functionality
   const getFilteredData = () => {
-    let filteredData = [...local];
+    let filteredData = [...countries];
 
     // Apply search filter
     if (searchQuery) {
@@ -380,11 +380,11 @@ export default function DestinationsScreen() {
     }
 
     // Apply tab-based categorization
-    if (selectedTab === 'local') {
-      // Show individual local
+    if (selectedTab === 'countries') {
+      // Show individual countries
       filteredData = filteredData;
-    } else if (selectedTab === 'regional') {
-      // Return empty array for regional - UI will handle the display directly
+    } else if (selectedTab === 'regions') {
+      // Return empty array for regions - UI will handle the display directly
       return [];
     } else if (selectedTab === 'global') {
       // Global packages
@@ -411,7 +411,7 @@ export default function DestinationsScreen() {
           countryCount: 40,
           price: '€15.99',
           icon: '🇺🇸',
-          description: 'America and allied local'
+          description: 'America and allied countries'
         },
         {
           id: 'africa-europe',
@@ -432,7 +432,7 @@ export default function DestinationsScreen() {
 
   const filteredData = getFilteredData();
 
-  // Alphabet filter groups for local
+  // Alphabet filter groups for countries
   const alphabetFilterGroups = [
     { label: 'All', value: 'all' },
     { label: 'A-D', value: 'A-D' },
@@ -472,7 +472,7 @@ export default function DestinationsScreen() {
     }
   };
 
-  const finalFilteredData = selectedTab === 'local' ? getAlphabetFilteredCountries() : filteredData;
+  const finalFilteredData = selectedTab === 'countries' ? getAlphabetFilteredCountries() : filteredData;
 
   return (
     <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/20 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" style={{ scrollBehavior: 'auto' }}>
@@ -626,8 +626,8 @@ export default function DestinationsScreen() {
           <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40">
             {[
               { 
-                id: 'local', 
-                label: 'Local', 
+                id: 'countries', 
+                label: 'Countries', 
                 icon: (
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -637,8 +637,8 @@ export default function DestinationsScreen() {
                 color: 'bg-blue-500'
               },
               { 
-                id: 'regional', 
-                label: 'Regional', 
+                id: 'regions', 
+                label: 'Regions', 
                 icon: (
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
@@ -654,7 +654,7 @@ export default function DestinationsScreen() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 ),
-                color: 'bg-orange-500'
+                color: 'bg-purple-500'
               }
             ].map((tab) => (
               <button
@@ -691,8 +691,8 @@ export default function DestinationsScreen() {
 
 
 
-        {/* Enhanced Alphabet Filter (only for local) */}
-        {selectedTab === 'local' && (
+        {/* Enhanced Alphabet Filter (only for countries) */}
+        {selectedTab === 'countries' && (
           <div className="mb-8">
             <div className="flex flex-wrap justify-center gap-2 mb-6">
               {alphabetFilterGroups.map((group, index) => (
@@ -748,7 +748,7 @@ export default function DestinationsScreen() {
           </div>
         ) : (
           <div className="space-y-3 mb-2">
-            {selectedTab === 'local' ? (
+            {selectedTab === 'countries' ? (
               // Premium Countries List with Stagger Animation
               finalFilteredData.map((country: any, index: number) => (
                 <button
@@ -797,7 +797,7 @@ export default function DestinationsScreen() {
                   </div>
                 </button>
               ))
-            ) : selectedTab === 'regional' ? (
+            ) : selectedTab === 'regions' ? (
               // Regional Continents - Premium Cards with Animations
               <div className="space-y-3 mb-2">
                 {/* Europa */}
@@ -813,7 +813,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Europa</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">30+ local • From €9.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">30+ countries • From €9.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -833,7 +833,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Asia</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">25+ local • From €12.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">25+ countries • From €12.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -853,7 +853,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Americas</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">35+ local • From €7.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">35+ countries • From €7.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -873,7 +873,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Africa</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">50+ local • From €5.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">50+ countries • From €5.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -893,7 +893,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Middle East</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">12+ local • From €16.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">12+ countries • From €16.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -913,7 +913,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 dark:text-gray-100">Oceania</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">6+ local • From €18.99</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">6+ countries • From €18.99</p>
                       </div>
                     </div>
                     <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">View</button>
@@ -935,7 +935,7 @@ export default function DestinationsScreen() {
                       </div>
                       <div>
                         <p className="font-medium text-gray-900 dark:text-gray-100">{globalPkg.name}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{globalPkg.countryCount} local</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{globalPkg.countryCount} countries</p>
                       </div>
                     </div>
                     <span className="text-gray-400 dark:text-gray-500">›</span>
@@ -985,7 +985,7 @@ export default function DestinationsScreen() {
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setSelectedTab('local');
+                  setSelectedTab('countries');
                 }}
                 className="w-full bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800/30 dark:hover:to-blue-700/30 rounded-2xl p-4 border border-blue-200 dark:border-blue-700 transition-all duration-200 group active:scale-[0.98]"
               >
@@ -1012,7 +1012,7 @@ export default function DestinationsScreen() {
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setSelectedTab('regional');
+                  setSelectedTab('regions');
                 }}
                 className="w-full bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 hover:from-green-100 hover:to-green-200 dark:hover:from-green-800/30 dark:hover:to-green-700/30 rounded-2xl p-4 border border-green-200 dark:border-green-700 transition-all duration-200 group active:scale-[0.98]"
               >
