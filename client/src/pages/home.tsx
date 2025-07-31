@@ -492,22 +492,47 @@ export default function HomeScreen() {
   // Store scroll position for How It Works modal
   const [howItWorksScrollY, setHowItWorksScrollY] = useState(0);
 
-  // Restore scroll when How It Works modal closes
+  // Complete scroll lock system for How It Works modal
   useEffect(() => {
-    if (!showHowItWorks && howItWorksScrollY > 0) {
-      // Restore body styles
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.documentElement.style.overflow = '';
+    if (showHowItWorks) {
+      // Block all scroll events
+      const preventScroll = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      };
       
-      // Restore scroll position immediately
-      requestAnimationFrame(() => {
-        window.scrollTo(0, howItWorksScrollY);
-      });
+      // Add event listeners to prevent scroll
+      window.addEventListener('scroll', preventScroll, { passive: false });
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+      window.addEventListener('wheel', preventScroll, { passive: false });
+      document.addEventListener('scroll', preventScroll, { passive: false });
+      document.addEventListener('touchmove', preventScroll, { passive: false });
+      document.addEventListener('wheel', preventScroll, { passive: false });
+      
+      return () => {
+        // Remove event listeners
+        window.removeEventListener('scroll', preventScroll);
+        window.removeEventListener('touchmove', preventScroll);
+        window.removeEventListener('wheel', preventScroll);
+        document.removeEventListener('scroll', preventScroll);
+        document.removeEventListener('touchmove', preventScroll);
+        document.removeEventListener('wheel', preventScroll);
+        
+        // Restore body styles
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.documentElement.style.overflow = '';
+        
+        // Restore scroll position
+        if (howItWorksScrollY > 0) {
+          window.scrollTo(0, howItWorksScrollY);
+        }
+      };
     }
   }, [showHowItWorks, howItWorksScrollY]);
 
