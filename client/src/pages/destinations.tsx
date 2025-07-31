@@ -25,13 +25,19 @@ export default function DestinationsScreen() {
   const [showEuropePlanInfoModal, setShowEuropePlanInfoModal] = useState(false);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   
-  // Europa plans data from home page
+  // Europa plans data from home page (11 plans)
   const europaPlans = [
-    { id: 1, data: '1GB', duration: '7 Days', price: '€9.99', dailyPrice: '€1.43/day' },
-    { id: 2, data: '2GB', duration: '15 Days', price: '€14.99', dailyPrice: '€1.00/day' },
-    { id: 3, data: '5GB', duration: '30 Days', price: '€24.99', dailyPrice: '€0.83/day' },
-    { id: 4, data: '3GB', duration: '15 Days', price: '€16.99', dailyPrice: '€1.13/day' },
-    { id: 5, data: '10GB', duration: '30 Days', price: '€34.99', dailyPrice: '€1.17/day' }
+    { id: 1, duration: '3 Days', data: '500 MB', price: '€4.99', dailyPrice: '€1.66 /day' },
+    { id: 2, duration: '7 Days', data: '1 GB', price: '€7.99', dailyPrice: '€1.14 /day' },
+    { id: 3, duration: '15 Days', data: '2 GB', price: '€12.99', dailyPrice: '€0.87 /day' },
+    { id: 4, duration: '30 Days', data: '3 GB', price: '€19.99', dailyPrice: '€0.67 /day' },
+    { id: 5, duration: '30 Days', data: '5 GB', price: '€24.99', dailyPrice: '€0.83 /day' },
+    { id: 6, duration: '30 Days', data: '10 GB', price: '€34.99', dailyPrice: '€1.17 /day' },
+    { id: 7, duration: '30 Days', data: '20 GB', price: '€49.99', dailyPrice: '€1.67 /day' },
+    { id: 8, duration: '30 Days', data: '50 GB', price: '€69.99', dailyPrice: '€2.33 /day' },
+    { id: 9, duration: '90 Days', data: '50 GB', price: '€89.99', dailyPrice: '€1.00 /day' },
+    { id: 10, duration: '180 Days', data: '100 GB', price: '€129.99', dailyPrice: '€0.72 /day' },
+    { id: 11, duration: '10 Days', data: 'Unlimited', price: '€39.99', dailyPrice: '€4.00 /day' }
   ];
   
   // URL parametresini kontrol et ve tab'ı ayarla
