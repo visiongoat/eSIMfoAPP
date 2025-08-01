@@ -6,6 +6,9 @@ interface NavigationBarProps {
   rightButton?: React.ReactNode;
   showBack?: boolean;
   onBack?: () => void;
+  showCurrency?: boolean;
+  selectedCurrency?: string;
+  onCurrencyClick?: () => void;
 }
 
 export default function NavigationBar({ 
@@ -13,7 +16,10 @@ export default function NavigationBar({
   leftButton, 
   rightButton, 
   showBack = false,
-  onBack
+  onBack,
+  showCurrency = false,
+  selectedCurrency = 'EUR',
+  onCurrencyClick
 }: NavigationBarProps) {
   const [, setLocation] = useLocation();
 
@@ -23,6 +29,20 @@ export default function NavigationBar({
     } else {
       window.history.back();
     }
+  };
+
+  const getCurrencySymbol = (currencyCode: string) => {
+    const currencies = {
+      'EUR': '€',
+      'USD': '$',
+      'GBP': '£',
+      'JPY': '¥',
+      'CAD': 'C$',
+      'AUD': 'A$',
+      'CHF': 'Fr',
+      'TRY': '₺'
+    };
+    return currencies[currencyCode as keyof typeof currencies] || '€';
   };
 
   return (
@@ -41,7 +61,17 @@ export default function NavigationBar({
       </div>
       <h1 className="text-lg font-semibold">{title}</h1>
       <div className="flex items-center">
-        {rightButton || <div className="w-16"></div>}
+        {showCurrency && onCurrencyClick ? (
+          <button
+            onClick={onCurrencyClick}
+            className="flex items-center space-x-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 px-3 py-1.5 rounded-full text-sm font-medium hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors active:scale-95"
+          >
+            <span>{getCurrencySymbol(selectedCurrency)}</span>
+            <span>{selectedCurrency}</span>
+          </button>
+        ) : (
+          rightButton || <div className="w-16"></div>
+        )}
       </div>
     </div>
   );
