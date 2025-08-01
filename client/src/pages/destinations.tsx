@@ -13,6 +13,7 @@ import americasIcon from "@assets/americasmaps.png";
 import africaIcon from "@assets/africacontinentmap.png";
 import middleEastIcon from "@assets/middleeastcontinentmap.png";
 import oceaniaIcon from "@assets/oceaniacontinentmap.png";
+import europeCoverageIcon from "@assets/europamap.png";
 import type { Country } from "@shared/schema";
 
 export default function DestinationsScreen() {
@@ -1906,7 +1907,7 @@ export default function DestinationsScreen() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                        <img src={europaIcon} alt="Europe Coverage" className="w-8 h-8" />
+                        <img src={europeCoverageIcon} alt="Europe Coverage" className="w-8 h-8" />
                       </div>
                       <div>
                         <div className="font-semibold text-gray-900 dark:text-gray-100 text-sm">Europe Coverage</div>

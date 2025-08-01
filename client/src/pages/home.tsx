@@ -15,7 +15,7 @@ import oceaniaIcon from "@assets/oceaniacontinentmap.png";
 import locationPinIcon from "@assets/locationpin.png";
 import qrScanIcon from "@assets/qrscan.png";
 import signalEsimIcon from "@assets/signalesim.png";
-import europeCoverageIcon from "@assets/europecoverage.png";
+import europeCoverageIcon from "@assets/europamap.png";
 import globalCoverageIcon from "@assets/globalcoverage.png";
 
 import NavigationBar from "@/components/navigation-bar";
