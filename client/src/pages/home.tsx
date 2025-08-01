@@ -3312,7 +3312,12 @@ export default function HomeScreen() {
                     <span className="font-semibold text-gray-900 dark:text-white">
                       {selectedTab === 'regional' && selectedEuropaPlan
                         ? `${europaPlans.find(p => p.id === selectedEuropaPlan)?.data} • ${europaPlans.find(p => p.id === selectedEuropaPlan)?.duration}`
-                        : `${globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.data} • ${globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.duration}`
+                        : selectedTab === 'global' && selectedGlobalPlan
+                        ? (globalPlanType === 'data' 
+                            ? `${globalDataPlans.find(p => p.id === selectedGlobalPlan)?.data} • ${globalDataPlans.find(p => p.id === selectedGlobalPlan)?.duration}`
+                            : `${globalVoiceSmsPlans.find(p => p.id === selectedGlobalPlan)?.data} • ${globalVoiceSmsPlans.find(p => p.id === selectedGlobalPlan)?.duration}`
+                          )
+                        : ''
                       }
                     </span>
                     <div className="flex items-center space-x-1">
@@ -3334,13 +3339,23 @@ export default function HomeScreen() {
                 <div className="text-lg font-semibold text-gray-900 dark:text-white">
                   {selectedTab === 'regional' && selectedEuropaPlan
                     ? europaPlans.find(p => p.id === selectedEuropaPlan)?.price
-                    : globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.price
+                    : selectedTab === 'global' && selectedGlobalPlan
+                    ? (globalPlanType === 'data' 
+                        ? globalDataPlans.find(p => p.id === selectedGlobalPlan)?.price
+                        : globalVoiceSmsPlans.find(p => p.id === selectedGlobalPlan)?.price
+                      )
+                    : ''
                   }
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                   {selectedTab === 'regional' && selectedEuropaPlan
                     ? europaPlans.find(p => p.id === selectedEuropaPlan)?.dailyPrice
-                    : globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.dailyPrice
+                    : selectedTab === 'global' && selectedGlobalPlan
+                    ? (globalPlanType === 'data' 
+                        ? globalDataPlans.find(p => p.id === selectedGlobalPlan)?.dailyPrice
+                        : globalVoiceSmsPlans.find(p => p.id === selectedGlobalPlan)?.dailyPrice
+                      )
+                    : ''
                   }
                 </div>
               </div>
@@ -3385,7 +3400,10 @@ export default function HomeScreen() {
           selectedTab === 'regional' && selectedEuropaPlan
             ? europaPlans.find(plan => plan.id === selectedEuropaPlan)
             : selectedTab === 'global' && selectedGlobalPlan
-            ? globalDataPlans.concat(globalVoiceSmsPlans).find(plan => plan.id === selectedGlobalPlan)
+            ? (globalPlanType === 'data' 
+                ? globalDataPlans.find(plan => plan.id === selectedGlobalPlan)
+                : globalVoiceSmsPlans.find(plan => plan.id === selectedGlobalPlan)
+              )
             : null
         }
         country={{ name: "Europe Regional Plan", code: "EU", flagUrl: "" }}
