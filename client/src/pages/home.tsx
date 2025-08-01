@@ -3222,16 +3222,16 @@ export default function HomeScreen() {
       {/* Sticky Checkout Bar */}
       {((selectedTab === 'regional' && selectedEuropaPlan) || (selectedTab === 'global' && selectedGlobalPlan)) && (
         <div 
-          className="fixed bottom-16 left-0 right-0 z-40 mx-4 mb-2"
+          className="fixed bottom-0 left-0 right-0 z-40 p-4 bg-white dark:bg-gray-900"
           style={{ 
             position: 'fixed',
-            bottom: '64px',
-            left: '16px',
-            right: '16px',
+            bottom: 0,
+            left: 0,
+            right: 0,
             zIndex: 40
           }}
         >
-          <div className="bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl shadow-2xl border border-gray-700 max-w-md mx-auto">
+          <div className="bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl shadow-2xl border border-gray-700">
             <div className="p-4">
               {selectedTab === 'regional' && selectedEuropaPlan && (
                 <div className="space-y-3">
