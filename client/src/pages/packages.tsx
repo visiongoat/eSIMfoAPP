@@ -430,7 +430,7 @@ ${baseUrl}/packages/${countryId}`;
   }
 
   return (
-    <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20">
+    <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20 animate-slide-in-from-top">
       {/* Custom Header */}
       <div className="flex items-center justify-between px-4 py-2">
         <button onClick={handleBackClick} className="p-1">

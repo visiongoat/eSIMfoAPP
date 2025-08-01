@@ -513,6 +513,22 @@
     }
   }
 
+  /* Page transition animations */
+  @keyframes slideInFromTop {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in-from-top {
+    animation: slideInFromTop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   /* Stagger delay classes */
   .stagger-delay-0 { animation-delay: 0ms; }
   .stagger-delay-1 { animation-delay: 100ms; }
