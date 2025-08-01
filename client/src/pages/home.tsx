@@ -3314,21 +3314,23 @@ export default function HomeScreen() {
         />
       )}
 
-      {/* Checkout Modal */}
-      {showCheckoutModal && (
-        <CheckoutModal
-          isOpen={showCheckoutModal}
-          onClose={() => setShowCheckoutModal(false)}
-          selectedPackage={
-            selectedTab === 'regional' 
-              ? europaPlans.find(plan => plan.id === selectedEuropaPlan)
-              : globalDataPlans.concat(globalVoiceSmsPlans).find(plan => plan.id === selectedGlobalPlan)
-          }
-          country={selectedTab === 'regional' ? europaCountry : { name: 'Global', flag: '🌍' }}
-          esimCount={esimCount}
-          setEsimCount={setEsimCount}
-        />
-      )}
+      {/* Checkout Modal for Regions */}
+      <CheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        selectedPackage={
+          selectedTab === 'regional' 
+            ? europaPlans.find(plan => plan.id === selectedEuropaPlan)
+            : globalDataPlans.concat(globalVoiceSmsPlans).find(plan => plan.id === selectedGlobalPlan)
+        }
+        country={
+          selectedTab === 'regional' 
+            ? { name: "Europe Regional Plan", code: "EU", flagUrl: "" }
+            : { name: "Global Plan", code: "GLOBAL", flagUrl: "" }
+        }
+        esimCount={esimCount}
+        setEsimCount={setEsimCount}
+      />
 
       {/* Quick Actions Modal - Premium Machine Feel */}
       {showQuickActions && (
