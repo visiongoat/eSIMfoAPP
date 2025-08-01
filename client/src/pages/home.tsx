@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
 import { useOnlineStatus } from "@/hooks/use-online-status";
 import { useTabSwipe } from "@/hooks/use-tab-swipe";
@@ -3219,85 +3220,67 @@ export default function HomeScreen() {
         </button>
       </div>
 
-      {/* Sticky Checkout Bar */}
+      {/* Sticky Checkout Bar - Exact copy from destinations */}
       {((selectedTab === 'regional' && selectedEuropaPlan) || (selectedTab === 'global' && selectedGlobalPlan)) && (
-        <div 
-          className="fixed bottom-0 left-0 right-0 z-40 p-4 bg-white dark:bg-gray-900"
-          style={{ 
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 40
-          }}
-        >
-          <div className="bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl shadow-2xl border border-gray-700">
-            <div className="p-4">
-              {selectedTab === 'regional' && selectedEuropaPlan && (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex space-x-1">
-                        {Array.from({ length: Math.min(5, europaPlans.find(p => p.id === selectedEuropaPlan)?.data.split(' ')[0] || 1) }).map((_, i) => (
-                          <div key={i} className="w-1.5 h-4 bg-gradient-to-t from-green-400 to-green-300 rounded-full"></div>
-                        ))}
-                      </div>
-                      <span className="text-white text-sm font-medium">
-                        {europaPlans.find(p => p.id === selectedEuropaPlan)?.data} • {europaPlans.find(p => p.id === selectedEuropaPlan)?.duration.split(' ')[0]} Gün
-                      </span>
-                    </div>
-                    <span className="text-white text-lg font-bold">
-                      {europaPlans.find(p => p.id === selectedEuropaPlan)?.price}
+        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
+          {/* Selected Plan Details */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center space-x-3">
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <span className="font-semibold text-gray-900 dark:text-white">
+                      {selectedTab === 'regional' && selectedEuropaPlan
+                        ? `${europaPlans.find(p => p.id === selectedEuropaPlan)?.data} • ${europaPlans.find(p => p.id === selectedEuropaPlan)?.duration}`
+                        : `${globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.data} • ${globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.duration}`
+                      }
                     </span>
-                  </div>
-                  <div className="text-gray-300 text-xs">
-                    Europe Regional Plan
-                  </div>
-                  <button 
-                    onClick={() => setShowCheckoutModal(true)}
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center space-x-2"
-                  >
-                    <span>Checkout</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  </button>
-                </div>
-              )}
-              
-              {selectedTab === 'global' && selectedGlobalPlan && (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <div className="flex space-x-1">
-                        {Array.from({ length: Math.min(5, globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.data.split(' ')[0] || 1) }).map((_, i) => (
-                          <div key={i} className="w-1.5 h-4 bg-gradient-to-t from-amber-400 to-amber-300 rounded-full"></div>
-                        ))}
-                      </div>
-                      <span className="text-white text-sm font-medium">
-                        {globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.data} • {globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.duration.split(' ')[0]} Gün
-                      </span>
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4, 5].map((bar) => (
+                        <div
+                          key={bar}
+                          className="w-1 rounded-sm bg-green-500"
+                          style={{ height: `${4 + bar * 2}px` }}
+                        />
+                      ))}
                     </div>
-                    <span className="text-white text-lg font-bold">
-                      {globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.price}
-                    </span>
                   </div>
-                  <div className="text-gray-300 text-xs">
-                    Global Plan
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {selectedTab === 'regional' ? 'Europe Regional Plan' : 'Global Plan'}
                   </div>
-                  <button 
-                    onClick={() => setShowCheckoutModal(true)}
-                    className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white py-3 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center space-x-2"
-                  >
-                    <span>Checkout</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  </button>
                 </div>
-              )}
+              </div>
+              <div className="text-right">
+                <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {selectedTab === 'regional' && selectedEuropaPlan
+                    ? europaPlans.find(p => p.id === selectedEuropaPlan)?.price
+                    : globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.price
+                  }
+                </div>
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  {selectedTab === 'regional' && selectedEuropaPlan
+                    ? europaPlans.find(p => p.id === selectedEuropaPlan)?.dailyPrice
+                    : globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.dailyPrice
+                  }
+                </div>
+              </div>
             </div>
           </div>
+
+          {/* Purchase Button */}
+          <Button
+            onClick={() => setShowCheckoutModal(true)}
+            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-lg rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <div className="flex items-center justify-between w-full">
+              <div className="flex-1 text-center">
+                <span>Checkout</span>
+              </div>
+              <svg className="w-4 h-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+          </Button>
         </div>
       )}
 
@@ -3319,15 +3302,13 @@ export default function HomeScreen() {
         isOpen={showCheckoutModal}
         onClose={() => setShowCheckoutModal(false)}
         selectedPackage={
-          selectedTab === 'regional' 
+          selectedTab === 'regional' && selectedEuropaPlan
             ? europaPlans.find(plan => plan.id === selectedEuropaPlan)
-            : globalDataPlans.concat(globalVoiceSmsPlans).find(plan => plan.id === selectedGlobalPlan)
+            : selectedTab === 'global' && selectedGlobalPlan
+            ? globalDataPlans.concat(globalVoiceSmsPlans).find(plan => plan.id === selectedGlobalPlan)
+            : null
         }
-        country={
-          selectedTab === 'regional' 
-            ? { name: "Europe Regional Plan", code: "EU", flagUrl: "" }
-            : { name: "Global Plan", code: "GLOBAL", flagUrl: "" }
-        }
+        country={{ name: "Europe Regional Plan", code: "EU", flagUrl: "" }}
         esimCount={esimCount}
         setEsimCount={setEsimCount}
       />
