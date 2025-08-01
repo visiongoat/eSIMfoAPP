@@ -1990,9 +1990,6 @@ export default function DestinationsScreen() {
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-                  <img src={europaIcon} alt="Europe" className="w-8 h-8" />
-                </div>
                 <div>
                   <div className="flex items-center space-x-2">
                     <span className="font-semibold text-gray-900 dark:text-white">
