@@ -3332,6 +3332,11 @@ export default function HomeScreen() {
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
                     {selectedTab === 'regional' ? 'Europe Regional Plan' : 'Global Plan'}
+                    {selectedTab === 'global' && selectedGlobalPlan && globalPlanType === 'data-voice-sms' && (
+                      <div className="text-xs opacity-75 mt-0.5">
+                        {globalVoiceSmsPlans.find(p => p.id === selectedGlobalPlan)?.voice} • {globalVoiceSmsPlans.find(p => p.id === selectedGlobalPlan)?.sms}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
