@@ -180,6 +180,11 @@ export default function CheckoutModal({
                 <div className="font-semibold text-gray-900 dark:text-white">{country?.name}</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">
                   {selectedPackage?.duration} • {selectedPackage?.data}
+                  {selectedPackage?.voice && selectedPackage?.sms && (
+                    <span className="text-xs ml-1 opacity-75">
+                      • {selectedPackage.voice} • {selectedPackage.sms}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
