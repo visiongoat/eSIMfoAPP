@@ -3212,6 +3212,88 @@ export default function HomeScreen() {
         </button>
       </div>
 
+      {/* Sticky Checkout Bar */}
+      {((selectedTab === 'regional' && selectedEuropaPlan) || (selectedTab === 'global' && selectedGlobalPlan)) && (
+        <div 
+          className="fixed bottom-16 left-0 right-0 z-40 mx-4 mb-2"
+          style={{ 
+            position: 'fixed',
+            bottom: '64px',
+            left: '16px',
+            right: '16px',
+            zIndex: 40
+          }}
+        >
+          <div className="bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl shadow-2xl border border-gray-700 max-w-md mx-auto">
+            <div className="p-4">
+              {selectedTab === 'regional' && selectedEuropaPlan && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div className="flex space-x-1">
+                        {Array.from({ length: Math.min(5, europaPlans.find(p => p.id === selectedEuropaPlan)?.data.split(' ')[0] || 1) }).map((_, i) => (
+                          <div key={i} className="w-1.5 h-4 bg-gradient-to-t from-green-400 to-green-300 rounded-full"></div>
+                        ))}
+                      </div>
+                      <span className="text-white text-sm font-medium">
+                        {europaPlans.find(p => p.id === selectedEuropaPlan)?.data} • {europaPlans.find(p => p.id === selectedEuropaPlan)?.duration.split(' ')[0]} Gün
+                      </span>
+                    </div>
+                    <span className="text-white text-lg font-bold">
+                      {europaPlans.find(p => p.id === selectedEuropaPlan)?.price}
+                    </span>
+                  </div>
+                  <div className="text-gray-300 text-xs">
+                    Europe Regional Plan
+                  </div>
+                  <button 
+                    onClick={() => setShowCheckoutModal(true)}
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center space-x-2"
+                  >
+                    <span>Checkout</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+              
+              {selectedTab === 'global' && selectedGlobalPlan && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div className="flex space-x-1">
+                        {Array.from({ length: Math.min(5, globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.data.split(' ')[0] || 1) }).map((_, i) => (
+                          <div key={i} className="w-1.5 h-4 bg-gradient-to-t from-amber-400 to-amber-300 rounded-full"></div>
+                        ))}
+                      </div>
+                      <span className="text-white text-sm font-medium">
+                        {globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.data} • {globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.duration.split(' ')[0]} Gün
+                      </span>
+                    </div>
+                    <span className="text-white text-lg font-bold">
+                      {globalDataPlans.concat(globalVoiceSmsPlans).find(p => p.id === selectedGlobalPlan)?.price}
+                    </span>
+                  </div>
+                  <div className="text-gray-300 text-xs">
+                    Global Plan
+                  </div>
+                  <button 
+                    onClick={() => setShowCheckoutModal(true)}
+                    className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white py-3 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center space-x-2"
+                  >
+                    <span>Checkout</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       <TabBar 
         onPlusClick={() => setShowQuickActions(true)}
         onShopClick={() => {
@@ -3227,8 +3309,12 @@ export default function HomeScreen() {
         <CheckoutModal
           isOpen={showCheckoutModal}
           onClose={() => setShowCheckoutModal(false)}
-          selectedPackage={europaPlans.find(plan => plan.id === selectedEuropaPlan)}
-          country={europaCountry}
+          selectedPackage={
+            selectedTab === 'regional' 
+              ? europaPlans.find(plan => plan.id === selectedEuropaPlan)
+              : globalDataPlans.concat(globalVoiceSmsPlans).find(plan => plan.id === selectedGlobalPlan)
+          }
+          country={selectedTab === 'regional' ? europaCountry : { name: 'Global', flag: '🌍' }}
           esimCount={esimCount}
           setEsimCount={setEsimCount}
         />
