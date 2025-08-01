@@ -244,7 +244,7 @@ export default function PackagesScreen() {
       setLocation('/destinations');
     } else {
       // Default to home for any other source (including 'home')
-      setLocation('/');
+      setLocation('/home');
     }
   };
 
