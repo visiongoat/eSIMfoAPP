@@ -1996,7 +1996,7 @@ export default function DestinationsScreen() {
                 <div>
                   <div className="flex items-center space-x-2">
                     <span className="font-semibold text-gray-900 dark:text-white">
-                      {selectedPlan.duration}
+                      {selectedPlan.data} • {selectedPlan.duration}
                     </span>
                     <div className="flex items-center space-x-1">
                       {[1, 2, 3, 4, 5].map((bar) => (
@@ -2009,7 +2009,7 @@ export default function DestinationsScreen() {
                     </div>
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
-                    {selectedPlan.data}
+                    Europe Regional Plan
                   </div>
                 </div>
               </div>
