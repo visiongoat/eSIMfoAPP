@@ -1681,7 +1681,7 @@ export default function HomeScreen() {
   const greeting = getTimeBasedGreeting();
 
   const handleCountrySelect = (country: Country) => {
-    setLocation(`/packages/${country.id}`);
+    setLocation(`/packages/${country.id}?from=home`);
   };
 
   // Smart search function

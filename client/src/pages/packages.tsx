@@ -13,6 +13,10 @@ export default function PackagesScreen() {
   const [, setLocation] = useLocation();
   const countryId = params?.countryId ? parseInt(params.countryId) : null;
   
+  // Get the source parameter from URL to determine where user came from
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromPage = urlParams.get('from') || 'home'; // default to home if not specified
+  
   const [selectedTab, setSelectedTab] = useState<'data' | 'data-calls-text'>('data');
   const [selectedPackage, setSelectedPackage] = useState<number | null>(1);
   
@@ -235,7 +239,13 @@ export default function PackagesScreen() {
   ];
 
   const handleBackClick = () => {
-    setLocation("/destinations");
+    // Navigate back based on where user came from
+    if (fromPage === 'destinations') {
+      setLocation('/destinations');
+    } else {
+      // Default to home for any other source (including 'home')
+      setLocation('/');
+    }
   };
 
   const handlePackageSelect = (packageId: number) => {

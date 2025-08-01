@@ -656,7 +656,7 @@ export default function DestinationsScreen() {
   ];
 
   const handleCountrySelect = (country: Country) => {
-    setLocation(`/packages/${country.id}`);
+    setLocation(`/packages/${country.id}?from=destinations`);
   };
 
   // Smart search function (from home page)
