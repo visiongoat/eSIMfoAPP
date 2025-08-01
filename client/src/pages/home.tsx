@@ -2715,7 +2715,7 @@ export default function HomeScreen() {
                     : 'text-gray-600 dark:text-gray-300 hover:text-amber-700 dark:hover:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/20'
                 }`}
               >
-                Data / Calls / Text
+                Data / Calls / SMS
               </button>
             </div>
 
