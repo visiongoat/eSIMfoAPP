@@ -21,6 +21,7 @@ export default function DestinationsScreen() {
   // Regional tab states from home page
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
   const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<any>(null);
   const [showCountriesModal, setShowCountriesModal] = useState(false);
   const [showEuropePlanInfoModal, setShowEuropePlanInfoModal] = useState(false);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
@@ -363,7 +364,6 @@ export default function DestinationsScreen() {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<any>(null);
   
   // Filter European coverage based on search query
   const filteredEuropeanCoverage = europeanCoverage.filter(coverage =>
@@ -1326,6 +1326,10 @@ export default function DestinationsScreen() {
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedPlan(plan);
+                                // Haptic feedback
+                                if (navigator.vibrate) {
+                                  navigator.vibrate(30);
+                                }
                               }}
                               className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
                             >
@@ -1335,6 +1339,9 @@ export default function DestinationsScreen() {
                         </div>
                       </button>
                     ))}
+                    
+                    {/* Bottom spacing for sticky checkout */}
+                    <div className="h-32"></div>
                   </div>
                 ) : (
                   // Continent List with smooth fade-in animation
@@ -2011,6 +2018,64 @@ export default function DestinationsScreen() {
               </p>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Sticky Bottom Section for Europe Plans */}
+      {selectedTab === 'regions' && selectedContinent === 'europa' && selectedPlan && (
+        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
+          {/* Selected Plan Details */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                  <img src={europaIcon} alt="Europe" className="w-8 h-8" />
+                </div>
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <span className="font-semibold text-gray-900 dark:text-white">
+                      {selectedPlan.duration}
+                    </span>
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4, 5].map((bar) => (
+                        <div
+                          key={bar}
+                          className="w-1 rounded-sm bg-green-500"
+                          style={{ height: `${4 + bar * 2}px` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {selectedPlan.data}
+                  </div>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {selectedPlan.price}
+                </div>
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  {selectedPlan.dailyPrice}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Purchase Button */}
+          <button
+            onClick={() => setShowCheckoutModal(true)}
+            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-lg rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <div className="flex items-center justify-between w-full">
+              <div className="flex-1 text-center">
+                <span>Checkout</span>
+              </div>
+              <svg className="w-4 h-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+          </button>
         </div>
       )}
     </div>
