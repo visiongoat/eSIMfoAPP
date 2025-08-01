@@ -58,6 +58,9 @@ export default function CheckoutModal({
 
   if (!isOpen) return null;
 
+  // Debug selectedPackage
+  console.log('Checkout Modal selectedPackage:', selectedPackage);
+
   // Calculate pricing
   const basePrice = selectedPackage ? parseFloat(selectedPackage.price.replace('€', '')) : 0;
   const total = basePrice * esimCount;
@@ -181,9 +184,9 @@ export default function CheckoutModal({
                 <div className="text-sm text-gray-600 dark:text-gray-400">
                   {selectedPackage?.duration} • {selectedPackage?.data}
                   {selectedPackage?.voice && selectedPackage?.sms && (
-                    <span className="text-xs ml-1 opacity-75">
-                      • {selectedPackage.voice} • {selectedPackage.sms}
-                    </span>
+                    <div className="text-xs opacity-75 mt-0.5">
+                      {selectedPackage.voice} • {selectedPackage.sms}
+                    </div>
                   )}
                 </div>
               </div>
