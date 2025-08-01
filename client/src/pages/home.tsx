@@ -467,6 +467,10 @@ export default function HomeScreen() {
     
     setIsTransitioning(true);
     
+    // Reset plan selections when changing tabs
+    setSelectedEuropaPlan(null);
+    setSelectedGlobalPlan(null);
+    
     // Fade out current content, then switch tab
     setTimeout(() => {
       setSelectedTab(newTab);
@@ -2350,7 +2354,10 @@ export default function HomeScreen() {
               <div className="mb-4">
                 <div className="flex items-center space-x-2 text-sm">
                   <button
-                    onClick={() => setSelectedContinent(null)}
+                    onClick={() => {
+                      setSelectedContinent(null);
+                      setSelectedEuropaPlan(null); // Reset plan selection when going back
+                    }}
                     className="inline-flex items-center space-x-1 text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 group"
                   >
                     <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -3294,15 +3301,18 @@ export default function HomeScreen() {
         </div>
       )}
 
-      <TabBar 
-        onPlusClick={() => setShowQuickActions(true)}
-        onShopClick={() => {
-          // If we're in global or regional tab, switch to local tab
-          if (selectedTab === 'global' || selectedTab === 'regional') {
-            setSelectedTab('local');
-          }
-        }}
-      />
+      {/* Conditional TabBar - only show when no plan is selected */}
+      {!((selectedTab === 'regional' && selectedEuropaPlan) || (selectedTab === 'global' && selectedGlobalPlan)) && (
+        <TabBar 
+          onPlusClick={() => setShowQuickActions(true)}
+          onShopClick={() => {
+            // If we're in global or regional tab, switch to local tab
+            if (selectedTab === 'global' || selectedTab === 'regional') {
+              setSelectedTab('local');
+            }
+          }}
+        />
+      )}
 
       {/* Checkout Modal */}
       {showCheckoutModal && (
