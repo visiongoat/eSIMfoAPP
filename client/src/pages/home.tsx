@@ -2378,7 +2378,7 @@ export default function HomeScreen() {
                     <button
                       key={index}
                       onClick={() => handleCountrySelect(countries[0])}
-                      className={`bg-white dark:bg-gray-800 rounded-xl p-3 text-left shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${staggerDelay}`}
+                      className={`bg-white dark:bg-gray-800 rounded-xl p-3 text-left shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-900/50 dark:hover:bg-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${staggerDelay}`}
                     >
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-6 rounded-sm overflow-hidden shadow-sm border border-gray-200 flex">
