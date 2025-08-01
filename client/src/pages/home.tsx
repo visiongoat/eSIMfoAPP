@@ -2520,7 +2520,7 @@ export default function HomeScreen() {
                             e.stopPropagation();
                             setSelectedEuropaPlan(plan.id);
                           }}
-                          className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 ml-2 cursor-pointer"
+                          className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/40 active:scale-95 ml-2 cursor-pointer"
                         >
                           Buy
                         </div>
