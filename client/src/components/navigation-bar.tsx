@@ -5,18 +5,24 @@ interface NavigationBarProps {
   leftButton?: React.ReactNode;
   rightButton?: React.ReactNode;
   showBack?: boolean;
+  onBack?: () => void;
 }
 
 export default function NavigationBar({ 
   title, 
   leftButton, 
   rightButton, 
-  showBack = false 
+  showBack = false,
+  onBack
 }: NavigationBarProps) {
   const [, setLocation] = useLocation();
 
   const handleBack = () => {
-    window.history.back();
+    if (onBack) {
+      onBack();
+    } else {
+      window.history.back();
+    }
   };
 
   return (
