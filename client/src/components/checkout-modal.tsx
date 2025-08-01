@@ -181,7 +181,7 @@ export default function CheckoutModal({
                 <div className="text-sm text-gray-600 dark:text-gray-400">
                   {selectedPackage?.duration} • {selectedPackage?.data}
                   {selectedPackage?.voice && selectedPackage?.sms && (
-                    <span className="text-gray-500 dark:text-gray-500 opacity-75">
+                    <span className="text-xs text-gray-500 dark:text-gray-500 opacity-75">
                       {' • '}{selectedPackage.voice} • {selectedPackage.sms}
                     </span>
                   )}
