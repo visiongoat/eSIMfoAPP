@@ -898,7 +898,7 @@ export default function DestinationsScreen() {
       <NavigationBar 
         title="Buy eSIM fo"
         showBack={true}
-        onBack={() => setLocation('/')}
+        onBack={() => setLocation('/home')}
       />
 
       <div className="px-4 pt-0.5">
