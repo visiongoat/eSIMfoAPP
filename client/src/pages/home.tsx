@@ -41,6 +41,12 @@ export default function HomeScreen() {
   const [globalCoverageModalCurrentY, setGlobalCoverageModalCurrentY] = useState<number>(0);
   const [isGlobalCoverageModalDragging, setIsGlobalCoverageModalDragging] = useState<boolean>(false);
   const globalCoverageModalRef = useRef<HTMLDivElement>(null);
+  
+  // Touch/swipe states for Quick Actions modal dismissal
+  const [quickActionsStartY, setQuickActionsStartY] = useState<number>(0);
+  const [quickActionsCurrentY, setQuickActionsCurrentY] = useState<number>(0);
+  const [isQuickActionsDragging, setIsQuickActionsDragging] = useState<boolean>(false);
+  const quickActionsModalRef = useRef<HTMLDivElement>(null);
   const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number | null>(null); // No default selection
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [esimCount, setEsimCount] = useState(1);
@@ -771,6 +777,29 @@ export default function HomeScreen() {
     }
   }, [showEuropePlanInfoModal]);
 
+  // Prevent body scroll when Quick Actions modal is open
+  useEffect(() => {
+    if (showQuickActions) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollY}px`;
+      
+      // Cleanup function to restore scroll position
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [showQuickActions]);
+
   // Touch event handlers for plan info modal swipe-down dismissal
   const handlePlanInfoModalTouchStart = (e: React.TouchEvent) => {
     const touch = e.touches[0];
@@ -1025,6 +1054,57 @@ export default function HomeScreen() {
     setIsEuropePlanModalDragging(false);
     setEuropePlanModalStartY(0);
     setEuropePlanModalCurrentY(0);
+  };
+
+  // Touch event handlers for Quick Actions modal swipe-down dismissal
+  const handleQuickActionsModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setQuickActionsStartY(touch.clientY);
+    setQuickActionsCurrentY(touch.clientY);
+    setIsQuickActionsDragging(true);
+  };
+
+  const handleQuickActionsModalTouchMove = (e: React.TouchEvent) => {
+    if (!isQuickActionsDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - quickActionsStartY;
+    
+    setQuickActionsCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY)
+    if (deltaY > 0) {
+      e.preventDefault(); // Prevent body scroll during drag
+      
+      if (quickActionsModalRef.current) {
+        quickActionsModalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        quickActionsModalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
+    }
+  };
+
+  const handleQuickActionsModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isQuickActionsDragging) return;
+    
+    const deltaY = quickActionsCurrentY - quickActionsStartY;
+    
+    // If swiped down more than 80px, close modal
+    if (deltaY > 80 && quickActionsModalRef.current) {
+      // Animate out
+      quickActionsModalRef.current.style.transform = 'translateY(100%)';
+      quickActionsModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowQuickActions(false);
+      }, 200);
+    } else if (quickActionsModalRef.current) {
+      // Snap back to original position
+      quickActionsModalRef.current.style.transform = 'translateY(0)';
+      quickActionsModalRef.current.style.opacity = '1';
+    }
+    
+    setIsQuickActionsDragging(false);
+    setQuickActionsStartY(0);
+    setQuickActionsCurrentY(0);
   };
 
   // Touch event handlers for coverage modal swipe-down dismissal
@@ -3328,8 +3408,12 @@ export default function HomeScreen() {
           }}
         >
           <div 
+            ref={quickActionsModalRef}
             className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleQuickActionsModalTouchStart}
+            onTouchMove={handleQuickActionsModalTouchMove}
+            onTouchEnd={handleQuickActionsModalTouchEnd}
             style={{ zIndex: 10000 }}
           >
             {/* Handle Bar */}
