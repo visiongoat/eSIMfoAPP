@@ -2347,7 +2347,28 @@ export default function HomeScreen() {
                   />
                 </div>
               ) : (
-                countries.slice(1, 21).map((country, index) => {
+[
+                  { id: 73, name: 'United States', flagColors: ['#B22234', '#FFFFFF', '#3C3B6E'], price: '€4.99' },
+                  { id: 6, name: 'France', flagColors: ['#0055A4', '#FFFFFF', '#EF4135'], price: '€3.49' },
+                  { id: 7, name: 'Germany', flagColors: ['#000000', '#DD0000', '#FFCE00'], price: '€3.49' },
+                  { id: 9, name: 'Turkey', flagColors: ['#E30A17'], price: '€2.99' },
+                  { id: 8, name: 'Japan', flagColors: ['#FFFFFF', '#BC002D'], price: '€5.99' },
+                  { id: 40, name: 'Italy', flagColors: ['#009246', '#FFFFFF', '#CE2B37'], price: '€3.99' },
+                  { id: 41, name: 'Spain', flagColors: ['#C60B1E', '#FFC400'], price: '€3.49' },
+                  { id: 42, name: 'United Kingdom', flagColors: ['#012169', '#FFFFFF', '#C8102E'], price: '€3.99' },
+                  { id: 43, name: 'Mexico', flagColors: ['#006847', '#FFFFFF', '#CE1126'], price: '€4.49' },
+                  { id: 44, name: 'Thailand', flagColors: ['#ED1C24', '#FFFFFF', '#241D4F'], price: '€3.99' },
+                  { id: 45, name: 'China', flagColors: ['#DE2910'], price: '€5.99' },
+                  { id: 46, name: 'Canada', flagColors: ['#FF0000', '#FFFFFF'], price: '€4.99' },
+                  { id: 47, name: 'South Korea', flagColors: ['#FFFFFF', '#C60C30', '#003478'], price: '€5.99' },
+                  { id: 48, name: 'Hong Kong', flagColors: ['#DE2910'], price: '€5.49' },
+                  { id: 49, name: 'Malaysia', flagColors: ['#CC0001', '#FFFFFF', '#010066'], price: '€4.99' },
+                  { id: 50, name: 'Greece', flagColors: ['#0D5EAF', '#FFFFFF'], price: '€3.99' },
+                  { id: 51, name: 'Singapore', flagColors: ['#ED2939', '#FFFFFF'], price: '€5.49' },
+                  { id: 52, name: 'Netherlands', flagColors: ['#AE1C28', '#FFFFFF', '#21468B'], price: '€3.99' },
+                  { id: 53, name: 'Portugal', flagColors: ['#046A38', '#DA020E'], price: '€3.49' },
+                  { id: 54, name: 'Austria', flagColors: ['#ED2939', '#FFFFFF'], price: '€3.99' }
+                ].map((country, index) => {
                   // Calculate row-based stagger delay for 2-column grid
                   const row = Math.floor(index / 2);
                   const col = index % 2;
@@ -2356,20 +2377,29 @@ export default function HomeScreen() {
                   return (
                     <button
                       key={country.id}
-                      onClick={() => handleCountrySelect(country)}
+                      onClick={() => handleCountrySelect({ id: country.id, name: country.name } as Country)}
                       className={`bg-white dark:bg-gray-800 rounded-xl p-3 text-left shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-900/50 dark:hover:bg-gray-700 hover:border-gray-200 dark:hover:border-gray-600 transition-all hover:scale-[1.02] active:scale-[0.98] duration-200 animate-stagger-fade stagger-delay-${staggerDelay}`}
                     >
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-6 rounded-sm overflow-hidden shadow-sm border border-gray-200">
-                        <img 
-                          src={country.flagUrl} 
-                          alt={`${country.name} flag`}
-                          className="w-full h-full object-cover"
-                        />
+                      <div className="w-8 h-6 rounded-sm overflow-hidden shadow-sm border border-gray-200 flex">
+                        {country.flagColors.length === 1 ? (
+                          <div className="w-full h-full" style={{ backgroundColor: country.flagColors[0] }}></div>
+                        ) : country.flagColors.length === 2 ? (
+                          <>
+                            <div className="w-1/2 h-full" style={{ backgroundColor: country.flagColors[0] }}></div>
+                            <div className="w-1/2 h-full" style={{ backgroundColor: country.flagColors[1] }}></div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-1/3 h-full" style={{ backgroundColor: country.flagColors[0] }}></div>
+                            <div className="w-1/3 h-full" style={{ backgroundColor: country.flagColors[1] }}></div>
+                            <div className="w-1/3 h-full" style={{ backgroundColor: country.flagColors[2] }}></div>
+                          </>
+                        )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-gray-900 dark:text-gray-100 text-sm truncate">{country.name}</div>
-                        <div className="text-xs text-gray-400 dark:text-gray-500">From €{((country.id * 7) % 40 / 10 + 2.99).toFixed(2)}</div>
+                        <div className="text-xs text-gray-400 dark:text-gray-500">From {country.price}</div>
                       </div>
                     </div>
                   </button>
