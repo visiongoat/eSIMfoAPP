@@ -1299,7 +1299,11 @@ export default function DestinationsScreen() {
                     {europaPlans.map((plan) => (
                       <button 
                         key={plan.id}
-                        onClick={() => setSelectedEuropaPlan(plan.id)}
+                        onClick={() => {
+                          setSelectedEuropaPlan(plan.id);
+                          setSelectedPlan(plan);
+                          setShowCheckoutModal(true);
+                        }}
                         className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl relative ${
                           selectedEuropaPlan === plan.id
                             ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
@@ -1326,7 +1330,9 @@ export default function DestinationsScreen() {
                             <div 
                               onClick={(e) => {
                                 e.stopPropagation();
+                                setSelectedEuropaPlan(plan.id);
                                 setSelectedPlan(plan);
+                                setShowCheckoutModal(true);
                                 // Haptic feedback
                                 if (navigator.vibrate) {
                                   navigator.vibrate(30);
