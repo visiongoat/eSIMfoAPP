@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
+import CheckoutModal from "@/components/checkout-modal";
 import europaIcon from "@assets/europamap.png";
 import asiaIcon from "@assets/asiamap.png";
 import americasIcon from "@assets/americasmaps.png";
@@ -30,6 +31,9 @@ export default function DestinationsScreen() {
   // Currency states
   const [selectedCurrency, setSelectedCurrency] = useState('EUR');
   const [showCurrencyModal, setShowCurrencyModal] = useState(false);
+  
+  // Checkout states for regions
+  const [esimCount, setEsimCount] = useState(1);
   
   // Currency definitions with symbols and conversion rates
   const currencies = [
@@ -2043,6 +2047,16 @@ export default function DestinationsScreen() {
           </Button>
         </div>
       )}
+
+      {/* Checkout Modal for Regions */}
+      <CheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        selectedPackage={selectedPlan}
+        country={{ name: "Europe Regional Plan", code: "EU", flagUrl: "" }}
+        esimCount={esimCount}
+        setEsimCount={setEsimCount}
+      />
     </div>
   );
 }
