@@ -1306,7 +1306,6 @@ export default function DestinationsScreen() {
                         onClick={() => {
                           setSelectedEuropaPlan(plan.id);
                           setSelectedPlan(plan);
-                          setShowCheckoutModal(true);
                         }}
                         className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl relative ${
                           selectedEuropaPlan === plan.id
@@ -1336,7 +1335,6 @@ export default function DestinationsScreen() {
                                 e.stopPropagation();
                                 setSelectedEuropaPlan(plan.id);
                                 setSelectedPlan(plan);
-                                setShowCheckoutModal(true);
                                 // Haptic feedback
                                 if (navigator.vibrate) {
                                   navigator.vibrate(30);
