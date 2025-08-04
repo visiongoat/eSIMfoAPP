@@ -81,26 +81,32 @@ export default function BalanceScreen() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex mb-4 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
+        <div className="flex mb-4 border-b border-gray-200 dark:border-gray-700">
           <button
             onClick={() => setActiveTab('topup')}
-            className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
+            className={`flex-1 py-2 px-1 text-sm font-medium transition-all duration-200 relative ${
               activeTab === 'topup'
-                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'text-blue-600 dark:text-blue-400'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
             Top Up
+            {activeTab === 'topup' && (
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
+            )}
           </button>
           <button
             onClick={() => setActiveTab('history')}
-            className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
+            className={`flex-1 py-2 px-1 text-sm font-medium transition-all duration-200 relative ${
               activeTab === 'history'
-                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                ? 'text-blue-600 dark:text-blue-400'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
             History
+            {activeTab === 'history' && (
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
+            )}
           </button>
         </div>
 
