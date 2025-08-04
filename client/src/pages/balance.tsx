@@ -39,12 +39,16 @@ export default function BalanceScreen() {
   const handleTopUp = () => {
     const amount = selectedAmount || parseFloat(customAmount);
     if (amount && amount > 0) {
+      const bonus = amount === 100 ? 5 : 0;
+      const totalAmount = amount + bonus;
       // Handle top-up logic here
-      console.log(`Top up ${amount}€`);
+      console.log(`Top up ${amount}€${bonus > 0 ? ` + ${bonus}€ bonus = ${totalAmount}€ total` : ''}`);
     }
   };
   
-  const finalAmount = selectedAmount || parseFloat(customAmount) || 0;
+  const baseAmount = selectedAmount || parseFloat(customAmount) || 0;
+  const bonusAmount = baseAmount === 100 ? 5 : 0;
+  const finalAmount = baseAmount + bonusAmount;
 
   return (
     <div className="mobile-screen">
@@ -103,6 +107,22 @@ export default function BalanceScreen() {
         {/* Tab Content */}
         {activeTab === 'topup' ? (
           <div>
+        {/* Bonus Campaign Banner */}
+        <div className="mb-6 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border border-green-200 dark:border-green-700 rounded-xl p-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-green-800 dark:text-green-200">Special Offer!</h3>
+              <p className="text-sm text-green-700 dark:text-green-300">Top up €100, get €5 bonus</p>
+            </div>
+            <div className="text-green-600 dark:text-green-400 font-bold">+€5</div>
+          </div>
+        </div>
+
         {/* Choose Amount Section */}
         <div className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Choose Amount</h2>
@@ -113,13 +133,18 @@ export default function BalanceScreen() {
               <button
                 key={amount}
                 onClick={() => handleAmountSelect(amount)}
-                className={`py-4 px-4 rounded-xl border-2 font-semibold transition-all duration-200 ${
+                className={`relative py-4 px-4 rounded-xl border-2 font-semibold transition-all duration-200 ${
                   selectedAmount === amount
                     ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600 shadow-lg'
                     : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md'
                 }`}
               >
                 € {amount}
+                {amount === 100 && (
+                  <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                    +€5
+                  </div>
+                )}
               </button>
             ))}
             
@@ -170,12 +195,16 @@ export default function BalanceScreen() {
           onClick={handleTopUp}
           disabled={!finalAmount || finalAmount <= 0}
           className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 ${
-            finalAmount && finalAmount > 0
+            baseAmount && baseAmount > 0
               ? 'bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700 shadow-lg hover:shadow-xl active:scale-[0.98]'
               : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
           }`}
         >
-          € {finalAmount.toFixed(2)} - Top up Now
+          {bonusAmount > 0 ? (
+            <span>€ {baseAmount.toFixed(2)} + €{bonusAmount} bonus - Top up Now</span>
+          ) : (
+            <span>€ {baseAmount.toFixed(2)} - Top up Now</span>
+          )}
         </button>
           </div>
         ) : (
