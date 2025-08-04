@@ -11,6 +11,7 @@ interface CheckoutModalProps {
   esimCount: number;
   setEsimCount: (count: number) => void;
   onComplete?: () => void;
+  showPaymentMethodsDefault?: boolean;
 }
 
 export default function CheckoutModal({ 
@@ -20,11 +21,12 @@ export default function CheckoutModal({
   country, 
   esimCount, 
   setEsimCount,
-  onComplete
+  onComplete,
+  showPaymentMethodsDefault = false
 }: CheckoutModalProps) {
   const [autoRenewal, setAutoRenewal] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<string>("");
-  const [showPaymentMethods, setShowPaymentMethods] = useState(true);
+  const [showPaymentMethods, setShowPaymentMethods] = useState(showPaymentMethodsDefault);
   const [showAutoRenewalInfo, setShowAutoRenewalInfo] = useState(false);
   
   // Touch/swipe states for modal dismissal

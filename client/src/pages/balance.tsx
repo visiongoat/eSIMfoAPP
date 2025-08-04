@@ -433,6 +433,7 @@ export default function BalanceScreen() {
         esimCount={checkoutQuantity}
         setEsimCount={setCheckoutQuantity}
         onComplete={handleCheckoutComplete}
+        showPaymentMethodsDefault={true}
       />
     </div>
   );
