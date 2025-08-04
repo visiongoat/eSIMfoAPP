@@ -174,9 +174,9 @@ export default function BalanceScreen() {
         onBackClick={() => setLocation('/profile')}
       />
 
-      <div className="px-4 pt-2 pb-20">
+      <div className="px-6 pt-4 pb-28">
         {/* Current Balance Card */}
-        <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-2xl p-4 mb-4 border border-yellow-200 dark:border-yellow-700">
+        <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-2xl p-6 mb-6 border border-yellow-200 dark:border-yellow-700">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center">
@@ -204,7 +204,7 @@ export default function BalanceScreen() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex mb-4 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
+        <div className="flex mb-6 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
           <button
             onClick={() => setActiveTab('topup')}
             className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
@@ -238,7 +238,7 @@ export default function BalanceScreen() {
         {activeTab === 'topup' ? (
           <div>
         {/* Bonus Campaign Banner */}
-        <div className="mb-4 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border border-green-200 dark:border-green-700 rounded-xl p-3">
+        <div className="mb-6 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border border-green-200 dark:border-green-700 rounded-xl p-4">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,16 +254,16 @@ export default function BalanceScreen() {
         </div>
 
         {/* Choose Amount Section */}
-        <div className="mb-4">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">Choose Amount</h2>
+        <div className="mb-6">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Choose Amount</h2>
           
           {/* Predefined Amounts Grid */}
-          <div className="grid grid-cols-3 gap-2 mb-3">
+          <div className="grid grid-cols-3 gap-3 mb-4">
             {predefinedAmounts.map((amount) => (
               <button
                 key={amount}
                 onClick={() => handleAmountSelect(amount)}
-                className={`relative py-3 px-3 rounded-xl border-2 font-semibold transition-all duration-200 ${
+                className={`relative py-4 px-4 rounded-xl border-2 font-semibold transition-all duration-200 ${
                   selectedAmount === amount
                     ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600 shadow-lg'
                     : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md'
@@ -281,7 +281,7 @@ export default function BalanceScreen() {
             {/* Other Button */}
             <button
               onClick={handleOtherSelect}
-              className={`py-3 px-3 rounded-xl border-2 font-semibold transition-all duration-200 ${
+              className={`py-4 px-4 rounded-xl border-2 font-semibold transition-all duration-200 ${
                 showCustomInput
                   ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600 shadow-lg'
                   : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md'
@@ -293,7 +293,7 @@ export default function BalanceScreen() {
           
           {/* Custom Amount Input */}
           {showCustomInput && (
-            <div className="mb-3">
+            <div className="mb-4">
               <input
                 type="number"
                 placeholder="Enter amount"
@@ -308,7 +308,7 @@ export default function BalanceScreen() {
         </div>
 
         {/* Terms and Conditions */}
-        <div className="mb-4">
+        <div className="mb-6">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             You agree to{' '}
             <button className="text-blue-500 hover:text-blue-600 underline">Terms</button>
@@ -324,7 +324,7 @@ export default function BalanceScreen() {
         <button
           onClick={handleTopUp}
           disabled={!finalAmount || finalAmount <= 0}
-          className={`w-full py-3 rounded-xl font-semibold transition-all duration-200 ${
+          className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 ${
             baseAmount && baseAmount > 0
               ? 'bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700 shadow-lg hover:shadow-xl active:scale-[0.98]'
               : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
