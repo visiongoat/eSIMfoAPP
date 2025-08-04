@@ -151,13 +151,12 @@ export default function BalanceScreen() {
   const createBalancePackage = () => {
     const amount = selectedAmount || parseFloat(customAmount) || 0;
     const bonus = amount === 100 ? 5 : 0;
-    const finalAmount = amount + bonus;
     
     return {
       id: 'balance-topup',
       name: `Balance Top-up €${amount.toFixed(2)}`,
-      price: `€${finalAmount.toFixed(2)}`,
-      data: bonus > 0 ? `Includes €${bonus.toFixed(2)} bonus` : 'Instant balance credit',
+      price: `€${amount.toFixed(2)}`, // Only charge the base amount
+      data: bonus > 0 ? `+ €${bonus.toFixed(2)} bonus credit (FREE)` : 'Instant balance credit',
       validity: 'Immediate',
       type: 'topup' as const
     };
