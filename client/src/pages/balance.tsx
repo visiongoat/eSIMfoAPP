@@ -47,19 +47,40 @@ export default function BalanceScreen() {
     setSelectedAmount(null);
   };
   
-  // Swipe gesture handlers
+  // Swipe gesture handlers - only for tab content, not buttons
   const handleTouchStart = (e: React.TouchEvent) => {
+    // Don't interfere with button clicks or other interactive elements
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      return;
+    }
+    
     startX.current = e.touches[0].clientX;
     isDragging.current = true;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging.current) return;
+    
+    // Don't interfere with button interactions
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      isDragging.current = false;
+      return;
+    }
+    
     currentX.current = e.touches[0].clientX;
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
     if (!isDragging.current) return;
+    
+    // Don't interfere with button clicks
+    const target = e.target as HTMLElement;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      isDragging.current = false;
+      return;
+    }
     
     const diffX = startX.current - currentX.current;
     const minSwipeDistance = 50;
