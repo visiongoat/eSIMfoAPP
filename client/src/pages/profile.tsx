@@ -22,7 +22,7 @@ export default function ProfileScreen() {
       title: "Account Settings",
       items: [
         { icon: "👤", label: "Personal Information", hasArrow: true },
-        { icon: "💳", label: "Payment Methods", hasArrow: true },
+        { icon: "💰", label: "fo Balance", hasArrow: true, action: "balance" },
         { icon: "🎨", label: "Theme", hasToggle: true, enabled: theme === 'dark' },
         { icon: "🔔", label: "Notifications", hasToggle: true, enabled: true },
         { icon: "🔒", label: "Privacy & Security", hasArrow: true },
@@ -83,13 +83,15 @@ export default function ProfileScreen() {
                 <div 
                   key={itemIndex} 
                   className={`flex items-center justify-between py-2 ${
-                    'hasToggle' in item && item.hasToggle && item.label === 'Theme' 
-                      ? 'cursor-pointer' 
+                    ('hasToggle' in item && item.hasToggle && item.label === 'Theme') || ('action' in item) 
+                      ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg px-2 transition-colors duration-200' 
                       : ''
                   }`}
                   onClick={() => {
                     if ('hasToggle' in item && item.hasToggle && item.label === 'Theme') {
                       toggleTheme();
+                    } else if ('action' in item && item.action === 'balance') {
+                      setLocation('/balance');
                     }
                   }}
                 >
