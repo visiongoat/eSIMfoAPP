@@ -115,8 +115,8 @@ export default function BalanceScreen() {
                 onClick={() => handleAmountSelect(amount)}
                 className={`py-4 px-4 rounded-xl border-2 font-semibold transition-all duration-200 ${
                   selectedAmount === amount
-                    ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-white shadow-lg'
-                    : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md'
+                    ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600 shadow-lg'
+                    : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md'
                 }`}
               >
                 € {amount}
@@ -128,8 +128,8 @@ export default function BalanceScreen() {
               onClick={handleOtherSelect}
               className={`py-4 px-4 rounded-xl border-2 font-semibold transition-all duration-200 ${
                 showCustomInput
-                  ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 border-gray-900 dark:border-white shadow-lg'
-                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md'
+                  ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600 shadow-lg'
+                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md'
               }`}
             >
               Other
@@ -177,7 +177,7 @@ export default function BalanceScreen() {
           disabled={!finalAmount || finalAmount <= 0}
           className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 ${
             finalAmount && finalAmount > 0
-              ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 shadow-lg hover:shadow-xl active:scale-[0.98]'
+              ? 'bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700 shadow-lg hover:shadow-xl active:scale-[0.98]'
               : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
           }`}
         >
