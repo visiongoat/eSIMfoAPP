@@ -12,6 +12,8 @@ export default function BalanceScreen() {
   const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
   const [balanceValue, setBalanceValue] = useState(50.00);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
   
   // Swipe gesture handling
   const tabContentRef = useRef<HTMLDivElement>(null);
@@ -103,15 +105,69 @@ export default function BalanceScreen() {
   const handleTopUp = () => {
     const amount = selectedAmount || parseFloat(customAmount);
     if (amount && amount > 0) {
+      setShowCheckoutModal(true);
+    }
+  };
+
+  const handlePaymentComplete = () => {
+    const amount = selectedAmount || parseFloat(customAmount);
+    if (amount && amount > 0) {
       const bonus = amount === 100 ? 5 : 0;
       const totalAmount = amount + bonus;
       
       // Animate balance increase
       animateBalance(balanceValue + totalAmount);
       
+      setShowCheckoutModal(false);
+      setSelectedPaymentMethod(null);
+      
       console.log(`Top up ${amount}€${bonus > 0 ? ` + ${bonus}€ bonus = ${totalAmount}€ total` : ''}`);
     }
   };
+
+  const paymentMethods = [
+    {
+      id: 'apple-pay',
+      name: 'Apple Pay',
+      icon: '🍎',
+      color: 'bg-black dark:bg-gray-800',
+      textColor: 'text-white',
+      action: 'Pay'
+    },
+    {
+      id: 'card',
+      name: 'Pay with Card',
+      icon: '💳',
+      color: 'bg-blue-600',
+      textColor: 'text-white',
+      badges: ['VISA', 'MC']
+    },
+    {
+      id: 'amex',
+      name: 'Pay with AMEX',
+      icon: '💳',
+      color: 'bg-blue-600',
+      textColor: 'text-white',
+      badges: ['AMEX', 'VISA']
+    },
+    {
+      id: 'paypal',
+      name: 'Paypal',
+      icon: '🔵',
+      color: 'bg-blue-600',
+      textColor: 'text-white',
+      action: 'PayPal'
+    },
+    {
+      id: 'crypto',
+      name: 'Pay with crypto',
+      icon: '₿',
+      color: 'bg-orange-600',
+      textColor: 'text-white',
+      subtitle: 'Funds are refunded only to the wallet balance',
+      action: 'alphaoo'
+    }
+  ];
   
   const baseAmount = selectedAmount || parseFloat(customAmount) || 0;
   const bonusAmount = baseAmount === 100 ? 5 : 0;
@@ -368,6 +424,109 @@ export default function BalanceScreen() {
               <button onClick={() => { setShowQuickActions(false); setLocation('/destinations?tab=countries'); }} className="w-full bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800/30 dark:hover:to-blue-700/30 rounded-2xl p-4 border border-blue-200 dark:border-blue-700 transition-all duration-200 group active:scale-[0.98]"><div className="flex items-center justify-between"><div className="flex items-center space-x-4"><div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg"><svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg></div><div className="text-left"><h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Local eSIMs</h3><p className="text-gray-600 dark:text-gray-400 text-sm">Perfect for single country travel</p></div></div><svg className="w-5 h-5 text-blue-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></div></button>
               <button onClick={() => { setShowQuickActions(false); setLocation('/destinations?tab=regions'); }} className="w-full bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 hover:from-green-100 hover:to-green-200 dark:hover:from-green-800/30 dark:hover:to-green-700/30 rounded-2xl p-4 border border-green-200 dark:border-green-700 transition-all duration-200 group active:scale-[0.98]"><div className="flex items-center justify-between"><div className="flex items-center space-x-4"><div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg"><svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg></div><div className="text-left"><h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Regional eSIMs</h3><p className="text-gray-600 dark:text-gray-400 text-sm">Great for multi-country trips</p></div></div><svg className="w-5 h-5 text-green-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></div></button>
               <button onClick={() => { setShowQuickActions(false); setLocation('/destinations?tab=global'); }} className="w-full bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 hover:from-purple-100 hover:to-purple-200 dark:hover:from-purple-800/30 dark:hover:to-purple-700/30 rounded-2xl p-4 border border-purple-200 dark:border-purple-700 transition-all duration-200 group active:scale-[0.98]"><div className="flex items-center justify-between"><div className="flex items-center space-x-4"><div className="w-12 h-12 bg-purple-500 rounded-2xl flex items-center justify-center shadow-lg"><svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div><div className="text-left"><h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Global eSIMs</h3><p className="text-gray-600 dark:text-gray-400 text-sm">Worldwide coverage plans</p></div></div><svg className="w-5 h-5 text-purple-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></div></button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Checkout Modal */}
+      {showCheckoutModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]">
+          <div className="bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-700">
+              <h2 className="text-xl font-bold text-white">Checkout</h2>
+              <button 
+                onClick={() => setShowCheckoutModal(false)}
+                className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Order Summary */}
+            <div className="p-6 border-b border-gray-700">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-white">
+                    Balance Top-up €{baseAmount.toFixed(2)}
+                  </h3>
+                  {bonusAmount > 0 && (
+                    <p className="text-sm text-green-400">Includes €{bonusAmount.toFixed(2)} bonus</p>
+                  )}
+                </div>
+                <div className="flex items-center space-x-3">
+                  <button className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center text-white hover:bg-gray-600">
+                    <span className="text-lg">−</span>
+                  </button>
+                  <span className="text-lg font-medium text-white min-w-[2rem] text-center">1</span>
+                  <button className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center text-white hover:bg-gray-600">
+                    <span className="text-lg">+</span>
+                  </button>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <span className="text-xl font-bold text-white">Total</span>
+                <span className="text-xl font-bold text-white">€{finalAmount.toFixed(2)}</span>
+              </div>
+            </div>
+
+            {/* Payment Methods */}
+            <div className="p-6">
+              <h3 className="text-lg font-semibold text-white mb-4">Choose a payment method</h3>
+              <div className="space-y-3 mb-6">
+                {paymentMethods.map((method) => (
+                  <button
+                    key={method.id}
+                    onClick={() => setSelectedPaymentMethod(method.id)}
+                    className={`w-full p-4 rounded-xl border-2 transition-all duration-200 ${
+                      selectedPaymentMethod === method.id
+                        ? 'border-blue-500 bg-blue-500/10'
+                        : 'border-gray-600 bg-gray-800 hover:border-gray-500'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-10 h-10 ${method.color} rounded-lg flex items-center justify-center`}>
+                          <span className="text-lg">{method.icon}</span>
+                        </div>
+                        <div className="text-left">
+                          <div className="text-white font-medium">{method.name}</div>
+                          {method.subtitle && (
+                            <div className="text-xs text-gray-400">{method.subtitle}</div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        {method.badges && method.badges.map((badge) => (
+                          <span key={badge} className="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded">
+                            {badge}
+                          </span>
+                        ))}
+                        {method.action && (
+                          <span className="text-blue-400 font-medium">{method.action}</span>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Continue Button */}
+              <button
+                onClick={handlePaymentComplete}
+                disabled={!selectedPaymentMethod}
+                className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 ${
+                  selectedPaymentMethod
+                    ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg'
+                    : 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                Choose
+              </button>
             </div>
           </div>
         </div>
