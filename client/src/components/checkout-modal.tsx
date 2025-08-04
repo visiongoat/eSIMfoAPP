@@ -24,7 +24,7 @@ export default function CheckoutModal({
 }: CheckoutModalProps) {
   const [autoRenewal, setAutoRenewal] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<string>("");
-  const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+  const [showPaymentMethods, setShowPaymentMethods] = useState(true);
   const [showAutoRenewalInfo, setShowAutoRenewalInfo] = useState(false);
   
   // Touch/swipe states for modal dismissal
