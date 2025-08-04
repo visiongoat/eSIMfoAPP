@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation } from "wouter";
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
@@ -10,9 +10,17 @@ export default function BalanceScreen() {
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
+  const [balanceValue, setBalanceValue] = useState(50.00);
+  const [isAnimating, setIsAnimating] = useState(false);
   
-  // Mock current balance
-  const currentBalance = 50.00;
+  // Swipe gesture handling
+  const tabContentRef = useRef<HTMLDivElement>(null);
+  const startX = useRef<number>(0);
+  const currentX = useRef<number>(0);
+  const isDragging = useRef<boolean>(false);
+  
+  // Mock current balance - now animated
+  const currentBalance = balanceValue;
   
   // Mock transaction history
   const transactionHistory = [
@@ -36,12 +44,71 @@ export default function BalanceScreen() {
     setSelectedAmount(null);
   };
   
+  // Swipe gesture handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    startX.current = e.touches[0].clientX;
+    isDragging.current = true;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+    currentX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging.current) return;
+    
+    const diffX = startX.current - currentX.current;
+    const minSwipeDistance = 50;
+    
+    if (Math.abs(diffX) > minSwipeDistance) {
+      if (diffX > 0 && activeTab === 'topup') {
+        // Swipe left: topup -> history
+        setActiveTab('history');
+      } else if (diffX < 0 && activeTab === 'history') {
+        // Swipe right: history -> topup
+        setActiveTab('topup');
+      }
+    }
+    
+    isDragging.current = false;
+  };
+
+  // Balance animation function
+  const animateBalance = (newValue: number) => {
+    setIsAnimating(true);
+    const startValue = balanceValue;
+    const difference = newValue - startValue;
+    const duration = 800; // 800ms animation
+    const steps = 60;
+    const stepValue = difference / steps;
+    let currentStep = 0;
+
+    const timer = setInterval(() => {
+      currentStep++;
+      const progress = currentStep / steps;
+      const easeOutProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+      const currentValue = startValue + (difference * easeOutProgress);
+      
+      setBalanceValue(currentValue);
+      
+      if (currentStep >= steps) {
+        clearInterval(timer);
+        setBalanceValue(newValue);
+        setIsAnimating(false);
+      }
+    }, duration / steps);
+  };
+
   const handleTopUp = () => {
     const amount = selectedAmount || parseFloat(customAmount);
     if (amount && amount > 0) {
       const bonus = amount === 100 ? 5 : 0;
       const totalAmount = amount + bonus;
-      // Handle top-up logic here
+      
+      // Animate balance increase
+      animateBalance(balanceValue + totalAmount);
+      
       console.log(`Top up ${amount}€${bonus > 0 ? ` + ${bonus}€ bonus = ${totalAmount}€ total` : ''}`);
     }
   };
@@ -73,9 +140,16 @@ export default function BalanceScreen() {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-yellow-800 dark:text-yellow-200">
+              <div className={`text-2xl font-bold text-yellow-800 dark:text-yellow-200 transition-all duration-300 ${
+                isAnimating ? 'scale-110 text-green-600 dark:text-green-400' : ''
+              }`}>
                 {currentBalance.toFixed(2)} €
               </div>
+              {isAnimating && (
+                <div className="text-xs text-green-600 dark:text-green-400 animate-pulse">
+                  Updating...
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -105,6 +179,13 @@ export default function BalanceScreen() {
         </div>
 
         {/* Tab Content */}
+        <div 
+          ref={tabContentRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          className="transition-transform duration-300 ease-out"
+        >
         {activeTab === 'topup' ? (
           <div>
         {/* Bonus Campaign Banner */}
@@ -273,6 +354,8 @@ export default function BalanceScreen() {
             </button>
           </div>
         )}
+        </div>
+        
       </div>
 
       <TabBar onPlusClick={() => setShowQuickActions(true)} />
