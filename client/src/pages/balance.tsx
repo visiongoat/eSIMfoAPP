@@ -176,7 +176,9 @@ export default function BalanceScreen() {
 
       <div className="px-6 pt-4 pb-28">
         {/* Current Balance Card */}
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 mb-6 border border-gray-200 dark:border-gray-700">
+        <div className={`bg-gray-100 dark:bg-gray-800 rounded-xl p-6 mb-6 border border-gray-200 dark:border-gray-700 transition-all duration-500 ${
+          isAnimating ? 'shadow-lg shadow-green-500/25 ring-2 ring-green-500/20' : ''
+        }`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
@@ -189,7 +191,7 @@ export default function BalanceScreen() {
               </div>
             </div>
             <div className="text-right">
-              <div className={`text-3xl font-bold text-gray-900 dark:text-white transition-all duration-300 ${
+              <div className={`text-3xl font-bold text-gray-900 dark:text-white transition-all duration-500 ${
                 isAnimating ? 'scale-110 text-green-600 dark:text-green-400' : ''
               }`}>
                 {currentBalance.toFixed(2)} €
@@ -265,10 +267,11 @@ export default function BalanceScreen() {
               <button
                 key={amount}
                 onClick={() => handleAmountSelect(amount)}
+                aria-label={`Select ${amount} euros for top-up${amount === 100 ? ' with 5 euro bonus' : ''}`}
                 className={`relative py-4 px-4 rounded-xl border-2 font-semibold transition-all duration-200 ${
                   selectedAmount === amount
                     ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600 shadow-lg'
-                    : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md'
+                    : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md hover:scale-[0.99] active:scale-[0.97]'
                 }`}
               >
                 € {amount}
@@ -283,10 +286,11 @@ export default function BalanceScreen() {
             {/* Other Button */}
             <button
               onClick={handleOtherSelect}
+              aria-label="Enter custom amount for top-up"
               className={`py-4 px-4 rounded-xl border-2 font-semibold transition-all duration-200 ${
                 showCustomInput
                   ? 'bg-blue-500 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-600 shadow-lg'
-                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md'
+                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md hover:scale-[0.99] active:scale-[0.97]'
               }`}
             >
               Other
@@ -326,9 +330,10 @@ export default function BalanceScreen() {
         <button
           onClick={handleTopUp}
           disabled={!finalAmount || finalAmount <= 0}
+          aria-label={`Top up ${baseAmount?.toFixed(2)} euros${bonusAmount > 0 ? ` with ${bonusAmount} euro bonus` : ''}`}
           className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 ${
             baseAmount && baseAmount > 0
-              ? 'bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700 shadow-lg hover:shadow-xl active:scale-[0.98]'
+              ? 'bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700 shadow-lg hover:shadow-xl hover:scale-[0.99] active:scale-[0.97]'
               : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
           }`}
         >
