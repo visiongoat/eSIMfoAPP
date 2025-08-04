@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useLocation } from "wouter";
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
+import CheckoutModal from "@/components/checkout-modal";
 
 export default function BalanceScreen() {
   const [, setLocation] = useLocation();
@@ -12,6 +13,8 @@ export default function BalanceScreen() {
   const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
   const [balanceValue, setBalanceValue] = useState(50.00);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [checkoutQuantity, setCheckoutQuantity] = useState(1);
   
   // Swipe gesture handling
   const tabContentRef = useRef<HTMLDivElement>(null);
@@ -103,14 +106,40 @@ export default function BalanceScreen() {
   const handleTopUp = () => {
     const amount = selectedAmount || parseFloat(customAmount);
     if (amount && amount > 0) {
+      setShowCheckoutModal(true);
+    }
+  };
+
+  const handleCheckoutComplete = () => {
+    const amount = selectedAmount || parseFloat(customAmount);
+    if (amount && amount > 0) {
       const bonus = amount === 100 ? 5 : 0;
-      const totalAmount = amount + bonus;
+      const totalAmount = (amount + bonus) * checkoutQuantity;
       
       // Animate balance increase
       animateBalance(balanceValue + totalAmount);
       
-      console.log(`Top up ${amount}€${bonus > 0 ? ` + ${bonus}€ bonus = ${totalAmount}€ total` : ''}`);
+      setShowCheckoutModal(false);
+      setCheckoutQuantity(1);
+      
+      console.log(`Top up ${amount}€${bonus > 0 ? ` + ${bonus}€ bonus` : ''} x${checkoutQuantity} = ${totalAmount}€ total`);
     }
+  };
+
+  // Create a mock package object for the checkout modal
+  const createBalancePackage = () => {
+    const amount = selectedAmount || parseFloat(customAmount) || 0;
+    const bonus = amount === 100 ? 5 : 0;
+    const finalAmount = amount + bonus;
+    
+    return {
+      id: 'balance-topup',
+      name: `Balance Top-up €${amount.toFixed(2)}`,
+      price: `€${finalAmount.toFixed(2)}`,
+      data: bonus > 0 ? `Includes €${bonus.toFixed(2)} bonus` : 'Instant balance credit',
+      validity: 'Immediate',
+      type: 'topup' as const
+    };
   };
   
   const baseAmount = selectedAmount || parseFloat(customAmount) || 0;
@@ -374,6 +403,16 @@ export default function BalanceScreen() {
       )}
 
 
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        selectedPackage={createBalancePackage()}
+        country={{ name: 'Balance Top-up', code: 'BALANCE' }}
+        esimCount={checkoutQuantity}
+        setEsimCount={setCheckoutQuantity}
+        onComplete={handleCheckoutComplete}
+      />
     </div>
   );
 }

@@ -10,6 +10,7 @@ interface CheckoutModalProps {
   country: any;
   esimCount: number;
   setEsimCount: (count: number) => void;
+  onComplete?: () => void;
 }
 
 export default function CheckoutModal({ 
@@ -18,7 +19,8 @@ export default function CheckoutModal({
   selectedPackage, 
   country, 
   esimCount, 
-  setEsimCount 
+  setEsimCount,
+  onComplete
 }: CheckoutModalProps) {
   const [autoRenewal, setAutoRenewal] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<string>("");
@@ -301,11 +303,17 @@ export default function CheckoutModal({
               </div>
 
               <Button
-                onClick={() => {/* Handle payment */}}
+                onClick={() => {
+                  if (onComplete) {
+                    onComplete();
+                  } else {
+                    onClose();
+                  }
+                }}
                 disabled={!selectedPayment}
                 className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium rounded-xl transition-colors"
               >
-                {selectedPayment ? paymentMethods.find(m => m.id === selectedPayment)?.name || 'Choose' : 'Choose'}
+                Choose
               </Button>
             </div>
           )}
