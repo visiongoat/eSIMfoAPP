@@ -176,20 +176,20 @@ export default function BalanceScreen() {
 
       <div className="px-6 pt-4 pb-28">
         {/* Current Balance Card */}
-        <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-2xl p-6 mb-6 border border-yellow-200 dark:border-yellow-700">
+        <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-2xl p-6 mb-6 border border-blue-200 dark:border-blue-700">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-yellow-700 dark:text-yellow-300 font-medium">fo Balance</p>
+                <p className="text-sm text-blue-700 dark:text-blue-300 font-medium">fo Balance</p>
               </div>
             </div>
             <div className="text-right">
-              <div className={`text-2xl font-bold text-yellow-800 dark:text-yellow-200 transition-all duration-300 ${
+              <div className={`text-2xl font-bold text-blue-800 dark:text-blue-200 transition-all duration-300 ${
                 isAnimating ? 'scale-110 text-green-600 dark:text-green-400' : ''
               }`}>
                 {currentBalance.toFixed(2)} €
