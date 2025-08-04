@@ -9,9 +9,19 @@ export default function BalanceScreen() {
   const [customAmount, setCustomAmount] = useState("");
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
   
   // Mock current balance
   const currentBalance = 50.00;
+  
+  // Mock transaction history
+  const transactionHistory = [
+    { id: 1, amount: 20.00, date: '2024-01-15', method: 'Credit Card', status: 'Completed', type: 'top-up' },
+    { id: 2, amount: 50.00, date: '2024-01-10', method: 'PayPal', status: 'Completed', type: 'top-up' },
+    { id: 3, amount: 15.00, date: '2024-01-05', method: 'Apple Pay', status: 'Completed', type: 'top-up' },
+    { id: 4, amount: 30.00, date: '2024-01-01', method: 'Credit Card', status: 'Completed', type: 'top-up' },
+    { id: 5, amount: 25.00, date: '2023-12-28', method: 'Google Pay', status: 'Completed', type: 'top-up' },
+  ];
   
   const predefinedAmounts = [5, 10, 20, 50, 100];
   
@@ -66,6 +76,33 @@ export default function BalanceScreen() {
           </div>
         </div>
 
+        {/* Tab Navigation */}
+        <div className="flex mb-6 bg-gray-100 dark:bg-gray-800 rounded-xl p-1">
+          <button
+            onClick={() => setActiveTab('topup')}
+            className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
+              activeTab === 'topup'
+                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+            }`}
+          >
+            Top Up
+          </button>
+          <button
+            onClick={() => setActiveTab('history')}
+            className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
+              activeTab === 'history'
+                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+            }`}
+          >
+            History
+          </button>
+        </div>
+
+        {/* Tab Content */}
+        {activeTab === 'topup' ? (
+          <div>
         {/* Choose Amount Section */}
         <div className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Choose Amount</h2>
@@ -146,6 +183,73 @@ export default function BalanceScreen() {
         >
           € {finalAmount.toFixed(2)} - Top up Now
         </button>
+          </div>
+        ) : (
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Transaction History</h2>
+            
+            {/* Filter Section */}
+            <div className="mb-4">
+              <select className="w-full p-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="all">All Transactions</option>
+                <option value="30">Last 30 Days</option>
+                <option value="90">Last 3 Months</option>
+                <option value="365">Last Year</option>
+              </select>
+            </div>
+
+            {/* Transaction List */}
+            <div className="space-y-3">
+              {transactionHistory.map((transaction) => (
+                <div key={transaction.id} className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-xl flex items-center justify-center">
+                        <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-900 dark:text-gray-100">
+                          Top-up
+                        </div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {new Date(transaction.date).toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-green-600 dark:text-green-400">
+                        +€{transaction.amount.toFixed(2)}
+                      </div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                        {transaction.method}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      transaction.status === 'Completed' 
+                        ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400'
+                        : 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400'
+                    }`}>
+                      {transaction.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Export Button */}
+            <button className="w-full mt-6 py-3 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200">
+              Export Transaction History
+            </button>
+          </div>
+        )}
       </div>
 
       <TabBar onPlusClick={() => setShowQuickActions(true)} />
