@@ -156,17 +156,11 @@ export default function BalanceScreen() {
         <div className="mb-6">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             You agree to{' '}
-            <button className="text-blue-500 hover:text-blue-600 underline">
-              Terms of Service
-            </button>
+            <button className="text-blue-500 hover:text-blue-600 underline">Terms</button>
             ,{' '}
-            <button className="text-blue-500 hover:text-blue-600 underline">
-              Privacy Policy
-            </button>
+            <button className="text-blue-500 hover:text-blue-600 underline">Privacy</button>
             ,{' '}
-            <button className="text-blue-500 hover:text-blue-600 underline">
-              Purchase Policy
-            </button>
+            <button className="text-blue-500 hover:text-blue-600 underline">Purchase Policy</button>
             .
           </p>
         </div>
