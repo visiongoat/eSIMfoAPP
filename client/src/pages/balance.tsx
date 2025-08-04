@@ -12,8 +12,6 @@ export default function BalanceScreen() {
   const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
   const [balanceValue, setBalanceValue] = useState(50.00);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
   
   // Swipe gesture handling
   const tabContentRef = useRef<HTMLDivElement>(null);
@@ -105,69 +103,15 @@ export default function BalanceScreen() {
   const handleTopUp = () => {
     const amount = selectedAmount || parseFloat(customAmount);
     if (amount && amount > 0) {
-      setShowCheckoutModal(true);
-    }
-  };
-
-  const handlePaymentComplete = () => {
-    const amount = selectedAmount || parseFloat(customAmount);
-    if (amount && amount > 0) {
       const bonus = amount === 100 ? 5 : 0;
       const totalAmount = amount + bonus;
       
       // Animate balance increase
       animateBalance(balanceValue + totalAmount);
       
-      setShowCheckoutModal(false);
-      setSelectedPaymentMethod(null);
-      
       console.log(`Top up ${amount}€${bonus > 0 ? ` + ${bonus}€ bonus = ${totalAmount}€ total` : ''}`);
     }
   };
-
-  const paymentMethods = [
-    {
-      id: 'apple-pay',
-      name: 'Apple Pay',
-      icon: '🍎',
-      color: 'bg-black dark:bg-gray-800',
-      textColor: 'text-white',
-      action: 'Pay'
-    },
-    {
-      id: 'card',
-      name: 'Pay with Card',
-      icon: '💳',
-      color: 'bg-blue-600',
-      textColor: 'text-white',
-      badges: ['VISA', 'MC']
-    },
-    {
-      id: 'amex',
-      name: 'Pay with AMEX',
-      icon: '💳',
-      color: 'bg-blue-600',
-      textColor: 'text-white',
-      badges: ['AMEX', 'VISA']
-    },
-    {
-      id: 'paypal',
-      name: 'Paypal',
-      icon: '🔵',
-      color: 'bg-blue-600',
-      textColor: 'text-white',
-      action: 'PayPal'
-    },
-    {
-      id: 'crypto',
-      name: 'Pay with crypto',
-      icon: '₿',
-      color: 'bg-orange-600',
-      textColor: 'text-white',
-      subtitle: 'Funds are refunded only to the wallet balance',
-      action: 'alphaoo'
-    }
-  ];
   
   const baseAmount = selectedAmount || parseFloat(customAmount) || 0;
   const bonusAmount = baseAmount === 100 ? 5 : 0;
@@ -429,108 +373,7 @@ export default function BalanceScreen() {
         </div>
       )}
 
-      {/* Checkout Modal */}
-      {showCheckoutModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]">
-          <div className="bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-700">
-              <h2 className="text-xl font-bold text-white">Checkout</h2>
-              <button 
-                onClick={() => setShowCheckoutModal(false)}
-                className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors"
-              >
-                <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
 
-            {/* Order Summary */}
-            <div className="p-6 border-b border-gray-700">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-white">
-                    Balance Top-up €{baseAmount.toFixed(2)}
-                  </h3>
-                  {bonusAmount > 0 && (
-                    <p className="text-sm text-green-400">Includes €{bonusAmount.toFixed(2)} bonus</p>
-                  )}
-                </div>
-                <div className="flex items-center space-x-3">
-                  <button className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center text-white hover:bg-gray-600">
-                    <span className="text-lg">−</span>
-                  </button>
-                  <span className="text-lg font-medium text-white min-w-[2rem] text-center">1</span>
-                  <button className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center text-white hover:bg-gray-600">
-                    <span className="text-lg">+</span>
-                  </button>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <span className="text-xl font-bold text-white">Total</span>
-                <span className="text-xl font-bold text-white">€{finalAmount.toFixed(2)}</span>
-              </div>
-            </div>
-
-            {/* Payment Methods */}
-            <div className="p-6">
-              <h3 className="text-lg font-semibold text-white mb-4">Choose a payment method</h3>
-              <div className="space-y-3 mb-6">
-                {paymentMethods.map((method) => (
-                  <button
-                    key={method.id}
-                    onClick={() => setSelectedPaymentMethod(method.id)}
-                    className={`w-full p-4 rounded-xl border-2 transition-all duration-200 ${
-                      selectedPaymentMethod === method.id
-                        ? 'border-blue-500 bg-blue-500/10'
-                        : 'border-gray-600 bg-gray-800 hover:border-gray-500'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className={`w-10 h-10 ${method.color} rounded-lg flex items-center justify-center`}>
-                          <span className="text-lg">{method.icon}</span>
-                        </div>
-                        <div className="text-left">
-                          <div className="text-white font-medium">{method.name}</div>
-                          {method.subtitle && (
-                            <div className="text-xs text-gray-400">{method.subtitle}</div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        {method.badges && method.badges.map((badge) => (
-                          <span key={badge} className="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded">
-                            {badge}
-                          </span>
-                        ))}
-                        {method.action && (
-                          <span className="text-blue-400 font-medium">{method.action}</span>
-                        )}
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              {/* Continue Button */}
-              <button
-                onClick={handlePaymentComplete}
-                disabled={!selectedPaymentMethod}
-                className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 ${
-                  selectedPaymentMethod
-                    ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg'
-                    : 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                Choose
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
