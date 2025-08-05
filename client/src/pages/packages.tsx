@@ -317,9 +317,7 @@ Instant activation, no physical SIM needed!`;
       // Web version - link to specific country with live content
       const currentPackages = selectedTab === 'data' ? demoPackages : dataCallsTextPackages;
       const packageSummary = currentPackages.slice(0, 4).map(pkg => 
-        selectedTab === 'data' 
-          ? `${pkg.duration} - ${pkg.data} - ${pkg.price}`
-          : `${pkg.duration} - ${pkg.data} - ${pkg.price}`
+        `${pkg.duration} - ${pkg.data} - ${pkg.price}`
       ).join('\n');
       
       return `${countryName} eSIM Plans
