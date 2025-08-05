@@ -3,6 +3,7 @@ import { useLocation } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import NavigationBar from "@/components/navigation-bar";
 import { useToast } from "@/hooks/use-toast";
+import type { Country } from "@shared/schema";
 
 interface UserProfile {
   id: number;
@@ -28,6 +29,11 @@ export default function PersonalInfo() {
   // Fetch user profile
   const { data: profile, isLoading } = useQuery<UserProfile>({
     queryKey: ['/api/profile'],
+  });
+
+  // Fetch countries for dropdown
+  const { data: countries } = useQuery<Country[]>({
+    queryKey: ['/api/countries'],
   });
 
   // Update profile mutation
