@@ -30,7 +30,8 @@ export default function ProfileScreen() {
             </div>
           ), 
           label: "Personal Information", 
-          hasArrow: true 
+          hasArrow: true,
+          action: "personal-info"
         },
         { 
           icon: (
@@ -205,6 +206,8 @@ export default function ProfileScreen() {
                       toggleTheme();
                     } else if ('action' in item && item.action === 'balance') {
                       setLocation('/balance');
+                    } else if ('action' in item && item.action === 'personal-info') {
+                      setLocation('/personal-info');
                     }
                   }}
                 >

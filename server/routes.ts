@@ -265,7 +265,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // User profile route (demo)
+  // User profile routes (demo)
   app.get("/api/profile", async (req, res) => {
     try {
       const user = await storage.getUser(1); // Demo user
@@ -278,6 +278,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(userProfile);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch profile" });
+    }
+  });
+
+  app.patch("/api/profile", async (req, res) => {
+    try {
+      const updateData = req.body;
+      
+      // Basic validation - ensure we don't update password or id
+      const { password, id, ...allowedUpdates } = updateData;
+      
+      // Update user profile
+      const updatedUser = await storage.updateUser(1, allowedUpdates); // Demo user ID 1
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      
+      // Remove password from response
+      const { password: pwd, ...userProfile } = updatedUser;
+      res.json(userProfile);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update profile" });
     }
   });
 
