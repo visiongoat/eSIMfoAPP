@@ -5,7 +5,9 @@ interface NavigationBarProps {
   leftButton?: React.ReactNode;
   rightButton?: React.ReactNode;
   showBack?: boolean;
+  showBackButton?: boolean; // Add this for compatibility
   onBack?: () => void;
+  onBackClick?: () => void; // Add this for compatibility
   showCurrency?: boolean;
   selectedCurrency?: string;
   onCurrencyClick?: () => void;
@@ -16,7 +18,9 @@ export default function NavigationBar({
   leftButton, 
   rightButton, 
   showBack = false,
+  showBackButton = false,
   onBack,
+  onBackClick,
   showCurrency = false,
   selectedCurrency = 'EUR',
   onCurrencyClick
@@ -26,6 +30,8 @@ export default function NavigationBar({
   const handleBack = () => {
     if (onBack) {
       onBack();
+    } else if (onBackClick) {
+      onBackClick();
     } else {
       window.history.back();
     }
@@ -48,7 +54,7 @@ export default function NavigationBar({
   return (
     <div className="navigation-bar">
       <div className="flex items-center">
-        {showBack ? (
+        {(showBack || showBackButton) ? (
           <button 
             onClick={handleBack}
             className="text-blue-500 dark:text-blue-400 flex items-center space-x-1"
