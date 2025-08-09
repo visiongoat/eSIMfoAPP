@@ -160,7 +160,7 @@ export default function Balance1Screen() {
             </button>
             
             <button 
-              onClick={() => setLocation('/destination')}
+              onClick={() => setLocation('/destinations')}
               className="flex flex-col items-center group"
             >
               <div className="w-12 h-12 bg-white/15 dark:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-2 border border-white/20 dark:border-white/30 transition-all duration-200 group-hover:bg-white/30 group-hover:scale-110 group-hover:shadow-lg group-active:scale-95 group-active:bg-white/40">
