@@ -8,28 +8,28 @@ export default function BalanceScreen() {
   const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* YENI TASARIM YUKLENDI */}
-      <div className="bg-white dark:bg-gray-800 px-4 py-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+      {/* Simple Header */}
+      <div className="bg-gray-100 dark:bg-gray-900 px-4 py-4">
         <div className="flex items-center">
-          <button onClick={() => navigate('/profile')} className="mr-4">
+          <button onClick={() => navigate('/profile')} className="mr-3">
             <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-gray-300" />
           </button>
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">fo Balance - NEW VERSION</h1>
+          <h1 className="text-lg font-medium text-gray-900 dark:text-gray-100">fo Balance</h1>
         </div>
       </div>
 
-      <div className="px-4 pt-6">
-        {/* Balance Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 mb-6 shadow-sm">
+      <div className="px-4">
+        {/* Balance Card - Exact match to example */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 mb-4 mx-2">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.9 1 3 1.9 3 3V21C3 22.1 3.9 23 5 23H19C20.1 23 21 22.1 21 21V9M19 9H14V4H19V9Z"/>
                 </svg>
               </div>
-              <span className="text-base font-medium text-gray-900 dark:text-gray-100">fo Balance</span>
+              <span className="text-base font-medium text-gray-700 dark:text-gray-300">fo Balance</span>
             </div>
             <div className="text-right">
               <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">50.00 €</div>
@@ -37,13 +37,13 @@ export default function BalanceScreen() {
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex mb-6 bg-gray-100 dark:bg-gray-800 rounded-2xl p-1">
+        {/* Tab Navigation - Exact match to example */}
+        <div className="flex mb-6 bg-white dark:bg-gray-800 rounded-2xl p-1 mx-2 shadow-sm">
           <button
             onClick={() => setActiveTab('topup')}
             className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
               activeTab === 'topup'
-                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
+                ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
                 : 'text-gray-600 dark:text-gray-400'
             }`}
           >
@@ -53,7 +53,7 @@ export default function BalanceScreen() {
             onClick={() => setActiveTab('history')}
             className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
               activeTab === 'history'
-                ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm'
+                ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
                 : 'text-gray-600 dark:text-gray-400'
             }`}
           >
@@ -61,11 +61,11 @@ export default function BalanceScreen() {
           </button>
         </div>
 
-        {/* Special Offer */}
-        <div className="bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-2xl p-4 mb-6 border border-green-200 dark:border-green-700">
+        {/* Special Offer - Exact match to example */}
+        <div className="bg-green-100 dark:bg-green-900/20 rounded-2xl p-4 mb-6 mx-2 border border-green-200 dark:border-green-700">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
@@ -79,36 +79,63 @@ export default function BalanceScreen() {
           </div>
         </div>
 
-        {/* Choose Amount */}
-        <div className="mb-6">
+        {/* Choose Amount - Exact match to example */}
+        <div className="mb-6 px-2">
           <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Choose Amount</h2>
           
           <div className="grid grid-cols-3 gap-3 mb-4">
-            {[5, 10, 20, 50, 100].map((amount) => (
-              <button
-                key={amount}
-                onClick={() => setSelectedAmount(amount)}
-                className={`relative py-4 px-4 rounded-2xl border-2 font-semibold transition-all duration-200 ${
-                  selectedAmount === amount
-                    ? 'bg-blue-500 text-white border-blue-500'
-                    : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700'
-                }`}
-              >
-                € {amount}
-                {amount === 100 && (
-                  <div className="absolute -top-1 -right-1 bg-green-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-                    +€5
-                  </div>
-                )}
-              </button>
-            ))}
+            <button
+              onClick={() => setSelectedAmount(5)}
+              className={`py-4 px-4 rounded-2xl border font-semibold transition-all duration-200 ${
+                selectedAmount === 5
+                  ? 'bg-blue-500 text-white border-blue-500'
+                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600'
+              }`}
+            >
+              € 5
+            </button>
+            <button
+              onClick={() => setSelectedAmount(10)}
+              className={`py-4 px-4 rounded-2xl border-2 border-blue-500 bg-blue-500 text-white font-semibold transition-all duration-200`}
+            >
+              € 10
+            </button>
+            <button
+              onClick={() => setSelectedAmount(20)}
+              className={`py-4 px-4 rounded-2xl border font-semibold transition-all duration-200 ${
+                selectedAmount === 20
+                  ? 'bg-blue-500 text-white border-blue-500'
+                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600'
+              }`}
+            >
+              € 20
+            </button>
             
             <button
+              onClick={() => setSelectedAmount(50)}
+              className={`py-4 px-4 rounded-2xl border-2 border-blue-500 bg-blue-500 text-white font-semibold transition-all duration-200`}
+            >
+              € 50
+            </button>
+            <button
+              onClick={() => setSelectedAmount(100)}
+              className={`relative py-4 px-4 rounded-2xl border font-semibold transition-all duration-200 ${
+                selectedAmount === 100
+                  ? 'bg-blue-500 text-white border-blue-500'
+                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600'
+              }`}
+            >
+              € 100
+              <div className="absolute -top-1 -right-1 bg-green-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                +€5
+              </div>
+            </button>
+            <button
               onClick={() => setSelectedAmount(0)}
-              className={`py-4 px-4 rounded-2xl border-2 font-semibold transition-all duration-200 ${
+              className={`py-4 px-4 rounded-2xl border font-semibold transition-all duration-200 ${
                 selectedAmount === 0
                   ? 'bg-blue-500 text-white border-blue-500'
-                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700'
+                  : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600'
               }`}
             >
               Other
@@ -116,31 +143,20 @@ export default function BalanceScreen() {
           </div>
         </div>
 
-        {/* Terms */}
-        <div className="mb-6">
+        {/* Top Up Button - Exact match to example */}
+        <div className="px-2 pb-8">
+          <button
+            className="w-full py-4 rounded-2xl bg-blue-500 text-white font-semibold text-lg shadow-lg"
+          >
+            € 10 - Top up Now
+          </button>
+        </div>
+
+        {/* Terms - Exact match to example */}
+        <div className="px-2 pb-8">
           <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
             You agree to <span className="text-blue-500 underline">Terms</span>, <span className="text-blue-500 underline">Privacy</span>, <span className="text-blue-500 underline">Purchase Policy</span>.
           </p>
-        </div>
-
-        {/* Top Up Button */}
-        <div className="fixed bottom-20 left-4 right-4">
-          <button
-            disabled={!selectedAmount || selectedAmount <= 0}
-            className={`w-full py-4 rounded-2xl font-semibold transition-all duration-200 ${
-              selectedAmount && selectedAmount > 0
-                ? 'bg-blue-500 text-white shadow-lg'
-                : 'bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed'
-            }`}
-          >
-            {selectedAmount === 100 ? (
-              `€ ${selectedAmount} + €5 bonus - Top up Now`
-            ) : selectedAmount && selectedAmount > 0 ? (
-              `€ ${selectedAmount} - Top up Now`
-            ) : (
-              'Select amount to continue'
-            )}
-          </button>
         </div>
       </div>
     </div>
