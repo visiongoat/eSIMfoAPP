@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 
 export default function Transactions() {
   const [, setLocation] = useLocation();
   const [filter, setFilter] = useState<'all' | 'topups' | 'purchases'>('all');
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For other browsers
+  }, []);
 
   // Extended transaction data
   const transactions = [
