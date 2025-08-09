@@ -1,0 +1,105 @@
+import { useState } from 'react';
+
+interface AddMoneyModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+  const [customAmount, setCustomAmount] = useState('');
+
+  const quickAmounts = [10, 30, 50, 80, 100];
+
+  const handleAmountSelect = (amount: number) => {
+    setSelectedAmount(amount);
+    setCustomAmount('');
+  };
+
+  const handleCustomAmountChange = (value: string) => {
+    setCustomAmount(value);
+    setSelectedAmount(null);
+  };
+
+  const getSelectedAmount = () => {
+    if (selectedAmount) return selectedAmount;
+    if (customAmount) return parseFloat(customAmount);
+    return 0;
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end">
+      {/* Backdrop */}
+      <div 
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      
+      {/* Modal */}
+      <div className="relative w-full bg-white rounded-t-3xl p-6 animate-slide-up">
+        {/* Handle */}
+        <div className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6" />
+        
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Add Money</h2>
+          <p className="text-gray-600">Choose amount to add to your balance</p>
+        </div>
+
+        {/* Quick Amount Grid */}
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          {quickAmounts.map((amount) => (
+            <button
+              key={amount}
+              onClick={() => handleAmountSelect(amount)}
+              className={`p-4 rounded-2xl border-2 transition-all ${
+                selectedAmount === amount
+                  ? 'border-blue-500 bg-blue-50 text-blue-700'
+                  : 'border-gray-200 bg-gray-50 text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <div className="font-bold text-lg">€{amount}</div>
+            </button>
+          ))}
+          
+          {/* Other/Custom Amount */}
+          <div className="relative">
+            <input
+              type="number"
+              placeholder="Other"
+              value={customAmount}
+              onChange={(e) => handleCustomAmountChange(e.target.value)}
+              className={`w-full p-4 rounded-2xl border-2 text-center font-bold text-lg transition-all ${
+                customAmount
+                  ? 'border-blue-500 bg-blue-50 text-blue-700'
+                  : 'border-gray-200 bg-gray-50 text-gray-700'
+              }`}
+            />
+          </div>
+        </div>
+
+        {/* Selected Amount Display */}
+        {getSelectedAmount() > 0 && (
+          <div className="bg-gray-50 rounded-2xl p-4 mb-6 text-center">
+            <div className="text-sm text-gray-600 mb-1">Amount to add</div>
+            <div className="text-2xl font-bold text-gray-900">€{getSelectedAmount().toFixed(2)}</div>
+          </div>
+        )}
+
+        {/* Top up Button */}
+        <button
+          disabled={getSelectedAmount() <= 0}
+          className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
+            getSelectedAmount() > 0
+              ? 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800'
+              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+          }`}
+        >
+          Top up Now
+        </button>
+      </div>
+    </div>
+  );
+}

@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import texturePattern from '@/assets/texture-pattern.jpeg';
+import AddMoneyModal from '@/components/add-money-modal';
 
 export default function Balance1Screen() {
+  const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false);
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
@@ -52,14 +55,17 @@ export default function Balance1Screen() {
           
           {/* 3. Action Buttons - smaller and left aligned */}
           <div className="flex justify-start space-x-6">
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mb-2 border border-white/20">
+            <button 
+              onClick={() => setIsAddMoneyModalOpen(true)}
+              className="flex flex-col items-center"
+            >
+              <div className="w-12 h-12 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mb-2 border border-white/20 hover:bg-white/25 transition-all">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
               </div>
               <span className="text-white/90 text-xs font-medium">Add money</span>
-            </div>
+            </button>
             
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mb-2 border border-white/20">
@@ -86,6 +92,12 @@ export default function Balance1Screen() {
       <div className="bg-gray-50 -mt-6 rounded-t-3xl relative z-20 pt-6 px-4">
         <p className="text-gray-600">Buraya sonraki adımları ekleyeceğiz...</p>
       </div>
+
+      {/* Add Money Modal */}
+      <AddMoneyModal 
+        isOpen={isAddMoneyModalOpen}
+        onClose={() => setIsAddMoneyModalOpen(false)}
+      />
     </div>
   );
 }
