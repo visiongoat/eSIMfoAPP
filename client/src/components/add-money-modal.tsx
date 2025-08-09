@@ -15,7 +15,7 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
   const startY = useRef(0);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const quickAmounts = [10, 30, 50, 80, 100];
+  const quickAmounts = [10, 30, 50, 80];
 
   const handleAmountSelect = (amount: number) => {
     setSelectedAmount(amount);
@@ -127,6 +127,19 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
               <div className="font-bold text-lg">€{amount}</div>
             </button>
           ))}
+          
+          {/* €100 button with bonus indicator */}
+          <button
+            onClick={() => handleAmountSelect(100)}
+            className={`p-4 rounded-2xl border-2 transition-all ${
+              selectedAmount === 100
+                ? 'border-blue-500 bg-blue-50 text-blue-700'
+                : 'border-gray-200 bg-gray-50 text-gray-700 hover:border-gray-300'
+            }`}
+          >
+            <div className="font-bold text-lg">€100</div>
+            <div className="text-xs text-green-600 font-medium mt-1">+€5 bonus</div>
+          </button>
           
           {/* Other/Custom Amount */}
           <div className="relative">
