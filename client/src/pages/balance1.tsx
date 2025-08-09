@@ -1,9 +1,27 @@
 import { useState } from 'react';
 import texturePattern from '@/assets/texture-pattern.jpeg';
 import AddMoneyModal from '@/components/add-money-modal';
+import { useAnimatedCounter } from '@/hooks/use-animated-counter';
 
 export default function Balance1Screen() {
   const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false);
+  const [balance, setBalance] = useState(75.92);
+  const [animationTrigger, setAnimationTrigger] = useState(false);
+  
+  const { displayValue } = useAnimatedCounter({
+    targetValue: balance,
+    duration: 1500,
+    startAnimation: animationTrigger
+  });
+
+  const handleTopUpComplete = (amount: number, bonus: number = 0) => {
+    const newBalance = balance + amount + bonus;
+    setBalance(newBalance);
+    setAnimationTrigger(true);
+    
+    // Reset animation trigger after animation completes
+    setTimeout(() => setAnimationTrigger(false), 1600);
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
@@ -50,7 +68,7 @@ export default function Balance1Screen() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
-            <div className="text-white text-6xl font-black tracking-tighter leading-none">€75.92</div>
+            <div className="text-white text-6xl font-black tracking-tighter leading-none">€{displayValue.toFixed(2)}</div>
           </div>
           
           {/* 3. Action Buttons - smaller and left aligned */}
@@ -97,6 +115,7 @@ export default function Balance1Screen() {
       <AddMoneyModal 
         isOpen={isAddMoneyModalOpen}
         onClose={() => setIsAddMoneyModalOpen(false)}
+        onTopUpComplete={handleTopUpComplete}
       />
     </div>
   );

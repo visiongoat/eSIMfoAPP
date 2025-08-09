@@ -4,9 +4,10 @@ import CheckoutModal from './checkout-modal';
 interface AddMoneyModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onTopUpComplete?: (amount: number, bonus: number) => void;
 }
 
-export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
+export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddMoneyModalProps) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState('');
   const [showCheckout, setShowCheckout] = useState(false);
@@ -207,9 +208,16 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
           showPaymentMethodsDefault={true} // Skip to payment methods directly
           hideQuantitySelector={true} // Hide quantity selector for balance top up
           onComplete={() => {
+            const selectedAmount = getSelectedAmount();
+            const bonus = selectedAmount >= 100 ? 5 : 0;
+            
+            // Notify parent component about successful top up
+            if (onTopUpComplete) {
+              onTopUpComplete(selectedAmount, bonus);
+            }
+            
             setShowCheckout(false);
             onClose();
-            // Here you would normally update the balance
           }}
         />
       </div>

@@ -337,16 +337,19 @@ export default function CheckoutModal({
 
               <Button
                 onClick={() => {
-                  if (onComplete) {
-                    onComplete();
-                  } else {
-                    onClose();
-                  }
+                  // Simulate payment processing
+                  setTimeout(() => {
+                    if (onComplete) {
+                      onComplete();
+                    } else {
+                      onClose();
+                    }
+                  }, 1000);
                 }}
                 disabled={!selectedPayment}
                 className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium rounded-xl transition-colors"
               >
-                Choose
+                {selectedPayment ? 'Processing...' : 'Choose'}
               </Button>
             </div>
           )}
