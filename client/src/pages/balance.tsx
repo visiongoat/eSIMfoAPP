@@ -178,8 +178,110 @@ export default function Balance1Screen() {
       </div>
 
       {/* Content area with rounded top corners */}
-      <div className="bg-gray-50 dark:bg-gray-900 -mt-6 rounded-t-3xl relative z-20 pt-6 px-4">
-        <p className="text-gray-600 dark:text-gray-400">Buraya sonraki adımları ekleyeceğiz...</p>
+      <div className="bg-gray-50 dark:bg-gray-900 -mt-6 rounded-t-3xl relative z-20 pt-6 px-4 pb-20">
+        {/* Transaction History */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Transaction History</h3>
+          
+          {/* Transaction List */}
+          <div className="space-y-3">
+            {/* Balance Top-up */}
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-xl flex items-center justify-center">
+                  <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Balance Top-up</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Jan 8, 2025 • 14:25</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="font-semibold text-green-600 dark:text-green-400">+€105.00</p>
+                <p className="text-xs text-green-600 dark:text-green-400">+€5 bonus</p>
+              </div>
+            </div>
+
+            {/* eSIM Purchase */}
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 rounded-xl flex items-center justify-center">
+                  <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Turkey eSIM • 5GB</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Jan 7, 2025 • 09:15</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="font-semibold text-red-600 dark:text-red-400">-€12.50</p>
+              </div>
+            </div>
+
+            {/* Balance Top-up */}
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-xl flex items-center justify-center">
+                  <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Balance Top-up</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Jan 5, 2025 • 16:42</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="font-semibold text-green-600 dark:text-green-400">+€30.00</p>
+              </div>
+            </div>
+
+            {/* eSIM Purchase */}
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 rounded-xl flex items-center justify-center">
+                  <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Europe eSIM • 10GB</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Jan 3, 2025 • 11:30</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="font-semibold text-red-600 dark:text-red-400">-€25.00</p>
+              </div>
+            </div>
+
+            {/* Balance Top-up */}
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-xl flex items-center justify-center">
+                  <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Balance Top-up</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Dec 28, 2024 • 10:15</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="font-semibold text-green-600 dark:text-green-400">+€50.00</p>
+              </div>
+            </div>
+          </div>
+
+          {/* View All Button */}
+          <button className="w-full mt-4 py-3 text-blue-600 dark:text-blue-400 font-medium text-center border border-blue-200 dark:border-blue-800 rounded-2xl hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors">
+            View All Transactions
+          </button>
+        </div>
       </div>
 
       {/* Add Money Modal */}
