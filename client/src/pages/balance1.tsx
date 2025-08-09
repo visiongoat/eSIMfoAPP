@@ -3,20 +3,24 @@ export default function Balance1Screen() {
     <div className="min-h-screen bg-gray-50">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
       <div className="relative overflow-hidden">
-        {/* Realistic gradient matching example with subtle patterns */}
+        {/* SVG Pattern Background like in example */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700"></div>
         
-        {/* Subtle color variations like in example */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/30 via-transparent to-blue-800/30"></div>
+        {/* SVG Pattern Overlay */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3Ccircle cx='50' cy='50' r='1'/%3E%3Ccircle cx='10' cy='50' r='1'/%3E%3Ccircle cx='50' cy='10' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        ></div>
         
-        {/* Light texture overlay - very subtle */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/8 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/25 via-transparent to-transparent"></div>
-        
-        {/* Diagonal subtle pattern */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-300/15 to-transparent"></div>
-        </div>
+        {/* Additional subtle texture */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0 5.5-4.5 10-10 10s-10-4.5-10-10 4.5-10 10-10 10 4.5 10 10zm10 0c0 5.5-4.5 10-10 10s-10-4.5-10-10 4.5-10 10-10 10 4.5 10 10z'/%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        ></div>
         
         <div className="relative z-10 px-6 pt-8 pb-24">
           {/* Welcome Message - Professional Typography */}
