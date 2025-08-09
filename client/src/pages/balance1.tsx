@@ -10,7 +10,7 @@ export default function Balance1Screen() {
         <div 
           className="absolute inset-0 opacity-40"
           style={{
-            backgroundImage: `url('/attached_assets/IMG_6027_1754755190124.jpeg')`,
+            backgroundImage: `url('/texture-pattern.jpeg')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
