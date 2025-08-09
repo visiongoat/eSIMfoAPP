@@ -1,3 +1,5 @@
+import texturePattern from '@/assets/texture-pattern.jpeg';
+
 export default function Balance1Screen() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -10,11 +12,11 @@ export default function Balance1Screen() {
         <div 
           className="absolute inset-0 opacity-40"
           style={{
-            backgroundImage: `url('/texture-pattern.jpeg')`,
+            backgroundImage: `url(${texturePattern})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            mixBlendMode: 'overlay'
+            mixBlendMode: 'soft-light'
           }}
         ></div>
         
