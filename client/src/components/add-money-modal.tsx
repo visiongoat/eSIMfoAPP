@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import CheckoutModal from './checkout-modal';
 
 interface AddMoneyModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface AddMoneyModalProps {
 export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState('');
+  const [showCheckout, setShowCheckout] = useState(false);
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const startY = useRef(0);
@@ -153,6 +155,11 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
         {/* Top up Button */}
         <button
           disabled={getSelectedAmount() <= 0}
+          onClick={() => {
+            if (getSelectedAmount() > 0) {
+              setShowCheckout(true);
+            }
+          }}
           className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
             getSelectedAmount() > 0
               ? 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800'
@@ -161,6 +168,28 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
         >
           Top up Now
         </button>
+        
+        {/* Checkout Modal */}
+        <CheckoutModal 
+          isOpen={showCheckout}
+          onClose={() => setShowCheckout(false)}
+          selectedPackage={{
+            name: `€${getSelectedAmount()} Top up`,
+            price: `€${getSelectedAmount().toFixed(2)}`
+          }}
+          country={{
+            name: 'Balance Top up',
+            flagUrl: ''
+          }}
+          esimCount={1}
+          setEsimCount={() => {}} // Disabled for balance top up
+          showPaymentMethodsDefault={true} // Skip to payment methods directly
+          onComplete={() => {
+            setShowCheckout(false);
+            onClose();
+            // Here you would normally update the balance
+          }}
+        />
       </div>
     </div>
   );
