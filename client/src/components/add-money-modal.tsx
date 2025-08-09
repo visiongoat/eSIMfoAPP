@@ -165,6 +165,11 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
           <div className="bg-gray-50 rounded-2xl p-4 mb-6 text-center">
             <div className="text-sm text-gray-600 mb-1">Amount to add</div>
             <div className="text-2xl font-bold text-gray-900">€{getSelectedAmount().toFixed(2)}</div>
+            {getSelectedAmount() >= 100 && (
+              <div className="text-sm text-green-600 font-medium mt-1">
+                + €5.00 bonus included
+              </div>
+            )}
           </div>
         )}
 
