@@ -130,7 +130,7 @@ export default function TabBar({ onPlusClick, onShopClick }: TabBarProps) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                       )}
                       {tab.id === 'balance' && (
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M4 7h16l-1 10H5L4 7zM4 7l-1-4h2l1 4m0 0h16m-1 0l1-4M7 13h2m4 0h2" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M21 12V7H5a2 2 0 01-2-2V3h18v9zm-10 5l1-5H3l1 5h7z" />
                       )}
                       {tab.id === 'profile' && (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -176,7 +176,7 @@ export default function TabBar({ onPlusClick, onShopClick }: TabBarProps) {
                       isActive ? 'text-blue-500 hover:text-blue-600' : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100'
                     }`} fill={isActive ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                       {tab.id === 'balance' && (
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M4 7h16l-1 10H5L4 7zM4 7l-1-4h2l1 4m0 0h16m-1 0l1-4M7 13h2m4 0h2" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M21 12V7H5a2 2 0 01-2-2V3h18v9zm-10 5l1-5H3l1 5h7z" />
                       )}
                       {tab.id === 'profile' && (
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 0 : 2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
