@@ -118,7 +118,7 @@ export default function SplashScreen() {
                 <div className="w-20 h-20 flex items-center justify-center">
                   <img 
                     src={esimfoLogo} 
-                    alt="e-simfo Logo"
+                    alt="eSIMfo Logo"
                     className="w-full h-full object-contain drop-shadow-sm"
                   />
                 </div>
@@ -157,7 +157,7 @@ export default function SplashScreen() {
             textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
             <h1 className="text-4xl font-black bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 dark:from-white dark:via-blue-100 dark:to-indigo-100 bg-clip-text text-transparent tracking-tight mb-3 drop-shadow-sm">
-              e-simfo
+              eSIMfo
             </h1>
             <div className="relative">
               <p className="text-slate-600 dark:text-slate-300 text-lg font-semibold tracking-wide mb-1">
