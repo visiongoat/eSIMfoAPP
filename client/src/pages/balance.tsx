@@ -196,6 +196,25 @@ export default function Balance1Screen() {
           
           {/* Transaction List */}
           <div className="space-y-3">
+            {/* Redeem Code Top-up */}
+            <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/20 rounded-xl flex items-center justify-center">
+                  <svg className="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-gray-100">Redeem Code • WELCOME10</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Jan 9, 2025 • 20:15</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="font-semibold text-orange-600 dark:text-orange-400">+€10.00</p>
+                <p className="text-xs text-orange-600 dark:text-orange-400">Promo bonus</p>
+              </div>
+            </div>
+
             {/* Balance Top-up */}
             <div className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
               <div className="flex items-center space-x-3">
