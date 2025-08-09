@@ -129,7 +129,7 @@ export default function Balance1Screen() {
       
       {/* Bottom Navigation */}
       <TabBar 
-        onPlusClick={() => {}}
+        onPlusClick={() => setIsAddMoneyModalOpen(true)}
         onShopClick={() => {}}
       />
     </MobileContainer>
