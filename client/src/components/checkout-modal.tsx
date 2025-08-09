@@ -67,6 +67,11 @@ export default function CheckoutModal({
   // Calculate pricing
   const basePrice = selectedPackage ? parseFloat(selectedPackage.price.replace('€', '')) : 0;
   const total = basePrice * esimCount;
+  
+  // Calculate bonus for balance top up
+  const isBalanceTopUp = hideQuantitySelector;
+  const bonus = isBalanceTopUp && basePrice >= 100 ? 5 : 0;
+  const finalTotal = total + bonus;
 
   const paymentMethods = [
     { id: 'apple-pay', name: 'Apple Pay', icon: '🍎' },
@@ -220,10 +225,32 @@ export default function CheckoutModal({
 
           {/* Pricing */}
           <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-lg font-medium text-gray-900 dark:text-white">Total</span>
-              <span className="text-lg font-bold text-gray-900 dark:text-white">€{total.toFixed(2)}</span>
-            </div>
+            {isBalanceTopUp && bonus > 0 && (
+              <>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Top up amount</span>
+                  <span className="text-sm text-gray-900 dark:text-white">€{total.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-green-600 dark:text-green-400">Bonus</span>
+                  <span className="text-sm text-green-600 dark:text-green-400">+€{bonus.toFixed(2)}</span>
+                </div>
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-lg font-medium text-gray-900 dark:text-white">Total</span>
+                    <span className="text-lg font-bold text-gray-900 dark:text-white">€{finalTotal.toFixed(2)}</span>
+                  </div>
+                </div>
+              </>
+            )}
+            
+            {/* Standard total for non-bonus scenarios */}
+            {!(isBalanceTopUp && bonus > 0) && (
+              <div className="flex justify-between items-center">
+                <span className="text-lg font-medium text-gray-900 dark:text-white">Total</span>
+                <span className="text-lg font-bold text-gray-900 dark:text-white">€{total.toFixed(2)}</span>
+              </div>
+            )}
           </div>
 
           {/* Auto-renewal - Only show when payment methods are not shown */}
