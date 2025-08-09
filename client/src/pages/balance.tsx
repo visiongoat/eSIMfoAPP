@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from "wouter";
 import texturePattern from '@/assets/texture-pattern.jpeg';
+import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
 import AddMoneyModal from '@/components/add-money-modal';
 import { useAnimatedCounter } from '@/hooks/use-animated-counter';
 import TabBar from '@/components/tab-bar';
@@ -117,14 +118,16 @@ export default function Balance1Screen() {
           {/* Welcome Message - Professional Typography */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 dark:from-orange-500 dark:to-red-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
-                <div className="w-8 h-8 bg-white/20 dark:bg-white/30 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">C</span>
-                </div>
+              <div className="w-12 h-12 rounded-full mr-4 shadow-lg overflow-hidden">
+                <img 
+                  src={profileImage} 
+                  alt="John Doe"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="leading-tight">
                 <div className="text-white/90 dark:text-white/95 text-base font-medium">Welcome back,</div>
-                <div className="text-white dark:text-white text-xl font-bold tracking-tight">Cassie!</div>
+                <div className="text-white dark:text-white text-xl font-bold tracking-tight">John Doe!</div>
               </div>
             </div>
           </div>
