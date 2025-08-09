@@ -184,6 +184,7 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
           esimCount={1}
           setEsimCount={() => {}} // Disabled for balance top up
           showPaymentMethodsDefault={true} // Skip to payment methods directly
+          hideQuantitySelector={true} // Hide quantity selector for balance top up
           onComplete={() => {
             setShowCheckout(false);
             onClose();

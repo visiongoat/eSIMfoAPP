@@ -12,6 +12,7 @@ interface CheckoutModalProps {
   setEsimCount: (count: number) => void;
   onComplete?: () => void;
   showPaymentMethodsDefault?: boolean;
+  hideQuantitySelector?: boolean;
 }
 
 export default function CheckoutModal({ 
@@ -22,7 +23,8 @@ export default function CheckoutModal({
   esimCount, 
   setEsimCount,
   onComplete,
-  showPaymentMethodsDefault = false
+  showPaymentMethodsDefault = false,
+  hideQuantitySelector = false
 }: CheckoutModalProps) {
   const [autoRenewal, setAutoRenewal] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<string>("");
@@ -193,25 +195,27 @@ export default function CheckoutModal({
               </div>
             </div>
             
-            {/* Quantity selector */}
-            <div className="flex items-center space-x-3 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
-              <button
-                onClick={() => setEsimCount(Math.max(1, esimCount - 1))}
-                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
-                disabled={esimCount <= 1}
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-              <span className="px-3 py-1 font-medium text-gray-900 dark:text-white min-w-[2rem] text-center">
-                {esimCount}
-              </span>
-              <button
-                onClick={() => setEsimCount(esimCount + 1)}
-                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-            </div>
+            {/* Quantity selector - Hide for balance top up */}
+            {!hideQuantitySelector && (
+              <div className="flex items-center space-x-3 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+                <button
+                  onClick={() => setEsimCount(Math.max(1, esimCount - 1))}
+                  className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
+                  disabled={esimCount <= 1}
+                >
+                  <Minus className="w-4 h-4" />
+                </button>
+                <span className="px-3 py-1 font-medium text-gray-900 dark:text-white min-w-[2rem] text-center">
+                  {esimCount}
+                </span>
+                <button
+                  onClick={() => setEsimCount(esimCount + 1)}
+                  className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Pricing */}
