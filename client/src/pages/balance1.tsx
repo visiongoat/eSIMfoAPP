@@ -3,21 +3,10 @@ export default function Balance1Screen() {
     <div className="min-h-screen bg-gray-50">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
       <div className="relative overflow-hidden">
-        {/* Complex gradient background with patterns like example */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-600 to-blue-800"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/40 via-blue-500/20 to-purple-600/30"></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-transparent via-blue-300/10 to-blue-700/20"></div>
-        
-        {/* Pattern overlays to create depth */}
-        <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-white/20 via-white/5 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-blue-900/40 via-blue-800/20 to-transparent"></div>
-        
-        {/* Subtle diagonal patterns */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-400/10 to-transparent opacity-50"></div>
-        <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/10 via-transparent to-cyan-400/10 opacity-40"></div>
-        
-        {/* Light reflection effect */}
-        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-white/15 via-white/5 to-transparent opacity-60"></div>
+        {/* Clean gradient like example - simple and elegant */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700"></div>
+        {/* Very subtle overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-800/20 to-transparent"></div>
         
         <div className="relative z-10 px-6 pt-8 pb-24">
           {/* Welcome Message - Professional Typography */}
