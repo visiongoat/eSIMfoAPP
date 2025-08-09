@@ -297,7 +297,17 @@ export default function CheckoutModal({
                 {paymentMethods.map((method) => (
                   <button
                     key={method.id}
-                    onClick={() => setSelectedPayment(method.id)}
+                    onClick={() => {
+                      setSelectedPayment(method.id);
+                      // Automatically start payment processing when method is selected
+                      setTimeout(() => {
+                        if (onComplete) {
+                          onComplete();
+                        } else {
+                          onClose();
+                        }
+                      }, 1500);
+                    }}
                     className={`w-full flex items-center justify-between py-2 px-3 rounded-xl border-2 transition-all ${
                       selectedPayment === method.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
@@ -337,19 +347,12 @@ export default function CheckoutModal({
 
               <Button
                 onClick={() => {
-                  // Simulate payment processing
-                  setTimeout(() => {
-                    if (onComplete) {
-                      onComplete();
-                    } else {
-                      onClose();
-                    }
-                  }, 1000);
+                  // This should not be needed - payment starts automatically when method is selected
                 }}
                 disabled={!selectedPayment}
                 className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium rounded-xl transition-colors"
               >
-                {selectedPayment ? 'Processing...' : 'Choose'}
+                {selectedPayment ? 'Processing...' : 'Select payment method above'}
               </Button>
             </div>
           )}
