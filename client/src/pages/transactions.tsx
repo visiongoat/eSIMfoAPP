@@ -15,6 +15,15 @@ export default function Transactions() {
   // Extended transaction data
   const transactions = [
     {
+      id: 0,
+      type: 'redeem',
+      title: 'Redeem Code • WELCOME10',
+      amount: 10.00,
+      date: 'Jan 9, 2025',
+      time: '20:15',
+      status: 'completed'
+    },
+    {
       id: 1,
       type: 'topup',
       title: 'Balance Top-up',
@@ -109,12 +118,21 @@ export default function Transactions() {
   ];
 
   const filteredTransactions = transactions.filter(transaction => {
-    if (filter === 'topups') return transaction.type === 'topup';
+    if (filter === 'topups') return transaction.type === 'topup' || transaction.type === 'redeem';
     if (filter === 'purchases') return transaction.type === 'purchase';
     return true;
   });
 
   const getTransactionIcon = (type: string) => {
+    if (type === 'redeem') {
+      return (
+        <div className="w-10 h-10 bg-orange-100 dark:bg-orange-900/20 rounded-xl flex items-center justify-center">
+          <svg className="w-5 h-5 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+          </svg>
+        </div>
+      );
+    }
     if (type === 'topup') {
       return (
         <div className="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-xl flex items-center justify-center">
@@ -206,15 +224,22 @@ export default function Transactions() {
               </div>
               <div className="text-right">
                 <p className={`font-semibold ${
-                  transaction.amount > 0 
-                    ? 'text-green-600 dark:text-green-400' 
-                    : 'text-red-600 dark:text-red-400'
+                  transaction.type === 'redeem'
+                    ? 'text-orange-600 dark:text-orange-400'
+                    : transaction.amount > 0 
+                      ? 'text-green-600 dark:text-green-400' 
+                      : 'text-red-600 dark:text-red-400'
                 }`}>
                   {transaction.amount > 0 ? '+' : ''}€{Math.abs(transaction.amount).toFixed(2)}
                 </p>
                 {transaction.bonus && (
                   <p className="text-xs text-green-600 dark:text-green-400">
                     +€{transaction.bonus.toFixed(2)} bonus
+                  </p>
+                )}
+                {transaction.type === 'redeem' && (
+                  <p className="text-xs text-orange-600 dark:text-orange-400">
+                    Promo bonus
                   </p>
                 )}
               </div>
