@@ -92,6 +92,8 @@ export function useSwipeNavigation(options: SwipeNavigationOptions = {}) {
         '/my-esims': '/home',
         '/guides': '/home',
         '/profile': '/home',
+        '/balance': '/home',
+        '/transactions': '/balance',
         '/partner': '/home',
         '/live-chat': '/home',
       };
