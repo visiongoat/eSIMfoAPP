@@ -118,7 +118,7 @@ export default function Balance1Screen() {
           {/* Welcome Message - Professional Typography */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full mr-4 shadow-lg overflow-hidden border-2 border-orange-400 dark:border-orange-500">
+              <div className="w-12 h-12 rounded-full mr-4 shadow-lg overflow-hidden border-2 border-orange-400 dark:border-orange-500 shadow-orange-400/50 dark:shadow-orange-500/50">
                 <img 
                   src={profileImage} 
                   alt="John Doe"
