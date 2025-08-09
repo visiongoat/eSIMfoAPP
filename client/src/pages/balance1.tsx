@@ -3,10 +3,20 @@ export default function Balance1Screen() {
     <div className="min-h-screen bg-gray-50">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
       <div className="relative overflow-hidden">
-        {/* Clean gradient like example - simple and elegant */}
+        {/* Realistic gradient matching example with subtle patterns */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700"></div>
-        {/* Very subtle overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-800/20 to-transparent"></div>
+        
+        {/* Subtle color variations like in example */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/30 via-transparent to-blue-800/30"></div>
+        
+        {/* Light texture overlay - very subtle */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/8 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/25 via-transparent to-transparent"></div>
+        
+        {/* Diagonal subtle pattern */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-300/15 to-transparent"></div>
+        </div>
         
         <div className="relative z-10 px-6 pt-8 pb-24">
           {/* Welcome Message - Professional Typography */}
