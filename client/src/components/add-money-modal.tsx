@@ -95,7 +95,7 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
       {/* Modal */}
       <div 
         ref={modalRef}
-        className="relative w-full bg-white rounded-t-3xl p-6 animate-slide-up transition-transform duration-200"
+        className="relative w-full bg-white dark:bg-gray-900 rounded-t-3xl p-6 animate-slide-up transition-transform duration-200"
         style={{
           transform: `translateY(${dragY}px)`,
           opacity: Math.max(0.5, 1 - dragY / 300)
@@ -105,12 +105,12 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
         onTouchEnd={handleTouchEnd}
       >
         {/* Handle */}
-        <div className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6 cursor-grab active:cursor-grabbing" />
+        <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full mx-auto mb-6 cursor-grab active:cursor-grabbing" />
         
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Add Money</h2>
-          <p className="text-gray-600">Choose amount to add to your balance</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Add Money</h2>
+          <p className="text-gray-600 dark:text-gray-400">Choose amount to add to your balance</p>
         </div>
 
         {/* Quick Amount Grid */}
@@ -121,8 +121,8 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
               onClick={() => handleAmountSelect(amount)}
               className={`p-4 rounded-2xl border-2 transition-all ${
                 selectedAmount === amount
-                  ? 'border-blue-500 bg-blue-50 text-blue-700'
-                  : 'border-gray-200 bg-gray-50 text-gray-700 hover:border-gray-300'
+                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                  : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
               }`}
             >
               <div className="font-bold text-lg">€{amount}</div>
@@ -134,8 +134,8 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
             onClick={() => handleAmountSelect(100)}
             className={`p-4 rounded-2xl border-2 transition-all relative ${
               selectedAmount === 100
-                ? 'border-blue-500 bg-blue-50 text-blue-700'
-                : 'border-gray-200 bg-gray-50 text-gray-700 hover:border-gray-300'
+                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
             }`}
           >
             <div className="font-bold text-lg">€100</div>
@@ -154,8 +154,8 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
               onChange={(e) => handleCustomAmountChange(e.target.value)}
               className={`w-full p-4 rounded-2xl border-2 text-center font-bold text-lg transition-all ${
                 customAmount
-                  ? 'border-blue-500 bg-blue-50 text-blue-700'
-                  : 'border-gray-200 bg-gray-50 text-gray-700'
+                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                  : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
               }`}
             />
           </div>
@@ -163,11 +163,11 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
 
         {/* Selected Amount Display */}
         {getSelectedAmount() > 0 && (
-          <div className="bg-gray-50 rounded-2xl p-4 mb-6 text-center">
-            <div className="text-sm text-gray-600 mb-1">Amount to add</div>
-            <div className="text-2xl font-bold text-gray-900">€{getSelectedAmount().toFixed(2)}</div>
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-4 mb-6 text-center">
+            <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Amount to add</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">€{getSelectedAmount().toFixed(2)}</div>
             {getSelectedAmount() >= 100 && (
-              <div className="text-sm text-green-600 font-medium mt-1">
+              <div className="text-sm text-green-600 dark:text-green-400 font-medium mt-1">
                 + €5.00 bonus included
               </div>
             )}
@@ -184,8 +184,8 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
           }}
           className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
             getSelectedAmount() > 0
-              ? 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800'
-              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+              ? 'bg-blue-600 dark:bg-blue-700 text-white hover:bg-blue-700 dark:hover:bg-blue-600 active:bg-blue-800 dark:active:bg-blue-800'
+              : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
           }`}
         >
           Top up Now
