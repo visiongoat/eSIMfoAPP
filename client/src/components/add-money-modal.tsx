@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 interface AddMoneyModalProps {
   isOpen: boolean;
@@ -8,6 +8,10 @@ interface AddMoneyModalProps {
 export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState('');
+  const [dragY, setDragY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const startY = useRef(0);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const quickAmounts = [10, 30, 50, 80, 100];
 
@@ -27,6 +31,35 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
     return 0;
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    startY.current = e.touches[0].clientY;
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    
+    const currentY = e.touches[0].clientY;
+    const deltaY = currentY - startY.current;
+    
+    // Only allow downward dragging
+    if (deltaY > 0) {
+      setDragY(deltaY);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    
+    // Close modal if dragged down more than 100px
+    if (dragY > 100) {
+      onClose();
+    }
+    
+    setDragY(0);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -38,9 +71,19 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
       />
       
       {/* Modal */}
-      <div className="relative w-full bg-white rounded-t-3xl p-6 animate-slide-up">
+      <div 
+        ref={modalRef}
+        className="relative w-full bg-white rounded-t-3xl p-6 animate-slide-up transition-transform duration-200"
+        style={{
+          transform: `translateY(${dragY}px)`,
+          opacity: Math.max(0.5, 1 - dragY / 300)
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Handle */}
-        <div className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6" />
+        <div className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-6 cursor-grab active:cursor-grabbing" />
         
         {/* Header */}
         <div className="text-center mb-8">
