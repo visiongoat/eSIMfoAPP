@@ -8,7 +8,7 @@ export default function Balance1Screen() {
         <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/30 via-transparent to-purple-500/20"></div>
         <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/10 to-transparent"></div>
         
-        <div className="relative z-10 px-6 pt-16 pb-24">
+        <div className="relative z-10 px-6 pt-8 pb-24">
           {/* Welcome Message - Professional Typography */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center">
