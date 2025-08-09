@@ -9,6 +9,7 @@ export default function BalanceScreen() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(10);
   const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
   const [showCheckout, setShowCheckout] = useState(false);
+  const [esimCount, setEsimCount] = useState(1);
 
   const { data: profile } = useQuery({
     queryKey: ['/api/profile'],
@@ -70,7 +71,7 @@ export default function BalanceScreen() {
             </div>
             <div className="text-right">
               <div className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                {profile?.balance?.toFixed(2) || '50.00'} €
+                50.00 €
               </div>
             </div>
           </div>
@@ -226,8 +227,9 @@ export default function BalanceScreen() {
         isOpen={showCheckout}
         onClose={() => setShowCheckout(false)}
         selectedPackage={createBalancePackage()}
-        amount={selectedAmount || 0}
-        type="balance"
+        country={null}
+        esimCount={esimCount}
+        setEsimCount={setEsimCount}
         showPaymentMethodsDefault={true}
       />
     </div>
