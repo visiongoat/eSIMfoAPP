@@ -5,6 +5,7 @@ import { useLocation } from 'wouter';
 import CheckoutModal from '../components/checkout-modal';
 
 export default function BalanceScreen() {
+  // CACHE BUSTER: NEW_DESIGN_2024
   const [, navigate] = useLocation();
   const [selectedAmount, setSelectedAmount] = useState<number | null>(10);
   const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
@@ -43,7 +44,7 @@ export default function BalanceScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900" data-new-design="true">
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 px-4 py-4">
         <div className="flex items-center">
