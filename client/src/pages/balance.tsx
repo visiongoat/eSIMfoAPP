@@ -278,7 +278,10 @@ export default function Balance1Screen() {
           </div>
 
           {/* View All Button */}
-          <button className="w-full mt-4 py-3 text-blue-600 dark:text-blue-400 font-medium text-center border border-blue-200 dark:border-blue-800 rounded-2xl hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors">
+          <button 
+            onClick={() => setLocation('/transactions')}
+            className="w-full mt-4 py-3 text-blue-600 dark:text-blue-400 font-medium text-center border border-blue-200 dark:border-blue-800 rounded-2xl hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors"
+          >
             View All Transactions
           </button>
         </div>
