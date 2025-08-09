@@ -20,7 +20,7 @@ export default function Balance1Screen() {
           }}
         ></div>
         
-        <div className="relative z-10 px-6 pt-8 pb-24">
+        <div className="relative z-10 px-6 pt-8 pb-16">
           {/* Welcome Message - Professional Typography */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center">
@@ -82,7 +82,7 @@ export default function Balance1Screen() {
       </div>
 
       {/* Content area with rounded top corners */}
-      <div className="bg-gray-50 -mt-8 rounded-t-3xl relative z-20 pt-6 px-4">
+      <div className="bg-gray-50 -mt-6 rounded-t-3xl relative z-20 pt-6 px-4">
         <p className="text-gray-600">Buraya sonraki adımları ekleyeceğiz...</p>
       </div>
     </div>
