@@ -312,7 +312,7 @@ export default function Balance1Screen() {
       {/* Bottom Navigation */}
       <TabBar 
         onPlusClick={() => setShowQuickActions(true)}
-        onShopClick={() => {}}
+        onShopClick={() => setLocation('/home')}
       />
     </MobileContainer>
   );
