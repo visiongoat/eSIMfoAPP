@@ -15,7 +15,7 @@ export default function BalanceScreen() {
           <button onClick={() => navigate('/profile')} className="mr-4">
             <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-gray-300" />
           </button>
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">fo Balance</h1>
+          <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100">fo Balance - NEW VERSION</h1>
         </div>
       </div>
 
