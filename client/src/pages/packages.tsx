@@ -442,7 +442,7 @@ ${baseUrl}/packages/${countryId}`;
     <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20 animate-slide-in-from-top">
       {/* Custom Header */}
       <div className="flex items-center px-4 py-2">
-        <div className="w-10 flex justify-start">
+        <div className="w-8 flex justify-start">
           <button onClick={handleBackClick} className="p-1">
             <ArrowLeft className="w-5 h-5 text-gray-900 dark:text-white" />
           </button>
@@ -459,7 +459,7 @@ ${baseUrl}/packages/${countryId}`;
             {country?.name || "Loading..."}
           </h1>
         </div>
-        <div className="w-auto flex items-center space-x-2">
+        <div className="w-24 flex items-center justify-end space-x-1">
           <button
             onClick={handleShare}
             className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors active:scale-95 touch-manipulation"
@@ -468,7 +468,7 @@ ${baseUrl}/packages/${countryId}`;
           </button>
           <button
             onClick={() => setShowCurrencyModal(true)}
-            className="text-orange-500 dark:text-orange-400 font-medium text-sm hover:bg-orange-50 dark:hover:bg-orange-900/20 px-2 py-1 rounded-lg transition-colors active:scale-95 touch-manipulation"
+            className="text-orange-500 dark:text-orange-400 font-medium text-xs hover:bg-orange-50 dark:hover:bg-orange-900/20 px-1.5 py-1 rounded-lg transition-colors active:scale-95 touch-manipulation"
           >
             {getCurrencySymbol(selectedCurrency)}, {selectedCurrency}
           </button>
