@@ -1,36 +1,79 @@
 export default function Balance1Screen() {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      {/* 1. Mavi Gradient Header */}
-      <div className="bg-gradient-to-br from-blue-500 to-blue-600 px-6 pt-12 pb-8">
-        {/* Welcome Message */}
-        <div className="flex items-center mb-6">
-          <div className="w-10 h-10 bg-orange-400 rounded-full flex items-center justify-center mr-3">
-            <span className="text-white font-bold text-sm">C</span>
+    <div className="min-h-screen bg-gray-50">
+      {/* Status bar space */}
+      <div className="h-12"></div>
+      
+      {/* 1. Sophisticated Blue Gradient Header */}
+      <div className="relative overflow-hidden">
+        {/* Complex gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/30 via-transparent to-purple-500/20"></div>
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/10 to-transparent"></div>
+        
+        <div className="relative z-10 px-6 pt-6 pb-24">
+          {/* Welcome Message - Professional Typography */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">C</span>
+                </div>
+              </div>
+              <div className="leading-tight">
+                <div className="text-white/90 text-base font-medium">Welcome back,</div>
+                <div className="text-white text-xl font-bold tracking-tight">Cassie!</div>
+              </div>
+            </div>
           </div>
-          <div>
-            <span className="text-white text-lg font-medium">Welcome back,</span>
-            <br />
-            <span className="text-white text-lg font-bold">Cassie!</span>
-          </div>
-        </div>
 
-        {/* 2. Balance Display */}
-        <div className="mb-6">
-          <div className="flex items-center mb-2">
-            <span className="text-white/90 text-base">Balance</span>
-            <span className="text-white/70 mx-2">•</span>
-            <span className="text-white/90 text-base">EUR</span>
-            <svg className="w-4 h-4 text-white/70 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+          {/* 2. Elegant Balance Display */}
+          <div className="mb-8">
+            <div className="flex items-center mb-3">
+              <span className="text-white/80 text-base font-medium">Balance</span>
+              <div className="w-1 h-1 bg-white/60 rounded-full mx-3"></div>
+              <span className="text-white/80 text-base font-medium">EUR</span>
+              <svg className="w-4 h-4 text-white/60 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            <div className="text-white text-6xl font-black tracking-tighter leading-none">€75.92</div>
           </div>
-          <div className="text-white text-5xl font-bold">€75.92</div>
+          
+          {/* 3. Action Buttons with Glass Morphism */}
+          <div className="flex justify-center space-x-8">
+            <div className="flex flex-col items-center">
+              <div className="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mb-2 border border-white/20">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
+              <span className="text-white/90 text-sm font-medium">Add money</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <div className="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mb-2 border border-white/20">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <span className="text-white/90 text-sm font-medium">Exchange</span>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <div className="w-14 h-14 bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center mb-2 border border-white/20">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+              </div>
+              <span className="text-white/90 text-sm font-medium">Cards</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Geçici content area */}
-      <div className="p-4">
+      {/* Content area with rounded top corners */}
+      <div className="bg-gray-50 -mt-6 rounded-t-3xl relative z-20 pt-8 px-6">
         <p className="text-gray-600">Buraya sonraki adımları ekleyeceğiz...</p>
       </div>
     </div>
