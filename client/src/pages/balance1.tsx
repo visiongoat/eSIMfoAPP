@@ -17,7 +17,7 @@ export default function Balance1Screen() {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             mixBlendMode: 'multiply',
-            animation: 'textureFloat 12s ease-in-out infinite'
+            animation: 'textureFloat 6s ease-in-out infinite'
           }}
         ></div>
         
