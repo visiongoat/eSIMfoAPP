@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface AddMoneyModalProps {
   isOpen: boolean;
@@ -31,6 +31,22 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
     return 0;
   };
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = 'unset';
+      document.body.style.touchAction = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.touchAction = 'auto';
+    };
+  }, [isOpen]);
+
   const handleTouchStart = (e: React.TouchEvent) => {
     startY.current = e.touches[0].clientY;
     setIsDragging(true);
@@ -38,6 +54,9 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging) return;
+    
+    // Prevent default to stop background scrolling
+    e.preventDefault();
     
     const currentY = e.touches[0].clientY;
     const deltaY = currentY - startY.current;
