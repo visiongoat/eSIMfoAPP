@@ -8,7 +8,7 @@ export default function Balance1Screen() {
         {/* Base blue background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700"></div>
         
-        {/* Background image pattern */}
+        {/* Animated Background image pattern */}
         <div 
           className="absolute inset-0 opacity-75"
           style={{
@@ -16,7 +16,8 @@ export default function Balance1Screen() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            mixBlendMode: 'multiply'
+            mixBlendMode: 'multiply',
+            animation: 'textureFloat 12s ease-in-out infinite'
           }}
         ></div>
         
