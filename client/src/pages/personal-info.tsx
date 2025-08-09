@@ -167,7 +167,7 @@ export default function PersonalInfo() {
                 placeholder="Enter your full name"
               />
             ) : (
-              <div className="px-3 py-2 text-gray-900 dark:text-gray-100">
+              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.name || 'Not set'}
               </div>
             )}
@@ -187,7 +187,7 @@ export default function PersonalInfo() {
                 placeholder="Enter your email address"
               />
             ) : (
-              <div className="px-3 py-2 text-gray-900 dark:text-gray-100">
+              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.email || 'Not set'}
               </div>
             )}
@@ -207,7 +207,7 @@ export default function PersonalInfo() {
                 placeholder="Enter your phone number"
               />
             ) : (
-              <div className="px-3 py-2 text-gray-900 dark:text-gray-100">
+              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.phone || 'Not set'}
               </div>
             )}
@@ -238,7 +238,7 @@ export default function PersonalInfo() {
                 <option value="it">Italiano</option>
               </select>
             ) : (
-              <div className="px-3 py-2 text-gray-900 dark:text-gray-100">
+              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.language === 'en' ? 'English' :
                  profile?.language === 'tr' ? 'Türkçe' :
                  profile?.language === 'de' ? 'Deutsch' :
@@ -272,7 +272,7 @@ export default function PersonalInfo() {
                 <option value="CHF">CHF (Fr)</option>
               </select>
             ) : (
-              <div className="px-3 py-2 text-gray-900 dark:text-gray-100">
+              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.currency ? `${profile.currency} (${
                   profile.currency === 'EUR' ? '€' :
                   profile.currency === 'USD' ? '$' :
