@@ -172,20 +172,19 @@ export default function CheckoutModal({
         </div>
 
         <div className="p-4 space-y-6">
-          {/* Package Info */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              {country?.flagUrl && (
-                <img 
-                  src={country.flagUrl} 
-                  alt={`${country.name} flag`}
-                  className="w-8 h-6 rounded-sm object-cover"
-                />
-              )}
-              <div>
-                <div className="font-semibold text-gray-900 dark:text-white">{country?.name}</div>
-                {/* Only show package details for non-balance top up */}
-                {!hideQuantitySelector && (
+          {/* Package Info - Hide entire section for balance top up */}
+          {!hideQuantitySelector && (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                {country?.flagUrl && (
+                  <img 
+                    src={country.flagUrl} 
+                    alt={`${country.name} flag`}
+                    className="w-8 h-6 rounded-sm object-cover"
+                  />
+                )}
+                <div>
+                  <div className="font-semibold text-gray-900 dark:text-white">{country?.name}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
                     {selectedPackage?.duration} • {selectedPackage?.data}
                     {selectedPackage?.voice && selectedPackage?.sms && (
@@ -194,12 +193,10 @@ export default function CheckoutModal({
                       </span>
                     )}
                   </div>
-                )}
+                </div>
               </div>
-            </div>
-            
-            {/* Quantity selector - Hide for balance top up */}
-            {!hideQuantitySelector && (
+              
+              {/* Quantity selector */}
               <div className="flex items-center space-x-3 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
                 <button
                   onClick={() => setEsimCount(Math.max(1, esimCount - 1))}
@@ -218,8 +215,8 @@ export default function CheckoutModal({
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Pricing */}
           <div className="space-y-3">
