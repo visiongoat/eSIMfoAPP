@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useLocation } from "wouter";
 import texturePattern from '@/assets/texture-pattern.jpeg';
 import AddMoneyModal from '@/components/add-money-modal';
@@ -13,6 +13,12 @@ export default function Balance1Screen() {
   const [isBalanceAnimating, setIsBalanceAnimating] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [location, setLocation] = useLocation();
+  
+  // Touch/swipe states for quick actions modal
+  const [quickActionsStartY, setQuickActionsStartY] = useState<number>(0);
+  const [quickActionsCurrentY, setQuickActionsCurrentY] = useState<number>(0);
+  const [isQuickActionsDragging, setIsQuickActionsDragging] = useState<boolean>(false);
+  const quickActionsModalRef = useRef<HTMLDivElement>(null);
   
   const { displayValue } = useAnimatedCounter({
     targetValue: balance,
@@ -32,6 +38,60 @@ export default function Balance1Screen() {
       setIsBalanceAnimating(false);
     }, 1600);
   };
+
+  // Quick Actions modal touch handlers
+  const handleQuickActionsModalTouchStart = (e: React.TouchEvent) => {
+    setQuickActionsStartY(e.touches[0].clientY);
+    setIsQuickActionsDragging(false);
+  };
+
+  const handleQuickActionsModalTouchMove = (e: React.TouchEvent) => {
+    if (!isQuickActionsDragging) {
+      setIsQuickActionsDragging(true);
+    }
+    setQuickActionsCurrentY(e.touches[0].clientY);
+    
+    const deltaY = e.touches[0].clientY - quickActionsStartY;
+    if (deltaY > 0 && quickActionsModalRef.current) {
+      quickActionsModalRef.current.style.transform = `translateY(${deltaY}px)`;
+    }
+  };
+
+  const handleQuickActionsModalTouchEnd = () => {
+    if (isQuickActionsDragging) {
+      const deltaY = quickActionsCurrentY - quickActionsStartY;
+      if (deltaY > 100) {
+        setShowQuickActions(false);
+      }
+      
+      if (quickActionsModalRef.current) {
+        quickActionsModalRef.current.style.transform = 'translateY(0px)';
+      }
+    }
+    setIsQuickActionsDragging(false);
+  };
+
+  // Body scroll lock effect
+  useEffect(() => {
+    if (showQuickActions) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = '0';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [showQuickActions]);
   return (
     <MobileContainer>
       <div className="min-h-screen bg-gray-50 pb-20">
@@ -135,10 +195,23 @@ export default function Balance1Screen() {
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]" 
           onClick={() => setShowQuickActions(false)}
+          style={{ 
+            position: 'fixed', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0,
+            zIndex: 9999
+          }}
         >
           <div 
+            ref={quickActionsModalRef}
             className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleQuickActionsModalTouchStart}
+            onTouchMove={handleQuickActionsModalTouchMove}
+            onTouchEnd={handleQuickActionsModalTouchEnd}
+            style={{ zIndex: 10000 }}
           >
             {/* Handle Bar */}
             <div className="flex justify-center pt-3 pb-2">
