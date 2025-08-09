@@ -82,7 +82,7 @@ export default function Balance1Screen() {
       </div>
 
       {/* Content area with rounded top corners - extends higher */}
-      <div className="bg-gray-50 -mt-12 rounded-t-3xl relative z-20 pt-8 px-4">
+      <div className="bg-gray-50 -mt-16 rounded-t-3xl relative z-20 pt-8 px-4">
         <p className="text-gray-600">Buraya sonraki adımları ekleyeceğiz...</p>
       </div>
     </div>
