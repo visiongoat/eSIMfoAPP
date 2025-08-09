@@ -10,7 +10,7 @@ export default function Balance1Screen() {
         
         {/* Background image pattern */}
         <div 
-          className="absolute inset-0 opacity-60"
+          className="absolute inset-0 opacity-75"
           style={{
             backgroundImage: `url(${texturePattern})`,
             backgroundSize: 'cover',
