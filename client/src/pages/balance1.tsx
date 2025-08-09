@@ -2,6 +2,8 @@ import { useState } from 'react';
 import texturePattern from '@/assets/texture-pattern.jpeg';
 import AddMoneyModal from '@/components/add-money-modal';
 import { useAnimatedCounter } from '@/hooks/use-animated-counter';
+import TabBar from '@/components/tab-bar';
+import MobileContainer from '@/components/mobile-container';
 
 export default function Balance1Screen() {
   const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false);
@@ -28,7 +30,8 @@ export default function Balance1Screen() {
     }, 1600);
   };
   return (
-    <div className="min-h-screen bg-gray-50">
+    <MobileContainer>
+      <div className="min-h-screen bg-gray-50 pb-20">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
       <div className="relative overflow-hidden">
         {/* Base blue background */}
@@ -122,6 +125,13 @@ export default function Balance1Screen() {
         onClose={() => setIsAddMoneyModalOpen(false)}
         onTopUpComplete={handleTopUpComplete}
       />
-    </div>
+      </div>
+      
+      {/* Bottom Navigation */}
+      <TabBar 
+        onPlusClick={() => {}}
+        onShopClick={() => {}}
+      />
+    </MobileContainer>
   );
 }
