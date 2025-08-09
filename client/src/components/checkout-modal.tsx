@@ -184,14 +184,17 @@ export default function CheckoutModal({
               )}
               <div>
                 <div className="font-semibold text-gray-900 dark:text-white">{country?.name}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  {selectedPackage?.duration} • {selectedPackage?.data}
-                  {selectedPackage?.voice && selectedPackage?.sms && (
-                    <span className="text-xs text-gray-500 dark:text-gray-500 opacity-75">
-                      {' • '}{selectedPackage.voice} • {selectedPackage.sms}
-                    </span>
-                  )}
-                </div>
+                {/* Only show package details for non-balance top up */}
+                {!hideQuantitySelector && (
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {selectedPackage?.duration} • {selectedPackage?.data}
+                    {selectedPackage?.voice && selectedPackage?.sms && (
+                      <span className="text-xs text-gray-500 dark:text-gray-500 opacity-75">
+                        {' • '}{selectedPackage.voice} • {selectedPackage.sms}
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
             
