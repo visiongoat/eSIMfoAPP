@@ -178,7 +178,7 @@ export default function Balance1Screen() {
       </div>
 
       {/* Content area with rounded top corners */}
-      <div className="bg-gray-50 dark:bg-gray-900 -mt-6 rounded-t-3xl relative z-20 pt-6 px-4 pb-20">
+      <div className="bg-gray-50 dark:bg-gray-900 -mt-6 rounded-t-3xl relative z-20 pt-6 px-4 pb-10">
         {/* Transaction History */}
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Transaction History</h3>
