@@ -7,6 +7,7 @@ export default function Balance1Screen() {
   const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false);
   const [balance, setBalance] = useState(75.92);
   const [animationTrigger, setAnimationTrigger] = useState(false);
+  const [isBalanceAnimating, setIsBalanceAnimating] = useState(false);
   
   const { displayValue } = useAnimatedCounter({
     targetValue: balance,
@@ -18,9 +19,13 @@ export default function Balance1Screen() {
     const newBalance = balance + amount + bonus;
     setBalance(newBalance);
     setAnimationTrigger(true);
+    setIsBalanceAnimating(true);
     
     // Reset animation trigger after animation completes
-    setTimeout(() => setAnimationTrigger(false), 1600);
+    setTimeout(() => {
+      setAnimationTrigger(false);
+      setIsBalanceAnimating(false);
+    }, 1600);
   };
   return (
     <div className="min-h-screen bg-gray-50">
@@ -42,7 +47,7 @@ export default function Balance1Screen() {
           }}
         ></div>
         
-        <div className="relative z-10 px-6 pt-8 pb-16">
+        <div className={`relative z-10 px-6 pt-8 pb-16 ${isBalanceAnimating ? 'balance-container-animate' : ''}`}>
           {/* Welcome Message - Professional Typography */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center">
@@ -68,7 +73,7 @@ export default function Balance1Screen() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
-            <div className="text-white text-6xl font-black tracking-tighter leading-none">€{displayValue.toFixed(2)}</div>
+            <div className={`text-white text-6xl font-black tracking-tighter leading-none transition-all duration-200 ${isBalanceAnimating ? 'balance-animate' : ''}`}>€{displayValue.toFixed(2)}</div>
           </div>
           
           {/* 3. Action Buttons - smaller and left aligned */}

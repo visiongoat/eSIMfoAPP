@@ -72,6 +72,65 @@
   }
 }
 
+/* Balance glow and scale animation */
+@keyframes balanceGlow {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 0 transparent;
+  }
+  25% {
+    transform: scale(1.05);
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    text-shadow: 
+      0 0 15px rgba(255, 255, 255, 0.9),
+      0 0 25px rgba(255, 255, 255, 0.7),
+      0 0 35px rgba(255, 255, 255, 0.5),
+      0 0 45px rgba(59, 130, 246, 0.3);
+  }
+  75% {
+    transform: scale(1.05);
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 0 transparent;
+  }
+}
+
+/* Balance container glow */
+@keyframes containerGlow {
+  0% {
+    box-shadow: 0 0 0 transparent;
+  }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(255, 255, 255, 0.3),
+      0 0 40px rgba(59, 130, 246, 0.2),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 transparent;
+  }
+}
+
+/* Animation classes */
+.balance-animate {
+  animation: balanceGlow 1.5s ease-in-out;
+}
+
+.balance-container-animate {
+  animation: containerGlow 1.5s ease-in-out;
+}
+
 /* Data icon single spin animation for hover */
 .group:hover .data-icon {
   transform: rotate(360deg);
