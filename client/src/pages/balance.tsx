@@ -4,8 +4,8 @@ import { ArrowLeft } from 'lucide-react';
 import { useLocation } from 'wouter';
 import CheckoutModal from '../components/checkout-modal';
 
-export default function BalanceScreen() {
-  // CACHE BUSTER: NEW_DESIGN_2024
+export default function NewBalanceScreen() {
+  // NEW DESIGN VERSION 2024
   const [, navigate] = useLocation();
   const [selectedAmount, setSelectedAmount] = useState<number | null>(10);
   const [activeTab, setActiveTab] = useState<'topup' | 'history'>('topup');
