@@ -128,17 +128,20 @@ export default function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
             </button>
           ))}
           
-          {/* €100 button with bonus indicator */}
+          {/* €100 button with bonus badge */}
           <button
             onClick={() => handleAmountSelect(100)}
-            className={`p-4 rounded-2xl border-2 transition-all ${
+            className={`p-4 rounded-2xl border-2 transition-all relative ${
               selectedAmount === 100
                 ? 'border-blue-500 bg-blue-50 text-blue-700'
                 : 'border-gray-200 bg-gray-50 text-gray-700 hover:border-gray-300'
             }`}
           >
             <div className="font-bold text-lg">€100</div>
-            <div className="text-xs text-green-600 font-medium mt-1">+€5 bonus</div>
+            {/* Bonus badge in top-right corner */}
+            <div className="absolute -top-1 -right-1 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+              +€5
+            </div>
           </button>
           
           {/* Other/Custom Amount */}
