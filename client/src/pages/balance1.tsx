@@ -3,10 +3,11 @@ export default function Balance1Screen() {
     <div className="min-h-screen bg-gray-50">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
       <div className="relative overflow-hidden">
-        {/* Complex gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-400/30 via-transparent to-purple-500/20"></div>
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/10 to-transparent"></div>
+        {/* Complex gradient background - more pronounced */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-600 to-blue-800"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/40 via-blue-500/20 to-purple-600/30"></div>
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/15 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-900/30 to-transparent"></div>
         
         <div className="relative z-10 px-6 pt-8 pb-24">
           {/* Welcome Message - Professional Typography */}
