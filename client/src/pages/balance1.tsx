@@ -3,22 +3,26 @@ export default function Balance1Screen() {
     <div className="min-h-screen bg-gray-50">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
       <div className="relative overflow-hidden">
-        {/* SVG Pattern Background like in example */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700"></div>
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-blue-600"></div>
         
-        {/* SVG Pattern Overlay */}
-        <div 
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3Ccircle cx='50' cy='50' r='1'/%3E%3Ccircle cx='10' cy='50' r='1'/%3E%3Ccircle cx='50' cy='10' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        ></div>
+        {/* Multiple overlapping gradients for complex effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/80 via-blue-500/60 to-blue-700/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-tl from-blue-300/40 via-transparent to-blue-800/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
         
-        {/* Additional subtle texture */}
+        {/* Noise-like effect using CSS */}
         <div 
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-25"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0 5.5-4.5 10-10 10s-10-4.5-10-10 4.5-10 10-10 10 4.5 10 10zm10 0c0 5.5-4.5 10-10 10s-10-4.5-10-10 4.5-10 10-10 10 4.5 10 10z'/%3E%3C/g%3E%3C/svg%3E")`,
+            background: `
+              radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 1px, transparent 1px),
+              radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 1px, transparent 1px),
+              radial-gradient(circle at 40% 80%, rgba(255,255,255,0.06) 1px, transparent 1px),
+              radial-gradient(circle at 90% 20%, rgba(255,255,255,0.12) 1px, transparent 1px),
+              radial-gradient(circle at 60% 40%, rgba(255,255,255,0.09) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px, 120px 120px, 100px 100px, 90px 90px, 110px 110px'
           }}
         ></div>
         
@@ -84,7 +88,44 @@ export default function Balance1Screen() {
       </div>
 
       {/* Content area with rounded top corners */}
-      <div className="bg-gray-50 -mt-6 rounded-t-3xl relative z-20 pt-8 px-6">
+      <div className="bg-gray-50 -mt-6 rounded-t-3xl relative z-20 pt-6 px-4">
+        {/* Promo Cards - matching example */}
+        <div className="flex space-x-3 mb-6">
+          {/* 200 MB Free Card */}
+          <div className="flex-1 bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <h3 className="font-bold text-gray-900 text-lg mb-1">200 MB Free</h3>
+                <p className="text-gray-600 text-sm leading-tight">for international and<br />local plans!</p>
+              </div>
+              <div className="ml-3 relative">
+                <div className="w-12 h-12 flex items-center justify-center">
+                  <svg className="w-10 h-10" viewBox="0 0 40 40" fill="none">
+                    <circle cx="20" cy="20" r="18" fill="#3B82F6" opacity="0.1"/>
+                    <circle cx="20" cy="20" r="14" fill="#3B82F6" opacity="0.2"/>
+                    <circle cx="20" cy="20" r="10" fill="#10B981"/>
+                    <path d="M12 20l6 6 10-10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                {/* Orbital lines */}
+                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '20s' }}>
+                  <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="20" stroke="#3B82F6" strokeWidth="1" opacity="0.3" fill="none" strokeDasharray="3 3"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Get £30 Card */}
+          <div className="flex-1 bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <div>
+              <h3 className="font-bold text-gray-900 text-lg mb-1">Get €30</h3>
+              <p className="text-gray-600 text-sm">for referring a f...</p>
+            </div>
+          </div>
+        </div>
+
         <p className="text-gray-600">Buraya sonraki adımları ekleyeceğiz...</p>
       </div>
     </div>
