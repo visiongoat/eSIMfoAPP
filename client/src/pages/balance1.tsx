@@ -3,29 +3,18 @@ export default function Balance1Screen() {
     <div className="min-h-screen bg-gray-50">
       {/* 1. Sophisticated Blue Gradient Header - includes status bar */}
       <div className="relative overflow-hidden">
-        {/* Different approach - using pseudo elements for texture */}
+        {/* Base blue background */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700"></div>
         
-        {/* Box shadow pattern overlay */}
+        {/* Background image pattern */}
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-40"
           style={{
-            background: `
-              repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 4px,
-                rgba(255,255,255,0.03) 4px,
-                rgba(255,255,255,0.03) 8px
-              ),
-              repeating-linear-gradient(
-                -45deg,
-                transparent,
-                transparent 4px,
-                rgba(255,255,255,0.02) 4px,
-                rgba(255,255,255,0.02) 8px
-              )
-            `
+            backgroundImage: `url('/attached_assets/IMG_6027_1754755190124.jpeg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            mixBlendMode: 'overlay'
           }}
         ></div>
         
