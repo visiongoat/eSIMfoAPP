@@ -431,16 +431,7 @@ export default function MyEsimsScreen() {
                             }}
                           />
                           
-                          {/* Animated End Dot */}
-                          {percentage > 0 && (
-                            <circle
-                              cx={36 + radius * Math.cos(((percentage / 100) * 2 * Math.PI) - Math.PI/2)}
-                              cy={36 + radius * Math.sin(((percentage / 100) * 2 * Math.PI) - Math.PI/2)}
-                              r="4"
-                              fill={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"}
-                              className="animate-pulse"
-                            />
-                          )}
+
                         </svg>
                         
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -519,16 +510,7 @@ export default function MyEsimsScreen() {
                             }}
                           />
                           
-                          {/* Animated End Dot */}
-                          {daysPercentage > 0 && (
-                            <circle
-                              cx={36 + radius * Math.cos(((daysPercentage / 100) * 2 * Math.PI) - Math.PI/2)}
-                              cy={36 + radius * Math.sin(((daysPercentage / 100) * 2 * Math.PI) - Math.PI/2)}
-                              r="4"
-                              fill="#3b82f6"
-                              className="animate-pulse"
-                            />
-                          )}
+
                           
                           {/* Clock Icon in Center */}
                           <g transform="translate(36,36)" className="text-blue-100" opacity="0.1">
