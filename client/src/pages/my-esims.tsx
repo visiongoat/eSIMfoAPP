@@ -363,92 +363,174 @@ export default function MyEsimsScreen() {
             </div>
 
             <div className="p-5 space-y-4">
-              {/* Data & Days Charts Side by Side */}
-              <div className="grid grid-cols-2 gap-4">
-                {/* Data Usage Circle */}
-                <div className="text-center">
+              {/* Premium Data & Days Charts Side by Side */}
+              <div className="grid grid-cols-2 gap-6">
+                {/* Data Usage Circle - Enhanced */}
+                <div className="text-center relative">
                   {(() => {
                     const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
                     const total = totalGB * 1000; // Convert GB to MB
                     const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
                     const percentage = Math.min((used / total) * 100, 100);
-                    const radius = 35;
+                    const radius = 32;
                     const circumference = 2 * Math.PI * radius;
                     const strokeDashoffset = circumference - (percentage / 100) * circumference;
                     
                     return (
-                      <div className="relative mx-auto w-24 h-24 mb-2">
-                        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 80 80">
+                      <div className="relative mx-auto w-28 h-28 mb-3">
+                        {/* Glow Background */}
+                        <div 
+                          className="absolute inset-0 rounded-full animate-pulse opacity-30"
+                          style={{
+                            background: `radial-gradient(circle, ${percentage > 80 ? 'rgba(239, 68, 68, 0.3)' : percentage > 60 ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)'} 0%, transparent 70%)`,
+                            filter: 'blur(15px)'
+                          }}
+                        ></div>
+                        
+                        <svg className="w-28 h-28 transform -rotate-90 relative z-10" viewBox="0 0 72 72">
+                          <defs>
+                            <linearGradient id={`dataGradient-${selectedEsimForDetail.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"} />
+                              <stop offset="50%" stopColor={percentage > 80 ? "#dc2626" : percentage > 60 ? "#d97706" : "#059669"} />
+                              <stop offset="100%" stopColor={percentage > 80 ? "#b91c1c" : percentage > 60 ? "#b45309" : "#047857"} />
+                            </linearGradient>
+                            <filter id={`dataShadow-${selectedEsimForDetail.id}`}>
+                              <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"} floodOpacity="0.4"/>
+                            </filter>
+                          </defs>
+                          
+                          {/* Background Circle */}
                           <circle
-                            cx="40" cy="40" r={radius}
-                            stroke="currentColor"
-                            strokeWidth="5"
+                            cx="36" cy="36" r={radius}
+                            stroke="rgba(156, 163, 175, 0.2)"
+                            strokeWidth="4"
                             fill="transparent"
-                            className="text-gray-200 dark:text-gray-700"
                           />
+                          
+                          {/* Progress Circle */}
                           <circle
-                            cx="40" cy="40" r={radius}
-                            stroke={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"}
-                            strokeWidth="5"
+                            cx="36" cy="36" r={radius}
+                            stroke={`url(#dataGradient-${selectedEsimForDetail.id})`}
+                            strokeWidth="6"
                             fill="transparent"
                             strokeLinecap="round"
                             strokeDasharray={circumference}
                             strokeDashoffset={strokeDashoffset}
-                            className="transition-all duration-1000 ease-out"
+                            className="transition-all duration-1500 ease-out"
+                            filter={`url(#dataShadow-${selectedEsimForDetail.id})`}
                           />
+                          
+                          {/* Animated End Dot */}
+                          {percentage > 0 && (
+                            <circle
+                              cx={36 + radius * Math.cos((percentage / 100) * 2 * Math.PI - Math.PI/2)}
+                              cy={36 + radius * Math.sin((percentage / 100) * 2 * Math.PI - Math.PI/2)}
+                              r="4"
+                              fill={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"}
+                              className="animate-pulse"
+                            />
+                          )}
                         </svg>
+                        
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <div className="text-lg font-bold text-gray-900 dark:text-white">
+                          <div className={`text-xl font-black bg-gradient-to-br ${percentage > 80 ? 'from-red-500 to-red-700' : percentage > 60 ? 'from-amber-500 to-orange-600' : 'from-emerald-500 to-green-600'} bg-clip-text text-transparent`}>
                             {Math.round(percentage)}%
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5">
+                            {used.toFixed(0)}MB
                           </div>
                         </div>
                       </div>
                     );
                   })()}
-                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Data Used</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold">Data Used</div>
                 </div>
 
-                {/* Days Remaining Circle */}
-                <div className="text-center">
+                {/* Days Remaining Circle - Enhanced */}
+                <div className="text-center relative">
                   {(() => {
                     const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
                     const daysUsed = Math.min(Math.floor(totalDays * 0.4), totalDays); // Mock: 40% used
                     const daysRemaining = totalDays - daysUsed;
                     const daysPercentage = (daysUsed / totalDays) * 100;
-                    const radius = 35;
+                    const radius = 32;
                     const circumference = 2 * Math.PI * radius;
                     const strokeDashoffset = circumference - (daysPercentage / 100) * circumference;
                     
                     return (
-                      <div className="relative mx-auto w-24 h-24 mb-2">
-                        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 80 80">
+                      <div className="relative mx-auto w-28 h-28 mb-3">
+                        {/* Glow Background */}
+                        <div 
+                          className="absolute inset-0 rounded-full animate-pulse opacity-30"
+                          style={{
+                            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)',
+                            filter: 'blur(15px)'
+                          }}
+                        ></div>
+                        
+                        <svg className="w-28 h-28 transform -rotate-90 relative z-10" viewBox="0 0 72 72">
+                          <defs>
+                            <linearGradient id={`daysGradient-${selectedEsimForDetail.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#3b82f6" />
+                              <stop offset="50%" stopColor="#2563eb" />
+                              <stop offset="100%" stopColor="#1d4ed8" />
+                            </linearGradient>
+                            <filter id={`daysShadow-${selectedEsimForDetail.id}`}>
+                              <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#3b82f6" floodOpacity="0.4"/>
+                            </filter>
+                          </defs>
+                          
+                          {/* Background Circle */}
                           <circle
-                            cx="40" cy="40" r={radius}
-                            stroke="currentColor"
-                            strokeWidth="5"
+                            cx="36" cy="36" r={radius}
+                            stroke="rgba(156, 163, 175, 0.2)"
+                            strokeWidth="4"
                             fill="transparent"
-                            className="text-gray-200 dark:text-gray-700"
                           />
+                          
+                          {/* Progress Circle */}
                           <circle
-                            cx="40" cy="40" r={radius}
-                            stroke="#3b82f6"
-                            strokeWidth="5"
+                            cx="36" cy="36" r={radius}
+                            stroke={`url(#daysGradient-${selectedEsimForDetail.id})`}
+                            strokeWidth="6"
                             fill="transparent"
                             strokeLinecap="round"
                             strokeDasharray={circumference}
                             strokeDashoffset={strokeDashoffset}
-                            className="transition-all duration-1000 ease-out"
+                            className="transition-all duration-1500 ease-out"
+                            filter={`url(#daysShadow-${selectedEsimForDetail.id})`}
                           />
+                          
+                          {/* Animated End Dot */}
+                          {daysPercentage > 0 && (
+                            <circle
+                              cx={36 + radius * Math.cos((daysPercentage / 100) * 2 * Math.PI - Math.PI/2)}
+                              cy={36 + radius * Math.sin((daysPercentage / 100) * 2 * Math.PI - Math.PI/2)}
+                              r="4"
+                              fill="#3b82f6"
+                              className="animate-pulse"
+                            />
+                          )}
+                          
+                          {/* Clock Icon in Center */}
+                          <g transform="translate(36,36)" className="text-blue-100" opacity="0.1">
+                            <circle r="12" fill="currentColor"/>
+                            <path d="M0,-8 L0,-4 L4,-4" stroke="#3b82f6" strokeWidth="1" fill="none" strokeLinecap="round"/>
+                          </g>
                         </svg>
+                        
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                          <div className="text-xl font-black bg-gradient-to-br from-blue-500 to-blue-700 bg-clip-text text-transparent">
                             {daysRemaining}
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-0.5">
+                            days
                           </div>
                         </div>
                       </div>
                     );
                   })()}
-                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Days Left</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-semibold">Days Left</div>
                 </div>
               </div>
 
