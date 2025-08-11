@@ -426,7 +426,7 @@ export default function MyEsimsScreen() {
                             strokeWidth="6"
                             fill="transparent"
                             strokeLinecap="round"
-                            strokeDasharray={circumference}
+                            strokeDasharray={`${circumference * 0.97} ${circumference}`}
                             strokeDashoffset={strokeDashoffset}
                             className="transition-all duration-2000 ease-out"
                             filter={`url(#dataShadow-${selectedEsimForDetail.id})`}
@@ -505,7 +505,7 @@ export default function MyEsimsScreen() {
                             strokeWidth="6"
                             fill="transparent"
                             strokeLinecap="round"
-                            strokeDasharray={circumference}
+                            strokeDasharray={`${circumference * 0.97} ${circumference}`}
                             strokeDashoffset={strokeDashoffset}
                             className="transition-all duration-2000 ease-out"
                             filter={`url(#daysShadow-${selectedEsimForDetail.id})`}
