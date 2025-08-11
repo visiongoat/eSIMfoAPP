@@ -139,9 +139,13 @@ export default function MyEsimsScreen() {
     }
   };
 
-  // Keyboard navigation
+  // Keyboard navigation and body scroll lock
   useEffect(() => {
     if (!showEsimDetailModal) return;
+    
+    // Lock body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = '0px'; // Prevent layout shift
     
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
@@ -157,7 +161,13 @@ export default function MyEsimsScreen() {
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    
+    // Cleanup: restore body scroll when modal closes
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
   }, [showEsimDetailModal, selectedEsimForDetail, filteredEsims]);
 
   const activeEsims = esims.filter(esim => esim.status === 'Active');
