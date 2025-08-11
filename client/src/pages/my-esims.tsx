@@ -72,7 +72,8 @@ export default function MyEsimsScreen() {
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
   const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(null);
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
-  const [modalTransition, setModalTransition] = useState<'slide-in-left' | 'slide-in-right' | 'slide-out-left' | 'slide-out-right' | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
 
   // Close modal with exit animation
   const closeModal = () => {
@@ -86,29 +87,43 @@ export default function MyEsimsScreen() {
 
   // Navigate to next/previous eSIM with slide animations
   const navigateToNextEsim = () => {
-    if (!selectedEsimForDetail) return;
-    setModalTransition('slide-out-left');
+    if (!selectedEsimForDetail || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setSlideDirection('left'); // Current modal slides left
+    
     setTimeout(() => {
       const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
       const nextIndex = (currentIndex + 1) % filteredEsims.length;
       setSelectedEsimForDetail(filteredEsims[nextIndex]);
       setModalAnimationKey(prev => prev + 1);
-      setModalTransition('slide-in-right');
-      setTimeout(() => setModalTransition(null), 400);
-    }, 150);
+      setSlideDirection('right'); // New modal enters from right
+      
+      setTimeout(() => {
+        setSlideDirection(null);
+        setIsTransitioning(false);
+      }, 300);
+    }, 200);
   };
 
   const navigateToPrevEsim = () => {
-    if (!selectedEsimForDetail) return;
-    setModalTransition('slide-out-right');
+    if (!selectedEsimForDetail || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setSlideDirection('right'); // Current modal slides right
+    
     setTimeout(() => {
       const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
       const prevIndex = currentIndex === 0 ? filteredEsims.length - 1 : currentIndex - 1;
       setSelectedEsimForDetail(filteredEsims[prevIndex]);
       setModalAnimationKey(prev => prev + 1);
-      setModalTransition('slide-in-left');
-      setTimeout(() => setModalTransition(null), 400);
-    }, 150);
+      setSlideDirection('left'); // New modal enters from left
+      
+      setTimeout(() => {
+        setSlideDirection(null);
+        setIsTransitioning(false);
+      }, 300);
+    }, 200);
   };
 
   // Touch handlers for swipe gestures
@@ -448,18 +463,25 @@ export default function MyEsimsScreen() {
           onClick={closeModal}
         >
           <div 
-            className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden transition-transform duration-150 ${
+            key={`modal-${selectedEsimForDetail?.id}-${modalAnimationKey}`}
+            className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden transition-all duration-300 ease-in-out ${
               swipeDirection === 'left' ? 'transform -translate-x-2' : 
               swipeDirection === 'right' ? 'transform translate-x-2' : ''
-            } ${modalTransition || ''}`}
+            } ${
+              slideDirection === 'left' ? 'transform -translate-x-full opacity-0' :
+              slideDirection === 'right' ? 'transform translate-x-full opacity-0' : 
+              'transform translate-x-0 opacity-100'
+            }`}
             onClick={(e) => e.stopPropagation()}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             style={{
-              animation: isModalExiting 
-                ? 'modalExit 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards' 
-                : 'modalEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+              animation: isTransitioning 
+                ? undefined
+                : (isModalExiting 
+                  ? 'modalExit 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards' 
+                  : 'modalEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards')
             }}
           >
             
