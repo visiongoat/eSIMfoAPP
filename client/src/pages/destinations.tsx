@@ -1361,7 +1361,7 @@ export default function DestinationsScreen() {
                     ))}
                     
                     {/* Bottom spacing for sticky checkout */}
-                    <div className="pb-32"></div>
+                    <div style={{ paddingBottom: '6.5rem' }}></div>
                   </div>
                 ) : (
                   // Continent List with smooth fade-in animation
