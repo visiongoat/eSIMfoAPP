@@ -389,22 +389,27 @@ export default function MyEsimsScreen() {
                     const strokeDashoffset = circumference - (percentage / 100) * circumference;
                     
                     return (
-                      <div className="relative mx-auto w-28 h-28 mb-3">
-                        {/* Enhanced Glow Background */}
-                        <div className="absolute inset-0 rounded-full opacity-40">
+                      <div className="relative mx-auto w-36 h-36 mb-3 flex items-center justify-center">
+                        {/* Enhanced Glow Background - Expanded for blur overflow */}
+                        <div 
+                          className="absolute w-40 h-40 rounded-full opacity-40 -top-6 -left-6"
+                          style={{
+                            clipPath: 'circle(50% at 50% 50%)'
+                          }}
+                        >
                           <div 
-                            className="absolute inset-0 rounded-full animate-pulse"
+                            className="absolute inset-4 rounded-full animate-pulse"
                             style={{
                               background: `conic-gradient(from 0deg, ${percentage > 80 ? 'rgba(239, 68, 68, 0.4)' : percentage > 60 ? 'rgba(245, 158, 11, 0.4)' : 'rgba(16, 185, 129, 0.4)'} 0%, ${percentage > 80 ? 'rgba(239, 68, 68, 0.2)' : percentage > 60 ? 'rgba(245, 158, 11, 0.2)' : 'rgba(16, 185, 129, 0.2)'} ${percentage}%, transparent ${percentage + 10}%, transparent 100%)`,
-                              filter: 'blur(12px)',
+                              filter: 'blur(15px)',
                               transform: 'rotate(-90deg)'
                             }}
                           ></div>
                           <div 
-                            className="absolute inset-2 rounded-full"
+                            className="absolute inset-6 rounded-full"
                             style={{
                               background: `radial-gradient(circle, ${percentage > 80 ? 'rgba(239, 68, 68, 0.15)' : percentage > 60 ? 'rgba(245, 158, 11, 0.15)' : 'rgba(16, 185, 129, 0.15)'} 0%, transparent 60%)`,
-                              filter: 'blur(8px)'
+                              filter: 'blur(10px)'
                             }}
                           ></div>
                         </div>
@@ -452,7 +457,7 @@ export default function MyEsimsScreen() {
 
                         </svg>
                         
-                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
                           <div className={`text-xl font-black bg-gradient-to-br ${percentage > 80 ? 'from-red-500 to-red-700' : percentage > 60 ? 'from-amber-500 to-orange-600' : 'from-emerald-500 to-green-600'} bg-clip-text text-transparent`}>
                             {Math.round(percentage)}%
                           </div>
@@ -478,22 +483,27 @@ export default function MyEsimsScreen() {
                     const strokeDashoffset = circumference - (daysPercentage / 100) * circumference;
                     
                     return (
-                      <div className="relative mx-auto w-28 h-28 mb-3">
-                        {/* Enhanced Glow Background */}
-                        <div className="absolute inset-0 rounded-full opacity-40">
+                      <div className="relative mx-auto w-36 h-36 mb-3 flex items-center justify-center">
+                        {/* Enhanced Glow Background - Expanded for blur overflow */}
+                        <div 
+                          className="absolute w-40 h-40 rounded-full opacity-40 -top-6 -left-6"
+                          style={{
+                            clipPath: 'circle(50% at 50% 50%)'
+                          }}
+                        >
                           <div 
-                            className="absolute inset-0 rounded-full animate-pulse"
+                            className="absolute inset-4 rounded-full animate-pulse"
                             style={{
                               background: `conic-gradient(from 0deg, rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) ${daysPercentage}%, transparent ${daysPercentage + 10}%, transparent 100%)`,
-                              filter: 'blur(12px)',
+                              filter: 'blur(15px)',
                               transform: 'rotate(-90deg)'
                             }}
                           ></div>
                           <div 
-                            className="absolute inset-2 rounded-full"
+                            className="absolute inset-6 rounded-full"
                             style={{
                               background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 60%)',
-                              filter: 'blur(8px)'
+                              filter: 'blur(10px)'
                             }}
                           ></div>
                         </div>
@@ -547,7 +557,7 @@ export default function MyEsimsScreen() {
                           </g>
                         </svg>
                         
-                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
                           <div className="text-xl font-black bg-gradient-to-br from-blue-500 to-blue-700 bg-clip-text text-transparent">
                             {daysRemaining}
                           </div>
