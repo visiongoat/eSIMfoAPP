@@ -614,14 +614,7 @@ export default function HomeScreen() {
     }
   }, [showCountriesModal]);
 
-  // Handle global plan selection and checkout modal
-  useEffect(() => {
-    if (selectedGlobalPlan !== null) {
-      setShowCheckoutModal(true);
-    } else {
-      setShowCheckoutModal(false);
-    }
-  }, [selectedGlobalPlan]);
+
 
   // Prevent body scroll when global coverage modal is open
   useEffect(() => {
@@ -2735,7 +2728,7 @@ export default function HomeScreen() {
                 {globalDataPlans.map((plan) => (
                   <button 
                     key={plan.id}
-                    onClick={() => setSelectedGlobalPlan(selectedGlobalPlan === plan.id ? null : plan.id)}
+                    onClick={() => setSelectedGlobalPlan(plan.id)}
                     className={`relative w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                       selectedGlobalPlan === plan.id
                         ? 'border-blue-500 bg-gradient-to-r from-blue-100 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
@@ -2755,7 +2748,7 @@ export default function HomeScreen() {
                         <div 
                           onClick={(e) => {
                             e.stopPropagation();
-                            setSelectedGlobalPlan(selectedGlobalPlan === plan.id ? null : plan.id);
+                            setSelectedGlobalPlan(plan.id);
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/40 active:scale-95 ml-2 cursor-pointer"
                         >
@@ -2772,7 +2765,7 @@ export default function HomeScreen() {
                 {globalVoiceSmsPlans.map((plan) => (
                   <button 
                     key={plan.id}
-                    onClick={() => setSelectedGlobalPlan(selectedGlobalPlan === plan.id ? null : plan.id)}
+                    onClick={() => setSelectedGlobalPlan(plan.id)}
                     className={`relative w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                       selectedGlobalPlan === plan.id
                         ? 'border-orange-500 bg-gradient-to-r from-amber-100 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/20 dark:border-orange-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
@@ -2796,7 +2789,7 @@ export default function HomeScreen() {
                         <div 
                           onClick={(e) => {
                             e.stopPropagation();
-                            setSelectedGlobalPlan(selectedGlobalPlan === plan.id ? null : plan.id);
+                            setSelectedGlobalPlan(plan.id);
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-amber-500/40 active:scale-95 ml-2 cursor-pointer hover:transform hover:scale-105"
                         >
