@@ -8,9 +8,10 @@ interface EsimCardProps {
   onViewQR?: (esim: Esim) => void;
   onReorder?: (esim: Esim) => void;
   onShare?: (esim: Esim) => void;
+  onClick?: (esim: Esim & { country?: { name: string; flagUrl: string }; package?: { name: string; data: string; duration: string; price: string } }) => void;
 }
 
-export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCardProps) {
+export default function EsimCard({ esim, onViewQR, onReorder, onShare, onClick }: EsimCardProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Active':
@@ -33,7 +34,10 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare }: EsimCar
   };
 
   return (
-    <div className="mobile-card p-4 mb-3 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ease-out cursor-pointer border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600 group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 hover:from-blue-50 hover:to-indigo-50 dark:hover:from-gray-700 dark:hover:to-blue-900/20">
+    <div 
+      className="mobile-card p-4 mb-3 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ease-out cursor-pointer border border-gray-100 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600 group bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 hover:from-blue-50 hover:to-indigo-50 dark:hover:from-gray-700 dark:hover:to-blue-900/20"
+      onClick={() => onClick?.(esim)}
+    >
       <div className="space-y-3">
         {/* Header with Flag, Country, and Status */}
         <div className="flex items-center justify-between">
