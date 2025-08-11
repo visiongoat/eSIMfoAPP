@@ -2493,7 +2493,13 @@ export default function HomeScreen() {
                 {europaPlans.map((plan) => (
                   <button 
                     key={plan.id}
-                    onClick={() => setSelectedEuropaPlan(plan.id)}
+                    onClick={() => {
+                      if (selectedEuropaPlan === plan.id) {
+                        setSelectedEuropaPlan(null);
+                      } else {
+                        setSelectedEuropaPlan(plan.id);
+                      }
+                    }}
                     className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl relative ${
                       selectedEuropaPlan === plan.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
@@ -2520,7 +2526,11 @@ export default function HomeScreen() {
                         <div 
                           onClick={(e) => {
                             e.stopPropagation();
-                            setSelectedEuropaPlan(plan.id);
+                            if (selectedEuropaPlan === plan.id) {
+                              setSelectedEuropaPlan(null);
+                            } else {
+                              setSelectedEuropaPlan(plan.id);
+                            }
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/40 active:scale-95 ml-2 cursor-pointer"
                         >
