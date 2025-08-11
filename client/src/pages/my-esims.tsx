@@ -33,6 +33,25 @@ export default function MyEsimsScreen() {
     queryKey: ["/api/esims"],
   });
 
+  // Filter eSIMs based on selected filter and sort by ID descending (newest first)
+  const getFilteredEsims = () => {
+    let filtered;
+    switch (filter) {
+      case 'active':
+        filtered = esims.filter(esim => esim.status === 'Active');
+        break;
+      case 'expired':
+        filtered = esims.filter(esim => esim.status === 'Expired');
+        break;
+      default:
+        filtered = esims;
+    }
+    // Sort by ID descending (newest purchases first)
+    return filtered.sort((a, b) => b.id - a.id);
+  };
+
+  const filteredEsims = getFilteredEsims();
+
   const handleViewQR = (esim: Esim) => {
     setLocation(`/qr/${esim.id}`);
   };
@@ -141,24 +160,6 @@ export default function MyEsimsScreen() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [showEsimDetailModal, selectedEsimForDetail, filteredEsims]);
 
-  // Filter eSIMs based on selected filter and sort by ID descending (newest first)
-  const getFilteredEsims = () => {
-    let filtered;
-    switch (filter) {
-      case 'active':
-        filtered = esims.filter(esim => esim.status === 'Active');
-        break;
-      case 'expired':
-        filtered = esims.filter(esim => esim.status === 'Expired');
-        break;
-      default:
-        filtered = esims;
-    }
-    // Sort by ID descending (newest purchases first)
-    return filtered.sort((a, b) => b.id - a.id);
-  };
-
-  const filteredEsims = getFilteredEsims();
   const activeEsims = esims.filter(esim => esim.status === 'Active');
   const expiredEsims = esims.filter(esim => esim.status === 'Expired');
 
