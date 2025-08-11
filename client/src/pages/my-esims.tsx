@@ -104,15 +104,13 @@ export default function MyEsimsScreen() {
       // Set initial position (off-screen right) for new modal
       setSlideDirection('entering-from-right');
       
-      // Wait for DOM to update with new content, then animate in
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setSlideDirection(null); // Slide to center with transition
-          setTimeout(() => {
-            setIsTransitioning(false);
-          }, 300);
-        });
-      });
+      // Wait longer for DOM to fully render new content
+      setTimeout(() => {
+        setSlideDirection(null); // Slide to center with transition
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 300);
+      }, 10);
     }, 250);
   };
 
@@ -134,15 +132,13 @@ export default function MyEsimsScreen() {
       // Set initial position (off-screen left) for new modal
       setSlideDirection('entering-from-left');
       
-      // Wait for DOM to update with new content, then animate in
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setSlideDirection(null); // Slide to center with transition
-          setTimeout(() => {
-            setIsTransitioning(false);
-          }, 300);
-        });
-      });
+      // Wait longer for DOM to fully render new content
+      setTimeout(() => {
+        setSlideDirection(null); // Slide to center with transition
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 300);
+      }, 10);
     }, 250);
   };
 
@@ -489,8 +485,8 @@ export default function MyEsimsScreen() {
               swipeDirection === 'right' ? 'transform translate-x-2 transition-transform duration-150' : 
               slideDirection === 'left' ? 'transform -translate-x-full opacity-0 transition-all duration-250 ease-in' :
               slideDirection === 'right' ? 'transform translate-x-full opacity-0 transition-all duration-250 ease-in' :
-              slideDirection === 'entering-from-left' ? 'transform -translate-x-full opacity-0 transition-none' :
-              slideDirection === 'entering-from-right' ? 'transform translate-x-full opacity-0 transition-none' :
+              slideDirection === 'entering-from-left' ? 'transform -translate-x-full opacity-0' :
+              slideDirection === 'entering-from-right' ? 'transform translate-x-full opacity-0' :
               'transform translate-x-0 opacity-100 transition-all duration-300 ease-out'
             }`}
             onClick={(e) => e.stopPropagation()}
