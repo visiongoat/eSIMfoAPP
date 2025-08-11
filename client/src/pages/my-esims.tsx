@@ -90,40 +90,36 @@ export default function MyEsimsScreen() {
     if (!selectedEsimForDetail || isTransitioning) return;
     
     setIsTransitioning(true);
-    setSlideDirection('left'); // Current modal slides left
+    setSlideDirection('left'); // Current modal slides out to left
     
     setTimeout(() => {
       const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
       const nextIndex = (currentIndex + 1) % filteredEsims.length;
       setSelectedEsimForDetail(filteredEsims[nextIndex]);
       setModalAnimationKey(prev => prev + 1);
-      setSlideDirection('right'); // New modal enters from right
       
-      setTimeout(() => {
-        setSlideDirection(null);
-        setIsTransitioning(false);
-      }, 300);
-    }, 200);
+      // Reset to center position immediately for new content
+      setSlideDirection(null);
+      setIsTransitioning(false);
+    }, 300);
   };
 
   const navigateToPrevEsim = () => {
     if (!selectedEsimForDetail || isTransitioning) return;
     
     setIsTransitioning(true);
-    setSlideDirection('right'); // Current modal slides right
+    setSlideDirection('right'); // Current modal slides out to right
     
     setTimeout(() => {
       const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
       const prevIndex = currentIndex === 0 ? filteredEsims.length - 1 : currentIndex - 1;
       setSelectedEsimForDetail(filteredEsims[prevIndex]);
       setModalAnimationKey(prev => prev + 1);
-      setSlideDirection('left'); // New modal enters from left
       
-      setTimeout(() => {
-        setSlideDirection(null);
-        setIsTransitioning(false);
-      }, 300);
-    }, 200);
+      // Reset to center position immediately for new content  
+      setSlideDirection(null);
+      setIsTransitioning(false);
+    }, 300);
   };
 
   // Touch handlers for swipe gestures
@@ -464,13 +460,12 @@ export default function MyEsimsScreen() {
         >
           <div 
             key={`modal-${selectedEsimForDetail?.id}-${modalAnimationKey}`}
-            className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden transition-all duration-300 ease-in-out ${
-              swipeDirection === 'left' ? 'transform -translate-x-2' : 
-              swipeDirection === 'right' ? 'transform translate-x-2' : ''
-            } ${
-              slideDirection === 'left' ? 'transform -translate-x-full opacity-0' :
-              slideDirection === 'right' ? 'transform translate-x-full opacity-0' : 
-              'transform translate-x-0 opacity-100'
+            className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden ${
+              swipeDirection === 'left' ? 'transform -translate-x-2 transition-transform duration-150' : 
+              swipeDirection === 'right' ? 'transform translate-x-2 transition-transform duration-150' : 
+              slideDirection === 'left' ? 'transform -translate-x-full opacity-0 transition-all duration-300 ease-in-out' :
+              slideDirection === 'right' ? 'transform translate-x-full opacity-0 transition-all duration-300 ease-in-out' : 
+              'transform translate-x-0 opacity-100 transition-all duration-300 ease-in-out'
             }`}
             onClick={(e) => e.stopPropagation()}
             onTouchStart={handleTouchStart}
