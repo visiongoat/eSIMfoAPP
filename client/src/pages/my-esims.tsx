@@ -102,9 +102,11 @@ export default function MyEsimsScreen() {
       
       setTimeout(() => {
         setSlideDirection(null);
-        setIsTransitioning(false);
-      }, 20);
-    }, 280);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 350);
+      }, 50);
+    }, 350);
   };
 
   const navigateToPrevEsim = () => {
@@ -123,9 +125,11 @@ export default function MyEsimsScreen() {
       
       setTimeout(() => {
         setSlideDirection(null);
-        setIsTransitioning(false);
-      }, 20);
-    }, 280);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 350);
+      }, 50);
+    }, 350);
   };
 
   // Touch handlers for swipe gestures
@@ -469,11 +473,11 @@ export default function MyEsimsScreen() {
             className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden ${
               swipeDirection === 'left' ? 'transform -translate-x-2 transition-transform duration-150' : 
               swipeDirection === 'right' ? 'transform translate-x-2 transition-transform duration-150' : 
-              slideDirection === 'left' ? 'transform -translate-x-full transition-transform duration-300 ease-out' :
-              slideDirection === 'right' ? 'transform translate-x-full transition-transform duration-300 ease-out' :
+              slideDirection === 'left' ? 'transform -translate-x-full transition-all duration-[350ms] ease-in-out' :
+              slideDirection === 'right' ? 'transform translate-x-full transition-all duration-[350ms] ease-in-out' :
               slideDirection === 'entering-left' ? 'transform -translate-x-full' :
               slideDirection === 'entering-right' ? 'transform translate-x-full' :
-              'transform translate-x-0 transition-transform duration-300 ease-out'
+              'transform translate-x-0 transition-all duration-[350ms] ease-in-out'
             }`}
             onClick={(e) => e.stopPropagation()}
             onTouchStart={handleTouchStart}
