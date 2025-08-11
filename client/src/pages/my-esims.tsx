@@ -72,6 +72,7 @@ export default function MyEsimsScreen() {
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
   const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(null);
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
+  const [modalTransition, setModalTransition] = useState<'slide-in-left' | 'slide-in-right' | 'slide-out-left' | 'slide-out-right' | null>(null);
 
   // Close modal with exit animation
   const closeModal = () => {
@@ -83,21 +84,31 @@ export default function MyEsimsScreen() {
     }, 300);
   };
 
-  // Navigate to next/previous eSIM
+  // Navigate to next/previous eSIM with slide animations
   const navigateToNextEsim = () => {
     if (!selectedEsimForDetail) return;
-    const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
-    const nextIndex = (currentIndex + 1) % filteredEsims.length;
-    setSelectedEsimForDetail(filteredEsims[nextIndex]);
-    setModalAnimationKey(prev => prev + 1);
+    setModalTransition('slide-out-left');
+    setTimeout(() => {
+      const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
+      const nextIndex = (currentIndex + 1) % filteredEsims.length;
+      setSelectedEsimForDetail(filteredEsims[nextIndex]);
+      setModalAnimationKey(prev => prev + 1);
+      setModalTransition('slide-in-right');
+      setTimeout(() => setModalTransition(null), 400);
+    }, 150);
   };
 
   const navigateToPrevEsim = () => {
     if (!selectedEsimForDetail) return;
-    const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
-    const prevIndex = currentIndex === 0 ? filteredEsims.length - 1 : currentIndex - 1;
-    setSelectedEsimForDetail(filteredEsims[prevIndex]);
-    setModalAnimationKey(prev => prev + 1);
+    setModalTransition('slide-out-right');
+    setTimeout(() => {
+      const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
+      const prevIndex = currentIndex === 0 ? filteredEsims.length - 1 : currentIndex - 1;
+      setSelectedEsimForDetail(filteredEsims[prevIndex]);
+      setModalAnimationKey(prev => prev + 1);
+      setModalTransition('slide-in-left');
+      setTimeout(() => setModalTransition(null), 400);
+    }, 150);
   };
 
   // Touch handlers for swipe gestures
@@ -440,7 +451,7 @@ export default function MyEsimsScreen() {
             className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden transition-transform duration-150 ${
               swipeDirection === 'left' ? 'transform -translate-x-2' : 
               swipeDirection === 'right' ? 'transform translate-x-2' : ''
-            }`}
+            } ${modalTransition || ''}`}
             onClick={(e) => e.stopPropagation()}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}

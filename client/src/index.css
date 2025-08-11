@@ -412,6 +412,67 @@
     animation: float 3s ease-in-out infinite;
   }
 
+  /* eSIM Modal Transition Animations */
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%) scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%) scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOutLeft {
+    from {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%) scale(0.95);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideOutRight {
+    from {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%) scale(0.95);
+      opacity: 0;
+    }
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .slide-out-left {
+    animation: slideOutLeft 0.3s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+
+  .slide-out-right {
+    animation: slideOutRight 0.3s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  }
+
   /* Material Design Card Elevations */
   .material-card-elevated {
     box-shadow: 
