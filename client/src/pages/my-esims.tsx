@@ -20,6 +20,10 @@ export default function MyEsimsScreen() {
 
   const [filter, setFilter] = useState<FilterType>('active');
 
+  // Animation state for modal opening and closing
+  const [modalAnimationKey, setModalAnimationKey] = useState(0);
+  const [isModalExiting, setIsModalExiting] = useState(false);
+
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -44,10 +48,6 @@ export default function MyEsimsScreen() {
     setShowEsimDetailModal(true);
     setModalAnimationKey(prev => prev + 1); // Trigger fresh animation
   };
-
-  // Animation state for modal opening and closing
-  const [modalAnimationKey, setModalAnimationKey] = useState(0);
-  const [isModalExiting, setIsModalExiting] = useState(false);
   
   // Touch/swipe state for modal navigation
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
