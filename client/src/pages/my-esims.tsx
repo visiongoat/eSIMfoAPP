@@ -363,45 +363,129 @@ export default function MyEsimsScreen() {
             </div>
 
             <div className="p-5 space-y-4">
-              {/* Simple Progress Circle */}
-              <div className="text-center">
+              {/* Data & Days Charts Side by Side */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Data Usage Circle */}
+                <div className="text-center">
+                  {(() => {
+                    const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
+                    const total = totalGB * 1000; // Convert GB to MB
+                    const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
+                    const percentage = Math.min((used / total) * 100, 100);
+                    const radius = 35;
+                    const circumference = 2 * Math.PI * radius;
+                    const strokeDashoffset = circumference - (percentage / 100) * circumference;
+                    
+                    return (
+                      <div className="relative mx-auto w-24 h-24 mb-2">
+                        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 80 80">
+                          <circle
+                            cx="40" cy="40" r={radius}
+                            stroke="currentColor"
+                            strokeWidth="5"
+                            fill="transparent"
+                            className="text-gray-200 dark:text-gray-700"
+                          />
+                          <circle
+                            cx="40" cy="40" r={radius}
+                            stroke={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"}
+                            strokeWidth="5"
+                            fill="transparent"
+                            strokeLinecap="round"
+                            strokeDasharray={circumference}
+                            strokeDashoffset={strokeDashoffset}
+                            className="transition-all duration-1000 ease-out"
+                          />
+                        </svg>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                          <div className="text-lg font-bold text-gray-900 dark:text-white">
+                            {Math.round(percentage)}%
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Data Used</div>
+                </div>
+
+                {/* Days Remaining Circle */}
+                <div className="text-center">
+                  {(() => {
+                    const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
+                    const daysUsed = Math.min(Math.floor(totalDays * 0.4), totalDays); // Mock: 40% used
+                    const daysRemaining = totalDays - daysUsed;
+                    const daysPercentage = (daysUsed / totalDays) * 100;
+                    const radius = 35;
+                    const circumference = 2 * Math.PI * radius;
+                    const strokeDashoffset = circumference - (daysPercentage / 100) * circumference;
+                    
+                    return (
+                      <div className="relative mx-auto w-24 h-24 mb-2">
+                        <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 80 80">
+                          <circle
+                            cx="40" cy="40" r={radius}
+                            stroke="currentColor"
+                            strokeWidth="5"
+                            fill="transparent"
+                            className="text-gray-200 dark:text-gray-700"
+                          />
+                          <circle
+                            cx="40" cy="40" r={radius}
+                            stroke="#3b82f6"
+                            strokeWidth="5"
+                            fill="transparent"
+                            strokeLinecap="round"
+                            strokeDasharray={circumference}
+                            strokeDashoffset={strokeDashoffset}
+                            className="transition-all duration-1000 ease-out"
+                          />
+                        </svg>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                          <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                            {daysRemaining}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Days Left</div>
+                </div>
+              </div>
+
+              {/* Timeline Bar */}
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Usage Timeline</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-500">
+                    {(() => {
+                      const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
+                      const daysUsed = Math.min(Math.floor(totalDays * 0.4), totalDays);
+                      return `${daysUsed}/${totalDays} days`;
+                    })()}
+                  </span>
+                </div>
+                
                 {(() => {
-                  const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
-                  const total = totalGB * 1000; // Convert GB to MB
-                  const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
-                  const percentage = Math.min((used / total) * 100, 100);
-                  const radius = 45;
-                  const circumference = 2 * Math.PI * radius;
-                  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+                  const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
+                  const daysUsed = Math.min(Math.floor(totalDays * 0.4), totalDays);
+                  const progressWidth = (daysUsed / totalDays) * 100;
                   
                   return (
-                    <div className="relative mx-auto w-32 h-32 mb-4">
-                      <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
-                        <circle
-                          cx="50" cy="50" r={radius}
-                          stroke="currentColor"
-                          strokeWidth="6"
-                          fill="transparent"
-                          className="text-gray-200 dark:text-gray-700"
-                        />
-                        <circle
-                          cx="50" cy="50" r={radius}
-                          stroke={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"}
-                          strokeWidth="6"
-                          fill="transparent"
-                          strokeLinecap="round"
-                          strokeDasharray={circumference}
-                          strokeDashoffset={strokeDashoffset}
-                          className="transition-all duration-1000 ease-out"
-                        />
-                      </svg>
-                      <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                          {Math.round(percentage)}%
+                    <div className="relative">
+                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                        <div 
+                          className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-1000 ease-out relative"
+                          style={{ width: `${progressWidth}%` }}
+                        >
+                          <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow-sm"></div>
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
-                          {used.toFixed(0)}MB used
-                        </div>
+                      </div>
+                      
+                      {/* Day markers */}
+                      <div className="flex justify-between mt-2 px-1">
+                        <span className="text-xs text-gray-400">Day 1</span>
+                        <span className="text-xs text-blue-600 font-medium">Today</span>
+                        <span className="text-xs text-gray-400">Day {totalDays}</span>
                       </div>
                     </div>
                   );
