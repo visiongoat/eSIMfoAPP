@@ -485,10 +485,10 @@ export default function MyEsimsScreen() {
             onTouchEnd={handleTouchEnd}
             style={{
               animation: isTransitioning 
-                ? undefined
+                ? 'none'
                 : (isModalExiting 
                   ? 'modalExit 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards' 
-                  : 'modalEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards')
+                  : 'none')
             }}
           >
             
