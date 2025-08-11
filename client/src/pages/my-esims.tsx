@@ -100,14 +100,12 @@ export default function MyEsimsScreen() {
       setModalAnimationKey(prev => prev + 1);
       setSlideDirection('entering-right');
       
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setSlideDirection(null);
-          setTimeout(() => {
-            setIsTransitioning(false);
-          }, 300);
-        });
-      });
+      setTimeout(() => {
+        setSlideDirection(null);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 300);
+      }, 16);
     }, 300);
   };
 
@@ -125,14 +123,12 @@ export default function MyEsimsScreen() {
       setModalAnimationKey(prev => prev + 1);
       setSlideDirection('entering-left');
       
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setSlideDirection(null);
-          setTimeout(() => {
-            setIsTransitioning(false);
-          }, 300);
-        });
-      });
+      setTimeout(() => {
+        setSlideDirection(null);
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 300);
+      }, 16);
     }, 300);
   };
 
