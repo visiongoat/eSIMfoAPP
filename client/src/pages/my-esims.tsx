@@ -85,7 +85,7 @@ export default function MyEsimsScreen() {
     }, 300);
   };
 
-  // Navigate to next/previous eSIM with slide animations
+  // Navigate to next/previous eSIM with Apple-style slide animations
   const navigateToNextEsim = () => {
     if (!selectedEsimForDetail || isTransitioning) return;
     
@@ -100,11 +100,11 @@ export default function MyEsimsScreen() {
       setModalAnimationKey(prev => prev + 1);
       setSlideDirection('entering-right');
       
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         setSlideDirection(null);
         setIsTransitioning(false);
-      });
-    }, 250);
+      }, 20);
+    }, 280);
   };
 
   const navigateToPrevEsim = () => {
@@ -121,11 +121,11 @@ export default function MyEsimsScreen() {
       setModalAnimationKey(prev => prev + 1);
       setSlideDirection('entering-left');
       
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         setSlideDirection(null);
         setIsTransitioning(false);
-      });
-    }, 250);
+      }, 20);
+    }, 280);
   };
 
   // Touch handlers for swipe gestures
@@ -469,8 +469,8 @@ export default function MyEsimsScreen() {
             className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden ${
               swipeDirection === 'left' ? 'transform -translate-x-2 transition-transform duration-150' : 
               swipeDirection === 'right' ? 'transform translate-x-2 transition-transform duration-150' : 
-              slideDirection === 'left' ? 'transform -translate-x-full transition-transform duration-250 ease-out' :
-              slideDirection === 'right' ? 'transform translate-x-full transition-transform duration-250 ease-out' :
+              slideDirection === 'left' ? 'transform -translate-x-full transition-transform duration-300 ease-out' :
+              slideDirection === 'right' ? 'transform translate-x-full transition-transform duration-300 ease-out' :
               slideDirection === 'entering-left' ? 'transform -translate-x-full' :
               slideDirection === 'entering-right' ? 'transform translate-x-full' :
               'transform translate-x-0 transition-transform duration-300 ease-out'
