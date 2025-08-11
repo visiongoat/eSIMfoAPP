@@ -2728,7 +2728,13 @@ export default function HomeScreen() {
                 {globalDataPlans.map((plan) => (
                   <button 
                     key={plan.id}
-                    onClick={() => setSelectedGlobalPlan(plan.id)}
+                    onClick={() => {
+                      if (selectedGlobalPlan === plan.id) {
+                        setSelectedGlobalPlan(null);
+                      } else {
+                        setSelectedGlobalPlan(plan.id);
+                      }
+                    }}
                     className={`relative w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                       selectedGlobalPlan === plan.id
                         ? 'border-blue-500 bg-gradient-to-r from-blue-100 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/20 dark:border-blue-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
@@ -2765,7 +2771,13 @@ export default function HomeScreen() {
                 {globalVoiceSmsPlans.map((plan) => (
                   <button 
                     key={plan.id}
-                    onClick={() => setSelectedGlobalPlan(plan.id)}
+                    onClick={() => {
+                      if (selectedGlobalPlan === plan.id) {
+                        setSelectedGlobalPlan(null);
+                      } else {
+                        setSelectedGlobalPlan(plan.id);
+                      }
+                    }}
                     className={`relative w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl ${
                       selectedGlobalPlan === plan.id
                         ? 'border-orange-500 bg-gradient-to-r from-amber-100 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/20 dark:border-orange-400 scale-[1.02] shadow-xl transform translate-y-[-2px]'
