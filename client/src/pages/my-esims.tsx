@@ -521,7 +521,7 @@ export default function MyEsimsScreen() {
 
                           
                           {/* Clock Icon in Center */}
-                          <g transform="translate(36,36)" className="text-blue-100" opacity="0.1">
+                          <g transform="translate(36,36)" className="text-blue-600 dark:text-blue-400" opacity="0.05">
                             <circle r="12" fill="currentColor"/>
                             <path d="M0,-8 L0,-4 L4,-4" stroke="#3b82f6" strokeWidth="1" fill="none" strokeLinecap="round"/>
                           </g>
