@@ -45,8 +45,19 @@ export default function MyEsimsScreen() {
     setModalAnimationKey(prev => prev + 1); // Trigger fresh animation
   };
 
-  // Animation state for modal opening
+  // Animation state for modal opening and closing
   const [modalAnimationKey, setModalAnimationKey] = useState(0);
+  const [isModalExiting, setIsModalExiting] = useState(false);
+
+  // Close modal with exit animation
+  const closeModal = () => {
+    setIsModalExiting(true);
+    setTimeout(() => {
+      setShowEsimDetailModal(false);
+      setSelectedEsimForDetail(null);
+      setIsModalExiting(false);
+    }, 300);
+  };
 
   // Filter eSIMs based on selected filter and sort by ID descending (newest first)
   const getFilteredEsims = () => {
@@ -324,15 +335,22 @@ export default function MyEsimsScreen() {
         </div>
       )}
 
-      {/* eSIM Detail Modal - Clean & Compact */}
+      {/* eSIM Detail Modal - Enhanced Animations */}
       {showEsimDetailModal && selectedEsimForDetail && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4"
-          onClick={() => setShowEsimDetailModal(false)}
+          className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4 ${
+            isModalExiting ? 'animate-out fade-out duration-300' : 'animate-in fade-in duration-300'
+          }`}
+          onClick={closeModal}
         >
           <div 
-            className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-sm shadow-xl transform animate-in zoom-in-95 duration-200 border border-gray-200 dark:border-gray-700"
+            className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-sm shadow-xl border border-gray-200 dark:border-gray-700"
             onClick={(e) => e.stopPropagation()}
+            style={{
+              animation: isModalExiting 
+                ? 'modalExit 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards' 
+                : 'modalEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+            }}
           >
             
             {/* Header */}
@@ -365,7 +383,7 @@ export default function MyEsimsScreen() {
               </div>
               
               <button
-                onClick={() => setShowEsimDetailModal(false)}
+                onClick={closeModal}
                 className="absolute top-4 right-4 w-8 h-8 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors"
               >
                 <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

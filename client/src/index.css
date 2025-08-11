@@ -205,6 +205,43 @@
   animation: slide-in-left 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Modal smooth animations */
+@keyframes modalEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalExit {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+}
+
+/* Progress circle fill animation */
+@keyframes fillProgress {
+  from {
+    stroke-dashoffset: var(--circumference);
+  }
+  to {
+    stroke-dashoffset: var(--target-offset);
+  }
+}
+
 /* Mobile Safari Viewport Fix for Modal */
 .modal-fixed-height {
   height: 85vh !important;
