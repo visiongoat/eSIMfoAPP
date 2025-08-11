@@ -483,8 +483,8 @@ export default function MyEsimsScreen() {
             className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden ${
               swipeDirection === 'left' ? 'transform -translate-x-2 transition-transform duration-150' : 
               swipeDirection === 'right' ? 'transform translate-x-2 transition-transform duration-150' : 
-              slideDirection === 'left' ? 'transform -translate-x-full opacity-0 transition-all duration-250 ease-in' :
-              slideDirection === 'right' ? 'transform translate-x-full opacity-0 transition-all duration-250 ease-in' :
+              slideDirection === 'left' ? 'transform -translate-x-full transition-all duration-250 ease-in-out' :
+              slideDirection === 'right' ? 'transform translate-x-full transition-all duration-250 ease-in-out' :
               slideDirection === 'entering-from-left' ? 'transform -translate-x-full opacity-0' :
               slideDirection === 'entering-from-right' ? 'transform translate-x-full opacity-0' :
               'transform translate-x-0 opacity-100 transition-all duration-300 ease-out'
