@@ -354,7 +354,7 @@ export default function MyEsimsScreen() {
           >
             
             {/* Header */}
-            <div className="relative p-6 pb-4 border-b border-gray-100 dark:border-gray-800 material-header">
+            <div className="relative p-5 pb-3 border-b border-gray-100 dark:border-gray-800">
               <div className="flex items-center space-x-3 pr-10">
                 <img 
                   src={selectedEsimForDetail.country?.flagUrl || 'https://flagcdn.com/w320/tr.png'} 
@@ -392,7 +392,7 @@ export default function MyEsimsScreen() {
               </button>
             </div>
 
-            <div className="p-6 space-y-6 material-content">
+            <div className="p-5 space-y-4">
               {/* Premium Data & Days Charts Side by Side */}
               <div className="grid grid-cols-2 gap-6">
                 {/* Data Usage Circle - Enhanced */}
@@ -598,13 +598,13 @@ export default function MyEsimsScreen() {
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-4 pt-4">
+              <div className="grid grid-cols-2 gap-3 pt-2">
                 <button
                   onClick={() => {
                     closeModal();
                     handleViewQR(selectedEsimForDetail);
                   }}
-                  className="flex items-center justify-center space-x-2 py-4 px-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl text-sm material-button-elevated"
+                  className="flex items-center justify-center space-x-2 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors text-sm"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
@@ -617,7 +617,7 @@ export default function MyEsimsScreen() {
                     closeModal();
                     handleShareEsim(selectedEsimForDetail);
                   }}
-                  className="flex items-center justify-center space-x-2 py-4 px-5 bg-gray-500 dark:bg-gray-700 hover:bg-gray-600 dark:hover:bg-gray-600 text-white font-semibold rounded-2xl text-sm material-button-elevated"
+                  className="flex items-center justify-center space-x-2 py-2.5 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-xl transition-colors text-sm"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
