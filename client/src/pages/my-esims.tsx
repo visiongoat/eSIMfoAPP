@@ -73,7 +73,7 @@ export default function MyEsimsScreen() {
   const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(null);
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | 'entering-from-left' | 'entering-from-right' | null>(null);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | 'entering-left' | 'entering-right' | null>(null);
 
   // Close modal with exit animation
   const closeModal = () => {
@@ -89,56 +89,42 @@ export default function MyEsimsScreen() {
   const navigateToNextEsim = () => {
     if (!selectedEsimForDetail || isTransitioning) return;
     
-    setIsTransitioning(true);
+    const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
+    const nextIndex = (currentIndex + 1) % filteredEsims.length;
     
-    // Phase 1: Slide current modal out to left
+    setIsTransitioning(true);
     setSlideDirection('left');
     
     setTimeout(() => {
-      // Phase 2: Change content and start slide in from right
-      const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
-      const nextIndex = (currentIndex + 1) % filteredEsims.length;
       setSelectedEsimForDetail(filteredEsims[nextIndex]);
       setModalAnimationKey(prev => prev + 1);
+      setSlideDirection('entering-right');
       
-      // Set initial position (off-screen right) for new modal
-      setSlideDirection('entering-from-right');
-      
-      // Wait longer for DOM to fully render new content
-      setTimeout(() => {
-        setSlideDirection(null); // Slide to center with transition
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 300);
-      }, 10);
+      requestAnimationFrame(() => {
+        setSlideDirection(null);
+        setIsTransitioning(false);
+      });
     }, 250);
   };
 
   const navigateToPrevEsim = () => {
     if (!selectedEsimForDetail || isTransitioning) return;
     
-    setIsTransitioning(true);
+    const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
+    const prevIndex = currentIndex === 0 ? filteredEsims.length - 1 : currentIndex - 1;
     
-    // Phase 1: Slide current modal out to right
+    setIsTransitioning(true);
     setSlideDirection('right');
     
     setTimeout(() => {
-      // Phase 2: Change content and start slide in from left
-      const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
-      const prevIndex = currentIndex === 0 ? filteredEsims.length - 1 : currentIndex - 1;
       setSelectedEsimForDetail(filteredEsims[prevIndex]);
       setModalAnimationKey(prev => prev + 1);
+      setSlideDirection('entering-left');
       
-      // Set initial position (off-screen left) for new modal
-      setSlideDirection('entering-from-left');
-      
-      // Wait longer for DOM to fully render new content
-      setTimeout(() => {
-        setSlideDirection(null); // Slide to center with transition
-        setTimeout(() => {
-          setIsTransitioning(false);
-        }, 300);
-      }, 10);
+      requestAnimationFrame(() => {
+        setSlideDirection(null);
+        setIsTransitioning(false);
+      });
     }, 250);
   };
 
@@ -483,11 +469,11 @@ export default function MyEsimsScreen() {
             className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden ${
               swipeDirection === 'left' ? 'transform -translate-x-2 transition-transform duration-150' : 
               swipeDirection === 'right' ? 'transform translate-x-2 transition-transform duration-150' : 
-              slideDirection === 'left' ? 'transform -translate-x-full transition-all duration-250 ease-in-out' :
-              slideDirection === 'right' ? 'transform translate-x-full transition-all duration-250 ease-in-out' :
-              slideDirection === 'entering-from-left' ? 'transform -translate-x-full opacity-0' :
-              slideDirection === 'entering-from-right' ? 'transform translate-x-full opacity-0' :
-              'transform translate-x-0 opacity-100 transition-all duration-300 ease-out'
+              slideDirection === 'left' ? 'transform -translate-x-full transition-transform duration-250 ease-out' :
+              slideDirection === 'right' ? 'transform translate-x-full transition-transform duration-250 ease-out' :
+              slideDirection === 'entering-left' ? 'transform -translate-x-full' :
+              slideDirection === 'entering-right' ? 'transform translate-x-full' :
+              'transform translate-x-0 transition-transform duration-300 ease-out'
             }`}
             onClick={(e) => e.stopPropagation()}
             onTouchStart={handleTouchStart}
