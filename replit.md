@@ -34,7 +34,11 @@ The application adopts a full-stack monorepo architecture, separating client, se
 - **UI Polish**: Consistent UI elements, custom iconography (e.g., continent icons, modal icons), and optimized spacing for a pixel-perfect mobile experience.
 - **Tab & Navigation System**: Consistent tab designs across the application (e.g., Home, Destinations, Packages) with swipe navigation support.
 - **Package Management**: Dual tab system for "Data" and "Data / Calls / Text" packages, with detailed package card designs and interactive selection.
-- **eSIM Management**: "My eSIM" dashboard with visual data usage progress bars, smart notifications (e.g., 80% usage alert), and multi-eSIM management capabilities.
+- **eSIM Management**: "My eSIM" dashboard with visual data usage progress bars, smart notifications (e.g., 80% usage alert), and multi-eSIM management capabilities featuring:
+  - Apple-style slide animations for modal navigation (300ms timing)
+  - Real-time touch feedback during swipe gestures  
+  - Smooth slide transitions without zoom or bounce effects
+  - Professional modal system with swipe gestures and keyboard navigation
 - **Device Detection**: Advanced multi-method device detection for optimizing user experience and future native app readiness.
 - **Sharing System**: Native sharing capabilities with platform detection (iOS, Android) and fallbacks to clipboard.
 
