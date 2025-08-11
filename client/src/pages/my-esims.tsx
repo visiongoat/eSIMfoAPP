@@ -534,45 +534,7 @@ export default function MyEsimsScreen() {
                 </div>
               </div>
 
-              {/* Timeline Bar */}
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Usage Timeline</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-500">
-                    {(() => {
-                      const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
-                      const daysUsed = Math.min(Math.floor(totalDays * 0.4), totalDays);
-                      return `${daysUsed}/${totalDays} days`;
-                    })()}
-                  </span>
-                </div>
-                
-                {(() => {
-                  const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
-                  const daysUsed = Math.min(Math.floor(totalDays * 0.4), totalDays);
-                  const progressWidth = (daysUsed / totalDays) * 100;
-                  
-                  return (
-                    <div className="relative">
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                        <div 
-                          className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-1000 ease-out relative"
-                          style={{ width: `${progressWidth}%` }}
-                        >
-                          <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow-sm"></div>
-                        </div>
-                      </div>
-                      
-                      {/* Day markers */}
-                      <div className="flex justify-between mt-2 px-1">
-                        <span className="text-xs text-gray-400">Day 1</span>
-                        <span className="text-xs text-blue-600 font-medium">Today</span>
-                        <span className="text-xs text-gray-400">Day {totalDays}</span>
-                      </div>
-                    </div>
-                  );
-                })()}
-              </div>
+
 
               {/* Stats Grid */}
               <div className="grid grid-cols-3 gap-3 text-center">
