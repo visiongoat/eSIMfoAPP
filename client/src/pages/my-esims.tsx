@@ -320,255 +320,87 @@ export default function MyEsimsScreen() {
         </div>
       )}
 
-      {/* eSIM Detail Modal - Magnificent Design */}
+      {/* eSIM Detail Modal - Clean & Compact */}
       {showEsimDetailModal && selectedEsimForDetail && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-lg flex items-center justify-center z-[9999] p-4">
-          <div 
-            className="bg-white dark:bg-gray-900 rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl transform animate-in zoom-in-90 duration-300 relative border border-gray-200 dark:border-gray-700"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.98) 100%)',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255,255,255,0.2)'
-            }}
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setShowEsimDetailModal(false)}
-              className="absolute top-4 right-4 w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full flex items-center justify-center transition-all duration-200 z-10"
-            >
-              <svg className="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            {/* Header with Country */}
-            <div className="relative overflow-hidden rounded-t-3xl p-6 pb-4"
-                 style={{
-                   background: `linear-gradient(135deg, #667eea 0%, #764ba2 100%)`,
-                 }}>
-              <div className="flex items-center space-x-4 relative z-10">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-sm shadow-xl transform animate-in zoom-in-95 duration-200 border border-gray-200 dark:border-gray-700">
+            
+            {/* Header */}
+            <div className="relative p-5 pb-3 border-b border-gray-100 dark:border-gray-800">
+              <div className="flex items-center space-x-3">
                 <img 
                   src={selectedEsimForDetail.country?.flagUrl || 'https://flagcdn.com/w320/tr.png'} 
-                  alt={`${selectedEsimForDetail.country?.name || 'Turkey'} flag`} 
-                  className="w-16 h-12 rounded-xl object-cover border-2 border-white/20 shadow-lg" 
+                  alt={selectedEsimForDetail.country?.name} 
+                  className="w-10 h-7 rounded object-cover border border-gray-200 dark:border-gray-600" 
                 />
-                <div>
-                  <h2 className="text-xl font-bold text-white">
-                    {selectedEsimForDetail.country?.name || 'Turkey'}
-                  </h2>
-                  <p className="text-white/80 text-sm">
-                    {selectedEsimForDetail.package?.name || '5GB / 30 Days'} • eSIM #{selectedEsimForDetail.id}
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
+                    {selectedEsimForDetail.country?.name} eSIM
+                  </h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {selectedEsimForDetail.package?.name} • #{selectedEsimForDetail.id}
                   </p>
                 </div>
-              </div>
-              
-              {/* Status Badge */}
-              <div className="absolute top-6 right-16">
-                <span className={`px-3 py-1 text-xs rounded-full font-semibold ${
+                <span className={`px-2 py-1 text-xs rounded-full font-medium ${
                   selectedEsimForDetail.status === 'Active' 
-                    ? 'bg-green-500 text-white' 
+                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' 
                     : selectedEsimForDetail.status === 'Expired'
-                    ? 'bg-red-500 text-white'
-                    : 'bg-gray-500 text-white'
+                    ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300'
+                    : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
                 }`}>
                   {selectedEsimForDetail.status}
                 </span>
               </div>
+              
+              <button
+                onClick={() => setShowEsimDetailModal(false)}
+                className="absolute top-4 right-4 w-8 h-8 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors"
+              >
+                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
 
-            <div className="p-6 space-y-6">
-              {/* Premium Circular Data Usage Chart */}
-              <div className="text-center relative">
-                <div className="relative mx-auto w-56 h-56">
-                  {(() => {
-                    const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
-                    const total = totalGB * 1000; // Convert GB to MB
-                    const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
-                    const percentage = Math.min((used / total) * 100, 100);
-                    
-                    // Multiple circles for depth effect
-                    const radius1 = 96; // Outer ring
-                    const radius2 = 80; // Middle ring  
-                    const radius3 = 64; // Inner ring
-                    
-                    const circumference1 = 2 * Math.PI * radius1;
-                    const circumference2 = 2 * Math.PI * radius2;
-                    const circumference3 = 2 * Math.PI * radius3;
-                    
-                    const offset1 = circumference1 - (percentage / 100) * circumference1;
-                    const offset2 = circumference2 - (percentage / 100) * circumference2;
-                    const offset3 = circumference3 - (percentage / 100) * circumference3;
-                    
-                    return (
-                      <>
-                        {/* Glow Effect Background */}
-                        <div 
-                          className="absolute inset-0 rounded-full animate-pulse"
-                          style={{
-                            background: `radial-gradient(circle, ${percentage > 80 ? 'rgba(239, 68, 68, 0.1)' : percentage > 60 ? 'rgba(245, 158, 11, 0.1)' : 'rgba(16, 185, 129, 0.1)'} 0%, transparent 70%)`,
-                            filter: 'blur(20px)'
-                          }}
-                        ></div>
-                        
-                        <svg className="w-56 h-56 transform -rotate-90 relative z-10" viewBox="0 0 224 224">
-                          <defs>
-                            {/* Main Gradient */}
-                            <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#06b6d4"} />
-                              <stop offset="50%" stopColor={percentage > 80 ? "#dc2626" : percentage > 60 ? "#d97706" : "#0891b2"} />
-                              <stop offset="100%" stopColor={percentage > 80 ? "#b91c1c" : percentage > 60 ? "#b45309" : "#0e7490"} />
-                            </linearGradient>
-                            
-                            {/* Shadow Gradient */}
-                            <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor={percentage > 80 ? "rgba(239, 68, 68, 0.3)" : percentage > 60 ? "rgba(245, 158, 11, 0.3)" : "rgba(6, 182, 212, 0.3)"} />
-                              <stop offset="100%" stopColor="transparent" />
-                            </linearGradient>
-                            
-                            {/* Drop Shadow Filter */}
-                            <filter id="dropshadow" x="-50%" y="-50%" width="200%" height="200%">
-                              <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#06b6d4"} floodOpacity="0.3"/>
-                            </filter>
-                          </defs>
-                          
-                          {/* Background Circles */}
-                          <circle cx="112" cy="112" r={radius1} stroke="rgba(156, 163, 175, 0.2)" strokeWidth="3" fill="transparent" />
-                          <circle cx="112" cy="112" r={radius2} stroke="rgba(156, 163, 175, 0.15)" strokeWidth="2" fill="transparent" />
-                          <circle cx="112" cy="112" r={radius3} stroke="rgba(156, 163, 175, 0.1)" strokeWidth="1" fill="transparent" />
-                          
-                          {/* Progress Circles with Staggered Animation */}
-                          <circle
-                            cx="112" cy="112" r={radius1}
-                            stroke="url(#mainGradient)"
-                            strokeWidth="8"
-                            fill="transparent"
-                            strokeLinecap="round"
-                            strokeDasharray={circumference1}
-                            strokeDashoffset={offset1}
-                            className="transition-all duration-1500 ease-out"
-                            filter="url(#dropshadow)"
-                            style={{ animationDelay: '0ms' }}
-                          />
-                          
-                          <circle
-                            cx="112" cy="112" r={radius2}
-                            stroke="url(#mainGradient)"
-                            strokeWidth="6"
-                            fill="transparent"
-                            strokeLinecap="round"
-                            strokeDasharray={circumference2}
-                            strokeDashoffset={offset2}
-                            className="transition-all duration-1500 ease-out"
-                            opacity="0.7"
-                            style={{ animationDelay: '200ms' }}
-                          />
-                          
-                          <circle
-                            cx="112" cy="112" r={radius3}
-                            stroke="url(#mainGradient)"
-                            strokeWidth="4"
-                            fill="transparent"
-                            strokeLinecap="round"
-                            strokeDasharray={circumference3}
-                            strokeDashoffset={offset3}
-                            className="transition-all duration-1500 ease-out"
-                            opacity="0.4"
-                            style={{ animationDelay: '400ms' }}
-                          />
-                          
-                          {/* Animated Dots */}
-                          {percentage > 0 && (
-                            <>
-                              <circle
-                                cx={112 + radius1 * Math.cos((percentage / 100) * 2 * Math.PI - Math.PI/2)}
-                                cy={112 + radius1 * Math.sin((percentage / 100) * 2 * Math.PI - Math.PI/2)}
-                                r="6"
-                                fill="url(#mainGradient)"
-                                className="animate-pulse"
-                                filter="url(#dropshadow)"
-                              />
-                            </>
-                          )}
-                        </svg>
-                        
-                        {/* Enhanced Center Content */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <div className="relative">
-                            <div className={`text-5xl font-black bg-gradient-to-br ${percentage > 80 ? 'from-red-500 to-red-700' : percentage > 60 ? 'from-amber-500 to-orange-600' : 'from-cyan-500 to-blue-600'} bg-clip-text text-transparent animate-pulse`}>
-                              {Math.round(percentage)}%
-                            </div>
-                            <div className="absolute -inset-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-ping"></div>
-                          </div>
-                          
-                          <div className="mt-2 text-center">
-                            <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                              {used.toFixed(0)}MB <span className="text-gray-400">of</span> {total.toFixed(0)}MB
-                            </div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-medium">
-                              {(total - used).toFixed(0)}MB remaining
-                            </div>
-                          </div>
-                          
-                          {/* Status Indicator */}
-                          <div className="mt-3 flex items-center space-x-1">
-                            <div className={`w-2 h-2 rounded-full animate-pulse ${percentage > 80 ? 'bg-red-500' : percentage > 60 ? 'bg-yellow-500' : 'bg-green-500'}`}></div>
-                            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
-                              {percentage > 80 ? 'High Usage' : percentage > 60 ? 'Medium Usage' : 'Low Usage'}
-                            </span>
-                          </div>
-                        </div>
-                      </>
-                    );
-                  })()}
-                </div>
-              </div>
-
-              {/* Days Chart */}
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-5">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                  <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  Usage Timeline
-                </h3>
-                
+            <div className="p-5 space-y-4">
+              {/* Simple Progress Circle */}
+              <div className="text-center">
                 {(() => {
-                  const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
-                  const daysUsed = Math.min(Math.floor(Math.random() * totalDays) + 1, totalDays); // Mock data
-                  const daysRemaining = totalDays - daysUsed;
-                  const dailyUsage = parseFloat(selectedEsimForDetail.dataUsed || '0') / daysUsed;
+                  const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
+                  const total = totalGB * 1000; // Convert GB to MB
+                  const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
+                  const percentage = Math.min((used / total) * 100, 100);
+                  const radius = 45;
+                  const circumference = 2 * Math.PI * radius;
+                  const strokeDashoffset = circumference - (percentage / 100) * circumference;
                   
                   return (
-                    <div className="space-y-4">
-                      {/* Days Progress */}
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600 dark:text-gray-400">Days Used</span>
-                        <span className="font-semibold text-gray-900 dark:text-white">
-                          {daysUsed} / {totalDays} days
-                        </span>
-                      </div>
-                      
-                      {/* Days Bar */}
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                        <div 
-                          className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full transition-all duration-1000 ease-out"
-                          style={{ width: `${(daysUsed / totalDays) * 100}%` }}
-                        ></div>
-                      </div>
-                      
-                      {/* Stats Grid */}
-                      <div className="grid grid-cols-2 gap-4 mt-4">
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                            {daysRemaining}
-                          </div>
-                          <div className="text-xs text-gray-600 dark:text-gray-400">Days Left</div>
+                    <div className="relative mx-auto w-32 h-32 mb-4">
+                      <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                        <circle
+                          cx="50" cy="50" r={radius}
+                          stroke="currentColor"
+                          strokeWidth="6"
+                          fill="transparent"
+                          className="text-gray-200 dark:text-gray-700"
+                        />
+                        <circle
+                          cx="50" cy="50" r={radius}
+                          stroke={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"}
+                          strokeWidth="6"
+                          fill="transparent"
+                          strokeLinecap="round"
+                          strokeDasharray={circumference}
+                          strokeDashoffset={strokeDashoffset}
+                          className="transition-all duration-1000 ease-out"
+                        />
+                      </svg>
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                          {Math.round(percentage)}%
                         </div>
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                            {dailyUsage.toFixed(0)}MB
-                          </div>
-                          <div className="text-xs text-gray-600 dark:text-gray-400">Avg/Day</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {used.toFixed(0)}MB used
                         </div>
                       </div>
                     </div>
@@ -576,19 +408,54 @@ export default function MyEsimsScreen() {
                 })()}
               </div>
 
+              {/* Stats Grid */}
+              <div className="grid grid-cols-3 gap-3 text-center">
+                {(() => {
+                  const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
+                  const total = totalGB * 1000;
+                  const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
+                  const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
+                  
+                  return (
+                    <>
+                      <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3">
+                        <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                          {(total - used).toFixed(0)}MB
+                        </div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400">Remaining</div>
+                      </div>
+                      
+                      <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3">
+                        <div className="text-lg font-bold text-green-600 dark:text-green-400">
+                          {totalDays}
+                        </div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400">Days Total</div>
+                      </div>
+                      
+                      <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3">
+                        <div className="text-lg font-bold text-purple-600 dark:text-purple-400">
+                          {(used / Math.max(1, Math.floor(totalDays * 0.3))).toFixed(0)}MB
+                        </div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400">Avg/Day</div>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 pt-2">
                 <button
                   onClick={() => {
                     setShowEsimDetailModal(false);
                     handleViewQR(selectedEsimForDetail);
                   }}
-                  className="flex items-center justify-center space-x-2 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="flex items-center justify-center space-x-2 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors text-sm"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                   </svg>
-                  <span>View QR</span>
+                  <span>QR Code</span>
                 </button>
                 
                 <button
@@ -596,7 +463,7 @@ export default function MyEsimsScreen() {
                     setShowEsimDetailModal(false);
                     handleShareEsim(selectedEsimForDetail);
                   }}
-                  className="flex items-center justify-center space-x-2 py-3 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="flex items-center justify-center space-x-2 py-2.5 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-xl transition-colors text-sm"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
