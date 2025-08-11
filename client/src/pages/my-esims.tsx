@@ -326,8 +326,14 @@ export default function MyEsimsScreen() {
 
       {/* eSIM Detail Modal - Clean & Compact */}
       {showEsimDetailModal && selectedEsimForDetail && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-sm shadow-xl transform animate-in zoom-in-95 duration-200 border border-gray-200 dark:border-gray-700">
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4"
+          onClick={() => setShowEsimDetailModal(false)}
+        >
+          <div 
+            className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-sm shadow-xl transform animate-in zoom-in-95 duration-200 border border-gray-200 dark:border-gray-700"
+            onClick={(e) => e.stopPropagation()}
+          >
             
             {/* Header */}
             <div className="relative p-5 pb-3 border-b border-gray-100 dark:border-gray-800">
