@@ -331,29 +331,31 @@ export default function MyEsimsScreen() {
             
             {/* Header */}
             <div className="relative p-5 pb-3 border-b border-gray-100 dark:border-gray-800">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 pr-10">
                 <img 
                   src={selectedEsimForDetail.country?.flagUrl || 'https://flagcdn.com/w320/tr.png'} 
                   alt={selectedEsimForDetail.country?.name} 
                   className="w-10 h-7 rounded object-cover border border-gray-200 dark:border-gray-600" 
                 />
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
-                    {selectedEsimForDetail.country?.name} eSIM
-                  </h3>
+                  <div className="flex items-center space-x-2 mb-1">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
+                      {selectedEsimForDetail.country?.name} eSIM
+                    </h3>
+                    <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${
+                      selectedEsimForDetail.status === 'Active' 
+                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' 
+                        : selectedEsimForDetail.status === 'Expired'
+                        ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300'
+                        : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
+                    }`}>
+                      {selectedEsimForDetail.status}
+                    </span>
+                  </div>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {selectedEsimForDetail.package?.name} • #{selectedEsimForDetail.id}
                   </p>
                 </div>
-                <span className={`px-2 py-1 text-xs rounded-full font-medium ${
-                  selectedEsimForDetail.status === 'Active' 
-                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' 
-                    : selectedEsimForDetail.status === 'Expired'
-                    ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300'
-                    : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
-                }`}>
-                  {selectedEsimForDetail.status}
-                </span>
               </div>
               
               <button
