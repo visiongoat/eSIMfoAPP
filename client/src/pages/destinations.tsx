@@ -1305,8 +1305,13 @@ export default function DestinationsScreen() {
                       <button 
                         key={plan.id}
                         onClick={() => {
-                          setSelectedEuropaPlan(plan.id);
-                          setSelectedPlan(plan);
+                          if (selectedEuropaPlan === plan.id) {
+                            setSelectedEuropaPlan(null);
+                            setSelectedPlan(null);
+                          } else {
+                            setSelectedEuropaPlan(plan.id);
+                            setSelectedPlan(plan);
+                          }
                         }}
                         className={`w-full p-2.5 rounded-xl border-2 transition-all duration-300 shadow-lg hover:shadow-xl relative ${
                           selectedEuropaPlan === plan.id
@@ -1334,8 +1339,13 @@ export default function DestinationsScreen() {
                             <div 
                               onClick={(e) => {
                                 e.stopPropagation();
-                                setSelectedEuropaPlan(plan.id);
-                                setSelectedPlan(plan);
+                                if (selectedEuropaPlan === plan.id) {
+                                  setSelectedEuropaPlan(null);
+                                  setSelectedPlan(null);
+                                } else {
+                                  setSelectedEuropaPlan(plan.id);
+                                  setSelectedPlan(plan);
+                                }
                                 // Haptic feedback
                                 if (navigator.vibrate) {
                                   navigator.vibrate(30);
