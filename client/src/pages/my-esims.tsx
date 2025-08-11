@@ -42,7 +42,11 @@ export default function MyEsimsScreen() {
   const handleEsimCardClick = (esim: Esim & { package?: Package; country?: Country }) => {
     setSelectedEsimForDetail(esim);
     setShowEsimDetailModal(true);
+    setModalAnimationKey(prev => prev + 1); // Trigger fresh animation
   };
+
+  // Animation state for modal opening
+  const [modalAnimationKey, setModalAnimationKey] = useState(0);
 
   // Filter eSIMs based on selected filter and sort by ID descending (newest first)
   const getFilteredEsims = () => {
@@ -416,15 +420,22 @@ export default function MyEsimsScreen() {
                             strokeLinecap="round"
                             strokeDasharray={circumference}
                             strokeDashoffset={strokeDashoffset}
-                            className="transition-all duration-1500 ease-out"
+                            className="transition-all duration-2000 ease-out"
                             filter={`url(#dataShadow-${selectedEsimForDetail.id})`}
+                            key={`data-${modalAnimationKey}`}
+                            style={{ 
+                              '--circumference': `${circumference}px`,
+                              '--target-offset': `${strokeDashoffset}px`,
+                              strokeDashoffset: circumference,
+                              animation: `fillProgress 2s ease-out 0.3s forwards`
+                            }}
                           />
                           
                           {/* Animated End Dot */}
                           {percentage > 0 && (
                             <circle
-                              cx={36 + radius * Math.cos((1 - strokeDashoffset / circumference) * 2 * Math.PI - Math.PI/2)}
-                              cy={36 + radius * Math.sin((1 - strokeDashoffset / circumference) * 2 * Math.PI - Math.PI/2)}
+                              cx={36 + radius * Math.cos(((percentage / 100) * 2 * Math.PI) - Math.PI/2)}
+                              cy={36 + radius * Math.sin(((percentage / 100) * 2 * Math.PI) - Math.PI/2)}
                               r="4"
                               fill={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"}
                               className="animate-pulse"
@@ -497,15 +508,22 @@ export default function MyEsimsScreen() {
                             strokeLinecap="round"
                             strokeDasharray={circumference}
                             strokeDashoffset={strokeDashoffset}
-                            className="transition-all duration-1500 ease-out"
+                            className="transition-all duration-2000 ease-out"
                             filter={`url(#daysShadow-${selectedEsimForDetail.id})`}
+                            key={`days-${modalAnimationKey}`}
+                            style={{ 
+                              '--circumference': `${circumference}px`,
+                              '--target-offset': `${strokeDashoffset}px`,
+                              strokeDashoffset: circumference,
+                              animation: `fillProgress 2s ease-out 0.5s forwards`
+                            }}
                           />
                           
                           {/* Animated End Dot */}
                           {daysPercentage > 0 && (
                             <circle
-                              cx={36 + radius * Math.cos((1 - strokeDashoffset / circumference) * 2 * Math.PI - Math.PI/2)}
-                              cy={36 + radius * Math.sin((1 - strokeDashoffset / circumference) * 2 * Math.PI - Math.PI/2)}
+                              cx={36 + radius * Math.cos(((daysPercentage / 100) * 2 * Math.PI) - Math.PI/2)}
+                              cy={36 + radius * Math.sin(((daysPercentage / 100) * 2 * Math.PI) - Math.PI/2)}
                               r="4"
                               fill="#3b82f6"
                               className="animate-pulse"
