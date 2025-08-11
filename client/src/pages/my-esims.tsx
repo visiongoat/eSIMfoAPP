@@ -377,62 +377,144 @@ export default function MyEsimsScreen() {
             </div>
 
             <div className="p-6 space-y-6">
-              {/* Circular Data Usage Chart */}
-              <div className="text-center">
-                <div className="relative mx-auto w-48 h-48">
+              {/* Premium Circular Data Usage Chart */}
+              <div className="text-center relative">
+                <div className="relative mx-auto w-56 h-56">
                   {(() => {
                     const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
                     const total = totalGB * 1000; // Convert GB to MB
                     const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
                     const percentage = Math.min((used / total) * 100, 100);
-                    const circumference = 2 * Math.PI * 88; // radius = 88
-                    const strokeDasharray = circumference;
-                    const strokeDashoffset = circumference - (percentage / 100) * circumference;
+                    
+                    // Multiple circles for depth effect
+                    const radius1 = 96; // Outer ring
+                    const radius2 = 80; // Middle ring  
+                    const radius3 = 64; // Inner ring
+                    
+                    const circumference1 = 2 * Math.PI * radius1;
+                    const circumference2 = 2 * Math.PI * radius2;
+                    const circumference3 = 2 * Math.PI * radius3;
+                    
+                    const offset1 = circumference1 - (percentage / 100) * circumference1;
+                    const offset2 = circumference2 - (percentage / 100) * circumference2;
+                    const offset3 = circumference3 - (percentage / 100) * circumference3;
                     
                     return (
                       <>
-                        {/* Background Circle */}
-                        <svg className="w-48 h-48 transform -rotate-90" viewBox="0 0 200 200">
+                        {/* Glow Effect Background */}
+                        <div 
+                          className="absolute inset-0 rounded-full animate-pulse"
+                          style={{
+                            background: `radial-gradient(circle, ${percentage > 80 ? 'rgba(239, 68, 68, 0.1)' : percentage > 60 ? 'rgba(245, 158, 11, 0.1)' : 'rgba(16, 185, 129, 0.1)'} 0%, transparent 70%)`,
+                            filter: 'blur(20px)'
+                          }}
+                        ></div>
+                        
+                        <svg className="w-56 h-56 transform -rotate-90 relative z-10" viewBox="0 0 224 224">
+                          <defs>
+                            {/* Main Gradient */}
+                            <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#06b6d4"} />
+                              <stop offset="50%" stopColor={percentage > 80 ? "#dc2626" : percentage > 60 ? "#d97706" : "#0891b2"} />
+                              <stop offset="100%" stopColor={percentage > 80 ? "#b91c1c" : percentage > 60 ? "#b45309" : "#0e7490"} />
+                            </linearGradient>
+                            
+                            {/* Shadow Gradient */}
+                            <linearGradient id="shadowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor={percentage > 80 ? "rgba(239, 68, 68, 0.3)" : percentage > 60 ? "rgba(245, 158, 11, 0.3)" : "rgba(6, 182, 212, 0.3)"} />
+                              <stop offset="100%" stopColor="transparent" />
+                            </linearGradient>
+                            
+                            {/* Drop Shadow Filter */}
+                            <filter id="dropshadow" x="-50%" y="-50%" width="200%" height="200%">
+                              <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#06b6d4"} floodOpacity="0.3"/>
+                            </filter>
+                          </defs>
+                          
+                          {/* Background Circles */}
+                          <circle cx="112" cy="112" r={radius1} stroke="rgba(156, 163, 175, 0.2)" strokeWidth="3" fill="transparent" />
+                          <circle cx="112" cy="112" r={radius2} stroke="rgba(156, 163, 175, 0.15)" strokeWidth="2" fill="transparent" />
+                          <circle cx="112" cy="112" r={radius3} stroke="rgba(156, 163, 175, 0.1)" strokeWidth="1" fill="transparent" />
+                          
+                          {/* Progress Circles with Staggered Animation */}
                           <circle
-                            cx="100"
-                            cy="100"
-                            r="88"
-                            stroke="currentColor"
-                            strokeWidth="12"
-                            fill="transparent"
-                            className="text-gray-200 dark:text-gray-700"
-                          />
-                          {/* Progress Circle */}
-                          <circle
-                            cx="100"
-                            cy="100"
-                            r="88"
-                            stroke="url(#gradient)"
-                            strokeWidth="12"
+                            cx="112" cy="112" r={radius1}
+                            stroke="url(#mainGradient)"
+                            strokeWidth="8"
                             fill="transparent"
                             strokeLinecap="round"
-                            strokeDasharray={strokeDasharray}
-                            strokeDashoffset={strokeDashoffset}
-                            className="transition-all duration-1000 ease-out"
+                            strokeDasharray={circumference1}
+                            strokeDashoffset={offset1}
+                            className="transition-all duration-1500 ease-out"
+                            filter="url(#dropshadow)"
+                            style={{ animationDelay: '0ms' }}
                           />
-                          <defs>
-                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                              <stop offset="0%" stopColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"} />
-                              <stop offset="100%" stopColor={percentage > 80 ? "#dc2626" : percentage > 60 ? "#d97706" : "#059669"} />
-                            </linearGradient>
-                          </defs>
+                          
+                          <circle
+                            cx="112" cy="112" r={radius2}
+                            stroke="url(#mainGradient)"
+                            strokeWidth="6"
+                            fill="transparent"
+                            strokeLinecap="round"
+                            strokeDasharray={circumference2}
+                            strokeDashoffset={offset2}
+                            className="transition-all duration-1500 ease-out"
+                            opacity="0.7"
+                            style={{ animationDelay: '200ms' }}
+                          />
+                          
+                          <circle
+                            cx="112" cy="112" r={radius3}
+                            stroke="url(#mainGradient)"
+                            strokeWidth="4"
+                            fill="transparent"
+                            strokeLinecap="round"
+                            strokeDasharray={circumference3}
+                            strokeDashoffset={offset3}
+                            className="transition-all duration-1500 ease-out"
+                            opacity="0.4"
+                            style={{ animationDelay: '400ms' }}
+                          />
+                          
+                          {/* Animated Dots */}
+                          {percentage > 0 && (
+                            <>
+                              <circle
+                                cx={112 + radius1 * Math.cos((percentage / 100) * 2 * Math.PI - Math.PI/2)}
+                                cy={112 + radius1 * Math.sin((percentage / 100) * 2 * Math.PI - Math.PI/2)}
+                                r="6"
+                                fill="url(#mainGradient)"
+                                className="animate-pulse"
+                                filter="url(#dropshadow)"
+                              />
+                            </>
+                          )}
                         </svg>
                         
-                        {/* Center Content */}
+                        {/* Enhanced Center Content */}
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <div className="text-3xl font-bold text-gray-900 dark:text-white">
-                            {Math.round(percentage)}%
+                          <div className="relative">
+                            <div className={`text-5xl font-black bg-gradient-to-br ${percentage > 80 ? 'from-red-500 to-red-700' : percentage > 60 ? 'from-amber-500 to-orange-600' : 'from-cyan-500 to-blue-600'} bg-clip-text text-transparent animate-pulse`}>
+                              {Math.round(percentage)}%
+                            </div>
+                            <div className="absolute -inset-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-ping"></div>
                           </div>
-                          <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                            {used.toFixed(0)}MB of {total.toFixed(0)}MB
+                          
+                          <div className="mt-2 text-center">
+                            <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                              {used.toFixed(0)}MB <span className="text-gray-400">of</span> {total.toFixed(0)}MB
+                            </div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-medium">
+                              {(total - used).toFixed(0)}MB remaining
+                            </div>
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                            {(total - used).toFixed(0)}MB remaining
+                          
+                          {/* Status Indicator */}
+                          <div className="mt-3 flex items-center space-x-1">
+                            <div className={`w-2 h-2 rounded-full animate-pulse ${percentage > 80 ? 'bg-red-500' : percentage > 60 ? 'bg-yellow-500' : 'bg-green-500'}`}></div>
+                            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                              {percentage > 80 ? 'High Usage' : percentage > 60 ? 'Medium Usage' : 'Low Usage'}
+                            </span>
                           </div>
                         </div>
                       </>
