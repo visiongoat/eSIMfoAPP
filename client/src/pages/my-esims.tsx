@@ -48,6 +48,11 @@ export default function MyEsimsScreen() {
   // Animation state for modal opening and closing
   const [modalAnimationKey, setModalAnimationKey] = useState(0);
   const [isModalExiting, setIsModalExiting] = useState(false);
+  
+  // Touch/swipe state for modal navigation
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(null);
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
 
   // Close modal with exit animation
   const closeModal = () => {
@@ -58,6 +63,83 @@ export default function MyEsimsScreen() {
       setIsModalExiting(false);
     }, 300);
   };
+
+  // Navigate to next/previous eSIM
+  const navigateToNextEsim = () => {
+    if (!selectedEsimForDetail) return;
+    const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
+    const nextIndex = (currentIndex + 1) % filteredEsims.length;
+    setSelectedEsimForDetail(filteredEsims[nextIndex]);
+    setModalAnimationKey(prev => prev + 1);
+  };
+
+  const navigateToPrevEsim = () => {
+    if (!selectedEsimForDetail) return;
+    const currentIndex = filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id);
+    const prevIndex = currentIndex === 0 ? filteredEsims.length - 1 : currentIndex - 1;
+    setSelectedEsimForDetail(filteredEsims[prevIndex]);
+    setModalAnimationKey(prev => prev + 1);
+  };
+
+  // Touch handlers for swipe gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY
+    });
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY
+    });
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distanceX = touchStart.x - touchEnd.x;
+    const distanceY = touchStart.y - touchEnd.y;
+    const isLeftSwipe = distanceX > 50 && Math.abs(distanceY) < 100;
+    const isRightSwipe = distanceX < -50 && Math.abs(distanceY) < 100;
+    
+    if (isLeftSwipe) {
+      setSwipeDirection('left');
+      setTimeout(() => {
+        navigateToNextEsim();
+        setSwipeDirection(null);
+      }, 150);
+    } else if (isRightSwipe) {
+      setSwipeDirection('right');
+      setTimeout(() => {
+        navigateToPrevEsim();
+        setSwipeDirection(null);
+      }, 150);
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (!showEsimDetailModal) return;
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        navigateToPrevEsim();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        navigateToNextEsim();
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closeModal();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [showEsimDetailModal, selectedEsimForDetail, filteredEsims]);
 
   // Filter eSIMs based on selected filter and sort by ID descending (newest first)
   const getFilteredEsims = () => {
@@ -344,8 +426,14 @@ export default function MyEsimsScreen() {
           onClick={closeModal}
         >
           <div 
-            className="bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden"
+            className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden transition-transform duration-150 ${
+              swipeDirection === 'left' ? 'transform -translate-x-2' : 
+              swipeDirection === 'right' ? 'transform translate-x-2' : ''
+            }`}
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
             style={{
               animation: isModalExiting 
                 ? 'modalExit 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards' 
@@ -355,6 +443,22 @@ export default function MyEsimsScreen() {
             
             {/* Header */}
             <div className="relative p-5 pb-3 border-b border-gray-100 dark:border-gray-800">
+              
+              {/* Navigation indicators */}
+              {filteredEsims.length > 1 && (
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                  {filteredEsims.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                        selectedEsimForDetail?.id === filteredEsims[index].id
+                          ? 'bg-blue-500 dark:bg-blue-400'
+                          : 'bg-gray-300 dark:bg-gray-600'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
               <div className="flex items-center space-x-3 pr-10">
                 <img 
                   src={selectedEsimForDetail.country?.flagUrl || 'https://flagcdn.com/w320/tr.png'} 
@@ -378,6 +482,11 @@ export default function MyEsimsScreen() {
                   </div>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {selectedEsimForDetail.package?.name} • #{selectedEsimForDetail.id}
+                    {filteredEsims.length > 1 && (
+                      <span className="ml-2 text-gray-400">
+                        {filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id) + 1}/{filteredEsims.length}
+                      </span>
+                    )}
                   </p>
                 </div>
               </div>
