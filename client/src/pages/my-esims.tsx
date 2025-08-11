@@ -390,23 +390,34 @@ export default function MyEsimsScreen() {
                     
                     return (
                       <div className="relative mx-auto w-28 h-28 mb-3">
-                        {/* Enhanced Glow Background */}
-                        <div className="absolute inset-0 rounded-full opacity-40">
-                          <div 
-                            className="absolute inset-0 rounded-full animate-pulse"
-                            style={{
-                              background: `conic-gradient(from 0deg, ${percentage > 80 ? 'rgba(239, 68, 68, 0.4)' : percentage > 60 ? 'rgba(245, 158, 11, 0.4)' : 'rgba(16, 185, 129, 0.4)'} 0%, ${percentage > 80 ? 'rgba(239, 68, 68, 0.2)' : percentage > 60 ? 'rgba(245, 158, 11, 0.2)' : 'rgba(16, 185, 129, 0.2)'} ${percentage}%, transparent ${percentage + 10}%, transparent 100%)`,
-                              filter: 'blur(12px)',
-                              transform: 'rotate(-90deg)'
-                            }}
-                          ></div>
-                          <div 
-                            className="absolute inset-2 rounded-full"
-                            style={{
-                              background: `radial-gradient(circle, ${percentage > 80 ? 'rgba(239, 68, 68, 0.15)' : percentage > 60 ? 'rgba(245, 158, 11, 0.15)' : 'rgba(16, 185, 129, 0.15)'} 0%, transparent 60%)`,
-                              filter: 'blur(8px)'
-                            }}
-                          ></div>
+                        {/* SVG-based Oval Glow Background */}
+                        <div className="absolute inset-0 opacity-30">
+                          <svg className="w-full h-full animate-pulse" viewBox="0 0 72 72">
+                            <defs>
+                              <radialGradient id={`glowGradient-${selectedEsimForDetail.id}`}>
+                                <stop offset="0%" stopColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"} stopOpacity="0.4"/>
+                                <stop offset="30%" stopColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"} stopOpacity="0.2"/>
+                                <stop offset="70%" stopColor={percentage > 80 ? "#ef4444" : percentage > 60 ? "#f59e0b" : "#10b981"} stopOpacity="0.1"/>
+                                <stop offset="100%" stopColor="transparent" stopOpacity="0"/>
+                              </radialGradient>
+                              <filter id={`glowBlur-${selectedEsimForDetail.id}`}>
+                                <feGaussianBlur stdDeviation="3"/>
+                              </filter>
+                            </defs>
+                            
+                            {/* Oval Glow Arc */}
+                            <circle
+                              cx="36" cy="36" r="30"
+                              stroke={`url(#glowGradient-${selectedEsimForDetail.id})`}
+                              strokeWidth="16"
+                              fill="transparent"
+                              strokeLinecap="round"
+                              strokeDasharray={`${2 * Math.PI * 30 * (percentage / 100)} ${2 * Math.PI * 30}`}
+                              strokeDashoffset={2 * Math.PI * 30 * 0.25}
+                              filter={`url(#glowBlur-${selectedEsimForDetail.id})`}
+                              transform="rotate(-90 36 36)"
+                            />
+                          </svg>
                         </div>
                         
                         <svg className="w-28 h-28 transform -rotate-90 relative z-10" viewBox="0 0 72 72">
@@ -479,23 +490,34 @@ export default function MyEsimsScreen() {
                     
                     return (
                       <div className="relative mx-auto w-28 h-28 mb-3">
-                        {/* Enhanced Glow Background */}
-                        <div className="absolute inset-0 rounded-full opacity-40">
-                          <div 
-                            className="absolute inset-0 rounded-full animate-pulse"
-                            style={{
-                              background: `conic-gradient(from 0deg, rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) ${daysPercentage}%, transparent ${daysPercentage + 10}%, transparent 100%)`,
-                              filter: 'blur(12px)',
-                              transform: 'rotate(-90deg)'
-                            }}
-                          ></div>
-                          <div 
-                            className="absolute inset-2 rounded-full"
-                            style={{
-                              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 60%)',
-                              filter: 'blur(8px)'
-                            }}
-                          ></div>
+                        {/* SVG-based Oval Glow Background */}
+                        <div className="absolute inset-0 opacity-30">
+                          <svg className="w-full h-full animate-pulse" viewBox="0 0 72 72">
+                            <defs>
+                              <radialGradient id={`glowGradientDays-${selectedEsimForDetail.id}`}>
+                                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4"/>
+                                <stop offset="30%" stopColor="#3b82f6" stopOpacity="0.2"/>
+                                <stop offset="70%" stopColor="#3b82f6" stopOpacity="0.1"/>
+                                <stop offset="100%" stopColor="transparent" stopOpacity="0"/>
+                              </radialGradient>
+                              <filter id={`glowBlurDays-${selectedEsimForDetail.id}`}>
+                                <feGaussianBlur stdDeviation="3"/>
+                              </filter>
+                            </defs>
+                            
+                            {/* Oval Glow Arc */}
+                            <circle
+                              cx="36" cy="36" r="30"
+                              stroke={`url(#glowGradientDays-${selectedEsimForDetail.id})`}
+                              strokeWidth="16"
+                              fill="transparent"
+                              strokeLinecap="round"
+                              strokeDasharray={`${2 * Math.PI * 30 * (daysPercentage / 100)} ${2 * Math.PI * 30}`}
+                              strokeDashoffset={2 * Math.PI * 30 * 0.25}
+                              filter={`url(#glowBlurDays-${selectedEsimForDetail.id})`}
+                              transform="rotate(-90 36 36)"
+                            />
+                          </svg>
                         </div>
                         
                         <svg className="w-28 h-28 transform -rotate-90 relative z-10" viewBox="0 0 72 72">
