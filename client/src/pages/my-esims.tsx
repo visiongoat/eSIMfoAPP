@@ -142,33 +142,53 @@ export default function MyEsimsScreen() {
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd({
-      x: e.targetTouches[0].clientX,
-      y: e.targetTouches[0].clientY
-    });
+    if (!touchStart) return;
+    
+    const currentX = e.targetTouches[0].clientX;
+    const currentY = e.targetTouches[0].clientY;
+    
+    setTouchEnd({ x: currentX, y: currentY });
+    
+    // Calculate horizontal movement for real-time feedback
+    const deltaX = currentX - touchStart.x;
+    const deltaY = Math.abs(currentY - touchStart.y);
+    
+    // Only apply horizontal movement if it's primarily horizontal swipe
+    if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > 10) {
+      const maxMovement = 50; // Maximum card movement in pixels
+      const movement = Math.max(-maxMovement, Math.min(maxMovement, deltaX * 0.3));
+      
+      if (movement > 15) {
+        setSwipeDirection('right');
+      } else if (movement < -15) {
+        setSwipeDirection('left');
+      } else {
+        setSwipeDirection(null);
+      }
+    }
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd || isTransitioning) return;
     
-    const distanceX = touchStart.x - touchEnd.x;
-    const distanceY = touchStart.y - touchEnd.y;
-    const isLeftSwipe = distanceX > 50 && Math.abs(distanceY) < 100;
-    const isRightSwipe = distanceX < -50 && Math.abs(distanceY) < 100;
+    const deltaX = touchEnd.x - touchStart.x;
+    const deltaY = Math.abs(touchEnd.y - touchStart.y);
     
-    if (isLeftSwipe) {
-      setSwipeDirection('left');
-      setTimeout(() => {
-        navigateToNextEsim();
-        setSwipeDirection(null);
-      }, 150);
-    } else if (isRightSwipe) {
-      setSwipeDirection('right');
-      setTimeout(() => {
+    // Only trigger if horizontal swipe is dominant and sufficient
+    if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        // Swipe right - go to previous
         navigateToPrevEsim();
-        setSwipeDirection(null);
-      }, 150);
+      } else {
+        // Swipe left - go to next
+        navigateToNextEsim();
+      }
     }
+    
+    // Reset touch states and swipe feedback
+    setTouchStart(null);
+    setTouchEnd(null);
+    setSwipeDirection(null);
   };
 
   // Keyboard navigation and body scroll lock
@@ -471,8 +491,8 @@ export default function MyEsimsScreen() {
           <div 
             key={`modal-${selectedEsimForDetail?.id}-${modalAnimationKey}`}
             className={`bg-white dark:bg-gray-900 rounded-3xl w-full max-w-sm border border-gray-200 dark:border-gray-700 material-card-elevated overflow-hidden ${
-              swipeDirection === 'left' ? 'transform -translate-x-2 transition-transform duration-150' : 
-              swipeDirection === 'right' ? 'transform translate-x-2 transition-transform duration-150' : 
+              swipeDirection === 'left' ? 'transform -translate-x-4 transition-transform duration-200 ease-out' : 
+              swipeDirection === 'right' ? 'transform translate-x-4 transition-transform duration-200 ease-out' : 
               slideDirection === 'left' ? 'transform -translate-x-full transition-transform duration-300 ease-out' :
               slideDirection === 'right' ? 'transform translate-x-full transition-transform duration-300 ease-out' :
               slideDirection === 'entering-left' ? 'transform -translate-x-full transition-none' :
