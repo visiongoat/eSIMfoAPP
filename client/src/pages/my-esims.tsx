@@ -390,14 +390,24 @@ export default function MyEsimsScreen() {
                     
                     return (
                       <div className="relative mx-auto w-28 h-28 mb-3">
-                        {/* Glow Background */}
-                        <div 
-                          className="absolute inset-0 rounded-full animate-pulse opacity-30"
-                          style={{
-                            background: `radial-gradient(circle, ${percentage > 80 ? 'rgba(239, 68, 68, 0.3)' : percentage > 60 ? 'rgba(245, 158, 11, 0.3)' : 'rgba(16, 185, 129, 0.3)'} 0%, transparent 70%)`,
-                            filter: 'blur(15px)'
-                          }}
-                        ></div>
+                        {/* Enhanced Glow Background */}
+                        <div className="absolute inset-0 rounded-full opacity-40">
+                          <div 
+                            className="absolute inset-0 rounded-full animate-pulse"
+                            style={{
+                              background: `conic-gradient(from 0deg, ${percentage > 80 ? 'rgba(239, 68, 68, 0.4)' : percentage > 60 ? 'rgba(245, 158, 11, 0.4)' : 'rgba(16, 185, 129, 0.4)'} 0%, ${percentage > 80 ? 'rgba(239, 68, 68, 0.2)' : percentage > 60 ? 'rgba(245, 158, 11, 0.2)' : 'rgba(16, 185, 129, 0.2)'} ${percentage}%, transparent ${percentage + 10}%, transparent 100%)`,
+                              filter: 'blur(12px)',
+                              transform: 'rotate(-90deg)'
+                            }}
+                          ></div>
+                          <div 
+                            className="absolute inset-2 rounded-full"
+                            style={{
+                              background: `radial-gradient(circle, ${percentage > 80 ? 'rgba(239, 68, 68, 0.15)' : percentage > 60 ? 'rgba(245, 158, 11, 0.15)' : 'rgba(16, 185, 129, 0.15)'} 0%, transparent 60%)`,
+                              filter: 'blur(8px)'
+                            }}
+                          ></div>
+                        </div>
                         
                         <svg className="w-28 h-28 transform -rotate-90 relative z-10" viewBox="0 0 72 72">
                           <defs>
@@ -469,14 +479,24 @@ export default function MyEsimsScreen() {
                     
                     return (
                       <div className="relative mx-auto w-28 h-28 mb-3">
-                        {/* Glow Background */}
-                        <div 
-                          className="absolute inset-0 rounded-full animate-pulse opacity-30"
-                          style={{
-                            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)',
-                            filter: 'blur(15px)'
-                          }}
-                        ></div>
+                        {/* Enhanced Glow Background */}
+                        <div className="absolute inset-0 rounded-full opacity-40">
+                          <div 
+                            className="absolute inset-0 rounded-full animate-pulse"
+                            style={{
+                              background: `conic-gradient(from 0deg, rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) ${daysPercentage}%, transparent ${daysPercentage + 10}%, transparent 100%)`,
+                              filter: 'blur(12px)',
+                              transform: 'rotate(-90deg)'
+                            }}
+                          ></div>
+                          <div 
+                            className="absolute inset-2 rounded-full"
+                            style={{
+                              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 60%)',
+                              filter: 'blur(8px)'
+                            }}
+                          ></div>
+                        </div>
                         
                         <svg className="w-28 h-28 transform -rotate-90 relative z-10" viewBox="0 0 72 72">
                           <defs>
