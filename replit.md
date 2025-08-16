@@ -40,6 +40,11 @@ The application adopts a full-stack monorepo architecture, separating client, se
   - Real-time touch feedback during swipe gestures  
   - Smooth slide transitions without zoom or bounce effects
   - Professional modal system with swipe gestures and keyboard navigation
+- **Purchase-to-Delivery Flow**: Complete end-to-end purchase workflow from package selection to QR code delivery:
+  - Checkout modal with multiple payment methods (Apple Pay, Card, AMEX, PayPal, Crypto)
+  - Design-focused purchase API that always succeeds for prototype purposes
+  - Automatic navigation to QR code page upon purchase completion
+  - Real-time purchase tracking with console debugging capabilities
 - **Device Detection**: Advanced multi-method device detection for optimizing user experience and future native app readiness.
 - **Sharing System**: Native sharing capabilities with platform detection (iOS, Android) and fallbacks to clipboard.
 
