@@ -2,8 +2,24 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import path from "path";
+import cors from "cors";
 
 const app = express();
+
+// CORS ve security headers - preview fix için
+app.use(cors({
+  origin: true,
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
+
+app.use((req, res, next) => {
+  res.setHeader('X-Frame-Options', 'ALLOWALL');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Content-Security-Policy', "frame-ancestors *;");
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
