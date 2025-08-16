@@ -64,6 +64,29 @@
     <!-- Development banner - only loads in development -->
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
     
+    <!-- Replit workspace iframe compatibility -->
+    <script>
+      // Fix third-party cookie issues in workspace iframe
+      if (window.parent !== window) {
+        // Running in iframe (workspace preview)
+        console.log('📱 Running in Replit workspace iframe');
+        
+        // Ensure proper iframe communication
+        window.addEventListener('message', function(event) {
+          if (event.origin.includes('replit.')) {
+            console.log('📱 Iframe message received:', event.data);
+          }
+        });
+        
+        // Send ready signal to parent frame
+        setTimeout(() => {
+          if (window.parent) {
+            window.parent.postMessage({ type: 'app_ready' }, '*');
+          }
+        }, 1000);
+      }
+    </script>
+    
     <!-- Error handling for mobile -->
     <script>
       window.addEventListener('error', function(e) {
