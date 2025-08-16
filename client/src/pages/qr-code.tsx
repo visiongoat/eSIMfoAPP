@@ -79,9 +79,25 @@ export default function QRCodeScreen() {
             />
           </div>
           <p className="font-medium mb-2">Scan to Install eSIM</p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-4">
             Use your device camera to scan this QR code
           </p>
+          
+          {/* Click to Install Button */}
+          <button 
+            onClick={() => {
+              // Automatic installation function - will trigger eSIM installation in real app
+              console.log('Starting automatic eSIM installation...');
+              alert('Starting eSIM installation...');
+            }}
+            className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18l9-5-9-5-9 5 9 5z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 12l0 6" />
+            </svg>
+            <span>Click to Install</span>
+          </button>
         </div>
 
         {/* eSIM Details */}

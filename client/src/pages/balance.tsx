@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from "wouter";
 import texturePattern from '@/assets/texture-pattern.jpeg';
-import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
+// Using a placeholder for profile image since the original asset may not exist
+// import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
 import AddMoneyModal from '@/components/add-money-modal';
 import RedeemCodeModal from '@/components/redeem-code-modal';
 import { useAnimatedCounter } from '@/hooks/use-animated-counter';
@@ -121,11 +122,9 @@ export default function Balance1Screen() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full mr-4 shadow-lg overflow-hidden border-2 border-orange-400 dark:border-orange-500 shadow-orange-400/50 dark:shadow-orange-500/50">
-                <img 
-                  src={profileImage} 
-                  alt="John Doe"
-                  className="w-full h-full object-cover"
-                />
+                <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
+                  JD
+                </div>
               </div>
               <div className="leading-tight">
                 <div className="text-white/90 dark:text-white/95 text-base font-medium">Welcome back,</div>

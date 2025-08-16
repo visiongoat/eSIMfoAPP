@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
+// import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
 import { useOnlineStatus } from "@/hooks/use-online-status";
 import { useTabSwipe } from "@/hooks/use-tab-swipe";
 import europaIcon from "@assets/europamap.png";
@@ -1416,11 +1416,11 @@ export default function HomeScreen() {
     
     if (!gl) throw new Error('WebGL not available');
     
-    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    const debugInfo = (gl as WebGLRenderingContext).getExtension('WEBGL_debug_renderer_info');
     if (!debugInfo) throw new Error('Debug renderer info not available');
     
-    const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_GL);
-    const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_GL);
+    const renderer = (gl as WebGLRenderingContext).getParameter(debugInfo.UNMASKED_RENDERER_GL);
+    const vendor = (gl as WebGLRenderingContext).getParameter(debugInfo.UNMASKED_VENDOR_GL);
     
     console.log('WebGL Renderer:', renderer);
     console.log('WebGL Vendor:', vendor);
@@ -1907,11 +1907,9 @@ export default function HomeScreen() {
             {/* User Profile Photo */}
             <div className="w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 border-blue-500">
               {profile?.name ? (
-                <img 
-                  src={profileImage} 
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
+                <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm">
+                  {profile.name.split(' ').map(n => n[0]).join('')}
+                </div>
               ) : (
                 <div className="w-full h-full bg-gray-300 flex items-center justify-center">
                   <svg className="w-7 h-7 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
