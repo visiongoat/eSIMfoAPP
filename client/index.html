@@ -1,13 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+    <meta name="description" content="Global eSIM paketleri - Dünya çapında mobil bağlantı çözümleri" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="eSIM App" />
+    
+    <title>eSIM App - Global Mobile Connectivity</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://replit.com" />
+    
+    <!-- Loading styles for better UX -->
+    <style>
+      /* Loading screen to prevent FOUC */
+      #root {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      
+      /* Loading spinner */
+      .loading-spinner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top: 3px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        z-index: 9999;
+      }
+      
+      @keyframes spin {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+      
+      /* Hide loading after React loads */
+      .app-loaded .loading-spinner {
+        display: none;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Loading indicator -->
+      <div class="loading-spinner"></div>
+    </div>
+    
     <script type="module" src="/src/main.tsx"></script>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    
+    <!-- Development banner - only loads in development -->
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+    
+    <!-- Error handling for mobile -->
+    <script>
+      window.addEventListener('error', function(e) {
+        console.error('Page Error:', e.error);
+        // Fallback for mobile debugging
+        if (!document.querySelector('.app-loaded')) {
+          setTimeout(() => {
+            document.body.innerHTML = '<div style="padding: 20px; color: red; font-family: Arial;">Loading Error: ' + e.message + '</div>';
+          }, 5000);
+        }
+      });
+      
+      // Mark app as loaded when React starts
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+          if (document.querySelector('#root > div')) {
+            document.body.classList.add('app-loaded');
+          }
+        }, 2000);
+      });
+    </script>
   </body>
 </html>

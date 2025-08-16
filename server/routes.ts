@@ -6,6 +6,10 @@ import { insertCountrySchema, insertPackageSchema, insertEsimSchema, insertSaleS
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Test endpoint for mobile debugging
+  app.get('/test.html', (req, res) => {
+    res.sendFile(path.join(process.cwd(), 'client', 'test.html'));
+  });
   
   // Preview bypass endpoint - direct HTML without iframe issues
   app.get('/direct-preview', (req, res) => {

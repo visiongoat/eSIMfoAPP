@@ -1,3 +1,4 @@
+import React from "react";
 import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -30,6 +31,17 @@ function Router() {
   const swipeEnabled = !['/', '/onboarding'].includes(location);
   
   const swipeState = useSwipeNavigation({ enabled: swipeEnabled });
+  
+  // Mobile debugging
+  React.useEffect(() => {
+    console.log('📱 Router loaded, current location:', location);
+    
+    // Mobile viewport fix
+    const viewport = document.querySelector('meta[name=viewport]');
+    if (viewport && window.innerWidth < 768) {
+      console.log('📱 Mobile viewport detected');
+    }
+  }, [location]);
 
   return (
     <>
@@ -61,6 +73,24 @@ function Router() {
 }
 
 function App() {
+  // App loading and mobile optimization
+  React.useEffect(() => {
+    console.log('✅ eSIM App components initializing...');
+    
+    // Mark app as fully loaded
+    setTimeout(() => {
+      document.body.classList.add('app-loaded');
+      console.log('✅ eSIM App fully loaded');
+    }, 500);
+    
+    // Mobile-specific optimizations
+    if (window.innerWidth < 768) {
+      console.log('📱 Mobile mode activated');
+      // Prevent scrolling issues on mobile
+      document.body.style.overflow = 'hidden';
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>

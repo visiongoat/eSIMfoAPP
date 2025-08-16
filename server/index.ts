@@ -14,16 +14,34 @@ app.use(cors({
 }));
 
 app.use((req, res, next) => {
-  // SSL/TLS ve iframe security headers
+  // Mobile-optimized security headers
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Content-Security-Policy', "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; frame-ancestors 'self' *.replit.dev *.repl.co;");
+  
+  // Enhanced CSP for mobile compatibility
+  res.setHeader('Content-Security-Policy', 
+    "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https:; " +
+    "frame-ancestors 'self' *.replit.dev *.repl.co; " +
+    "img-src 'self' data: blob: https:; " +
+    "connect-src 'self' https: wss: ws:; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;"
+  );
+  
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  
+  // CORS for mobile access
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, User-Agent');
+  res.setHeader('Access-Control-Allow-Credentials', 'false');
+  
+  // Mobile-specific headers
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  
   next();
 });
 

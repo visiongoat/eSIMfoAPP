@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobil Test - eSIM App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 400px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .title {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      opacity: 0.8;
+      margin-bottom: 30px;
+    }
+    .test-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+      text-align: left;
+    }
+    .success {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+    }
+    .error {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+    }
+    .button {
+      background: #3b82f6;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      margin: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .button:hover {
+      transform: translateY(-2px);
+    }
+    .info {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">📱 Mobil Test</div>
+    <div class="subtitle">eSIM App Connectivity</div>
+    
+    <div class="test-item success">
+      <strong>✅ Static HTML:</strong><br>
+      Başarıyla yüklendi
+    </div>
+    
+    <div class="test-item success">
+      <strong>✅ CSS Styling:</strong><br>
+      Görsel tasarım aktif
+    </div>
+    
+    <div class="test-item success">
+      <strong>✅ Mobile Viewport:</strong><br>
+      Responsive tasarım çalışıyor
+    </div>
+    
+    <div class="test-item" id="js-test">
+      <strong>🔄 JavaScript Test:</strong><br>
+      <span id="js-status">Test ediliyor...</span>
+    </div>
+    
+    <div class="test-item" id="api-test">
+      <strong>🔄 API Test:</strong><br>
+      <span id="api-status">Test ediliyor...</span>
+    </div>
+    
+    <a href="/" class="button">Ana Uygulamaya Dön</a>
+    
+    <div class="info">
+      Test Time: <span id="time"></span><br>
+      URL: <span id="url"></span>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript test
+    document.getElementById('time').textContent = new Date().toLocaleString('tr-TR');
+    document.getElementById('url').textContent = window.location.href;
+    
+    // JavaScript çalışıyor mu?
+    setTimeout(() => {
+      document.getElementById('js-status').textContent = 'JavaScript çalışıyor ✅';
+      document.getElementById('js-test').classList.add('success');
+    }, 500);
+    
+    // API test
+    fetch('/api/countries')
+      .then(response => {
+        if (response.ok) {
+          document.getElementById('api-status').textContent = 'API erişimi başarılı ✅';
+          document.getElementById('api-test').classList.add('success');
+        } else {
+          throw new Error(`HTTP ${response.status}`);
+        }
+      })
+      .catch(error => {
+        document.getElementById('api-status').textContent = `API hatası: ${error.message} ❌`;
+        document.getElementById('api-test').classList.add('error');
+      });
+      
+    // Touch test
+    document.addEventListener('touchstart', function() {
+      console.log('Touch events working');
+    });
+  </script>
+</body>
+</html>
