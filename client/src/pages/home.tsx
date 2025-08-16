@@ -1598,21 +1598,106 @@ export default function HomeScreen() {
     setCurrentY(0);
   };
   
-  // Detect user's country (in real app this would come from IP geolocation)
-  const getUserCountry = () => {
-    // Simulating different countries based on time for demo
-    const countries = [
-      { name: 'Turkey', code: 'TR', flag: '🇹🇷', price: '€2.99' },
-      { name: 'Germany', code: 'DE', flag: '🇩🇪', price: '€3.49' },
-      { name: 'United Kingdom', code: 'GB', flag: '🇬🇧', price: '€3.99' },
-      { name: 'France', code: 'FR', flag: '🇫🇷', price: '€4.49' },
-      { name: 'Spain', code: 'ES', flag: '🇪🇸', price: '€3.49' }
-    ];
-    const index = Math.floor(Date.now() / 10000) % countries.length;
-    return countries[index];
+  // Real geolocation detection with dual API fallback
+  const [userCountry, setUserCountry] = useState<{
+    name: string;
+    code: string;
+    flag: string;
+    price: string;
+  }>({
+    name: 'Turkey',
+    code: 'TR', 
+    flag: '🇹🇷',
+    price: '€2.99'
+  });
+
+  const [locationStatus, setLocationStatus] = useState<'loading' | 'success' | 'error'>('loading');
+
+  // Country data mapping for real geolocation
+  const countryMapping: Record<string, { name: string; code: string; flag: string; price: string }> = {
+    'Turkey': { name: 'Turkey', code: 'TR', flag: '🇹🇷', price: '€2.99' },
+    'Germany': { name: 'Germany', code: 'DE', flag: '🇩🇪', price: '€3.49' },
+    'United Kingdom': { name: 'United Kingdom', code: 'GB', flag: '🇬🇧', price: '€3.99' },
+    'France': { name: 'France', code: 'FR', flag: '🇫🇷', price: '€4.49' },
+    'Spain': { name: 'Spain', code: 'ES', flag: '🇪🇸', price: '€3.49' },
+    'Italy': { name: 'Italy', code: 'IT', flag: '🇮🇹', price: '€3.99' },
+    'Netherlands': { name: 'Netherlands', code: 'NL', flag: '🇳🇱', price: '€3.99' },
+    'Austria': { name: 'Austria', code: 'AT', flag: '🇦🇹', price: '€4.49' },
+    'Switzerland': { name: 'Switzerland', code: 'CH', flag: '🇨🇭', price: '€5.99' },
+    'United States': { name: 'United States', code: 'US', flag: '🇺🇸', price: '€8.99' },
+    'Canada': { name: 'Canada', code: 'CA', flag: '🇨🇦', price: '€7.99' },
+    'Japan': { name: 'Japan', code: 'JP', flag: '🇯🇵', price: '€6.99' },
+    'Australia': { name: 'Australia', code: 'AU', flag: '🇦🇺', price: '€9.99' },
+    'Brazil': { name: 'Brazil', code: 'BR', flag: '🇧🇷', price: '€5.49' }
   };
-  
-  const userCountry = getUserCountry();
+
+  // Dual API geolocation detection
+  const detectUserLocation = async () => {
+    setLocationStatus('loading');
+    
+    try {
+      // First try: ipapi.co
+      console.log('🌍 Trying ipapi.co...');
+      const ipapiResponse = await fetch('https://ipapi.co/json/');
+      
+      if (ipapiResponse.ok) {
+        const ipapiData = await ipapiResponse.json();
+        console.log('ipapi.co response:', ipapiData);
+        
+        if (!ipapiData.error && ipapiData.country_name) {
+          const country = countryMapping[ipapiData.country_name] || {
+            name: ipapiData.country_name,
+            code: ipapiData.country_code || 'XX',
+            flag: '🌍',
+            price: '€4.99'
+          };
+          
+          setUserCountry(country);
+          setLocationStatus('success');
+          console.log('✅ Location detected via ipapi.co:', country.name);
+          return;
+        }
+      }
+    } catch (error) {
+      console.log('⚠️ ipapi.co failed:', error);
+    }
+
+    try {
+      // Second try: ip-api.com
+      console.log('🌍 Trying ip-api.com...');
+      const ipApiResponse = await fetch('http://ip-api.com/json/');
+      
+      if (ipApiResponse.ok) {
+        const ipApiData = await ipApiResponse.json();
+        console.log('ip-api.com response:', ipApiData);
+        
+        if (ipApiData.status === 'success' && ipApiData.country) {
+          const country = countryMapping[ipApiData.country] || {
+            name: ipApiData.country,
+            code: ipApiData.countryCode || 'XX',
+            flag: '🌍',
+            price: '€4.99'
+          };
+          
+          setUserCountry(country);
+          setLocationStatus('success');
+          console.log('✅ Location detected via ip-api.com:', country.name);
+          return;
+        }
+      }
+    } catch (error) {
+      console.log('⚠️ ip-api.com failed:', error);
+    }
+
+    // Both APIs failed - keep default Turkey
+    console.log('❌ Both geolocation APIs failed, using default Turkey');
+    setLocationStatus('error');
+  };
+
+  // Run geolocation detection on component mount
+  useEffect(() => {
+    detectUserLocation();
+  }, []);
 
   const { 
     data: countries = [], 
@@ -2304,22 +2389,37 @@ export default function HomeScreen() {
               >
                 <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  {/* Flag with subtle hover animation */}
-                  <span className="text-2xl transform transition-transform duration-200 group-hover:scale-105">
-                    {userCountry.flag}
-                  </span>
+                  {/* Location loading or flag with subtle hover animation */}
+                  {locationStatus === 'loading' ? (
+                    <div className="w-6 h-6 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    <span className="text-2xl transform transition-transform duration-200 group-hover:scale-105">
+                      {userCountry.flag}
+                    </span>
+                  )}
                   <div className="text-left">
-                    <h3 className="font-semibold text-base">{userCountry.name}</h3>
-                    <p className="text-white/70 text-xs">Your current location</p>
+                    <div className="flex items-center space-x-2">
+                      <h3 className="font-semibold text-base">
+                        {locationStatus === 'loading' ? 'Detecting location...' : userCountry.name}
+                      </h3>
+                      {locationStatus === 'success' && (
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      )}
+                    </div>
+                    <p className="text-white/70 text-xs">
+                      {locationStatus === 'loading' ? 'Using real geolocation APIs' : 'Your current location'}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="text-right">
-                    <div className="text-sm font-medium">From {userCountry.price}</div>
+                    <div className="text-sm font-medium">
+                      {locationStatus === 'loading' ? '...' : `From ${userCountry.price}`}
+                    </div>
                   </div>
                   {/* Enhanced LOCAL badge */}
                   <div className="bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold transform transition-transform duration-200 group-hover:scale-105">
-                    LOCAL
+                    {locationStatus === 'loading' ? '...' : 'LOCAL'}
                   </div>
                 </div>
                 </div>
