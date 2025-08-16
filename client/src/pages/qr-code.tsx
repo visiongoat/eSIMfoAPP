@@ -71,8 +71,12 @@ export default function QRCodeScreen() {
 
         {/* QR Code */}
         <div className="mobile-card p-6 mb-4">
-          <div className="w-48 h-48 bg-white border-2 border-gray-200 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-            <div className="w-40 h-40 bg-black qr-code-pattern"></div>
+          <div className="w-64 h-64 bg-white border-2 border-gray-200 rounded-2xl mx-auto mb-4 flex items-center justify-center p-4">
+            <img 
+              src="/attached_assets/image_1755364217953.png" 
+              alt="eSIM QR Code" 
+              className="w-full h-full object-contain rounded-lg"
+            />
           </div>
           <p className="font-medium mb-2">Scan to Install eSIM</p>
           <p className="text-sm text-muted-foreground">
