@@ -23,7 +23,104 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Replit workspace iframe fallback handler
   app.get('/__replco/workspace_iframe.html', (req, res) => {
     console.log('Workspace iframe request intercepted:', req.query);
-    res.sendFile(path.join(process.cwd(), 'client', 'workspace-iframe.html'));
+    console.log('Request host:', req.get('host'));
+    console.log('Request headers:', req.headers);
+    
+    // Send custom iframe that uses the correct production URL
+    const initialPath = req.query.initialPath || '/';
+    const webviewId = req.query.id || '';
+    
+    res.send(`
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eSIM App - Workspace Preview</title>
+    <style>
+        html, body, iframe {
+            margin: 0; padding: 0; border: 0;
+            height: 100%; width: 100%;
+            font-family: Arial, sans-serif;
+        }
+        body { overflow: hidden; background: #667eea; }
+        
+        .loading {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white; text-align: center; z-index: 10;
+        }
+        
+        .spinner {
+            width: 30px; height: 30px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        iframe {
+            display: none;
+            background: white;
+        }
+        
+        iframe.loaded { display: block; }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div>eSIM App Yükleniyor...</div>
+    </div>
+    
+    <iframe 
+        id="app" 
+        src="https://abcbfb76-74d4-478f-9f83-ba1befaab60e.kirk.prod.repl.run${initialPath}"
+        sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-modals allow-downloads"
+        allow="accelerometer; camera; geolocation; microphone; payment; usb"
+        allowfullscreen="true"
+    ></iframe>
+    
+    <script>
+        const iframe = document.getElementById('app');
+        const loading = document.getElementById('loading');
+        
+        iframe.onload = function() {
+            loading.style.display = 'none';
+            iframe.classList.add('loaded');
+            
+            // Send success to parent workspace
+            if (window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'iframe-loaded',
+                    id: '${webviewId}',
+                    url: iframe.src
+                }, '*');
+            }
+        };
+        
+        // Handle workspace messages
+        window.addEventListener('message', function(event) {
+            if (event.origin.includes('replit.')) {
+                console.log('Workspace message:', event.data);
+            }
+        });
+        
+        // Timeout fallback
+        setTimeout(() => {
+            if (!iframe.classList.contains('loaded')) {
+                loading.innerHTML = '<div class="spinner"></div><div>App başlatılıyor...</div>';
+                iframe.classList.add('loaded');
+                loading.style.display = 'none';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
+    `);
   });
   
   // Simplified test endpoint
