@@ -1619,21 +1619,52 @@ export default function HomeScreen() {
   const [showCurrencyLanguageModal, setShowCurrencyLanguageModal] = useState(false);
 
   const currencies = [
-    { code: 'EUR', symbol: '€', name: 'Euro' },
-    { code: 'USD', symbol: '$', name: 'US Dollar' },
-    { code: 'GBP', symbol: '£', name: 'British Pound' },
-    { code: 'TRY', symbol: '₺', name: 'Turkish Lira' },
-    { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
-    { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc' },
+    { code: 'EUR', symbol: '€', name: 'Euro', region: 'Europe' },
+    { code: 'USD', symbol: '$', name: 'US Dollar', region: 'Americas' },
+    { code: 'GBP', symbol: '£', name: 'British Pound', region: 'Europe' },
+    { code: 'TRY', symbol: '₺', name: 'Turkish Lira', region: 'Europe' },
+    { code: 'JPY', symbol: '¥', name: 'Japanese Yen', region: 'Asia' },
+    { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc', region: 'Europe' },
+    { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar', region: 'Americas' },
+    { code: 'AUD', symbol: 'A$', name: 'Australian Dollar', region: 'Oceania' },
+    { code: 'SEK', symbol: 'kr', name: 'Swedish Krona', region: 'Europe' },
+    { code: 'NOK', symbol: 'kr', name: 'Norwegian Krone', region: 'Europe' },
+    { code: 'DKK', symbol: 'kr', name: 'Danish Krone', region: 'Europe' },
+    { code: 'PLN', symbol: 'zł', name: 'Polish Złoty', region: 'Europe' },
+    { code: 'CZK', symbol: 'Kč', name: 'Czech Koruna', region: 'Europe' },
+    { code: 'HUF', symbol: 'Ft', name: 'Hungarian Forint', region: 'Europe' },
+    { code: 'RON', symbol: 'lei', name: 'Romanian Leu', region: 'Europe' },
+    { code: 'BGN', symbol: 'лв', name: 'Bulgarian Lev', region: 'Europe' },
+    { code: 'HRK', symbol: 'kn', name: 'Croatian Kuna', region: 'Europe' },
+    { code: 'RUB', symbol: '₽', name: 'Russian Ruble', region: 'Europe' },
+    { code: 'CNY', symbol: '¥', name: 'Chinese Yuan', region: 'Asia' },
+    { code: 'KRW', symbol: '₩', name: 'South Korean Won', region: 'Asia' },
+    { code: 'INR', symbol: '₹', name: 'Indian Rupee', region: 'Asia' },
+    { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar', region: 'Asia' },
+    { code: 'HKD', symbol: 'HK$', name: 'Hong Kong Dollar', region: 'Asia' },
+    { code: 'THB', symbol: '฿', name: 'Thai Baht', region: 'Asia' },
+    { code: 'MYR', symbol: 'RM', name: 'Malaysian Ringgit', region: 'Asia' },
+    { code: 'AED', symbol: 'د.إ', name: 'UAE Dirham', region: 'Middle East' },
+    { code: 'SAR', symbol: '﷼', name: 'Saudi Riyal', region: 'Middle East' },
+    { code: 'ZAR', symbol: 'R', name: 'South African Rand', region: 'Africa' },
+    { code: 'EGP', symbol: 'E£', name: 'Egyptian Pound', region: 'Africa' },
+    { code: 'BRL', symbol: 'R$', name: 'Brazilian Real', region: 'Americas' },
+    { code: 'MXN', symbol: '$', name: 'Mexican Peso', region: 'Americas' },
   ];
 
   const languages = [
-    { code: 'EN', name: 'English', flag: '🇺🇸' },
-    { code: 'TR', name: 'Türkçe', flag: '🇹🇷' },
-    { code: 'DE', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'FR', name: 'Français', flag: '🇫🇷' },
-    { code: 'ES', name: 'Español', flag: '🇪🇸' },
-    { code: 'IT', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'EN', name: 'English', flag: '🇺🇸', nativeName: 'English' },
+    { code: 'TR', name: 'Turkish', flag: '🇹🇷', nativeName: 'Türkçe' },
+    { code: 'DE', name: 'German', flag: '🇩🇪', nativeName: 'Deutsch' },
+    { code: 'FR', name: 'French', flag: '🇫🇷', nativeName: 'Français' },
+    { code: 'ES', name: 'Spanish', flag: '🇪🇸', nativeName: 'Español' },
+    { code: 'IT', name: 'Italian', flag: '🇮🇹', nativeName: 'Italiano' },
+    { code: 'PT', name: 'Portuguese', flag: '🇵🇹', nativeName: 'Português' },
+    { code: 'RU', name: 'Russian', flag: '🇷🇺', nativeName: 'Русский' },
+    { code: 'ZH', name: 'Chinese', flag: '🇨🇳', nativeName: '中文' },
+    { code: 'JA', name: 'Japanese', flag: '🇯🇵', nativeName: '日本語' },
+    { code: 'KO', name: 'Korean', flag: '🇰🇷', nativeName: '한국어' },
+    { code: 'AR', name: 'Arabic', flag: '🇸🇦', nativeName: 'العربية' },
   ];
 
   // Country data mapping with hardcoded flag emojis (no Unicode generation)
@@ -4389,14 +4420,17 @@ export default function HomeScreen() {
 
       {/* Currency & Language Modal */}
       {showCurrencyLanguageModal && (
-        <div className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-t-3xl sm:rounded-3xl w-full max-w-md max-h-[80vh] overflow-hidden">
+        <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-md flex items-center justify-center p-0">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl w-full h-full max-w-2xl max-h-[85vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Settings</h2>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Regional Settings</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Choose your preferred currency and language</p>
+              </div>
               <button 
                 onClick={() => setShowCurrencyLanguageModal(false)}
-                className="w-8 h-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
               >
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -4404,81 +4438,124 @@ export default function HomeScreen() {
               </button>
             </div>
 
-            <div className="p-6 space-y-8">
-              {/* Currency Section */}
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                  <span className="mr-2">💰</span>
-                  Currency
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {currencies.map((currency) => (
-                    <button
-                      key={currency.code}
-                      onClick={() => setSelectedCurrency(currency.code)}
-                      className={`p-3 rounded-xl border-2 transition-all duration-200 ${
-                        selectedCurrency === currency.code
-                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                          : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
-                      }`}
-                    >
-                      <div className="text-left">
-                        <div className="font-semibold text-gray-900 dark:text-white">
-                          {currency.symbol} {currency.code}
-                        </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
-                          {currency.name}
+            <div className="flex-1 overflow-y-auto">
+              <div className="grid md:grid-cols-2 divide-x divide-gray-200 dark:divide-gray-700 h-full">
+                {/* Currency Section */}
+                <div className="p-6">
+                  <div className="sticky top-0 bg-white dark:bg-gray-800 pb-4 mb-4 border-b border-gray-100 dark:border-gray-700">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                      <span className="mr-3 text-2xl">💰</span>
+                      Currency
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Select your preferred currency</p>
+                  </div>
+                  
+                  {/* Group currencies by region */}
+                  {['Europe', 'Americas', 'Asia', 'Middle East', 'Africa', 'Oceania'].map(region => {
+                    const regionCurrencies = currencies.filter(c => c.region === region);
+                    if (regionCurrencies.length === 0) return null;
+                    
+                    return (
+                      <div key={region} className="mb-6">
+                        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 px-2">
+                          {region}
+                        </h4>
+                        <div className="grid grid-cols-1 gap-2">
+                          {regionCurrencies.map((currency) => (
+                            <button
+                              key={currency.code}
+                              onClick={() => setSelectedCurrency(currency.code)}
+                              className={`p-3 rounded-xl border transition-all duration-200 flex items-center justify-between hover:shadow-sm ${
+                                selectedCurrency === currency.code
+                                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-sm'
+                                  : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                              }`}
+                            >
+                              <div className="flex items-center space-x-3">
+                                <div className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                                  <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                                    {currency.symbol}
+                                  </span>
+                                </div>
+                                <div className="text-left">
+                                  <div className="font-semibold text-gray-900 dark:text-white text-sm">
+                                    {currency.code}
+                                  </div>
+                                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                                    {currency.name}
+                                  </div>
+                                </div>
+                              </div>
+                              {selectedCurrency === currency.code && (
+                                <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                              )}
+                            </button>
+                          ))}
                         </div>
                       </div>
-                    </button>
-                  ))}
+                    );
+                  })}
                 </div>
-              </div>
 
-              {/* Language Section */}
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                  <span className="mr-2">🌍</span>
-                  Language
-                </h3>
-                <div className="space-y-2">
-                  {languages.map((language) => (
-                    <button
-                      key={language.code}
-                      onClick={() => setSelectedLanguage(language.code)}
-                      className={`w-full p-3 rounded-xl border-2 transition-all duration-200 flex items-center justify-between ${
-                        selectedLanguage === language.code
-                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                          : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
-                      }`}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <span className="text-2xl">{language.flag}</span>
-                        <div className="text-left">
-                          <div className="font-semibold text-gray-900 dark:text-white">
-                            {language.name}
+                {/* Language Section */}
+                <div className="p-6">
+                  <div className="sticky top-0 bg-white dark:bg-gray-800 pb-4 mb-4 border-b border-gray-100 dark:border-gray-700">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                      <span className="mr-3 text-2xl">🌍</span>
+                      Language
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Select your preferred language</p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 gap-2">
+                    {languages.map((language) => (
+                      <button
+                        key={language.code}
+                        onClick={() => setSelectedLanguage(language.code)}
+                        className={`p-4 rounded-xl border transition-all duration-200 flex items-center justify-between hover:shadow-sm ${
+                          selectedLanguage === language.code
+                            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-sm'
+                            : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                        }`}
+                      >
+                        <div className="flex items-center space-x-4">
+                          <span className="text-3xl">{language.flag}</span>
+                          <div className="text-left">
+                            <div className="font-semibold text-gray-900 dark:text-white">
+                              {language.nativeName}
+                            </div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                              {language.name}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      {selectedLanguage === language.code && (
-                        <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                      )}
-                    </button>
-                  ))}
+                        {selectedLanguage === language.code && (
+                          <svg className="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-              <button
-                onClick={() => setShowCurrencyLanguageModal(false)}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
-              >
-                Done
-              </button>
+            <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+              <div className="flex items-center justify-between">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  Selected: <span className="font-semibold">{currencies.find(c => c.code === selectedCurrency)?.symbol} {selectedCurrency}</span> • <span className="font-semibold">{languages.find(l => l.code === selectedLanguage)?.nativeName}</span>
+                </div>
+                <button
+                  onClick={() => setShowCurrencyLanguageModal(false)}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-8 rounded-xl transition-colors"
+                >
+                  Apply Settings
+                </button>
+              </div>
             </div>
           </div>
         </div>
