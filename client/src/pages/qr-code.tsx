@@ -40,9 +40,48 @@ export default function QRCodeScreen() {
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
 
-  const handleSaveToPhotos = () => {
-    // In a real app, this would generate and download the QR code image
-    alert('QR code would be saved to photos');
+  const handleSaveToPhotos = async () => {
+    try {
+      // Create a canvas to draw the QR code
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx?.drawImage(img, 0, 0);
+        
+        // Convert to blob and trigger download
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `esim-qr-${esim.qrCode}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            console.log('QR code saved to downloads');
+            alert('QR Code galeriye kaydedildi!');
+          }
+        }, 'image/png');
+      };
+      
+      img.crossOrigin = 'anonymous';
+      img.src = '/attached_assets/qrimages.png';
+    } catch (error) {
+      console.error('Error saving QR code:', error);
+      alert('QR kod kaydedilirken hata oluştu.');
+    }
+  };
+
+  const handleQRCodeTap = () => {
+    // Automatically save to gallery when QR code is tapped
+    console.log('QR code tapped - saving to gallery...');
+    handleSaveToPhotos();
   };
 
   return (
@@ -74,16 +113,22 @@ export default function QRCodeScreen() {
 
         {/* QR Code */}
         <div className="mobile-card p-6 mb-4">
-          <div className="w-64 h-64 bg-white border-2 border-gray-200 rounded-2xl mx-auto mb-4 flex items-center justify-center p-4">
+          <div 
+            onClick={handleQRCodeTap}
+            className="w-64 h-64 bg-white border-2 border-gray-200 rounded-2xl mx-auto mb-4 flex items-center justify-center p-4 cursor-pointer hover:border-blue-300 transition-colors active:scale-95 transform"
+          >
             <img 
               src="/attached_assets/qrimages.png" 
               alt="eSIM QR Code" 
-              className="w-full h-full object-contain rounded-lg"
+              className="w-full h-full object-contain rounded-lg pointer-events-none"
             />
           </div>
           <p className="font-medium mb-2">Scan to Install eSIM</p>
-          <p className="text-sm text-muted-foreground mb-4">
+          <p className="text-sm text-muted-foreground mb-2">
             Use your device camera to scan this QR code
+          </p>
+          <p className="text-xs text-blue-600 dark:text-blue-400 mb-4">
+            💾 Tap QR code to save to gallery
           </p>
           
           {/* Click to Install Button */}
