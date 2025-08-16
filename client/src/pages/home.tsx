@@ -1613,7 +1613,7 @@ export default function HomeScreen() {
 
   const [locationStatus, setLocationStatus] = useState<'loading' | 'success' | 'error'>('loading');
 
-  // Country data mapping for real geolocation with proper flag emojis
+  // Country data mapping with hardcoded flag emojis (no Unicode generation)
   const countryMapping: Record<string, { name: string; code: string; flag: string; price: string }> = {
     'Turkey': { name: 'Turkey', code: 'TR', flag: '🇹🇷', price: '€2.99' },
     'Germany': { name: 'Germany', code: 'DE', flag: '🇩🇪', price: '€3.49' },
@@ -1677,13 +1677,12 @@ export default function HomeScreen() {
             country = Object.values(countryMapping).find(c => c.code === ipapiData.country_code.toUpperCase()) || null;
           }
           
-          // If still no match, create a generic entry with proper flag emoji
+          // If still no match, use default fallback
           if (!country) {
-            const flagEmoji = getCountryFlagEmoji(ipapiData.country_code);
             country = {
               name: ipapiData.country_name,
               code: ipapiData.country_code || 'XX',
-              flag: flagEmoji,
+              flag: '🌍',
               price: '€4.99'
             };
           }
@@ -1715,13 +1714,12 @@ export default function HomeScreen() {
             country = Object.values(countryMapping).find(c => c.code === ipApiData.countryCode.toUpperCase()) || null;
           }
           
-          // If still no match, create a generic entry with proper flag emoji
+          // If still no match, use default fallback
           if (!country) {
-            const flagEmoji = getCountryFlagEmoji(ipApiData.countryCode);
             country = {
               name: ipApiData.country,
               code: ipApiData.countryCode || 'XX',
-              flag: flagEmoji,
+              flag: '🌍',
               price: '€4.99'
             };
           }
@@ -1741,16 +1739,7 @@ export default function HomeScreen() {
     setLocationStatus('error');
   };
 
-  // Helper function to convert country code to flag emoji
-  const getCountryFlagEmoji = (countryCode: string): string => {
-    if (!countryCode) return '🌍';
-    
-    // Convert country code to flag emoji
-    const codePoints = countryCode.toUpperCase().split('').map(char => 
-      127397 + char.charCodeAt(0)
-    );
-    return String.fromCodePoint(...codePoints);
-  };
+
 
   // Run geolocation detection on component mount
   useEffect(() => {
@@ -2447,13 +2436,15 @@ export default function HomeScreen() {
               >
                 <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  {/* Big Country Flag with subtle hover animation */}
+                  {/* Country Flag Icon - exactly like in your design */}
                   {locationStatus === 'loading' ? (
                     <div className="w-12 h-12 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
                   ) : (
-                    <span className="text-4xl transform transition-transform duration-200 group-hover:scale-105">
-                      {userCountry.flag}
-                    </span>
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <span className="text-2xl">
+                        {userCountry.flag}
+                      </span>
+                    </div>
                   )}
                   <div className="text-left">
                     <div className="flex items-center space-x-2">
