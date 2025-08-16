@@ -24,13 +24,13 @@ app.use((req, res, next) => {
   res.setHeader('X-XSS-Protection', '1; mode=block');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   
-  // CSP optimized for Replit workspace iframe preview
+  // CSP completely permissive for workspace iframe
   res.setHeader('Content-Security-Policy', 
-    "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https: *.replit.dev *.repl.co; " +
-    "frame-ancestors 'self' *.replit.dev *.repl.co https://replit.com; " +
-    "img-src 'self' data: blob: https: *.replit.dev *.repl.co; " +
-    "connect-src 'self' https: wss: ws: *.replit.dev *.repl.co; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: *.replit.dev *.repl.co;"
+    "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; " +
+    "frame-ancestors *; " +
+    "img-src * data: blob:; " +
+    "connect-src * wss: ws:; " +
+    "script-src * 'unsafe-inline' 'unsafe-eval';"
   );
   
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');

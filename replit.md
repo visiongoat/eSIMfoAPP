@@ -22,7 +22,9 @@ Language: User communicates in Turkish but prefers English for technical impleme
   - Added iframe communication scripts for workspace preview
   - VM restart with `kill 1` command executed
   - Third-party cookie compatibility scripts added
-- STATUS: Testing workspace preview functionality after comprehensive fixes
+- LATEST FIX: Created custom workspace_iframe.html intercept handler 
+- Custom iframe solution bypasses Replit's internal iframe routing issues
+- STATUS: Custom workspace iframe handler implemented and active
 
 ### QR Code Tap-to-Save Feature  
 - Added tap functionality to QR code for automatic gallery saving

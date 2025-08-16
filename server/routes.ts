@@ -19,6 +19,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ip: req.ip || req.connection.remoteAddress
     });
   });
+
+  // Replit workspace iframe fallback handler
+  app.get('/__replco/workspace_iframe.html', (req, res) => {
+    console.log('Workspace iframe request intercepted:', req.query);
+    res.sendFile(path.join(process.cwd(), 'client', 'workspace-iframe.html'));
+  });
   
   // Simplified test endpoint
   app.get('/ping', (req, res) => {
