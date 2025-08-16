@@ -64,5 +64,6 @@ app.use((req, res, next) => {
   server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
     log(`External URL: https://${process.env.REPLIT_DOMAINS || 'localhost:' + port}`);
+    log(`Local access: http://localhost:${port}`);
   });
 })();
