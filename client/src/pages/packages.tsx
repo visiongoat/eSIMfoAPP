@@ -977,6 +977,30 @@ ${baseUrl}/packages/${countryId}`;
         country={country}
         esimCount={esimCount}
         setEsimCount={setEsimCount}
+        onComplete={async () => {
+          try {
+            console.log("Purchase completion started...");
+            const response = await fetch("/api/purchase", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                packageId: selectedPackage,
+                paymentMethod: "card"
+              })
+            });
+            
+            if (response.ok) {
+              const data = await response.json();
+              console.log("Purchase successful, navigating to QR page:", data);
+              setShowCheckoutModal(false);
+              setLocation(`/qr/${data.esim.id}`);
+            } else {
+              console.error("Purchase failed:", response.statusText);
+            }
+          } catch (error) {
+            console.error("Purchase error:", error);
+          }
+        }}
       />
 
       {/* Currency Selection Modal */}
