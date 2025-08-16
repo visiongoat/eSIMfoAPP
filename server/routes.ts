@@ -222,7 +222,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Purchase simulation route
+  // Purchase simulation route - always succeeds for design/demo purposes
   app.post("/api/purchase", async (req, res) => {
     try {
       const { packageId, paymentMethod } = req.body;
@@ -231,28 +231,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Package ID and payment method are required" });
       }
       
-      const pkg = await storage.getPackage(packageId);
-      if (!pkg) {
-        return res.status(404).json({ message: "Package not found" });
-      }
-      
-      // Create eSIM
+      // Always create eSIM successfully (design mode)
       const esim = await storage.createEsim({
-        userId: 1, // Demo user
+        userId: 1,
         packageId: packageId,
         qrCode: `QR_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         status: "Ready",
         dataUsed: "0",
-        expiresAt: new Date(Date.now() + parseInt(pkg.validity.split(' ')[0]) * 24 * 60 * 60 * 1000),
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         activatedAt: null
-      });
-      
-      // Create sale record
-      await storage.createSale({
-        partnerId: 1,
-        packageId: packageId,
-        amount: pkg.price,
-        commission: (parseFloat(pkg.price) * 0.2).toString() // 20% commission
       });
       
       res.status(201).json({ 
@@ -261,6 +248,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Purchase completed successfully" 
       });
     } catch (error) {
+      console.error("Purchase error:", error);
       res.status(500).json({ message: "Failed to process purchase" });
     }
   });

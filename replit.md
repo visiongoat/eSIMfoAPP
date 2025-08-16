@@ -7,6 +7,7 @@ This project is a mobile-first eSIM management application that enables users to
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Project Mode: Design-focused prototype for development team handoff - all features should work regardless of data availability.
 
 ## System Architecture
 
