@@ -8,6 +8,29 @@ This project is a mobile-first eSIM management application that enables users to
 
 Preferred communication style: Simple, everyday language.
 Project Mode: Design-focused prototype for development team handoff - all features should work regardless of data availability.
+Currency: Always use € (Euro) as the currency unit.
+Language: User communicates in Turkish but prefers English for technical implementation.
+
+## Recent Updates (August 16, 2025)
+
+### QR Code Tap-to-Save Feature
+- Added tap functionality to QR code for automatic gallery saving
+- Implemented Canvas-based PNG file generation and download
+- Added Turkish notification messages for user feedback
+- Visual feedback with hover and active states on QR code
+- Successfully tested and working in development environment
+
+### Manual Installation System
+- Positioned above Installation Guide as card-style tappable area
+- Modal popup displays ICCID and activation codes
+- Copy buttons for easy manual entry
+- Professional border and hover effects
+
+### Deployment Status
+- Application fully functional on https://09004862-5261-4aba-a3f0-851185a3053e-00-asnzibgjpsfs.kirk.replit.dev
+- All APIs responding correctly (countries, packages, purchase flow)
+- QR code generation and saving features working
+- Ready for production deployment
 
 ## System Architecture
 
