@@ -6,6 +6,10 @@ import cors from "cors";
 
 const app = express();
 
+// Force explicit binding and routing
+app.set('trust proxy', true);
+app.set('x-powered-by', false);
+
 // CORS ve security headers - preview fix için
 app.use(cors({
   origin: true,
@@ -37,10 +41,12 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, User-Agent');
   res.setHeader('Access-Control-Allow-Credentials', 'false');
   
-  // Mobile-specific headers
+  // Network routing headers for mobile connectivity
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Keep-Alive', 'timeout=5, max=1000');
   
   next();
 });
@@ -88,8 +94,8 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
+    console.error('Server error:', err);
     res.status(status).json({ message });
-    throw err;
   });
 
   // importantly only setup vite in development and after

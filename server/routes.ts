@@ -6,6 +6,25 @@ import { insertCountrySchema, insertPackageSchema, insertEsimSchema, insertSaleS
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  
+  // Network connectivity test endpoint
+  app.get('/health', (req, res) => {
+    res.json({
+      status: 'OK',
+      timestamp: new Date().toISOString(),
+      server: 'Express + Vite',
+      port: process.env.PORT || 5000,
+      nodeEnv: process.env.NODE_ENV,
+      userAgent: req.get('User-Agent'),
+      ip: req.ip || req.connection.remoteAddress
+    });
+  });
+  
+  // Simplified test endpoint
+  app.get('/ping', (req, res) => {
+    res.send('pong');
+  });
+  
   // Test endpoint for mobile debugging
   app.get('/test.html', (req, res) => {
     res.sendFile(path.join(process.cwd(), 'client', 'test.html'));
