@@ -13,12 +13,13 @@ Language: User communicates in Turkish but prefers English for technical impleme
 
 ## Recent Updates (August 16, 2025)
 
-### Preview System Fix (CRITICAL)
-- Resolved Replit workspace iframe preview issues with SSL certificate errors
-- Added CORS headers and iframe security policies to server/index.ts
-- Created direct preview endpoint at /direct-preview for development
-- Server confirmed working on external URL with proper headers
-- Preview system now functional for continued development
+### Preview System Status (PLATFORM ISSUE - August 16, 2025)
+- CONFIRMED: Replit workspace iframe preview system broken platform-wide
+- Error: workspace_iframe.html URLs returning "page temporarily unavailable"
+- External URL works perfectly: https://09004862-5261-4aba-a3f0-851185a3053e-00-asnzibgjpsfs.kirk.replit.dev
+- All features functional on external URL - this is NOT a code issue
+- User confirmed: OTHER projects also have same preview problem
+- Replit infrastructure issue requiring platform-level fix
 
 ### QR Code Tap-to-Save Feature  
 - Added tap functionality to QR code for automatic gallery saving
