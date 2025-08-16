@@ -28,16 +28,25 @@ export default function PurchaseScreen() {
   const purchaseMutation = useMutation({
     mutationFn: async (data: { packageId: number; paymentMethod: string }) => {
       const response = await apiRequest("POST", "/api/purchase", data);
+      if (!response.ok) {
+        throw new Error(`Purchase failed: ${response.statusText}`);
+      }
       return response.json();
     },
     onSuccess: (data) => {
+      console.log("Purchase successful, data:", data);
       toast({
         title: "Purchase Successful!",
         description: "Your eSIM has been created and is ready to install.",
       });
-      setLocation(`/qr/${data.esim.id}`);
+      // Add delay to ensure toast shows before navigation
+      setTimeout(() => {
+        console.log("Navigating to QR page:", `/qr/${data.esim.id}`);
+        setLocation(`/qr/${data.esim.id}`);
+      }, 1000);
     },
-    onError: () => {
+    onError: (error) => {
+      console.error("Purchase error:", error);
       toast({
         title: "Purchase Failed",
         description: "There was an error processing your payment. Please try again.",
