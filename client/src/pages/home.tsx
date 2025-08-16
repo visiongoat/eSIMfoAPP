@@ -2123,13 +2123,13 @@ export default function HomeScreen() {
             {/* Combined Currency & Language Selector */}
             <button 
               onClick={() => setShowCurrencyLanguageModal(true)}
-              className="flex items-center bg-white border border-gray-200 px-3 py-1.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
+              className="flex items-center bg-white border border-gray-200 px-2.5 py-1.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
             >
-              <span className="text-sm font-semibold text-gray-700">
-                {currencies.find(c => c.code === selectedCurrency)?.symbol} {selectedCurrency}
+              <span className="text-sm font-bold text-gray-700">
+                {currencies.find(c => c.code === selectedCurrency)?.symbol}
               </span>
-              <span className="mx-1 text-gray-400">•</span>
-              <span className="text-sm font-medium text-gray-600">{selectedLanguage}</span>
+              <span className="mx-1 text-gray-500 text-xs">•</span>
+              <span className="text-lg">{languages.find(l => l.code === selectedLanguage)?.flag}</span>
               <svg className="w-3 h-3 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
