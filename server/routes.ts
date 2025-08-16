@@ -1,5 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import path from "path";
 import { storage } from "./storage";
 import { insertCountrySchema, insertPackageSchema, insertEsimSchema, insertSaleSchema } from "@shared/schema";
 import { z } from "zod";
@@ -288,6 +289,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       res.status(500).json({ message: "Failed to update profile" });
     }
+  });
+
+  // Serve static test page
+  app.get("/test", (req, res) => {
+    res.sendFile(path.resolve(process.cwd(), 'public/test.html'));
   });
 
   // Debug endpoint for preview issues
