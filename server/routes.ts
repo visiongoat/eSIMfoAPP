@@ -290,6 +290,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Debug endpoint for preview issues
+  app.get("/preview-test", (req, res) => {
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Preview Test - eSIM App</title>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+        </head>
+        <body style="font-family: Arial, sans-serif; margin: 20px;">
+          <h1>✅ Preview Çalışıyor!</h1>
+          <p><strong>Zaman:</strong> ${new Date().toLocaleString('tr-TR')}</p>
+          <p><strong>Port:</strong> ${process.env.PORT || 5000}</p>
+          <p><strong>Host:</strong> 0.0.0.0</p>
+          <p><strong>URL:</strong> ${req.get('host')}</p>
+          <hr>
+          <h2>Test Linkler:</h2>
+          <ul>
+            <li><a href="/">Ana Uygulama</a></li>
+            <li><a href="/api/countries">Ülkeler API</a></li>
+            <li><a href="/api/packages/popular">Popüler Paketler</a></li>
+          </ul>
+          <script>
+            console.log('Preview test page loaded successfully');
+            setTimeout(() => window.location.href = '/', 5000);
+          </script>
+        </body>
+      </html>
+    `);
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
