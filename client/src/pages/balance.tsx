@@ -122,7 +122,19 @@ export default function Balance1Screen() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full mr-4 shadow-lg overflow-hidden border-2 border-orange-400 dark:border-orange-500 shadow-orange-400/50 dark:shadow-orange-500/50">
-                <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
+                <img 
+                  src="/attached_assets/profilfoto.jpg" 
+                  alt="Profile Photo"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback to initials if image fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const fallback = target.nextElementSibling as HTMLElement;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
+                />
+                <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-lg" style={{display: 'none'}}>
                   JD
                 </div>
               </div>
