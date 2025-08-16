@@ -1419,8 +1419,8 @@ export default function HomeScreen() {
     const debugInfo = (gl as WebGLRenderingContext).getExtension('WEBGL_debug_renderer_info');
     if (!debugInfo) throw new Error('Debug renderer info not available');
     
-    const renderer = (gl as WebGLRenderingContext).getParameter(debugInfo.UNMASKED_RENDERER_GL);
-    const vendor = (gl as WebGLRenderingContext).getParameter(debugInfo.UNMASKED_VENDOR_GL);
+    const renderer = (gl as WebGLRenderingContext).getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+    const vendor = (gl as WebGLRenderingContext).getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
     
     console.log('WebGL Renderer:', renderer);
     console.log('WebGL Vendor:', vendor);
@@ -1674,7 +1674,7 @@ export default function HomeScreen() {
           let country = countryMapping[ipapiData.country_name];
           if (!country && ipapiData.country_code) {
             // Try to find by country code if name doesn't match
-            country = Object.values(countryMapping).find(c => c.code === ipapiData.country_code.toUpperCase());
+            country = Object.values(countryMapping).find(c => c.code === ipapiData.country_code.toUpperCase()) || null;
           }
           
           // If still no match, create a generic entry with proper flag emoji
@@ -1712,7 +1712,7 @@ export default function HomeScreen() {
           let country = countryMapping[ipApiData.country];
           if (!country && ipApiData.countryCode) {
             // Try to find by country code if name doesn't match
-            country = Object.values(countryMapping).find(c => c.code === ipApiData.countryCode.toUpperCase());
+            country = Object.values(countryMapping).find(c => c.code === ipApiData.countryCode.toUpperCase()) || null;
           }
           
           // If still no match, create a generic entry with proper flag emoji
@@ -2447,11 +2447,11 @@ export default function HomeScreen() {
               >
                 <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  {/* Location loading or flag with subtle hover animation */}
+                  {/* Big Country Flag with subtle hover animation */}
                   {locationStatus === 'loading' ? (
-                    <div className="w-6 h-6 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
+                    <div className="w-12 h-12 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
                   ) : (
-                    <span className="text-2xl transform transition-transform duration-200 group-hover:scale-105">
+                    <span className="text-4xl transform transition-transform duration-200 group-hover:scale-105">
                       {userCountry.flag}
                     </span>
                   )}
