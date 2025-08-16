@@ -2091,9 +2091,17 @@ export default function HomeScreen() {
           <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
             {/* User Profile Photo */}
-            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-blue-500 shadow-sm relative" 
+            <div className="w-12 h-12 rounded-full overflow-hidden relative" 
                  style={{
-                   boxShadow: '0 4px 12px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(59, 130, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                   border: '2px solid rgba(59, 130, 246, 0.8)',
+                   boxShadow: `
+                     0 0 0 1px rgba(59, 130, 246, 0.2),
+                     0 0 20px rgba(59, 130, 246, 0.4),
+                     0 0 40px rgba(59, 130, 246, 0.2),
+                     0 4px 20px rgba(0, 0, 0, 0.3),
+                     inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                     inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                   `
                  }}>
               <img 
                 src="/attached_assets/profilfoto.jpg" 
@@ -2110,8 +2118,9 @@ export default function HomeScreen() {
               <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm" style={{display: 'none'}}>
                 {profile?.name ? profile.name.split(' ').map(n => n[0]).join('') : 'JD'}
               </div>
-              {/* Light reflection effect */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-transparent to-white opacity-20 pointer-events-none"></div>
+              {/* Enhanced light reflection effect - matching balance page */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-transparent to-white opacity-25 pointer-events-none"></div>
+              <div className="absolute top-0 left-1/4 w-1/2 h-1/3 rounded-full bg-white opacity-30 blur-sm pointer-events-none"></div>
             </div>
             {/* Hello, Guest/User Text */}
             <div>
