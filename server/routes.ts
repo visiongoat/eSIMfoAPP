@@ -7,6 +7,74 @@ import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // Preview bypass endpoint - direct HTML without iframe issues
+  app.get('/direct-preview', (req, res) => {
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>eSIM App - Direct Preview</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+          .container { max-width: 400px; margin: 0 auto; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+          .card { background: white; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+          .success { color: #10b981; font-size: 32px; margin-bottom: 20px; }
+          .title { font-size: 24px; font-weight: 600; margin-bottom: 10px; color: #1f2937; }
+          .subtitle { color: #6b7280; margin-bottom: 25px; }
+          .feature { background: #f9fafb; padding: 15px; border-radius: 8px; margin: 10px 0; text-align: left; }
+          .feature-title { font-weight: 600; color: #374151; }
+          .feature-desc { color: #6b7280; font-size: 14px; }
+          .button { background: #3b82f6; color: white; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; margin: 10px 5px; transition: transform 0.2s; }
+          .button:hover { transform: translateY(-2px); }
+          .button.success { background: #10b981; }
+          .status { background: #ecfdf5; color: #059669; padding: 10px; border-radius: 6px; margin: 15px 0; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="card">
+            <div class="success">✅</div>
+            <div class="title">Preview Çalışıyor!</div>
+            <div class="subtitle">eSIM App Development Ready</div>
+            
+            <div class="status">
+              <strong>Server Status:</strong> Active<br>
+              <strong>Port:</strong> 5000<br>
+              <strong>Time:</strong> ${new Date().toLocaleString('tr-TR')}
+            </div>
+            
+            <div class="feature">
+              <div class="feature-title">QR Kod Dokunma Kaydetme</div>
+              <div class="feature-desc">QR kod'a dokunarak galeriye kaydetme özelliği</div>
+            </div>
+            
+            <div class="feature">
+              <div class="feature-title">Manuel Kurulum Modalı</div>
+              <div class="feature-desc">ICCID ve aktivasyon kodları ile manuel kurulum</div>
+            </div>
+            
+            <div class="feature">
+              <div class="feature-title">Satın Alma Akışı</div>
+              <div class="feature-desc">Tam checkout ve QR teslimat sistemi</div>
+            </div>
+            
+            <a href="/" class="button">Ana Uygulamaya Git</a>
+            <a href="/api/countries" class="button success">API Test</a>
+          </div>
+        </div>
+        
+        <script>
+          // Auto refresh every 30 seconds to show it's working
+          setTimeout(() => location.reload(), 30000);
+        </script>
+      </body>
+      </html>
+    `);
+  });
+  
   // Countries routes
   app.get("/api/countries", async (req, res) => {
     try {
