@@ -1613,7 +1613,7 @@ export default function HomeScreen() {
 
   const [locationStatus, setLocationStatus] = useState<'loading' | 'success' | 'error'>('loading');
 
-  // Country data mapping for real geolocation
+  // Country data mapping for real geolocation with proper flag emojis
   const countryMapping: Record<string, { name: string; code: string; flag: string; price: string }> = {
     'Turkey': { name: 'Turkey', code: 'TR', flag: '🇹🇷', price: '€2.99' },
     'Germany': { name: 'Germany', code: 'DE', flag: '🇩🇪', price: '€3.49' },
@@ -1628,7 +1628,32 @@ export default function HomeScreen() {
     'Canada': { name: 'Canada', code: 'CA', flag: '🇨🇦', price: '€7.99' },
     'Japan': { name: 'Japan', code: 'JP', flag: '🇯🇵', price: '€6.99' },
     'Australia': { name: 'Australia', code: 'AU', flag: '🇦🇺', price: '€9.99' },
-    'Brazil': { name: 'Brazil', code: 'BR', flag: '🇧🇷', price: '€5.49' }
+    'Brazil': { name: 'Brazil', code: 'BR', flag: '🇧🇷', price: '€5.49' },
+    'Belgium': { name: 'Belgium', code: 'BE', flag: '🇧🇪', price: '€3.99' },
+    'Poland': { name: 'Poland', code: 'PL', flag: '🇵🇱', price: '€3.49' },
+    'Portugal': { name: 'Portugal', code: 'PT', flag: '🇵🇹', price: '€3.49' },
+    'Czech Republic': { name: 'Czech Republic', code: 'CZ', flag: '🇨🇿', price: '€3.99' },
+    'Greece': { name: 'Greece', code: 'GR', flag: '🇬🇷', price: '€4.49' },
+    'Norway': { name: 'Norway', code: 'NO', flag: '🇳🇴', price: '€6.99' },
+    'Sweden': { name: 'Sweden', code: 'SE', flag: '🇸🇪', price: '€4.99' },
+    'Denmark': { name: 'Denmark', code: 'DK', flag: '🇩🇰', price: '€4.99' },
+    'Finland': { name: 'Finland', code: 'FI', flag: '🇫🇮', price: '€4.99' },
+    'Ireland': { name: 'Ireland', code: 'IE', flag: '🇮🇪', price: '€3.99' },
+    'South Korea': { name: 'South Korea', code: 'KR', flag: '🇰🇷', price: '€6.99' },
+    'Singapore': { name: 'Singapore', code: 'SG', flag: '🇸🇬', price: '€5.99' },
+    'Thailand': { name: 'Thailand', code: 'TH', flag: '🇹🇭', price: '€3.99' },
+    'Malaysia': { name: 'Malaysia', code: 'MY', flag: '🇲🇾', price: '€4.49' },
+    'India': { name: 'India', code: 'IN', flag: '🇮🇳', price: '€3.99' },
+    'China': { name: 'China', code: 'CN', flag: '🇨🇳', price: '€7.99' },
+    'Mexico': { name: 'Mexico', code: 'MX', flag: '🇲🇽', price: '€4.49' },
+    'Argentina': { name: 'Argentina', code: 'AR', flag: '🇦🇷', price: '€5.49' },
+    'Chile': { name: 'Chile', code: 'CL', flag: '🇨🇱', price: '€5.99' },
+    'South Africa': { name: 'South Africa', code: 'ZA', flag: '🇿🇦', price: '€6.99' },
+    'Egypt': { name: 'Egypt', code: 'EG', flag: '🇪🇬', price: '€4.99' },
+    'United Arab Emirates': { name: 'United Arab Emirates', code: 'AE', flag: '🇦🇪', price: '€5.99' },
+    'Saudi Arabia': { name: 'Saudi Arabia', code: 'SA', flag: '🇸🇦', price: '€6.99' },
+    'Israel': { name: 'Israel', code: 'IL', flag: '🇮🇱', price: '€5.49' },
+    'New Zealand': { name: 'New Zealand', code: 'NZ', flag: '🇳🇿', price: '€8.99' }
   };
 
   // Dual API geolocation detection
@@ -1645,12 +1670,23 @@ export default function HomeScreen() {
         console.log('ipapi.co response:', ipapiData);
         
         if (!ipapiData.error && ipapiData.country_name) {
-          const country = countryMapping[ipapiData.country_name] || {
-            name: ipapiData.country_name,
-            code: ipapiData.country_code || 'XX',
-            flag: '🌍',
-            price: '€4.99'
-          };
+          // First try exact match, then try common variations
+          let country = countryMapping[ipapiData.country_name];
+          if (!country && ipapiData.country_code) {
+            // Try to find by country code if name doesn't match
+            country = Object.values(countryMapping).find(c => c.code === ipapiData.country_code.toUpperCase());
+          }
+          
+          // If still no match, create a generic entry with proper flag emoji
+          if (!country) {
+            const flagEmoji = getCountryFlagEmoji(ipapiData.country_code);
+            country = {
+              name: ipapiData.country_name,
+              code: ipapiData.country_code || 'XX',
+              flag: flagEmoji,
+              price: '€4.99'
+            };
+          }
           
           setUserCountry(country);
           setLocationStatus('success');
@@ -1672,12 +1708,23 @@ export default function HomeScreen() {
         console.log('ip-api.com response:', ipApiData);
         
         if (ipApiData.status === 'success' && ipApiData.country) {
-          const country = countryMapping[ipApiData.country] || {
-            name: ipApiData.country,
-            code: ipApiData.countryCode || 'XX',
-            flag: '🌍',
-            price: '€4.99'
-          };
+          // First try exact match, then try common variations
+          let country = countryMapping[ipApiData.country];
+          if (!country && ipApiData.countryCode) {
+            // Try to find by country code if name doesn't match
+            country = Object.values(countryMapping).find(c => c.code === ipApiData.countryCode.toUpperCase());
+          }
+          
+          // If still no match, create a generic entry with proper flag emoji
+          if (!country) {
+            const flagEmoji = getCountryFlagEmoji(ipApiData.countryCode);
+            country = {
+              name: ipApiData.country,
+              code: ipApiData.countryCode || 'XX',
+              flag: flagEmoji,
+              price: '€4.99'
+            };
+          }
           
           setUserCountry(country);
           setLocationStatus('success');
@@ -1692,6 +1739,17 @@ export default function HomeScreen() {
     // Both APIs failed - keep default Turkey
     console.log('❌ Both geolocation APIs failed, using default Turkey');
     setLocationStatus('error');
+  };
+
+  // Helper function to convert country code to flag emoji
+  const getCountryFlagEmoji = (countryCode: string): string => {
+    if (!countryCode) return '🌍';
+    
+    // Convert country code to flag emoji
+    const codePoints = countryCode.toUpperCase().split('').map(char => 
+      127397 + char.charCodeAt(0)
+    );
+    return String.fromCodePoint(...codePoints);
   };
 
   // Run geolocation detection on component mount
