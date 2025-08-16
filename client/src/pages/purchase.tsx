@@ -56,8 +56,13 @@ export default function PurchaseScreen() {
   });
 
   const handlePurchase = () => {
-    if (!packageId || !acceptedTerms) return;
+    console.log("handlePurchase called, packageId:", packageId, "acceptedTerms:", acceptedTerms);
+    if (!packageId || !acceptedTerms) {
+      console.log("Purchase blocked - missing packageId or terms not accepted");
+      return;
+    }
     
+    console.log("Starting purchase mutation...");
     purchaseMutation.mutate({
       packageId,
       paymentMethod,
