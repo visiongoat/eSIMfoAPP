@@ -130,6 +130,29 @@ export default function QRCodeScreen() {
           </div>
         </div>
 
+        {/* Manual Installation Section */}
+        <div 
+          onClick={() => setShowManualInstallation(true)}
+          className="mobile-card p-4 mb-4 text-left cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border-l-4 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                <span className="text-gray-600 dark:text-gray-400 text-lg">📱</span>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100">Manual Installation</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Alternative setup method</p>
+              </div>
+            </div>
+            <div className="text-gray-400 dark:text-gray-500">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         {/* Installation Guide */}
         <div className="mobile-card p-4 mb-6 text-left">
           <h3 className="font-semibold mb-3">Installation Guide</h3>
@@ -151,13 +174,6 @@ export default function QRCodeScreen() {
 
         {/* Action Buttons */}
         <div className="space-y-3 pb-4">
-          <button 
-            onClick={() => setShowManualInstallation(true)}
-            className="w-full py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2"
-          >
-            <span>📱</span>
-            <span>Manual Installation</span>
-          </button>
           <button 
             onClick={handleEmailQR}
             className="w-full button-secondary"
