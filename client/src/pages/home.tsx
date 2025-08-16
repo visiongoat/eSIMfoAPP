@@ -2436,15 +2436,13 @@ export default function HomeScreen() {
               >
                 <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  {/* Country Flag Icon - exactly like in your design */}
+                  {/* Country Flag - just the emoji, no background circle */}
                   {locationStatus === 'loading' ? (
                     <div className="w-12 h-12 border-2 border-white/40 border-t-white rounded-full animate-spin"></div>
                   ) : (
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                      <span className="text-2xl">
-                        {userCountry.flag}
-                      </span>
-                    </div>
+                    <span className="text-3xl">
+                      🇦🇹
+                    </span>
                   )}
                   <div className="text-left">
                     <div className="flex items-center space-x-2">
