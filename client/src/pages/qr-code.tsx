@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRoute } from "wouter";
+import { useState } from "react";
 
 import NavigationBar from "@/components/navigation-bar";
+import ManualInstallationModal from "@/components/manual-installation-modal";
 import type { Esim, Package, Country } from "@shared/schema";
 
 export default function QRCodeScreen() {
   const [, params] = useRoute("/qr/:esimId");
   const esimId = params?.esimId ? parseInt(params.esimId) : null;
+  const [showManualInstallation, setShowManualInstallation] = useState(false);
 
   const { data: esim } = useQuery<Esim & { package?: Package; country?: Country }>({
     queryKey: ["/api/esims", esimId],
@@ -149,6 +152,13 @@ export default function QRCodeScreen() {
         {/* Action Buttons */}
         <div className="space-y-3 pb-4">
           <button 
+            onClick={() => setShowManualInstallation(true)}
+            className="w-full py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2"
+          >
+            <span>📱</span>
+            <span>Manual Installation</span>
+          </button>
+          <button 
             onClick={handleEmailQR}
             className="w-full button-secondary"
           >
@@ -162,6 +172,13 @@ export default function QRCodeScreen() {
           </button>
         </div>
       </div>
+
+      {/* Manual Installation Modal */}
+      <ManualInstallationModal
+        isOpen={showManualInstallation}
+        onClose={() => setShowManualInstallation(false)}
+        esim={esim}
+      />
     </div>
   );
 }
