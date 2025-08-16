@@ -4421,28 +4421,23 @@ export default function HomeScreen() {
       {/* Currency & Language Modal */}
       {showCurrencyLanguageModal && (
         <div 
-          className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm flex items-end"
+          className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setShowCurrencyLanguageModal(false);
             }
           }}
         >
-          <div className="bg-white dark:bg-gray-800 rounded-t-3xl w-full h-[90vh] overflow-hidden shadow-2xl border-t border-gray-200 dark:border-gray-700 animate-slide-up">
-            {/* Swipe Handle */}
-            <div className="flex justify-center pt-3 pb-2">
-              <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
-            </div>
-
+          <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-md shadow-2xl border border-gray-200 dark:border-gray-700">
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+            <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700">
               <div>
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Regional Settings</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Choose your preferred currency and language</p>
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white">Settings</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Choose your preferences</p>
               </div>
               <button 
                 onClick={() => setShowCurrencyLanguageModal(false)}
-                className="w-10 h-10 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
               >
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -4450,127 +4445,86 @@ export default function HomeScreen() {
               </button>
             </div>
 
-            {/* Modal Content - Scrollable */}
-            <div className="flex-1 overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-                {/* Currency Section */}
-                <div className="flex flex-col border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700">
-                  <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
-                      <span className="mr-3 text-2xl">💰</span>
-                      Currency
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Select your preferred currency</p>
-                  </div>
-                  
-                  <div className="flex-1 overflow-y-auto p-6">
-                    {/* Group currencies by region */}
-                    {['Europe', 'Americas', 'Asia', 'Middle East', 'Africa', 'Oceania'].map(region => {
-                      const regionCurrencies = currencies.filter(c => c.region === region);
-                      if (regionCurrencies.length === 0) return null;
-                      
-                      return (
-                        <div key={region} className="mb-6">
-                          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 px-2 sticky top-0 bg-white dark:bg-gray-800 py-2">
-                            {region}
-                          </h4>
-                          <div className="space-y-2">
-                            {regionCurrencies.map((currency) => (
-                              <button
-                                key={currency.code}
-                                onClick={() => setSelectedCurrency(currency.code)}
-                                className={`w-full p-3 rounded-xl border transition-all duration-200 flex items-center justify-between hover:shadow-sm ${
-                                  selectedCurrency === currency.code
-                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-sm'
-                                    : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
-                                }`}
-                              >
-                                <div className="flex items-center space-x-3">
-                                  <div className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-                                    <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
-                                      {currency.symbol}
-                                    </span>
-                                  </div>
-                                  <div className="text-left">
-                                    <div className="font-semibold text-gray-900 dark:text-white text-sm">
-                                      {currency.code}
-                                    </div>
-                                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                                      {currency.name}
-                                    </div>
-                                  </div>
-                                </div>
-                                {selectedCurrency === currency.code && (
-                                  <svg className="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                  </svg>
-                                )}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
+            <div className="p-6 space-y-6">
+              {/* Currency Dropdown */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  💰 Currency
+                </label>
+                <select 
+                  value={selectedCurrency}
+                  onChange={(e) => setSelectedCurrency(e.target.value)}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                >
+                  {['Europe', 'Americas', 'Asia', 'Middle East', 'Africa', 'Oceania'].map(region => {
+                    const regionCurrencies = currencies.filter(c => c.region === region);
+                    if (regionCurrencies.length === 0) return null;
+                    
+                    return (
+                      <optgroup key={region} label={region}>
+                        {regionCurrencies.map((currency) => (
+                          <option key={currency.code} value={currency.code}>
+                            {currency.symbol} {currency.code} - {currency.name}
+                          </option>
+                        ))}
+                      </optgroup>
+                    );
+                  })}
+                </select>
+              </div>
 
-                {/* Language Section */}
-                <div className="flex flex-col">
-                  <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
-                      <span className="mr-3 text-2xl">🌍</span>
-                      Language
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Select your preferred language</p>
+              {/* Language Dropdown */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  🌍 Language
+                </label>
+                <select 
+                  value={selectedLanguage}
+                  onChange={(e) => setSelectedLanguage(e.target.value)}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                >
+                  {languages.map((language) => (
+                    <option key={language.code} value={language.code}>
+                      {language.flag} {language.nativeName} ({language.name})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Preview */}
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
+                <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">Preview:</div>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="font-bold text-gray-900 dark:text-white">
+                      {currencies.find(c => c.code === selectedCurrency)?.symbol} {selectedCurrency}
+                    </span>
                   </div>
-                  
-                  <div className="flex-1 overflow-y-auto p-6">
-                    <div className="space-y-3">
-                      {languages.map((language) => (
-                        <button
-                          key={language.code}
-                          onClick={() => setSelectedLanguage(language.code)}
-                          className={`w-full p-4 rounded-xl border transition-all duration-200 flex items-center justify-between hover:shadow-sm ${
-                            selectedLanguage === language.code
-                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-sm'
-                              : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
-                          }`}
-                        >
-                          <div className="flex items-center space-x-4">
-                            <span className="text-3xl">{language.flag}</span>
-                            <div className="text-left">
-                              <div className="font-semibold text-gray-900 dark:text-white">
-                                {language.nativeName}
-                              </div>
-                              <div className="text-sm text-gray-500 dark:text-gray-400">
-                                {language.name}
-                              </div>
-                            </div>
-                          </div>
-                          {selectedLanguage === language.code && (
-                            <svg className="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                            </svg>
-                          )}
-                        </button>
-                      ))}
-                    </div>
+                  <div className="w-px h-4 bg-gray-300 dark:bg-gray-600"></div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xl">{languages.find(l => l.code === selectedLanguage)?.flag}</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {languages.find(l => l.code === selectedLanguage)?.nativeName}
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-500 dark:text-gray-400">
-                  Selected: <span className="font-semibold">{currencies.find(c => c.code === selectedCurrency)?.symbol} {selectedCurrency}</span> • <span className="font-semibold">{languages.find(l => l.code === selectedLanguage)?.nativeName}</span>
-                </div>
+            <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
+              <div className="flex space-x-3">
                 <button
                   onClick={() => setShowCurrencyLanguageModal(false)}
-                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-8 rounded-xl transition-colors"
+                  className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
-                  Apply Settings
+                  Cancel
+                </button>
+                <button
+                  onClick={() => setShowCurrencyLanguageModal(false)}
+                  className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2.5 px-4 rounded-xl transition-colors"
+                >
+                  Apply
                 </button>
               </div>
             </div>
