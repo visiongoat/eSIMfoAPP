@@ -2141,22 +2141,22 @@ export default function HomeScreen() {
             {/* Combined Currency & Language Selector */}
             <button 
               onClick={() => setShowCurrencyLanguageModal(true)}
-              className="flex items-center bg-white border border-gray-200 px-2.5 py-1.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
+              className="flex items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-2.5 py-1.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
             >
-              <span className="text-sm font-bold text-gray-700">
+              <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
                 {currencies.find(c => c.code === selectedCurrency)?.symbol}
               </span>
-              <span className="mx-1 text-gray-500 text-xs">•</span>
+              <span className="mx-1 text-gray-500 dark:text-gray-400 text-xs">•</span>
               <span className="text-lg">{languages.find(l => l.code === selectedLanguage)?.flag}</span>
-              <svg className="w-3 h-3 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 ml-1 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             
             {/* Offline Indicator */}
             {!isOnline && (
-              <div className="flex items-center bg-red-50 border border-red-200 px-2 py-1 rounded-md">
-                <span className="text-xs font-semibold text-red-700">Offline</span>
+              <div className="flex items-center bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 px-2 py-1 rounded-md">
+                <span className="text-xs font-semibold text-red-700 dark:text-red-400">Offline</span>
               </div>
             )}
             
