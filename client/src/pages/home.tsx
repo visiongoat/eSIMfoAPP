@@ -2359,14 +2359,69 @@ export default function HomeScreen() {
                 )}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center">
-                  <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Search Destinations</h3>
-                <p className="text-gray-400">Type a country name to find eSIM plans</p>
+              <div className="space-y-8">
+                {/* Recently Visited Section */}
+                {recentSearches.length > 0 && (
+                  <div className="px-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-white text-lg font-semibold">Recently Visited</h3>
+                      <button 
+                        onClick={() => {
+                          saveRecentSearches([]);
+                          setRecentSearches([]);
+                        }}
+                        className="text-sm text-gray-400 hover:text-gray-300 transition-colors"
+                      >
+                        CLEAR
+                      </button>
+                    </div>
+                    <div className="space-y-3">
+                      {recentSearches.map((search, index) => (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            setSearchQuery(search);
+                            setTimeout(() => {
+                              performSearch(search);
+                            }, 100);
+                          }}
+                          className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
+                        >
+                          <div className="flex items-center space-x-4">
+                            <div className="w-8 h-8 bg-blue-600/20 rounded-sm flex items-center justify-center">
+                              <span className="text-blue-400 text-sm font-bold">
+                                {countries.find(c => c.name.toLowerCase() === search.toLowerCase())?.code || 
+                                 search.slice(0, 2).toUpperCase()}
+                              </span>
+                            </div>
+                            <div>
+                              <div className="text-white font-medium">{search}</div>
+                              <div className="text-gray-400 text-sm">
+                                {countries.find(c => c.name.toLowerCase() === search.toLowerCase()) ? 'Local eSIM plans available' : 'Regional & Global plans'}
+                              </div>
+                            </div>
+                          </div>
+                          <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Empty State */}
+                {recentSearches.length === 0 && (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-white mb-2">Search Destinations</h3>
+                    <p className="text-gray-400">Type a country name to find eSIM plans</p>
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -2490,46 +2545,6 @@ export default function HomeScreen() {
         </button>
       </div>
 
-      {/* Recent Searches Section */}
-      {recentSearches.length > 0 && !showFullScreenSearch && (
-        <div className="max-w-screen-md mx-auto px-4 mb-6">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Son Arananlar</h3>
-            <button 
-              onClick={() => {
-                saveRecentSearches([]);
-                setRecentSearches([]);
-              }}
-              className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-            >
-              Temizle
-            </button>
-          </div>
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-            {recentSearches.map((search, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setSearchQuery(search);
-                  setShowFullScreenSearch(true);
-                  setTimeout(() => {
-                    performSearch(search);
-                  }, 100);
-                }}
-                className="flex-shrink-0 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-750 transition-all duration-200 active:scale-95"
-                data-testid={`recent-search-${search.toLowerCase().replace(' ', '-')}`}
-              >
-                <div className="flex items-center space-x-2">
-                  <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{search}</span>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Modern Pill-Style Tabs - Matched spacing */}
       <div className="max-w-screen-md mx-auto px-4 -mb-2">
