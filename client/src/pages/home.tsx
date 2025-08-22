@@ -1970,9 +1970,9 @@ export default function HomeScreen() {
       coverageType
     });
 
-    // Only add to recent searches if we found actual results
-    if (query.trim().length >= 3 && (matchingCountry || regionalPackages || globalPackages)) {
-      addToRecentSearches(query.trim());
+    // Only add to recent searches if we found a matching country (exact match)
+    if (matchingCountry) {
+      addToRecentSearches(matchingCountry.name); // Save proper country name, not user input
     }
 
     setShowSearchResults(true);
