@@ -2153,9 +2153,9 @@ export default function HomeScreen() {
   // If full screen search is active, show search page instead of home content
   if (showFullScreenSearch) {
     return (
-      <div className="mobile-screen bg-gray-900 min-h-screen animate-in slide-in-from-bottom duration-400 ease-out">
+      <div className="mobile-screen bg-white dark:bg-gray-900 min-h-screen animate-in slide-in-from-bottom duration-400 ease-out">
         {/* Search Header */}
-        <div className="sticky top-0 bg-gray-900 pt-12 pb-4 px-4 border-b border-gray-800">
+        <div className="sticky top-0 bg-white dark:bg-gray-900 pt-12 pb-4 px-4 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-screen-md mx-auto">
             <div className="flex items-center space-x-3">
               <button
@@ -2164,9 +2164,9 @@ export default function HomeScreen() {
                   setSearchQuery('');
                   setShowSearchResults(false);
                 }}
-                className="p-2 rounded-full hover:bg-gray-800 transition-colors"
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
@@ -2180,7 +2180,7 @@ export default function HomeScreen() {
                   value={searchQuery}
                   onChange={handleSearchChange}
                   placeholder="Search destinations..."
-                  className="w-full pl-10 pr-10 py-3 text-base border-0 rounded-xl bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full pl-10 pr-10 py-3 text-base border-0 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
                   autoFocus
                 />
                 {searchQuery && (
@@ -2195,7 +2195,7 @@ export default function HomeScreen() {
                         coverageType: 'none'
                       });
                     }}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-700 transition-colors"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                   >
                     <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -2219,7 +2219,7 @@ export default function HomeScreen() {
                 {/* Local Results */}
                 {searchResults.localCountry && (
                   <div>
-                    <h3 className="text-white text-lg font-semibold mb-4">Local</h3>
+                    <h3 className="text-gray-900 dark:text-white text-lg font-semibold mb-4">Local</h3>
                     <button
                       onClick={() => {
                         handleCountrySelect(searchResults.localCountry!);
@@ -2266,7 +2266,7 @@ export default function HomeScreen() {
                 {/* Regional Results */}
                 {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
                   <div>
-                    <h3 className="text-white text-lg font-semibold mb-4">Regional</h3>
+                    <h3 className="text-gray-900 dark:text-white text-lg font-semibold mb-4">Regional</h3>
                     <div className="space-y-3">
                       {searchResults.regionalPackages.slice(0, 3).map((pkg, index) => (
                         <div key={index} className="p-4 bg-gray-800 rounded-xl">
@@ -2322,7 +2322,7 @@ export default function HomeScreen() {
                 {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-white text-lg font-semibold">Global</h3>
+                      <h3 className="text-gray-900 dark:text-white text-lg font-semibold">Global</h3>
                       <div className="text-xs text-gray-400 bg-orange-500/20 px-2 py-1 rounded-full">
                         172 ülke
                       </div>
@@ -2381,8 +2381,8 @@ export default function HomeScreen() {
                 {/* No Results */}
                 {!searchResults.localCountry && !searchResults.regionalPackages && !searchResults.globalPackages && (
                   <div className="text-center py-12">
-                    <div className="text-gray-400 text-lg">No results found for "{searchQuery}"</div>
-                    <div className="text-gray-500 text-sm mt-2">Try searching for a country name</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-lg">No results found for "{searchQuery}"</div>
+                    <div className="text-gray-500 dark:text-gray-500 text-sm mt-2">Try searching for a country name</div>
                   </div>
                 )}
               </div>
@@ -2392,13 +2392,13 @@ export default function HomeScreen() {
                 {recentSearches.length > 0 && (
                   <div className="px-4">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-white text-lg font-semibold">Recently Visited</h3>
+                      <h3 className="text-gray-900 dark:text-white text-lg font-semibold">Recently Visited</h3>
                       <button 
                         onClick={() => {
                           saveRecentSearches([]);
                           setRecentSearches([]);
                         }}
-                        className="text-sm text-gray-400 hover:text-gray-300 transition-colors"
+                        className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-300 transition-colors"
                       >
                         CLEAR
                       </button>
@@ -2420,7 +2420,7 @@ export default function HomeScreen() {
                               }, 100);
                             }
                           }}
-                          className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
+                          className="w-full p-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
                         >
                           <div className="flex items-center space-x-4">
                             {(() => {
@@ -2450,7 +2450,7 @@ export default function HomeScreen() {
                               );
                             })()}
                             <div>
-                              <div className="text-white font-medium">{search}</div>
+                              <div className="text-gray-900 dark:text-white font-medium">{search}</div>
                               <div className="text-gray-400 text-sm">
                                 {countries.find(c => c.name.toLowerCase() === search.toLowerCase()) ? 'Local eSIM plans available' : 'Regional & Global plans'}
                               </div>
@@ -2468,13 +2468,13 @@ export default function HomeScreen() {
                 {/* Empty State */}
                 {recentSearches.length === 0 && (
                   <div className="text-center py-12">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center">
-                      <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-gray-600 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">Search Destinations</h3>
-                    <p className="text-gray-400">Type a country name to find eSIM plans</p>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Search Destinations</h3>
+                    <p className="text-gray-600 dark:text-gray-400">Type a country name to find eSIM plans</p>
                   </div>
                 )}
               </div>
