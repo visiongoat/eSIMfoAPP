@@ -2155,7 +2155,7 @@ export default function HomeScreen() {
     return (
       <div className="mobile-screen bg-white dark:bg-gray-900 min-h-screen animate-in slide-in-from-bottom duration-400 ease-out">
         {/* Search Header */}
-        <div className="sticky top-0 bg-white dark:bg-gray-900 pt-12 pb-4 px-4 border-b border-gray-200 dark:border-gray-800">
+        <div className="sticky top-0 bg-white dark:bg-gray-900 pt-4 pb-4 px-4 border-b border-gray-200 dark:border-gray-800">
           <div className="max-w-screen-md mx-auto">
             <div className="flex items-center space-x-3">
               <button
