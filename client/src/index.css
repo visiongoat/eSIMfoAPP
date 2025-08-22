@@ -360,7 +360,7 @@
 
   body {
     @apply font-sans antialiased text-foreground;
-    background-color: var(--mobile-bg);
+    background-color: transparent;
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
     /* Ensure safe area is respected */
     padding-bottom: env(safe-area-inset-bottom);
