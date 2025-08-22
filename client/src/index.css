@@ -834,7 +834,12 @@
 
   .mobile-container {
     @apply w-full mx-auto min-h-screen relative overflow-x-hidden;
-    background: transparent;
+    background: white;
+    transition: background-color 0.2s ease;
+  }
+
+  .dark .mobile-container {
+    background: rgb(15 23 42); /* slate-900 */
   }
   
   .mobile-screen {
