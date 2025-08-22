@@ -2295,7 +2295,8 @@ export default function HomeScreen() {
                 {/* Regional Results */}
                 {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
                   <div>
-                    <h3 className="text-gray-900 dark:text-white text-base font-medium mb-2">Regional</h3>
+                    <h3 className="text-gray-900 dark:text-white text-base font-medium mb-1">Regional</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-xs mb-3">Your country may be included in regional packages. Access multiple countries with one plan.</p>
                     <div className="space-y-2">
                       {searchResults.regionalPackages.slice(0, 3).map((pkg, index) => (
                         <div key={index} className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md">
@@ -2350,12 +2351,13 @@ export default function HomeScreen() {
                 {/* Global Results */}
                 {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-gray-900 dark:text-white text-lg font-semibold">Global</h3>
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="text-gray-900 dark:text-white text-base font-medium">Global</h3>
                       <div className="text-xs text-gray-400 bg-orange-500/20 px-2 py-1 rounded-full">
                         172 ülke
                       </div>
                     </div>
+                    <p className="text-gray-600 dark:text-gray-400 text-xs mb-3">Worldwide coverage including your destination. Works in 172+ countries globally.</p>
                     <div className="space-y-2">
                       {searchResults.globalPackages.slice(0, 3).map((pkg, index) => (
                         <div key={index} className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md">
