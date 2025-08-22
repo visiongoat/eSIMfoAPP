@@ -528,6 +528,7 @@ export default function HomeScreen() {
   // Smart search states
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [showFullScreenSearch, setShowFullScreenSearch] = useState(false);
+  const [isSearchTransitioning, setIsSearchTransitioning] = useState(false);
   const [searchResults, setSearchResults] = useState<{
     localCountry: Country | null;
     regionalPackages: any[] | null;
@@ -2152,7 +2153,7 @@ export default function HomeScreen() {
   // If full screen search is active, show search page instead of home content
   if (showFullScreenSearch) {
     return (
-      <div className="mobile-screen bg-gray-900 min-h-screen">
+      <div className="mobile-screen bg-gray-900 min-h-screen animate-in slide-in-from-bottom duration-400 ease-out">
         {/* Search Header */}
         <div className="sticky top-0 bg-gray-900 pt-12 pb-4 px-4 border-b border-gray-800">
           <div className="max-w-screen-md mx-auto">
@@ -2579,8 +2580,19 @@ export default function HomeScreen() {
       {/* Compact Search Bar - Triggers Full Screen */}
       <div className="max-w-screen-md mx-auto px-4 mb-4">
         <button 
-          onClick={() => setShowFullScreenSearch(true)}
-          className="w-full bg-white dark:bg-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 group text-left"
+          onClick={() => {
+            setIsSearchTransitioning(true);
+            // Smooth transition delay
+            setTimeout(() => {
+              setShowFullScreenSearch(true);
+              setIsSearchTransitioning(false);
+            }, 200);
+          }}
+          className={`w-full bg-white dark:bg-gray-800 rounded-2xl p-4 flex items-center space-x-3 hover:shadow-lg border border-gray-200 dark:border-gray-700 group text-left transform transition-all duration-300 ${
+            isSearchTransitioning 
+              ? 'scale-[0.98] -translate-y-2 opacity-80 shadow-xl' 
+              : 'scale-100 translate-y-0 opacity-100'
+          }`}
         >
           {/* Search Icon */}
           <div className="relative">
