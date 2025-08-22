@@ -2368,31 +2368,6 @@ export default function HomeScreen() {
         </button>
       </div>
 
-
-                  {/* No Results */}
-                  {!searchResults.localCountry && !searchResults.regionalPackages && !searchResults.globalPackages && (
-                    <div className="text-center py-8">
-                      <div className="text-gray-500 dark:text-gray-400 text-lg">No results found for "{searchQuery}"</div>
-                      <div className="text-sm text-gray-400 dark:text-gray-500 mt-2">Try searching for a country name</div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="p-8 text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                    <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Search Destinations</h3>
-                  <p className="text-gray-500 dark:text-gray-400">Type a country name to find eSIM plans</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Modern Pill-Style Tabs - Matched spacing */}
       <div className="max-w-screen-md mx-auto px-4 -mb-2">
           <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40">
