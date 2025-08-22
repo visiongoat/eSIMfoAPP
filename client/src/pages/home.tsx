@@ -2261,7 +2261,7 @@ export default function HomeScreen() {
                       className="w-full px-3 py-1.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-md text-left transition-all duration-200 flex items-center justify-between"
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="w-8 h-5 overflow-hidden flex items-center justify-center bg-gray-700 border border-gray-300 rounded-[2px]">
+                        <div className="w-8 h-5 overflow-hidden flex items-center justify-center bg-gray-700 border border-gray-300 rounded-[2px] sim-card-flag">
                           {searchResults.localCountry.flagUrl ? (
                             <img 
                               src={searchResults.localCountry.flagUrl} 
@@ -2457,7 +2457,7 @@ export default function HomeScreen() {
                             {(() => {
                               const matchingCountry = countries.find(c => c.name.toLowerCase() === search.toLowerCase());
                               return (
-                                <div className="w-8 h-5 overflow-hidden flex items-center justify-center bg-gray-700 border border-gray-300 rounded-[2px]">
+                                <div className="w-8 h-5 overflow-hidden flex items-center justify-center bg-gray-700 border border-gray-300 rounded-[2px] sim-card-flag">
                                   {matchingCountry?.flagUrl ? (
                                     <img 
                                       src={matchingCountry.flagUrl} 
