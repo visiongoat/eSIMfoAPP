@@ -247,7 +247,7 @@ export default function QRCodeScreen() {
       {/* TabBar - exact copy from home */}
       <TabBar 
         onPlusClick={() => setShowQuickActions(true)}
-        onShopClick={() => {}}
+        onShopClick={() => setLocation('/home')}
       />
 
       {/* Quick Actions Modal - exact copy from home */}
