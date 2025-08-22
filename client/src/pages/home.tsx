@@ -2184,23 +2184,6 @@ export default function HomeScreen() {
                   type="text"
                   value={searchQuery}
                   onChange={handleSearchChange}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Escape') {
-                      if (searchQuery) {
-                        setSearchQuery('');
-                        performSearch('');
-                        setSearchResults({
-                          localCountry: null,
-                          regionalPackages: null,
-                          globalPackages: null,
-                          coverageType: 'none'
-                        });
-                      } else {
-                        setShowFullScreenSearch(false);
-                        setShowSearchResults(false);
-                      }
-                    }
-                  }}
                   placeholder="Search destinations..."
                   className="w-full pl-10 pr-10 py-3 text-base border-0 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none transition-all duration-200 focus:scale-[1.02] focus:shadow-lg"
                   autoFocus
@@ -2216,6 +2199,12 @@ export default function HomeScreen() {
                         globalPackages: null,
                         coverageType: 'none'
                       });
+                      // Keep focus on input to maintain keyboard
+                      setTimeout(() => {
+                        if (window.fullScreenSearchInputRef) {
+                          window.fullScreenSearchInputRef.focus();
+                        }
+                      }, 10);
                     }}
                     className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 active:scale-95"
                   >
