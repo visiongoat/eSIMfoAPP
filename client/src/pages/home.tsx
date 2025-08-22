@@ -2258,10 +2258,10 @@ export default function HomeScreen() {
                         setShowSearchResults(false);
                         setShowFullScreenSearch(false);
                       }}
-                      className="w-full px-3 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg text-left transition-all duration-200 flex items-center justify-between"
+                      className="w-full px-3 py-1.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg text-left transition-all duration-200 flex items-center justify-between"
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="w-10 h-7 overflow-hidden flex items-center justify-center bg-gray-700 border border-gray-300 rounded-[2px]">
+                        <div className="w-8 h-5 overflow-hidden flex items-center justify-center bg-gray-700 border border-gray-300 rounded-[2px]">
                           {searchResults.localCountry.flagUrl ? (
                             <img 
                               src={searchResults.localCountry.flagUrl} 
@@ -2283,7 +2283,7 @@ export default function HomeScreen() {
                           </span>
                         </div>
                         <div>
-                          <div className="text-gray-900 dark:text-white font-medium">{searchResults.localCountry.name}</div>
+                          <div className="text-gray-900 dark:text-white font-medium text-sm">{searchResults.localCountry.name}</div>
                           <div className="text-gray-500 dark:text-gray-500 text-xs">from €5.50</div>
                         </div>
                       </div>
@@ -2300,7 +2300,7 @@ export default function HomeScreen() {
                     <h3 className="text-gray-900 dark:text-white text-lg font-semibold mb-4">Regional</h3>
                     <div className="space-y-2">
                       {searchResults.regionalPackages.slice(0, 3).map((pkg, index) => (
-                        <div key={index} className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                        <div key={index} className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
                           <div className="flex items-center justify-between">
                             <div>
                               <div className="text-gray-900 dark:text-white font-medium">{pkg.data}</div>
@@ -2360,7 +2360,7 @@ export default function HomeScreen() {
                     </div>
                     <div className="space-y-2">
                       {searchResults.globalPackages.slice(0, 3).map((pkg, index) => (
-                        <div key={index} className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+                        <div key={index} className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
                           <div className="flex items-center justify-between">
                             <div>
                               <div className="text-gray-900 dark:text-white font-medium">{pkg.data}</div>
@@ -2451,13 +2451,13 @@ export default function HomeScreen() {
                               }, 100);
                             }
                           }}
-                          className="w-full px-3 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg text-left transition-all duration-200 flex items-center justify-between group"
+                          className="w-full px-3 py-1.5 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg text-left transition-all duration-200 flex items-center justify-between group"
                         >
                           <div className="flex items-center space-x-4">
                             {(() => {
                               const matchingCountry = countries.find(c => c.name.toLowerCase() === search.toLowerCase());
                               return (
-                                <div className="w-10 h-7 overflow-hidden flex items-center justify-center bg-gray-700 border border-gray-300 rounded-[2px]">
+                                <div className="w-8 h-5 overflow-hidden flex items-center justify-center bg-gray-700 border border-gray-300 rounded-[2px]">
                                   {matchingCountry?.flagUrl ? (
                                     <img 
                                       src={matchingCountry.flagUrl} 
@@ -2481,7 +2481,7 @@ export default function HomeScreen() {
                               );
                             })()}
                             <div>
-                              <div className="text-gray-900 dark:text-white font-medium">{search}</div>
+                              <div className="text-gray-900 dark:text-white font-medium text-sm">{search}</div>
                               <div className="text-gray-500 dark:text-gray-500 text-xs">
                                 {countries.find(c => c.name.toLowerCase() === search.toLowerCase()) ? 'from €5.50' : 'Regional & Global plans'}
                               </div>
