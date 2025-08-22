@@ -2407,10 +2407,17 @@ export default function HomeScreen() {
                         <button
                           key={index}
                           onClick={() => {
-                            setSearchQuery(search);
-                            setTimeout(() => {
-                              performSearch(search);
-                            }, 100);
+                            const matchingCountry = countries.find(c => c.name.toLowerCase() === search.toLowerCase());
+                            if (matchingCountry) {
+                              // Direct navigation to country packages page
+                              setLocation(`/packages/${matchingCountry.id}?from=recently-visited`);
+                            } else {
+                              // Fallback to search if somehow country not found
+                              setSearchQuery(search);
+                              setTimeout(() => {
+                                performSearch(search);
+                              }, 100);
+                            }
                           }}
                           className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
                         >
