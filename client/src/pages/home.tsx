@@ -2185,9 +2185,6 @@ export default function HomeScreen() {
                 />
               </div>
               
-              <div className="text-blue-400 text-sm font-medium px-3 py-2 bg-gray-800 rounded-lg">
-                İPTAL ET
-              </div>
             </div>
           </div>
         </div>
