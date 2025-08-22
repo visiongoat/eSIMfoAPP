@@ -2238,7 +2238,7 @@ export default function HomeScreen() {
                       className="w-full p-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between"
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="w-8 h-8 rounded-sm overflow-hidden flex items-center justify-center bg-gray-700">
+                        <div className="w-10 h-8 rounded-sm overflow-hidden flex items-center justify-center bg-gray-700 sim-card-flag">
                           {searchResults.localCountry.flagUrl ? (
                             <img 
                               src={searchResults.localCountry.flagUrl} 
