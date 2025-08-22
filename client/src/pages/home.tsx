@@ -2229,8 +2229,26 @@ export default function HomeScreen() {
                       className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between"
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="w-8 h-8 bg-red-600 rounded-sm flex items-center justify-center">
-                          <span className="text-white text-sm font-bold">{searchResults.localCountry.code}</span>
+                        <div className="w-8 h-8 rounded-sm overflow-hidden flex items-center justify-center bg-gray-700">
+                          {searchResults.localCountry.flagUrl ? (
+                            <img 
+                              src={searchResults.localCountry.flagUrl} 
+                              alt={searchResults.localCountry.name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                const fallback = target.nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'flex';
+                              }}
+                            />
+                          ) : null}
+                          <span 
+                            className="text-white text-sm font-bold w-full h-full flex items-center justify-center bg-red-600"
+                            style={{ display: searchResults.localCountry.flagUrl ? 'none' : 'flex' }}
+                          >
+                            {searchResults.localCountry.code}
+                          </span>
                         </div>
                         <div>
                           <div className="text-white font-medium">{searchResults.localCountry.name}</div>
@@ -2397,12 +2415,32 @@ export default function HomeScreen() {
                           className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
                         >
                           <div className="flex items-center space-x-4">
-                            <div className="w-8 h-8 bg-blue-600/20 rounded-sm flex items-center justify-center">
-                              <span className="text-blue-400 text-sm font-bold">
-                                {countries.find(c => c.name.toLowerCase() === search.toLowerCase())?.code || 
-                                 search.slice(0, 2).toUpperCase()}
-                              </span>
-                            </div>
+                            {(() => {
+                              const matchingCountry = countries.find(c => c.name.toLowerCase() === search.toLowerCase());
+                              return (
+                                <div className="w-8 h-8 rounded-sm overflow-hidden flex items-center justify-center bg-gray-700">
+                                  {matchingCountry?.flagUrl ? (
+                                    <img 
+                                      src={matchingCountry.flagUrl} 
+                                      alt={matchingCountry.name}
+                                      className="w-full h-full object-cover"
+                                      onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        target.style.display = 'none';
+                                        const fallback = target.nextElementSibling as HTMLElement;
+                                        if (fallback) fallback.style.display = 'flex';
+                                      }}
+                                    />
+                                  ) : null}
+                                  <span 
+                                    className="text-blue-400 text-sm font-bold w-full h-full flex items-center justify-center"
+                                    style={{ display: matchingCountry?.flagUrl ? 'none' : 'flex' }}
+                                  >
+                                    {matchingCountry?.code || search.slice(0, 2).toUpperCase()}
+                                  </span>
+                                </div>
+                              );
+                            })()}
                             <div>
                               <div className="text-white font-medium">{search}</div>
                               <div className="text-gray-400 text-sm">
