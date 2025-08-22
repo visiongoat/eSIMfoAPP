@@ -244,8 +244,9 @@
   animation: searchExpand 0.35s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
 }
 
-/* Clean circular flag container */
-.flag-circle {
+/* SIM Card shaped flag container - bottom-right corner cut */
+.sim-card-flag {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 85% 100%, 0% 100%);
   position: relative;
 }
 
