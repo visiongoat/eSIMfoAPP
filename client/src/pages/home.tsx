@@ -2179,10 +2179,46 @@ export default function HomeScreen() {
                   type="text"
                   value={searchQuery}
                   onChange={handleSearchChange}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      if (searchQuery) {
+                        setSearchQuery('');
+                        performSearch('');
+                        setSearchResults({
+                          localCountry: null,
+                          regionalPackages: null,
+                          globalPackages: null,
+                          coverageType: 'none'
+                        });
+                      } else {
+                        setShowFullScreenSearch(false);
+                        setShowSearchResults(false);
+                      }
+                    }
+                  }}
                   placeholder="Search destinations..."
-                  className="w-full pl-10 pr-4 py-3 text-base border-0 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full pl-10 pr-10 py-3 text-base border-0 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none transition-all duration-200 focus:scale-[1.02] focus:shadow-lg"
                   autoFocus
                 />
+                {searchQuery && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      performSearch('');
+                      setSearchResults({
+                        localCountry: null,
+                        regionalPackages: null,
+                        globalPackages: null,
+                        coverageType: 'none'
+                      });
+                    }}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 active:scale-95"
+                  >
+                    <svg className="w-4 h-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
               </div>
               
             </div>
