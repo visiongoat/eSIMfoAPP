@@ -1929,9 +1929,6 @@ export default function HomeScreen() {
 
     const searchTerm = query.toLowerCase().trim();
     
-    // Add to recent searches
-    addToRecentSearches(query.trim());
-    
     // Find matching local country
     const matchingCountry = countries.find(country => 
       country.name.toLowerCase().includes(searchTerm)
@@ -1973,18 +1970,30 @@ export default function HomeScreen() {
       coverageType
     });
 
+    // Only add to recent searches if we found actual results
+    if (query.trim().length >= 3 && (matchingCountry || regionalPackages || globalPackages)) {
+      addToRecentSearches(query.trim());
+    }
+
     setShowSearchResults(true);
   };
 
-  // Handle search input changes
+  // Handle search input changes with proper debouncing
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
     
+    // Clear previous timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    
     // Debounce search
-    setTimeout(() => {
+    searchTimeoutRef.current = setTimeout(() => {
       performSearch(query);
-    }, 300);
+    }, 500); // Increased to 500ms for better UX
   };
 
   // Helper function to detect error type
