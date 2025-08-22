@@ -2336,8 +2336,8 @@ export default function HomeScreen() {
                             </svg>
                           </div>
                           <div>
-                            <div className="text-gray-900 dark:text-white font-medium">Tüm Avrupa planları</div>
-                            <div className="text-gray-600 dark:text-gray-400 text-sm">+{searchResults.regionalPackages.length - 3} daha fazla plan</div>
+                            <div className="text-gray-900 dark:text-white font-medium">All Europe Plans</div>
+                            <div className="text-gray-600 dark:text-gray-400 text-sm">+{searchResults.regionalPackages.length - 3} more plans</div>
                           </div>
                         </div>
                         <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2354,7 +2354,7 @@ export default function HomeScreen() {
                     <div className="flex items-center justify-between mb-1">
                       <h3 className="text-gray-900 dark:text-white text-base font-medium">Global</h3>
                       <div className="text-xs text-gray-400 bg-orange-500/20 px-2 py-1 rounded-full">
-                        172 ülke
+                        172 countries
                       </div>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 text-xs mb-3">Worldwide coverage including your destination. Works in 172+ countries globally.</p>
@@ -2364,7 +2364,7 @@ export default function HomeScreen() {
                           <div className="flex items-center justify-between">
                             <div>
                               <div className="text-gray-900 dark:text-white font-medium">{pkg.data}</div>
-                              <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.duration} days • Global kapsam</div>
+                              <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.duration} days • Global coverage</div>
                             </div>
                             <div className="text-gray-900 dark:text-white font-bold text-lg">{pkg.price}</div>
                           </div>
@@ -2397,8 +2397,8 @@ export default function HomeScreen() {
                             </svg>
                           </div>
                           <div>
-                            <div className="text-gray-900 dark:text-white font-medium">Tüm Global planları</div>
-                            <div className="text-gray-600 dark:text-gray-400 text-sm">+{searchResults.globalPackages.length - 3} daha fazla plan</div>
+                            <div className="text-gray-900 dark:text-white font-medium">All Global Plans</div>
+                            <div className="text-gray-600 dark:text-gray-400 text-sm">+{searchResults.globalPackages.length - 3} more plans</div>
                           </div>
                         </div>
                         <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
