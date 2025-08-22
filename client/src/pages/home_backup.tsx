@@ -2093,6 +2093,166 @@ export default function HomeScreen() {
     );
   }
   
+  // If full screen search is active, show search page instead of home content
+  if (showFullScreenSearch) {
+    return (
+      <div className="mobile-screen bg-gray-900 min-h-screen">
+        {/* Search Header */}
+        <div className="sticky top-0 bg-gray-900 pt-12 pb-4 px-4 border-b border-gray-800">
+          <div className="max-w-screen-md mx-auto">
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => {
+                  setShowFullScreenSearch(false);
+                  setSearchQuery('');
+                  setShowSearchResults(false);
+                }}
+                className="p-2 rounded-full hover:bg-gray-800 transition-colors"
+              >
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <div className="relative flex-1">
+                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search destinations..."
+                  className="w-full pl-10 pr-10 py-3 text-base border-0 rounded-xl bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 outline-none"
+                  autoFocus
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      performSearch('');
+                      setSearchResults({
+                        localCountry: null,
+                        regionalPackages: null,
+                        globalPackages: null,
+                        coverageType: 'none'
+                      });
+                    }}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-700 transition-colors"
+                  >
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              
+              <div className="text-blue-400 text-sm font-medium px-3 py-2 bg-gray-800 rounded-lg">
+                İPTAL ET
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Search Results */}
+        <div className="px-4 pt-6 pb-20">
+          <div className="max-w-screen-md mx-auto">
+            {searchQuery ? (
+              <div className="space-y-8">
+                {/* Local Results */}
+                {searchResults.localCountry && (
+                  <div>
+                    <h3 className="text-white text-lg font-semibold mb-4">Local</h3>
+                    <button
+                      onClick={() => {
+                        handleCountrySelect(searchResults.localCountry!);
+                        setSearchQuery('');
+                        setShowSearchResults(false);
+                        setShowFullScreenSearch(false);
+                      }}
+                      className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-8 h-8 bg-red-600 rounded-sm flex items-center justify-center">
+                          <span className="text-white text-sm font-bold">{searchResults.localCountry.code}</span>
+                        </div>
+                        <div>
+                          <div className="text-white font-medium">{searchResults.localCountry.name}</div>
+                          <div className="text-gray-400 text-sm">Local eSIM plans available</div>
+                        </div>
+                      </div>
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                )}
+
+                {/* Regional Results */}
+                {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
+                  <div>
+                    <h3 className="text-white text-lg font-semibold mb-4">Regional</h3>
+                    <div className="space-y-3">
+                      {searchResults.regionalPackages.map((pkg, index) => (
+                        <div key={index} className="p-4 bg-gray-800 rounded-xl">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="text-white font-medium">{pkg.data}</div>
+                              <div className="text-gray-400 text-sm">{pkg.duration} days • Europa</div>
+                            </div>
+                            <div className="text-green-400 font-bold text-lg">{pkg.price}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Global Results */}
+                {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
+                  <div>
+                    <h3 className="text-white text-lg font-semibold mb-4">Global</h3>
+                    <div className="space-y-3">
+                      {searchResults.globalPackages.map((pkg, index) => (
+                        <div key={index} className="p-4 bg-gray-800 rounded-xl">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="text-white font-medium">{pkg.data}</div>
+                              <div className="text-gray-400 text-sm">{pkg.duration} days • Global</div>
+                            </div>
+                            <div className="text-green-400 font-bold text-lg">{pkg.price}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* No Results */}
+                {!searchResults.localCountry && !searchResults.regionalPackages && !searchResults.globalPackages && (
+                  <div className="text-center py-12">
+                    <div className="text-gray-400 text-lg">No results found for "{searchQuery}"</div>
+                    <div className="text-gray-500 text-sm mt-2">Try searching for a country name</div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gray-800 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">Search Destinations</h3>
+                <p className="text-gray-400">Type a country name to find eSIM plans</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen pb-20 swipe-container">
       {/* Compact Header with Search */}
@@ -2208,155 +2368,6 @@ export default function HomeScreen() {
         </button>
       </div>
 
-      {/* Full Screen Search Modal */}
-      {showFullScreenSearch && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-[10000] flex items-start justify-center p-4">
-          <div className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl mt-8 overflow-hidden">
-            {/* Search Header */}
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <div className="flex items-center space-x-4">
-                <div className="relative flex-1">
-                  <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    placeholder="Search destinations..."
-                    className="w-full pl-10 pr-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                    autoFocus
-                  />
-                  {searchQuery && (
-                    <button
-                      onClick={() => {
-                        setSearchQuery('');
-                        setSearchResults({
-                          localCountry: null,
-                          regionalPackages: null,
-                          globalPackages: null,
-                          coverageType: 'none'
-                        });
-                      }}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
-                    >
-                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-                <button
-                  onClick={() => {
-                    setShowFullScreenSearch(false);
-                    setSearchQuery('');
-                    setShowSearchResults(false);
-                  }}
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Search Results */}
-            <div className="max-h-96 overflow-y-auto">
-              {searchQuery ? (
-                <div className="p-4">
-                  {/* Local Country Result */}
-                  {searchResults.localCountry && (
-                    <div className="mb-6">
-                      <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">Local Plans</h3>
-                      <button
-                        onClick={() => {
-                          handleCountrySelect(searchResults.localCountry!);
-                          setSearchQuery('');
-                          setShowSearchResults(false);
-                          setShowFullScreenSearch(false);
-                        }}
-                        className="w-full p-4 flex items-center space-x-4 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl text-left transition-all duration-200 border border-gray-200 dark:border-gray-600"
-                      >
-                        <div className="w-12 h-12 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center shadow-sm border border-gray-200 dark:border-gray-600">
-                          <span className="text-xl">{searchResults.localCountry.code === 'TR' ? '🇹🇷' : searchResults.localCountry.code === 'FR' ? '🇫🇷' : '🌍'}</span>
-                        </div>
-                        <div className="flex-1">
-                          <div className="font-semibold text-gray-900 dark:text-gray-100 text-lg">{searchResults.localCountry.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">Local eSIM plans available</div>
-                        </div>
-                        <svg className="w-5 h-5 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
-                    </div>
-                  )}
-
-                  {/* Regional Packages */}
-                  {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
-                    <div className="mb-6">
-                      <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">Regional Plans</h3>
-                      {searchResults.regionalPackages.slice(0, 3).map((pkg, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            setSelectedTab('regional');
-                            setSearchQuery('');
-                            setShowSearchResults(false);
-                            setShowFullScreenSearch(false);
-                            setTimeout(() => {
-                              const regionElement = document.getElementById('regional-content');
-                              if (regionElement) {
-                                regionElement.scrollIntoView({ behavior: 'smooth' });
-                              }
-                            }, 100);
-                          }}
-                          className="w-full p-4 mb-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl text-left transition-all duration-200 border border-gray-200 dark:border-gray-600"
-                        >
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <div className="font-semibold text-gray-900 dark:text-gray-100">{pkg.data}</div>
-                              <div className="text-sm text-gray-500 dark:text-gray-400">{pkg.duration} days • Europa</div>
-                            </div>
-                            <div className="text-lg font-bold text-green-600 dark:text-green-400">{pkg.price}</div>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Global Packages */}
-                  {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
-                    <div className="mb-6">
-                      <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">Global Plans</h3>
-                      {searchResults.globalPackages.slice(0, 3).map((pkg, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            setSelectedTab('global');
-                            setSearchQuery('');
-                            setShowSearchResults(false);
-                            setShowFullScreenSearch(false);
-                            setTimeout(() => {
-                              const globalElement = document.getElementById('global-content');
-                              if (globalElement) {
-                                globalElement.scrollIntoView({ behavior: 'smooth' });
-                              }
-                            }, 100);
-                          }}
-                          className="w-full p-4 mb-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl text-left transition-all duration-200 border border-gray-200 dark:border-gray-600"
-                        >
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <div className="font-semibold text-gray-900 dark:text-gray-100">{pkg.data}</div>
-                              <div className="text-sm text-gray-500 dark:text-gray-400">{pkg.duration} days • Global</div>
-                            </div>
-                            <div className="text-lg font-bold text-orange-600 dark:text-orange-400">{pkg.price}</div>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  )}
 
                   {/* No Results */}
                   {!searchResults.localCountry && !searchResults.regionalPackages && !searchResults.globalPackages && (
@@ -2383,167 +2394,7 @@ export default function HomeScreen() {
       )}
 
       {/* Modern Pill-Style Tabs - Matched spacing */}
-        <div className="max-w-screen-md mx-auto px-4 -mb-2">
-                <div className="p-3 border-b border-gray-100 dark:border-gray-700">
-                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Local Plans</div>
-                  <button
-                    onClick={() => {
-                      handleCountrySelect(searchResults.localCountry!);
-                      setSearchQuery('');
-                      setShowSearchResults(false);
-                    }}
-                    className="w-full px-3 py-2 flex items-center space-x-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg text-left transition-all duration-200 group"
-                  >
-                    <div className="w-8 h-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center shadow-sm border border-gray-200 dark:border-gray-600">
-                      <span className="text-lg">{searchResults.localCountry.code === 'TR' ? '🇹🇷' : searchResults.localCountry.code === 'FR' ? '🇫🇷' : '🌍'}</span>
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.localCountry.name}</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">Local eSIM plans available</div>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              )}
-
-              {/* Regional Packages */}
-              {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
-                <div className="p-3 border-b border-gray-100 dark:border-gray-700">
-                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Europa Regional Plans</div>
-                  
-                  {/* Show only first plan */}
-                  <button
-                    onClick={() => {
-                      // Switch to regional tab and scroll to Europa
-                      setSelectedTab('regional');
-                      setSearchQuery('');
-                      setShowSearchResults(false);
-                      // Small delay to ensure tab switch completes before scrolling
-                      setTimeout(() => {
-                        const regionElement = document.getElementById('regional-content');
-                        if (regionElement) {
-                          regionElement.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }, 100);
-                    }}
-                    className="w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-2 text-left transition-all duration-200"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.regionalPackages[0].data}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{searchResults.regionalPackages[0].duration} days • Europa</div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <div className="text-lg font-bold text-green-600 dark:text-green-400">{searchResults.regionalPackages[0].price}</div>
-                        <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </button>
-
-                  {/* More plans indicator */}
-                  {searchResults.regionalPackages.length > 1 && (
-                    <button
-                      onClick={() => {
-                        setSelectedTab('regional');
-                        setSearchQuery('');
-                        setShowSearchResults(false);
-                        setTimeout(() => {
-                          const regionElement = document.getElementById('regional-content');
-                          if (regionElement) {
-                            regionElement.scrollIntoView({ behavior: 'smooth' });
-                          }
-                        }, 100);
-                      }}
-                      className="w-full px-3 py-2 flex items-center justify-center space-x-2 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-all duration-200 group"
-                    >
-                      <span className="text-sm font-medium">+{searchResults.regionalPackages.length - 1} more Europa plans</span>
-                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-              )}
-
-              {/* Global Packages */}
-              {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
-                <div className="p-3">
-                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Global Plans</div>
-                  
-                  {/* Show only first plan */}
-                  <button
-                    onClick={() => {
-                      // Switch to global tab
-                      setSelectedTab('global');
-                      setSearchQuery('');
-                      setShowSearchResults(false);
-                      // Small delay to ensure tab switch completes before scrolling
-                      setTimeout(() => {
-                        const globalElement = document.getElementById('global-content');
-                        if (globalElement) {
-                          globalElement.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }, 100);
-                    }}
-                    className="w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-2 text-left transition-all duration-200"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.globalPackages[0].data}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">{searchResults.globalPackages[0].duration} days • Global</div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <div className="text-lg font-bold text-orange-600 dark:text-orange-400">{searchResults.globalPackages[0].price}</div>
-                        <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </button>
-
-                  {/* More plans indicator */}
-                  {searchResults.globalPackages.length > 1 && (
-                    <button
-                      onClick={() => {
-                        setSelectedTab('global');
-                        setSearchQuery('');
-                        setShowSearchResults(false);
-                        setTimeout(() => {
-                          const globalElement = document.getElementById('global-content');
-                          if (globalElement) {
-                            globalElement.scrollIntoView({ behavior: 'smooth' });
-                          }
-                        }, 100);
-                      }}
-                      className="w-full px-3 py-2 flex items-center justify-center space-x-2 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-all duration-200 group"
-                    >
-                      <span className="text-sm font-medium">+{searchResults.globalPackages.length - 1} more Global plans</span>
-                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  )}
-                </div>
-              )}
-
-              {/* No Results */}
-              {!searchResults.localCountry && !searchResults.regionalPackages && !searchResults.globalPackages && (
-                <div className="p-4 text-center">
-                  <div className="text-gray-500 dark:text-gray-400">No results found for "{searchQuery}"</div>
-                  <div className="text-sm text-gray-400 dark:text-gray-500 mt-1">Try searching for a country name</div>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Modern Pill-Style Tabs - Matched spacing */}
-        <div className="max-w-screen-md mx-auto px-4 -mb-2">
+      <div className="max-w-screen-md mx-auto px-4 -mb-2">
           <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40">
             {[
               { 
