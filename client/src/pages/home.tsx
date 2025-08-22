@@ -1902,21 +1902,27 @@ export default function HomeScreen() {
       searchTerm.includes(europaCountry.toLowerCase())
     );
 
-    // For global, assume any country not specifically in Europa is global
-    const isInGlobal = !isInEuropa && (matchingCountry || globalCoverage.some(globalCountry => 
+    // Check if country is in Global coverage (independent of Europa)
+    const isInGlobal = matchingCountry || globalCoverage.some(globalCountry => 
       globalCountry.name.toLowerCase().includes(searchTerm)
-    ));
+    );
 
     let coverageType: 'europa' | 'global' | 'none' = 'none';
     let regionalPackages = null;
     let globalPackages = null;
 
+    // Show regional packages if country is in Europa
     if (isInEuropa) {
       coverageType = 'europa';
       regionalPackages = europaPlans;
-    } else if (isInGlobal || matchingCountry) {
-      coverageType = 'global';
+    }
+    
+    // Always show global packages if country is in global coverage
+    if (isInGlobal) {
       globalPackages = globalDataPlans;
+      if (coverageType === 'none') {
+        coverageType = 'global';
+      }
     }
 
     setSearchResults({
