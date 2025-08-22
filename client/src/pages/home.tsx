@@ -29,8 +29,17 @@ import CheckoutModal from "@/components/checkout-modal";
 import type { Country, Package } from "@shared/schema";
 
 export default function HomeScreen() {
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const [selectedTab, setSelectedTab] = useState('local');
+
+  // Check URL parameters for tab selection
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab');
+    if (tabParam && ['local', 'regional', 'global'].includes(tabParam)) {
+      setSelectedTab(tabParam);
+    }
+  }, [location]);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [selectedContinent, setSelectedContinent] = useState<string | null>(null);
   const [showCountriesModal, setShowCountriesModal] = useState(false);
@@ -3707,7 +3716,7 @@ export default function HomeScreen() {
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setLocation('/destinations?tab=countries');
+                  setSelectedTab('local');
                 }}
                 className="w-full bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800/30 dark:hover:to-blue-700/30 rounded-2xl p-4 border border-blue-200 dark:border-blue-700 transition-all duration-200 group active:scale-[0.98]"
               >
@@ -3734,7 +3743,7 @@ export default function HomeScreen() {
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setLocation('/destinations?tab=regions');
+                  setSelectedTab('regional');
                 }}
                 className="w-full bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 hover:from-green-100 hover:to-green-200 dark:hover:from-green-800/30 dark:hover:to-green-700/30 rounded-2xl p-4 border border-green-200 dark:border-green-700 transition-all duration-200 group active:scale-[0.98]"
               >
@@ -3760,7 +3769,7 @@ export default function HomeScreen() {
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setLocation('/destinations?tab=global');
+                  setSelectedTab('global');
                 }}
                 className="w-full bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 hover:from-purple-100 hover:to-purple-200 dark:hover:from-purple-800/30 dark:hover:to-purple-700/30 rounded-2xl p-4 border border-purple-200 dark:border-purple-700 transition-all duration-200 group active:scale-[0.98]"
               >
