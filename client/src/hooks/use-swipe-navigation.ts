@@ -85,8 +85,7 @@ export function useSwipeNavigation(options: SwipeNavigationOptions = {}) {
       
       // Define navigation hierarchy
       const navigationMap: Record<string, string> = {
-        '/destinations': '/home',
-        '/packages': '/destinations',
+        '/packages': '/home',
         '/purchase': '/packages',
         '/qr': '/purchase',
         '/my-esims': '/home',
@@ -100,15 +99,15 @@ export function useSwipeNavigation(options: SwipeNavigationOptions = {}) {
 
       // Handle dynamic routes
       if (currentPath.startsWith('/packages/')) {
-        setLocation('/destinations');
+        setLocation('/home');
         return;
       }
       if (currentPath.startsWith('/purchase/')) {
         // Go back to packages with same country ID
         const packageMatch = currentPath.match(/\/purchase\/(\d+)/);
         if (packageMatch) {
-          // For now, go to destinations - could be enhanced to remember country
-          setLocation('/destinations');
+          // Go back to home page
+          setLocation('/home');
         }
         return;
       }
