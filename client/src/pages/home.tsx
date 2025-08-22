@@ -2250,7 +2250,7 @@ export default function HomeScreen() {
                 {/* Local Results */}
                 {searchResults.localCountry && (
                   <div>
-                    <h3 className="text-gray-900 dark:text-white text-lg font-semibold mb-4">Local</h3>
+                    <h3 className="text-gray-900 dark:text-white text-base font-medium mb-2">Local</h3>
                     <button
                       onClick={() => {
                         handleCountrySelect(searchResults.localCountry!);
@@ -2297,7 +2297,7 @@ export default function HomeScreen() {
                 {/* Regional Results */}
                 {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
                   <div>
-                    <h3 className="text-gray-900 dark:text-white text-lg font-semibold mb-4">Regional</h3>
+                    <h3 className="text-gray-900 dark:text-white text-base font-medium mb-2">Regional</h3>
                     <div className="space-y-2">
                       {searchResults.regionalPackages.slice(0, 3).map((pkg, index) => (
                         <div key={index} className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md">
@@ -2423,7 +2423,7 @@ export default function HomeScreen() {
                 {recentSearches.length > 0 && (
                   <div className="px-4">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-gray-900 dark:text-white text-lg font-semibold">Recently Visited</h3>
+                      <h3 className="text-gray-900 dark:text-white text-base font-medium">Recently Visited</h3>
                       <button 
                         onClick={() => {
                           saveRecentSearches([]);
