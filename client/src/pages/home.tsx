@@ -2205,7 +2205,7 @@ export default function HomeScreen() {
                         setShowSearchResults(false);
                         setShowFullScreenSearch(false);
                       }}
-                      className="w-full p-4 bg-gray-800 hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between"
+                      className="w-full p-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl text-left transition-all duration-200 flex items-center justify-between"
                     >
                       <div className="flex items-center space-x-4">
                         <div className="w-8 h-8 rounded-sm overflow-hidden flex items-center justify-center bg-gray-700">
@@ -2230,8 +2230,8 @@ export default function HomeScreen() {
                           </span>
                         </div>
                         <div>
-                          <div className="text-white font-medium">{searchResults.localCountry.name}</div>
-                          <div className="text-gray-400 text-sm">Local eSIM plans available</div>
+                          <div className="text-gray-900 dark:text-white font-medium">{searchResults.localCountry.name}</div>
+                          <div className="text-gray-600 dark:text-gray-400 text-sm">Local eSIM plans available</div>
                         </div>
                       </div>
                       <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2247,11 +2247,11 @@ export default function HomeScreen() {
                     <h3 className="text-gray-900 dark:text-white text-lg font-semibold mb-4">Regional</h3>
                     <div className="space-y-3">
                       {searchResults.regionalPackages.slice(0, 3).map((pkg, index) => (
-                        <div key={index} className="p-4 bg-gray-800 rounded-xl">
+                        <div key={index} className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl">
                           <div className="flex items-center justify-between">
                             <div>
-                              <div className="text-white font-medium">{pkg.data}</div>
-                              <div className="text-gray-400 text-sm">{pkg.duration} days • Europa</div>
+                              <div className="text-gray-900 dark:text-white font-medium">{pkg.data}</div>
+                              <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.duration} days • Europa</div>
                             </div>
                             <div className="text-green-400 font-bold text-lg">{pkg.price}</div>
                           </div>
@@ -2275,7 +2275,7 @@ export default function HomeScreen() {
                             }
                           }, 100);
                         }}
-                        className="w-full mt-4 p-3 bg-gray-700 hover:bg-gray-600 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
+                        className="w-full mt-4 p-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="w-8 h-8 bg-green-600/20 rounded-full flex items-center justify-center">
@@ -2284,8 +2284,8 @@ export default function HomeScreen() {
                             </svg>
                           </div>
                           <div>
-                            <div className="text-white font-medium">Tüm Avrupa planları</div>
-                            <div className="text-gray-400 text-sm">+{searchResults.regionalPackages.length - 3} daha fazla plan</div>
+                            <div className="text-gray-900 dark:text-white font-medium">Tüm Avrupa planları</div>
+                            <div className="text-gray-600 dark:text-gray-400 text-sm">+{searchResults.regionalPackages.length - 3} daha fazla plan</div>
                           </div>
                         </div>
                         <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2307,11 +2307,11 @@ export default function HomeScreen() {
                     </div>
                     <div className="space-y-3">
                       {searchResults.globalPackages.slice(0, 3).map((pkg, index) => (
-                        <div key={index} className="p-4 bg-gray-800 rounded-xl">
+                        <div key={index} className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl">
                           <div className="flex items-center justify-between">
                             <div>
-                              <div className="text-white font-medium">{pkg.data}</div>
-                              <div className="text-gray-400 text-sm">{pkg.duration} days • Global kapsam</div>
+                              <div className="text-gray-900 dark:text-white font-medium">{pkg.data}</div>
+                              <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.duration} days • Global kapsam</div>
                             </div>
                             <div className="text-green-400 font-bold text-lg">{pkg.price}</div>
                           </div>
@@ -2335,7 +2335,7 @@ export default function HomeScreen() {
                             }
                           }, 100);
                         }}
-                        className="w-full mt-4 p-3 bg-gray-700 hover:bg-gray-600 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
+                        className="w-full mt-4 p-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-xl text-left transition-all duration-200 flex items-center justify-between group"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="w-8 h-8 bg-orange-600/20 rounded-full flex items-center justify-center">
@@ -2344,8 +2344,8 @@ export default function HomeScreen() {
                             </svg>
                           </div>
                           <div>
-                            <div className="text-white font-medium">Tüm Global planları</div>
-                            <div className="text-gray-400 text-sm">+{searchResults.globalPackages.length - 3} daha fazla plan</div>
+                            <div className="text-gray-900 dark:text-white font-medium">Tüm Global planları</div>
+                            <div className="text-gray-600 dark:text-gray-400 text-sm">+{searchResults.globalPackages.length - 3} daha fazla plan</div>
                           </div>
                         </div>
                         <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
