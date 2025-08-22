@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import NavigationBar from "@/components/navigation-bar";
 import ManualInstallationModal from "@/components/manual-installation-modal";
+import TabBar from "@/components/tab-bar";
 import type { Esim, Package, Country } from "@shared/schema";
 
 export default function QRCodeScreen() {
@@ -239,6 +240,12 @@ export default function QRCodeScreen() {
         isOpen={showManualInstallation}
         onClose={() => setShowManualInstallation(false)}
         esim={esim}
+      />
+
+      {/* TabBar - exact copy from home */}
+      <TabBar 
+        onPlusClick={() => {}}
+        onShopClick={() => {}}
       />
     </div>
   );
