@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRoute } from "wouter";
+import { useRoute, useLocation } from "wouter";
 import { useState } from "react";
 
 import NavigationBar from "@/components/navigation-bar";
 import ManualInstallationModal from "@/components/manual-installation-modal";
 import type { Esim, Package, Country } from "@shared/schema";
+import { Home, Map, CreditCard, Grid3x3, User } from "lucide-react";
 
 export default function QRCodeScreen() {
   const [, params] = useRoute("/qr/:esimId");
+  const [, setLocation] = useLocation();
   const esimId = params?.esimId ? parseInt(params.esimId) : null;
   const [showManualInstallation, setShowManualInstallation] = useState(false);
 
@@ -99,7 +101,7 @@ export default function QRCodeScreen() {
         }
       />
 
-      <div className="px-4 pt-4 text-center">
+      <div className="px-4 pt-4 pb-20 text-center">
         {/* Success Message */}
         <div className="mb-6">
           <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
@@ -240,6 +242,47 @@ export default function QRCodeScreen() {
         onClose={() => setShowManualInstallation(false)}
         esim={esim}
       />
+
+      {/* Bottom Sticky Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg">
+        <div className="flex items-center justify-around px-2 py-3">
+          <button
+            onClick={() => setLocation('/home')}
+            className="flex flex-col items-center space-y-1 px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            <Home className="w-5 h-5" />
+            <span className="text-xs font-medium">Home</span>
+          </button>
+          <button
+            onClick={() => setLocation('/destinations')}
+            className="flex flex-col items-center space-y-1 px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            <Map className="w-5 h-5" />
+            <span className="text-xs font-medium">Destinations</span>
+          </button>
+          <button
+            onClick={() => setLocation('/my-esims')}
+            className="flex flex-col items-center space-y-1 px-3 py-2 text-blue-600 dark:text-blue-400"
+          >
+            <Grid3x3 className="w-5 h-5" />
+            <span className="text-xs font-medium">My eSIMs</span>
+          </button>
+          <button
+            onClick={() => setLocation('/balance')}
+            className="flex flex-col items-center space-y-1 px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            <CreditCard className="w-5 h-5" />
+            <span className="text-xs font-medium">Balance</span>
+          </button>
+          <button
+            onClick={() => setLocation('/profile')}
+            className="flex flex-col items-center space-y-1 px-3 py-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+          >
+            <User className="w-5 h-5" />
+            <span className="text-xs font-medium">Profile</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
