@@ -2261,7 +2261,7 @@ export default function HomeScreen() {
                         </div>
                         <div>
                           <div className="text-gray-900 dark:text-white font-medium">{searchResults.localCountry.name}</div>
-                          <div className="text-gray-600 dark:text-gray-400 text-sm">Local eSIM plans available</div>
+                          <div className="text-gray-600 dark:text-gray-400 text-sm">from €5.50</div>
                         </div>
                       </div>
                       <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2460,7 +2460,7 @@ export default function HomeScreen() {
                             <div>
                               <div className="text-gray-900 dark:text-white font-medium">{search}</div>
                               <div className="text-gray-400 text-sm">
-                                {countries.find(c => c.name.toLowerCase() === search.toLowerCase()) ? 'Local eSIM plans available' : 'Regional & Global plans'}
+                                {countries.find(c => c.name.toLowerCase() === search.toLowerCase()) ? 'from €5.50' : 'Regional & Global plans'}
                               </div>
                             </div>
                           </div>
