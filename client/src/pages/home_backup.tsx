@@ -2231,7 +2231,6 @@ export default function HomeScreen() {
                     <button
                       onClick={() => {
                         setSearchQuery('');
-                        performSearch('');
                         setSearchResults({
                           localCountry: null,
                           regionalPackages: null,
@@ -2384,7 +2383,167 @@ export default function HomeScreen() {
       )}
 
       {/* Modern Pill-Style Tabs - Matched spacing */}
-      <div className="max-w-screen-md mx-auto px-4 -mb-2">
+        <div className="max-w-screen-md mx-auto px-4 -mb-2">
+                <div className="p-3 border-b border-gray-100 dark:border-gray-700">
+                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Local Plans</div>
+                  <button
+                    onClick={() => {
+                      handleCountrySelect(searchResults.localCountry!);
+                      setSearchQuery('');
+                      setShowSearchResults(false);
+                    }}
+                    className="w-full px-3 py-2 flex items-center space-x-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg text-left transition-all duration-200 group"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-700 dark:to-gray-600 rounded-full flex items-center justify-center shadow-sm border border-gray-200 dark:border-gray-600">
+                      <span className="text-lg">{searchResults.localCountry.code === 'TR' ? '🇹🇷' : searchResults.localCountry.code === 'FR' ? '🇫🇷' : '🌍'}</span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.localCountry.name}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400">Local eSIM plans available</div>
+                    </div>
+                    <svg className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+
+              {/* Regional Packages */}
+              {searchResults.regionalPackages && searchResults.regionalPackages.length > 0 && (
+                <div className="p-3 border-b border-gray-100 dark:border-gray-700">
+                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Europa Regional Plans</div>
+                  
+                  {/* Show only first plan */}
+                  <button
+                    onClick={() => {
+                      // Switch to regional tab and scroll to Europa
+                      setSelectedTab('regional');
+                      setSearchQuery('');
+                      setShowSearchResults(false);
+                      // Small delay to ensure tab switch completes before scrolling
+                      setTimeout(() => {
+                        const regionElement = document.getElementById('regional-content');
+                        if (regionElement) {
+                          regionElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }}
+                    className="w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-2 text-left transition-all duration-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.regionalPackages[0].data}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">{searchResults.regionalPackages[0].duration} days • Europa</div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="text-lg font-bold text-green-600 dark:text-green-400">{searchResults.regionalPackages[0].price}</div>
+                        <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
+
+                  {/* More plans indicator */}
+                  {searchResults.regionalPackages.length > 1 && (
+                    <button
+                      onClick={() => {
+                        setSelectedTab('regional');
+                        setSearchQuery('');
+                        setShowSearchResults(false);
+                        setTimeout(() => {
+                          const regionElement = document.getElementById('regional-content');
+                          if (regionElement) {
+                            regionElement.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }, 100);
+                      }}
+                      className="w-full px-3 py-2 flex items-center justify-center space-x-2 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-all duration-200 group"
+                    >
+                      <span className="text-sm font-medium">+{searchResults.regionalPackages.length - 1} more Europa plans</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* Global Packages */}
+              {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
+                <div className="p-3">
+                  <div className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Global Plans</div>
+                  
+                  {/* Show only first plan */}
+                  <button
+                    onClick={() => {
+                      // Switch to global tab
+                      setSelectedTab('global');
+                      setSearchQuery('');
+                      setShowSearchResults(false);
+                      // Small delay to ensure tab switch completes before scrolling
+                      setTimeout(() => {
+                        const globalElement = document.getElementById('global-content');
+                        if (globalElement) {
+                          globalElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }, 100);
+                    }}
+                    className="w-full px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-2 text-left transition-all duration-200"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100">{searchResults.globalPackages[0].data}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">{searchResults.globalPackages[0].duration} days • Global</div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="text-lg font-bold text-orange-600 dark:text-orange-400">{searchResults.globalPackages[0].price}</div>
+                        <svg className="w-4 h-4 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </button>
+
+                  {/* More plans indicator */}
+                  {searchResults.globalPackages.length > 1 && (
+                    <button
+                      onClick={() => {
+                        setSelectedTab('global');
+                        setSearchQuery('');
+                        setShowSearchResults(false);
+                        setTimeout(() => {
+                          const globalElement = document.getElementById('global-content');
+                          if (globalElement) {
+                            globalElement.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }, 100);
+                      }}
+                      className="w-full px-3 py-2 flex items-center justify-center space-x-2 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-all duration-200 group"
+                    >
+                      <span className="text-sm font-medium">+{searchResults.globalPackages.length - 1} more Global plans</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* No Results */}
+              {!searchResults.localCountry && !searchResults.regionalPackages && !searchResults.globalPackages && (
+                <div className="p-4 text-center">
+                  <div className="text-gray-500 dark:text-gray-400">No results found for "{searchQuery}"</div>
+                  <div className="text-sm text-gray-400 dark:text-gray-500 mt-1">Try searching for a country name</div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Modern Pill-Style Tabs - Matched spacing */}
+        <div className="max-w-screen-md mx-auto px-4 -mb-2">
           <div className="flex gap-1 p-1.5 bg-gradient-to-r from-gray-100/80 via-white to-gray-100/80 dark:from-gray-800/80 dark:via-gray-700 dark:to-gray-800/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200/40 dark:border-gray-700/40">
             {[
               { 
