@@ -2304,7 +2304,7 @@ export default function HomeScreen() {
                               <div className="text-gray-900 dark:text-white font-medium">{pkg.data}</div>
                               <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.duration} days • Europa</div>
                             </div>
-                            <div className="text-blue-600 dark:text-blue-400 font-bold text-lg">{pkg.price}</div>
+                            <div className="text-gray-900 dark:text-white font-bold text-lg">{pkg.price}</div>
                           </div>
                         </div>
                       ))}
@@ -2364,7 +2364,7 @@ export default function HomeScreen() {
                               <div className="text-gray-900 dark:text-white font-medium">{pkg.data}</div>
                               <div className="text-gray-600 dark:text-gray-400 text-sm">{pkg.duration} days • Global kapsam</div>
                             </div>
-                            <div className="text-blue-600 dark:text-blue-400 font-bold text-lg">{pkg.price}</div>
+                            <div className="text-gray-900 dark:text-white font-bold text-lg">{pkg.price}</div>
                           </div>
                         </div>
                       ))}
