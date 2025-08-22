@@ -539,6 +539,9 @@ export default function HomeScreen() {
     globalPackages: null,
     coverageType: 'none'
   });
+  
+  // Recent searches state
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const isOnline = useOnlineStatus();
 
   // Touch/swipe states for coverage modal dismissal
@@ -1878,6 +1881,41 @@ export default function HomeScreen() {
 
   const greeting = getTimeBasedGreeting();
 
+  // Recent searches localStorage helpers
+  const loadRecentSearches = (): string[] => {
+    try {
+      const saved = localStorage.getItem('recentSearches');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const saveRecentSearches = (searches: string[]) => {
+    try {
+      localStorage.setItem('recentSearches', JSON.stringify(searches));
+    } catch {
+      // Ignore localStorage errors
+    }
+  };
+
+  const addToRecentSearches = (searchTerm: string) => {
+    if (!searchTerm.trim()) return;
+    
+    const current = loadRecentSearches();
+    const filtered = current.filter(item => item.toLowerCase() !== searchTerm.toLowerCase());
+    const updated = [searchTerm, ...filtered].slice(0, 5); // Keep only last 5
+    
+    saveRecentSearches(updated);
+    setRecentSearches(updated);
+  };
+
+  // Load recent searches on mount
+  useEffect(() => {
+    const recent = loadRecentSearches();
+    setRecentSearches(recent);
+  }, []);
+
   const handleCountrySelect = (country: Country) => {
     setLocation(`/packages/${country.id}?from=home`);
   };
@@ -1890,6 +1928,9 @@ export default function HomeScreen() {
     }
 
     const searchTerm = query.toLowerCase().trim();
+    
+    // Add to recent searches
+    addToRecentSearches(query.trim());
     
     // Find matching local country
     const matchingCountry = countries.find(country => 
@@ -2448,6 +2489,47 @@ export default function HomeScreen() {
           </div>
         </button>
       </div>
+
+      {/* Recent Searches Section */}
+      {recentSearches.length > 0 && !showFullScreenSearch && (
+        <div className="max-w-screen-md mx-auto px-4 mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Son Arananlar</h3>
+            <button 
+              onClick={() => {
+                saveRecentSearches([]);
+                setRecentSearches([]);
+              }}
+              className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+            >
+              Temizle
+            </button>
+          </div>
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+            {recentSearches.map((search, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setSearchQuery(search);
+                  setShowFullScreenSearch(true);
+                  setTimeout(() => {
+                    performSearch(search);
+                  }, 100);
+                }}
+                className="flex-shrink-0 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-750 transition-all duration-200 active:scale-95"
+                data-testid={`recent-search-${search.toLowerCase().replace(' ', '-')}`}
+              >
+                <div className="flex items-center space-x-2">
+                  <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{search}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Modern Pill-Style Tabs - Matched spacing */}
       <div className="max-w-screen-md mx-auto px-4 -mb-2">
