@@ -834,7 +834,7 @@
 
   .mobile-container {
     @apply w-full mx-auto min-h-screen relative overflow-x-hidden;
-    background-color: var(--mobile-bg);
+    background: transparent;
   }
   
   .mobile-screen {
