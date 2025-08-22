@@ -1481,14 +1481,12 @@ export default function HomeScreen() {
   };
   
   const placeholderTexts = [
-    'Find your destination',
-    'Search a country or city',
-    'Type Germany, Spain, or Japan',
-    'Looking for Europe plans?',
-    'Explore eSIMs for USA, UAE…',
-    'Where are you traveling to?',
-    'Start typing a country name…',
-    'eSIM for 200+ countries'
+    'Search destinations...',
+    'Try: Turkey, Spain, Europe...',
+    'Find local eSIM plans...',
+    'Discover regional packages...',
+    'Explore global coverage...',
+    'Search by continent...'
   ];
 
   // Typewriter effect for search placeholder
@@ -2421,7 +2419,7 @@ export default function HomeScreen() {
               <div className="space-y-8">
                 {/* Recently Visited Section */}
                 {recentSearches.length > 0 && (
-                  <div className="px-4">
+                  <div className="px-4 py-4 bg-gradient-to-br from-blue-50/30 via-transparent to-purple-50/20 dark:from-blue-900/10 dark:via-transparent dark:to-purple-900/5 rounded-xl mx-4 border border-blue-100/30 dark:border-blue-800/20">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-gray-900 dark:text-white text-base font-medium">Recently Visited</h3>
                       <button 
@@ -2495,6 +2493,36 @@ export default function HomeScreen() {
                     </div>
                   </div>
                 )}
+
+                {/* Popular Categories */}
+                <div className="px-4">
+                  <h3 className="text-gray-900 dark:text-white text-base font-medium mb-3">Popular Categories</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { name: 'Europe', icon: '🇪🇺', color: 'from-blue-500 to-purple-600', bgColor: 'bg-blue-50 dark:bg-blue-900/20', textColor: 'text-blue-700 dark:text-blue-300' },
+                      { name: 'Asia', icon: '🌏', color: 'from-green-500 to-teal-600', bgColor: 'bg-green-50 dark:bg-green-900/20', textColor: 'text-green-700 dark:text-green-300' },
+                      { name: 'Americas', icon: '🌎', color: 'from-red-500 to-orange-600', bgColor: 'bg-red-50 dark:bg-red-900/20', textColor: 'text-red-700 dark:text-red-300' },
+                      { name: 'Global', icon: '🌍', color: 'from-purple-500 to-pink-600', bgColor: 'bg-purple-50 dark:bg-purple-900/20', textColor: 'text-purple-700 dark:text-purple-300' }
+                    ].map((category, index) => (
+                      <button
+                        key={index}
+                        onClick={() => {
+                          setSearchQuery(category.name);
+                          performSearch(category.name);
+                        }}
+                        className={`p-4 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 hover:scale-[1.02] ${category.bgColor}`}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <span className="text-2xl">{category.icon}</span>
+                          <div className="text-left">
+                            <div className={`font-medium ${category.textColor}`}>{category.name}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400">from €5.50</div>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 
                 {/* Empty State */}
                 {recentSearches.length === 0 && (
