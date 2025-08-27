@@ -11,11 +11,55 @@ import type { User } from "@shared/schema";
 export default function ProfileScreen() {
   const [, setLocation] = useLocation();
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [showLanguageModal, setShowLanguageModal] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('English');
   const { data: user } = useQuery<User>({
     queryKey: ["/api/profile"],
   });
 
   const { theme, toggleTheme } = useTheme();
+
+  // Language options
+  const languages = [
+    { code: 'tr', name: 'Türkçe', selected: true },
+    { code: 'ar', name: 'العربية' },
+    { code: 'az', name: 'Azərbaycan' },
+    { code: 'id', name: 'Bahasa Indonesia' },
+    { code: 'ms', name: 'Bahasa Melayu' },
+    { code: 'bg', name: 'Български' },
+    { code: 'bs', name: 'Bosanski' },
+    { code: 'cs', name: 'Čeština' },
+    { code: 'da', name: 'Dansk' },
+    { code: 'de', name: 'Deutsch' },
+    { code: 'el', name: 'Ελληνικά' },
+    { code: 'en', name: 'English' },
+    { code: 'es', name: 'Español (España)' },
+    { code: 'es-la', name: 'Español (Latinoamérica)' },
+    { code: 'et', name: 'Eesti' },
+    { code: 'fa', name: 'فارسی' },
+    { code: 'tl', name: 'Filipino' },
+    { code: 'fr', name: 'Français' },
+    { code: 'hr', name: 'Hrvatski' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'lv', name: 'Latviešu' },
+    { code: 'lt', name: 'Lietuvių' },
+    { code: 'hu', name: 'Magyar' },
+    { code: 'nl', name: 'Nederlands' },
+    { code: 'no', name: 'Norsk' },
+    { code: 'pl', name: 'Polski' },
+    { code: 'pt', name: 'Português' },
+    { code: 'ro', name: 'Română' },
+    { code: 'ru', name: 'Русский' },
+    { code: 'sk', name: 'Slovenčina' },
+    { code: 'sl', name: 'Slovenščina' },
+    { code: 'fi', name: 'Suomi' },
+    { code: 'sv', name: 'Svenska' },
+    { code: 'vi', name: 'Tiếng Việt' },
+    { code: 'uk', name: 'Українська' },
+    { code: 'zh', name: '中文' },
+    { code: 'ja', name: '日本語' },
+    { code: 'ko', name: '한국어' },
+  ];
 
   const profileSections = [
     {
@@ -85,6 +129,19 @@ export default function ProfileScreen() {
     {
       title: "Support",
       items: [
+        { 
+          icon: (
+            <div className="w-8 h-8 bg-indigo-500 rounded-md flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+              </svg>
+            </div>
+          ), 
+          label: "Language", 
+          hasArrow: true,
+          action: "language",
+          value: selectedLanguage
+        },
         { 
           icon: (
             <div className="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
@@ -222,6 +279,8 @@ export default function ProfileScreen() {
                       setLocation('/personal-info');
                     } else if ('action' in item && item.action === 'guides') {
                       setLocation('/guides');
+                    } else if ('action' in item && item.action === 'language') {
+                      setShowLanguageModal(true);
                     }
                   }}
                 >
@@ -278,6 +337,64 @@ export default function ProfileScreen() {
       </div>
 
       <TabBar onPlusClick={() => setShowQuickActions(true)} />
+
+      {/* Language Selection Modal */}
+      {showLanguageModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4" onClick={() => setShowLanguageModal(false)}>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-md max-h-[80vh] flex flex-col shadow-2xl border border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Languages</h2>
+              <button 
+                onClick={() => setShowLanguageModal(false)}
+                className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Search Bar */}
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="relative">
+                <svg className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input 
+                  type="text" 
+                  placeholder="Search languages..."
+                  className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+
+            {/* Language List */}
+            <div className="flex-1 overflow-y-auto">
+              {languages.map((language) => (
+                <button
+                  key={language.code}
+                  onClick={() => {
+                    setSelectedLanguage(language.name);
+                    setShowLanguageModal(false);
+                  }}
+                  className="w-full px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-b border-gray-100 dark:border-gray-800 last:border-b-0 flex items-center justify-between"
+                >
+                  <span className="text-gray-900 dark:text-gray-100 font-medium">{language.name}</span>
+                  {language.selected && (
+                    <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {showQuickActions && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]" onClick={() => setShowQuickActions(false)}>
           <div className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
