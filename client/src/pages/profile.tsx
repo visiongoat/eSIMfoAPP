@@ -408,13 +408,13 @@ export default function ProfileScreen() {
 
       {/* Language Selection Modal */}
       {showLanguageModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4" onClick={() => setShowLanguageModal(false)}>
-          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-md max-h-[80vh] flex flex-col shadow-2xl border border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4" onClick={() => { setShowLanguageModal(false); setLanguageSearchTerm(''); }}>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-md h-[600px] flex flex-col shadow-2xl border border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Languages</h2>
               <button 
-                onClick={() => setShowLanguageModal(false)}
+                onClick={() => { setShowLanguageModal(false); setLanguageSearchTerm(''); }}
                 className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -447,6 +447,7 @@ export default function ProfileScreen() {
                   onClick={() => {
                     setSelectedLanguage(language.name);
                     setShowLanguageModal(false);
+                    setLanguageSearchTerm('');
                   }}
                   className="w-full px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-b border-gray-100 dark:border-gray-800 last:border-b-0 flex items-center justify-between"
                 >
@@ -467,13 +468,13 @@ export default function ProfileScreen() {
 
       {/* Currency Selection Modal */}
       {showCurrencyModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4" onClick={() => setShowCurrencyModal(false)}>
-          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-md max-h-[80vh] flex flex-col shadow-2xl border border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4" onClick={() => { setShowCurrencyModal(false); setCurrencySearchTerm(''); }}>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-md h-[600px] flex flex-col shadow-2xl border border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
               <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Currency</h2>
               <button 
-                onClick={() => setShowCurrencyModal(false)}
+                onClick={() => { setShowCurrencyModal(false); setCurrencySearchTerm(''); }}
                 className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               >
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -506,6 +507,7 @@ export default function ProfileScreen() {
                   onClick={() => {
                     setSelectedCurrency(currency.name);
                     setShowCurrencyModal(false);
+                    setCurrencySearchTerm('');
                   }}
                   className="w-full px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-b border-gray-100 dark:border-gray-800 last:border-b-0 flex items-center justify-between"
                 >
