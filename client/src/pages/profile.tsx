@@ -13,8 +13,10 @@ export default function ProfileScreen() {
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const [languageSearchTerm, setLanguageSearchTerm] = useState('');
   const [showCurrencyModal, setShowCurrencyModal] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState('EUR (€)');
+  const [currencySearchTerm, setCurrencySearchTerm] = useState('');
   const { data: user } = useQuery<User>({
     queryKey: ["/api/profile"],
   });
@@ -278,6 +280,16 @@ export default function ProfileScreen() {
     }
   ];
 
+  // Filter functions
+  const filteredLanguages = languages.filter(language =>
+    language.name.toLowerCase().includes(languageSearchTerm.toLowerCase())
+  );
+
+  const filteredCurrencies = currencies.filter(currency =>
+    currency.name.toLowerCase().includes(currencySearchTerm.toLowerCase()) ||
+    currency.code.toLowerCase().includes(currencySearchTerm.toLowerCase())
+  );
+
   const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
@@ -329,8 +341,10 @@ export default function ProfileScreen() {
                     } else if ('action' in item && item.action === 'guides') {
                       setLocation('/guides');
                     } else if ('action' in item && item.action === 'language') {
+                      setLanguageSearchTerm('');
                       setShowLanguageModal(true);
                     } else if ('action' in item && item.action === 'currency') {
+                      setCurrencySearchTerm('');
                       setShowCurrencyModal(true);
                     }
                   }}
@@ -418,6 +432,8 @@ export default function ProfileScreen() {
                 <input 
                   type="text" 
                   placeholder="Search languages..."
+                  value={languageSearchTerm}
+                  onChange={(e) => setLanguageSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -425,7 +441,7 @@ export default function ProfileScreen() {
 
             {/* Language List */}
             <div className="flex-1 overflow-y-auto">
-              {languages.map((language) => (
+              {filteredLanguages.map((language) => (
                 <button
                   key={language.code}
                   onClick={() => {
@@ -475,6 +491,8 @@ export default function ProfileScreen() {
                 <input 
                   type="text" 
                   placeholder="Search currencies..."
+                  value={currencySearchTerm}
+                  onChange={(e) => setCurrencySearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -482,7 +500,7 @@ export default function ProfileScreen() {
 
             {/* Currency List */}
             <div className="flex-1 overflow-y-auto">
-              {currencies.map((currency) => (
+              {filteredCurrencies.map((currency) => (
                 <button
                   key={currency.code}
                   onClick={() => {
