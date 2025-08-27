@@ -13,11 +13,47 @@ export default function ProfileScreen() {
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const [showCurrencyModal, setShowCurrencyModal] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState('EUR (€)');
   const { data: user } = useQuery<User>({
     queryKey: ["/api/profile"],
   });
 
   const { theme, toggleTheme } = useTheme();
+
+  // Currency options
+  const currencies = [
+    { code: 'EUR', name: 'EUR (€)', symbol: '€', selected: true },
+    { code: 'USD', name: 'USD ($)', symbol: '$' },
+    { code: 'GBP', name: 'GBP (£)', symbol: '£' },
+    { code: 'TRY', name: 'TRY (₺)', symbol: '₺' },
+    { code: 'JPY', name: 'JPY (¥)', symbol: '¥' },
+    { code: 'CHF', name: 'CHF (CHF)', symbol: 'CHF' },
+    { code: 'CAD', name: 'CAD (C$)', symbol: 'C$' },
+    { code: 'AUD', name: 'AUD (A$)', symbol: 'A$' },
+    { code: 'SEK', name: 'SEK (kr)', symbol: 'kr' },
+    { code: 'NOK', name: 'NOK (kr)', symbol: 'kr' },
+    { code: 'DKK', name: 'DKK (kr)', symbol: 'kr' },
+    { code: 'PLN', name: 'PLN (zł)', symbol: 'zł' },
+    { code: 'CZK', name: 'CZK (Kč)', symbol: 'Kč' },
+    { code: 'HUF', name: 'HUF (Ft)', symbol: 'Ft' },
+    { code: 'RON', name: 'RON (lei)', symbol: 'lei' },
+    { code: 'BGN', name: 'BGN (лв)', symbol: 'лв' },
+    { code: 'HRK', name: 'HRK (kn)', symbol: 'kn' },
+    { code: 'RUB', name: 'RUB (₽)', symbol: '₽' },
+    { code: 'UAH', name: 'UAH (₴)', symbol: '₴' },
+    { code: 'CNY', name: 'CNY (¥)', symbol: '¥' },
+    { code: 'INR', name: 'INR (₹)', symbol: '₹' },
+    { code: 'KRW', name: 'KRW (₩)', symbol: '₩' },
+    { code: 'SGD', name: 'SGD (S$)', symbol: 'S$' },
+    { code: 'HKD', name: 'HKD (HK$)', symbol: 'HK$' },
+    { code: 'NZD', name: 'NZD (NZ$)', symbol: 'NZ$' },
+    { code: 'ZAR', name: 'ZAR (R)', symbol: 'R' },
+    { code: 'BRL', name: 'BRL (R$)', symbol: 'R$' },
+    { code: 'MXN', name: 'MXN ($)', symbol: '$' },
+    { code: 'AED', name: 'AED (د.إ)', symbol: 'د.إ' },
+    { code: 'SAR', name: 'SAR (﷼)', symbol: '﷼' },
+  ];
 
   // Language options
   const languages = [
@@ -141,6 +177,19 @@ export default function ProfileScreen() {
           hasArrow: true,
           action: "language",
           value: selectedLanguage
+        },
+        { 
+          icon: (
+            <div className="w-8 h-8 bg-emerald-500 rounded-md flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+              </svg>
+            </div>
+          ), 
+          label: "Currency", 
+          hasArrow: true,
+          action: "currency",
+          value: selectedCurrency
         },
         { 
           icon: (
@@ -281,6 +330,8 @@ export default function ProfileScreen() {
                       setLocation('/guides');
                     } else if ('action' in item && item.action === 'language') {
                       setShowLanguageModal(true);
+                    } else if ('action' in item && item.action === 'currency') {
+                      setShowCurrencyModal(true);
                     }
                   }}
                 >
@@ -385,6 +436,63 @@ export default function ProfileScreen() {
                 >
                   <span className="text-gray-900 dark:text-gray-100 font-medium">{language.name}</span>
                   {language.selected && (
+                    <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Currency Selection Modal */}
+      {showCurrencyModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999] p-4" onClick={() => setShowCurrencyModal(false)}>
+          <div className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-md max-h-[80vh] flex flex-col shadow-2xl border border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Currency</h2>
+              <button 
+                onClick={() => setShowCurrencyModal(false)}
+                className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              >
+                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Search Bar */}
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+              <div className="relative">
+                <svg className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input 
+                  type="text" 
+                  placeholder="Search currencies..."
+                  className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+
+            {/* Currency List */}
+            <div className="flex-1 overflow-y-auto">
+              {currencies.map((currency) => (
+                <button
+                  key={currency.code}
+                  onClick={() => {
+                    setSelectedCurrency(currency.name);
+                    setShowCurrencyModal(false);
+                  }}
+                  className="w-full px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-b border-gray-100 dark:border-gray-800 last:border-b-0 flex items-center justify-between"
+                >
+                  <span className="text-gray-900 dark:text-gray-100 font-medium">{currency.name}</span>
+                  {currency.selected && (
                     <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
                       <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
