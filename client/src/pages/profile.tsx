@@ -289,10 +289,6 @@ export default function ProfileScreen() {
                     <span>{item.label}</span>
                   </div>
                   
-                  {item.hasArrow && (
-                    <span className="text-gray-400">›</span>
-                  )}
-                  
                   {'hasToggle' in item && item.hasToggle && item.label === 'Theme' && (
                     <div className="flex items-center space-x-2">
                       <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
@@ -314,9 +310,16 @@ export default function ProfileScreen() {
                   )}
                   
                   {'value' in item && item.value && (
-                    <div className="text-right text-sm text-muted-foreground">
-                      {item.value}
+                    <div className="flex items-center space-x-3">
+                      <div className="text-right text-sm text-muted-foreground">
+                        {item.value}
+                      </div>
+                      <span className="text-gray-400">›</span>
                     </div>
+                  )}
+                  
+                  {item.hasArrow && !('value' in item && item.value) && (
+                    <span className="text-gray-400">›</span>
                   )}
                 </div>
               ))}
