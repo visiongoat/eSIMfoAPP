@@ -6,7 +6,7 @@ export default function ContactSupportScreen() {
   };
 
   const handleWhatsApp = () => {
-    window.open("https://wa.me/1234567890?text=Hello! I need help with my eSIM service.", "_blank");
+    window.open("https://wa.me/436766440122?text=Hello! I need help with my eSIM service.", "_blank");
   };
 
   const handleLiveChat = () => {
