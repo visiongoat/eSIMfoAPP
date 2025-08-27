@@ -201,7 +201,7 @@ export default function ProfileScreen() {
               </svg>
             </div>
           ), 
-          label: "Guides", 
+          label: "Help Center", 
           hasArrow: true,
           action: "guides"
         },
