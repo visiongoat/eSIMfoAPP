@@ -3038,7 +3038,7 @@ export default function HomeScreen() {
             <div className="continent-card continent-americas rounded-xl p-4 shadow-sm animate-stagger-fade stagger-delay-2 touch-feedback cursor-pointer">
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center space-x-3">
-                  <div className="continent-icon w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-xl flex items-center justify-center">
+                  <div className="continent-icon w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
                     <img 
                       src={americasIcon} 
                       alt="Americas"
