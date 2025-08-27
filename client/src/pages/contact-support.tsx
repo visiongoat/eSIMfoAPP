@@ -19,14 +19,12 @@ export default function ContactSupportScreen() {
 
   return (
     <div className="mobile-screen">
-      <div className="sticky top-0 z-50 bg-white dark:bg-gray-900">
-        <NavigationBar 
-          title="Contact Support"
-          showBackButton={true}
-        />
-      </div>
+      <NavigationBar 
+        title="Contact Support"
+        showBackButton={true}
+      />
 
-      <div className="px-4 pt-4 pb-20">
+      <div className="px-4 py-4 pb-20">
         {/* Hero Illustration */}
         <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 mb-6 text-center">
           <div className="w-24 h-24 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center">
