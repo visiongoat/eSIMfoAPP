@@ -22,6 +22,7 @@ import TransactionsScreen from "@/pages/transactions";
 import PersonalInfoScreen from "@/pages/personal-info";
 import PartnerScreen from "@/pages/partner";
 import LiveChatScreen from "@/pages/support";
+import ContactSupportScreen from "@/pages/contact-support";
 import NotFoundPage from "@/pages/not-found";
 
 function Router() {
@@ -59,6 +60,7 @@ function Router() {
         <Route path="/transactions" component={TransactionsScreen} />
         <Route path="/partner" component={PartnerScreen} />
         <Route path="/live-chat" component={LiveChatScreen} />
+        <Route path="/contact-support" component={ContactSupportScreen} />
         
         {/* 404 Catch-all route */}
         <Route path="/:rest*" component={NotFoundPage} />

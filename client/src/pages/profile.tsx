@@ -336,6 +336,8 @@ export default function ProfileScreen() {
                     } else if ('action' in item && item.action === 'currency') {
                       setCurrencySearchTerm('');
                       setShowCurrencyModal(true);
+                    } else if (item.label === 'Contact Support') {
+                      setLocation('/contact-support');
                     }
                   }}
                 >
