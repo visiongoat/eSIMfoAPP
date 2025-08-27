@@ -1,8 +1,11 @@
+import { useEffect } from "react";
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 
 export default function ContactSupportScreen() {
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   const handleEmailSupport = () => {
     window.location.href = "mailto:support@esimfo.com?subject=eSIM Support Request";
