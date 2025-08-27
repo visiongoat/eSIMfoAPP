@@ -1,4 +1,5 @@
 import NavigationBar from "@/components/navigation-bar";
+import TabBar from "@/components/tab-bar";
 
 export default function ContactSupportScreen() {
   const handleEmailSupport = () => {
@@ -136,6 +137,8 @@ export default function ContactSupportScreen() {
           <p className="text-xs text-gray-500 mt-1">Average response time: Under 2 hours</p>
         </div>
       </div>
+
+      <TabBar />
     </div>
   );
 }

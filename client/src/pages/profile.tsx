@@ -317,7 +317,7 @@ export default function ProfileScreen() {
                 <div 
                   key={itemIndex} 
                   className={`flex items-center justify-between py-2 ${
-                    ('hasToggle' in item && item.hasToggle && item.label === 'Theme') || ('action' in item) 
+                    ('hasToggle' in item && item.hasToggle && item.label === 'Theme') || ('action' in item) || item.label === 'Contact Support' || item.hasArrow
                       ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg -mx-2 px-2 transition-colors duration-200' 
                       : ''
                   }`}
