@@ -2,6 +2,8 @@ import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 
 export default function ContactSupportScreen() {
+
+  
   const handleEmailSupport = () => {
     window.location.href = "mailto:support@esimfo.com?subject=eSIM Support Request";
   };
@@ -17,10 +19,12 @@ export default function ContactSupportScreen() {
 
   return (
     <div className="mobile-screen">
-      <NavigationBar 
-        title="Contact Support"
-        showBackButton={true}
-      />
+      <div className="sticky top-0 z-50 bg-white dark:bg-gray-900">
+        <NavigationBar 
+          title="Contact Support"
+          showBackButton={true}
+        />
+      </div>
 
       <div className="px-4 pt-4 pb-20">
         {/* Hero Illustration */}
