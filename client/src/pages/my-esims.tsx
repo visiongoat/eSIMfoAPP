@@ -18,6 +18,11 @@ export default function MyEsimsScreen() {
   const [showEsimDetailModal, setShowEsimDetailModal] = useState(false);
   const [selectedEsimForDetail, setSelectedEsimForDetail] = useState<(Esim & { package?: Package; country?: Country }) | null>(null);
 
+  // Quick Actions Modal swipe state
+  const [quickActionsStartY, setQuickActionsStartY] = useState<number>(0);
+  const [quickActionsCurrentY, setQuickActionsCurrentY] = useState<number>(0);
+  const [isQuickActionsDragging, setIsQuickActionsDragging] = useState<boolean>(false);
+
   const [filter, setFilter] = useState<FilterType>('active');
 
   // Animation state for modal opening and closing
@@ -66,6 +71,39 @@ export default function MyEsimsScreen() {
     setSelectedEsimForDetail(esim);
     setShowEsimDetailModal(true);
     setModalAnimationKey(prev => prev + 1); // Trigger fresh animation
+  };
+
+  // Quick Actions Modal Touch Handlers
+  const handleQuickActionsTouchStart = (e: React.TouchEvent) => {
+    e.stopPropagation();
+    const touch = e.touches[0];
+    setQuickActionsStartY(touch.clientY);
+    setQuickActionsCurrentY(touch.clientY);
+    setIsQuickActionsDragging(true);
+  };
+
+  const handleQuickActionsTouchMove = (e: React.TouchEvent) => {
+    e.stopPropagation();
+    if (!isQuickActionsDragging) return;
+    
+    const touch = e.touches[0];
+    setQuickActionsCurrentY(touch.clientY);
+  };
+
+  const handleQuickActionsTouchEnd = (e: React.TouchEvent) => {
+    e.stopPropagation();
+    if (!isQuickActionsDragging) return;
+    
+    const deltaY = quickActionsCurrentY - quickActionsStartY;
+    const threshold = 100; // pixels
+    
+    if (deltaY > threshold) {
+      setShowQuickActions(false);
+    }
+    
+    setIsQuickActionsDragging(false);
+    setQuickActionsStartY(0);
+    setQuickActionsCurrentY(0);
   };
   
   // Touch/swipe state for modal navigation
@@ -407,10 +445,20 @@ export default function MyEsimsScreen() {
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]" 
           onClick={() => setShowQuickActions(false)}
+          onTouchMove={(e) => e.preventDefault()} // Prevent background scroll
         >
           <div 
             className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleQuickActionsTouchStart}
+            onTouchMove={handleQuickActionsTouchMove}
+            onTouchEnd={handleQuickActionsTouchEnd}
+            style={{
+              transform: isQuickActionsDragging && quickActionsCurrentY > quickActionsStartY 
+                ? `translateY(${Math.max(0, quickActionsCurrentY - quickActionsStartY)}px)` 
+                : 'translateY(0px)',
+              transition: isQuickActionsDragging ? 'none' : 'transform 0.3s ease-out'
+            }}
           >
             <div className="flex justify-center pt-3 pb-2">
               <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
