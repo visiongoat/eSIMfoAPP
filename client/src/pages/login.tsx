@@ -45,14 +45,12 @@ export default function LoginScreen() {
       {/* Header */}
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-8">
         {/* Logo */}
-        <div className="mb-8 flex flex-col items-center">
-          <div className="mb-2">
-            <img 
-              src={esimfoLogo}
-              alt="eSIMfo" 
-              className="h-24 w-24 object-contain"
-            />
-          </div>
+        <div className="mb-6 flex flex-col items-center">
+          <img 
+            src={esimfoLogo}
+            alt="eSIMfo" 
+            className="h-24 w-24 object-contain mb-4"
+          />
         </div>
 
         {/* Welcome Section */}
