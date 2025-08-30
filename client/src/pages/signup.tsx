@@ -50,7 +50,7 @@ export default function SignupScreen() {
             <img 
               src="/esimfo-logo.png" 
               alt="eSIMfo" 
-              className="h-16 w-16 object-contain"
+              className="h-20 w-20 object-contain"
             />
           </div>
         </div>
