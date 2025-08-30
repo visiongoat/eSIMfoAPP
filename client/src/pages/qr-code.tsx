@@ -48,7 +48,7 @@ export default function QRCodeScreen() {
 ✈️ Have a great trip with seamless connectivity!
 
 ---
-Powered by eSIMfo - Global Mobile Connectivity`;
+Powered by esimfo.com - Global Mobile Connectivity`;
 
     if (navigator.share) {
       try {
