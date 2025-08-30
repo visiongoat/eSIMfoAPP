@@ -25,6 +25,7 @@ import LiveChatScreen from "@/pages/support";
 import ContactSupportScreen from "@/pages/contact-support";
 import LoginScreen from "@/pages/login";
 import SignupScreen from "@/pages/signup";
+import VerifyEmailScreen from "@/pages/verify-email";
 import NotFoundPage from "@/pages/not-found";
 
 function Router() {
@@ -65,6 +66,7 @@ function Router() {
         <Route path="/contact-support" component={ContactSupportScreen} />
         <Route path="/login" component={LoginScreen} />
         <Route path="/signup" component={SignupScreen} />
+        <Route path="/verify-email" component={VerifyEmailScreen} />
         
         {/* 404 Catch-all route */}
         <Route path="/:rest*" component={NotFoundPage} />

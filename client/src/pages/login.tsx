@@ -29,9 +29,12 @@ export default function LoginScreen() {
     if (!email.trim()) return;
     
     setIsLoading(true);
-    // Simulate authentication
+    
+    // Simulate sending verification email
     setTimeout(() => {
-      setLocation("/home");
+      // Store email for verification page
+      localStorage.setItem('verificationEmail', email);
+      setLocation(`/verify-email?email=${encodeURIComponent(email)}`);
       setIsLoading(false);
     }, 1500);
   };
