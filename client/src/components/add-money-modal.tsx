@@ -161,6 +161,15 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
           </div>
         </div>
 
+        {/* Minimum Amount Warning */}
+        {customAmount && parseFloat(customAmount) > 0 && parseFloat(customAmount) < 10 && (
+          <div className="mb-4 text-center">
+            <p className="text-xs text-red-500 dark:text-red-400">
+              Min €10 and above
+            </p>
+          </div>
+        )}
+
         {/* Selected Amount Display */}
         {getSelectedAmount() > 0 && (
           <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-4 mb-6 text-center">
@@ -176,14 +185,14 @@ export default function AddMoneyModal({ isOpen, onClose, onTopUpComplete }: AddM
 
         {/* Top up Button */}
         <button
-          disabled={getSelectedAmount() <= 0}
+          disabled={getSelectedAmount() <= 0 || getSelectedAmount() < 10}
           onClick={() => {
-            if (getSelectedAmount() > 0) {
+            if (getSelectedAmount() >= 10) {
               setShowCheckout(true);
             }
           }}
           className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
-            getSelectedAmount() > 0
+            getSelectedAmount() >= 10
               ? 'bg-blue-600 dark:bg-blue-700 text-white hover:bg-blue-700 dark:hover:bg-blue-600 active:bg-blue-800 dark:active:bg-blue-800'
               : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
           }`}
