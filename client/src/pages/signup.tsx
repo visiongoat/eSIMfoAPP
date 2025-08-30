@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import EsimfoLogo from "@/components/esimfo-logo";
+import esimfoLogo from "@assets/160x160esimfologo.png";
 
 export default function SignupScreen() {
   const [, setLocation] = useLocation();
@@ -48,7 +48,11 @@ export default function SignupScreen() {
         {/* Logo */}
         <div className="mb-12 flex flex-col items-center">
           <div className="mb-6">
-            <EsimfoLogo className="h-20 w-auto" />
+            <img 
+              src={esimfoLogo}
+              alt="eSIMfo" 
+              className="h-20 w-20 object-contain"
+            />
           </div>
         </div>
 
