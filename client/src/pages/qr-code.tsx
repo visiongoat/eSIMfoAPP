@@ -24,16 +24,50 @@ export default function QRCodeScreen() {
   }
 
   const handleShare = async () => {
+    const shareText = `📱 Your eSIM for ${esim.country?.name || 'International'} is ready!
+
+🏷️ Package: ${esim.package?.name || 'Data Package'}
+📅 QR Code: ${esim.qrCode}
+
+📖 INSTALLATION INSTRUCTIONS:
+
+1️⃣ Go to Settings > Cellular/Mobile Data
+2️⃣ Tap "Add Cellular Plan" or "Add eSIM"  
+3️⃣ Select "Use QR Code"
+4️⃣ Scan the QR code provided
+5️⃣ Follow the on-screen setup instructions
+6️⃣ Label your new plan (e.g., "Travel Data")
+7️⃣ Choose when to use this line for calls, messages, and data
+
+⚠️ IMPORTANT NOTES:
+• Install before traveling to your destination
+• Ensure you have a stable WiFi connection during setup
+• Keep this QR code private - do not share publicly
+• Contact support if you encounter any issues
+
+✈️ Have a great trip with seamless connectivity!
+
+---
+Powered by eSIMfo - Global Mobile Connectivity`;
+
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'My eSIM QR Code',
-          text: `eSIM for ${esim.country?.name}`,
-          url: window.location.href,
+          title: `eSIM for ${esim.country?.name || 'International'}`,
+          text: shareText,
         });
       } catch (error) {
         console.log('Error sharing:', error);
+        // Fallback to clipboard
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(shareText);
+          alert('eSIM details copied to clipboard!');
+        }
       }
+    } else if (navigator.clipboard) {
+      // Fallback for browsers without native share
+      await navigator.clipboard.writeText(shareText);
+      alert('eSIM details copied to clipboard!');
     }
   };
 
