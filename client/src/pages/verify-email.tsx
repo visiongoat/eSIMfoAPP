@@ -64,11 +64,11 @@ export default function VerifyEmailScreen() {
     <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
       <div className="flex-1 flex flex-col items-center justify-center px-6 py-8">
         {/* Logo */}
-        <div className="mb-6 flex flex-col items-center">
+        <div className="mb-4 flex flex-col items-center">
           <img 
             src={esimfoLogo}
             alt="eSIMfo" 
-            className="h-24 w-24 object-contain mb-4"
+            className="h-24 w-24 object-contain mb-2"
           />
         </div>
 
