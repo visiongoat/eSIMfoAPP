@@ -34,6 +34,23 @@ export default function MyEsimsScreen() {
     window.scrollTo(0, 0);
   }, []);
 
+  // Prevent body scroll when quick actions modal is open
+  useEffect(() => {
+    if (showQuickActions) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [showQuickActions]);
+
   const { data: esims = [], isLoading } = useQuery<(Esim & { package?: Package; country?: Country })[]>({
     queryKey: ["/api/esims"],
   });
@@ -443,9 +460,11 @@ export default function MyEsimsScreen() {
       {/* Quick Actions Modal */}
       {showQuickActions && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]" 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999] touch-none" 
           onClick={() => setShowQuickActions(false)}
-          onTouchMove={(e) => e.preventDefault()} // Prevent background scroll
+          onTouchStart={(e) => e.preventDefault()}
+          onTouchMove={(e) => e.preventDefault()}
+          onTouchEnd={(e) => e.preventDefault()}
         >
           <div 
             className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700"
