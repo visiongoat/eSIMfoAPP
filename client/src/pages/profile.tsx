@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 
@@ -11,6 +11,9 @@ import type { User } from "@shared/schema";
 export default function ProfileScreen() {
   const [, setLocation] = useLocation();
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [swipeY, setSwipeY] = useState(0);
+  const [isSwipeActive, setIsSwipeActive] = useState(false);
+  const [startY, setStartY] = useState(0);
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [languageSearchTerm, setLanguageSearchTerm] = useState('');
@@ -22,6 +25,56 @@ export default function ProfileScreen() {
   });
 
   const { theme, toggleTheme } = useTheme();
+
+  // Handle body scroll lock when modal is open
+  useEffect(() => {
+    if (showQuickActions) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = '0';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      setSwipeY(0);
+      setIsSwipeActive(false);
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [showQuickActions]);
+
+  // Touch handlers for swipe to close
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setStartY(e.touches[0].clientY);
+    setIsSwipeActive(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isSwipeActive) return;
+    
+    const currentY = e.touches[0].clientY;
+    const deltaY = currentY - startY;
+    
+    if (deltaY > 0) {
+      setSwipeY(deltaY);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (swipeY > 100) {
+      setShowQuickActions(false);
+    } else {
+      setSwipeY(0);
+    }
+    setIsSwipeActive(false);
+  };
 
   // Currency options
   const currencies = [
@@ -524,7 +577,17 @@ export default function ProfileScreen() {
 
       {showQuickActions && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]" onClick={() => setShowQuickActions(false)}>
-          <div className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700" onClick={(e) => e.stopPropagation()}>
+          <div 
+            className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700" 
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{
+              transform: `translateY(${swipeY}px)`,
+              transition: isSwipeActive ? 'none' : 'transform 0.3s ease-out'
+            }}
+          >
             <div className="flex justify-center pt-3 pb-2"><div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div></div>
             <div className="px-6 pb-4"><h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Quick Actions</h2><p className="text-gray-500 dark:text-gray-400 text-sm">Choose your eSIM category to get started</p></div>
             <div className="px-6 pb-8 space-y-3">
