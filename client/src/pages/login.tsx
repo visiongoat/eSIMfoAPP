@@ -148,7 +148,7 @@ export default function LoginScreen() {
           </div>
 
           {/* Sign Up Link */}
-          <div className="text-center -mt-4">
+          <div className="text-center -mt-8">
             <span className="text-gray-600 dark:text-gray-400">
               Don't have an account?{" "}
             </span>
