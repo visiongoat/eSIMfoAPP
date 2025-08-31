@@ -385,6 +385,8 @@ export default function ProfileScreen() {
                       setLocation('/refer-earn');
                     } else if (item.label === 'Contact Support') {
                       setLocation('/contact-support');
+                    } else if (item.label === 'Terms of Service') {
+                      window.open('https://esimfo.com/terms-conditions', '_blank');
                     }
                   }}
                 >

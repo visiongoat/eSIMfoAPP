@@ -16,6 +16,7 @@ Language: User communicates in Turkish but prefers English for technical impleme
 ### Profile Page Update (August 31, 2025)
 - Removed Notifications menu from profile page per user request
 - Removed Privacy & Security menu from profile page per user request
+- Connected Terms of Service link to https://esimfo.com/terms-conditions
 - Profile menu now focuses on essential account settings only
 - UI/UX remains consistent with streamlined menu options
 

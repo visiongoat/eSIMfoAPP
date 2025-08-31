@@ -1,0 +1,69 @@
+Terms & Conditions
+Last updated: June 29, 2025
+
+1. Validity of Terms
+These Terms and Conditions ("Terms") govern the use of the eSIM services provided by Vision go GmbH ("we", "us", "esimfo") through its mobile application and website. By accessing or using the services, you agree to be bound by these Terms. If you do not agree, please do not use our services.
+
+2. Definitions
+Customer: Any person who uses or purchases services from esimfo.
+Account: A registered user profile on esimfo.
+eSIM Plan: A digital data, voice, or SMS plan.
+Balance System: Prepaid credit system allowing users to top up and buy eSIM plans.
+3. Registration & Account
+Users must register using valid information (name, email, phone, etc.) and are responsible for keeping their login credentials secure. Any activity under the account is the sole responsibility of the user.
+
+4. Services
+esimfo offers digital eSIM plans that can be purchased and activated through our platform. All plans are virtual; we do not provide physical SIM cards. Activation is user-initiated.
+
+5. Device Compatibility
+The user must ensure their device supports eSIM and is network unlocked. A list of supported devices is available on our website.
+
+6. Orders, Activation & Validity
+Once the user completes a purchase and activates the eSIM, the service period begins immediately. The validity of each plan depends on the selected package duration.
+
+7. Payments & Balance
+Payments can be made via supported payment methods (e.g., credit card).
+
+Users may also top-up their esimfo Balance and use it to purchase plans.
+
+Prices and taxes vary by region and are displayed clearly before payment.
+
+8. Refund Policy
+Refunds are only available:
+
+• If the eSIM has not been activated (scanned or manually entered).
+• Within 30 days of purchase.
+• If there is a verified technical failure on esimfo's side.
+Once a plan has been installed or used, refunds are generally not permitted.
+
+9. Privacy & Location
+esimfo does not actively track GPS location. IP-based location may be used to enhance the user experience. All user data is stored securely in compliance with GDPR and European data laws.
+
+10. Termination & Suspension
+Users may delete their accounts at any time. esimfo reserves the right to suspend or terminate accounts for suspected fraud, misuse, or breach of these Terms.
+
+11. Intellectual Property
+All logos, trademarks, and content on esimfo are the intellectual property of Vision go GmbH. Unauthorized use is strictly prohibited.
+
+12. Disclaimer & Limitation of Liability
+The services are provided "as-is" with no warranty of uninterrupted access. esimfo is not liable for damages resulting from service outages, device issues, or user errors.
+
+Total liability is limited to the value of services purchased in the last 6 months.
+
+13. Indemnification
+You agree to indemnify and hold harmless esimfo and its affiliates from any claims arising from your breach of these Terms or misuse of services.
+
+14. Modifications
+We reserve the right to update these Terms at any time. Continued use of the service after changes constitutes acceptance of the revised Terms.
+
+15. Governing Law
+These Terms are governed by the laws of Austria. Any disputes shall be resolved in the courts of Vienna.
+
+16. Contact
+Vision go GmbH
+
+Bäckerstraße 7/7, 1010 Vienna, Austria
+
+Phone: +43 676 6440122
+
+Email: support@esimfo.com
