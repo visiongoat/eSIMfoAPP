@@ -362,12 +362,12 @@ export default function ProfileScreen() {
             {/* Enhanced light reflection effect - matching home page */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-transparent to-white opacity-25 pointer-events-none"></div>
             <div className="absolute top-0 left-1/4 w-1/2 h-1/3 rounded-full bg-white opacity-30 blur-sm pointer-events-none"></div>
-            {/* Level Badge - LinkedIn style */}
+            {/* Level Badge - Compact Style */}
             {user && (() => {
               const totalSpent = parseFloat(user.totalSpent || "0");
               const currentLevel = getTravelerLevel(totalSpent);
               return (
-                <div className={`absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center text-xs shadow-md ring-2 ring-gray-100 dark:ring-gray-800 ${
+                <div className={`absolute bottom-0 right-0 w-5 h-5 rounded-full border border-white/80 shadow flex items-center justify-center text-xs ${
                   currentLevel.color === 'gray' ? 'bg-gray-500' :
                   currentLevel.color === 'blue' ? 'bg-blue-500' :
                   currentLevel.color === 'purple' ? 'bg-purple-500' :
@@ -379,9 +379,9 @@ export default function ProfileScreen() {
             })()}
           </div>
           <h2 className="text-xl font-bold mb-1">{user?.name || 'John Doe'}</h2>
-          <p className="text-muted-foreground">{user?.email || 'john.doe@email.com'}</p>
+          <p className="text-muted-foreground mb-3">{user?.email || 'john.doe@email.com'}</p>
           
-          {/* Traveler Level Status - Improved Design */}
+          {/* Integrated Level Info - Soft Design */}
           {user && (() => {
             const totalSpent = parseFloat(user.totalSpent || "0");
             const currentLevel = getTravelerLevel(totalSpent);
@@ -389,57 +389,53 @@ export default function ProfileScreen() {
             const progress = getLevelProgress(totalSpent, currentLevel, nextLevel);
             
             return (
-              <div className="mt-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-inner">
-                {/* Level Header - Horizontal Layout */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-xl">{currentLevel.emoji}</span>
-                    <div>
-                      <span className="font-semibold text-gray-900 dark:text-gray-100">{currentLevel.name}</span>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{currentLevel.description}</p>
-                    </div>
+              <>
+                {/* Compact Level Line */}
+                <div className="text-sm text-gray-700 dark:text-gray-300 flex items-center justify-between gap-3 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span>{currentLevel.emoji}</span>
+                    <span>{currentLevel.name}</span>
+                    <span className="text-gray-500">·</span>
+                    <span>€{totalSpent.toFixed(0)} / €{nextLevel ? nextLevel.minSpent : totalSpent.toFixed(0)}</span>
                   </div>
                   
                   {nextLevel && (
-                    <div className="text-right">
-                      <div className="text-sm font-medium text-gray-600 dark:text-gray-300">
-                        €{totalSpent.toFixed(0)} / €{nextLevel.minSpent}
-                      </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
-                        Next: {nextLevel.name}
-                      </div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                      Next: {nextLevel.name}
                     </div>
                   )}
                   
                   {!nextLevel && (
-                    <div className="text-yellow-600 dark:text-yellow-400 text-sm font-medium">
+                    <div className="text-xs text-yellow-600 dark:text-yellow-400">
                       🏆 Max Level
                     </div>
                   )}
                 </div>
                 
-                {/* Progress Bar - Ultra Thin & Purple-Blue Gradient */}
+                {/* Thin Progress Bar */}
                 {nextLevel && (
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
+                  <div className="mt-2 w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full mb-3">
                     <div 
-                      className="h-1.5 rounded-full transition-all duration-700 bg-gradient-to-r from-purple-400 via-purple-500 to-blue-500"
+                      className="h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-700"
                       style={{ width: `${progress}%` }}
                     ></div>
                   </div>
                 )}
                 
-                {/* CTA Button - Ghost Style with Border & Arrow */}
-                <button
-                  onClick={() => setLocation('/traveler-levels')}
-                  className="w-full py-2.5 px-3 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-200 font-medium flex items-center justify-center space-x-2"
-                  data-testid="button-view-all-levels"
-                >
-                  <span>View All Levels</span>
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
+                {/* View All Levels Link */}
+                <div className="text-right">
+                  <button
+                    onClick={() => setLocation('/traveler-levels')}
+                    className="mt-3 text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 inline-flex items-center gap-1 transition-colors"
+                    data-testid="button-view-all-levels"
+                  >
+                    <span>View All Levels</span>
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </>
             );
           })()}
         </div>
