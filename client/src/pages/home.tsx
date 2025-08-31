@@ -31,6 +31,9 @@ import type { Country, Package } from "@shared/schema";
 export default function HomeScreen() {
   const [location, setLocation] = useLocation();
   const [selectedTab, setSelectedTab] = useState('local');
+  const [showAllDestinations, setShowAllDestinations] = useState(false);
+  const [destinationsPage, setDestinationsPage] = useState(1);
+  const [loadingMoreDestinations, setLoadingMoreDestinations] = useState(false);
 
   // Check URL parameters for tab selection
   useEffect(() => {
@@ -2063,12 +2066,38 @@ export default function HomeScreen() {
     }
   };
 
+  const handleMoreDestinations = () => {
+    setShowAllDestinations(true);
+    setDestinationsPage(1);
+  };
+
+  const handleLoadMore = async () => {
+    setLoadingMoreDestinations(true);
+    
+    // Simulate loading delay for better UX
+    setTimeout(() => {
+      setDestinationsPage(prev => prev + 1);
+      setLoadingMoreDestinations(false);
+    }, 800);
+  };
+
+  const handleBackToLimited = () => {
+    setShowAllDestinations(false);
+    setDestinationsPage(1);
+  };
+
 
 
   // Filter countries based on selected tab
   const getFilteredCountries = () => {
     switch (selectedTab) {
       case 'local':
+        if (showAllDestinations) {
+          // Show paginated results - 20 per page
+          const startIndex = 0;
+          const endIndex = destinationsPage * 20;
+          return countries.slice(startIndex, endIndex);
+        }
         return countries.filter(country => 
           ['United States', 'United Kingdom', 'Germany', 'France', 'Japan'].includes(country.name)
         ).slice(0, 8);
@@ -2851,23 +2880,68 @@ export default function HomeScreen() {
               )}
             </div>
             
-            {/* More Destinations Button */}
-            <button 
-              onClick={() => setLocation('/destinations')}
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl p-4 text-center transition-colors duration-200 shadow-lg hover:shadow-xl mb-8 relative overflow-hidden group"
-            >
-              {/* Background shimmer effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
-              
-              <div className="relative z-10 flex items-center justify-center">
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold text-white">More destinations</span>
-                  <svg className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            {/* More Destinations Button or Load More */}
+            {!showAllDestinations ? (
+              <button 
+                onClick={handleMoreDestinations}
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl p-4 text-center transition-colors duration-200 shadow-lg hover:shadow-xl mb-8 relative overflow-hidden group"
+              >
+                {/* Background shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700"></div>
+                
+                <div className="relative z-10 flex items-center justify-center">
+                  <div className="flex items-center space-x-2">
+                    <span className="font-semibold text-white">More destinations</span>
+                    <svg className="w-5 h-5 text-white group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </button>
+            ) : (
+              <div className="space-y-4 mb-8">
+                {/* Back button */}
+                <button
+                  onClick={handleBackToLimited}
+                  className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
+                  <span className="text-sm font-medium">Show less</span>
+                </button>
+
+                {/* Load More Button */}
+                {popularDestinations.length < countries.length && (
+                  <button 
+                    onClick={handleLoadMore}
+                    disabled={loadingMoreDestinations}
+                    className="w-full bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 hover:from-gray-200 hover:to-gray-100 dark:hover:from-gray-700 dark:hover:to-gray-600 rounded-2xl p-4 text-center transition-colors duration-200 shadow-sm hover:shadow-md border border-gray-200 dark:border-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <div className="flex items-center justify-center space-x-2">
+                      {loadingMoreDestinations ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+                          <span className="font-medium text-gray-600 dark:text-gray-400">Loading...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="font-medium text-gray-700 dark:text-gray-300">Load More ({Math.min(20, countries.length - popularDestinations.length)} more)</span>
+                          <svg className="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </>
+                      )}
+                    </div>
+                  </button>
+                )}
+
+                {/* Show count info */}
+                <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+                  Showing {popularDestinations.length} of {countries.length} destinations
                 </div>
               </div>
-            </button>
+            )}
 
 
           </div>
