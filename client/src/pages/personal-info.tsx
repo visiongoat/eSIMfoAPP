@@ -214,79 +214,7 @@ export default function PersonalInfo() {
           </div>
         </div>
 
-        {/* Preferences */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Preferences</h3>
-          
-          {/* Language */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Language
-            </label>
-            {isEditing ? (
-              <select
-                value={getDisplayValue('language')}
-                onChange={(e) => handleInputChange('language', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="">Select Language</option>
-                <option value="en">English</option>
-                <option value="tr">Türkçe</option>
-                <option value="de">Deutsch</option>
-                <option value="fr">Français</option>
-                <option value="es">Español</option>
-                <option value="it">Italiano</option>
-              </select>
-            ) : (
-              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
-                {profile?.language === 'en' ? 'English' :
-                 profile?.language === 'tr' ? 'Türkçe' :
-                 profile?.language === 'de' ? 'Deutsch' :
-                 profile?.language === 'fr' ? 'Français' :
-                 profile?.language === 'es' ? 'Español' :
-                 profile?.language === 'it' ? 'Italiano' :
-                 'English'}
-              </div>
-            )}
-          </div>
 
-          {/* Currency */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Preferred Currency
-            </label>
-            {isEditing ? (
-              <select
-                value={getDisplayValue('currency')}
-                onChange={(e) => handleInputChange('currency', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="">Select Currency</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="USD">USD ($)</option>
-                <option value="GBP">GBP (£)</option>
-                <option value="TRY">TRY (₺)</option>
-                <option value="JPY">JPY (¥)</option>
-                <option value="CAD">CAD (C$)</option>
-                <option value="AUD">AUD (A$)</option>
-                <option value="CHF">CHF (Fr)</option>
-              </select>
-            ) : (
-              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
-                {profile?.currency ? `${profile.currency} (${
-                  profile.currency === 'EUR' ? '€' :
-                  profile.currency === 'USD' ? '$' :
-                  profile.currency === 'GBP' ? '£' :
-                  profile.currency === 'TRY' ? '₺' :
-                  profile.currency === 'JPY' ? '¥' :
-                  profile.currency === 'CAD' ? 'C$' :
-                  profile.currency === 'AUD' ? 'A$' :
-                  profile.currency === 'CHF' ? 'Fr' : '€'
-                })` : 'EUR (€)'}
-              </div>
-            )}
-          </div>
-        </div>
 
         {/* Security Settings */}
         <div className="bg-white dark:bg-gray-800 rounded-xl p-4 space-y-4">
