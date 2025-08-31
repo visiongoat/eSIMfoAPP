@@ -2098,9 +2098,10 @@ export default function HomeScreen() {
           const endIndex = destinationsPage * 20;
           return countries.slice(startIndex, endIndex);
         }
+        // Show only 5 popular countries initially
         return countries.filter(country => 
           ['United States', 'United Kingdom', 'Germany', 'France', 'Japan'].includes(country.name)
-        ).slice(0, 8);
+        );
       case 'regional':
         return countries.filter(country => 
           ['Spain', 'Italy', 'Netherlands', 'Poland', 'Turkey'].includes(country.name)
