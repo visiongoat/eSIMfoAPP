@@ -18,6 +18,7 @@ Language: User communicates in Turkish but prefers English for technical impleme
 - Removed Privacy & Security menu from profile page per user request
 - Connected Terms of Service link to https://esimfo.com/terms-conditions
 - Connected Privacy Policy link to https://esimfo.com/privacy-policy
+- Removed logo from profile footer, kept text "Version 1.2.3 • Made with ❤️ for travelers"
 - Profile menu now focuses on essential account settings only
 - UI/UX remains consistent with streamlined menu options
 

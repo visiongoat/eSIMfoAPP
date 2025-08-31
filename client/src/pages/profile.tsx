@@ -442,11 +442,6 @@ export default function ProfileScreen() {
 
         {/* esimfo Branding Footer */}
         <div className="text-center py-6 border-t border-gray-100 dark:border-gray-800">
-          <img 
-            src="/attached_assets/profilefooterlogo.png" 
-            alt="esimfo" 
-            className="h-10 mx-auto mb-2"
-          />
           <p className="text-xs text-gray-500">Version 1.2.3 • Made with ❤️ for travelers</p>
         </div>
       </div>
