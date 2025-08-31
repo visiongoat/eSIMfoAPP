@@ -601,102 +601,84 @@ ${baseUrl}/packages/${countryId}`;
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Plan details</h3>
           
-          {/* Compact Premium Quick Facts */}
+          {/* Elegant Quick Facts */}
           <div className="grid grid-cols-3 gap-2 mb-4">
             {selectedTab === 'data-calls-text' ? (
               // Data/Calls/Text packages: Phone Number - LTE Ready - No eKYC
               <>
                 {/* Phone Number */}
-                <div className="relative bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-3 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <div className="absolute inset-0 bg-white/10 rounded-xl"></div>
-                  <div className="relative">
-                    <div className="w-8 h-8 mx-auto mb-2 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
-                      </svg>
-                    </div>
-                    <div className="text-xs font-bold text-white">Phone Number</div>
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                  <div className="w-8 h-8 mx-auto mb-2 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+                    </svg>
                   </div>
+                  <div className="text-xs font-semibold text-gray-900 dark:text-white">Phone Number</div>
                 </div>
 
                 {/* LTE Ready */}
-                <div className="relative bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-3 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <div className="absolute inset-0 bg-white/10 rounded-xl"></div>
-                  <div className="relative">
-                    <div className="w-8 h-8 mx-auto mb-2 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
-                      <div className="flex items-center justify-center space-x-0.5">
-                        {[1, 2, 3, 4].map((bar) => (
-                          <div
-                            key={bar}
-                            className="w-0.5 rounded-sm bg-white"
-                            style={{ height: `${4 + bar * 1.5}px` }}
-                          />
-                        ))}
-                      </div>
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                  <div className="w-8 h-8 mx-auto mb-2 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                    <div className="flex items-center justify-center space-x-0.5">
+                      {[1, 2, 3, 4].map((bar) => (
+                        <div
+                          key={bar}
+                          className="w-0.5 rounded-sm bg-green-500"
+                          style={{ height: `${4 + bar * 1.5}px` }}
+                        />
+                      ))}
                     </div>
-                    <div className="text-xs font-bold text-white">LTE Ready</div>
                   </div>
+                  <div className="text-xs font-semibold text-gray-900 dark:text-white">LTE Ready</div>
                 </div>
 
                 {/* No eKYC */}
-                <div className="relative bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <div className="absolute inset-0 bg-white/10 rounded-xl"></div>
-                  <div className="relative">
-                    <div className="w-8 h-8 mx-auto mb-2 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
-                      </svg>
-                    </div>
-                    <div className="text-xs font-bold text-white">no eKYC</div>
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                  <div className="w-8 h-8 mx-auto mb-2 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                    </svg>
                   </div>
+                  <div className="text-xs font-semibold text-gray-900 dark:text-white">no eKYC</div>
                 </div>
               </>
             ) : (
-              // Data only packages: LTE Ready - No eKYC - US IP
+              // Data only packages: LTE Ready - No eKYC - Provider
               <>
                 {/* LTE Ready */}
-                <div className="relative bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-3 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <div className="absolute inset-0 bg-white/10 rounded-xl"></div>
-                  <div className="relative">
-                    <div className="w-8 h-8 mx-auto mb-2 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
-                      <div className="flex items-center justify-center space-x-0.5">
-                        {[1, 2, 3, 4].map((bar) => (
-                          <div
-                            key={bar}
-                            className="w-0.5 rounded-sm bg-white"
-                            style={{ height: `${4 + bar * 1.5}px` }}
-                          />
-                        ))}
-                      </div>
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                  <div className="w-8 h-8 mx-auto mb-2 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                    <div className="flex items-center justify-center space-x-0.5">
+                      {[1, 2, 3, 4].map((bar) => (
+                        <div
+                          key={bar}
+                          className="w-0.5 rounded-sm bg-green-500"
+                          style={{ height: `${4 + bar * 1.5}px` }}
+                        />
+                      ))}
                     </div>
-                    <div className="text-xs font-bold text-white">LTE Ready</div>
                   </div>
+                  <div className="text-xs font-semibold text-gray-900 dark:text-white">LTE Ready</div>
                 </div>
 
                 {/* No eKYC */}
-                <div className="relative bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-3 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <div className="absolute inset-0 bg-white/10 rounded-xl"></div>
-                  <div className="relative">
-                    <div className="w-8 h-8 mx-auto mb-2 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
-                      </svg>
-                    </div>
-                    <div className="text-xs font-bold text-white">no eKYC</div>
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                  <div className="w-8 h-8 mx-auto mb-2 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                    </svg>
                   </div>
+                  <div className="text-xs font-semibold text-gray-900 dark:text-white">no eKYC</div>
                 </div>
 
-                {/* US IP */}
-                <div className="relative bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-3 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <div className="absolute inset-0 bg-white/10 rounded-xl"></div>
-                  <div className="relative">
-                    <div className="w-8 h-8 mx-auto mb-2 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                      </svg>
-                    </div>
-                    <div className="text-xs font-bold text-white">US IP</div>
+                {/* Provider */}
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
+                  <div className="w-8 h-8 mx-auto mb-2 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
                   </div>
+                  <div className="text-xs font-semibold text-gray-900 dark:text-white">Provider</div>
                 </div>
               </>
             )}
