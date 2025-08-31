@@ -379,9 +379,9 @@ export default function ProfileScreen() {
             })()}
           </div>
           <h2 className="text-xl font-bold mb-1">{user?.name || 'John Doe'}</h2>
-          <p className="text-muted-foreground mb-3">{user?.email || 'john.doe@email.com'}</p>
+          <p className="text-sm text-gray-500 mb-2">{user?.email || 'john.doe@email.com'}</p>
           
-          {/* Integrated Level Info - Soft Design */}
+          {/* Integrated Level Info - Improved Hierarchy */}
           {user && (() => {
             const totalSpent = parseFloat(user.totalSpent || "0");
             const currentLevel = getTravelerLevel(totalSpent);
@@ -390,8 +390,8 @@ export default function ProfileScreen() {
             
             return (
               <>
-                {/* Compact Level Line */}
-                <div className="text-sm text-gray-700 dark:text-gray-300 flex items-center justify-between gap-3 mb-2">
+                {/* Compact Level Line - Better Typography */}
+                <div className="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <span>{currentLevel.emoji}</span>
                     <span>{currentLevel.name}</span>
@@ -412,9 +412,9 @@ export default function ProfileScreen() {
                   )}
                 </div>
                 
-                {/* Thin Progress Bar */}
+                {/* Thin Progress Bar - Better Spacing */}
                 {nextLevel && (
-                  <div className="mt-2 w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full mb-3">
+                  <div className="mt-1.5 w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full">
                     <div 
                       className="h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-700"
                       style={{ width: `${progress}%` }}
@@ -422,11 +422,11 @@ export default function ProfileScreen() {
                   </div>
                 )}
                 
-                {/* View All Levels Link */}
-                <div className="text-right">
+                {/* View All Levels Link - Right Aligned Under Bar */}
+                <div className="text-right mt-2">
                   <button
                     onClick={() => setLocation('/traveler-levels')}
-                    className="mt-3 text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 inline-flex items-center gap-1 transition-colors"
+                    className="text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 inline-flex items-center gap-1 transition-colors"
                     data-testid="button-view-all-levels"
                   >
                     <span>View All Levels</span>
