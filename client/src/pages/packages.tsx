@@ -507,18 +507,11 @@ ${baseUrl}/packages/${countryId}`;
           >
             <Share className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </button>
-          <button 
+          <button
             onClick={() => setShowCurrencyLanguageModal(true)}
-            className="flex items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-2.5 py-1.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
+            className="text-orange-500 dark:text-orange-400 font-medium text-sm hover:bg-orange-50 dark:hover:bg-orange-900/20 px-2 py-1 rounded-lg transition-colors active:scale-95 touch-manipulation"
           >
-            <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
-              {currencies.find(c => c.code === selectedCurrency)?.symbol}
-            </span>
-            <span className="mx-1 text-gray-500 dark:text-gray-400 text-xs">•</span>
-            <span className="text-lg">{languages.find(l => l.code === selectedLanguage)?.flag}</span>
-            <svg className="w-3 h-3 ml-1 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            {getCurrencySymbol(selectedCurrency)}, {selectedCurrency}
           </button>
         </div>
       </div>
