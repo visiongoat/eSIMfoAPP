@@ -253,40 +253,7 @@ export default function PersonalInfo() {
           </div>
         </div>
 
-        {/* Notifications */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Notifications</h3>
-          
-          <div className="flex items-center justify-between py-2">
-            <div>
-              <div className="text-gray-900 dark:text-gray-100">Email Notifications</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">Receive emails about your eSIM usage</div>
-            </div>
-            <div className="w-10 h-6 bg-blue-500 rounded-full relative transition-all duration-200">
-              <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 right-0.5 transition-all duration-200"></div>
-            </div>
-          </div>
 
-          <div className="flex items-center justify-between py-2">
-            <div>
-              <div className="text-gray-900 dark:text-gray-100">Push Notifications</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">Get notified about important updates</div>
-            </div>
-            <div className="w-10 h-6 bg-blue-500 rounded-full relative transition-all duration-200">
-              <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 right-0.5 transition-all duration-200"></div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between py-2">
-            <div>
-              <div className="text-gray-900 dark:text-gray-100">Marketing Emails</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">Receive promotional offers and updates</div>
-            </div>
-            <div className="w-10 h-6 bg-gray-300 dark:bg-gray-600 rounded-full relative transition-all duration-200">
-              <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5 transition-all duration-200"></div>
-            </div>
-          </div>
-        </div>
 
         {/* Account Management */}
         <div className="bg-white dark:bg-gray-800 rounded-xl p-4 space-y-4">
