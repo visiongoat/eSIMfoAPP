@@ -20,6 +20,7 @@ Language: User communicates in Turkish but prefers English for technical impleme
 - Connected Privacy Policy link to https://esimfo.com/privacy-policy
 - Removed logo from profile footer, kept text "Version 1.2.3 • Made with ❤️ for travelers"
 - Removed Preferences section (language/currency selectors) from personal-info page
+- Removed Two-Factor Authentication option from personal-info page
 - Profile menu now focuses on essential account settings only
 - UI/UX remains consistent with streamlined menu options
 
