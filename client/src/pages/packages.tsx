@@ -441,20 +441,22 @@ ${baseUrl}/packages/${countryId}`;
     <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20 animate-slide-in-from-top">
       {/* Custom Header */}
       <div className="flex items-center justify-between px-4 py-2">
-        <button onClick={handleBackClick} className="p-1">
-          <ArrowLeft className="w-5 h-5 text-gray-900 dark:text-white" />
-        </button>
-        <div className="flex items-center justify-center flex-1 pr-8">
-          {country?.flagUrl && (
-            <img 
-              src={country.flagUrl} 
-              alt={`${country.name} flag`}
-              className="w-5 h-4 mr-2 rounded-sm object-cover"
-            />
-          )}
-          <h1 className="text-base font-medium text-gray-900 dark:text-white">
-            {country?.name || "Loading..."}
-          </h1>
+        <div className="flex items-center">
+          <button onClick={handleBackClick} className="p-1 mr-3">
+            <ArrowLeft className="w-5 h-5 text-gray-900 dark:text-white" />
+          </button>
+          <div className="flex items-center">
+            {country?.flagUrl && (
+              <img 
+                src={country.flagUrl} 
+                alt={`${country.name} flag`}
+                className="w-5 h-4 mr-2 rounded-sm object-cover"
+              />
+            )}
+            <h1 className="text-base font-medium text-gray-900 dark:text-white">
+              {country?.name || "Loading..."}
+            </h1>
+          </div>
         </div>
         <div className="flex items-center space-x-2">
           <button
