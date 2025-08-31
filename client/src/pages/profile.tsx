@@ -334,11 +334,6 @@ export default function ProfileScreen() {
     <div className="mobile-screen">
       <NavigationBar 
         title="Profile"
-        rightButton={
-          <button className="text-primary font-medium">
-            Edit
-          </button>
-        }
       />
 
       <div className="px-4 pt-4">
