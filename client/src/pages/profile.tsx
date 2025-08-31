@@ -349,8 +349,8 @@ export default function ProfileScreen() {
                  border: '2px solid rgba(59, 130, 246, 0.8)',
                  boxShadow: `
                    0 0 0 1px rgba(59, 130, 246, 0.2),
-                   0 0 20px rgba(59, 130, 246, 0.4),
-                   0 0 40px rgba(59, 130, 246, 0.2),
+                   0 0 20px rgba(59, 130, 246, 0.15),
+                   0 0 40px rgba(59, 130, 246, 0.1),
                    0 4px 20px rgba(0, 0, 0, 0.3),
                    inset 0 1px 0 rgba(255, 255, 255, 0.3),
                    inset 0 -1px 0 rgba(0, 0, 0, 0.1)
