@@ -344,10 +344,24 @@ export default function ProfileScreen() {
       <div className="px-4 pt-4">
         {/* Profile Header */}
         <div className="mobile-card p-6 mb-4 text-center">
-          <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 relative">
+          <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 relative" 
+               style={{
+                 border: '2px solid rgba(59, 130, 246, 0.8)',
+                 boxShadow: `
+                   0 0 0 1px rgba(59, 130, 246, 0.2),
+                   0 0 20px rgba(59, 130, 246, 0.4),
+                   0 0 40px rgba(59, 130, 246, 0.2),
+                   0 4px 20px rgba(0, 0, 0, 0.3),
+                   inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                   inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                 `
+               }}>
             <span className="text-white text-2xl font-bold">
               {user ? getInitials(user.name) : 'JD'}
             </span>
+            {/* Enhanced light reflection effect - matching home page */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-transparent to-white opacity-25 pointer-events-none"></div>
+            <div className="absolute top-0 left-1/4 w-1/2 h-1/3 rounded-full bg-white opacity-30 blur-sm pointer-events-none"></div>
             {/* Level Badge - LinkedIn style */}
             {user && (() => {
               const totalSpent = parseFloat(user.totalSpent || "0");
