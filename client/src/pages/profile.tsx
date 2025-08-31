@@ -390,31 +390,27 @@ export default function ProfileScreen() {
             
             return (
               <>
-                {/* Compact Level Line - Better Typography */}
-                <div className="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center justify-between gap-3">
+                {/* Level Line - Exact User Specification */}
+                <div className="mt-2 flex items-center justify-between text-sm">
                   <div className="flex items-center gap-2">
-                    <span>{currentLevel.emoji}</span>
-                    <span>{currentLevel.name}</span>
-                    <span className="text-gray-500">·</span>
-                    <span>€{totalSpent.toFixed(0)} / €{nextLevel ? nextLevel.minSpent : totalSpent.toFixed(0)}</span>
+                    <span className="w-4 h-4 align-middle">{currentLevel.emoji}</span>
+                    <span className="font-medium">{currentLevel.name}</span>
+                    <span className="mx-2 text-gray-300">•</span>
+                    <span className="font-medium">€{totalSpent.toFixed(0)} / €{nextLevel ? nextLevel.minSpent : totalSpent.toFixed(0)}</span>
                   </div>
                   
                   {nextLevel && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400">
-                      Next: {nextLevel.name}
-                    </div>
+                    <span className="text-xs text-gray-500">Next: {nextLevel.name}</span>
                   )}
                   
                   {!nextLevel && (
-                    <div className="text-xs text-yellow-600 dark:text-yellow-400">
-                      🏆 Max Level
-                    </div>
+                    <span className="text-xs text-yellow-600 dark:text-yellow-400">🏆 Max Level</span>
                   )}
                 </div>
                 
-                {/* Thin Progress Bar - Better Spacing */}
+                {/* Progress Bar - Exact Specification */}
                 {nextLevel && (
-                  <div className="mt-1.5 w-full bg-gray-200 dark:bg-gray-700 h-1.5 rounded-full">
+                  <div className="mt-1.5 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
                     <div 
                       className="h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-700"
                       style={{ width: `${progress}%` }}
@@ -422,19 +418,15 @@ export default function ProfileScreen() {
                   </div>
                 )}
                 
-                {/* View All Levels Link - Right Aligned Under Bar */}
-                <div className="text-right mt-2">
-                  <button
-                    onClick={() => setLocation('/traveler-levels')}
-                    className="text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 inline-flex items-center gap-1 transition-colors"
-                    data-testid="button-view-all-levels"
-                  >
-                    <span>View All Levels</span>
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
+                {/* View All Levels Link - Self-End Aligned */}
+                <button
+                  onClick={() => setLocation('/traveler-levels')}
+                  className="mt-2.5 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 self-end transition-colors"
+                  data-testid="button-view-all-levels"
+                >
+                  <span>View All Levels</span>
+                  <span>›</span>
+                </button>
               </>
             );
           })()}
