@@ -348,12 +348,12 @@ export default function ProfileScreen() {
             <span className="text-white text-2xl font-bold">
               {user ? getInitials(user.name) : 'JD'}
             </span>
-            {/* Level Badge */}
+            {/* Level Badge - LinkedIn style */}
             {user && (() => {
               const totalSpent = parseFloat(user.totalSpent || "0");
               const currentLevel = getTravelerLevel(totalSpent);
               return (
-                <div className={`absolute -bottom-1 -right-1 w-7 h-7 rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center text-sm ${
+                <div className={`absolute -bottom-0.5 -right-0.5 w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center text-xs shadow-lg ${
                   currentLevel.color === 'gray' ? 'bg-gray-500' :
                   currentLevel.color === 'blue' ? 'bg-blue-500' :
                   currentLevel.color === 'purple' ? 'bg-purple-500' :
@@ -367,7 +367,7 @@ export default function ProfileScreen() {
           <h2 className="text-xl font-bold mb-1">{user?.name || 'John Doe'}</h2>
           <p className="text-muted-foreground">{user?.email || 'john.doe@email.com'}</p>
           
-          {/* Traveler Level Status */}
+          {/* Traveler Level Status - Improved Design */}
           {user && (() => {
             const totalSpent = parseFloat(user.totalSpent || "0");
             const currentLevel = getTravelerLevel(totalSpent);
@@ -375,60 +375,58 @@ export default function ProfileScreen() {
             const progress = getLevelProgress(totalSpent, currentLevel, nextLevel);
             
             return (
-              <div className="mt-4 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">{currentLevel.emoji}</span>
-                    <span className="font-semibold text-gray-900 dark:text-gray-100">{currentLevel.name}</span>
+              <div className="mt-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100 dark:border-gray-700">
+                {/* Level Header - Horizontal Layout */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-xl">{currentLevel.emoji}</span>
+                    <div>
+                      <span className="font-semibold text-gray-900 dark:text-gray-100">{currentLevel.name}</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{currentLevel.description}</p>
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
-                    €{totalSpent.toFixed(0)} spent
-                  </div>
+                  
+                  {nextLevel && (
+                    <div className="text-right">
+                      <div className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                        €{totalSpent.toFixed(0)} / €{nextLevel.minSpent}
+                      </div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        Next: {nextLevel.name}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {!nextLevel && (
+                    <div className="text-yellow-600 dark:text-yellow-400 text-sm font-medium">
+                      🏆 Max Level
+                    </div>
+                  )}
                 </div>
                 
+                {/* Progress Bar - Thin & Gradient */}
                 {nextLevel && (
-                  <>
-                    {/* Progress Bar */}
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
-                      <div 
-                        className={`h-2 rounded-full transition-all duration-500 ${
-                          nextLevel.color === 'blue' ? 'bg-gradient-to-r from-blue-400 to-blue-500' :
-                          nextLevel.color === 'purple' ? 'bg-gradient-to-r from-purple-400 to-purple-500' :
-                          nextLevel.color === 'gold' ? 'bg-gradient-to-r from-yellow-400 to-yellow-500' :
-                          'bg-gradient-to-r from-gray-400 to-gray-500'
-                        }`}
-                        style={{ width: `${progress}%` }}
-                      ></div>
-                    </div>
-                    
-                    {/* Next Level Info */}
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-gray-500 dark:text-gray-400">{currentLevel.description}</span>
-                      <span className="text-gray-600 dark:text-gray-300 font-medium">
-                        Next: {nextLevel.name} at €{nextLevel.minSpent}
-                      </span>
-                    </div>
-                  </>
-                )}
-                
-                {!nextLevel && (
-                  <div className="text-xs text-center py-1">
-                    <span className="text-yellow-600 dark:text-yellow-400 font-medium">
-                      🏆 Maximum level achieved!
-                    </span>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3">
+                    <div 
+                      className={`h-2 rounded-full transition-all duration-700 ${
+                        nextLevel.color === 'blue' ? 'bg-gradient-to-r from-blue-400 to-blue-500' :
+                        nextLevel.color === 'purple' ? 'bg-gradient-to-r from-purple-400 to-purple-500' :
+                        nextLevel.color === 'gold' ? 'bg-gradient-to-r from-yellow-400 to-yellow-500' :
+                        'bg-gradient-to-r from-gray-400 to-gray-500'
+                      }`}
+                      style={{ width: `${progress}%` }}
+                    ></div>
                   </div>
                 )}
                 
-                {/* View All Levels Button */}
-                <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                  <button
-                    onClick={() => setLocation('/traveler-levels')}
-                    className="w-full text-center text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-200"
-                    data-testid="button-view-all-levels"
-                  >
-                    View All Levels →
-                  </button>
-                </div>
+                {/* CTA Button - Ghost Style */}
+                <button
+                  onClick={() => setLocation('/traveler-levels')}
+                  className="w-full py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200 font-medium"
+                  data-testid="button-view-all-levels"
+                >
+                  View All Levels
+                </button>
               </div>
             );
           })()}
