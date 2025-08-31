@@ -17,6 +17,7 @@ Language: User communicates in Turkish but prefers English for technical impleme
 - Removed Notifications menu from profile page per user request
 - Removed Privacy & Security menu from profile page per user request
 - Connected Terms of Service link to https://esimfo.com/terms-conditions
+- Connected Privacy Policy link to https://esimfo.com/privacy-policy
 - Profile menu now focuses on essential account settings only
 - UI/UX remains consistent with streamlined menu options
 

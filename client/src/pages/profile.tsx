@@ -387,6 +387,8 @@ export default function ProfileScreen() {
                       setLocation('/contact-support');
                     } else if (item.label === 'Terms of Service') {
                       window.open('https://esimfo.com/terms-conditions', '_blank');
+                    } else if (item.label === 'Privacy Policy') {
+                      window.open('https://esimfo.com/privacy-policy', '_blank');
                     }
                   }}
                 >
