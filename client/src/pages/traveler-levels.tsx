@@ -28,7 +28,7 @@ export default function TravelerLevelsScreen() {
         }
       />
 
-      <div className="px-4 pt-4 pb-2">
+      <div className="px-4 pt-4 pb-4">
         {/* Current Level Card */}
         <div className="mobile-card p-6 mb-4 text-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-700">
           <div className="text-4xl mb-2">{currentLevel.emoji}</div>
@@ -157,14 +157,15 @@ export default function TravelerLevelsScreen() {
           })}
         </div>
 
-        {/* Keep Exploring - Compact Version */}
-        <div className="text-center py-4">
-          <div className="text-xl mb-1">🌍</div>
-          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">
+        {/* Keep Exploring - Original Design */}
+        <div className="mobile-card p-4 mt-4 text-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+          <div className="text-2xl mb-2">🌍</div>
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
             Keep Exploring!
           </h3>
-          <p className="text-xs text-gray-600 dark:text-gray-400 px-4">
-            The more you travel with eSIMfo, the more exclusive benefits you unlock.
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            The more you travel with eSIMfo, the more exclusive benefits you unlock. 
+            Each purchase brings you closer to your next traveler level!
           </p>
         </div>
       </div>
