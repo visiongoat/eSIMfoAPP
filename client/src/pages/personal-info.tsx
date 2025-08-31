@@ -397,7 +397,10 @@ export default function PersonalInfo() {
               </div>
               <span className="text-gray-900 dark:text-gray-100">Login Activity</span>
             </div>
-            <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">
+            <button 
+              onClick={() => setLocation('/login-activity')}
+              className="text-blue-500 dark:text-blue-400 text-sm font-medium"
+            >
               View
             </button>
           </div>

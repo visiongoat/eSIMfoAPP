@@ -29,6 +29,7 @@ import SignupScreen from "@/pages/signup";
 import VerifyEmailScreen from "@/pages/verify-email";
 import NotFoundPage from "@/pages/not-found";
 import TravelerLevelsScreen from "@/pages/traveler-levels";
+import LoginActivityScreen from "@/pages/login-activity";
 
 function Router() {
   // Enable swipe navigation globally (disabled on splash and onboarding)
@@ -61,6 +62,7 @@ function Router() {
         <Route path="/guides" component={GuidesScreen} />
         <Route path="/profile" component={ProfileScreen} />
         <Route path="/personal-info" component={PersonalInfoScreen} />
+        <Route path="/login-activity" component={LoginActivityScreen} />
         <Route path="/balance" component={BalanceScreen} />
         <Route path="/transactions" component={TransactionsScreen} />
         <Route path="/partner" component={PartnerScreen} />
