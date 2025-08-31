@@ -157,17 +157,7 @@ export default function TravelerLevelsScreen() {
           })}
         </div>
 
-        {/* Motivational Message */}
-        <div className="mobile-card p-4 mt-4 mb-2 text-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
-          <div className="text-2xl mb-2">🌍</div>
-          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
-            Keep Exploring!
-          </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            The more you travel with eSIMfo, the more exclusive benefits you unlock. 
-            Each purchase brings you closer to your next traveler level!
-          </p>
-        </div>
+
       </div>
     </div>
   );
