@@ -481,35 +481,35 @@ ${baseUrl}/packages/${countryId}`;
 
   return (
     <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20 animate-slide-in-from-top">
-      {/* Custom Header - Bigger elements using available space */}
-      <div className="flex items-center justify-between px-5 py-4">
+      {/* Custom Header - Optimized size */}
+      <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center">
-          <button onClick={handleBackClick} className="p-2 mr-4">
-            <ArrowLeft className="w-7 h-7 text-gray-900 dark:text-white" />
+          <button onClick={handleBackClick} className="p-1.5 mr-3">
+            <ArrowLeft className="w-6 h-6 text-gray-900 dark:text-white" />
           </button>
           <div className="flex items-center">
             {country?.flagUrl && (
               <img 
                 src={country.flagUrl} 
                 alt={`${country.name} flag`}
-                className="w-7 h-6 mr-3 rounded-sm object-cover"
+                className="w-6 h-5 mr-2.5 rounded-sm object-cover"
               />
             )}
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
               {country?.name || "Loading..."}
             </h1>
           </div>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2.5">
           <button
             onClick={handleShare}
-            className="p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors active:scale-95 touch-manipulation"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors active:scale-95 touch-manipulation"
           >
-            <Share className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+            <Share className="w-5 h-5 text-gray-600 dark:text-gray-400" />
           </button>
           <button
             onClick={() => setShowCurrencyLanguageModal(true)}
-            className="text-orange-500 dark:text-orange-400 font-bold text-base hover:bg-orange-50 dark:hover:bg-orange-900/20 px-3 py-2 rounded-xl transition-colors active:scale-95 touch-manipulation"
+            className="text-orange-500 dark:text-orange-400 font-semibold text-sm hover:bg-orange-50 dark:hover:bg-orange-900/20 px-2.5 py-1.5 rounded-lg transition-colors active:scale-95 touch-manipulation"
           >
             {getCurrencySymbol(selectedCurrency)}, {selectedCurrency}
           </button>
