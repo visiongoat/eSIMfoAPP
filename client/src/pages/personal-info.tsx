@@ -195,7 +195,7 @@ export default function PersonalInfo() {
         }
       />
 
-      <div className="px-6 pt-4 pb-20 space-y-6">
+      <div className="px-6 pt-4 pb-6 space-y-6">
         {/* Profile Photo Section */}
         <div className="text-center py-6">
           <div className="relative inline-block">
