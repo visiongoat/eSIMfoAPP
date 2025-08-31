@@ -3344,17 +3344,17 @@ export default function HomeScreen() {
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3 mt-6">
           <button 
-            onClick={() => setLocation('/destinations')}
-            className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 hover:from-green-100 hover:to-green-150 dark:hover:from-green-800/40 dark:hover:to-green-700/40 border border-green-200 dark:border-green-700 rounded-xl p-4 text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+            onClick={() => setLocation('/refer-earn')}
+            className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 hover:from-orange-100 hover:to-orange-150 dark:hover:from-orange-800/40 dark:hover:to-orange-700/40 border border-orange-200 dark:border-orange-700 rounded-xl p-4 text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="text-2xl">🔍</div>
-              <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                202+
+              <div className="text-2xl">💰</div>
+              <div className="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                €3
               </div>
             </div>
-            <div className="font-medium text-gray-900 dark:text-gray-100 text-sm">Browse All</div>
-            <div className="text-xs text-gray-600 dark:text-gray-400">All destinations</div>
+            <div className="font-medium text-gray-900 dark:text-gray-100 text-sm">Refer & Earn</div>
+            <div className="text-xs text-gray-600 dark:text-gray-400">Earn €3 per friend</div>
           </button>
           
           <button 
