@@ -25,6 +25,14 @@ export default function PersonalInfo() {
   
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState<Partial<UserProfile>>({});
+  
+  // Password change states
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
 
   // Fetch user profile
   const { data: profile, isLoading } = useQuery<UserProfile>({
@@ -65,6 +73,41 @@ export default function PersonalInfo() {
     },
   });
 
+  // Change password mutation
+  const changePasswordMutation = useMutation({
+    mutationFn: async (passwords: typeof passwordData) => {
+      const response = await fetch('/api/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currentPassword: passwords.currentPassword,
+          newPassword: passwords.newPassword
+        }),
+      });
+      if (!response.ok) throw new Error('Failed to change password');
+      return response.json();
+    },
+    onSuccess: () => {
+      setIsChangingPassword(false);
+      setPasswordData({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      });
+      toast({
+        title: "Password Updated",
+        description: "Your password has been changed successfully.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Password Update Failed",
+        description: "Failed to change password. Please check your current password.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleSave = () => {
     if (Object.keys(editedProfile).length > 0) {
       updateProfileMutation.mutate(editedProfile);
@@ -87,6 +130,37 @@ export default function PersonalInfo() {
 
   const getDisplayValue = (field: keyof UserProfile) => {
     return editedProfile[field] !== undefined ? editedProfile[field] : profile?.[field] || '';
+  };
+
+  const handlePasswordChange = () => {
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      toast({
+        title: "Password Mismatch",
+        description: "New password and confirmation don't match.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    if (passwordData.newPassword.length < 8) {
+      toast({
+        title: "Password Too Short",
+        description: "Password must be at least 8 characters long.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    changePasswordMutation.mutate(passwordData);
+  };
+
+  const handlePasswordCancel = () => {
+    setIsChangingPassword(false);
+    setPasswordData({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
   };
 
   if (isLoading) {
@@ -221,19 +295,95 @@ export default function PersonalInfo() {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Security Settings</h3>
           
           {/* Change Password */}
-          <div className="flex items-center justify-between py-2">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-red-500 rounded-md flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
+          {!isChangingPassword ? (
+            <div className="flex items-center justify-between py-2">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-red-500 rounded-md flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <span className="text-gray-900 dark:text-gray-100">Change Password</span>
               </div>
-              <span className="text-gray-900 dark:text-gray-100">Change Password</span>
+              <button 
+                onClick={() => setIsChangingPassword(true)}
+                className="text-blue-500 dark:text-blue-400 text-sm font-medium"
+              >
+                Update
+              </button>
             </div>
-            <button className="text-blue-500 dark:text-blue-400 text-sm font-medium">
-              Update
-            </button>
-          </div>
+          ) : (
+            <div className="space-y-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-8 h-8 bg-red-500 rounded-md flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <span className="text-gray-900 dark:text-gray-100 font-medium">Change Password</span>
+              </div>
+              
+              {/* Current Password */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Current Password
+                </label>
+                <input
+                  type="password"
+                  value={passwordData.currentPassword}
+                  onChange={(e) => setPasswordData(prev => ({...prev, currentPassword: e.target.value}))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter current password"
+                />
+              </div>
+
+              {/* New Password */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  New Password
+                </label>
+                <input
+                  type="password"
+                  value={passwordData.newPassword}
+                  onChange={(e) => setPasswordData(prev => ({...prev, newPassword: e.target.value}))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Enter new password (min 8 characters)"
+                />
+              </div>
+
+              {/* Confirm New Password */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Confirm New Password
+                </label>
+                <input
+                  type="password"
+                  value={passwordData.confirmPassword}
+                  onChange={(e) => setPasswordData(prev => ({...prev, confirmPassword: e.target.value}))}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Confirm new password"
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex space-x-3 pt-2">
+                <button
+                  onClick={handlePasswordChange}
+                  disabled={changePasswordMutation.isPending}
+                  className="flex-1 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white py-2 px-4 rounded-lg font-medium transition-colors"
+                >
+                  {changePasswordMutation.isPending ? "Updating..." : "Update Password"}
+                </button>
+                <button
+                  onClick={handlePasswordCancel}
+                  disabled={changePasswordMutation.isPending}
+                  className="flex-1 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 text-white py-2 px-4 rounded-lg font-medium transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
 
 
 
