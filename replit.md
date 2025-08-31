@@ -11,7 +11,14 @@ Project Mode: Design-focused prototype for development team handoff - all featur
 Currency: Always use € (Euro) as the currency unit.
 Language: User communicates in Turkish but prefers English for technical implementation.
 
-## Recent Updates (August 16, 2025)
+## Recent Updates (August 31, 2025)
+
+### Profile Page Update (August 31, 2025)
+- Removed Notifications menu from profile page per user request
+- Profile menu now focuses on essential account settings only
+- UI/UX remains consistent without notification toggle option
+
+## Previous Updates (August 16, 2025)
 
 ### Workspace Preview Fix Attempts (August 16, 2025)
 - ISSUE: Workspace iframe preview showing "Kablosuz Ağ Bağlantısı" error on mobile
