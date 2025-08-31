@@ -157,7 +157,16 @@ export default function TravelerLevelsScreen() {
           })}
         </div>
 
-
+        {/* Keep Exploring - Compact Version */}
+        <div className="text-center py-4">
+          <div className="text-xl mb-1">🌍</div>
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">
+            Keep Exploring!
+          </h3>
+          <p className="text-xs text-gray-600 dark:text-gray-400 px-4">
+            The more you travel with eSIMfo, the more exclusive benefits you unlock.
+          </p>
+        </div>
       </div>
     </div>
   );
