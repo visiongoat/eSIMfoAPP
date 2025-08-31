@@ -485,6 +485,87 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Referral & Credits routes
+  app.get("/api/referrals/stats", async (req, res) => {
+    try {
+      // Demo user ID 1
+      const userId = 1;
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      
+      // Generate referral code if not exists
+      let referralCode = user.referralCode;
+      if (!referralCode) {
+        referralCode = `USER${String(userId).padStart(4, '0')}`;
+        await storage.updateUser(userId, { referralCode });
+      }
+      
+      res.json({
+        referralCode,
+        availableCredit: parseFloat(user.availableCredit || "0"),
+        pendingCredit: parseFloat(user.pendingCredit || "0"),
+        usedCredit: parseFloat(user.usedCredit || "0"),
+        monthlyEarned: parseFloat(user.monthlyEarnedCredit || "0"),
+        monthlyLimit: 30.00
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch referral stats" });
+    }
+  });
+
+  app.get("/api/referrals/history", async (req, res) => {
+    try {
+      // Demo user ID 1 
+      const userId = 1;
+      const referrals = await storage.getReferralHistory(userId);
+      res.json(referrals);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch referral history" });
+    }
+  });
+
+  app.post("/api/referrals/apply", async (req, res) => {
+    try {
+      const { referralCode } = req.body;
+      const userId = 2; // Demo referred user ID
+      
+      if (!referralCode) {
+        return res.status(400).json({ message: "Referral code is required" });
+      }
+      
+      // Find referrer
+      const referrer = await storage.getUserByReferralCode(referralCode);
+      if (!referrer) {
+        return res.status(404).json({ message: "Invalid referral code" });
+      }
+      
+      // Check if user already referred
+      const existingUser = await storage.getUser(userId);
+      if (existingUser?.referredBy) {
+        return res.status(400).json({ message: "User already referred" });
+      }
+      
+      // Apply referral
+      await storage.updateUser(userId, { referredBy: referrer.id });
+      
+      // Create referral record
+      const referral = await storage.createReferral({
+        referrerId: referrer.id,
+        refereeId: userId,
+        referralCode: referralCode,
+        status: "pending",
+        creditAmount: 3.00,
+        creditAvailableAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
+      });
+      
+      res.json({ success: true, discount: 3.00, referral });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to apply referral" });
+    }
+  });
+
   // Serve static test page
   app.get("/test", (req, res) => {
     res.sendFile(path.resolve(process.cwd(), 'public/test.html'));

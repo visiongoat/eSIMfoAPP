@@ -1,16 +1,25 @@
 import { 
-  users, countries, packages, esims, partnerStats, sales,
+  users, countries, packages, esims, partnerStats, sales, referrals, creditTransactions,
   type User, type InsertUser, type Country, type InsertCountry,
   type Package, type InsertPackage, type Esim, type InsertEsim,
-  type PartnerStats, type InsertPartnerStats, type Sale, type InsertSale
+  type PartnerStats, type InsertPartnerStats, type Sale, type InsertSale,
+  type Referral, type InsertReferral, type CreditTransaction, type InsertCreditTransaction
 } from "@shared/schema";
 
 export interface IStorage {
   // Users
   getUser(id: number): Promise<User | undefined>;
   getUserByEmail(email: string): Promise<User | undefined>;
+  getUserByReferralCode(code: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: number, updates: Partial<User>): Promise<User | undefined>;
+  
+  // Referrals
+  getReferralHistory(userId: number): Promise<any[]>;
+  createReferral(referral: InsertReferral): Promise<Referral>;
+  
+  // Credit Transactions
+  createCreditTransaction(transaction: InsertCreditTransaction): Promise<CreditTransaction>;
   
   // Countries
   getAllCountries(): Promise<Country[]>;
@@ -50,12 +59,16 @@ export class MemStorage implements IStorage {
   private esims: Map<number, Esim>;
   private partnerStats: Map<number, PartnerStats>;
   private sales: Map<number, Sale>;
+  private referrals: Map<number, Referral>;
+  private creditTransactions: Map<number, CreditTransaction>;
   private currentUserId: number;
   private currentCountryId: number;
   private currentPackageId: number;
   private currentEsimId: number;
   private currentPartnerStatsId: number;
   private currentSaleId: number;
+  private currentReferralId: number;
+  private currentCreditTransactionId: number;
 
   constructor() {
     this.users = new Map();
@@ -64,12 +77,16 @@ export class MemStorage implements IStorage {
     this.esims = new Map();
     this.partnerStats = new Map();
     this.sales = new Map();
+    this.referrals = new Map();
+    this.creditTransactions = new Map();
     this.currentUserId = 1;
     this.currentCountryId = 1;
     this.currentPackageId = 1;
     this.currentEsimId = 1;
     this.currentPartnerStatsId = 1;
     this.currentSaleId = 1;
+    this.currentReferralId = 1;
+    this.currentCreditTransactionId = 1;
     
     this.seedData();
   }
@@ -194,6 +211,13 @@ export class MemStorage implements IStorage {
       email: "john.doe@email.com", 
       password: "password123",
       isPartner: true,
+      referralCode: null,
+      referredBy: null,
+      availableCredit: "12.00",
+      pendingCredit: "6.00", 
+      usedCredit: "18.00",
+      monthlyEarnedCredit: "12.00",
+      lastCreditReset: new Date(),
       createdAt: new Date()
     };
     this.users.set(demoUser.id, demoUser);
@@ -473,6 +497,60 @@ export class MemStorage implements IStorage {
     const sale: Sale = { ...insertSale, id, createdAt: new Date() };
     this.sales.set(id, sale);
     return sale;
+  }
+
+  // Referral methods
+  async getUserByReferralCode(code: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(user => user.referralCode === code);
+  }
+
+  async getReferralHistory(userId: number): Promise<any[]> {
+    // Mock referral history data
+    return [
+      {
+        id: 1,
+        email: 'j***@gmail.com',
+        amount: 3.00,
+        status: 'available',
+        date: '2025-08-28'
+      },
+      {
+        id: 2,
+        email: 'm***@outlook.com',
+        amount: 3.00,
+        status: 'pending',
+        date: '2025-08-25'
+      },
+      {
+        id: 3,
+        email: 's***@yahoo.com',
+        amount: 3.00,
+        status: 'used',
+        date: '2025-08-20'
+      }
+    ];
+  }
+
+  async createReferral(insertReferral: InsertReferral): Promise<Referral> {
+    const id = this.currentReferralId++;
+    const referral: Referral = { 
+      ...insertReferral, 
+      id,
+      createdAt: new Date()
+    };
+    this.referrals.set(id, referral);
+    return referral;
+  }
+
+  async createCreditTransaction(insertTransaction: InsertCreditTransaction): Promise<CreditTransaction> {
+    const id = this.currentCreditTransactionId++;
+    const transaction: CreditTransaction = {
+      ...insertTransaction,
+      id,
+      createdAt: new Date()
+    };
+    this.creditTransactions.set(id, transaction);
+    return transaction;
   }
 }
 

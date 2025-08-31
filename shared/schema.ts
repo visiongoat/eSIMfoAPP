@@ -8,6 +8,13 @@ export const users = pgTable("users", {
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
   isPartner: boolean("is_partner").default(false),
+  referralCode: text("referral_code").unique(),
+  referredBy: integer("referred_by"),
+  availableCredit: decimal("available_credit", { precision: 10, scale: 2 }).default("0"),
+  pendingCredit: decimal("pending_credit", { precision: 10, scale: 2 }).default("0"),
+  usedCredit: decimal("used_credit", { precision: 10, scale: 2 }).default("0"),
+  monthlyEarnedCredit: decimal("monthly_earned_credit", { precision: 10, scale: 2 }).default("0"),
+  lastCreditReset: timestamp("last_credit_reset").defaultNow(),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -67,6 +74,30 @@ export const sales = pgTable("sales", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const referrals = pgTable("referrals", {
+  id: serial("id").primaryKey(),
+  referrerId: integer("referrer_id").notNull(),
+  refereeId: integer("referee_id").notNull(),
+  referralCode: text("referral_code").notNull(),
+  status: text("status").notNull().default("pending"), // pending, confirmed, cancelled
+  creditAmount: decimal("credit_amount", { precision: 10, scale: 2 }).notNull().default("3.00"),
+  orderId: integer("order_id"), // First order that triggered the reward
+  creditAvailableAt: timestamp("credit_available_at"), // When credit becomes available (after 7 days)
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const creditTransactions = pgTable("credit_transactions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  type: text("type").notNull(), // earned, used, expired
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  description: text("description").notNull(),
+  referralId: integer("referral_id"), // If earned from referral
+  orderId: integer("order_id"), // If used in an order
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   createdAt: true,
@@ -94,6 +125,17 @@ export const insertSaleSchema = createInsertSchema(sales).omit({
   createdAt: true,
 });
 
+export const insertReferralSchema = createInsertSchema(referrals).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCreditTransactionSchema = createInsertSchema(creditTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type Country = typeof countries.$inferSelect;
@@ -106,3 +148,7 @@ export type PartnerStats = typeof partnerStats.$inferSelect;
 export type InsertPartnerStats = z.infer<typeof insertPartnerStatsSchema>;
 export type Sale = typeof sales.$inferSelect;
 export type InsertSale = z.infer<typeof insertSaleSchema>;
+export type Referral = typeof referrals.$inferSelect;
+export type InsertReferral = z.infer<typeof insertReferralSchema>;
+export type CreditTransaction = typeof creditTransactions.$inferSelect;
+export type InsertCreditTransaction = z.infer<typeof insertCreditTransactionSchema>;

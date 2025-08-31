@@ -23,6 +23,7 @@ import PersonalInfoScreen from "@/pages/personal-info";
 import PartnerScreen from "@/pages/partner";
 import LiveChatScreen from "@/pages/support";
 import ContactSupportScreen from "@/pages/contact-support";
+import ReferEarnScreen from "@/pages/refer-earn";
 import LoginScreen from "@/pages/login";
 import SignupScreen from "@/pages/signup";
 import VerifyEmailScreen from "@/pages/verify-email";
@@ -64,6 +65,7 @@ function Router() {
         <Route path="/partner" component={PartnerScreen} />
         <Route path="/live-chat" component={LiveChatScreen} />
         <Route path="/contact-support" component={ContactSupportScreen} />
+        <Route path="/refer-earn" component={ReferEarnScreen} />
         <Route path="/login" component={LoginScreen} />
         <Route path="/signup" component={SignupScreen} />
         <Route path="/verify-email" component={VerifyEmailScreen} />
