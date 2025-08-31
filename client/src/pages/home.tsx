@@ -1725,110 +1725,109 @@ export default function HomeScreen() {
     'New Zealand': { name: 'New Zealand', code: 'NZ', flag: '🇳🇿', price: '€8.99' }
   };
 
-  // Dual API geolocation detection
+  // Dual API geolocation detection with better error handling
   const detectUserLocation = async () => {
+    setLocationStatus('loading');
+    
+    // First try: ipapi.co with timeout and error handling
     try {
-      setLocationStatus('loading');
+      console.log('🌍 Trying ipapi.co...');
       
-      try {
-        // First try: ipapi.co with timeout
-        console.log('🌍 Trying ipapi.co...');
-        
-        const ipapiController = new AbortController();
-        const ipapiTimeoutId = setTimeout(() => ipapiController.abort(), 3000);
-        
-        const ipapiResponse = await fetch('https://ipapi.co/json/', {
-          signal: ipapiController.signal
-        });
-        
+      const ipapiController = new AbortController();
+      const ipapiTimeoutId = setTimeout(() => ipapiController.abort(), 3000);
+      
+      const ipapiResponse = await fetch('https://ipapi.co/json/', {
+        signal: ipapiController.signal
+      }).catch(fetchError => {
         clearTimeout(ipapiTimeoutId);
+        throw fetchError;
+      });
         
-        if (ipapiResponse.ok) {
-          const ipapiData = await ipapiResponse.json();
-          console.log('ipapi.co response:', ipapiData);
-          
-          if (!ipapiData.error && ipapiData.country_name) {
-            // First try exact match, then try common variations
-            let country = countryMapping[ipapiData.country_name];
-            if (!country && ipapiData.country_code) {
-              // Try to find by country code if name doesn't match
-              country = Object.values(countryMapping).find(c => c.code === ipapiData.country_code.toUpperCase()) || null;
-            }
-            
-            // If still no match, use default fallback
-            if (!country) {
-              country = {
-                name: ipapiData.country_name,
-                code: ipapiData.country_code || 'XX',
-                flag: '🌍',
-                price: '€4.99'
-              };
-            }
-            
-            setUserCountry(country);
-            setLocationStatus('success');
-            console.log('✅ Location detected via ipapi.co:', country.name);
-            return;
-          }
-        }
-      } catch (error) {
-        console.log('⚠️ ipapi.co failed:', error);
-      }
-
-      try {
-        // Second try: ip-api.com with timeout
-        console.log('🌍 Trying ip-api.com...');
-        
-        const ipApiController = new AbortController();
-        const ipApiTimeoutId = setTimeout(() => ipApiController.abort(), 3000);
-        
-        const ipApiResponse = await fetch('https://ip-api.com/json/', {
-          signal: ipApiController.signal
-        });
-        
-        clearTimeout(ipApiTimeoutId);
-        
-        if (ipApiResponse.ok) {
-          const ipApiData = await ipApiResponse.json();
-          console.log('ip-api.com response:', ipApiData);
-          
-          if (ipApiData.status === 'success' && ipApiData.country) {
-            // First try exact match, then try common variations
-            let country = countryMapping[ipApiData.country];
-            if (!country && ipApiData.countryCode) {
-              // Try to find by country code if name doesn't match
-              country = Object.values(countryMapping).find(c => c.code === ipApiData.countryCode.toUpperCase()) || null;
-            }
-            
-            // If still no match, use default fallback
-            if (!country) {
-              country = {
-                name: ipApiData.country,
-                code: ipApiData.countryCode || 'XX',
-                flag: '🌍',
-                price: '€4.99'
-              };
-            }
-            
-            setUserCountry(country);
-            setLocationStatus('success');
-            console.log('✅ Location detected via ip-api.com:', country.name);
-            return;
-          }
-        }
-      } catch (error) {
-        console.log('⚠️ ip-api.com failed:', error);
-      }
-
-      // Both APIs failed - keep default Turkey
-      console.log('❌ Both geolocation APIs failed, using default Turkey');
-      setLocationStatus('error');
+      clearTimeout(ipapiTimeoutId);
       
+      if (ipapiResponse.ok) {
+        const ipapiData = await ipapiResponse.json();
+        console.log('ipapi.co response:', ipapiData);
+        
+        if (!ipapiData.error && ipapiData.country_name) {
+          // First try exact match, then try common variations
+          let country = countryMapping[ipapiData.country_name];
+          if (!country && ipapiData.country_code) {
+            // Try to find by country code if name doesn't match
+            country = Object.values(countryMapping).find(c => c.code === ipapiData.country_code.toUpperCase()) || null;
+          }
+          
+          // If still no match, use default fallback
+          if (!country) {
+            country = {
+              name: ipapiData.country_name,
+              code: ipapiData.country_code || 'XX',
+              flag: '🌍',
+              price: '€4.99'
+            };
+          }
+          
+          setUserCountry(country);
+          setLocationStatus('success');
+          console.log('✅ Location detected via ipapi.co:', country.name);
+          return;
+        }
+      }
     } catch (error) {
-      // Global error handler to prevent unhandled promise rejections
-      console.log('❌ Geolocation function failed:', error);
-      setLocationStatus('error');
+      console.log('⚠️ ipapi.co failed:', error instanceof Error ? error.message : 'Unknown error');
     }
+
+    // Second try: ip-api.com with timeout and error handling
+    try {
+      console.log('🌍 Trying ip-api.com...');
+      
+      const ipApiController = new AbortController();
+      const ipApiTimeoutId = setTimeout(() => ipApiController.abort(), 3000);
+      
+      const ipApiResponse = await fetch('https://ip-api.com/json/', {
+        signal: ipApiController.signal
+      }).catch(fetchError => {
+        clearTimeout(ipApiTimeoutId);
+        throw fetchError;
+      });
+        
+      clearTimeout(ipApiTimeoutId);
+      
+      if (ipApiResponse.ok) {
+        const ipApiData = await ipApiResponse.json();
+        console.log('ip-api.com response:', ipApiData);
+        
+        if (ipApiData.status === 'success' && ipApiData.country) {
+          // First try exact match, then try common variations
+          let country = countryMapping[ipApiData.country];
+          if (!country && ipApiData.countryCode) {
+            // Try to find by country code if name doesn't match
+            country = Object.values(countryMapping).find(c => c.code === ipApiData.countryCode.toUpperCase()) || null;
+          }
+          
+          // If still no match, use default fallback
+          if (!country) {
+            country = {
+              name: ipApiData.country,
+              code: ipApiData.countryCode || 'XX',
+              flag: '🌍',
+              price: '€4.99'
+            };
+          }
+          
+          setUserCountry(country);
+          setLocationStatus('success');
+          console.log('✅ Location detected via ip-api.com:', country.name);
+          return;
+        }
+      }
+    } catch (error) {
+      console.log('⚠️ ip-api.com failed:', error instanceof Error ? error.message : 'Unknown error');
+    }
+
+    // Both APIs failed - keep default Turkey
+    console.log('❌ Both geolocation APIs failed, using default Turkey');
+    setLocationStatus('error');
   };
 
 
