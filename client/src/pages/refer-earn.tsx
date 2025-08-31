@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { ArrowLeft, Copy, Share, Users, Gift, Clock, CheckCircle } from "lucide-react";
 import type { User } from "@shared/schema";
+import TabBar from "@/components/tab-bar";
 
 export default function ReferEarnScreen() {
   const [, setLocation] = useLocation();
@@ -299,6 +300,18 @@ export default function ReferEarnScreen() {
           </div>
         )}
       </div>
+      
+      {/* Sticky Tab Bar - Copied from /home */}
+      <TabBar 
+        onPlusClick={() => {
+          // Quick actions functionality can be added here
+          console.log('Plus button clicked from refer-earn');
+        }}
+        onShopClick={() => {
+          // Shop button functionality 
+          setLocation('/home');
+        }}
+      />
     </div>
   );
 }
