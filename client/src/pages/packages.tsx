@@ -444,7 +444,7 @@ ${baseUrl}/packages/${countryId}`;
         <button onClick={handleBackClick} className="p-1">
           <ArrowLeft className="w-5 h-5 text-gray-900 dark:text-white" />
         </button>
-        <div className="flex items-center justify-center flex-1">
+        <div className="flex items-center justify-center flex-1 pr-8">
           {country?.flagUrl && (
             <img 
               src={country.flagUrl} 
