@@ -15,6 +15,8 @@ export const users = pgTable("users", {
   usedCredit: decimal("used_credit", { precision: 10, scale: 2 }).default("0"),
   monthlyEarnedCredit: decimal("monthly_earned_credit", { precision: 10, scale: 2 }).default("0"),
   lastCreditReset: timestamp("last_credit_reset").defaultNow(),
+  totalSpent: decimal("total_spent", { precision: 10, scale: 2 }).default("0"),
+  currentLevel: text("current_level").default("traveler"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -152,3 +154,80 @@ export type Referral = typeof referrals.$inferSelect;
 export type InsertReferral = z.infer<typeof insertReferralSchema>;
 export type CreditTransaction = typeof creditTransactions.$inferSelect;
 export type InsertCreditTransaction = z.infer<typeof insertCreditTransactionSchema>;
+
+// Traveler Level System
+export interface TravelerLevel {
+  key: string;
+  name: string;
+  emoji: string;
+  color: string;
+  minSpent: number;
+  maxSpent: number | null;
+  description: string;
+  benefits?: string[];
+}
+
+export const TRAVELER_LEVELS: TravelerLevel[] = [
+  {
+    key: "traveler",
+    name: "Traveler",
+    emoji: "🌍",
+    color: "gray",
+    minSpent: 0,
+    maxSpent: 49.99,
+    description: "Start your journey",
+    benefits: ["Welcome bonus", "Basic support"]
+  },
+  {
+    key: "explorer",
+    name: "Explorer", 
+    emoji: "✈️",
+    color: "blue",
+    minSpent: 50,
+    maxSpent: 199.99,
+    description: "Discover new horizons",
+    benefits: ["€1 bonus credit", "Priority support", "Exclusive deals"]
+  },
+  {
+    key: "expert",
+    name: "Expert Traveler",
+    emoji: "🗺️", 
+    color: "purple",
+    minSpent: 200,
+    maxSpent: 499.99,
+    description: "Master of adventures",
+    benefits: ["5% extra credit earnings", "VIP support", "Early access"]
+  },
+  {
+    key: "globetrotter",
+    name: "Globetrotter",
+    emoji: "🏆",
+    color: "gold",
+    minSpent: 500,
+    maxSpent: null,
+    description: "The ultimate traveler",
+    benefits: ["Premium support", "Exclusive promotions", "Special rewards"]
+  }
+];
+
+export function getTravelerLevel(totalSpent: number): TravelerLevel {
+  for (const level of TRAVELER_LEVELS.slice().reverse()) {
+    if (totalSpent >= level.minSpent) {
+      return level;
+    }
+  }
+  return TRAVELER_LEVELS[0];
+}
+
+export function getNextLevel(currentLevel: string): TravelerLevel | null {
+  const currentIndex = TRAVELER_LEVELS.findIndex(l => l.key === currentLevel);
+  return currentIndex >= 0 && currentIndex < TRAVELER_LEVELS.length - 1 
+    ? TRAVELER_LEVELS[currentIndex + 1] 
+    : null;
+}
+
+export function getLevelProgress(totalSpent: number, currentLevel: TravelerLevel, nextLevel?: TravelerLevel): number {
+  if (!nextLevel) return 100;
+  const progress = ((totalSpent - currentLevel.minSpent) / (nextLevel.minSpent - currentLevel.minSpent)) * 100;
+  return Math.min(Math.max(progress, 0), 100);
+}

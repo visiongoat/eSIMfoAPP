@@ -7,6 +7,7 @@ import TabBar from "@/components/tab-bar";
 import EsimfoLogo from "@/components/esimfo-logo";
 import { useTheme } from "@/contexts/theme-context";
 import type { User } from "@shared/schema";
+import { getTravelerLevel, getNextLevel, getLevelProgress, TRAVELER_LEVELS } from "@shared/schema";
 
 export default function ProfileScreen() {
   const [, setLocation] = useLocation();
@@ -343,14 +344,94 @@ export default function ProfileScreen() {
       <div className="px-4 pt-4">
         {/* Profile Header */}
         <div className="mobile-card p-6 mb-4 text-center">
-          <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 relative">
             <span className="text-white text-2xl font-bold">
               {user ? getInitials(user.name) : 'JD'}
             </span>
+            {/* Level Badge */}
+            {user && (() => {
+              const totalSpent = parseFloat(user.totalSpent || "0");
+              const currentLevel = getTravelerLevel(totalSpent);
+              return (
+                <div className={`absolute -bottom-1 -right-1 w-7 h-7 rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center text-sm ${
+                  currentLevel.color === 'gray' ? 'bg-gray-500' :
+                  currentLevel.color === 'blue' ? 'bg-blue-500' :
+                  currentLevel.color === 'purple' ? 'bg-purple-500' :
+                  currentLevel.color === 'gold' ? 'bg-yellow-500' : 'bg-gray-500'
+                }`}>
+                  {currentLevel.emoji}
+                </div>
+              );
+            })()}
           </div>
           <h2 className="text-xl font-bold mb-1">{user?.name || 'John Doe'}</h2>
           <p className="text-muted-foreground">{user?.email || 'john.doe@email.com'}</p>
-          <p className="text-sm text-muted-foreground mt-2">Member since January 2023</p>
+          
+          {/* Traveler Level Status */}
+          {user && (() => {
+            const totalSpent = parseFloat(user.totalSpent || "0");
+            const currentLevel = getTravelerLevel(totalSpent);
+            const nextLevel = getNextLevel(currentLevel.key);
+            const progress = getLevelProgress(totalSpent, currentLevel, nextLevel);
+            
+            return (
+              <div className="mt-4 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg">{currentLevel.emoji}</span>
+                    <span className="font-semibold text-gray-900 dark:text-gray-100">{currentLevel.name}</span>
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    €{totalSpent.toFixed(0)} spent
+                  </div>
+                </div>
+                
+                {nextLevel && (
+                  <>
+                    {/* Progress Bar */}
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
+                      <div 
+                        className={`h-2 rounded-full transition-all duration-500 ${
+                          nextLevel.color === 'blue' ? 'bg-gradient-to-r from-blue-400 to-blue-500' :
+                          nextLevel.color === 'purple' ? 'bg-gradient-to-r from-purple-400 to-purple-500' :
+                          nextLevel.color === 'gold' ? 'bg-gradient-to-r from-yellow-400 to-yellow-500' :
+                          'bg-gradient-to-r from-gray-400 to-gray-500'
+                        }`}
+                        style={{ width: `${progress}%` }}
+                      ></div>
+                    </div>
+                    
+                    {/* Next Level Info */}
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-gray-500 dark:text-gray-400">{currentLevel.description}</span>
+                      <span className="text-gray-600 dark:text-gray-300 font-medium">
+                        Next: {nextLevel.name} at €{nextLevel.minSpent}
+                      </span>
+                    </div>
+                  </>
+                )}
+                
+                {!nextLevel && (
+                  <div className="text-xs text-center py-1">
+                    <span className="text-yellow-600 dark:text-yellow-400 font-medium">
+                      🏆 Maximum level achieved!
+                    </span>
+                  </div>
+                )}
+                
+                {/* View All Levels Button */}
+                <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <button
+                    onClick={() => setLocation('/traveler-levels')}
+                    className="w-full text-center text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-200"
+                    data-testid="button-view-all-levels"
+                  >
+                    View All Levels →
+                  </button>
+                </div>
+              </div>
+            );
+          })()}
         </div>
 
         {/* Profile Sections */}

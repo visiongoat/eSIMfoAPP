@@ -218,6 +218,8 @@ export class MemStorage implements IStorage {
       usedCredit: "18.00",
       monthlyEarnedCredit: "12.00",
       lastCreditReset: new Date(),
+      totalSpent: "120.75", // Explorer level (50-199.99)
+      currentLevel: "explorer",
       createdAt: new Date()
     };
     this.users.set(demoUser.id, demoUser);
@@ -335,7 +337,9 @@ export class MemStorage implements IStorage {
       ...insertUser, 
       id, 
       createdAt: new Date(),
-      isPartner: insertUser.isPartner ?? false 
+      isPartner: insertUser.isPartner ?? false,
+      totalSpent: insertUser.totalSpent ?? "0",
+      currentLevel: insertUser.currentLevel ?? "traveler"
     };
     this.users.set(id, user);
     return user;
@@ -536,7 +540,8 @@ export class MemStorage implements IStorage {
     const referral: Referral = { 
       ...insertReferral, 
       id,
-      createdAt: new Date()
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
     this.referrals.set(id, referral);
     return referral;
@@ -547,7 +552,9 @@ export class MemStorage implements IStorage {
     const transaction: CreditTransaction = {
       ...insertTransaction,
       id,
-      createdAt: new Date()
+      createdAt: new Date(),
+      orderId: insertTransaction.orderId ?? null,
+      referralId: insertTransaction.referralId ?? null
     };
     this.creditTransactions.set(id, transaction);
     return transaction;
