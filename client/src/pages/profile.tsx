@@ -379,9 +379,9 @@ export default function ProfileScreen() {
             })()}
           </div>
           <h2 className="text-xl font-bold mb-1">{user?.name || 'John Doe'}</h2>
-          <p className="text-sm text-gray-500 mb-2">{user?.email || 'john.doe@email.com'}</p>
+          <p className="text-sm text-gray-500 mb-4">{user?.email || 'john.doe@email.com'}</p>
           
-          {/* Integrated Level Info - Improved Hierarchy */}
+          {/* Integrated Level Info - Better Separated */}
           {user && (() => {
             const totalSpent = parseFloat(user.totalSpent || "0");
             const currentLevel = getTravelerLevel(totalSpent);
@@ -390,8 +390,8 @@ export default function ProfileScreen() {
             
             return (
               <>
-                {/* Level Line - Exact User Specification */}
-                <div className="mt-2 flex items-center justify-between text-sm">
+                {/* Level Line - Clean Spacing */}
+                <div className="flex items-center justify-between text-sm">
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 align-middle">{currentLevel.emoji}</span>
                     <span className="font-medium">{currentLevel.name}</span>
@@ -408,9 +408,9 @@ export default function ProfileScreen() {
                   )}
                 </div>
                 
-                {/* Progress Bar - Exact Specification */}
+                {/* Progress Bar */}
                 {nextLevel && (
-                  <div className="mt-1.5 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                  <div className="mt-2 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
                     <div 
                       className="h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-700"
                       style={{ width: `${progress}%` }}
@@ -418,15 +418,17 @@ export default function ProfileScreen() {
                   </div>
                 )}
                 
-                {/* View All Levels Link - Self-End Aligned */}
-                <button
-                  onClick={() => setLocation('/traveler-levels')}
-                  className="mt-2.5 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 self-end transition-colors"
-                  data-testid="button-view-all-levels"
-                >
-                  <span>View All Levels</span>
-                  <span>›</span>
-                </button>
+                {/* View All Levels Link - Right Aligned Under Bar */}
+                <div className="text-right mt-2">
+                  <button
+                    onClick={() => setLocation('/traveler-levels')}
+                    className="text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 inline-flex items-center gap-1 transition-colors"
+                    data-testid="button-view-all-levels"
+                  >
+                    <span>View All Levels</span>
+                    <span>›</span>
+                  </button>
+                </div>
               </>
             );
           })()}
