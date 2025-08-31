@@ -372,7 +372,7 @@ export default function PersonalInfo() {
                   disabled={changePasswordMutation.isPending}
                   className="flex-1 bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white py-2 px-4 rounded-lg font-medium transition-colors"
                 >
-                  {changePasswordMutation.isPending ? "Updating..." : "Update Password"}
+                  {changePasswordMutation.isPending ? "Saving..." : "Save"}
                 </button>
                 <button
                   onClick={handlePasswordCancel}
