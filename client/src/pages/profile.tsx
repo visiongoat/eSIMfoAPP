@@ -353,7 +353,7 @@ export default function ProfileScreen() {
               const totalSpent = parseFloat(user.totalSpent || "0");
               const currentLevel = getTravelerLevel(totalSpent);
               return (
-                <div className={`absolute -bottom-0.5 -right-0.5 w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center text-xs shadow-lg ${
+                <div className={`absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full border-2 border-white dark:border-gray-900 flex items-center justify-center text-xs shadow-md ring-2 ring-gray-100 dark:ring-gray-800 ${
                   currentLevel.color === 'gray' ? 'bg-gray-500' :
                   currentLevel.color === 'blue' ? 'bg-blue-500' :
                   currentLevel.color === 'purple' ? 'bg-purple-500' :
@@ -375,7 +375,7 @@ export default function ProfileScreen() {
             const progress = getLevelProgress(totalSpent, currentLevel, nextLevel);
             
             return (
-              <div className="mt-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100 dark:border-gray-700">
+              <div className="mt-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm dark:shadow-inner">
                 {/* Level Header - Horizontal Layout */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
@@ -404,28 +404,26 @@ export default function ProfileScreen() {
                   )}
                 </div>
                 
-                {/* Progress Bar - Thin & Gradient */}
+                {/* Progress Bar - Ultra Thin & Purple-Blue Gradient */}
                 {nextLevel && (
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3">
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
                     <div 
-                      className={`h-2 rounded-full transition-all duration-700 ${
-                        nextLevel.color === 'blue' ? 'bg-gradient-to-r from-blue-400 to-blue-500' :
-                        nextLevel.color === 'purple' ? 'bg-gradient-to-r from-purple-400 to-purple-500' :
-                        nextLevel.color === 'gold' ? 'bg-gradient-to-r from-yellow-400 to-yellow-500' :
-                        'bg-gradient-to-r from-gray-400 to-gray-500'
-                      }`}
+                      className="h-1.5 rounded-full transition-all duration-700 bg-gradient-to-r from-purple-400 via-purple-500 to-blue-500"
                       style={{ width: `${progress}%` }}
                     ></div>
                   </div>
                 )}
                 
-                {/* CTA Button - Ghost Style */}
+                {/* CTA Button - Ghost Style with Border & Arrow */}
                 <button
                   onClick={() => setLocation('/traveler-levels')}
-                  className="w-full py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200 font-medium"
+                  className="w-full py-2.5 px-3 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-200 font-medium flex items-center justify-center space-x-2"
                   data-testid="button-view-all-levels"
                 >
-                  View All Levels
+                  <span>View All Levels</span>
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
               </div>
             );
