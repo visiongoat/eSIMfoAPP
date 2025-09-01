@@ -44,12 +44,6 @@ export default function LoginScreen() {
   const handleEmailLogin = useCallback(async () => {
     // Validate email first
     if (!validateEmail()) {
-      toast({
-        title: "Validation Error",
-        description: "Please enter a valid email address",
-        variant: "destructive",
-      });
-      
       // Haptic feedback for mobile
       if (navigator.vibrate) navigator.vibrate(100);
       return;
@@ -64,7 +58,7 @@ export default function LoginScreen() {
       setLocation(`/verify-email?email=${encodeURIComponent(email)}`);
       setIsLoading(false);
     }, 1500);
-  }, [validateEmail, email, toast, setLocation]);
+  }, [validateEmail, email, setLocation]);
 
   const handleSignUp = useCallback(() => {
     setLocation("/signup");

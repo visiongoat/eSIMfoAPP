@@ -61,13 +61,6 @@ export default function SignupScreen() {
   const handleEmailSignup = useCallback(async () => {
     // Validate form first
     if (!validateForm()) {
-      // Show toast error for failed validation
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields correctly",
-        variant: "destructive",
-      });
-      
       // Haptic feedback for mobile
       if (navigator.vibrate) navigator.vibrate(100);
       return;
@@ -76,15 +69,10 @@ export default function SignupScreen() {
     setIsLoading(true);
     // Simulate authentication
     setTimeout(() => {
-      toast({
-        title: "Account Created!",
-        description: `Welcome to eSIMfo, ${name}!`,
-        variant: "default",
-      });
       setLocation("/home");
       setIsLoading(false);
     }, 1500);
-  }, [validateForm, name, toast, setLocation]);
+  }, [validateForm, setLocation]);
 
   const handleLogin = useCallback(() => {
     setLocation("/login");
