@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useLocation } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import texturePattern from '@/assets/texture-pattern.jpeg';
 // Using a placeholder for profile image since the original asset may not exist
 // import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
@@ -8,6 +9,7 @@ import RedeemCodeModal from '@/components/redeem-code-modal';
 import { useAnimatedCounter } from '@/hooks/use-animated-counter';
 import TabBar from '@/components/tab-bar';
 import MobileContainer from '@/components/mobile-container';
+import type { User } from "@shared/schema";
 
 export default function Balance1Screen() {
   const [isAddMoneyModalOpen, setIsAddMoneyModalOpen] = useState(false);
@@ -17,6 +19,11 @@ export default function Balance1Screen() {
   const [isBalanceAnimating, setIsBalanceAnimating] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [location, setLocation] = useLocation();
+  
+  // Get user profile data for avatar
+  const { data: profile } = useQuery<User>({
+    queryKey: ["/api/profile"],
+  });
   
   // Touch/swipe states for quick actions modal
   const [quickActionsStartY, setQuickActionsStartY] = useState<number>(0);
@@ -123,7 +130,7 @@ export default function Balance1Screen() {
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full mr-4 shadow-lg overflow-hidden border-2 border-orange-400 dark:border-orange-500 shadow-orange-400/50 dark:shadow-orange-500/50">
                 <img 
-                  src="/attached_assets/profilfoto.jpg" 
+                  src={profile?.avatar || "/attached_assets/profilfoto.jpg"} 
                   alt="Profile Photo"
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -135,7 +142,7 @@ export default function Balance1Screen() {
                   }}
                 />
                 <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-lg" style={{display: 'none'}}>
-                  JD
+                  {profile?.name?.split(' ').map(n => n[0]).join('').toUpperCase() || 'JD'}
                 </div>
               </div>
               <div className="leading-tight">
