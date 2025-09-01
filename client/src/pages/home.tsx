@@ -2566,7 +2566,7 @@ export default function HomeScreen() {
                    `
                  }}>
               <img 
-                src="/attached_assets/profilfoto.jpg" 
+                src={profile?.avatar || "/attached_assets/profilfoto.jpg"} 
                 alt="Profile Photo"
                 className="w-full h-full object-cover"
                 onError={(e) => {
