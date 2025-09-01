@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useLocation } from 'wouter';
 
 interface SwipeNavigationOptions {
@@ -19,6 +19,47 @@ export function useSwipeNavigation(options: SwipeNavigationOptions = {}) {
   const touchStartX = useRef<number>(0);
   const touchStartY = useRef<number>(0);
   const isSwiping = useRef<boolean>(false);
+
+  const handleDefaultBack = useCallback(() => {
+    const currentPath = window.location.pathname;
+    
+    // Define navigation hierarchy
+    const navigationMap: Record<string, string> = {
+      '/packages': '/home',
+      '/purchase': '/packages',
+      '/qr': '/purchase',
+      '/my-esims': '/home',
+      '/guides': '/home',
+      '/profile': '/home',
+      '/balance': '/home',
+      '/transactions': '/balance',
+      '/partner': '/home',
+      '/live-chat': '/home',
+    };
+
+    // Handle dynamic routes
+    if (currentPath.startsWith('/packages/')) {
+      setLocation('/home');
+      return;
+    }
+    if (currentPath.startsWith('/purchase/')) {
+      // Go back to packages with same country ID
+      const packageMatch = currentPath.match(/\/purchase\/(\d+)/);
+      if (packageMatch) {
+        // Go back to home page
+        setLocation('/home');
+      }
+      return;
+    }
+    if (currentPath.startsWith('/qr/')) {
+      setLocation('/my-esims');
+      return;
+    }
+
+    // Use navigation map or fallback to home
+    const backPath = navigationMap[currentPath] || '/home';
+    setLocation(backPath);
+  }, [setLocation]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -41,11 +82,14 @@ export function useSwipeNavigation(options: SwipeNavigationOptions = {}) {
       if (Math.abs(deltaX) > Math.abs(deltaY) && deltaX > 20 && touchStartX.current < 50) {
         isSwiping.current = true;
         
-        // Update visual feedback
+        // Update visual feedback with throttling
         const progress = Math.min(1, Math.max(0, deltaX / threshold));
-        setSwipeState({
-          isVisible: true,
-          progress
+        setSwipeState(prev => {
+          // Only update if significant change to reduce re-renders
+          if (Math.abs(prev.progress - progress) > 0.05 || !prev.isVisible) {
+            return { isVisible: true, progress };
+          }
+          return prev;
         });
       }
     };
@@ -80,46 +124,7 @@ export function useSwipeNavigation(options: SwipeNavigationOptions = {}) {
       isSwiping.current = false;
     };
 
-    const handleDefaultBack = () => {
-      const currentPath = window.location.pathname;
-      
-      // Define navigation hierarchy
-      const navigationMap: Record<string, string> = {
-        '/packages': '/home',
-        '/purchase': '/packages',
-        '/qr': '/purchase',
-        '/my-esims': '/home',
-        '/guides': '/home',
-        '/profile': '/home',
-        '/balance': '/home',
-        '/transactions': '/balance',
-        '/partner': '/home',
-        '/live-chat': '/home',
-      };
 
-      // Handle dynamic routes
-      if (currentPath.startsWith('/packages/')) {
-        setLocation('/home');
-        return;
-      }
-      if (currentPath.startsWith('/purchase/')) {
-        // Go back to packages with same country ID
-        const packageMatch = currentPath.match(/\/purchase\/(\d+)/);
-        if (packageMatch) {
-          // Go back to home page
-          setLocation('/home');
-        }
-        return;
-      }
-      if (currentPath.startsWith('/qr/')) {
-        setLocation('/my-esims');
-        return;
-      }
-
-      // Use navigation map or fallback to home
-      const backPath = navigationMap[currentPath] || '/home';
-      setLocation(backPath);
-    };
 
     // Add event listeners
     document.addEventListener('touchstart', handleTouchStart, { passive: true });
@@ -131,7 +136,7 @@ export function useSwipeNavigation(options: SwipeNavigationOptions = {}) {
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [enabled, threshold, onSwipeBack, setLocation]);
+  }, [enabled, threshold, onSwipeBack, handleDefaultBack]);
 
   return swipeState;
 }

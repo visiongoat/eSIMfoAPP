@@ -1,3 +1,4 @@
+import React, { memo, useCallback } from 'react';
 import { useLocation } from "wouter";
 import { useHaptic } from "@/hooks/use-haptic";
 
@@ -6,7 +7,7 @@ interface TabBarProps {
   onShopClick?: () => void; // Shop button special handler
 }
 
-export default function TabBar({ onPlusClick, onShopClick }: TabBarProps) {
+const TabBar = memo(function TabBar({ onPlusClick, onShopClick }: TabBarProps) {
   const [location, setLocation] = useLocation();
   const { hapticFeedback } = useHaptic();
 
@@ -53,7 +54,7 @@ export default function TabBar({ onPlusClick, onShopClick }: TabBarProps) {
     },
   ];
 
-  const handleTabClick = (path: string, tabId?: string) => {
+  const handleTabClick = useCallback((path: string, tabId?: string) => {
     hapticFeedback();
     
     // Special handling for shop button
@@ -62,7 +63,7 @@ export default function TabBar({ onPlusClick, onShopClick }: TabBarProps) {
     } else {
       setLocation(path);
     }
-  };
+  }, [hapticFeedback, onShopClick, setLocation]);
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50" style={{paddingBottom: 'env(safe-area-inset-bottom)'}}>
@@ -202,4 +203,6 @@ export default function TabBar({ onPlusClick, onShopClick }: TabBarProps) {
       </div>
     </div>
   );
-}
+});
+
+export default TabBar;

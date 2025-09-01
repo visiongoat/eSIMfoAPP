@@ -1,3 +1,4 @@
+import React, { memo, useCallback } from 'react';
 import { useLocation } from "wouter";
 
 interface NavigationBarProps {
@@ -13,7 +14,7 @@ interface NavigationBarProps {
   onCurrencyClick?: () => void;
 }
 
-export default function NavigationBar({ 
+const NavigationBar = memo(function NavigationBar({ 
   title, 
   leftButton, 
   rightButton, 
@@ -27,7 +28,7 @@ export default function NavigationBar({
 }: NavigationBarProps) {
   const [, setLocation] = useLocation();
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     if (onBack) {
       onBack();
     } else if (onBackClick) {
@@ -35,7 +36,7 @@ export default function NavigationBar({
     } else {
       window.history.back();
     }
-  };
+  }, [onBack, onBackClick]);
 
   const getCurrencySymbol = (currencyCode: string) => {
     const currencies = {
@@ -83,4 +84,6 @@ export default function NavigationBar({
       </div>
     </div>
   );
-}
+});
+
+export default NavigationBar;

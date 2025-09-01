@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { ArrowLeft, Copy, Share, Users, Gift, Clock, CheckCircle, AlertCircle } from "lucide-react";
@@ -31,19 +31,19 @@ export default function ReferEarnScreen() {
     queryKey: ["/api/referrals/history"],
   });
 
-  // Use data from API or fallback
-  const referralCode = referralStats?.referralCode || 'USER1234';
-  const referralLink = `esimfo.com/r/${referralCode}`;
+  // Memoized computed values to prevent unnecessary recalculations
+  const referralCode = useMemo(() => referralStats?.referralCode || 'USER1234', [referralStats?.referralCode]);
+  const referralLink = useMemo(() => `esimfo.com/r/${referralCode}`, [referralCode]);
   
-  const creditSummary = {
+  const creditSummary = useMemo(() => ({
     available: referralStats?.availableCredit || 0,
     pending: referralStats?.pendingCredit || 0,
     used: referralStats?.usedCredit || 0,
     monthlyEarned: referralStats?.monthlyEarned || 0,
     monthlyLimit: referralStats?.monthlyLimit || 30.00
-  };
+  }), [referralStats]);
 
-  const handleCopyLink = async () => {
+  const handleCopyLink = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(referralLink);
       // Haptic feedback for mobile
@@ -64,9 +64,9 @@ export default function ReferEarnScreen() {
         variant: "destructive",
       });
     }
-  };
+  }, [referralLink, toast]);
 
-  const handleCopyCode = async () => {
+  const handleCopyCode = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(referralCode);
       // Haptic feedback for mobile
@@ -84,9 +84,9 @@ export default function ReferEarnScreen() {
         variant: "destructive",
       });
     }
-  };
+  }, [referralCode, toast]);
 
-  const handleShare = () => {
+  const handleShare = useCallback(() => {
     const message = `Get €3 off your first eSIM! Join eSIMfo with my referral link: ${referralLink}`;
     if (navigator.share) {
       navigator.share({
@@ -104,7 +104,7 @@ export default function ReferEarnScreen() {
         });
       });
     }
-  };
+  }, [referralLink, toast]);
 
   // Quick Actions modal swipe handlers - copied from home.tsx
   const handleQuickActionsModalTouchStart = (e: React.TouchEvent) => {

@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import type { Country } from "@shared/schema";
 
 interface CountryCardProps {
@@ -7,7 +8,7 @@ interface CountryCardProps {
   price?: string;
 }
 
-export default function CountryCard({ 
+const CountryCard = memo(function CountryCard({ 
   country, 
   onSelect, 
   showPrice = false, 
@@ -38,4 +39,6 @@ export default function CountryCard({
       </div>
     </div>
   );
-}
+});
+
+export default CountryCard;

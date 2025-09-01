@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { MessageCircle } from "lucide-react";
@@ -73,8 +73,8 @@ export default function HomeScreen() {
   const planInfoModalRef = useRef<HTMLDivElement>(null);
   const europePlanInfoModalRef = useRef<HTMLDivElement>(null);
 
-  // Europa plan data
-  const europaPlans = [
+  // Memoized Europa plan data to prevent recreating on every render
+  const europaPlans = useMemo(() => [
     { id: 1, duration: '3 Days', data: '500 MB', price: '€4.99', dailyPrice: '€1.66 /day' },
     { id: 2, duration: '7 Days', data: '1 GB', price: '€7.99', dailyPrice: '€1.14 /day' },
     { id: 3, duration: '15 Days', data: '2 GB', price: '€12.99', dailyPrice: '€0.87 /day' },
@@ -86,40 +86,40 @@ export default function HomeScreen() {
     { id: 9, duration: '90 Days', data: '50 GB', price: '€89.99', dailyPrice: '€1.00 /day' },
     { id: 10, duration: '180 Days', data: '100 GB', price: '€129.99', dailyPrice: '€0.72 /day' },
     { id: 11, duration: '10 Days', data: 'Unlimited', price: '€39.99', dailyPrice: '€4.00 /day' }
-  ];
+  ], []);
 
-  // Global plan data - Data only
-  const globalDataPlans = [
+  // Memoized Global plan data - Data only
+  const globalDataPlans = useMemo(() => [
     { id: 1, duration: '7 Days', data: '1 GB', price: '€9.99', dailyPrice: '€1.43 /day' },
     { id: 2, duration: '15 Days', data: '3 GB', price: '€19.99', dailyPrice: '€1.33 /day' },
     { id: 3, duration: '20 Days', data: '5 GB', price: '€29.99', dailyPrice: '€1.50 /day' },
     { id: 4, duration: '30 Days', data: '10 GB', price: '€49.99', dailyPrice: '€1.67 /day' }
-  ];
+  ], []);
 
-  // Global plan data - Data + Voice + SMS
-  const globalVoiceSmsPlans = [
+  // Memoized Global plan data - Data + Voice + SMS
+  const globalVoiceSmsPlans = useMemo(() => [
     { id: 1, duration: '7 Days', data: '1 GB', voice: '100 min', sms: '50 SMS', price: '€14.99', dailyPrice: '€2.14 /day' },
     { id: 2, duration: '15 Days', data: '3 GB', voice: '200 min', sms: '100 SMS', price: '€28.99', dailyPrice: '€1.93 /day' },
     { id: 3, duration: '20 Days', data: '5 GB', voice: '300 min', sms: '150 SMS', price: '€42.99', dailyPrice: '€2.15 /day' },
     { id: 4, duration: '30 Days', data: '10 GB', voice: '500 min', sms: '250 SMS', price: '€69.99', dailyPrice: '€2.33 /day' }
-  ];
+  ], []);
 
-  // Mock Europa country for checkout modal
-  const europaCountry = {
+  // Memoized Europa country for checkout modal
+  const europaCountry = useMemo(() => ({
     name: 'Europe',
     code: 'EU',
     flagUrl: 'https://flagcdn.com/w40/eu.png'
-  };
+  }), []);
 
-  // Europa coverage countries - these are in regional packages
-  const europaCoverageCountries = [
+  // Memoized Europa coverage countries - these are in regional packages
+  const europaCoverageCountries = useMemo(() => [
     'france', 'germany', 'spain', 'italy', 'netherlands', 'belgium', 'austria', 
     'portugal', 'greece', 'poland', 'czech republic', 'hungary', 'romania', 
     'bulgaria', 'croatia', 'slovakia', 'slovenia', 'estonia', 'latvia', 
     'lithuania', 'luxembourg', 'malta', 'cyprus', 'ireland', 'denmark', 
     'sweden', 'finland', 'norway', 'iceland', 'switzerland', 'united kingdom',
     'turkey', 'albania', 'bosnia and herzegovina', 'montenegro', 'serbia'
-  ];
+  ], []);
 
   // Global coverage data for modal
   const globalCoverage = [

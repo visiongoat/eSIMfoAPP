@@ -1,4 +1,6 @@
-export default function SkeletonCard() {
+import React, { memo } from 'react';
+
+const SkeletonCard = memo(function SkeletonCard() {
   return (
     <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 animate-pulse">
       {/* Flag and country name skeleton */}
@@ -19,4 +21,6 @@ export default function SkeletonCard() {
       </div>
     </div>
   );
-}
+});
+
+export default SkeletonCard;

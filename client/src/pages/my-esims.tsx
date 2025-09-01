@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 
@@ -55,8 +55,8 @@ export default function MyEsimsScreen() {
     queryKey: ["/api/esims"],
   });
 
-  // Filter eSIMs based on selected filter and sort by ID descending (newest first)
-  const getFilteredEsims = () => {
+  // Memoized filtered eSIMs based on selected filter and sort by ID descending (newest first)
+  const filteredEsims = useMemo(() => {
     let filtered;
     switch (filter) {
       case 'active':
@@ -70,9 +70,7 @@ export default function MyEsimsScreen() {
     }
     // Sort by ID descending (newest purchases first)
     return filtered.sort((a, b) => b.id - a.id);
-  };
-
-  const filteredEsims = getFilteredEsims();
+  }, [esims, filter]);
 
   const handleViewQR = (esim: Esim) => {
     setLocation(`/qr/${esim.id}`);

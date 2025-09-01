@@ -23,6 +23,7 @@ export function useAnimatedCounter({
     const startValue = currentValue;
     const difference = targetValue - startValue;
     const startTime = Date.now();
+    let animationId: number;
 
     const animate = () => {
       const elapsed = Date.now() - startTime;
@@ -35,15 +36,22 @@ export function useAnimatedCounter({
       setCurrentValue(newValue);
 
       if (progress < 1) {
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
       } else {
         setCurrentValue(targetValue);
         setPreviousValue(targetValue);
       }
     };
 
-    requestAnimationFrame(animate);
-  }, [targetValue, duration, startAnimation, currentValue, previousValue]);
+    animationId = requestAnimationFrame(animate);
+
+    // Cleanup function to prevent memory leaks
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [targetValue, duration, startAnimation]); // Removed currentValue, previousValue from deps
 
   return {
     displayValue: currentValue,
