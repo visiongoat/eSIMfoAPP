@@ -184,7 +184,7 @@ export function ProfileImageUploader({
           <img 
             src={displayImageUrl}
             alt="Profile" 
-            className="w-24 h-24 rounded-full object-cover"
+            className="w-full h-full rounded-full object-cover"
           />
         ) : (
           <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -203,7 +203,7 @@ export function ProfileImageUploader({
         <button 
           onClick={handleClick}
           disabled={isUploading}
-          className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 shadow-lg hover:bg-blue-600 transition-colors disabled:opacity-50"
+          className="absolute -bottom-2 -right-2 bg-blue-500 text-white rounded-full p-2 shadow-lg hover:bg-blue-600 transition-colors disabled:opacity-50"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
