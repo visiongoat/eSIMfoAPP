@@ -175,7 +175,7 @@ export function ProfileImageUploader({
   return (
     <div className="relative inline-block">
       <div 
-        className={`w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden ${
+        className={`w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center mx-auto overflow-hidden ${
           !disabled ? 'cursor-pointer hover:opacity-80 transition-opacity' : ''
         }`}
         onClick={handleClick}
