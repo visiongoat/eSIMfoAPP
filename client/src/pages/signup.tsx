@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useLocation } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 import esimfoLogo from "@assets/160x160esimfologo.png";
 
 export default function SignupScreen() {
@@ -7,6 +8,9 @@ export default function SignupScreen() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const { toast } = useToast();
 
   const handleGoogleSignup = async () => {
     setIsLoading(true);
@@ -26,20 +30,77 @@ export default function SignupScreen() {
     }, 1500);
   };
 
-  const handleEmailSignup = async () => {
-    if (!email.trim() || !name.trim()) return;
+  const validateForm = useCallback(() => {
+    let isValid = true;
+    
+    // Full Name validation
+    if (!name.trim()) {
+      setNameError("Full name is required");
+      isValid = false;
+    } else if (name.trim().length < 2) {
+      setNameError("Full name must be at least 2 characters");
+      isValid = false;
+    } else {
+      setNameError("");
+    }
+    
+    // Email validation
+    if (!email.trim()) {
+      setEmailError("Email address is required");
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Please enter a valid email address");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+    
+    return isValid;
+  }, [name, email]);
+
+  const handleEmailSignup = useCallback(async () => {
+    // Validate form first
+    if (!validateForm()) {
+      // Show toast error for failed validation
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields correctly",
+        variant: "destructive",
+      });
+      
+      // Haptic feedback for mobile
+      if (navigator.vibrate) navigator.vibrate(100);
+      return;
+    }
     
     setIsLoading(true);
     // Simulate authentication
     setTimeout(() => {
+      toast({
+        title: "Account Created!",
+        description: `Welcome to eSIMfo, ${name}!`,
+        variant: "default",
+      });
       setLocation("/home");
       setIsLoading(false);
     }, 1500);
-  };
+  }, [validateForm, name, toast, setLocation]);
 
-  const handleLogin = () => {
+  const handleLogin = useCallback(() => {
     setLocation("/login");
-  };
+  }, [setLocation]);
+
+  const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+    // Clear error when user starts typing
+    if (nameError) setNameError("");
+  }, [nameError]);
+
+  const handleEmailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    // Clear error when user starts typing
+    if (emailError) setEmailError("");
+  }, [emailError]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
@@ -121,11 +182,23 @@ export default function SignupScreen() {
                 id="name"
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-4 border-2 border-blue-500 dark:border-blue-400 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors"
+                onChange={handleNameChange}
+                className={`w-full px-4 py-4 border-2 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent transition-colors ${
+                  nameError 
+                    ? 'border-red-400 focus:ring-red-400' 
+                    : 'border-blue-500 dark:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400'
+                }`}
                 placeholder="Enter your full name"
                 data-testid="input-name"
               />
+              {nameError && (
+                <p className="text-red-500 text-sm flex items-center space-x-1 mt-2" data-testid="error-fullname">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <span>{nameError}</span>
+                </p>
+              )}
             </div>
 
             <div>
@@ -136,17 +209,33 @@ export default function SignupScreen() {
                 id="email"
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-4 border-2 border-blue-500 dark:border-blue-400 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors"
+                onChange={handleEmailChange}
+                className={`w-full px-4 py-4 border-2 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent transition-colors ${
+                  emailError 
+                    ? 'border-red-400 focus:ring-red-400' 
+                    : 'border-blue-500 dark:border-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400'
+                }`}
                 placeholder="Enter your email"
                 data-testid="input-email"
               />
+              {emailError && (
+                <p className="text-red-500 text-sm flex items-center space-x-1 mt-2" data-testid="error-email">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <span>{emailError}</span>
+                </p>
+              )}
             </div>
 
             <button
               onClick={handleEmailSignup}
-              disabled={isLoading || !email.trim() || !name.trim()}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-4 px-6 rounded-xl transition-colors duration-200 disabled:cursor-not-allowed"
+              disabled={isLoading}
+              className={`w-full font-semibold py-4 px-6 rounded-xl transition-all duration-200 ${
+                isLoading
+                  ? 'bg-blue-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 active:scale-95'
+              } text-white`}
               data-testid="button-create-account"
             >
               {isLoading ? (
