@@ -25,6 +25,8 @@ export default function PersonalInfo() {
   
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState<Partial<UserProfile>>({});
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
   
   // Password change states
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -109,6 +111,36 @@ export default function PersonalInfo() {
   });
 
   const handleSave = () => {
+    // Get current values - use edited values if available, otherwise use profile values
+    const currentName = editedProfile.name !== undefined ? editedProfile.name : (profile?.name || '');
+    const currentEmail = editedProfile.email !== undefined ? editedProfile.email : (profile?.email || '');
+    
+    // Clear previous errors
+    setNameError("");
+    setEmailError("");
+    
+    let hasErrors = false;
+    
+    // Validate required fields
+    if (!currentName.trim()) {
+      setNameError("Full name is required");
+      hasErrors = true;
+    }
+    
+    if (!currentEmail.trim()) {
+      setEmailError("Email address is required");
+      hasErrors = true;
+    } else if (!/\S+@\S+\.\S+/.test(currentEmail)) {
+      setEmailError("Please enter a valid email address");
+      hasErrors = true;
+    }
+    
+    if (hasErrors) {
+      // Haptic feedback for mobile
+      if (navigator.vibrate) navigator.vibrate(100);
+      return;
+    }
+    
     if (Object.keys(editedProfile).length > 0) {
       updateProfileMutation.mutate(editedProfile);
     } else {
@@ -122,6 +154,10 @@ export default function PersonalInfo() {
   };
 
   const handleInputChange = (field: keyof UserProfile, value: string) => {
+    // Clear errors when user starts typing
+    if (field === 'name' && nameError) setNameError("");
+    if (field === 'email' && emailError) setEmailError("");
+    
     setEditedProfile(prev => ({
       ...prev,
       [field]: value
@@ -233,13 +269,27 @@ export default function PersonalInfo() {
               Full Name
             </label>
             {isEditing ? (
-              <input
-                type="text"
-                value={getDisplayValue('name')}
-                onChange={(e) => handleInputChange('name', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter your full name"
-              />
+              <div>
+                <input
+                  type="text"
+                  value={getDisplayValue('name')}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:border-transparent ${
+                    nameError 
+                      ? 'border-red-400 focus:ring-red-400' 
+                      : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500'
+                  }`}
+                  placeholder="Enter your full name"
+                />
+                {nameError && (
+                  <p className="text-red-500 text-sm flex items-center space-x-1 mt-1">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    <span>{nameError}</span>
+                  </p>
+                )}
+              </div>
             ) : (
               <div className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.name || 'Not set'}
@@ -253,13 +303,27 @@ export default function PersonalInfo() {
               Email Address
             </label>
             {isEditing ? (
-              <input
-                type="email"
-                value={getDisplayValue('email')}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter your email address"
-              />
+              <div>
+                <input
+                  type="email"
+                  value={getDisplayValue('email')}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  className={`w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:border-transparent ${
+                    emailError 
+                      ? 'border-red-400 focus:ring-red-400' 
+                      : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500'
+                  }`}
+                  placeholder="Enter your email address"
+                />
+                {emailError && (
+                  <p className="text-red-500 text-sm flex items-center space-x-1 mt-1">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    <span>{emailError}</span>
+                  </p>
+                )}
+              </div>
             ) : (
               <div className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.email || 'Not set'}
