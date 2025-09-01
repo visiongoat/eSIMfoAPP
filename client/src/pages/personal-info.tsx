@@ -223,8 +223,8 @@ export default function PersonalInfo() {
           </div>
         </div>
 
-        {/* Basic Information */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 space-y-4">
+        {/* Basic Information Card */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Basic Information</h3>
           
           {/* Full Name */}
@@ -290,8 +290,8 @@ export default function PersonalInfo() {
 
 
 
-        {/* Security Settings */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 space-y-4">
+        {/* Security Settings Card */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Security Settings</h3>
           
           {/* Change Password */}
@@ -408,8 +408,8 @@ export default function PersonalInfo() {
 
 
 
-        {/* Account Management */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-4 space-y-4">
+        {/* Account Management Card */}
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Account Management</h3>
           
           {/* Delete Account */}
