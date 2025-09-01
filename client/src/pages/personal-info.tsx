@@ -241,7 +241,7 @@ export default function PersonalInfo() {
                 placeholder="Enter your full name"
               />
             ) : (
-              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
+              <div className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.name || 'Not set'}
               </div>
             )}
@@ -261,7 +261,7 @@ export default function PersonalInfo() {
                 placeholder="Enter your email address"
               />
             ) : (
-              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
+              <div className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.email || 'Not set'}
               </div>
             )}
@@ -281,7 +281,7 @@ export default function PersonalInfo() {
                 placeholder="Enter your phone number"
               />
             ) : (
-              <div className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
+              <div className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 min-h-[42px] flex items-center">
                 {profile?.phone || 'Not set'}
               </div>
             )}
