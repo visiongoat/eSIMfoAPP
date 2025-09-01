@@ -627,10 +627,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const objectStorageService = new ObjectStorageService();
       const imagePath = objectStorageService.normalizeProfileImagePath(imageURL);
       
-      // Update user profile with new avatar path
-      await storage.updateUser(1, { avatar: imagePath });
+      // Create full URL for the image
+      const imageUrl = `${req.protocol}://${req.get('host')}${imagePath}`;
       
-      res.json({ imagePath });
+      // Update user profile with new avatar URL
+      await storage.updateUser(1, { avatar: imageUrl });
+      
+      res.json({ imagePath, imageUrl });
     } catch (error) {
       console.error("Error updating profile image:", error);
       res.status(500).json({ error: "Failed to update profile image" });

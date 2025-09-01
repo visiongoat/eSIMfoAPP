@@ -164,7 +164,11 @@ export class ObjectStorageService {
   
     // Extract the image path from the private directory
     const imagePath = rawObjectPath.slice(privateObjectDir.length);
-    return `/profile-images/${imagePath}`;
+    // Remove "profile-images/" prefix if it exists to avoid duplication
+    const cleanImagePath = imagePath.startsWith("profile-images/") 
+      ? imagePath.slice("profile-images/".length)
+      : imagePath;
+    return `/profile-images/${cleanImagePath}`;
   }
 }
 

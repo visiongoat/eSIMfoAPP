@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ProfileImageUploaderProps {
   currentImageUrl?: string;
@@ -17,6 +18,7 @@ export function ProfileImageUploader({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const compressImage = (file: File, maxWidth: number = 300, quality: number = 0.8): Promise<Blob> => {
     return new Promise((resolve) => {
@@ -123,8 +125,14 @@ export function ProfileImageUploader({
         throw new Error('Failed to update profile');
       }
 
-      const { imagePath } = await updateResponse.json();
-      onUploadSuccess(imagePath);
+      const { imagePath, imageUrl } = await updateResponse.json();
+      
+      // Invalidate profile query to refresh data
+      queryClient.invalidateQueries({ queryKey: ['/api/profile'] });
+      
+      // Use the server-provided imageUrl or construct one
+      const finalImageUrl = imageUrl || `${window.location.origin}${imagePath}`;
+      onUploadSuccess(finalImageUrl);
 
       toast({
         title: "Success",
