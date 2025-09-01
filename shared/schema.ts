@@ -10,6 +10,7 @@ export const users = pgTable("users", {
   isPartner: boolean("is_partner").default(false),
   referralCode: text("referral_code").unique(),
   referredBy: integer("referred_by"),
+  avatar: text("avatar"),
   availableCredit: decimal("available_credit", { precision: 10, scale: 2 }).default("0"),
   pendingCredit: decimal("pending_credit", { precision: 10, scale: 2 }).default("0"),
   usedCredit: decimal("used_credit", { precision: 10, scale: 2 }).default("0"),

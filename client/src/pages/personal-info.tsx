@@ -3,6 +3,8 @@ import { useLocation } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import NavigationBar from "@/components/navigation-bar";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
+import { ProfileImageUploader } from "@/components/ProfileImageUploader";
 import type { Country } from "@shared/schema";
 
 interface UserProfile {
@@ -234,29 +236,16 @@ export default function PersonalInfo() {
       <div className="px-6 pt-4 pb-0 space-y-6">
         {/* Profile Photo Section */}
         <div className="text-center py-6">
-          <div className="relative inline-block">
-            <div className="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              {profile?.avatar ? (
-                <img 
-                  src={profile.avatar} 
-                  alt="Profile" 
-                  className="w-24 h-24 rounded-full object-cover"
-                />
-              ) : (
-                <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                </svg>
-              )}
-            </div>
-            {isEditing && (
-              <button className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 shadow-lg">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
-            )}
-          </div>
+          <ProfileImageUploader
+            currentImageUrl={profile?.avatar}
+            onUploadSuccess={(imageUrl) => {
+              // Update profile data in cache
+              queryClient.setQueryData(['/api/profile'], (old: UserProfile | undefined) => 
+                old ? { ...old, avatar: imageUrl } : old
+              );
+            }}
+            disabled={!isEditing}
+          />
         </div>
 
         {/* Basic Information Card */}

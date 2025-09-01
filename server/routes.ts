@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import path from "path";
 import { storage } from "./storage";
+import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { insertCountrySchema, insertPackageSchema, insertEsimSchema, insertSaleSchema } from "@shared/schema";
 import { z } from "zod";
 
@@ -601,6 +602,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
         </body>
       </html>
     `);
+  });
+
+  // Profile image upload endpoints
+  app.post("/api/profile-image/upload", async (req, res) => {
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const uploadURL = await objectStorageService.getProfileImageUploadURL();
+      res.json({ uploadURL });
+    } catch (error) {
+      console.error("Error getting profile image upload URL:", error);
+      res.status(500).json({ error: "Failed to get upload URL" });
+    }
+  });
+
+  app.put("/api/profile-image", async (req, res) => {
+    try {
+      const { imageURL } = req.body;
+      
+      if (!imageURL) {
+        return res.status(400).json({ error: "imageURL is required" });
+      }
+
+      const objectStorageService = new ObjectStorageService();
+      const imagePath = objectStorageService.normalizeProfileImagePath(imageURL);
+      
+      // Update user profile with new avatar path
+      await storage.updateUser(1, { avatar: imagePath });
+      
+      res.json({ imagePath });
+    } catch (error) {
+      console.error("Error updating profile image:", error);
+      res.status(500).json({ error: "Failed to update profile image" });
+    }
+  });
+
+  // Serve profile images
+  app.get("/profile-images/:imagePath(*)", async (req, res) => {
+    try {
+      const imagePath = `/profile-images/${req.params.imagePath}`;
+      const objectStorageService = new ObjectStorageService();
+      const imageFile = await objectStorageService.getProfileImageFile(imagePath);
+      await objectStorageService.downloadObject(imageFile, res);
+    } catch (error) {
+      if (error instanceof ObjectNotFoundError) {
+        return res.status(404).json({ error: "Image not found" });
+      }
+      console.error("Error serving profile image:", error);
+      res.status(500).json({ error: "Error serving image" });
+    }
   });
 
   const httpServer = createServer(app);
