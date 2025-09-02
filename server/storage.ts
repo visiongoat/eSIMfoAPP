@@ -291,6 +291,28 @@ export class MemStorage implements IStorage {
         expiresAt: new Date(Date.now() + 20 * 24 * 60 * 60 * 1000 + 8 * 60 * 60 * 1000 + 30 * 60 * 1000), // 20 days from now at 08:30
         activatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago - newest purchase
         createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: this.currentEsimId++, // ID 7 - Ready to activate
+        userId: 1,
+        packageId: 1, // US package - 1GB / 7 Days
+        qrCode: "QR_CODE_US_READY",
+        status: "Ready",
+        dataUsed: "0", // Not activated yet
+        expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+        activatedAt: null, // Not activated yet
+        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) // 2 days ago
+      },
+      {
+        id: this.currentEsimId++, // ID 8 - Ready to activate
+        userId: 1,
+        packageId: 9, // Japan package - 3GB / 14 Days
+        qrCode: "QR_CODE_JAPAN_READY",
+        status: "Ready",
+        dataUsed: "0", // Not activated yet
+        expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
+        activatedAt: null, // Not activated yet
+        createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) // 1 day ago
       }
     ];
     

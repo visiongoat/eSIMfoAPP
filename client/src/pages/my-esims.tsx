@@ -8,7 +8,7 @@ import EsimCard from "@/components/esim-card";
 import EsimfoLogo from "@/components/esimfo-logo";
 import type { Esim, Package, Country } from "@shared/schema";
 
-type FilterType = 'all' | 'active' | 'expired';
+type FilterType = 'all' | 'active' | 'expired' | 'ready';
 
 export default function MyEsimsScreen() {
   const [, setLocation] = useLocation();
@@ -64,6 +64,9 @@ export default function MyEsimsScreen() {
         break;
       case 'expired':
         filtered = esims.filter(esim => esim.status === 'Expired');
+        break;
+      case 'ready':
+        filtered = esims.filter(esim => esim.status === 'Ready');
         break;
       default:
         filtered = esims;
@@ -277,6 +280,7 @@ export default function MyEsimsScreen() {
 
   const activeEsims = esims.filter(esim => esim.status === 'Active');
   const expiredEsims = esims.filter(esim => esim.status === 'Expired');
+  const readyEsims = esims.filter(esim => esim.status === 'Ready');
 
   // Calculate statistics with better data visualization
   const totalEsims = esims.length;
@@ -395,6 +399,16 @@ export default function MyEsimsScreen() {
                       }`}
                     >
                       {expiredEsims.length} expired
+                    </button>
+                    <button
+                      onClick={() => setFilter('ready')}
+                      className={`text-xs px-2 py-1 rounded transition-colors ${
+                        filter === 'ready'
+                          ? 'bg-blue-600 dark:bg-blue-500 text-white font-medium'
+                          : 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30'
+                      }`}
+                    >
+                      {readyEsims.length} ready to activate
                     </button>
                   </div>
                 </div>
