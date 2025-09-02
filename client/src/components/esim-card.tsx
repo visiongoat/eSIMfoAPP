@@ -18,6 +18,8 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare, onClick }
         return 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300';
       case 'Expired':
         return 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300';
+      case 'Ready':
+        return 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300';
       case 'Inactive':
         return 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300';
       default:
@@ -109,14 +111,23 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare, onClick }
         {/* Footer with Actions and Date */}
         <div className="flex items-center justify-between">
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            {esim.status === 'Active' ? 'Expires:' : 'Used:'} {' '}
-            {esim.expiresAt ? new Date(esim.expiresAt).toLocaleDateString('en-GB', {
-              day: '2-digit',
-              month: '2-digit', 
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            }) : 'N/A'}
+            {esim.status === 'Active' ? 'Expires:' : esim.status === 'Ready' ? 'Created:' : 'Used:'} {' '}
+            {esim.status === 'Ready' ? 
+              (esim.createdAt ? new Date(esim.createdAt).toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: '2-digit', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              }) : 'N/A') :
+              (esim.expiresAt ? new Date(esim.expiresAt).toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: '2-digit', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              }) : 'N/A')
+            }
           </p>
           
           <div className="flex items-center space-x-3">
@@ -126,6 +137,17 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare, onClick }
                 className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 hover:scale-105 active:scale-95"
               >
                 Setup eSIM
+              </button>
+            )}
+            {esim.status === 'Ready' && onViewQR && (
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onViewQR(esim);
+                }}
+                className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 hover:scale-105 active:scale-95"
+              >
+                View QR Code
               </button>
             )}
             {esim.status === 'Expired' && onReorder && (

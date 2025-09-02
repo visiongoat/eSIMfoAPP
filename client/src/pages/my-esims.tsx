@@ -86,6 +86,13 @@ export default function MyEsimsScreen() {
   };
 
   const handleEsimCardClick = (esim: Esim & { package?: Package; country?: Country }) => {
+    // If eSIM is Ready, navigate to QR page directly
+    if (esim.status === 'Ready') {
+      setLocation(`/qr/${esim.id}`);
+      return;
+    }
+    
+    // For other statuses, show the detail modal
     setSelectedEsimForDetail(esim);
     setShowEsimDetailModal(true);
     setModalAnimationKey(prev => prev + 1); // Trigger fresh animation
