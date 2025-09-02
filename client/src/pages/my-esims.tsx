@@ -388,6 +388,16 @@ export default function MyEsimsScreen() {
                       All
                     </button>
                     <button
+                      onClick={() => setFilter('ready')}
+                      className={`text-xs px-2 py-1 rounded transition-colors ${
+                        filter === 'ready'
+                          ? 'bg-blue-600 dark:bg-blue-500 text-white font-medium'
+                          : 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30'
+                      }`}
+                    >
+                      {readyEsims.length} ready to activate
+                    </button>
+                    <button
                       onClick={() => setFilter('active')}
                       className={`text-xs px-2 py-1 rounded transition-colors ${
                         filter === 'active'
@@ -406,16 +416,6 @@ export default function MyEsimsScreen() {
                       }`}
                     >
                       {expiredEsims.length} expired
-                    </button>
-                    <button
-                      onClick={() => setFilter('ready')}
-                      className={`text-xs px-2 py-1 rounded transition-colors ${
-                        filter === 'ready'
-                          ? 'bg-blue-600 dark:bg-blue-500 text-white font-medium'
-                          : 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30'
-                      }`}
-                    >
-                      {readyEsims.length} ready to activate
                     </button>
                   </div>
                 </div>
