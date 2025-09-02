@@ -395,7 +395,7 @@ export default function MyEsimsScreen() {
                           : 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30'
                       }`}
                     >
-                      {readyEsims.length} ready to activate
+                      {readyEsims.length} ready
                     </button>
                     <button
                       onClick={() => setFilter('active')}
