@@ -21,8 +21,8 @@ export default function VerifyEmailScreen() {
     } else if (emailFromStorage) {
       setEmail(emailFromStorage);
     } else {
-      // If no email found, redirect back to login
-      setLocation('/login');
+      // If no email found, redirect back to signup
+      setLocation('/signup');
     }
   }, [setLocation]);
 
@@ -34,6 +34,7 @@ export default function VerifyEmailScreen() {
     // Simulate verification
     setTimeout(() => {
       localStorage.removeItem('verificationEmail');
+      localStorage.removeItem('signupName');
       setLocation("/home");
       setIsLoading(false);
     }, 1500);
@@ -51,7 +52,8 @@ export default function VerifyEmailScreen() {
 
   const handleEditEmail = () => {
     localStorage.removeItem('verificationEmail');
-    setLocation('/login');
+    localStorage.removeItem('signupName');
+    setLocation('/signup');
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {

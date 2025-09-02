@@ -67,12 +67,23 @@ export default function SignupScreen() {
     }
     
     setIsLoading(true);
-    // Simulate authentication
+    
+    // Simulate sending verification email
     setTimeout(() => {
-      setLocation("/home");
+      // Store email and name for verification page
+      localStorage.setItem('verificationEmail', email);
+      localStorage.setItem('signupName', name);
+      // Navigate to email verification
+      setLocation(`/verify-email?email=${encodeURIComponent(email)}`);
       setIsLoading(false);
+      
+      // Show success toast
+      toast({
+        title: "Verification email sent",
+        description: `We've sent a verification code to ${email}`,
+      });
     }, 1500);
-  }, [validateForm, setLocation]);
+  }, [validateForm, setLocation, email, toast]);
 
   const handleLogin = useCallback(() => {
     setLocation("/login");
