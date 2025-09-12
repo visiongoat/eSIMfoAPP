@@ -289,6 +289,29 @@ export default function PackagesScreen() {
     }
   ];
 
+  // Unlimited plans for Germany (demo data)
+  const unlimitedPlans = [
+    { days: 3, price: 7.60, priceEur: 7.60 },
+    { days: 5, price: 11.40, priceEur: 11.40 },
+    { days: 7, price: 15.20, priceEur: 15.20 },
+    { days: 10, price: 20.80, priceEur: 20.80 },
+    { days: 15, price: 30.00, priceEur: 30.00 },
+    { days: 30, price: 58.00, priceEur: 58.00 }
+  ];
+
+  // State for unlimited plan selection
+  const [selectedUnlimitedDays, setSelectedUnlimitedDays] = useState(3);
+  const [showUnlimitedDayPicker, setShowUnlimitedDayPicker] = useState(false);
+
+  // Get unlimited plan price for selected days
+  const getUnlimitedPrice = (days: number) => {
+    const plan = unlimitedPlans.find(p => p.days === days);
+    return plan ? plan.priceEur : 0;
+  };
+
+  // Check if this country has unlimited plans (for demo, only Germany)
+  const hasUnlimitedPlans = countryId === 73; // Germany ID from the demo
+
   const handleBackClick = () => {
     // Navigate back based on where user came from
     if (fromPage === 'destinations') {
@@ -540,6 +563,111 @@ ${baseUrl}/packages/${countryId}`;
             Data/Voice/SMS ({dataCallsTextPackages.length})
           </button>
         </div>
+
+        {/* Unlimited Plan (Premium) */}
+        {hasUnlimitedPlans && (
+          <div className="mb-6 relative">
+            <div className="bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-600 p-[2px] rounded-2xl shadow-lg">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden">
+                {/* Premium Badge */}
+                <div className="absolute -top-2 left-4 z-10">
+                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                    ⭐ PREMIUM
+                  </div>
+                </div>
+                
+                {/* Content */}
+                <div className="p-5 pt-6">
+                  <div className="flex items-center justify-between">
+                    {/* Left: Title & Description */}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        Unlimited
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                        High-speed data without limits
+                      </p>
+                    </div>
+                    
+                    {/* Center: Price */}
+                    <div className="flex-1 text-center">
+                      <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                        {convertPrice(`€${getUnlimitedPrice(selectedUnlimitedDays).toFixed(2)}`, selectedCurrency)}
+                      </div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        €{(getUnlimitedPrice(selectedUnlimitedDays) / selectedUnlimitedDays).toFixed(2)} /day
+                      </div>
+                    </div>
+                    
+                    {/* Right: Day Selector */}
+                    <div className="flex-1 flex justify-end">
+                      <div className="relative">
+                        <button
+                          onClick={() => setShowUnlimitedDayPicker(!showUnlimitedDayPicker)}
+                          className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-600 rounded-xl px-4 py-2.5 flex items-center space-x-2 hover:from-purple-200 hover:to-blue-200 dark:hover:from-purple-800/40 dark:hover:to-blue-800/40 transition-all"
+                        >
+                          <span className="font-semibold text-purple-700 dark:text-purple-300">
+                            {selectedUnlimitedDays} days
+                          </span>
+                          <ChevronDown className={`w-4 h-4 text-purple-700 dark:text-purple-300 transition-transform ${showUnlimitedDayPicker ? 'rotate-180' : ''}`} />
+                        </button>
+                        
+                        {/* Day Picker Dropdown */}
+                        {showUnlimitedDayPicker && (
+                          <div className="absolute top-full right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl shadow-xl z-20 min-w-[120px]">
+                            <div className="p-2">
+                              {unlimitedPlans.map((plan) => (
+                                <button
+                                  key={plan.days}
+                                  onClick={() => {
+                                    setSelectedUnlimitedDays(plan.days);
+                                    setShowUnlimitedDayPicker(false);
+                                  }}
+                                  className={`w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex justify-between items-center ${
+                                    selectedUnlimitedDays === plan.days ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300' : ''
+                                  }`}
+                                >
+                                  <span className="font-medium">{plan.days} days</span>
+                                  <span className="text-sm text-gray-500 dark:text-gray-400">€{plan.priceEur}</span>
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Features */}
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center space-x-4 text-sm">
+                      <div className="flex items-center space-x-1">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-gray-600 dark:text-gray-400">5G Ready</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span className="text-gray-600 dark:text-gray-400">Instant Setup</span>
+                      </div>
+                    </div>
+                    
+                    <button
+                      onClick={() => {
+                        // Handle unlimited plan purchase
+                        const unlimitedPackageId = 999; // Special ID for unlimited
+                        setSelectedPackage(unlimitedPackageId);
+                        setShowCheckoutModal(true);
+                      }}
+                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all transform hover:scale-105 shadow-md"
+                    >
+                      Get Unlimited
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Package List */}
         <div className="space-y-3 mb-6">
