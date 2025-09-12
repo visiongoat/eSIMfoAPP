@@ -631,10 +631,10 @@ ${baseUrl}/packages/${countryId}`;
                           }}
                         >
                           <SelectTrigger 
-                            className="w-[120px] bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border-purple-200 dark:border-purple-600 text-purple-700 dark:text-purple-300 font-medium text-sm"
+                            className="min-w-[100px] w-auto bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border-purple-200 dark:border-purple-600 text-purple-700 dark:text-purple-300 font-medium text-sm whitespace-nowrap"
                             data-testid="button-unlimited-daypicker"
                           >
-                            <SelectValue />
+                            <SelectValue placeholder={`${selectedUnlimitedDays} days`} />
                           </SelectTrigger>
                           <SelectContent>
                             {unlimitedPlans.map((plan) => (
@@ -643,10 +643,7 @@ ${baseUrl}/packages/${countryId}`;
                                 value={plan.days.toString()}
                                 data-testid={`option-unlimited-days-${plan.days}`}
                               >
-                                <div className="flex justify-between items-center w-full">
-                                  <span>{plan.days} days</span>
-                                  <span className="text-gray-500 ml-3 text-sm">{convertPrice(`€${plan.priceEur.toFixed(2)}`, selectedCurrency)}</span>
-                                </div>
+                                {plan.days} days - {convertPrice(`€${plan.priceEur.toFixed(2)}`, selectedCurrency)}
                               </SelectItem>
                             ))}
                           </SelectContent>
