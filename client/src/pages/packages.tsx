@@ -1158,12 +1158,16 @@ ${baseUrl}/packages/${countryId}`;
         selectedPackage={(() => {
           // Handle unlimited package
           if (selectedPackage === 999) {
+            const basePrice = getUnlimitedPrice(selectedUnlimitedDays);
+            const formattedPrice = convertPrice(`€${basePrice.toFixed(2)}`, selectedCurrency);
+            const formattedPricePerDay = convertPrice(`€${(basePrice / selectedUnlimitedDays).toFixed(2)}`, selectedCurrency) + " /day";
+            
             return {
               id: 999,
               duration: "Unlimited",
               data: `${selectedUnlimitedDays} ${selectedUnlimitedDays === 1 ? 'day' : 'days'}`,
-              price: convertPrice(`€${getUnlimitedPrice(selectedUnlimitedDays).toFixed(2)}`, selectedCurrency),
-              pricePerDay: convertPrice(`€${(getUnlimitedPrice(selectedUnlimitedDays) / selectedUnlimitedDays).toFixed(2)}`, selectedCurrency) + " /day",
+              price: formattedPrice || `€${basePrice.toFixed(2)}`, // Fallback to ensure string format
+              pricePerDay: formattedPricePerDay || `€${(basePrice / selectedUnlimitedDays).toFixed(2)} /day`, // Fallback
               signalStrength: 5
             };
           }
