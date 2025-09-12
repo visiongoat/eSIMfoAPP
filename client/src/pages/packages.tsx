@@ -310,8 +310,9 @@ export default function PackagesScreen() {
     return plan ? plan.priceEur : 0;
   };
 
-  // Check if this country has unlimited plans (for demo, only Germany)
-  const hasUnlimitedPlans = countryId === 73; // Germany ID from the demo
+  // Check if this country has unlimited plans (multiple countries for testing)
+  const unlimitedCountries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 40, 41, 42, 44, 47, 48, 49, 50, 52, 53, 54, 73]; // Popular countries for testing
+  const hasUnlimitedPlans = Number.isFinite(countryId) && unlimitedCountries.includes(Number(countryId));
 
   const handleBackClick = () => {
     // Navigate back based on where user came from
