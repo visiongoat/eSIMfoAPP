@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
 import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
 import NavigationBar from "@/components/navigation-bar";
@@ -301,7 +302,7 @@ export default function PackagesScreen() {
 
   // State for unlimited plan selection
   const [selectedUnlimitedDays, setSelectedUnlimitedDays] = useState(3);
-  const [showUnlimitedDayPicker, setShowUnlimitedDayPicker] = useState(false);
+  const [selectedUnlimitedPlan, setSelectedUnlimitedPlan] = useState(unlimitedPlans[0]);
 
   // Get unlimited plan price for selected days
   const getUnlimitedPrice = (days: number) => {
@@ -578,7 +579,7 @@ ${baseUrl}/packages/${countryId}`;
                 
                 {/* Content */}
                 <div className="p-5 pt-6">
-                  <div className="flex items-center justify-between">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
                     {/* Left: Title & Description */}
                     <div className="flex-1">
                       <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
@@ -595,46 +596,49 @@ ${baseUrl}/packages/${countryId}`;
                         {convertPrice(`€${getUnlimitedPrice(selectedUnlimitedDays).toFixed(2)}`, selectedCurrency)}
                       </div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">
-                        €{(getUnlimitedPrice(selectedUnlimitedDays) / selectedUnlimitedDays).toFixed(2)} /day
+                        {convertPrice(`€${(getUnlimitedPrice(selectedUnlimitedDays) / selectedUnlimitedDays).toFixed(2)}`, selectedCurrency)} /day
                       </div>
                     </div>
                     
                     {/* Right: Day Selector */}
                     <div className="flex-1 flex justify-end">
-                      <div className="relative">
-                        <button
-                          onClick={() => setShowUnlimitedDayPicker(!showUnlimitedDayPicker)}
-                          className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-600 rounded-xl px-4 py-2.5 flex items-center space-x-2 hover:from-purple-200 hover:to-blue-200 dark:hover:from-purple-800/40 dark:hover:to-blue-800/40 transition-all"
-                        >
+                      {unlimitedPlans.length === 1 ? (
+                        <div className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-600 rounded-xl px-4 py-2.5">
                           <span className="font-semibold text-purple-700 dark:text-purple-300">
-                            {selectedUnlimitedDays} days
+                            {unlimitedPlans[0].days} days
                           </span>
-                          <ChevronDown className={`w-4 h-4 text-purple-700 dark:text-purple-300 transition-transform ${showUnlimitedDayPicker ? 'rotate-180' : ''}`} />
-                        </button>
-                        
-                        {/* Day Picker Dropdown */}
-                        {showUnlimitedDayPicker && (
-                          <div className="absolute top-full right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl shadow-xl z-20 min-w-[120px]">
-                            <div className="p-2">
-                              {unlimitedPlans.map((plan) => (
-                                <button
-                                  key={plan.days}
-                                  onClick={() => {
-                                    setSelectedUnlimitedDays(plan.days);
-                                    setShowUnlimitedDayPicker(false);
-                                  }}
-                                  className={`w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex justify-between items-center ${
-                                    selectedUnlimitedDays === plan.days ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300' : ''
-                                  }`}
-                                >
-                                  <span className="font-medium">{plan.days} days</span>
-                                  <span className="text-sm text-gray-500 dark:text-gray-400">€{plan.priceEur}</span>
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                        </div>
+                      ) : (
+                        <Select
+                          value={selectedUnlimitedDays.toString()}
+                          onValueChange={(value) => {
+                            const days = parseInt(value);
+                            setSelectedUnlimitedDays(days);
+                            setSelectedUnlimitedPlan(unlimitedPlans.find(p => p.days === days)!);
+                          }}
+                        >
+                          <SelectTrigger 
+                            className="w-[140px] bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border-purple-200 dark:border-purple-600 text-purple-700 dark:text-purple-300 font-semibold"
+                            data-testid="button-unlimited-daypicker"
+                          >
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {unlimitedPlans.map((plan) => (
+                              <SelectItem 
+                                key={plan.days} 
+                                value={plan.days.toString()}
+                                data-testid={`option-unlimited-days-${plan.days}`}
+                              >
+                                <div className="flex justify-between items-center w-full">
+                                  <span>{plan.days} days</span>
+                                  <span className="text-gray-500 ml-4">€{plan.priceEur}</span>
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
                     </div>
                   </div>
                   
@@ -653,12 +657,12 @@ ${baseUrl}/packages/${countryId}`;
                     
                     <button
                       onClick={() => {
-                        // Handle unlimited plan purchase
-                        const unlimitedPackageId = 999; // Special ID for unlimited
-                        setSelectedPackage(unlimitedPackageId);
+                        // Handle unlimited plan purchase with selected plan data
+                        setSelectedUnlimitedPlan(unlimitedPlans.find(p => p.days === selectedUnlimitedDays)!);
                         setShowCheckoutModal(true);
                       }}
                       className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all transform hover:scale-105 shadow-md"
+                      data-testid="button-unlimited-purchase"
                     >
                       Get Unlimited
                     </button>
