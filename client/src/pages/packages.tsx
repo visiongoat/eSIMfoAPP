@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
 import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share } from "lucide-react";
@@ -303,6 +303,45 @@ export default function PackagesScreen() {
   // State for unlimited plan selection
   const [selectedUnlimitedDays, setSelectedUnlimitedDays] = useState(3);
   const [selectedUnlimitedPlan, setSelectedUnlimitedPlan] = useState(unlimitedPlans[0]);
+
+  // Derived state for checkout modal - eliminates race conditions
+  const selectedPackageForCheckout = useMemo(() => {
+    // Handle unlimited package
+    if (selectedPackage === 999) {
+      const currentDays = selectedUnlimitedDays;
+      const basePrice = getUnlimitedPrice(currentDays);
+      
+      // Extra check to ensure we have valid pricing
+      if (!basePrice || basePrice <= 0) {
+        console.warn('Invalid unlimited plan price:', basePrice, 'for days:', currentDays);
+        return null;
+      }
+      
+      const formattedPrice = convertPrice(`€${basePrice.toFixed(2)}`, selectedCurrency);
+      const formattedPricePerDay = convertPrice(`€${(basePrice / currentDays).toFixed(2)}`, selectedCurrency) + " /day";
+      
+      console.log('Creating unlimited virtual package:', {
+        days: currentDays,
+        basePrice,
+        formattedPrice,
+        selectedPackage
+      });
+      
+      return {
+        id: 999,
+        duration: "Unlimited",
+        data: `${currentDays} ${currentDays === 1 ? 'day' : 'days'}`,
+        price: formattedPrice || `€${basePrice.toFixed(2)}`, // Fallback to ensure string format
+        pricePerDay: formattedPricePerDay || `€${(basePrice / currentDays).toFixed(2)} /day`, // Fallback
+        signalStrength: 5
+      };
+    }
+    
+    // Handle regular packages
+    const dataPackage = demoPackages.find(p => p.id === selectedPackage);
+    const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
+    return dataPackage || comboPackage;
+  }, [selectedPackage, selectedUnlimitedDays, selectedCurrency]);
 
   // Get unlimited plan price for selected days
   const getUnlimitedPrice = (days: number) => {
@@ -630,8 +669,10 @@ ${baseUrl}/packages/${countryId}`;
                             const days = parseInt(value);
                             setSelectedUnlimitedDays(days);
                             setSelectedUnlimitedPlan(unlimitedPlans.find(p => p.days === days)!);
-                            // Update selected package to trigger checkout modal update
-                            setSelectedPackage(999); // Keep unlimited selected when changing days
+                            // Only set selectedPackage if it's not already 999 to avoid unnecessary re-renders
+                            if (selectedPackage !== 999) {
+                              setSelectedPackage(999);
+                            }
                           }}
                         >
                           <SelectTrigger 
@@ -1155,27 +1196,7 @@ ${baseUrl}/packages/${countryId}`;
       <CheckoutModal
         isOpen={showCheckoutModal}
         onClose={() => setShowCheckoutModal(false)}
-        selectedPackage={(() => {
-          // Handle unlimited package
-          if (selectedPackage === 999) {
-            const basePrice = getUnlimitedPrice(selectedUnlimitedDays);
-            const formattedPrice = convertPrice(`€${basePrice.toFixed(2)}`, selectedCurrency);
-            const formattedPricePerDay = convertPrice(`€${(basePrice / selectedUnlimitedDays).toFixed(2)}`, selectedCurrency) + " /day";
-            
-            return {
-              id: 999,
-              duration: "Unlimited",
-              data: `${selectedUnlimitedDays} ${selectedUnlimitedDays === 1 ? 'day' : 'days'}`,
-              price: formattedPrice || `€${basePrice.toFixed(2)}`, // Fallback to ensure string format
-              pricePerDay: formattedPricePerDay || `€${(basePrice / selectedUnlimitedDays).toFixed(2)} /day`, // Fallback
-              signalStrength: 5
-            };
-          }
-          
-          const dataPackage = demoPackages.find(p => p.id === selectedPackage);
-          const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
-          return dataPackage || comboPackage;
-        })()}
+        selectedPackage={selectedPackageForCheckout}
         country={country}
         esimCount={esimCount}
         setEsimCount={setEsimCount}
