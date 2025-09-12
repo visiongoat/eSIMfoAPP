@@ -589,21 +589,22 @@ ${baseUrl}/packages/${countryId}`;
                 </div>
                 
                 {/* Content */}
-                <div className="p-5 pt-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
-                    {/* Left: Title & Description */}
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                        Unlimited
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                        High-speed data without limits
-                      </p>
-                    </div>
-                    
-                    {/* Center: Price */}
-                    <div className="flex-1 text-center">
-                      <div className="text-2xl font-bold text-gray-900 dark:text-white" data-testid="text-unlimited-price">
+                <div className="p-4 pt-5">
+                  {/* Title */}
+                  <div className="mb-3">
+                    <h3 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                      Unlimited
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-xs">
+                      High-speed data without limits
+                    </p>
+                  </div>
+
+                  {/* Price and Day Selector - Same Row */}
+                  <div className="flex items-center justify-between mb-3">
+                    {/* Left: Price */}
+                    <div className="text-left">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white" data-testid="text-unlimited-price">
                         {convertPrice(`€${getUnlimitedPrice(selectedUnlimitedDays).toFixed(2)}`, selectedCurrency)}
                       </div>
                       <div className="text-xs text-gray-500 dark:text-gray-400" data-testid="text-unlimited-price-per-day">
@@ -612,10 +613,10 @@ ${baseUrl}/packages/${countryId}`;
                     </div>
                     
                     {/* Right: Day Selector */}
-                    <div className="flex-1 flex justify-end">
+                    <div className="flex justify-end">
                       {unlimitedPlans.length === 1 ? (
-                        <div className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-600 rounded-xl px-4 py-2.5">
-                          <span className="font-semibold text-purple-700 dark:text-purple-300">
+                        <div className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-600 rounded-xl px-3 py-2">
+                          <span className="font-medium text-purple-700 dark:text-purple-300 text-sm">
                             {unlimitedPlans[0].days} days
                           </span>
                         </div>
@@ -629,7 +630,7 @@ ${baseUrl}/packages/${countryId}`;
                           }}
                         >
                           <SelectTrigger 
-                            className="w-[140px] bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border-purple-200 dark:border-purple-600 text-purple-700 dark:text-purple-300 font-semibold"
+                            className="w-[120px] bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border-purple-200 dark:border-purple-600 text-purple-700 dark:text-purple-300 font-medium text-sm"
                             data-testid="button-unlimited-daypicker"
                           >
                             <SelectValue />
@@ -643,7 +644,7 @@ ${baseUrl}/packages/${countryId}`;
                               >
                                 <div className="flex justify-between items-center w-full">
                                   <span>{plan.days} days</span>
-                                  <span className="text-gray-500 ml-4">{convertPrice(`€${plan.priceEur.toFixed(2)}`, selectedCurrency)}</span>
+                                  <span className="text-gray-500 ml-3 text-sm">{convertPrice(`€${plan.priceEur.toFixed(2)}`, selectedCurrency)}</span>
                                 </div>
                               </SelectItem>
                             ))}
@@ -653,22 +654,22 @@ ${baseUrl}/packages/${countryId}`;
                     </div>
                   </div>
                   
-                  {/* Features */}
-                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <div className="flex items-center space-x-4 text-sm">
+                  {/* Features and Button */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3 text-xs">
                       <div className="flex items-center space-x-1">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
                         <span className="text-gray-600 dark:text-gray-400">5G Ready</span>
                       </div>
                       <div className="flex items-center space-x-1">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
                         <span className="text-gray-600 dark:text-gray-400">Instant Setup</span>
                       </div>
                     </div>
                     
                     <button
                       onClick={handleUnlimitedPurchase}
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all transform hover:scale-105 shadow-md"
+                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-5 py-2 rounded-xl transition-all transform hover:scale-105 shadow-md text-sm"
                       data-testid="button-unlimited-purchase"
                     >
                       Get Unlimited
