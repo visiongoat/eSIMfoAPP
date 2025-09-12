@@ -345,7 +345,9 @@ export default function PackagesScreen() {
       navigator.vibrate(50);
     }
     
-    // Set unlimited plan data and open checkout
+    // Set unlimited plan as selected package for checkout modal
+    const unlimitedPackageId = 999; // Special ID for unlimited
+    setSelectedPackage(unlimitedPackageId);
     setSelectedUnlimitedPlan(unlimitedPlans.find(p => p.days === selectedUnlimitedDays)!);
     setShowCheckoutModal(true);
   };
@@ -628,6 +630,8 @@ ${baseUrl}/packages/${countryId}`;
                             const days = parseInt(value);
                             setSelectedUnlimitedDays(days);
                             setSelectedUnlimitedPlan(unlimitedPlans.find(p => p.days === days)!);
+                            // Update selected package to trigger checkout modal update
+                            setSelectedPackage(999); // Keep unlimited selected when changing days
                           }}
                         >
                           <SelectTrigger 
@@ -1152,6 +1156,18 @@ ${baseUrl}/packages/${countryId}`;
         isOpen={showCheckoutModal}
         onClose={() => setShowCheckoutModal(false)}
         selectedPackage={(() => {
+          // Handle unlimited package
+          if (selectedPackage === 999) {
+            return {
+              id: 999,
+              duration: "Unlimited",
+              data: `${selectedUnlimitedDays} ${selectedUnlimitedDays === 1 ? 'day' : 'days'}`,
+              price: convertPrice(`€${getUnlimitedPrice(selectedUnlimitedDays).toFixed(2)}`, selectedCurrency),
+              pricePerDay: convertPrice(`€${(getUnlimitedPrice(selectedUnlimitedDays) / selectedUnlimitedDays).toFixed(2)}`, selectedCurrency) + " /day",
+              signalStrength: 5
+            };
+          }
+          
           const dataPackage = demoPackages.find(p => p.id === selectedPackage);
           const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
           return dataPackage || comboPackage;
