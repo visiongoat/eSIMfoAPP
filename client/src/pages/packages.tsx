@@ -338,6 +338,17 @@ export default function PackagesScreen() {
     setShowCheckoutModal(true);
   };
 
+  const handleUnlimitedPurchase = () => {
+    // Haptic feedback simulation
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+    
+    // Set unlimited plan data and open checkout
+    setSelectedUnlimitedPlan(unlimitedPlans.find(p => p.days === selectedUnlimitedDays)!);
+    setShowCheckoutModal(true);
+  };
+
 
 
   const getCurrencySymbol = (currencyCode: string) => {
@@ -592,10 +603,10 @@ ${baseUrl}/packages/${countryId}`;
                     
                     {/* Center: Price */}
                     <div className="flex-1 text-center">
-                      <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                      <div className="text-2xl font-bold text-gray-900 dark:text-white" data-testid="text-unlimited-price">
                         {convertPrice(`€${getUnlimitedPrice(selectedUnlimitedDays).toFixed(2)}`, selectedCurrency)}
                       </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                      <div className="text-xs text-gray-500 dark:text-gray-400" data-testid="text-unlimited-price-per-day">
                         {convertPrice(`€${(getUnlimitedPrice(selectedUnlimitedDays) / selectedUnlimitedDays).toFixed(2)}`, selectedCurrency)} /day
                       </div>
                     </div>
@@ -632,7 +643,7 @@ ${baseUrl}/packages/${countryId}`;
                               >
                                 <div className="flex justify-between items-center w-full">
                                   <span>{plan.days} days</span>
-                                  <span className="text-gray-500 ml-4">€{plan.priceEur}</span>
+                                  <span className="text-gray-500 ml-4">{convertPrice(`€${plan.priceEur.toFixed(2)}`, selectedCurrency)}</span>
                                 </div>
                               </SelectItem>
                             ))}
@@ -656,11 +667,7 @@ ${baseUrl}/packages/${countryId}`;
                     </div>
                     
                     <button
-                      onClick={() => {
-                        // Handle unlimited plan purchase with selected plan data
-                        setSelectedUnlimitedPlan(unlimitedPlans.find(p => p.days === selectedUnlimitedDays)!);
-                        setShowCheckoutModal(true);
-                      }}
+                      onClick={handleUnlimitedPurchase}
                       className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all transform hover:scale-105 shadow-md"
                       data-testid="button-unlimited-purchase"
                     >
