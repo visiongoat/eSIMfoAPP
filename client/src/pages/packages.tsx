@@ -304,6 +304,12 @@ export default function PackagesScreen() {
   const [selectedUnlimitedDays, setSelectedUnlimitedDays] = useState(3);
   const [selectedUnlimitedPlan, setSelectedUnlimitedPlan] = useState(unlimitedPlans[0]);
 
+  // Get unlimited plan price for selected days - moved before useMemo to fix hoisting issue
+  const getUnlimitedPrice = (days: number) => {
+    const plan = unlimitedPlans.find(p => p.days === days);
+    return plan ? plan.priceEur : 0;
+  };
+
   // Derived state for checkout modal - eliminates race conditions
   const selectedPackageForCheckout = useMemo(() => {
     // Handle unlimited package
@@ -342,12 +348,6 @@ export default function PackagesScreen() {
     const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
     return dataPackage || comboPackage;
   }, [selectedPackage, selectedUnlimitedDays, selectedCurrency]);
-
-  // Get unlimited plan price for selected days
-  const getUnlimitedPrice = (days: number) => {
-    const plan = unlimitedPlans.find(p => p.days === days);
-    return plan ? plan.priceEur : 0;
-  };
 
   // Check if this country has unlimited plans (multiple countries for testing)
   const unlimitedCountries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 40, 41, 42, 44, 47, 48, 49, 50, 52, 53, 54, 73]; // Popular countries for testing
