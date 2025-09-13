@@ -1088,7 +1088,7 @@ ${baseUrl}/packages/${countryId}`;
       {/* Sticky Bottom Section */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
         {/* Selected Package Details */}
-        {selectedPackage && (
+        {selectedPackageForCheckout && (
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center space-x-3">
@@ -1102,11 +1102,7 @@ ${baseUrl}/packages/${countryId}`;
                 <div>
                   <div className="flex items-center space-x-2">
                     <span className="font-semibold text-gray-900 dark:text-white">
-                      {(() => {
-                        const dataPackage = demoPackages.find(p => p.id === selectedPackage);
-                        const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
-                        return dataPackage?.duration || comboPackage?.duration;
-                      })()}
+                      {selectedPackageForCheckout.duration}
                     </span>
                     <div className="flex items-center space-x-1">
                       {[1, 2, 3, 4, 5].map((bar) => (
@@ -1120,25 +1116,22 @@ ${baseUrl}/packages/${countryId}`;
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                     <div>
-                      {(() => {
-                        const dataPackage = demoPackages.find(p => p.id === selectedPackage);
-                        const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
-                        return dataPackage?.data || comboPackage?.data;
-                      })()}
+                      {selectedPackageForCheckout.data}
                     </div>
                     {/* Show voice and SMS for combo packages */}
-                    {dataCallsTextPackages.find(p => p.id === selectedPackage) && (
+                    {('voice' in selectedPackageForCheckout && 'sms' in selectedPackageForCheckout && 
+                      selectedPackageForCheckout.voice && selectedPackageForCheckout.sms) && (
                       <div className="flex items-center space-x-3 -mt-1">
                         <div className="flex items-center space-x-1">
                           <span className="text-xs text-green-600 dark:text-green-400">📞</span>
                           <span className="text-xs text-gray-600 dark:text-gray-400">
-                            {dataCallsTextPackages.find(p => p.id === selectedPackage)?.voice}
+                            {(selectedPackageForCheckout as any).voice}
                           </span>
                         </div>
                         <div className="flex items-center space-x-1">
                           <span className="text-xs text-blue-600 dark:text-blue-400">💬</span>
                           <span className="text-xs text-gray-600 dark:text-gray-400">
-                            {dataCallsTextPackages.find(p => p.id === selectedPackage)?.sms}
+                            {(selectedPackageForCheckout as any).sms}
                           </span>
                         </div>
                       </div>
@@ -1148,18 +1141,10 @@ ${baseUrl}/packages/${countryId}`;
               </div>
               <div className="text-right">
                 <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {(() => {
-                    const dataPackage = demoPackages.find(p => p.id === selectedPackage);
-                    const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
-                    return dataPackage?.price || comboPackage?.price;
-                  })()}
+                  {selectedPackageForCheckout.price}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                  {(() => {
-                    const dataPackage = demoPackages.find(p => p.id === selectedPackage);
-                    const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
-                    return dataPackage?.pricePerDay || comboPackage?.pricePerDay;
-                  })()}
+                  {'pricePerDay' in selectedPackageForCheckout ? selectedPackageForCheckout.pricePerDay : ''}
                 </div>
               </div>
             </div>
