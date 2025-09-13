@@ -64,11 +64,6 @@ export default function CheckoutModal({
 
   if (!isOpen) return null;
 
-  // Debug: Log selectedPackage details
-  console.log('CheckoutModal - selectedPackage:', selectedPackage);
-  console.log('CheckoutModal - selectedPackage?.price:', selectedPackage?.price);
-  console.log('CheckoutModal - selectedPackage?.data:', selectedPackage?.data);
-  console.log('CheckoutModal - selectedPackage?.id:', selectedPackage?.id);
 
   // Calculate pricing
   const basePrice = selectedPackage ? parseFloat(selectedPackage.price.replace('€', '')) : 0;
