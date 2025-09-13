@@ -64,6 +64,10 @@ export default function CheckoutModal({
 
   if (!isOpen) return null;
 
+  // Debug: Log selectedPackage details
+  console.log('CheckoutModal - selectedPackage:', selectedPackage);
+  console.log('CheckoutModal - selectedPackage?.price:', selectedPackage?.price);
+
   // Calculate pricing
   const basePrice = selectedPackage ? parseFloat(selectedPackage.price.replace('€', '')) : 0;
   const total = basePrice * esimCount;
