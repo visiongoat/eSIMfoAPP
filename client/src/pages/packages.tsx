@@ -310,6 +310,21 @@ export default function PackagesScreen() {
     return plan ? plan.priceEur : 0;
   };
 
+  // Helper functions moved before useMemo to fix hoisting issues
+  const getCurrencySymbol = (currencyCode: string) => {
+    return currencies.find(c => c.code === currencyCode)?.symbol || '€';
+  };
+
+  const convertPrice = (euroPrice: string, targetCurrency: string) => {
+    // Since we removed rate from currencies, we'll just show the symbol for now
+    const numericPrice = parseFloat(euroPrice.replace('€', ''));
+    const currency = currencies.find(c => c.code === targetCurrency);
+    if (!currency) return euroPrice;
+    
+    // For demo purposes, just change the symbol (real conversion would need API)
+    return `${currency.symbol}${numericPrice.toFixed(2)}`;
+  };
+
   // Derived state for checkout modal - eliminates race conditions
   const selectedPackageForCheckout = useMemo(() => {
     // Handle unlimited package
@@ -391,21 +406,6 @@ export default function PackagesScreen() {
     setShowCheckoutModal(true);
   };
 
-
-
-  const getCurrencySymbol = (currencyCode: string) => {
-    return currencies.find(c => c.code === currencyCode)?.symbol || '€';
-  };
-
-  const convertPrice = (euroPrice: string, targetCurrency: string) => {
-    // Since we removed rate from currencies, we'll just show the symbol for now
-    const numericPrice = parseFloat(euroPrice.replace('€', ''));
-    const currency = currencies.find(c => c.code === targetCurrency);
-    if (!currency) return euroPrice;
-    
-    // For demo purposes, just change the symbol (real conversion would need API)
-    return `${currency.symbol}${numericPrice.toFixed(2)}`;
-  };
 
   // Device detection utility
   const detectPlatform = () => {
