@@ -394,6 +394,10 @@ export default function PackagesScreen() {
   };
 
   const handleUnlimitedPurchase = () => {
+    console.log('🔥 Get Unlimited button clicked!');
+    console.log('Selected unlimited days:', selectedUnlimitedDays);
+    console.log('Selected unlimited plan:', selectedUnlimitedPlan);
+    
     // Haptic feedback simulation
     if (navigator.vibrate) {
       navigator.vibrate(50);
@@ -403,6 +407,8 @@ export default function PackagesScreen() {
     const unlimitedPackageId = 999; // Special ID for unlimited
     setSelectedPackage(unlimitedPackageId);
     setSelectedUnlimitedPlan(unlimitedPlans.find(p => p.days === selectedUnlimitedDays)!);
+    
+    console.log('🚀 Opening checkout modal with package ID:', unlimitedPackageId);
     setShowCheckoutModal(true);
   };
 
