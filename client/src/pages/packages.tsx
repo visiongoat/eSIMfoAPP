@@ -962,7 +962,7 @@ ${baseUrl}/packages/${countryId}`;
                           <img 
                             src={country.flagUrl} 
                             alt={`${country.name} flag`}
-                            className="w-6 h-4 rounded-sm object-cover"
+                            className="w-12 h-8 rounded-sm object-cover"
                           />
                         )}
                         <div>
