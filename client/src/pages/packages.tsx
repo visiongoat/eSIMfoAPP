@@ -1202,28 +1202,13 @@ ${baseUrl}/packages/${countryId}`;
               </DrawerTrigger>
               
               <DrawerContent className="max-h-[85vh]">
-                <DrawerHeader className="px-4 pt-4 pb-2">
-                  <div className="grid grid-cols-[1fr_auto] items-start gap-2">
-                    <div className="min-w-0 text-left">
-                      <DrawerTitle className="text-lg sm:text-xl font-semibold leading-tight text-gray-900 dark:text-white">
-                        Technical Specifications
-                      </DrawerTitle>
-                      <DrawerDescription className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Complete information about your selected eSIM package
-                      </DrawerDescription>
-                    </div>
-                    <DrawerClose asChild>
-                      <button
-                        aria-label="Close"
-                        data-testid="button-close-specs"
-                        className="-mr-2 -mt-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                      >
-                        <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M18 6L6 18M6 6l12 12"/>
-                        </svg>
-                      </button>
-                    </DrawerClose>
-                  </div>
+                <DrawerHeader className="text-left">
+                  <DrawerTitle className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
+                    Technical Specifications
+                  </DrawerTitle>
+                  <DrawerDescription className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    Complete information about your selected eSIM package
+                  </DrawerDescription>
                 </DrawerHeader>
                 
                 <div className="px-4 pb-6 space-y-4 sm:space-y-6">
