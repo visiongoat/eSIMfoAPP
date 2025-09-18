@@ -1337,15 +1337,6 @@ ${baseUrl}/packages/${countryId}`;
                         <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">Yes</span>
                       </div>
 
-                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                        <div className="flex items-center space-x-2 sm:space-x-3">
-                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
-                          </svg>
-                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">APN</span>
-                        </div>
-                        <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">internet</span>
-                      </div>
                     </div>
                   </div>
                   
