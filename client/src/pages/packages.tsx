@@ -953,7 +953,7 @@ ${baseUrl}/packages/${countryId}`;
                   </DrawerDescription>
                 </DrawerHeader>
                 
-                <div className="px-4 pb-4 space-y-4 sm:space-y-6">
+                <div className="px-4 pb-2 space-y-4 sm:space-y-6">
                   {/* Selected Package Overview - Professional */}
                   <div className="p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center justify-between">
