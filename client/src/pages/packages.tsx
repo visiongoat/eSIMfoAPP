@@ -1372,7 +1372,7 @@ ${baseUrl}/packages/${countryId}`;
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                     <div>
-                      {selectedPackageForCheckout.data}
+                      {String(selectedPackageForCheckout.data)}
                     </div>
                     {/* Show voice and SMS for combo packages */}
                     {('voice' in selectedPackageForCheckout && 'sms' in selectedPackageForCheckout && 
