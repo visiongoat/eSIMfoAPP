@@ -943,7 +943,7 @@ ${baseUrl}/packages/${countryId}`;
                 </button>
               </DrawerTrigger>
               
-              <DrawerContent className="max-h-[85vh]">
+              <DrawerContent className="max-h-[75vh] w-full p-0 overflow-hidden">
                 <DrawerHeader className="text-left">
                   <DrawerTitle className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
                     Technical Specifications
@@ -953,7 +953,7 @@ ${baseUrl}/packages/${countryId}`;
                   </DrawerDescription>
                 </DrawerHeader>
                 
-                <div className="px-4 pb-0 space-y-4 sm:space-y-6">
+                <div className="overflow-y-auto px-4 pb-3 space-y-4 sm:space-y-6">
                   {/* Selected Package Overview - Professional */}
                   <div className="p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center justify-between">
