@@ -861,7 +861,7 @@ ${baseUrl}/packages/${countryId}`;
 
 
         {/* Bottom spacing for sticky section - adjust for combo packages */}
-        <div className={`${selectedTab === 'data-calls-text' ? 'h-16' : 'h-12'}`}></div>
+        <div className={`${selectedTab === 'data-calls-text' ? 'h-32' : 'h-28'}`}></div>
       </div>
 
       {/* Sticky Bottom Section */}
