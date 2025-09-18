@@ -1202,16 +1202,14 @@ ${baseUrl}/packages/${countryId}`;
               </DrawerTrigger>
               
               <DrawerContent className="max-h-[85vh]">
-                <DrawerHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <DrawerTitle className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
-                        Technical Specifications
-                      </DrawerTitle>
-                      <DrawerDescription className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Complete information about your selected eSIM package
-                      </DrawerDescription>
-                    </div>
+                <DrawerHeader className="text-left">
+                  <div>
+                    <DrawerTitle className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
+                      Technical Specifications
+                    </DrawerTitle>
+                    <DrawerDescription className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Complete information about your selected eSIM package
+                    </DrawerDescription>
                   </div>
                 </DrawerHeader>
                 
