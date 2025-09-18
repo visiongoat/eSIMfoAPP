@@ -621,8 +621,14 @@ ${baseUrl}/packages/${countryId}`;
         {/* Unlimited Plan (Premium) */}
         {hasUnlimitedPlans && (
           <div className="mb-6 relative">
-            <div className="bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-600 p-[2px] rounded-2xl shadow-lg">
-              <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden">
+            <div className={`bg-gradient-to-r ${selectedPackage === 999 ? 'from-purple-600 via-blue-600 to-indigo-700' : 'from-purple-500 via-blue-500 to-indigo-600'} p-[2px] rounded-2xl shadow-lg ${selectedPackage === 999 ? 'shadow-xl ring-2 ring-blue-300 dark:ring-blue-600' : ''}`}>
+              <div 
+                className={`bg-white dark:bg-gray-900 rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 ${selectedPackage === 999 ? 'bg-blue-50 dark:bg-blue-950/50' : ''}`}
+                onClick={() => {
+                  setSelectedPackage(999);
+                  console.log('🎯 Unlimited plan selected, selectedPackage set to 999');
+                }}
+              >
                 {/* Premium Badge */}
                 <div className="absolute -top-2 left-4 z-10">
                   <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
