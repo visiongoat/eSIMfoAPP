@@ -628,6 +628,9 @@ ${baseUrl}/packages/${countryId}`;
                   setSelectedPackage(999);
                   console.log('🎯 Unlimited plan selected, selectedPackage set to 999');
                 }}
+                data-testid="card-unlimited"
+                role="button"
+                aria-pressed={selectedPackage === 999}
               >
                 {/* Premium Badge */}
                 <div className="absolute -top-2 left-4 z-10">
