@@ -1268,6 +1268,18 @@ ${baseUrl}/packages/${countryId}`;
                       <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                         <div className="flex items-center space-x-2 sm:space-x-3">
                           <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Plan Category</span>
+                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">
+                          {('voice' in (selectedPackageForCheckout || {}) && 'sms' in (selectedPackageForCheckout || {})) ? 'Data + Voice + SMS' : 'Data Only'}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                           </svg>
                           <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
@@ -1303,18 +1315,6 @@ ${baseUrl}/packages/${countryId}`;
                           <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Roaming Support</span>
                         </div>
                         <span className="font-semibold text-xs sm:text-sm text-blue-600 dark:text-blue-400">Yes</span>
-                      </div>
-                      
-                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                        <div className="flex items-center space-x-2 sm:space-x-3">
-                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-                          </svg>
-                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Plan Category</span>
-                        </div>
-                        <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">
-                          {('voice' in (selectedPackageForCheckout || {}) && 'sms' in (selectedPackageForCheckout || {})) ? 'Data + Voice + SMS' : 'Data Only'}
-                        </span>
                       </div>
                       
                       <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
