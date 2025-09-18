@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerClose } from "@/components/ui/drawer";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 import NavigationBar from "@/components/navigation-bar";
 import CheckoutModal from "@/components/checkout-modal";
@@ -1213,117 +1214,142 @@ ${baseUrl}/packages/${countryId}`;
                 </DrawerHeader>
                 
                 <div className="px-4 pb-4 space-y-4">
-                  {/* Package Overview */}
-                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-3">
+                  {/* Compact Package Overview */}
+                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
                         {country?.flagUrl && (
                           <img 
                             src={country.flagUrl} 
                             alt={`${country.name} flag`}
-                            className="w-8 h-6 rounded-sm object-cover"
+                            className="w-6 h-4 rounded-sm object-cover"
                           />
                         )}
-                        <div>
-                          <h3 className="font-semibold text-gray-900 dark:text-white">
-                            {selectedPackageForCheckout?.duration}
-                          </h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {country?.name}
-                          </p>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-medium text-gray-900 dark:text-white text-sm">
+                            {String(selectedPackageForCheckout?.data)} • {selectedPackageForCheckout?.duration}
+                          </span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-xl font-bold text-gray-900 dark:text-white">
+                        <div className="font-bold text-gray-900 dark:text-white">
                           {selectedPackageForCheckout?.price}
                         </div>
                         {'pricePerDay' in (selectedPackageForCheckout || {}) && (
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                          <div className="text-xs text-gray-500 dark:text-gray-400">
                             {(selectedPackageForCheckout as any).pricePerDay}
                           </div>
                         )}
                       </div>
                     </div>
-                    
-                    {/* Package Features */}
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Data Allowance</span>
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">
-                          {selectedPackageForCheckout?.data}
-                        </span>
-                      </div>
-                      
-                      {('voice' in (selectedPackageForCheckout || {}) && (selectedPackageForCheckout as any).voice) && (
-                        <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">Voice Minutes</span>
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">
-                            {(selectedPackageForCheckout as any).voice}
-                          </span>
-                        </div>
-                      )}
-                      
-                      {('sms' in (selectedPackageForCheckout || {}) && (selectedPackageForCheckout as any).sms) && (
-                        <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
-                          <span className="text-sm text-gray-600 dark:text-gray-400">SMS Messages</span>
-                          <span className="text-sm font-medium text-gray-900 dark:text-white">
-                            {(selectedPackageForCheckout as any).sms}
-                          </span>
-                        </div>
-                      )}
-                      
-                      <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Network Coverage</span>
-                        <div className="flex items-center space-x-1">
-                          {[1, 2, 3, 4, 5].map((bar) => (
-                            <div
-                              key={bar}
-                              className="w-1 rounded-sm bg-green-500"
-                              style={{ height: `${4 + bar * 2}px` }}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div className="flex justify-between items-center py-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">APN Setting</span>
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">
-                          internet
-                        </span>
-                      </div>
-                    </div>
                   </div>
                   
-                  {/* Key Features */}
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-gray-900 dark:text-white">Key Features</h4>
-                    <div className="grid grid-cols-1 gap-3">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          No physical SIM required
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          Instant activation with QR code
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          Keep your original number
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          Works with unlocked devices
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  {/* 3-Section Organized Details */}
+                  <Accordion type="multiple" defaultValue={["network", "plan", "features"]} className="w-full">
+                    
+                    {/* Network Section */}
+                    <AccordionItem value="network" className="border-l-4 border-blue-500 pl-3 mb-3">
+                      <AccordionTrigger className="py-2 hover:no-underline">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          <span className="font-medium text-gray-900 dark:text-white">Network</span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-2">
+                        <div className="space-y-2 pl-4">
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Provider</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                              T-Mobile • Verizon
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Technology</span>
+                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                              LTE Ready
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">IP Routing</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                              Local US IP
+                            </span>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Plan Section */}
+                    <AccordionItem value="plan" className="border-l-4 border-green-500 pl-3 mb-3">
+                      <AccordionTrigger className="py-2 hover:no-underline">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <span className="font-medium text-gray-900 dark:text-white">Plan</span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-2">
+                        <div className="space-y-2 pl-4">
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Category</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                              {('voice' in (selectedPackageForCheckout || {}) && 'sms' in (selectedPackageForCheckout || {})) ? 'Data + Voice + SMS' : 'Data Only'}
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Type</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                              eSIM Package
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Roaming</span>
+                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                              ✅ Yes
+                            </span>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Features Section */}
+                    <AccordionItem value="features" className="border-l-4 border-purple-500 pl-3">
+                      <AccordionTrigger className="py-2 hover:no-underline">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                          <span className="font-medium text-gray-900 dark:text-white">Features</span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-2">
+                        <div className="space-y-2 pl-4">
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">eKYC Required</span>
+                            <span className="text-sm font-medium text-red-600 dark:text-red-400">
+                              No
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Top-up</span>
+                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                              ✅ Available
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">APN</span>
+                            <span className="text-sm font-medium text-gray-900 dark:text-white">
+                              internet
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Hotspot</span>
+                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                              ✅ Yes
+                            </span>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                    
+                  </Accordion>
                   
                   {/* Close button */}
                   <div className="pt-4">
