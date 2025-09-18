@@ -1202,21 +1202,24 @@ ${baseUrl}/packages/${countryId}`;
               </DrawerTrigger>
               
               <DrawerContent className="max-h-[85vh]">
-                <DrawerHeader className="text-center">
-                  <DrawerTitle className="flex items-center justify-center space-x-2">
-                    <Info className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                    <span>Package Details</span>
-                  </DrawerTitle>
-                  <DrawerDescription>
-                    Complete information about your selected eSIM package
-                  </DrawerDescription>
+                <DrawerHeader>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <DrawerTitle className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
+                        Technical Specifications
+                      </DrawerTitle>
+                      <DrawerDescription className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        Complete information about your selected eSIM package
+                      </DrawerDescription>
+                    </div>
+                  </div>
                 </DrawerHeader>
                 
-                <div className="px-4 pb-4 space-y-4">
-                  {/* Compact Package Overview */}
-                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-3">
+                <div className="px-4 pb-6 space-y-4 sm:space-y-6">
+                  {/* Selected Package Overview - Professional */}
+                  <div className="p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-2 sm:space-x-3">
                         {country?.flagUrl && (
                           <img 
                             src={country.flagUrl} 
@@ -1224,14 +1227,17 @@ ${baseUrl}/packages/${countryId}`;
                             className="w-6 h-4 rounded-sm object-cover"
                           />
                         )}
-                        <div className="flex items-center space-x-2">
-                          <span className="font-medium text-gray-900 dark:text-white text-sm">
+                        <div>
+                          <div className="font-semibold text-gray-900 dark:text-white text-sm">
                             {String(selectedPackageForCheckout?.data)} • {selectedPackageForCheckout?.duration}
-                          </span>
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                            Selected eSIM Package
+                          </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="font-bold text-gray-900 dark:text-white">
+                        <div className="font-bold text-lg text-gray-900 dark:text-white">
                           {selectedPackageForCheckout?.price}
                         </div>
                         {'pricePerDay' in (selectedPackageForCheckout || {}) && (
@@ -1243,99 +1249,108 @@ ${baseUrl}/packages/${countryId}`;
                     </div>
                   </div>
                   
-                  {/* Kompakt 3-Bölüm Detayları - Hepsi Açık */}
-                  <div className="space-y-3">
+                  {/* Network & Plan Information - Professional Design */}
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                      <svg className="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                      </svg>
+                      Network & Plan Information
+                    </h4>
                     
-                    {/* Network Bölümü */}
-                    <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border-l-4 border-blue-500">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Network className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                        <span className="font-medium text-gray-900 dark:text-white text-sm">Network</span>
+                    <div className="grid gap-2 sm:gap-3">
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 717.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Network Technology</span>
+                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">5G/LTE/3G</span>
                       </div>
-                      <div className="space-y-1.5 pl-6">
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">Provider</span>
-                          <span className="text-xs font-medium text-gray-900 dark:text-white">
-                            T-Mobile • Verizon
-                          </span>
+                      
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Activation Method</span>
                         </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">Technology</span>
-                          <span className="text-xs font-medium text-green-600 dark:text-green-400">
-                            LTE Ready
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">IP Routing</span>
-                          <span className="text-xs font-medium text-gray-900 dark:text-white">
-                            Local US IP
-                          </span>
-                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">QR Code Scan</span>
                       </div>
-                    </div>
+                      
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">eKYC Verification</span>
+                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-red-600 dark:text-red-400">Not Required</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Roaming Support</span>
+                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-blue-600 dark:text-blue-400">Yes</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Protocol Support</span>
+                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">IPv4/IPv6</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Plan Category</span>
+                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">
+                          {('voice' in (selectedPackageForCheckout || {}) && 'sms' in (selectedPackageForCheckout || {})) ? 'Data + Voice + SMS' : 'Data Only'}
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">TOP-UP Option</span>
+                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">Available</span>
+                      </div>
 
-                    {/* Plan Bölümü */}
-                    <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 border-l-4 border-green-500">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Smartphone className="w-4 h-4 text-green-600 dark:text-green-400" />
-                        <span className="font-medium text-gray-900 dark:text-white text-sm">Plan</span>
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 717.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Hotspot</span>
+                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-green-600 dark:text-green-400">Yes</span>
                       </div>
-                      <div className="space-y-1.5 pl-6">
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">Category</span>
-                          <span className="text-xs font-medium text-gray-900 dark:text-white">
-                            {('voice' in (selectedPackageForCheckout || {}) && 'sms' in (selectedPackageForCheckout || {})) ? 'Data + Voice + SMS' : 'Data Only'}
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">Type</span>
-                          <span className="text-xs font-medium text-gray-900 dark:text-white">
-                            eSIM Package
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">Roaming</span>
-                          <span className="text-xs font-medium text-green-600 dark:text-green-400">
-                            ✅ Yes
-                          </span>
-                        </div>
-                      </div>
-                    </div>
 
-                    {/* Features Bölümü */}
-                    <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 border-l-4 border-purple-500">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Settings className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                        <span className="font-medium text-gray-900 dark:text-white text-sm">Features</span>
-                      </div>
-                      <div className="space-y-1.5 pl-6">
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">eKYC Required</span>
-                          <span className="text-xs font-medium text-red-600 dark:text-red-400">
-                            No
-                          </span>
+                      <div className="flex items-center justify-between p-2.5 sm:p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">APN</span>
                         </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">Top-up</span>
-                          <span className="text-xs font-medium text-green-600 dark:text-green-400">
-                            ✅ Available
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">APN</span>
-                          <span className="text-xs font-medium text-gray-900 dark:text-white">
-                            internet
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-gray-600 dark:text-gray-400">Hotspot</span>
-                          <span className="text-xs font-medium text-green-600 dark:text-green-400">
-                            ✅ Yes
-                          </span>
-                        </div>
+                        <span className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-white">internet</span>
                       </div>
                     </div>
-                    
                   </div>
                   
                   {/* Close button */}
