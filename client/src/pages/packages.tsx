@@ -1096,6 +1096,20 @@ ${baseUrl}/packages/${countryId}`;
 
       {/* Sticky Bottom Section */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
+        {/* Device Compatibility Notice - Show when package is selected */}
+        {selectedPackageForCheckout && (
+          <div className="mb-3 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
+            <div className="flex items-start space-x-2">
+              <div className="flex-shrink-0 mt-0.5">
+                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+              </div>
+              <p className="text-xs text-blue-800 dark:text-blue-200 leading-relaxed">
+                Please ensure your device supports eSIM and is carrier-unlocked before completing your purchase.
+              </p>
+            </div>
+          </div>
+        )}
+        
         {/* Selected Package Details */}
         {selectedPackageForCheckout && (
           <div className="mb-4">
