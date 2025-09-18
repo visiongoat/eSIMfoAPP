@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share, Check, Info } from "lucide-react";
+import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share, Check, Info, Network, Smartphone, Settings } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerClose } from "@/components/ui/drawer";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 import NavigationBar from "@/components/navigation-bar";
 import CheckoutModal from "@/components/checkout-modal";
@@ -1244,112 +1243,100 @@ ${baseUrl}/packages/${countryId}`;
                     </div>
                   </div>
                   
-                  {/* 3-Section Organized Details */}
-                  <Accordion type="multiple" defaultValue={["network", "plan", "features"]} className="w-full">
+                  {/* Kompakt 3-Bölüm Detayları - Hepsi Açık */}
+                  <div className="space-y-3">
                     
-                    {/* Network Section */}
-                    <AccordionItem value="network" className="border-l-4 border-blue-500 pl-3 mb-3">
-                      <AccordionTrigger className="py-2 hover:no-underline">
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <span className="font-medium text-gray-900 dark:text-white">Network</span>
+                    {/* Network Bölümü */}
+                    <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 border-l-4 border-blue-500">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <Network className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                        <span className="font-medium text-gray-900 dark:text-white text-sm">Network</span>
+                      </div>
+                      <div className="space-y-1.5 pl-6">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">Provider</span>
+                          <span className="text-xs font-medium text-gray-900 dark:text-white">
+                            T-Mobile • Verizon
+                          </span>
                         </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="pb-2">
-                        <div className="space-y-2 pl-4">
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Provider</span>
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">
-                              T-Mobile • Verizon
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Technology</span>
-                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                              LTE Ready
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">IP Routing</span>
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">
-                              Local US IP
-                            </span>
-                          </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">Technology</span>
+                          <span className="text-xs font-medium text-green-600 dark:text-green-400">
+                            LTE Ready
+                          </span>
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">IP Routing</span>
+                          <span className="text-xs font-medium text-gray-900 dark:text-white">
+                            Local US IP
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
-                    {/* Plan Section */}
-                    <AccordionItem value="plan" className="border-l-4 border-green-500 pl-3 mb-3">
-                      <AccordionTrigger className="py-2 hover:no-underline">
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="font-medium text-gray-900 dark:text-white">Plan</span>
+                    {/* Plan Bölümü */}
+                    <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 border-l-4 border-green-500">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <Smartphone className="w-4 h-4 text-green-600 dark:text-green-400" />
+                        <span className="font-medium text-gray-900 dark:text-white text-sm">Plan</span>
+                      </div>
+                      <div className="space-y-1.5 pl-6">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">Category</span>
+                          <span className="text-xs font-medium text-gray-900 dark:text-white">
+                            {('voice' in (selectedPackageForCheckout || {}) && 'sms' in (selectedPackageForCheckout || {})) ? 'Data + Voice + SMS' : 'Data Only'}
+                          </span>
                         </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="pb-2">
-                        <div className="space-y-2 pl-4">
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Category</span>
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">
-                              {('voice' in (selectedPackageForCheckout || {}) && 'sms' in (selectedPackageForCheckout || {})) ? 'Data + Voice + SMS' : 'Data Only'}
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Type</span>
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">
-                              eSIM Package
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Roaming</span>
-                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                              ✅ Yes
-                            </span>
-                          </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">Type</span>
+                          <span className="text-xs font-medium text-gray-900 dark:text-white">
+                            eSIM Package
+                          </span>
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">Roaming</span>
+                          <span className="text-xs font-medium text-green-600 dark:text-green-400">
+                            ✅ Yes
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
-                    {/* Features Section */}
-                    <AccordionItem value="features" className="border-l-4 border-purple-500 pl-3">
-                      <AccordionTrigger className="py-2 hover:no-underline">
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                          <span className="font-medium text-gray-900 dark:text-white">Features</span>
+                    {/* Features Bölümü */}
+                    <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 border-l-4 border-purple-500">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <Settings className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                        <span className="font-medium text-gray-900 dark:text-white text-sm">Features</span>
+                      </div>
+                      <div className="space-y-1.5 pl-6">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">eKYC Required</span>
+                          <span className="text-xs font-medium text-red-600 dark:text-red-400">
+                            No
+                          </span>
                         </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="pb-2">
-                        <div className="space-y-2 pl-4">
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">eKYC Required</span>
-                            <span className="text-sm font-medium text-red-600 dark:text-red-400">
-                              No
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Top-up</span>
-                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                              ✅ Available
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">APN</span>
-                            <span className="text-sm font-medium text-gray-900 dark:text-white">
-                              internet
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center py-1">
-                            <span className="text-sm text-gray-600 dark:text-gray-400">Hotspot</span>
-                            <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                              ✅ Yes
-                            </span>
-                          </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">Top-up</span>
+                          <span className="text-xs font-medium text-green-600 dark:text-green-400">
+                            ✅ Available
+                          </span>
                         </div>
-                      </AccordionContent>
-                    </AccordionItem>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">APN</span>
+                          <span className="text-xs font-medium text-gray-900 dark:text-white">
+                            internet
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">Hotspot</span>
+                          <span className="text-xs font-medium text-green-600 dark:text-green-400">
+                            ✅ Yes
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                     
-                  </Accordion>
+                  </div>
                   
                   {/* Close button */}
                   <div className="pt-4">
