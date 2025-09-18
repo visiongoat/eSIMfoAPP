@@ -177,6 +177,18 @@ export default function CheckoutModal({
           </button>
         </div>
 
+        {/* Device Compatibility Notice */}
+        <div className="px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 dark:border-blue-500">
+          <div className="flex items-start space-x-2">
+            <div className="flex-shrink-0 mt-0.5">
+              <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+            </div>
+            <p className="text-xs text-blue-800 dark:text-blue-200 leading-relaxed">
+              Please ensure your device supports eSIM and is carrier-unlocked before completing your purchase.
+            </p>
+          </div>
+        </div>
+
         <div className="p-4 space-y-6">
           {/* Package Info - Hide entire section for balance top up */}
           {!hideQuantitySelector && (
