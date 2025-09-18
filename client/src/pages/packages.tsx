@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share, Check } from "lucide-react";
+import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share, Check, Info } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerClose } from "@/components/ui/drawer";
 
 import NavigationBar from "@/components/navigation-bar";
 import CheckoutModal from "@/components/checkout-modal";
@@ -33,6 +34,9 @@ export default function PackagesScreen() {
     }
   });
   const [popoverOpen, setPopoverOpen] = useState(false);
+  
+  // Package Details drawer state
+  const [packageDetailsOpen, setPackageDetailsOpen] = useState(false);
 
   // Handle device compatibility acknowledgment
   const handleDeviceCompatibilityAck = () => {
@@ -1120,9 +1124,10 @@ ${baseUrl}/packages/${countryId}`;
 
       {/* Sticky Bottom Section */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
-        {/* Smart Floating Device Compatibility Chip - Show when package is selected */}
+        {/* Smart Floating Action Chips - Device Compatibility & Package Details */}
         {selectedPackageForCheckout && (
-          <div className="mb-3 flex justify-center">
+          <div className="mb-3 flex justify-center gap-2">
+            {/* Device Compatibility Chip */}
             <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
               <PopoverTrigger asChild>
                 <button
@@ -1151,10 +1156,10 @@ ${baseUrl}/packages/${countryId}`;
                 className="w-72 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg"
                 sideOffset={8}
               >
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <Cpu className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Cpu className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
                       Device Compatibility
                     </h3>
                   </div>
@@ -1182,6 +1187,159 @@ ${baseUrl}/packages/${countryId}`;
                 </div>
               </PopoverContent>
             </Popover>
+            
+            {/* Package Details Chip */}
+            <Drawer open={packageDetailsOpen} onOpenChange={setPackageDetailsOpen}>
+              <DrawerTrigger asChild>
+                <button
+                  data-testid="button-package-details"
+                  aria-label="View package details"
+                  className="inline-flex items-center space-x-2 px-3 py-2 rounded-full text-xs font-medium transition-all duration-300 ease-out hover:scale-105 active:scale-95 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700"
+                >
+                  <Info className="w-3.5 h-3.5" />
+                  <span>Package Details</span>
+                </button>
+              </DrawerTrigger>
+              
+              <DrawerContent className="max-h-[85vh]">
+                <DrawerHeader className="text-center">
+                  <DrawerTitle className="flex items-center justify-center space-x-2">
+                    <Info className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                    <span>Package Details</span>
+                  </DrawerTitle>
+                  <DrawerDescription>
+                    Complete information about your selected eSIM package
+                  </DrawerDescription>
+                </DrawerHeader>
+                
+                <div className="px-4 pb-4 space-y-4">
+                  {/* Package Overview */}
+                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center space-x-3">
+                        {country?.flagUrl && (
+                          <img 
+                            src={country.flagUrl} 
+                            alt={`${country.name} flag`}
+                            className="w-8 h-6 rounded-sm object-cover"
+                          />
+                        )}
+                        <div>
+                          <h3 className="font-semibold text-gray-900 dark:text-white">
+                            {selectedPackageForCheckout?.duration}
+                          </h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                            {country?.name}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xl font-bold text-gray-900 dark:text-white">
+                          {selectedPackageForCheckout?.price}
+                        </div>
+                        {'pricePerDay' in (selectedPackageForCheckout || {}) && (
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {(selectedPackageForCheckout as any).pricePerDay}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Package Features */}
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                        <span className="text-sm text-gray-600 dark:text-gray-400">Data Allowance</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          {selectedPackageForCheckout?.data}
+                        </span>
+                      </div>
+                      
+                      {('voice' in (selectedPackageForCheckout || {}) && (selectedPackageForCheckout as any).voice) && (
+                        <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                          <span className="text-sm text-gray-600 dark:text-gray-400">Voice Minutes</span>
+                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                            {(selectedPackageForCheckout as any).voice}
+                          </span>
+                        </div>
+                      )}
+                      
+                      {('sms' in (selectedPackageForCheckout || {}) && (selectedPackageForCheckout as any).sms) && (
+                        <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                          <span className="text-sm text-gray-600 dark:text-gray-400">SMS Messages</span>
+                          <span className="text-sm font-medium text-gray-900 dark:text-white">
+                            {(selectedPackageForCheckout as any).sms}
+                          </span>
+                        </div>
+                      )}
+                      
+                      <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                        <span className="text-sm text-gray-600 dark:text-gray-400">Network Coverage</span>
+                        <div className="flex items-center space-x-1">
+                          {[1, 2, 3, 4, 5].map((bar) => (
+                            <div
+                              key={bar}
+                              className="w-1 rounded-sm bg-green-500"
+                              style={{ height: `${4 + bar * 2}px` }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-between items-center py-2">
+                        <span className="text-sm text-gray-600 dark:text-gray-400">APN Setting</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          internet
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Key Features */}
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-white">Key Features</h4>
+                    <div className="grid grid-cols-1 gap-3">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                          No physical SIM required
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                          Instant activation with QR code
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                          Keep your original number
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                          Works with unlocked devices
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Close button */}
+                  <div className="pt-4">
+                    <DrawerClose asChild>
+                      <Button 
+                        variant="outline" 
+                        className="w-full"
+                        data-testid="button-close-package-details"
+                      >
+                        Close
+                      </Button>
+                    </DrawerClose>
+                  </div>
+                </div>
+              </DrawerContent>
+            </Drawer>
           </div>
         )}
         
