@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useRoute } from "wouter";
-import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share } from "lucide-react";
+import { ArrowLeft, Globe, Cpu, Minus, Plus, ChevronDown, ChevronUp, Share, Check } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import NavigationBar from "@/components/navigation-bar";
 import CheckoutModal from "@/components/checkout-modal";
@@ -20,6 +21,29 @@ export default function PackagesScreen() {
   
   const [selectedTab, setSelectedTab] = useState<'data' | 'data-calls-text'>('data');
   const [selectedPackage, setSelectedPackage] = useState<number | null>(1);
+  
+  // Device compatibility chip state
+  const [deviceCompatibilityAck, setDeviceCompatibilityAck] = useState<boolean>(() => {
+    // Check localStorage for acknowledgment with try/catch
+    try {
+      const saved = localStorage.getItem('device-compatibility-acknowledged');
+      return saved === 'true';
+    } catch {
+      return false; // Fallback if localStorage is unavailable
+    }
+  });
+  const [popoverOpen, setPopoverOpen] = useState(false);
+
+  // Handle device compatibility acknowledgment
+  const handleDeviceCompatibilityAck = () => {
+    try {
+      localStorage.setItem('device-compatibility-acknowledged', 'true');
+    } catch {
+      // Silently fail if localStorage is unavailable
+    }
+    setDeviceCompatibilityAck(true);
+    setPopoverOpen(false); // Close popover after acknowledgment
+  };
   
   // Update default selection when tab changes
   useEffect(() => {
@@ -1096,17 +1120,68 @@ ${baseUrl}/packages/${countryId}`;
 
       {/* Sticky Bottom Section */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
-        {/* Device Compatibility Notice - Show when package is selected */}
+        {/* Smart Floating Device Compatibility Chip - Show when package is selected */}
         {selectedPackageForCheckout && (
-          <div className="mb-3 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700">
-            <div className="flex items-start space-x-2">
-              <div className="flex-shrink-0 mt-0.5">
-                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
-              </div>
-              <p className="text-xs text-blue-800 dark:text-blue-200 leading-relaxed">
-                Please ensure your device supports eSIM and is carrier-unlocked before completing your purchase.
-              </p>
-            </div>
+          <div className="mb-3 flex justify-center">
+            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+              <PopoverTrigger asChild>
+                <button
+                  data-testid="button-device-compatibility"
+                  aria-label={deviceCompatibilityAck ? "Device compatibility confirmed" : "Check device compatibility for eSIM"}
+                  className={`inline-flex items-center space-x-2 px-3 py-2 rounded-full text-xs font-medium transition-all duration-300 ease-out hover:scale-105 active:scale-95 ${
+                    deviceCompatibilityAck 
+                      ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-700'
+                      : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 motion-safe:animate-pulse'
+                  }`}
+                >
+                  {deviceCompatibilityAck ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" />
+                      <span>eSIM Ready ✓</span>
+                    </>
+                  ) : (
+                    <>
+                      <Cpu className="w-3.5 h-3.5" />
+                      <span>eSIM ready?</span>
+                    </>
+                  )}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent 
+                className="w-72 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg"
+                sideOffset={8}
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <Cpu className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
+                      Device Compatibility
+                    </h3>
+                  </div>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Please ensure your device supports eSIM and is carrier-unlocked before completing your purchase.
+                  </p>
+                  <div className="flex space-x-2">
+                    <Button
+                      onClick={handleDeviceCompatibilityAck}
+                      size="sm"
+                      className="flex-1 text-xs h-8"
+                      data-testid="button-confirm-device"
+                    >
+                      I confirm
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-xs h-8"
+                      data-testid="button-learn-more"
+                    >
+                      Learn more
+                    </Button>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         )}
         
