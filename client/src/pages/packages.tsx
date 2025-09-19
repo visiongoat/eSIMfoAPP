@@ -38,6 +38,15 @@ export default function PackagesScreen() {
   // Package Details drawer state
   const [packageDetailsOpen, setPackageDetailsOpen] = useState(false);
 
+  // eSIM Compatibility Check state
+  const [showCompatibilityCheck, setShowCompatibilityCheck] = useState(false);
+  const [compatibilityResult, setCompatibilityResult] = useState<{
+    isCompatible: boolean;
+    deviceName: string;
+    details: string;
+  } | null>(null);
+  const compatibilityModalRef = useRef<HTMLDivElement>(null);
+
   // Handle device compatibility acknowledgment
   const handleDeviceCompatibilityAck = () => {
     try {
@@ -166,6 +175,248 @@ export default function PackagesScreen() {
     };
   }, [selectedTab]);
 
+  // Prevent body scroll when compatibility check modal is open
+  useEffect(() => {
+    if (showCompatibilityCheck) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Apply fixed positioning to prevent scroll
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      
+      return () => {
+        // Restore original body styles
+        const scrollY = parseInt(document.body.style.top || '0') * -1;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+      };
+    } else {
+      // Restore original body styles when modal closes
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+    }
+  }, [showCompatibilityCheck]);
+
+  // eSIM Compatibility Check Functions (copied from home.tsx)
+  const checkDeviceCompatibility = async () => {
+    let deviceBrand = '';
+    let deviceModel = '';
+    let supportsESIM = false;
+    
+    console.log('Starting device detection...');
+    
+    try {
+      // Get comprehensive device information
+      const deviceInfo = await getDeviceInformation();
+      console.log('Device info detected:', deviceInfo);
+      
+      deviceBrand = deviceInfo.brand;
+      deviceModel = deviceInfo.model;
+      supportsESIM = deviceInfo.supportsESIM;
+      
+    } catch (error) {
+      console.error('Device detection failed:', error);
+      deviceBrand = 'Unknown';
+      deviceModel = 'Device';
+      supportsESIM = false;
+    }
+    
+    const fullDeviceName = `${deviceBrand} ${deviceModel}`;
+    
+    setCompatibilityResult({
+      isCompatible: supportsESIM,
+      deviceName: fullDeviceName,
+      details: supportsESIM 
+        ? `Your ${fullDeviceName} supports eSIM technology. You can install and use eSIMs for international travel.`
+        : `Your ${fullDeviceName} may not support eSIM technology. eSIM is available on iPhone XS/XR+, Google Pixel 3+, and Samsung Galaxy S20+ devices.`
+    });
+    
+    setShowCompatibilityCheck(true);
+  };
+
+  // Comprehensive device information extraction
+  const getDeviceInformation = async () => {
+    const userAgent = navigator.userAgent;
+    const platform = navigator.platform;
+    
+    console.log('User Agent:', userAgent);
+    console.log('Platform:', platform);
+    
+    // Try multiple detection methods
+    const methods = [
+      detectFromUserAgentData,
+      detectFromUserAgent,
+      detectFromWebGL,
+      detectFromCSS,
+      detectFromTouchEvents
+    ];
+    
+    for (const method of methods) {
+      try {
+        const result = await method();
+        if (result.brand !== 'Unknown' && result.model !== 'Device') {
+          console.log(`Detection successful with method: ${method.name}`, result);
+          return result;
+        }
+      } catch (error) {
+        console.log(`Method ${method.name} failed:`, error);
+        continue;
+      }
+    }
+    
+    return { brand: 'Unknown', model: 'Device', supportsESIM: false };
+  };
+
+  // Method 1: User-Agent Client Hints API (most reliable)
+  const detectFromUserAgentData = async () => {
+    if (!('userAgentData' in navigator)) {
+      throw new Error('UserAgentData not available');
+    }
+    
+    const uaData = (navigator as any).userAgentData;
+    
+    const highEntropyValues = await uaData.getHighEntropyValues([
+      'model', 'platform', 'platformVersion', 'architecture', 'mobile', 'brands', 'fullVersionList'
+    ]);
+    
+    console.log('High entropy values:', highEntropyValues);
+    
+    let brand = 'Unknown';
+    let model = 'Device';
+    
+    // Extract brand from brands array
+    if (uaData.brands && uaData.brands.length > 0) {
+      const filteredBrands = uaData.brands.filter((b: any) => 
+        !b.brand.includes('Not') && 
+        !b.brand.includes('Chromium') && 
+        !b.brand.includes('Google Chrome')
+      );
+      
+      if (filteredBrands.length > 0) {
+        brand = filteredBrands[0].brand;
+      } else {
+        brand = uaData.brands[uaData.brands.length - 1].brand; // Use last brand as fallback
+      }
+    }
+    
+    // Extract model
+    if (highEntropyValues.model && highEntropyValues.model !== '') {
+      model = highEntropyValues.model;
+    } else if (highEntropyValues.platform) {
+      model = `${highEntropyValues.platform} Device`;
+    }
+    
+    const supportsESIM = uaData.mobile && brand !== 'Unknown';
+    
+    return { brand, model, supportsESIM };
+  };
+
+  // Method 2: Enhanced User-Agent parsing
+  const detectFromUserAgent = async () => {
+    const userAgent = navigator.userAgent;
+    
+    // iPhone detection with extensive pattern matching
+    if (/iPhone/.test(userAgent)) {
+      let model = 'iPhone';
+      
+      // Hardware identifier patterns
+      const hardwarePatterns = {
+        'iPhone16,1': 'iPhone 15 Pro',
+        'iPhone16,2': 'iPhone 15 Pro Max',
+        'iPhone15,4': 'iPhone 15',
+        'iPhone15,5': 'iPhone 15 Plus',
+        'iPhone15,2': 'iPhone 14 Pro', 
+        'iPhone15,3': 'iPhone 14 Pro Max',
+        'iPhone14,7': 'iPhone 14',
+        'iPhone14,8': 'iPhone 14 Plus',
+        'iPhone14,2': 'iPhone 13 Pro',
+        'iPhone14,3': 'iPhone 13 Pro Max',
+        'iPhone14,4': 'iPhone 13 mini',
+        'iPhone14,5': 'iPhone 13',
+        'iPhone13,1': 'iPhone 12 mini',
+        'iPhone13,2': 'iPhone 12',
+        'iPhone13,3': 'iPhone 12 Pro',
+        'iPhone13,4': 'iPhone 12 Pro Max',
+        'iPhone12,1': 'iPhone 11',
+        'iPhone12,3': 'iPhone 11 Pro',
+        'iPhone12,5': 'iPhone 11 Pro Max',
+        'iPhone11,2': 'iPhone XS',
+        'iPhone11,4': 'iPhone XS Max',
+        'iPhone11,6': 'iPhone XS Max',
+        'iPhone11,8': 'iPhone XR'
+      };
+      
+      // Try hardware identifier first
+      for (const [pattern, modelName] of Object.entries(hardwarePatterns)) {
+        if (userAgent.includes(pattern)) {
+          model = modelName;
+          break;
+        }
+      }
+      
+      const supportsESIM = !model.includes('iPhone X') || model.includes('iPhone XS') || model.includes('iPhone XR');
+      return { brand: 'Apple', model, supportsESIM };
+    }
+    
+    // Android detection
+    if (/Android/.test(userAgent)) {
+      let brand = 'Android';
+      let model = 'Device';
+      
+      // Samsung Galaxy
+      if (/Samsung|SM-/.test(userAgent)) {
+        brand = 'Samsung';
+        if (/SM-G/.test(userAgent)) {
+          const match = userAgent.match(/SM-G(\d+)/);
+          if (match) {
+            const modelNum = parseInt(match[1]);
+            if (modelNum >= 998) model = 'Galaxy S20+';
+            else if (modelNum >= 973) model = 'Galaxy S10+';
+            else model = 'Galaxy S series';
+          }
+        }
+      }
+      
+      // Google Pixel
+      else if (/Pixel/.test(userAgent)) {
+        brand = 'Google';
+        const pixelMatch = userAgent.match(/Pixel (\d+)/);
+        if (pixelMatch) {
+          const pixelNum = parseInt(pixelMatch[1]);
+          model = pixelNum >= 3 ? `Pixel ${pixelNum}` : 'Pixel (older)';
+        } else {
+          model = 'Pixel';
+        }
+      }
+      
+      const supportsESIM = (brand === 'Google' && model.includes('Pixel')) || 
+                          (brand === 'Samsung' && model.includes('S20'));
+      
+      return { brand, model, supportsESIM };
+    }
+    
+    return { brand: 'Unknown', model: 'Device', supportsESIM: false };
+  };
+
+  // Simplified fallback methods
+  const detectFromWebGL = async () => {
+    return { brand: 'Unknown', model: 'Device', supportsESIM: false };
+  };
+
+  const detectFromCSS = async () => {
+    return { brand: 'Unknown', model: 'Device', supportsESIM: false };
+  };
+
+  const detectFromTouchEvents = async () => {
+    return { brand: 'Unknown', model: 'Device', supportsESIM: false };
+  };
 
   const toggleSection = (section: string) => {
     const isCurrentlyExpanded = expandedSections[section];
@@ -922,6 +1173,7 @@ ${baseUrl}/packages/${countryId}`;
                       size="sm"
                       className="text-xs h-8"
                       data-testid="button-learn-more"
+                      onClick={checkDeviceCompatibility}
                     >
                       Learn more
                     </Button>
@@ -1342,6 +1594,127 @@ ${baseUrl}/packages/${countryId}`;
         </div>
       )}
 
+      {/* eSIM Compatibility Check Modal */}
+      {showCompatibilityCheck && compatibilityResult && (
+        <div 
+          className="fixed inset-0 bg-black/50 flex items-end justify-center z-[9999]" 
+          onClick={() => setShowCompatibilityCheck(false)}
+          style={{ 
+            position: 'fixed', 
+            top: 0, 
+            left: 0, 
+            right: 0, 
+            bottom: 0,
+            zIndex: 9999
+          }}
+        >
+          <div 
+            ref={compatibilityModalRef}
+            className="bg-white dark:bg-gray-800 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative select-none"
+            onClick={(e) => e.stopPropagation()}
+            style={{ 
+              zIndex: 10000,
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
+            }}
+          >
+            {/* Drag Handle */}
+            <div className="flex justify-center py-2">
+              <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            </div>
+
+            {/* Header */}
+            <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">eSIM Compatibility Check</h2>
+                <button 
+                  onClick={() => setShowCompatibilityCheck(false)}
+                  className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Device compatibility results</p>
+            </div>
+
+            {/* Content */}
+            <div className="px-4 py-6">
+              {/* Result Icon and Status */}
+              <div className="text-center mb-6">
+                <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 ${
+                  compatibilityResult.isCompatible 
+                    ? 'bg-green-100 dark:bg-green-900/30' 
+                    : 'bg-red-100 dark:bg-red-900/30'
+                }`}>
+                  {compatibilityResult.isCompatible ? (
+                    <svg className="w-10 h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  ) : (
+                    <svg className="w-10 h-10 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  )}
+                </div>
+                
+                <h3 className={`text-xl font-bold mb-2 ${
+                  compatibilityResult.isCompatible 
+                    ? 'text-green-700 dark:text-green-300' 
+                    : 'text-red-700 dark:text-red-300'
+                }`}>
+                  {compatibilityResult.isCompatible ? 'Compatible!' : 'Not Compatible'}
+                </h3>
+                
+                <p className="text-gray-900 dark:text-gray-100 font-medium text-lg mb-1">
+                  {compatibilityResult.deviceName}
+                </p>
+                
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                  {compatibilityResult.details}
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3">
+                {compatibilityResult.isCompatible ? (
+                  <>
+                    <button 
+                      onClick={() => {
+                        setShowCompatibilityCheck(false);
+                        setPopoverOpen(false);
+                        handleDeviceCompatibilityAck();
+                      }}
+                      className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-5 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2"
+                    >
+                      <span>Continue Purchase</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </button>
+                    <button 
+                      onClick={() => setShowCompatibilityCheck(false)}
+                      className="w-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium py-3 px-5 rounded-xl transition-colors duration-200"
+                    >
+                      Got it, thanks!
+                    </button>
+                  </>
+                ) : (
+                  <button 
+                    onClick={() => setShowCompatibilityCheck(false)}
+                    className="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-5 rounded-xl transition-colors duration-200"
+                  >
+                    Understand
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
