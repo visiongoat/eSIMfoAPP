@@ -747,7 +747,7 @@ ${baseUrl}/packages/${countryId}`;
                     
                     <button
                       onClick={handleUnlimitedPurchase}
-                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-5 py-2 rounded-xl transition-all transform hover:scale-105 shadow-md text-sm"
+                      className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-5.5 py-2 rounded-xl transition-all transform hover:scale-105 shadow-md text-sm"
                       data-testid="button-unlimited-purchase"
                     >
                       Get Unlimited
