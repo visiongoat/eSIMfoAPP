@@ -512,14 +512,16 @@ export default function CheckoutModal({
                         ? 'bg-black border-black text-white hover:bg-gray-900 hover:border-gray-900 flex items-center justify-center'
                         : method.id === 'google-pay'
                         ? 'bg-white dark:bg-black border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900 flex items-center justify-center'
+                        : method.id === 'paypal'
+                        ? 'bg-yellow-400 border-yellow-400 text-blue-800 hover:bg-yellow-500 hover:border-yellow-500 flex items-center justify-center'
                         : selectedPayment === method.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 flex items-center justify-between'
                         : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex items-center justify-between'
                     }`}
                   >
-                    <div className={`flex items-center ${(method.id === 'apple-pay' || method.id === 'google-pay') ? 'space-x-2' : 'space-x-3'}`}>
+                    <div className={`flex items-center ${(method.id === 'apple-pay' || method.id === 'google-pay' || method.id === 'paypal') ? 'space-x-2' : 'space-x-3'}`}>
                       {/* Real Payment Logos */}
-                      <div className={`${(method.id === 'apple-pay' || method.id === 'google-pay') ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center`}>
+                      <div className={`${(method.id === 'apple-pay' || method.id === 'google-pay' || method.id === 'paypal') ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center`}>
                         {method.icon === 'apple-pay' && (
                           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="white"/>
@@ -534,8 +536,12 @@ export default function CheckoutModal({
                           </svg>
                         )}
                         {method.icon === 'paypal' && (
-                          <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
-                            <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.438-.298c-.266-.134-.572-.248-.909-.333C18.583 5.834 17.068 5.7 15.02 5.7h-3.35c-.524 0-.967.381-1.05.9L9.653 9.645c-.083.518.23.934.748.934h2.508c3.53 0 6.287-1.434 7.083-5.57.096-.497.13-.989.101-1.467-.001-.014-.002-.028-.003-.042-.126-.055-.26-.099-.401-.126z" fill="#0070ba"/>
+                          <svg className="h-6" viewBox="0 0 124 32" fill="none">
+                            <g>
+                              <path d="M46.211 6.749h-6.839a.95.95 0 0 0-.939.802l-2.766 17.537a.57.57 0 0 0 .564.658h3.265a.95.95 0 0 0 .939-.803l.746-4.73a.95.95 0 0 1 .938-.803h2.165c4.505 0 7.105-2.18 7.786-6.5.306-1.89.013-3.375-.872-4.415-.972-1.142-2.696-1.746-4.987-1.746zM47.138 13.283c-.374 2.454-2.249 2.454-4.062 2.454h-1.032l.724-4.583a.57.57 0 0 1 .563-.481h.473c1.235 0 2.4 0 3.002.704.359.42.469 1.044.332 1.906zM66.654 13.075h-3.275a.57.57 0 0 0-.563.481l-.145.916-.229-.332c-.709-1.029-2.29-1.373-3.868-1.373-3.619 0-6.71 2.741-7.312 6.586-.313 1.918.132 3.752 1.22 5.031.998 1.176 2.426 1.666 4.125 1.666 2.916 0 4.533-1.875 4.533-1.875l-.146.91a.57.57 0 0 0 .562.66h2.95a.95.95 0 0 0 .939-.803l1.77-11.209a.568.568 0 0 0-.561-.658zm-4.565 6.374c-.316 1.871-1.801 3.127-3.695 3.127-.951 0-1.711-.305-2.199-.883-.484-.574-.668-1.391-.514-2.301.295-1.855 1.805-3.152 3.67-3.152.93 0 1.686.309 2.184.892.499.589.697 1.411.554 2.317z" fill="#253B80"/>
+                              <path d="M96.601 6.749h-6.84a.95.95 0 0 0-.938.802l-2.766 17.537a.569.569 0 0 0 .562.658h3.51a.665.665 0 0 0 .656-.562l-.785 4.971a.57.57 0 0 0 .563.658h3.265a.95.95 0 0 0 .938-.803l.747-4.73a.95.95 0 0 1 .938-.803h2.164c4.506 0 7.105-2.18 7.787-6.5.307-1.89.012-3.375-.873-4.415-.971-1.142-2.694-1.746-4.986-1.746zm.928 6.534c-.373 2.454-2.248 2.454-4.062 2.454h-1.031l.725-4.583a.568.568 0 0 1 .562-.481h.473c1.234 0 2.4 0 3.002.704.359.42.468 1.044.331 1.906z" fill="#179BD7"/>
+                              <path d="M109.244 13.075h-3.275a.57.57 0 0 0-.562.481l-.146.916-.229-.332c-.709-1.029-2.289-1.373-3.867-1.373-3.619 0-6.709 2.741-7.311 6.586-.312 1.918.131 3.752 1.219 5.031.999 1.176 2.426 1.666 4.125 1.666 2.916 0 4.533-1.875 4.533-1.875l-.146.91a.57.57 0 0 0 .563.66h2.949a.95.95 0 0 0 .938-.803l1.771-11.209a.57.57 0 0 0-.562-.658zm-4.565 6.374c-.314 1.871-1.801 3.127-3.695 3.127-.949 0-1.711-.305-2.199-.883-.484-.574-.666-1.391-.514-2.301.297-1.855 1.805-3.152 3.67-3.152.93 0 1.686.309 2.185.892.501.589.699 1.411.553 2.317z" fill="#179BD7"/>
+                            </g>
                           </svg>
                         )}
                         {method.icon === 'card' && (
@@ -552,21 +558,25 @@ export default function CheckoutModal({
                         )}
                       </div>
                       <div className="text-left">
-                        <div className={`font-medium ${
-                          method.id === 'apple-pay' 
-                            ? 'text-white' 
-                            : method.id === 'google-pay'
-                            ? 'text-gray-900 dark:text-white'
-                            : 'text-gray-900 dark:text-white'
-                        }`}>
-                          {method.name}
-                        </div>
+                        {method.id !== 'paypal' && (
+                          <div className={`font-medium ${
+                            method.id === 'apple-pay' 
+                              ? 'text-white' 
+                              : method.id === 'google-pay'
+                              ? 'text-gray-900 dark:text-white'
+                              : 'text-gray-900 dark:text-white'
+                          }`}>
+                            {method.name}
+                          </div>
+                        )}
                         {method.subtitle && (
                           <div className={`text-xs ${
                             method.id === 'apple-pay' 
                               ? 'text-gray-300' 
                               : method.id === 'google-pay'
                               ? 'text-gray-600 dark:text-gray-300'
+                              : method.id === 'paypal'
+                              ? 'text-blue-800'
                               : 'text-gray-500 dark:text-gray-400'
                           }`}>
                             {method.subtitle}
