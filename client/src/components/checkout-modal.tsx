@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { X, HelpCircle, Minus, Plus, Lock } from "lucide-react";
+import { X, HelpCircle, Minus, Plus, Lock, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AutoRenewalInfoModal } from "./auto-renewal-info-modal";
 
@@ -30,6 +30,13 @@ export default function CheckoutModal({
   const [selectedPayment, setSelectedPayment] = useState<string>("");
   const [showPaymentMethods, setShowPaymentMethods] = useState(showPaymentMethodsDefault);
   const [showAutoRenewalInfo, setShowAutoRenewalInfo] = useState(false);
+  const [showCardForm, setShowCardForm] = useState(false);
+  const [cardFormData, setCardFormData] = useState({
+    cardNumber: '',
+    expiryDate: '',
+    fullName: '',
+    cvv: ''
+  });
   
   // Touch/swipe states for modal dismissal
   const [startY, setStartY] = useState<number>(0);
@@ -76,10 +83,10 @@ export default function CheckoutModal({
 
   const paymentMethods = [
     { id: 'apple-pay', name: 'Apple Pay', icon: '🍎' },
+    { id: 'google-pay', name: 'Google Pay', icon: 'G' },
+    { id: 'paypal', name: 'PayPal', icon: '🔵' },
     { id: 'card', name: 'Pay with Card', icon: '💳' },
-    { id: 'amex', name: 'Pay with AMEX', icon: '💳' },
-    { id: 'paypal', name: 'Paypal', icon: '🔵' },
-    { id: 'crypto', name: 'Pay with crypto', icon: '₿', subtitle: 'Funds are refunded only to the wallet balance' }
+    { id: 'crypto', name: 'Pay with Crypto', icon: '₿', subtitle: 'Powered by Coinbase' }
   ];
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -300,14 +307,20 @@ export default function CheckoutModal({
                     key={method.id}
                     onClick={() => {
                       setSelectedPayment(method.id);
-                      // Automatically start payment processing when method is selected
-                      setTimeout(() => {
-                        if (onComplete) {
-                          onComplete();
-                        } else {
-                          onClose();
-                        }
-                      }, 1500);
+                      
+                      if (method.id === 'card') {
+                        // Show card form for card payments
+                        setShowCardForm(true);
+                      } else {
+                        // Automatically start payment processing for other methods
+                        setTimeout(() => {
+                          if (onComplete) {
+                            onComplete();
+                          } else {
+                            onClose();
+                          }
+                        }, 1500);
+                      }
                     }}
                     className={`w-full flex items-center justify-between py-2 px-3 rounded-xl border-2 transition-all ${
                       selectedPayment === method.id
@@ -326,21 +339,29 @@ export default function CheckoutModal({
                     </div>
                     <div className="text-right">
                       {method.id === 'apple-pay' && <span className="text-black font-bold">Pay</span>}
+                      {method.id === 'google-pay' && (
+                        <div className="flex items-center space-x-1">
+                          <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">G</span>
+                          </div>
+                          <span className="text-blue-600 text-xs font-medium">Pay</span>
+                        </div>
+                      )}
+                      {method.id === 'paypal' && <span className="text-blue-600 font-bold">PayPal</span>}
                       {method.id === 'card' && (
                         <div className="flex space-x-1">
                           <span className="text-blue-600 text-xs">VISA</span>
                           <span className="text-red-600 text-xs">●●</span>
                         </div>
                       )}
-                      {method.id === 'amex' && (
-                        <div className="flex space-x-1">
-                          <span className="text-blue-600 text-xs">AMEX</span>
-                          <span className="text-orange-600 text-xs">●●</span>
-                          <span className="text-blue-600 text-xs">VISA</span>
+                      {method.id === 'crypto' && (
+                        <div className="flex items-center space-x-1">
+                          <div className="w-5 h-5 bg-blue-600 rounded flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">C</span>
+                          </div>
+                          <span className="text-blue-600 text-xs font-medium">Coinbase</span>
                         </div>
                       )}
-                      {method.id === 'paypal' && <span className="text-blue-600 font-bold">PayPal</span>}
-                      {method.id === 'crypto' && <span className="text-orange-600 font-bold">αlphαρο</span>}
                     </div>
                   </button>
                 ))}
@@ -355,6 +376,131 @@ export default function CheckoutModal({
               >
                 {selectedPayment ? 'Processing...' : 'Select payment method above'}
               </Button>
+            </div>
+          )}
+
+          {/* Card Form */}
+          {showCardForm && (
+            <div className="space-y-4">
+              {/* Header with back button */}
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={() => {
+                    setShowCardForm(false);
+                    setSelectedPayment('');
+                    setCardFormData({ cardNumber: '', expiryDate: '', fullName: '', cvv: '' });
+                  }}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+                >
+                  <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                </button>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Card Details</h3>
+              </div>
+
+              {/* Card Form Fields */}
+              <div className="space-y-4">
+                {/* Card Number */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Card Number
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="1234 5678 9012 3456"
+                    value={cardFormData.cardNumber}
+                    onChange={(e) => {
+                      // Format card number with spaces
+                      const value = e.target.value.replace(/\s/g, '').replace(/(.{4})/g, '$1 ').trim();
+                      if (value.replace(/\s/g, '').length <= 16) {
+                        setCardFormData(prev => ({ ...prev, cardNumber: value }));
+                      }
+                    }}
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    maxLength={19}
+                  />
+                </div>
+
+                {/* Expiry Date and CVV */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      Expiry Date
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="MM/YY"
+                      value={cardFormData.expiryDate}
+                      onChange={(e) => {
+                        // Format expiry date MM/YY
+                        let value = e.target.value.replace(/\D/g, '');
+                        if (value.length >= 2) {
+                          value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                        }
+                        setCardFormData(prev => ({ ...prev, expiryDate: value }));
+                      }}
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      maxLength={5}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      CVV
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="123"
+                      value={cardFormData.cvv}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/\D/g, '');
+                        if (value.length <= 3) {
+                          setCardFormData(prev => ({ ...prev, cvv: value }));
+                        }
+                      }}
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      maxLength={3}
+                    />
+                  </div>
+                </div>
+
+                {/* Full Name */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Cardholder Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="John Doe"
+                    value={cardFormData.fullName}
+                    onChange={(e) => setCardFormData(prev => ({ ...prev, fullName: e.target.value }))}
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  />
+                </div>
+
+                {/* Pay Button */}
+                <Button
+                  onClick={() => {
+                    // Process card payment
+                    setTimeout(() => {
+                      if (onComplete) {
+                        onComplete();
+                      } else {
+                        onClose();
+                      }
+                    }, 1500);
+                  }}
+                  disabled={!cardFormData.cardNumber || !cardFormData.expiryDate || !cardFormData.fullName || !cardFormData.cvv}
+                  className="w-full py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium rounded-xl transition-colors flex items-center justify-center space-x-2"
+                >
+                  <Lock className="w-4 h-4" />
+                  <span>Pay €{isBalanceTopUp && bonus > 0 ? finalTotal.toFixed(2) : total.toFixed(2)}</span>
+                </Button>
+
+                {/* Security Note */}
+                <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
+                  <Lock className="w-3 h-3" />
+                  <span>Your payment information is secure and encrypted</span>
+                </div>
+              </div>
             </div>
           )}
         </div>
