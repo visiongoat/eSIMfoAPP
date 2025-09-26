@@ -638,7 +638,7 @@ export default function MyEsimsScreen() {
                     </span>
                   </div>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    {selectedEsimForDetail.package?.name} • #{selectedEsimForDetail.id}
+                    {selectedEsimForDetail.package?.name}
                     {filteredEsims.length > 1 && (
                       <span className="ml-2 text-gray-400">
                         {filteredEsims.findIndex(esim => esim.id === selectedEsimForDetail.id) + 1}/{filteredEsims.length}
