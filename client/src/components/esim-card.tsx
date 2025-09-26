@@ -54,7 +54,7 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare, onClick }
                 {esim.country?.name || 'Turkey'}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-300">
-                {esim.package?.name || '5GB / 30 Days'} • eSIM #{esim.id}
+                {esim.package?.name || '5GB / 30 Days'}
               </p>
             </div>
           </div>
