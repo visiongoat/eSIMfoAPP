@@ -375,7 +375,12 @@ export default function MyEsimsScreen() {
             {activeEsims.length > 0 && (
               <div className="mb-4">
                 <div className="flex items-center justify-between mb-3">
-                  <h2 className="text-base font-semibold text-gray-900 dark:text-white">Active eSIMs</h2>
+                  <h2 className="text-base font-semibold text-gray-900 dark:text-white">
+                    {filter === 'all' ? 'My eSIMs' : 
+                     filter === 'active' ? 'Active eSIMs' :
+                     filter === 'expired' ? 'Expired eSIMs' :
+                     filter === 'ready' ? 'Ready eSIMs' : 'My eSIMs'}
+                  </h2>
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => setFilter('all')}
