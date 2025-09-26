@@ -120,7 +120,7 @@ export default function CheckoutModal({
     { id: 'google-pay', name: 'Pay', icon: 'google-pay' },
     { id: 'paypal', name: 'PayPal', icon: 'paypal' },
     { id: 'card', name: 'Pay with Card', icon: 'card' },
-    { id: 'crypto', name: 'PAY', icon: 'crypto', subtitle: 'Powered by Coinbase' }
+    { id: 'crypto', name: 'Pay with Crypto', icon: 'crypto', subtitle: 'Powered by Coinbase' }
   ];
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -507,18 +507,18 @@ export default function CheckoutModal({
                         }, 1500);
                       }
                     }}
-                    className={`w-full py-2 px-3 rounded-xl border-2 transition-all ${
+                    className={`w-full py-2 px-3 rounded-xl border-2 transition-all flex items-center justify-between ${
                       method.id === 'apple-pay' 
-                        ? 'bg-black border-black text-white hover:bg-gray-900 hover:border-gray-900 flex items-center justify-center'
+                        ? 'bg-black border-black text-white hover:bg-gray-900 hover:border-gray-900'
                         : method.id === 'google-pay'
-                        ? 'bg-white dark:bg-black border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900 flex items-center justify-center'
+                        ? 'bg-white dark:bg-black border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900'
                         : method.id === 'paypal'
-                        ? 'bg-yellow-400 border-yellow-400 text-blue-800 hover:bg-yellow-500 hover:border-yellow-500 flex items-center justify-center'
+                        ? 'bg-yellow-400 border-yellow-400 text-blue-800 hover:bg-yellow-500 hover:border-yellow-500'
                         : method.id === 'crypto'
-                        ? 'bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700 flex items-center justify-center'
+                        ? 'bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700'
                         : selectedPayment === method.id
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 flex items-center justify-between'
-                        : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex items-center justify-between'
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                        : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'
                     }`}
                   >
                     <div className={`flex items-center ${(method.id === 'apple-pay' || method.id === 'google-pay' || method.id === 'paypal' || method.id === 'crypto') ? 'space-x-2' : 'space-x-3'}`}>
@@ -538,12 +538,11 @@ export default function CheckoutModal({
                           </svg>
                         )}
                         {method.icon === 'paypal' && (
-                          <svg className="h-6" viewBox="0 0 124 32" fill="none">
-                            <g>
-                              <path d="M46.211 6.749h-6.839a.95.95 0 0 0-.939.802l-2.766 17.537a.57.57 0 0 0 .564.658h3.265a.95.95 0 0 0 .939-.803l.746-4.73a.95.95 0 0 1 .938-.803h2.165c4.505 0 7.105-2.18 7.786-6.5.306-1.89.013-3.375-.872-4.415-.972-1.142-2.696-1.746-4.987-1.746zM47.138 13.283c-.374 2.454-2.249 2.454-4.062 2.454h-1.032l.724-4.583a.57.57 0 0 1 .563-.481h.473c1.235 0 2.4 0 3.002.704.359.42.469 1.044.332 1.906zM66.654 13.075h-3.275a.57.57 0 0 0-.563.481l-.145.916-.229-.332c-.709-1.029-2.29-1.373-3.868-1.373-3.619 0-6.71 2.741-7.312 6.586-.313 1.918.132 3.752 1.22 5.031.998 1.176 2.426 1.666 4.125 1.666 2.916 0 4.533-1.875 4.533-1.875l-.146.91a.57.57 0 0 0 .562.66h2.95a.95.95 0 0 0 .939-.803l1.77-11.209a.568.568 0 0 0-.561-.658zm-4.565 6.374c-.316 1.871-1.801 3.127-3.695 3.127-.951 0-1.711-.305-2.199-.883-.484-.574-.668-1.391-.514-2.301.295-1.855 1.805-3.152 3.67-3.152.93 0 1.686.309 2.184.892.499.589.697 1.411.554 2.317z" fill="#253B80"/>
-                              <path d="M96.601 6.749h-6.84a.95.95 0 0 0-.938.802l-2.766 17.537a.569.569 0 0 0 .562.658h3.51a.665.665 0 0 0 .656-.562l-.785 4.971a.57.57 0 0 0 .563.658h3.265a.95.95 0 0 0 .938-.803l.747-4.73a.95.95 0 0 1 .938-.803h2.164c4.506 0 7.105-2.18 7.787-6.5.307-1.89.012-3.375-.873-4.415-.971-1.142-2.694-1.746-4.986-1.746zm.928 6.534c-.373 2.454-2.248 2.454-4.062 2.454h-1.031l.725-4.583a.568.568 0 0 1 .562-.481h.473c1.234 0 2.4 0 3.002.704.359.42.468 1.044.331 1.906z" fill="#179BD7"/>
-                              <path d="M109.244 13.075h-3.275a.57.57 0 0 0-.562.481l-.146.916-.229-.332c-.709-1.029-2.289-1.373-3.867-1.373-3.619 0-6.709 2.741-7.311 6.586-.312 1.918.131 3.752 1.219 5.031.999 1.176 2.426 1.666 4.125 1.666 2.916 0 4.533-1.875 4.533-1.875l-.146.91a.57.57 0 0 0 .563.66h2.949a.95.95 0 0 0 .938-.803l1.771-11.209a.57.57 0 0 0-.562-.658zm-4.565 6.374c-.314 1.871-1.801 3.127-3.695 3.127-.949 0-1.711-.305-2.199-.883-.484-.574-.666-1.391-.514-2.301.297-1.855 1.805-3.152 3.67-3.152.93 0 1.686.309 2.185.892.501.589.699 1.411.553 2.317z" fill="#179BD7"/>
-                            </g>
+                          <svg className="w-16 h-6" viewBox="0 0 124 33" fill="none">
+                            <path d="M46.211 6.749h-6.839a.95.95 0 0 0-.939.802l-2.766 17.537a.57.57 0 0 0 .564.658h3.265a.95.95 0 0 0 .939-.803l.746-4.73a.95.95 0 0 1 .938-.803h2.165c4.505 0 7.105-2.18 7.786-6.5.306-1.89.013-3.375-.872-4.415-.972-1.142-2.696-1.746-4.987-1.746zm.927 6.534c-.374 2.454-2.249 2.454-4.062 2.454h-1.032l.724-4.583a.57.57 0 0 1 .563-.481h.473c1.235 0 2.4 0 3.002.704.359.42.469 1.044.332 1.906z" fill="#253B80"/>
+                            <path d="M66.654 13.075h-3.275a.57.57 0 0 0-.563.481l-.145.916-.229-.332c-.709-1.029-2.29-1.373-3.868-1.373-3.619 0-6.71 2.741-7.312 6.586-.313 1.918.132 3.752 1.22 5.031.998 1.176 2.426 1.666 4.125 1.666 2.916 0 4.533-1.875 4.533-1.875l-.146.91a.57.57 0 0 0 .562.66h2.95a.95.95 0 0 0 .939-.803l1.77-11.209a.568.568 0 0 0-.561-.658zm-4.565 6.374c-.316 1.871-1.801 3.127-3.695 3.127-.951 0-1.711-.305-2.199-.883-.484-.574-.668-1.391-.514-2.301.295-1.855 1.805-3.152 3.67-3.152.93 0 1.686.309 2.184.892.499.589.697 1.411.554 2.317z" fill="#253B80"/>
+                            <path d="M75.046 6.749h-6.839a.95.95 0 0 0-.939.802l-2.766 17.537a.57.57 0 0 0 .564.658h3.265a.95.95 0 0 0 .939-.803l.746-4.73a.95.95 0 0 1 .938-.803h2.165c4.505 0 7.105-2.18 7.786-6.5.306-1.89.013-3.375-.872-4.415-.972-1.142-2.696-1.746-4.987-1.746zm.927 6.534c-.374 2.454-2.249 2.454-4.062 2.454h-1.032l.724-4.583a.57.57 0 0 1 .563-.481h.473c1.235 0 2.4 0 3.002.704.359.42.469 1.044.332 1.906z" fill="#179BD7"/>
+                            <path d="M95.489 13.075h-3.275a.57.57 0 0 0-.563.481l-.145.916-.229-.332c-.709-1.029-2.29-1.373-3.868-1.373-3.619 0-6.71 2.741-7.312 6.586-.313 1.918.132 3.752 1.22 5.031.998 1.176 2.426 1.666 4.125 1.666 2.916 0 4.533-1.875 4.533-1.875l-.146.91a.57.57 0 0 0 .562.66h2.95a.95.95 0 0 0 .939-.803l1.77-11.209a.568.568 0 0 0-.561-.658zm-4.565 6.374c-.316 1.871-1.801 3.127-3.695 3.127-.951 0-1.711-.305-2.199-.883-.484-.574-.668-1.391-.514-2.301.295-1.855 1.805-3.152 3.67-3.152.93 0 1.686.309 2.184.892.499.589.697 1.411.554 2.317z" fill="#179BD7"/>
                           </svg>
                         )}
                         {method.icon === 'card' && (
