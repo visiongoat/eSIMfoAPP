@@ -486,7 +486,7 @@ export default function CheckoutModal({
             <div className="space-y-3">
               <h3 className="font-semibold text-gray-900 dark:text-white">Choose a payment method</h3>
               
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 {paymentMethods.map((method) => (
                   <button
                     key={method.id}
@@ -505,7 +505,7 @@ export default function CheckoutModal({
                         }, 1500);
                       }
                     }}
-                    className={`w-full h-16 px-4 rounded-lg border transition-all duration-200 flex items-center justify-between ${
+                    className={`w-full h-12 px-4 rounded-lg border transition-all duration-200 flex items-center justify-between ${
                       selectedPayment === method.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-sm'
                         : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm'
