@@ -343,19 +343,72 @@ export default function MyEsimsScreen() {
       />
 
       <div className="px-4 pt-4">
-        {/* Dashboard Stats - Clean & Professional */}
-        <div className="grid grid-cols-3 gap-3 mb-4">
-          <div className="mobile-card p-3 text-center">
-            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalEsims}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Total eSIMs</p>
+        {/* Dashboard Stats - Premium Visual Design */}
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          {/* Travel Journey Card */}
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 p-4 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            <div className="absolute top-2 right-2 opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+              <svg className="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+            </div>
+            <div className="relative z-10">
+              <div className="flex items-center space-x-2 mb-2">
+                <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10S2 17.52 2 12zm4.64-4.36a.5.5 0 01.72 0L12 12.28l4.64-4.64a.5.5 0 01.72.72L12.72 13a.5.5 0 01-.72 0L7.36 8.36a.5.5 0 010-.72z"/>
+                  </svg>
+                </div>
+                <span className="text-white/90 text-xs font-semibold">Journey</span>
+              </div>
+              <p className="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform duration-300">{totalEsims}</p>
+              <p className="text-white/80 text-xs font-medium leading-tight">eSIM{totalEsims !== 1 ? 's' : ''} Collected</p>
+            </div>
           </div>
-          <div className="mobile-card p-3 text-center">
-            <p className="text-2xl font-bold text-green-600 dark:text-green-400">{countriesVisited}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Countries</p>
+
+          {/* World Explorer Card */}
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 p-4 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            <div className="absolute top-2 right-2 opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+              <svg className="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="relative z-10">
+              <div className="flex items-center space-x-2 mb-2">
+                <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                </div>
+                <span className="text-white/90 text-xs font-semibold">Explorer</span>
+              </div>
+              <p className="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform duration-300">{countriesVisited}</p>
+              <p className="text-white/80 text-xs font-medium leading-tight">Countries Visited</p>
+            </div>
           </div>
-          <div className="mobile-card p-3 text-center">
-            <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">{totalDataUsed.toFixed(0)}GB</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Data Used</p>
+
+          {/* Data Consumption Card */}
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-violet-500 via-purple-600 to-indigo-700 p-4 shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            <div className="absolute top-2 right-2 opacity-30 group-hover:opacity-50 transition-opacity duration-300">
+              <svg className="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+              </svg>
+            </div>
+            <div className="relative z-10">
+              <div className="flex items-center space-x-2 mb-2">
+                <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                </div>
+                <span className="text-white/90 text-xs font-semibold">Usage</span>
+              </div>
+              <p className="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform duration-300">
+                {totalDataUsed.toFixed(0)}<span className="text-lg font-semibold text-white/80">GB</span>
+              </p>
+              <p className="text-white/80 text-xs font-medium leading-tight">Total Data Used</p>
+            </div>
           </div>
         </div>
 
