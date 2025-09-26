@@ -359,6 +359,7 @@ export default function CheckoutModal({
                   <div className="relative">
                     <input
                       type="text"
+                      inputMode="numeric"
                       placeholder="1234 5678 9012 3456"
                       value={cardFormData.cardNumber}
                       onChange={(e) => {
@@ -408,6 +409,7 @@ export default function CheckoutModal({
                     </label>
                     <input
                       type="text"
+                      inputMode="numeric"
                       placeholder="MM/YY"
                       value={cardFormData.expiryDate}
                       onChange={(e) => {
@@ -428,6 +430,7 @@ export default function CheckoutModal({
                     </label>
                     <input
                       type="text"
+                      inputMode="numeric"
                       placeholder="123"
                       value={cardFormData.cvv}
                       onChange={(e) => {
