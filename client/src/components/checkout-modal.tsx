@@ -116,11 +116,11 @@ export default function CheckoutModal({
   const cardType = getCardType(cardFormData.cardNumber);
 
   const paymentMethods = [
-    { id: 'apple-pay', name: 'Apple Pay', icon: '🍎' },
-    { id: 'google-pay', name: 'Google Pay', icon: 'G' },
-    { id: 'paypal', name: 'PayPal', icon: '🔵' },
-    { id: 'card', name: 'Pay with Card', icon: '💳' },
-    { id: 'crypto', name: 'Pay with Crypto', icon: '₿', subtitle: 'Powered by Coinbase' }
+    { id: 'apple-pay', name: 'Apple Pay', icon: 'apple-pay' },
+    { id: 'google-pay', name: 'Google Pay', icon: 'google-pay' },
+    { id: 'paypal', name: 'PayPal', icon: 'paypal' },
+    { id: 'card', name: 'Pay with Card', icon: 'card' },
+    { id: 'crypto', name: 'Pay with Crypto', icon: 'crypto', subtitle: 'Powered by Coinbase' }
   ];
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -514,39 +514,42 @@ export default function CheckoutModal({
                     }`}
                   >
                     <div className="flex items-center space-x-3">
-                      <span className="text-xl">{method.icon}</span>
+                      {/* Real Payment Logos */}
+                      <div className="w-10 h-10 flex items-center justify-center">
+                        {method.icon === 'apple-pay' && (
+                          <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="currentColor"/>
+                          </svg>
+                        )}
+                        {method.icon === 'google-pay' && (
+                          <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                            <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574S8.145 4.426 12.24 4.426c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z" fill="#4285F4"/>
+                          </svg>
+                        )}
+                        {method.icon === 'paypal' && (
+                          <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                            <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.438-.298c-.266-.134-.572-.248-.909-.333C18.583 5.834 17.068 5.7 15.02 5.7h-3.35c-.524 0-.967.381-1.05.9L9.653 9.645c-.083.518.23.934.748.934h2.508c3.53 0 6.287-1.434 7.083-5.57.096-.497.13-.989.101-1.467-.001-.014-.002-.028-.003-.042-.126-.055-.26-.099-.401-.126z" fill="#0070ba"/>
+                          </svg>
+                        )}
+                        {method.icon === 'card' && (
+                          <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                            <path d="M2 6C2 4.895 2.895 4 4 4h16c1.105 0 2 .895 2 2v12c0 1.105-.895 2-2 2H4c-1.105 0-2-.895-2-2V6z" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                            <path d="M2 10h20" stroke="currentColor" strokeWidth="1.5"/>
+                            <path d="M6 14h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                          </svg>
+                        )}
+                        {method.icon === 'crypto' && (
+                          <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm-1.5-4.5h3v-2.25h1.125c1.036 0 1.875-.839 1.875-1.875v-3.75c0-1.036-.839-1.875-1.875-1.875H13.5V7.5h-3v2.25H9.375c-1.036 0-1.875.839-1.875 1.875v3.75c0 1.036.839 1.875 1.875 1.875H10.5v2.25zm0-6h3v-1.5h-3v1.5zm0 3h3v-1.5h-3v1.5z" fill="#0052FF"/>
+                          </svg>
+                        )}
+                      </div>
                       <div className="text-left">
                         <div className="font-medium text-gray-900 dark:text-white">{method.name}</div>
                         {method.subtitle && (
                           <div className="text-xs text-gray-500 dark:text-gray-400">{method.subtitle}</div>
                         )}
                       </div>
-                    </div>
-                    <div className="text-right">
-                      {method.id === 'apple-pay' && <span className="text-black font-bold">Pay</span>}
-                      {method.id === 'google-pay' && (
-                        <div className="flex items-center space-x-1">
-                          <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-green-500 rounded-full flex items-center justify-center">
-                            <span className="text-white text-xs font-bold">G</span>
-                          </div>
-                          <span className="text-blue-600 text-xs font-medium">Pay</span>
-                        </div>
-                      )}
-                      {method.id === 'paypal' && <span className="text-blue-600 font-bold">PayPal</span>}
-                      {method.id === 'card' && (
-                        <div className="flex space-x-1">
-                          <span className="text-blue-600 text-xs">VISA</span>
-                          <span className="text-red-600 text-xs">●●</span>
-                        </div>
-                      )}
-                      {method.id === 'crypto' && (
-                        <div className="flex items-center space-x-1">
-                          <div className="w-5 h-5 bg-blue-600 rounded flex items-center justify-center">
-                            <span className="text-white text-xs font-bold">C</span>
-                          </div>
-                          <span className="text-blue-600 text-xs font-medium">Coinbase</span>
-                        </div>
-                      )}
                     </div>
                   </button>
                 ))}
