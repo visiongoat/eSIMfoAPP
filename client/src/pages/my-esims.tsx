@@ -363,7 +363,7 @@ export default function MyEsimsScreen() {
                 <span className="text-white/90 text-xs font-semibold">Journey</span>
               </div>
               <p className="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform duration-300">{totalEsims}</p>
-              <p className="text-white/80 text-xs font-medium leading-tight">eSIM{totalEsims !== 1 ? 's' : ''} Collected</p>
+              <p className="text-white/80 text-xs font-medium leading-tight">Total Plans</p>
             </div>
           </div>
 
@@ -385,7 +385,7 @@ export default function MyEsimsScreen() {
                 <span className="text-white/90 text-xs font-semibold">Explorer</span>
               </div>
               <p className="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform duration-300">{countriesVisited}</p>
-              <p className="text-white/80 text-xs font-medium leading-tight">Countries Visited</p>
+              <p className="text-white/80 text-xs font-medium leading-tight">Countries</p>
             </div>
           </div>
 
@@ -407,7 +407,7 @@ export default function MyEsimsScreen() {
               <p className="text-3xl font-black text-white mb-1 group-hover:scale-110 transition-transform duration-300">
                 {totalDataUsed.toFixed(0)}<span className="text-lg font-semibold text-white/80">GB</span>
               </p>
-              <p className="text-white/80 text-xs font-medium leading-tight">Total Data Used</p>
+              <p className="text-white/80 text-xs font-medium leading-tight">Data Used</p>
             </div>
           </div>
         </div>
