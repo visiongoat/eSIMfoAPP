@@ -334,7 +334,7 @@ export default function MyEsimsScreen() {
         title="My eSIMs"
         rightButton={
           <button 
-            onClick={() => setLocation('/destinations')}
+            onClick={() => setLocation('/home')}
             className="text-primary font-medium"
           >
             + Add
