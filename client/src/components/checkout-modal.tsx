@@ -120,7 +120,7 @@ export default function CheckoutModal({
     { id: 'google-pay', name: 'Pay', icon: 'google-pay' },
     { id: 'paypal', name: 'PayPal', icon: 'paypal' },
     { id: 'card', name: 'Pay with Card', icon: 'card' },
-    { id: 'crypto', name: 'Pay with Crypto', icon: 'crypto', subtitle: 'Powered by Coinbase' }
+    { id: 'crypto', name: 'PAY', icon: 'crypto', subtitle: 'Powered by Coinbase' }
   ];
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -514,14 +514,16 @@ export default function CheckoutModal({
                         ? 'bg-white dark:bg-black border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900 flex items-center justify-center'
                         : method.id === 'paypal'
                         ? 'bg-yellow-400 border-yellow-400 text-blue-800 hover:bg-yellow-500 hover:border-yellow-500 flex items-center justify-center'
+                        : method.id === 'crypto'
+                        ? 'bg-blue-600 border-blue-600 text-white hover:bg-blue-700 hover:border-blue-700 flex items-center justify-center'
                         : selectedPayment === method.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 flex items-center justify-between'
                         : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex items-center justify-between'
                     }`}
                   >
-                    <div className={`flex items-center ${(method.id === 'apple-pay' || method.id === 'google-pay' || method.id === 'paypal') ? 'space-x-2' : 'space-x-3'}`}>
+                    <div className={`flex items-center ${(method.id === 'apple-pay' || method.id === 'google-pay' || method.id === 'paypal' || method.id === 'crypto') ? 'space-x-2' : 'space-x-3'}`}>
                       {/* Real Payment Logos */}
-                      <div className={`${(method.id === 'apple-pay' || method.id === 'google-pay' || method.id === 'paypal') ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center`}>
+                      <div className={`${(method.id === 'apple-pay' || method.id === 'google-pay' || method.id === 'paypal' || method.id === 'crypto') ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center`}>
                         {method.icon === 'apple-pay' && (
                           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="white"/>
@@ -552,8 +554,9 @@ export default function CheckoutModal({
                           </svg>
                         )}
                         {method.icon === 'crypto' && (
-                          <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm-1.5-4.5h3v-2.25h1.125c1.036 0 1.875-.839 1.875-1.875v-3.75c0-1.036-.839-1.875-1.875-1.875H13.5V7.5h-3v2.25H9.375c-1.036 0-1.875.839-1.875 1.875v3.75c0 1.036.839 1.875 1.875 1.875H10.5v2.25zm0-6h3v-1.5h-3v1.5zm0 3h3v-1.5h-3v1.5z" fill="#0052FF"/>
+                          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="12" fill="white"/>
+                            <path d="M12 4c-4.418 0-8 3.582-8 8s3.582 8 8 8c2.051 0 3.918-.772 5.329-2.043l-1.414-1.414C16.772 17.416 15.464 18 14 18h-2c-3.309 0-6-2.691-6-6s2.691-6 6-6h2c1.464 0 2.772.584 3.915 1.457l1.414-1.414C17.918 4.772 16.051 4 14 4h-2z" fill="#0052FF"/>
                           </svg>
                         )}
                       </div>
@@ -564,6 +567,8 @@ export default function CheckoutModal({
                               ? 'text-white' 
                               : method.id === 'google-pay'
                               ? 'text-gray-900 dark:text-white'
+                              : method.id === 'crypto'
+                              ? 'text-white'
                               : 'text-gray-900 dark:text-white'
                           }`}>
                             {method.name}
