@@ -1144,7 +1144,7 @@ Visit esimfo.com for global eSIM solutions!`;
         )}
 
         {/* Package List */}
-        <div className="space-y-3 mb-6">
+        <div className="space-y-3 mb-2">
           {selectedTab === 'data' ? (
             // Data Only Packages
             demoPackages.map((pkg) => (
