@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X, HelpCircle, Minus, Plus, Lock, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AutoRenewalInfoModal } from "./auto-renewal-info-modal";
@@ -43,6 +44,25 @@ export default function CheckoutModal({
   const [currentY, setCurrentY] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  // Scroll lock effect
+  useEffect(() => {
+    if (isOpen) {
+      // Lock body scroll
+      const originalOverflow = document.body.style.overflow;
+      const originalPosition = document.body.style.position;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      
+      return () => {
+        // Restore scroll
+        document.body.style.overflow = originalOverflow;
+        document.body.style.position = originalPosition;
+        document.body.style.width = '';
+      };
+    }
+  }, [isOpen]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -183,25 +203,31 @@ export default function CheckoutModal({
     setCurrentY(0);
   };
 
-  return (
-    <div 
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-end"
-      onClick={handleBackdropClick}
-    >
-      {/* Modal content */}
+  if (!isOpen) return null;
+
+  return createPortal(
+    <div className="pointer-events-none">
+      {/* Overlay */}
       <div 
-        ref={modalRef}
-        className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md mx-auto max-h-[90vh] overflow-y-auto transition-all duration-200 select-none"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        style={{ 
-          touchAction: 'manipulation',
-          userSelect: 'none',
-          WebkitUserSelect: 'none',
-          WebkitTouchCallout: 'none'
-        }}
-      >
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9998] pointer-events-auto"
+        onClick={handleBackdropClick}
+      />
+      
+      {/* Modal Sheet */}
+      <div className="fixed inset-x-0 bottom-0 z-[9999] flex justify-center pointer-events-auto" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <div 
+          ref={modalRef}
+          className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md max-h-[90vh] overflow-y-auto transition-all duration-200 select-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          style={{ 
+            touchAction: 'manipulation',
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            WebkitTouchCallout: 'none'
+          }}
+        >
         {/* Swipe Handle */}
         <div className="flex justify-center pt-3 pb-1">
           <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
@@ -598,13 +624,15 @@ export default function CheckoutModal({
         <div className="flex justify-center py-2">
           <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
         </div>
+        </div>
       </div>
-
+      
       {/* Auto Renewal Info Modal */}
       <AutoRenewalInfoModal 
         isOpen={showAutoRenewalInfo} 
         onClose={() => setShowAutoRenewalInfo(false)} 
       />
-    </div>
+    </div>,
+    document.body
   );
 }
