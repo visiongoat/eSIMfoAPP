@@ -1017,9 +1017,9 @@ Visit esimfo.com for global eSIM solutions!`;
         {/* Unlimited Plan (Premium) */}
         {hasUnlimitedPlans && (
           <div className="mb-6 relative">
-            <div className={`bg-gradient-to-r ${selectedPackage === 999 ? 'from-purple-500 via-blue-500 to-indigo-600 p-[3px] shadow-2xl shadow-purple-500/40 ring-2 ring-purple-300 dark:ring-purple-600' : 'from-purple-500 via-blue-500 to-indigo-600 p-[2px] shadow-lg'} rounded-2xl transition-all duration-300`}>
+            <div className={`bg-gradient-to-r ${selectedPackage === 999 ? 'from-purple-600 via-blue-600 to-indigo-700 p-[3px] shadow-lg' : 'from-purple-500 via-blue-500 to-indigo-600 p-[2px] shadow-lg'} rounded-2xl transition-all duration-300`}>
               <div 
-                className={`bg-white dark:bg-gray-900 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${selectedPackage === 999 ? 'bg-gradient-to-br from-purple-50/50 via-blue-50/50 to-indigo-50/50 dark:from-purple-950/20 dark:via-blue-950/20 dark:to-indigo-950/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
+                className={`bg-white dark:bg-gray-900 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${selectedPackage === 999 ? 'bg-gradient-to-br from-purple-50/30 via-blue-50/30 to-indigo-50/30 dark:from-purple-950/10 dark:via-blue-950/10 dark:to-indigo-950/10' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
                 onClick={() => {
                   // Toggle functionality: if unlimited is selected, deselect it
                   if (selectedPackage === 999) {
