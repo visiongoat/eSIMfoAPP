@@ -1249,7 +1249,7 @@ Visit esimfo.com for global eSIM solutions!`;
       </div>
 
       {/* Sticky Bottom Section */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md">
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg dark:shadow-gray-800/50 p-4 mx-auto max-w-md z-40">
         {/* Smart Floating Action Chips - Device Compatibility & Package Details */}
         {selectedPackageForCheckout && (
           <div className="mb-3 flex justify-center gap-2">
