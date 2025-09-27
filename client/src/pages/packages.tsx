@@ -1245,7 +1245,7 @@ Visit esimfo.com for global eSIM solutions!`;
 
 
         {/* Bottom spacing for sticky section - adjust for combo packages */}
-        <div className={`${selectedTab === 'data-calls-text' ? 'h-32' : 'h-28'}`}></div>
+        <div className={`${selectedTab === 'data-calls-text' ? 'h-6' : 'h-4'}`}></div>
       </div>
 
       {/* Sticky Bottom Section */}
@@ -1608,7 +1608,7 @@ Visit esimfo.com for global eSIM solutions!`;
       />
 
       {/* Support Section */}
-      <div className="px-4 -mt-18 pb-6">
+      <div className="px-4 mt-3 pb-6">
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl border border-white/20 dark:border-gray-700/50 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden">
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 px-4 pt-2 pb-1 border-b border-gray-100 dark:border-gray-700">
