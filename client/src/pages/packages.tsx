@@ -877,7 +877,7 @@ Visit esimfo.com for global eSIM solutions!`;
   }
 
   return (
-    <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20 animate-slide-in-from-top">
+    <div ref={containerRef} className={`mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen ${selectedPackageForCheckout ? 'pb-96' : 'pb-20'} animate-slide-in-from-top transition-all duration-300`}>
       
       {/* Unified Header + Tab Container */}
       <div className="mx-4 mt-3 mb-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
