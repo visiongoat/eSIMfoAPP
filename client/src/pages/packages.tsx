@@ -60,12 +60,17 @@ export default function PackagesScreen() {
   
   // Update default selection when tab changes
   useEffect(() => {
+    // Check if this country has unlimited plans
+    const unlimitedCountries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 40, 41, 42, 44, 47, 48, 49, 50, 52, 53, 54, 73];
+    const hasUnlimitedPlans = Number.isFinite(countryId) && unlimitedCountries.includes(Number(countryId));
+    
     if (selectedTab === 'data') {
-      setSelectedPackage(1); // First data package
+      // Prioritize unlimited package if available, otherwise select first data package
+      setSelectedPackage(hasUnlimitedPlans ? 999 : 1);
     } else {
       setSelectedPackage(5); // First data/calls/text package
     }
-  }, [selectedTab]);
+  }, [selectedTab, countryId]);
   const [esimCount, setEsimCount] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
