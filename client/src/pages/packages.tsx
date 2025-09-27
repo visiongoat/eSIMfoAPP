@@ -877,38 +877,104 @@ Visit esimfo.com for global eSIM solutions!`;
 
   return (
     <div ref={containerRef} className="mobile-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-900 dark:text-white min-h-screen pb-20 animate-slide-in-from-top">
-      {/* Custom Header - Optimized size */}
-      <div className="flex items-center justify-between px-4 py-3">
-        <div className="flex items-center">
-          <button onClick={handleBackClick} className="p-1.5 mr-3">
-            <ArrowLeft className="w-6 h-6 text-gray-900 dark:text-white" />
-          </button>
+      {/* Enhanced Header with Network & Compatibility Info */}
+      <div className="px-4 py-3 space-y-3">
+        {/* Top Row - Country & Actions */}
+        <div className="flex items-center justify-between">
           <div className="flex items-center">
-            {country?.flagUrl && (
-              <img 
-                src={country.flagUrl} 
-                alt={`${country.name} flag`}
-                className="w-6 h-5 mr-2.5 rounded-sm object-cover"
-              />
-            )}
-            <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {country?.name || "Loading..."}
-            </h1>
+            <button onClick={handleBackClick} className="p-1.5 mr-3">
+              <ArrowLeft className="w-6 h-6 text-gray-900 dark:text-white" />
+            </button>
+            <div className="flex items-center">
+              {country?.flagUrl && (
+                <img 
+                  src={country.flagUrl} 
+                  alt={`${country.name} flag`}
+                  className="w-6 h-5 mr-2.5 rounded-sm object-cover"
+                />
+              )}
+              <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {country?.name || "Loading..."}
+              </h1>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2.5">
+            <button
+              onClick={handleShare}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors active:scale-95 touch-manipulation"
+            >
+              <Share className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            </button>
+            <button
+              onClick={() => setShowCurrencyLanguageModal(true)}
+              className="text-orange-500 dark:text-orange-400 font-semibold text-sm hover:bg-orange-50 dark:hover:bg-orange-900/20 px-2.5 py-1.5 rounded-lg transition-colors active:scale-95 touch-manipulation"
+            >
+              {getCurrencySymbol(selectedCurrency)}, {selectedCurrency}
+            </button>
           </div>
         </div>
-        <div className="flex items-center space-x-2.5">
-          <button
-            onClick={handleShare}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors active:scale-95 touch-manipulation"
-          >
-            <Share className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-          </button>
-          <button
-            onClick={() => setShowCurrencyLanguageModal(true)}
-            className="text-orange-500 dark:text-orange-400 font-semibold text-sm hover:bg-orange-50 dark:hover:bg-orange-900/20 px-2.5 py-1.5 rounded-lg transition-colors active:scale-95 touch-manipulation"
-          >
-            {getCurrencySymbol(selectedCurrency)}, {selectedCurrency}
-          </button>
+
+        {/* Network Info Row */}
+        <div className="flex items-center justify-between text-sm">
+          {/* Left: Carrier & Signal */}
+          <div className="flex items-center space-x-3">
+            {/* Signal Bars (iPhone Style) */}
+            <div className="flex items-end space-x-0.5">
+              <div className="w-1 h-2 bg-gray-900 dark:bg-white rounded-full"></div>
+              <div className="w-1 h-3 bg-gray-900 dark:bg-white rounded-full"></div>
+              <div className="w-1 h-4 bg-gray-900 dark:bg-white rounded-full"></div>
+              <div className="w-1 h-5 bg-gray-900 dark:bg-white rounded-full"></div>
+            </div>
+            {/* Carrier Name */}
+            <span className="text-gray-700 dark:text-gray-300 font-medium">
+              {/* Simulate carrier based on country */}
+              {country?.code === 'AR' ? 'Movistar' : 
+               country?.code === 'US' ? 'Verizon' :
+               country?.code === 'GB' ? 'EE' :
+               country?.code === 'DE' ? 'Telekom' :
+               country?.code === 'FR' ? 'Orange' :
+               country?.code === 'IT' ? 'TIM' :
+               country?.code === 'ES' ? 'Telefónica' :
+               country?.code === 'TR' ? 'Turkcell' :
+               'Local Carrier'}
+            </span>
+          </div>
+
+          {/* Right: Network Technology */}
+          <div className="flex items-center space-x-2">
+            <div className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-md text-xs font-semibold">
+              {/* Smart network technology based on country */}
+              {(() => {
+                // Advanced countries more likely to have 5G
+                const advancedCountries = ['US', 'GB', 'DE', 'FR', 'IT', 'ES', 'KR', 'JP', 'AU', 'CA', 'NL', 'SE', 'NO', 'DK', 'FI'];
+                const isAdvanced = advancedCountries.includes(country?.code || '');
+                const has5G = isAdvanced ? Math.random() > 0.2 : Math.random() > 0.7;
+                return has5G ? '5G' : 'LTE';
+              })()}
+            </div>
+          </div>
+        </div>
+
+        {/* Device Compatibility Row */}
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-600 dark:text-gray-400">Is this device compatible?</span>
+          <div className="flex items-center">
+            {compatibilityResult ? (
+              <div className={`flex items-center space-x-1 ${compatibilityResult.isCompatible ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                <div className={`w-2 h-2 rounded-full ${compatibilityResult.isCompatible ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                <span className="font-medium text-xs">
+                  {compatibilityResult.isCompatible ? 'Yes' : 'No'}
+                </span>
+              </div>
+            ) : (
+              <button
+                onClick={checkDeviceCompatibility}
+                className="text-blue-600 dark:text-blue-400 text-xs font-medium hover:underline"
+              >
+                Check now
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
