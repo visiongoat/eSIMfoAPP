@@ -989,23 +989,29 @@ Visit esimfo.com for global eSIM solutions!`;
           <div className="flex">
             <button
               onClick={() => setSelectedTab('data')}
-              className={`flex-1 py-2.5 px-2 sm:px-4 font-medium transition-all duration-200 text-xs sm:text-sm ${
+              className={`flex-1 py-2.5 px-2 sm:px-4 font-medium transition-all duration-200 text-xs sm:text-sm relative ${
                 selectedTab === 'data'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-md border border-blue-100 dark:border-blue-800/50 font-semibold'
+                  ? 'bg-blue-50 dark:bg-gray-700 text-blue-700 dark:text-white shadow-lg border border-blue-200 dark:border-blue-800/50 font-semibold'
                   : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-700/50'
               }`}
             >
               Data ({demoPackages.length})
+              {selectedTab === 'data' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400"></div>
+              )}
             </button>
             <button
               onClick={() => setSelectedTab('data-calls-text')}
-              className={`flex-1 py-2.5 px-2 sm:px-4 font-medium transition-all duration-200 text-xs sm:text-sm ${
+              className={`flex-1 py-2.5 px-2 sm:px-4 font-medium transition-all duration-200 text-xs sm:text-sm relative ${
                 selectedTab === 'data-calls-text'
-                  ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-md border border-blue-100 dark:border-blue-800/50 font-semibold'
+                  ? 'bg-blue-50 dark:bg-gray-700 text-blue-700 dark:text-white shadow-lg border border-blue-200 dark:border-blue-800/50 font-semibold'
                   : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-gray-700/50'
               }`}
             >
               Data/Voice/SMS ({dataCallsTextPackages.length})
+              {selectedTab === 'data-calls-text' && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400"></div>
+              )}
             </button>
           </div>
         </div>
