@@ -705,32 +705,67 @@ export default function PackagesScreen() {
     const { isApp } = detectPlatform();
     const baseUrl = window.location.origin;
     
+    // Check if unlimited plans are available for this country
+    const unlimitedCountries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 40, 41, 42, 44, 47, 48, 49, 50, 52, 53, 54, 73];
+    const hasUnlimitedPlans = Number.isFinite(countryId) && unlimitedCountries.includes(Number(countryId));
+    
+    // Get all packages for selected tab
+    const currentPackages = selectedTab === 'data' ? demoPackages : dataCallsTextPackages;
+    
+    // Create detailed package list
+    let packageList = '';
+    
+    // Add unlimited plan if available
+    if (hasUnlimitedPlans && selectedTab === 'data') {
+      packageList += `📦 Unlimited Data - High-speed data without limits - €7.60/3 days\n`;
+    }
+    
+    // Add all regular packages
+    currentPackages.forEach(pkg => {
+      const dataInfo = selectedTab === 'data' ? pkg.data : `${pkg.data} + Calls + SMS`;
+      packageList += `📦 ${dataInfo} - ${pkg.duration} - ${pkg.price}\n`;
+    });
+    
     if (isApp) {
-      // App version - redirect to app download since we can't route to specific countries
-      return `${countryName} eSIM Plans
+      // App version
+      return `🌍 ${countryName} eSIM Plans
 
-Get instant connectivity for your travels!
-Download esimfo app for the best eSIM experience:
+${packageList}
+✈️ Get instant connectivity for your travels!
 
-📱 iOS: https://apps.apple.com/app/esimfo
+📱 Download esimfo app for the best experience:
+🍎 iOS: https://apps.apple.com/app/esimfo  
 🤖 Android: https://play.google.com/store/apps/details?id=com.esimfo
 
-Instant activation, no physical SIM needed!`;
+🚀 Instant activation, no physical SIM needed!
+💳 Secure payment & instant delivery
+🌐 Global coverage for travelers
+
+---
+Powered by esimfo.com`;
     } else {
-      // Web version - link to specific country with live content
-      const currentPackages = selectedTab === 'data' ? demoPackages : dataCallsTextPackages;
-      const packageSummary = currentPackages.slice(0, 4).map(pkg => 
-        `${pkg.duration} - ${pkg.data} - ${pkg.price}`
-      ).join('\n');
-      
-      return `${countryName} eSIM Plans
+      // Web version
+      return `🌍 ${countryName} eSIM Plans
 
-${packageSummary}
-...and ${Math.max(0, currentPackages.length - 4)} more plans
+${packageList}
+✈️ Perfect for travelers & digital nomads!
 
-Instant activation, no physical SIM needed!
-View all plans & buy online:
-${baseUrl}/packages/${countryId}`;
+🎯 Why choose our eSIMs:
+• 🚀 Instant activation
+• 💳 Secure online payment  
+• 📱 No physical SIM needed
+• 🌐 Global network coverage
+• 💬 24/7 customer support
+
+🛒 Buy online & get instant delivery:
+${baseUrl}/packages/${countryId}
+
+📱 Or download our mobile app:
+🍎 iOS: https://apps.apple.com/app/esimfo
+🤖 Android: https://play.google.com/store/apps/details?id=com.esimfo
+
+---
+Visit esimfo.com for global eSIM solutions!`;
     }
   };
 
