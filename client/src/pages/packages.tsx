@@ -883,7 +883,7 @@ Visit esimfo.com for global eSIM solutions!`;
       <div className="mx-4 mt-3 mb-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
         
         {/* Compact Header Section */}
-        <div className="px-4 py-3 space-y-2.5 border-b border-gray-100/60 dark:border-gray-700/40">
+        <div className="px-4 py-3 space-y-2.5">
           {/* Top Row - Country & Actions */}
           <div className="flex items-center justify-between">
             <div className="flex items-center">
