@@ -185,7 +185,7 @@ export default function CheckoutModal({
 
   return (
     <div 
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-end"
       onClick={handleBackdropClick}
     >
       {/* Modal content */}
