@@ -892,7 +892,7 @@ Visit esimfo.com for global eSIM solutions!`;
               </button>
               <div className="flex items-center">
                 {country?.flagUrl && (
-                  <div className="w-7 h-6 mr-2.5 rounded-md overflow-hidden shadow-sm border border-gray-200 dark:border-gray-600">
+                  <div className="w-7 h-6 mr-2.5 rounded overflow-hidden shadow-sm border border-gray-200 dark:border-gray-600">
                     <img 
                       src={country.flagUrl} 
                       alt={`${country.name} flag`}
