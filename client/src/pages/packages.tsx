@@ -21,7 +21,7 @@ export default function PackagesScreen() {
   const fromPage = urlParams.get('from') || 'home'; // default to home if not specified
   
   const [selectedTab, setSelectedTab] = useState<'data' | 'data-calls-text'>('data');
-  const [selectedPackage, setSelectedPackage] = useState<number | null>(1);
+  const [selectedPackage, setSelectedPackage] = useState<number | null>(null);
   
   // Device compatibility chip state
   const [deviceCompatibilityAck, setDeviceCompatibilityAck] = useState<boolean>(() => {
@@ -60,17 +60,9 @@ export default function PackagesScreen() {
   
   // Update default selection when tab changes
   useEffect(() => {
-    // Check if this country has unlimited plans
-    const unlimitedCountries = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 40, 41, 42, 44, 47, 48, 49, 50, 52, 53, 54, 73];
-    const hasUnlimitedPlans = Number.isFinite(countryId) && unlimitedCountries.includes(Number(countryId));
-    
-    if (selectedTab === 'data') {
-      // Prioritize unlimited package if available, otherwise select first data package
-      setSelectedPackage(hasUnlimitedPlans ? 999 : 1);
-    } else {
-      setSelectedPackage(5); // First data/calls/text package
-    }
-  }, [selectedTab, countryId]);
+    // Reset selection when tab changes - start with no package selected
+    setSelectedPackage(null);
+  }, [selectedTab]);
   const [esimCount, setEsimCount] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
@@ -642,10 +634,14 @@ export default function PackagesScreen() {
       };
     }
     
-    // Handle regular packages
+    // Handle regular packages - return null if no package is selected
+    if (!selectedPackage) {
+      return null;
+    }
+    
     const dataPackage = demoPackages.find(p => p.id === selectedPackage);
     const comboPackage = dataCallsTextPackages.find(p => p.id === selectedPackage);
-    return dataPackage || comboPackage;
+    return dataPackage || comboPackage || null;
   }, [selectedPackage, selectedUnlimitedDays, selectedCurrency]);
 
   // Check if this country has unlimited plans (multiple countries for testing)
@@ -663,7 +659,12 @@ export default function PackagesScreen() {
   };
 
   const handlePackageSelect = (packageId: number) => {
-    setSelectedPackage(packageId);
+    // Toggle functionality: if same package is clicked, deselect it
+    if (selectedPackage === packageId) {
+      setSelectedPackage(null);
+    } else {
+      setSelectedPackage(packageId);
+    }
   };
 
   const handlePurchase = () => {
@@ -1020,8 +1021,14 @@ Visit esimfo.com for global eSIM solutions!`;
               <div 
                 className={`bg-white dark:bg-gray-900 rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 ${selectedPackage === 999 ? 'bg-blue-50 dark:bg-blue-950/50' : ''}`}
                 onClick={() => {
-                  setSelectedPackage(999);
-                  console.log('🎯 Unlimited plan selected, selectedPackage set to 999');
+                  // Toggle functionality: if unlimited is selected, deselect it
+                  if (selectedPackage === 999) {
+                    setSelectedPackage(null);
+                    console.log('🎯 Unlimited plan deselected');
+                  } else {
+                    setSelectedPackage(999);
+                    console.log('🎯 Unlimited plan selected, selectedPackage set to 999');
+                  }
                 }}
                 data-testid="card-unlimited"
                 role="button"
