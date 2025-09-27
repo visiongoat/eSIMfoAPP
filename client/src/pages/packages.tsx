@@ -1017,9 +1017,9 @@ Visit esimfo.com for global eSIM solutions!`;
         {/* Unlimited Plan (Premium) */}
         {hasUnlimitedPlans && (
           <div className="mb-6 relative">
-            <div className={`bg-gradient-to-r ${selectedPackage === 999 ? 'from-purple-600 via-blue-600 to-indigo-700 p-[3px] shadow-2xl shadow-purple-500/25' : 'from-purple-500 via-blue-500 to-indigo-600 p-[2px] shadow-lg'} rounded-2xl transition-all duration-300`}>
+            <div className={`bg-gradient-to-r ${selectedPackage === 999 ? 'from-purple-500 via-blue-500 to-indigo-600 p-[3px] shadow-2xl shadow-purple-500/40 ring-2 ring-purple-300 dark:ring-purple-600' : 'from-purple-500 via-blue-500 to-indigo-600 p-[2px] shadow-lg'} rounded-2xl transition-all duration-300`}>
               <div 
-                className={`bg-white dark:bg-gray-900 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${selectedPackage === 999 ? 'bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-950/30 dark:via-blue-950/30 dark:to-indigo-950/30 transform scale-[1.02]' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
+                className={`bg-white dark:bg-gray-900 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${selectedPackage === 999 ? 'bg-gradient-to-br from-purple-50/50 via-blue-50/50 to-indigo-50/50 dark:from-purple-950/20 dark:via-blue-950/20 dark:to-indigo-950/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
                 onClick={() => {
                   // Toggle functionality: if unlimited is selected, deselect it
                   if (selectedPackage === 999) {
@@ -1034,10 +1034,20 @@ Visit esimfo.com for global eSIM solutions!`;
                 role="button"
                 aria-pressed={selectedPackage === 999}
               >
-                {/* Premium Badge */}
+                {/* Premium Badge with Selection State */}
                 <div className="absolute -top-2 left-4 z-10">
-                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                    ⭐ PREMIUM
+                  <div className={`${selectedPackage === 999 ? 'bg-gradient-to-r from-green-400 to-emerald-500' : 'bg-gradient-to-r from-yellow-400 to-orange-500'} text-white text-xs font-bold px-3 py-1 rounded-full shadow-md transition-all duration-300 flex items-center space-x-1`}>
+                    {selectedPackage === 999 ? (
+                      <>
+                        <span>✓</span>
+                        <span>SELECTED</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>⭐</span>
+                        <span>PREMIUM</span>
+                      </>
+                    )}
                   </div>
                 </div>
                 
