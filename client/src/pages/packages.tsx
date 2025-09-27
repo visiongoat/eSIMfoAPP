@@ -885,7 +885,7 @@ Visit esimfo.com for global eSIM solutions!`;
         {/* Compact Header Section */}
         <div className="px-4 py-3 space-y-2.5">
           {/* Top Row - Country & Actions */}
-          <div className="flex items-center justify-between border-b border-gray-100/60 dark:border-gray-700/40 pb-2.5">
+          <div className="flex items-center justify-between border-b border-gray-200/80 dark:border-gray-700/40 pb-2.5">
             <div className="flex items-center">
               <button onClick={handleBackClick} className="p-1 mr-2 -ml-1">
                 <ArrowLeft className="w-5 h-5 text-gray-900 dark:text-white" />
