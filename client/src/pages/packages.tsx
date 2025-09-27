@@ -1608,10 +1608,10 @@ Visit esimfo.com for global eSIM solutions!`;
       />
 
       {/* Support Section */}
-      <div className="px-4 -mt-2 pb-6">
+      <div className="px-4 mt-3 pb-6">
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-2xl border border-white/20 dark:border-gray-700/50 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 px-4 py-2 border-b border-gray-100 dark:border-gray-700">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Support</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               Need assistance? We provide round-the-clock, multilingual support.
