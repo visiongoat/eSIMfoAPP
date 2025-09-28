@@ -691,21 +691,21 @@ export default function HomeScreen() {
     }
   }, [showPlanInfoModal]);
 
-  // Manage chat button position when checkout modal is open  
+  // Manage chat button position when plan is selected
   useEffect(() => {
-    if (showCheckoutModal) {
-      // Add class to body to signal checkout modal is open
-      document.body.classList.add('checkout-modal-open');
+    if (selectedGlobalPlan !== null || selectedEuropaPlan !== null) {
+      // Add class to body when any plan is selected
+      document.body.classList.add('plan-selected');
     } else {
-      // Remove class when modal closes
-      document.body.classList.remove('checkout-modal-open');
+      // Remove class when no plan is selected
+      document.body.classList.remove('plan-selected');
     }
     
     // Cleanup on unmount
     return () => {
-      document.body.classList.remove('checkout-modal-open');
+      document.body.classList.remove('plan-selected');
     };
-  }, [showCheckoutModal]);
+  }, [selectedGlobalPlan, selectedEuropaPlan]);
 
   // Store scroll position for How It Works modal
   const [howItWorksScrollY, setHowItWorksScrollY] = useState(0);
@@ -3045,7 +3045,6 @@ export default function HomeScreen() {
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedEuropaPlan(plan.id);
-                            setShowCheckoutModal(true);
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/40 active:scale-95 ml-2 cursor-pointer"
                         >
@@ -3280,7 +3279,6 @@ export default function HomeScreen() {
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedGlobalPlan(plan.id);
-                            setShowCheckoutModal(true);
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/40 active:scale-95 ml-2 cursor-pointer"
                         >
@@ -3328,7 +3326,6 @@ export default function HomeScreen() {
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedGlobalPlan(plan.id);
-                            setShowCheckoutModal(true);
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-amber-500/40 active:scale-95 ml-2 cursor-pointer hover:transform hover:scale-105"
                         >

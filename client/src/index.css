@@ -1425,9 +1425,9 @@
   transition: bottom 0.5s ease-in-out, z-index 0.3s ease-in-out;
 }
 
-/* When checkout modal is open, move chat button higher */
-body.checkout-modal-open .chat-button-container {
-  bottom: 22rem !important; /* Move above checkout modal */
+/* When plan is selected, move chat button higher */
+body.plan-selected .chat-button-container {
+  bottom: 22rem !important; /* Move above checkout section */
   z-index: 30 !important; /* Lower than modal but still visible */
 }
 
