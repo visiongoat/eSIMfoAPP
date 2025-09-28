@@ -691,7 +691,7 @@ export default function HomeScreen() {
     }
   }, [showPlanInfoModal]);
 
-  // Manage chat button position when checkout modal is open
+  // Manage chat button position when checkout modal is open  
   useEffect(() => {
     if (showCheckoutModal) {
       // Add class to body to signal checkout modal is open
@@ -3044,11 +3044,8 @@ export default function HomeScreen() {
                         <div 
                           onClick={(e) => {
                             e.stopPropagation();
-                            if (selectedEuropaPlan === plan.id) {
-                              setSelectedEuropaPlan(null);
-                            } else {
-                              setSelectedEuropaPlan(plan.id);
-                            }
+                            setSelectedEuropaPlan(plan.id);
+                            setShowCheckoutModal(true);
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/40 active:scale-95 ml-2 cursor-pointer"
                         >
@@ -3283,6 +3280,7 @@ export default function HomeScreen() {
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedGlobalPlan(plan.id);
+                            setShowCheckoutModal(true);
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/40 active:scale-95 ml-2 cursor-pointer"
                         >
@@ -3330,6 +3328,7 @@ export default function HomeScreen() {
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedGlobalPlan(plan.id);
+                            setShowCheckoutModal(true);
                           }}
                           className="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-xs font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-amber-500/40 active:scale-95 ml-2 cursor-pointer hover:transform hover:scale-105"
                         >
