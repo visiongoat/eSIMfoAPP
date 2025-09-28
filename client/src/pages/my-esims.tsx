@@ -886,13 +886,12 @@ export default function MyEsimsScreen() {
 
 
               {/* Stats Grid */}
-              <div className={`grid gap-3 text-center ${(selectedEsimForDetail.package?.smsIncluded || selectedEsimForDetail.package?.voiceIncluded) ? 'grid-cols-5' : 'grid-cols-3'}`}>
+              <div className="grid grid-cols-3 gap-3 text-center">
                 {(() => {
                   const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
                   const total = totalGB * 1000;
                   const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
                   const totalDays = parseInt(selectedEsimForDetail.package?.validity?.split(' ')[0] || '30');
-                  const isFullPlan = selectedEsimForDetail.package?.smsIncluded || selectedEsimForDetail.package?.voiceIncluded;
                   
                   return (
                     <>
@@ -916,30 +915,61 @@ export default function MyEsimsScreen() {
                         </div>
                         <div className="text-xs text-gray-600 dark:text-gray-400">Avg/Day</div>
                       </div>
-
-                      {/* SMS Usage for Full Plans */}
-                      {selectedEsimForDetail.package?.smsIncluded && (
-                        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3">
-                          <div className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
-                            {(selectedEsimForDetail.package.smsIncluded - (selectedEsimForDetail.smsUsed || 0))}
-                          </div>
-                          <div className="text-xs text-gray-600 dark:text-gray-400">SMS Left</div>
-                        </div>
-                      )}
-
-                      {/* Voice Usage for Full Plans */}
-                      {selectedEsimForDetail.package?.voiceIncluded && (
-                        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3">
-                          <div className="text-lg font-bold text-rose-600 dark:text-rose-400">
-                            {(selectedEsimForDetail.package.voiceIncluded - (selectedEsimForDetail.voiceUsed || 0))}
-                          </div>
-                          <div className="text-xs text-gray-600 dark:text-gray-400">Min Left</div>
-                        </div>
-                      )}
                     </>
                   );
                 })()}
               </div>
+
+              {/* SMS and Voice Usage for Full Plans - Linear Progress Bars */}
+              {(selectedEsimForDetail.package?.smsIncluded || selectedEsimForDetail.package?.voiceIncluded) && (
+                <div className="space-y-3 mt-4">
+                  {/* SMS Usage */}
+                  {selectedEsimForDetail.package?.smsIncluded && (
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600 dark:text-gray-400 flex items-center">
+                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                          </svg>
+                          {selectedEsimForDetail.smsUsed || 0} / {selectedEsimForDetail.package.smsIncluded} SMS
+                        </span>
+                        <span className="font-medium text-gray-900 dark:text-white">
+                          {Math.round(((selectedEsimForDetail.smsUsed || 0) / selectedEsimForDetail.package.smsIncluded) * 100)}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                        <div 
+                          className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-indigo-500 transition-all duration-500"
+                          style={{ width: `${Math.min(((selectedEsimForDetail.smsUsed || 0) / selectedEsimForDetail.package.smsIncluded) * 100, 100)}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Voice Usage */}
+                  {selectedEsimForDetail.package?.voiceIncluded && (
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600 dark:text-gray-400 flex items-center">
+                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                          </svg>
+                          {selectedEsimForDetail.voiceUsed || 0} / {selectedEsimForDetail.package.voiceIncluded} min
+                        </span>
+                        <span className="font-medium text-gray-900 dark:text-white">
+                          {Math.round(((selectedEsimForDetail.voiceUsed || 0) / selectedEsimForDetail.package.voiceIncluded) * 100)}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                        <div 
+                          className="h-full rounded-full bg-gradient-to-r from-rose-400 to-rose-500 transition-all duration-500"
+                          style={{ width: `${Math.min(((selectedEsimForDetail.voiceUsed || 0) / selectedEsimForDetail.package.voiceIncluded) * 100, 100)}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Action Buttons */}
               <div className="grid grid-cols-2 gap-3 pt-2">
