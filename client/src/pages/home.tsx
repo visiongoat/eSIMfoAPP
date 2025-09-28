@@ -524,14 +524,14 @@ export default function HomeScreen() {
   const [supportMessages, setSupportMessages] = useState([
     {
       id: 1,
-      text: 'Merhaba! eSIMfo canlı destek ekibine hoş geldiniz! 👋',
+      text: 'Hello! Welcome to eSIMfo live support team! 👋',
       isBot: false,
       isSupport: true,
       time: '18:30'
     },
     {
       id: 2,
-      text: 'Size nasıl yardımcı olabiliriz? Aşağıdaki seçeneklerden birini seçebilir veya doğrudan yazabilirsiniz.',
+      text: 'How can we help you? You can choose one of the options below or write directly.',
       isBot: false,
       isSupport: true,
       time: '18:30'
@@ -1193,6 +1193,7 @@ export default function HomeScreen() {
       id: supportMessages.length + 1,
       text: currentMessage,
       isBot: false,
+      isSupport: false,
       time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
     };
 
@@ -1202,10 +1203,10 @@ export default function HomeScreen() {
     // Simulate support team response after 2 seconds (more realistic for live support)
     setTimeout(() => {
       const supportResponses = [
-        'Destek talebinizi aldık, hemen kontrol ediyoruz. Birkaç saniye bekleyebilir misiniz?',
-        'Bu konuda size yardımcı olabiliriz. Lütfen sorununuzla ilgili biraz daha detay verebilir misiniz?',
-        'eSIMfo destek ekibi olarak size en kısa sürede dönüş yapacağız.',
-        'Anlıyorum, bu durumu çözmek için elimizden geleni yapalım. Size nasıl yardımcı olabiliriz?'
+        'We received your support request, checking it right away. Can you wait a few seconds?',
+        'We can help you with this. Could you please provide more details about your issue?',
+        'As eSIMfo support team, we will get back to you as soon as possible.',
+        'I understand, let\'s do our best to solve this situation. How can we help you?'
       ];
       
       const randomResponse = supportResponses[Math.floor(Math.random() * supportResponses.length)];
@@ -1238,11 +1239,11 @@ export default function HomeScreen() {
     setTimeout(() => {
       let response = '';
       if (message.includes('eSIM')) {
-        response = 'eSIM ile ilgili sorunuzu aldık. Hangi ülke eSIM\'i kullanıyorsunuz ve ne tür bir problem yaşıyorsunuz?';
+        response = 'We received your eSIM question. Which country eSIM are you using and what kind of problem are you experiencing?';
       } else if (message.includes('Activation')) {
-        response = 'Aktivasyon sorununuzu çözelim. eSIM QR kodunu taradınız mı? Hangi adımda problem yaşıyorsunuz?';
+        response = 'Let\'s solve your activation problem. Have you scanned the eSIM QR code? At which step are you experiencing the problem?';
       } else {
-        response = 'Merhaba! eSIMfo canlı destek ekibine bağlandınız. Size nasıl yardımcı olabiliriz?';
+        response = 'Hello! You are connected to eSIMfo live support team. How can we help you?';
       }
       
       const supportMessage = {
@@ -4248,7 +4249,7 @@ export default function HomeScreen() {
             {/* Quick Message Options */}
             {supportMessages.length <= 2 && (
               <div className="flex flex-col space-y-2 mt-4">
-                <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">Hızlı seçenekler:</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">Quick options:</p>
                 <button
                   onClick={() => handleQuickMessage('I need help with my eSIM')}
                   className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
