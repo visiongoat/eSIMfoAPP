@@ -936,11 +936,7 @@ export default function MyEsimsScreen() {
                 </button>
                 
                 <button
-                  onClick={() => {
-                    console.log('Top Up clicked, current selectedEsimForDetail:', selectedEsimForDetail);
-                    // Don't close the detail modal, just open checkout modal
-                    setShowTopUpCheckout(true);
-                  }}
+                  onClick={() => setShowTopUpCheckout(true)}
                   className="flex items-center justify-center space-x-2 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors text-sm"
                   data-testid="button-topup-esim"
                 >

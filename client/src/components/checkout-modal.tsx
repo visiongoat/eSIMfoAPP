@@ -96,6 +96,18 @@ export default function CheckoutModal({
   const basePrice = selectedPackage ? parseFloat(selectedPackage.price.replace('€', '')) : 0;
   const total = basePrice * esimCount;
   
+  // Extract renewal days from package duration/validity
+  const getRenewalDays = () => {
+    if (!selectedPackage) return 30;
+    
+    // Try to extract number from duration or validity field
+    const durationText = selectedPackage.duration || selectedPackage.validity || '30 days';
+    const match = durationText.match(/(\d+)/);
+    return match ? parseInt(match[1]) : 30;
+  };
+  
+  const renewalDays = getRenewalDays();
+  
   // Calculate bonus for balance top up
   const isBalanceTopUp = hideQuantitySelector;
   const bonus = isBalanceTopUp && basePrice >= 100 ? 5 : 0;
@@ -339,7 +351,7 @@ export default function CheckoutModal({
                       onClick={() => setShowAutoRenewalInfo(true)}
                     />
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Auto-renew in 30 days for €{total.toFixed(2)}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Auto-renew in {renewalDays} days for €{total.toFixed(2)}</p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
