@@ -88,7 +88,7 @@ function Router() {
       
       {/* Global Floating Chat Button - Airalo Style */}
       {showChatButton && (
-        <div className="fixed bottom-24 right-4 z-40">
+        <div className="fixed bottom-24 right-4 z-40 transition-all duration-500 ease-in-out chat-button-container">
           <button
             onClick={handleChatClick}
             className="group relative w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 ease-out flex items-center justify-center"

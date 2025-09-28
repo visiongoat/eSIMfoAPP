@@ -1419,3 +1419,13 @@
 .animate-morphing-glow {
   animation: morphing-glow 8s ease-in-out infinite;
 }
+
+/* Chat Button Dynamic Position */
+.chat-button-container {
+  transition: bottom 0.5s ease-in-out, z-index 0.3s ease-in-out;
+}
+
+body.checkout-modal-open .chat-button-container {
+  bottom: 20rem; /* Move above checkout modal */
+  z-index: 30; /* Lower than modal but still visible */
+}

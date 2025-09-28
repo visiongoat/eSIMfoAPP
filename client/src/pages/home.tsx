@@ -691,6 +691,22 @@ export default function HomeScreen() {
     }
   }, [showPlanInfoModal]);
 
+  // Manage chat button position when checkout modal is open
+  useEffect(() => {
+    if (showCheckoutModal) {
+      // Add class to body to signal checkout modal is open
+      document.body.classList.add('checkout-modal-open');
+    } else {
+      // Remove class when modal closes
+      document.body.classList.remove('checkout-modal-open');
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('checkout-modal-open');
+    };
+  }, [showCheckoutModal]);
+
   // Store scroll position for How It Works modal
   const [howItWorksScrollY, setHowItWorksScrollY] = useState(0);
 
