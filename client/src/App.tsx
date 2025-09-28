@@ -102,8 +102,6 @@ function Router() {
               <span className="text-xs font-bold text-white">2</span>
             </div>
             
-            {/* Pulse Ring Animation */}
-            <div className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-75"></div>
             
             {/* Shadow Enhancement */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-t from-blue-700/20 to-transparent"></div>
