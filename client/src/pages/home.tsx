@@ -519,6 +519,28 @@ export default function HomeScreen() {
   const [showLiveChat, setShowLiveChat] = useState(false);
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [showInAppSupport, setShowInAppSupport] = useState(false);
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [supportMessages, setSupportMessages] = useState([
+    {
+      id: 1,
+      text: 'Alo! Airalo ile iletişime geçtiğiniz için teşekkür ederiz!',
+      isBot: true,
+      time: '18:30'
+    },
+    {
+      id: 2,
+      text: 'Sizlere nasıl yardımcı olabiliriz?',
+      isBot: true,
+      time: '18:30'
+    },
+    {
+      id: 3,
+      text: '💬 Chatbot\'un yanıtları yalnızca bilgilendirme amaçlıdır; lütfen işlem yapmadan önce tüm ayrıntıları doğrulayın, çünkü chatbot şirket adına sözleşmeler yapamaz veya değiştiremez.',
+      isBot: true,
+      time: '18:30'
+    }
+  ]);
   const [showCompatibilityCheck, setShowCompatibilityCheck] = useState(false);
   const [compatibilityResult, setCompatibilityResult] = useState<{
     isCompatible: boolean;
@@ -835,6 +857,29 @@ export default function HomeScreen() {
     }
   }, [showQuickActions]);
 
+  // Prevent body scroll when In-App Support modal is open
+  useEffect(() => {
+    if (showInAppSupport) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollY}px`;
+      
+      // Cleanup function to restore scroll position
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [showInAppSupport]);
+
   // Touch event handlers for plan info modal swipe-down dismissal
   const handlePlanInfoModalTouchStart = (e: React.TouchEvent) => {
     const touch = e.touches[0];
@@ -1140,6 +1185,44 @@ export default function HomeScreen() {
     setIsQuickActionsDragging(false);
     setQuickActionsStartY(0);
     setQuickActionsCurrentY(0);
+  };
+
+  // Support message handler
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!currentMessage.trim()) return;
+
+    // Add user message
+    const userMessage = {
+      id: supportMessages.length + 1,
+      text: currentMessage,
+      isBot: false,
+      time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setSupportMessages(prev => [...prev, userMessage]);
+    setCurrentMessage('');
+
+    // Simulate bot response after 1 second
+    setTimeout(() => {
+      const botResponses = [
+        'Sorununuzu anlıyorum. Size nasıl yardımcı olabilirim?',
+        'Bu konuda size daha detaylı bilgi verebilirim.',
+        'Lütfen biraz bekleyin, bilgilerinizi kontrol ediyorum.',
+        'Başka bir sorunuz var mı? Size yardımcı olmaktan memnuniyet duyarım.'
+      ];
+      
+      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+      
+      const botMessage = {
+        id: supportMessages.length + 2,
+        text: randomResponse,
+        isBot: true,
+        time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+      };
+
+      setSupportMessages(prev => [...prev, botMessage]);
+    }, 1000);
   };
 
   // Touch event handlers for coverage modal swipe-down dismissal
@@ -3973,7 +4056,7 @@ export default function HomeScreen() {
         setEsimCount={setEsimCount}
       />
 
-      {/* Quick Actions Modal - Premium Machine Feel */}
+      {/* Chat Support Modal */}
       {showQuickActions && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]" 
@@ -4003,17 +4086,17 @@ export default function HomeScreen() {
 
             {/* Header */}
             <div className="px-6 pb-4">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Quick Actions</h2>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">Choose your eSIM category to get started</p>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">Get Support</h2>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">Choose your preferred channel to get help from the support team.</p>
             </div>
 
-            {/* Action Items */}
+            {/* Support Options */}
             <div className="px-6 pb-8 space-y-3">
-              {/* Local eSIMs */}
+              {/* In-app Chat */}
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setSelectedTab('local');
+                  setShowInAppSupport(true);
                 }}
                 className="w-full bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800/30 dark:hover:to-blue-700/30 rounded-2xl p-4 border border-blue-200 dark:border-blue-700 transition-all duration-200 group active:scale-[0.98]"
               >
@@ -4021,13 +4104,12 @@ export default function HomeScreen() {
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                       </svg>
                     </div>
                     <div className="text-left">
-                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Local eSIMs</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Perfect for single country travel</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Chat in the app</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Get instant help from our support team</p>
                     </div>
                   </div>
                   <svg className="w-5 h-5 text-blue-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -4036,24 +4118,24 @@ export default function HomeScreen() {
                 </div>
               </button>
 
-              {/* Regional eSIMs */}
+              {/* WhatsApp Support */}
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
-                  setSelectedTab('regional');
+                  window.open(`https://wa.me/436766440122`, '_blank');
                 }}
                 className="w-full bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 hover:from-green-100 hover:to-green-200 dark:hover:from-green-800/30 dark:hover:to-green-700/30 rounded-2xl p-4 border border-green-200 dark:border-green-700 transition-all duration-200 group active:scale-[0.98]"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488z"/>
                       </svg>
                     </div>
                     <div className="text-left">
-                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Regional eSIMs</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Great for multi-country trips</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">WhatsApp</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm">Contact us directly on WhatsApp</p>
                     </div>
                   </div>
                   <svg className="w-5 h-5 text-green-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -4061,33 +4143,114 @@ export default function HomeScreen() {
                   </svg>
                 </div>
               </button>
+            </div>
 
-              {/* Global eSIMs */}
+            {/* Cancel Button */}
+            <div className="px-6 pb-6">
               <button 
-                onClick={() => {
-                  setShowQuickActions(false);
-                  setSelectedTab('global');
-                }}
-                className="w-full bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 hover:from-purple-100 hover:to-purple-200 dark:hover:from-purple-800/30 dark:hover:to-purple-700/30 rounded-2xl p-4 border border-purple-200 dark:border-purple-700 transition-all duration-200 group active:scale-[0.98]"
+                onClick={() => setShowQuickActions(false)}
+                className="w-full py-3 text-gray-600 dark:text-gray-400 font-semibold rounded-xl transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div className="text-left">
-                      <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Global eSIMs</h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">Worldwide coverage plans</p>
-                    </div>
-                  </div>
-                  <svg className="w-5 h-5 text-purple-500 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+                CANCEL
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* In-App Support Screen - Airalo Style */}
+      {showInAppSupport && (
+        <div className="fixed inset-0 bg-white dark:bg-gray-900 z-[9999] flex flex-col">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 flex items-center justify-between">
+            <h1 className="text-lg font-semibold">Airalo</h1>
+            <button
+              onClick={() => setShowInAppSupport(false)}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Date Header */}
+          <div className="text-center py-3 bg-gray-50 dark:bg-gray-800">
+            <span className="text-sm text-gray-600 dark:text-gray-400">27 Eylül 18:30</span>
+          </div>
+
+          {/* Messages Area */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-100 dark:bg-gray-800">
+            {supportMessages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
+              >
+                <div className="flex items-start space-x-2 max-w-xs">
+                  {message.isBot && (
+                    <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-white text-xs font-semibold">Bot</span>
+                    </div>
+                  )}
+                  
+                  <div className="space-y-1">
+                    <div 
+                      className={`px-4 py-3 rounded-2xl ${
+                        message.isBot 
+                          ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-md' 
+                          : 'bg-blue-500 text-white rounded-br-md'
+                      }`}
+                    >
+                      <p className="text-sm leading-relaxed">{message.text}</p>
+                    </div>
+                    <div className={`text-xs text-gray-500 dark:text-gray-400 ${message.isBot ? 'text-left' : 'text-right'}`}>
+                      {message.time}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Message Input */}
+          <div className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4">
+            <form onSubmit={handleSendMessage} className="flex items-center space-x-3">
+              {/* Attachment Button */}
+              <button
+                type="button"
+                className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                </svg>
+              </button>
+
+              {/* Text Input */}
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  placeholder="Mesaj yazın"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+
+              {/* Send Button */}
+              <button
+                type="submit"
+                disabled={!currentMessage.trim()}
+                className={`p-3 rounded-full transition-colors ${
+                  currentMessage.trim()
+                    ? 'bg-blue-500 hover:bg-blue-600 text-white' 
+                    : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+              </button>
+            </form>
           </div>
         </div>
       )}
