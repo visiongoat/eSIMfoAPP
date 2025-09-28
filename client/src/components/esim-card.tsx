@@ -3,12 +3,12 @@ import { Esim } from "@shared/schema";
 interface EsimCardProps {
   esim: Esim & {
     country?: { name: string; flagUrl: string };
-    package?: { name: string; data: string; duration: string; price: string };
+    package?: { name: string; data: string; validity: string; price: string };
   };
   onViewQR?: (esim: Esim) => void;
   onReorder?: (esim: Esim) => void;
   onShare?: (esim: Esim) => void;
-  onClick?: (esim: Esim & { country?: { name: string; flagUrl: string }; package?: { name: string; data: string; duration: string; price: string } }) => void;
+  onClick?: (esim: Esim & { country?: { name: string; flagUrl: string }; package?: { name: string; data: string; validity: string; price: string } }) => void;
 }
 
 export default function EsimCard({ esim, onViewQR, onReorder, onShare, onClick }: EsimCardProps) {
