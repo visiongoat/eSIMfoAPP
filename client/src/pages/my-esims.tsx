@@ -777,7 +777,7 @@ export default function MyEsimsScreen() {
                               '--target-offset': `${strokeDashoffset}px`,
                               strokeDashoffset: circumference,
                               animation: `fillProgress 2s ease-out 0.3s forwards`
-                            }}
+                            } as React.CSSProperties}
                           />
                           
 
@@ -800,7 +800,7 @@ export default function MyEsimsScreen() {
                 {/* Days Remaining Circle - Enhanced */}
                 <div className="text-center relative">
                   {(() => {
-                    const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
+                    const totalDays = parseInt(selectedEsimForDetail.package?.validity?.split(' ')[0] || '30');
                     const daysUsed = Math.min(Math.floor(totalDays * 0.4), totalDays); // Mock: 40% used
                     const daysRemaining = totalDays - daysUsed;
                     const daysPercentage = (daysUsed / totalDays) * 100;
@@ -856,7 +856,7 @@ export default function MyEsimsScreen() {
                               '--target-offset': `${strokeDashoffset}px`,
                               strokeDashoffset: circumference,
                               animation: `fillProgress 2s ease-out 0.5s forwards`
-                            }}
+                            } as React.CSSProperties}
                           />
                           
 
@@ -891,7 +891,7 @@ export default function MyEsimsScreen() {
                   const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
                   const total = totalGB * 1000;
                   const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
-                  const totalDays = parseInt(selectedEsimForDetail.package?.duration?.split(' ')[0] || '30');
+                  const totalDays = parseInt(selectedEsimForDetail.package?.validity?.split(' ')[0] || '30');
                   
                   return (
                     <>
@@ -953,11 +953,14 @@ export default function MyEsimsScreen() {
       )}
 
       {/* Top Up Checkout Modal */}
-      {showTopUpCheckout && selectedEsimForDetail && (
+      {showTopUpCheckout && selectedEsimForDetail && selectedEsimForDetail.package && (
         <CheckoutModal
           isOpen={showTopUpCheckout}
           onClose={() => setShowTopUpCheckout(false)}
-          selectedPackage={selectedEsimForDetail.package}
+          selectedPackage={{
+            ...selectedEsimForDetail.package,
+            duration: selectedEsimForDetail.package.validity
+          }}
           country={selectedEsimForDetail.country}
           esimCount={topUpEsimCount}
           setEsimCount={setTopUpEsimCount}
