@@ -2661,7 +2661,7 @@ export default function HomeScreen() {
             </svg>
           </div>
           
-          <span className="text-gray-500 dark:text-gray-400 text-base font-medium flex-1">
+          <span className="text-gray-500 dark:text-gray-400 text-base font-medium flex-1 whitespace-nowrap overflow-hidden text-ellipsis">
             {placeholderText || "Search destinations..."}
           </span>
           
