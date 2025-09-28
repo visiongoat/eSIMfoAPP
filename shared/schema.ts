@@ -44,6 +44,8 @@ export const packages = pgTable("packages", {
   features: text("features").array(), // Array of feature strings
   isPopular: boolean("is_popular").default(false),
   networkType: text("network_type").notNull(), // 4G/5G
+  smsIncluded: integer("sms_included"), // Number of SMS included (null for data-only)
+  voiceIncluded: integer("voice_included"), // Voice minutes included (null for data-only)
 });
 
 export const esims = pgTable("esims", {
@@ -53,6 +55,8 @@ export const esims = pgTable("esims", {
   qrCode: text("qr_code").notNull(),
   status: text("status").notNull(), // Active, Expired, Ready
   dataUsed: decimal("data_used", { precision: 10, scale: 2 }).default("0"),
+  smsUsed: integer("sms_used").default(0), // SMS messages used
+  voiceUsed: integer("voice_used").default(0), // Voice minutes used (in minutes)
   expiresAt: timestamp("expires_at").notNull(),
   activatedAt: timestamp("activated_at"),
   createdAt: timestamp("created_at").defaultNow(),

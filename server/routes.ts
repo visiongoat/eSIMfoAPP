@@ -289,6 +289,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             case 4: return { name: "5GB / 30 Days", data: "5GB", duration: "30 days", price: "€24.99", discount: "-50%" }; // Spain - fourth purchase
             case 5: return { name: "3GB / 15 Days", data: "3GB", duration: "15 days", price: "€16.99", discount: "-43%" }; // France - fifth purchase
             case 6: return { name: "2GB / 20 Days", data: "2GB", duration: "20 days", price: "€14.99", discount: "-40%" }; // Italy - sixth purchase (newest)
+            case 9: return { name: "Discover+ USA", data: "2GB", duration: "30 days", price: "€39.99", discount: "-25%", smsIncluded: 100, voiceIncluded: 100 }; // US Full Plan
+            case 10: return { name: "Europa Connect+", data: "3GB", duration: "15 days", price: "€34.99", discount: "-30%", smsIncluded: 50, voiceIncluded: 60 }; // Europe Full Plan
             default: return null;
           }
         })();
@@ -301,6 +303,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             case 4: return { name: "Spain", code: "ES", flagUrl: "https://flagcdn.com/w40/es.png" }; // Fourth purchase
             case 5: return { name: "France", code: "FR", flagUrl: "https://flagcdn.com/w40/fr.png" }; // Fifth purchase
             case 6: return { name: "Italy", code: "IT", flagUrl: "https://flagcdn.com/w40/it.png" }; // Sixth purchase (newest)
+            case 9: return { name: "United States", code: "US", flagUrl: "https://flagcdn.com/w40/us.png" }; // US Full Plan
+            case 10: return { name: "Netherlands", code: "NL", flagUrl: "https://flagcdn.com/w40/nl.png" }; // Europe Full Plan
             default: return null;
           }
         })();

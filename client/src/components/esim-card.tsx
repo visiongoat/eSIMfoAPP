@@ -1,14 +1,14 @@
-import { Esim } from "@shared/schema";
+import type { Esim, Package, Country } from "@shared/schema";
 
 interface EsimCardProps {
   esim: Esim & {
-    country?: { name: string; flagUrl: string };
-    package?: { name: string; data: string; validity: string; price: string };
+    country?: Country;
+    package?: Package;
   };
   onViewQR?: (esim: Esim) => void;
   onReorder?: (esim: Esim) => void;
   onShare?: (esim: Esim) => void;
-  onClick?: (esim: Esim & { country?: { name: string; flagUrl: string }; package?: { name: string; data: string; validity: string; price: string } }) => void;
+  onClick?: (esim: Esim & { country?: Country; package?: Package }) => void;
 }
 
 export default function EsimCard({ esim, onViewQR, onReorder, onShare, onClick }: EsimCardProps) {
@@ -66,45 +66,99 @@ export default function EsimCard({ esim, onViewQR, onReorder, onShare, onClick }
 
         {/* Progress Bar for Active eSIMs */}
         {esim.status === 'Active' && (
-          <div className="space-y-1">
-            <div className="flex justify-between text-xs">
-              <span className="text-gray-600 dark:text-gray-400 flex items-center">
-                <svg className="w-3 h-3 mr-1 data-icon transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                </svg>
-                {esim.dataUsed}MB used of {esim.package?.data}
-              </span>
-              <span className={`font-medium ${calculateUsagePercentage() >= 80 ? 'text-orange-600 dark:text-orange-400' : 'text-gray-900 dark:text-white'}`}>
-                {Math.round(calculateUsagePercentage())}%
-                {calculateUsagePercentage() >= 80 && (
-                  <span className="ml-1 text-orange-500">⚠️</span>
-                )}
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 group-hover:h-2.5 transition-all duration-300 relative">
-              <div 
-                className={`h-full rounded-full transition-all duration-500 group-hover:shadow-glow relative ${
-                  calculateUsagePercentage() >= 80 ? 'bg-gradient-to-r from-red-400 to-red-500 group-hover:from-red-300 group-hover:to-red-400' : 
-                  calculateUsagePercentage() >= 60 ? 'bg-gradient-to-r from-yellow-400 to-orange-400 group-hover:from-yellow-300 group-hover:to-orange-300' : 'bg-gradient-to-r from-green-400 to-emerald-400 group-hover:from-green-300 group-hover:to-emerald-300'
-                }`}
-                style={{ width: `${Math.min(calculateUsagePercentage(), 100)}%` }}
-              >
-                {/* Progress indicator dot */}
-                {calculateUsagePercentage() > 0 && (
-                  <div 
-                    className={`absolute w-4 h-4 rounded-full border-2 border-white dark:border-gray-800 group-hover:w-5 group-hover:h-5 group-hover:-translate-y-0.5 transition-all duration-300 ${
-                      calculateUsagePercentage() >= 80 ? 'bg-red-500' : 
-                      calculateUsagePercentage() >= 60 ? 'bg-orange-500' : 'bg-green-500'
-                    }`}
-                    style={{ 
-                      animation: 'progress-breathe 3s ease-in-out infinite',
-                      right: '-8px',
-                      top: '-4px'
-                    }}
-                  ></div>
-                )}
+          <div className="space-y-2">
+            {/* Data Usage */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs">
+                <span className="text-gray-600 dark:text-gray-400 flex items-center">
+                  <svg className="w-3 h-3 mr-1 data-icon transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                  </svg>
+                  {esim.dataUsed}MB used of {esim.package?.data}
+                </span>
+                <span className={`font-medium ${calculateUsagePercentage() >= 80 ? 'text-orange-600 dark:text-orange-400' : 'text-gray-900 dark:text-white'}`}>
+                  {Math.round(calculateUsagePercentage())}%
+                  {calculateUsagePercentage() >= 80 && (
+                    <span className="ml-1 text-orange-500">⚠️</span>
+                  )}
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 group-hover:h-2.5 transition-all duration-300 relative">
+                <div 
+                  className={`h-full rounded-full transition-all duration-500 group-hover:shadow-glow relative ${
+                    calculateUsagePercentage() >= 80 ? 'bg-gradient-to-r from-red-400 to-red-500 group-hover:from-red-300 group-hover:to-red-400' : 
+                    calculateUsagePercentage() >= 60 ? 'bg-gradient-to-r from-yellow-400 to-orange-400 group-hover:from-yellow-300 group-hover:to-orange-300' : 'bg-gradient-to-r from-green-400 to-emerald-400 group-hover:from-green-300 group-hover:to-emerald-300'
+                  }`}
+                  style={{ width: `${Math.min(calculateUsagePercentage(), 100)}%` }}
+                >
+                  {/* Progress indicator dot */}
+                  {calculateUsagePercentage() > 0 && (
+                    <div 
+                      className={`absolute w-4 h-4 rounded-full border-2 border-white dark:border-gray-800 group-hover:w-5 group-hover:h-5 group-hover:-translate-y-0.5 transition-all duration-300 ${
+                        calculateUsagePercentage() >= 80 ? 'bg-red-500' : 
+                        calculateUsagePercentage() >= 60 ? 'bg-orange-500' : 'bg-green-500'
+                      }`}
+                      style={{ 
+                        animation: 'progress-breathe 3s ease-in-out infinite',
+                        right: '-8px',
+                        top: '-4px'
+                      }}
+                    ></div>
+                  )}
+                </div>
               </div>
             </div>
+
+            {/* SMS and Voice Usage for Full Plans */}
+            {(esim.package?.smsIncluded || esim.package?.voiceIncluded) && (
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                {/* SMS Usage */}
+                {esim.package?.smsIncluded && (
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400 flex items-center">
+                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        {esim.smsUsed || 0} / {esim.package.smsIncluded} SMS
+                      </span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">
+                        {Math.round(((esim.smsUsed || 0) / esim.package.smsIncluded) * 100)}%
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                      <div 
+                        className="h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-500"
+                        style={{ width: `${Math.min(((esim.smsUsed || 0) / esim.package.smsIncluded) * 100, 100)}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Voice Usage */}
+                {esim.package?.voiceIncluded && (
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400 flex items-center">
+                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        {esim.voiceUsed || 0} / {esim.package.voiceIncluded} min
+                      </span>
+                      <span className="font-medium text-gray-700 dark:text-gray-300">
+                        {Math.round(((esim.voiceUsed || 0) / esim.package.voiceIncluded) * 100)}%
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                      <div 
+                        className="h-full rounded-full bg-gradient-to-r from-purple-400 to-purple-500"
+                        style={{ width: `${Math.min(((esim.voiceUsed || 0) / esim.package.voiceIncluded) * 100, 100)}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
         

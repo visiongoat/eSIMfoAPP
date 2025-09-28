@@ -313,6 +313,32 @@ export class MemStorage implements IStorage {
         expiresAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000), // 90 days from now
         activatedAt: null, // Not activated yet
         createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) // 1 day ago
+      },
+      {
+        id: this.currentEsimId++, // ID 9 - Full Plan US (Active with voice & SMS)
+        userId: 1,
+        packageId: 16, // US Full Plan package
+        qrCode: "QR_CODE_US_FULL_PLAN",
+        status: "Active",
+        dataUsed: "1200", // 1.2GB used of 2GB
+        smsUsed: 15, // 15 SMS used of 100 SMS
+        voiceUsed: 45, // 45 minutes used of 100 minutes
+        expiresAt: new Date(Date.now() + 18 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000 + 22 * 60 * 1000), // 18 days from now at 14:22
+        activatedAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000), // 12 days ago
+        createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000)
+      },
+      {
+        id: this.currentEsimId++, // ID 10 - Full Plan Europe (Active with voice & SMS)
+        userId: 1,
+        packageId: 17, // Europe Full Plan package
+        qrCode: "QR_CODE_EUROPE_FULL_PLAN",
+        status: "Active",
+        dataUsed: "850", // 850MB used of 3GB
+        smsUsed: 8, // 8 SMS used of 50 SMS
+        voiceUsed: 28, // 28 minutes used of 60 minutes
+        expiresAt: new Date(Date.now() + 9 * 24 * 60 * 60 * 1000 + 10 * 60 * 60 * 1000 + 45 * 60 * 1000), // 9 days from now at 10:45
+        activatedAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), // 6 days ago
+        createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000)
       }
     ];
     
