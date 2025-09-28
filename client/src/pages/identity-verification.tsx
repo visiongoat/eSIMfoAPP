@@ -213,7 +213,11 @@ export default function IdentityVerification() {
 
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
                 By continuing the identity verification process, you agree to the{' '}
-                <button className="text-blue-600 dark:text-blue-400 underline">
+                <button 
+                  onClick={() => window.open('https://www.jumio.com/privacy-center/privacy-notices/online-services-notice/', '_blank')}
+                  className="text-blue-600 dark:text-blue-400 underline hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                  data-testid="link-privacy-policy"
+                >
                   provider's privacy policy
                 </button>.
               </p>
