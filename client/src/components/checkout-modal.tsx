@@ -151,12 +151,18 @@ export default function CheckoutModal({
 
   // Touch event handlers for swipe-down dismissal
   const handleTouchStart = (e: React.TouchEvent) => {
-    // Only allow swipe if modal is not scrolled
+    // Only allow swipe if modal is not scrolled and not at the top handle area
     if (modalRef.current && modalRef.current.scrollTop > 0) {
       return;
     }
     
+    // Only enable swipe on the handle area (first 50px from top)
+    const rect = modalRef.current?.getBoundingClientRect();
     const touch = e.touches[0];
+    if (rect && touch.clientY - rect.top > 50) {
+      return; // Don't enable swipe if touching below handle area
+    }
+    
     setStartY(touch.clientY);
     setCurrentY(touch.clientY);
     setIsDragging(true);
@@ -186,8 +192,8 @@ export default function CheckoutModal({
     
     const deltaY = currentY - startY;
     
-    // If swiped down more than 100px, close modal
-    if (deltaY > 100 && modalRef.current) {
+    // If swiped down more than 200px, close modal (increased threshold)
+    if (deltaY > 200 && modalRef.current) {
       // Animate out
       modalRef.current.style.transform = 'translateY(100%)';
       modalRef.current.style.opacity = '0';
