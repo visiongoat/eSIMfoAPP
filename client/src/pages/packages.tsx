@@ -962,7 +962,10 @@ Visit esimfo.com for global eSIM solutions!`;
 
           {/* Device Compatibility Row */}
           <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-600 dark:text-gray-400">Is this device compatible?</span>
+            <div className="flex items-center space-x-1.5 text-gray-600 dark:text-gray-400">
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Is this device compatible?</span>
+            </div>
             <div className="flex items-center">
               {compatibilityResult ? (
                 <div className={`flex items-center space-x-1 px-2 py-0.5 rounded-full text-xs font-medium ${
