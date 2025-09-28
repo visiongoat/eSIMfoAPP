@@ -524,20 +524,16 @@ export default function HomeScreen() {
   const [supportMessages, setSupportMessages] = useState([
     {
       id: 1,
-      text: 'Alo! Airalo ile iletişime geçtiğiniz için teşekkür ederiz!',
-      isBot: true,
+      text: 'Merhaba! eSIMfo canlı destek ekibine hoş geldiniz! 👋',
+      isBot: false,
+      isSupport: true,
       time: '18:30'
     },
     {
       id: 2,
-      text: 'Sizlere nasıl yardımcı olabiliriz?',
-      isBot: true,
-      time: '18:30'
-    },
-    {
-      id: 3,
-      text: '💬 Chatbot\'un yanıtları yalnızca bilgilendirme amaçlıdır; lütfen işlem yapmadan önce tüm ayrıntıları doğrulayın, çünkü chatbot şirket adına sözleşmeler yapamaz veya değiştiremez.',
-      isBot: true,
+      text: 'Size nasıl yardımcı olabiliriz? Aşağıdaki seçeneklerden birini seçebilir veya doğrudan yazabilirsiniz.',
+      isBot: false,
+      isSupport: true,
       time: '18:30'
     }
   ]);
@@ -1203,26 +1199,62 @@ export default function HomeScreen() {
     setSupportMessages(prev => [...prev, userMessage]);
     setCurrentMessage('');
 
-    // Simulate bot response after 1 second
+    // Simulate support team response after 2 seconds (more realistic for live support)
     setTimeout(() => {
-      const botResponses = [
-        'Sorununuzu anlıyorum. Size nasıl yardımcı olabilirim?',
-        'Bu konuda size daha detaylı bilgi verebilirim.',
-        'Lütfen biraz bekleyin, bilgilerinizi kontrol ediyorum.',
-        'Başka bir sorunuz var mı? Size yardımcı olmaktan memnuniyet duyarım.'
+      const supportResponses = [
+        'Destek talebinizi aldık, hemen kontrol ediyoruz. Birkaç saniye bekleyebilir misiniz?',
+        'Bu konuda size yardımcı olabiliriz. Lütfen sorununuzla ilgili biraz daha detay verebilir misiniz?',
+        'eSIMfo destek ekibi olarak size en kısa sürede dönüş yapacağız.',
+        'Anlıyorum, bu durumu çözmek için elimizden geleni yapalım. Size nasıl yardımcı olabiliriz?'
       ];
       
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+      const randomResponse = supportResponses[Math.floor(Math.random() * supportResponses.length)];
       
-      const botMessage = {
+      const supportMessage = {
         id: supportMessages.length + 2,
         text: randomResponse,
-        isBot: true,
+        isBot: false,
+        isSupport: true,
         time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
       };
 
-      setSupportMessages(prev => [...prev, botMessage]);
-    }, 1000);
+      setSupportMessages(prev => [...prev, supportMessage]);
+    }, 2000);
+  };
+
+  // Quick message handler for predefined messages
+  const handleQuickMessage = (message: string) => {
+    const userMessage = {
+      id: supportMessages.length + 1,
+      text: message,
+      isBot: false,
+      isSupport: false,
+      time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setSupportMessages(prev => [...prev, userMessage]);
+
+    // Support team response after 1.5 seconds
+    setTimeout(() => {
+      let response = '';
+      if (message.includes('eSIM')) {
+        response = 'eSIM ile ilgili sorunuzu aldık. Hangi ülke eSIM\'i kullanıyorsunuz ve ne tür bir problem yaşıyorsunuz?';
+      } else if (message.includes('Activation')) {
+        response = 'Aktivasyon sorununuzu çözelim. eSIM QR kodunu taradınız mı? Hangi adımda problem yaşıyorsunuz?';
+      } else {
+        response = 'Merhaba! eSIMfo canlı destek ekibine bağlandınız. Size nasıl yardımcı olabiliriz?';
+      }
+      
+      const supportMessage = {
+        id: supportMessages.length + 2,
+        text: response,
+        isBot: false,
+        isSupport: true,
+        time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+      };
+
+      setSupportMessages(prev => [...prev, supportMessage]);
+    }, 1500);
   };
 
   // Touch event handlers for coverage modal swipe-down dismissal
@@ -4158,12 +4190,12 @@ export default function HomeScreen() {
         </div>
       )}
 
-      {/* In-App Support Screen - Airalo Style */}
+      {/* In-App Support Screen - eSIMfo Style */}
       {showInAppSupport && (
         <div className="fixed inset-0 bg-white dark:bg-gray-900 z-[9999] flex flex-col">
           {/* Header */}
-          <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 flex items-center justify-between">
-            <h1 className="text-lg font-semibold">Airalo</h1>
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 flex items-center justify-between">
+            <h1 className="text-lg font-semibold">eSIMfo</h1>
             <button
               onClick={() => setShowInAppSupport(false)}
               className="p-2 hover:bg-white/10 rounded-lg transition-colors"
@@ -4184,32 +4216,59 @@ export default function HomeScreen() {
             {supportMessages.map((message) => (
               <div
                 key={message.id}
-                className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
+                className={`flex ${message.isSupport ? 'justify-start' : 'justify-end'}`}
               >
                 <div className="flex items-start space-x-2 max-w-xs">
-                  {message.isBot && (
-                    <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-white text-xs font-semibold">Bot</span>
+                  {message.isSupport && (
+                    <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
                     </div>
                   )}
                   
                   <div className="space-y-1">
                     <div 
                       className={`px-4 py-3 rounded-2xl ${
-                        message.isBot 
+                        message.isSupport 
                           ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-md' 
                           : 'bg-blue-500 text-white rounded-br-md'
                       }`}
                     >
                       <p className="text-sm leading-relaxed">{message.text}</p>
                     </div>
-                    <div className={`text-xs text-gray-500 dark:text-gray-400 ${message.isBot ? 'text-left' : 'text-right'}`}>
+                    <div className={`text-xs text-gray-500 dark:text-gray-400 ${message.isSupport ? 'text-left' : 'text-right'}`}>
                       {message.time}
                     </div>
                   </div>
                 </div>
               </div>
             ))}
+
+            {/* Quick Message Options */}
+            {supportMessages.length <= 2 && (
+              <div className="flex flex-col space-y-2 mt-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">Hızlı seçenekler:</p>
+                <button
+                  onClick={() => handleQuickMessage('I need help with my eSIM')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">I need help with my eSIM</span>
+                </button>
+                <button
+                  onClick={() => handleQuickMessage('Activation problem')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">Activation problem</span>
+                </button>
+                <button
+                  onClick={() => handleQuickMessage('Talk to support')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">Talk to support</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Message Input */}
