@@ -90,7 +90,6 @@ export default function MyEsimsScreen() {
   };
 
   const handleEsimCardClick = (esim: Esim & { package?: Package; country?: Country }) => {
-    console.log('🐛 eSIM card clicked:', esim);
     // If eSIM is Ready, navigate to QR page directly
     if (esim.status === 'Ready') {
       setLocation(`/qr/${esim.id}`);
@@ -938,11 +937,11 @@ export default function MyEsimsScreen() {
                 
                 <button
                   onClick={() => {
-                    console.log('🐛 Top Up button clicked for eSIM:', selectedEsimForDetail);
-                    console.log('🐛 Package data:', selectedEsimForDetail?.package);
                     closeModal();
-                    setShowTopUpCheckout(true);
-                    console.log('🐛 showTopUpCheckout set to true');
+                    // Small delay to let detail modal close cleanly before opening checkout
+                    setTimeout(() => {
+                      setShowTopUpCheckout(true);
+                    }, 300);
                   }}
                   className="flex items-center justify-center space-x-2 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors text-sm"
                   data-testid="button-topup-esim"
@@ -957,36 +956,25 @@ export default function MyEsimsScreen() {
       )}
 
       {/* Top Up Checkout Modal */}
-      {showTopUpCheckout && selectedEsimForDetail && selectedEsimForDetail.package && (() => {
-        console.log('🐛 Rendering Top Up CheckoutModal with:', {
-          showTopUpCheckout,
-          selectedEsimForDetail: selectedEsimForDetail,
-          package: selectedEsimForDetail.package
-        });
-        return (
-          <CheckoutModal
-            isOpen={showTopUpCheckout}
-            onClose={() => {
-              console.log('🐛 CheckoutModal onClose called');
-              setShowTopUpCheckout(false);
-            }}
-            selectedPackage={{
-              ...selectedEsimForDetail.package,
-              duration: selectedEsimForDetail.package.validity,
-              price: selectedEsimForDetail.package.price.toString()
-            }}
-            country={selectedEsimForDetail.country}
-            esimCount={topUpEsimCount}
-            setEsimCount={setTopUpEsimCount}
-            onComplete={() => {
-              console.log('🐛 CheckoutModal onComplete called');
-              setShowTopUpCheckout(false);
-              // Could add success toast here
-            }}
-            hideQuantitySelector={true}
-          />
-        );
-      })()}
+      {showTopUpCheckout && selectedEsimForDetail && selectedEsimForDetail.package && (
+        <CheckoutModal
+          isOpen={showTopUpCheckout}
+          onClose={() => setShowTopUpCheckout(false)}
+          selectedPackage={{
+            ...selectedEsimForDetail.package,
+            duration: selectedEsimForDetail.package.validity,
+            price: selectedEsimForDetail.package.price.toString()
+          }}
+          country={selectedEsimForDetail.country}
+          esimCount={topUpEsimCount}
+          setEsimCount={setTopUpEsimCount}
+          onComplete={() => {
+            setShowTopUpCheckout(false);
+            // Could add success toast here
+          }}
+          hideQuantitySelector={true}
+        />
+      )}
 
       {/* Share Modal */}
       {showShareModal && selectedEsim && (
