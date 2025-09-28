@@ -886,12 +886,13 @@ export default function MyEsimsScreen() {
 
 
               {/* Stats Grid */}
-              <div className="grid grid-cols-3 gap-3 text-center">
+              <div className={`grid gap-3 text-center ${(selectedEsimForDetail.package?.smsIncluded || selectedEsimForDetail.package?.voiceIncluded) ? 'grid-cols-5' : 'grid-cols-3'}`}>
                 {(() => {
                   const totalGB = parseFloat(selectedEsimForDetail.package?.data?.replace('GB', '') || '5');
                   const total = totalGB * 1000;
                   const used = parseFloat(selectedEsimForDetail.dataUsed || '0');
                   const totalDays = parseInt(selectedEsimForDetail.package?.validity?.split(' ')[0] || '30');
+                  const isFullPlan = selectedEsimForDetail.package?.smsIncluded || selectedEsimForDetail.package?.voiceIncluded;
                   
                   return (
                     <>
@@ -915,6 +916,26 @@ export default function MyEsimsScreen() {
                         </div>
                         <div className="text-xs text-gray-600 dark:text-gray-400">Avg/Day</div>
                       </div>
+
+                      {/* SMS Usage for Full Plans */}
+                      {selectedEsimForDetail.package?.smsIncluded && (
+                        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3">
+                          <div className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
+                            {(selectedEsimForDetail.package.smsIncluded - (selectedEsimForDetail.smsUsed || 0))}
+                          </div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400">SMS Left</div>
+                        </div>
+                      )}
+
+                      {/* Voice Usage for Full Plans */}
+                      {selectedEsimForDetail.package?.voiceIncluded && (
+                        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3">
+                          <div className="text-lg font-bold text-rose-600 dark:text-rose-400">
+                            {(selectedEsimForDetail.package.voiceIncluded - (selectedEsimForDetail.voiceUsed || 0))}
+                          </div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400">Min Left</div>
+                        </div>
+                      )}
                     </>
                   );
                 })()}
