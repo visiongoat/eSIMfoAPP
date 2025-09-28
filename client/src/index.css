@@ -1427,7 +1427,7 @@
 
 /* When plan is selected, move chat button higher */
 body.plan-selected .chat-button-container {
-  bottom: 22rem !important; /* Move above checkout section */
+  bottom: 12rem !important; /* Move slightly above checkout section */
   z-index: 30 !important; /* Lower than modal but still visible */
 }
 
