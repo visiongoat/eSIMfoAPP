@@ -134,7 +134,11 @@ export default function IdentityVerification() {
               <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                 eSIMfo works with third-party services that maintain the highest levels of compliance and encryption when 
                 processing your data. To learn more about eKYC and our identity verification providers, go to our{' '}
-                <button className="text-blue-600 dark:text-blue-400 underline">
+                <button 
+                  onClick={() => window.open('https://esimfo.com/help-center', '_blank')}
+                  className="text-blue-600 dark:text-blue-400 underline hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                  data-testid="link-help-center"
+                >
                   help center
                 </button>.
               </p>
