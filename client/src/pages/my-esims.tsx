@@ -1,11 +1,13 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
+import { Plus } from "lucide-react";
 
 import NavigationBar from "@/components/navigation-bar";
 import TabBar from "@/components/tab-bar";
 import EsimCard from "@/components/esim-card";
 import EsimfoLogo from "@/components/esimfo-logo";
+import CheckoutModal from "@/components/checkout-modal";
 import type { Esim, Package, Country } from "@shared/schema";
 
 type FilterType = 'all' | 'active' | 'expired' | 'ready';
@@ -15,6 +17,8 @@ export default function MyEsimsScreen() {
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [selectedEsim, setSelectedEsim] = useState<Esim | null>(null);
+  const [showTopUpCheckout, setShowTopUpCheckout] = useState(false);
+  const [topUpEsimCount, setTopUpEsimCount] = useState(1);
   const [showEsimDetailModal, setShowEsimDetailModal] = useState(false);
   const [selectedEsimForDetail, setSelectedEsimForDetail] = useState<(Esim & { package?: Package; country?: Country }) | null>(null);
 
@@ -934,19 +938,35 @@ export default function MyEsimsScreen() {
                 <button
                   onClick={() => {
                     closeModal();
-                    handleShareEsim(selectedEsimForDetail);
+                    setShowTopUpCheckout(true);
                   }}
-                  className="flex items-center justify-center space-x-2 py-2.5 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-xl transition-colors text-sm"
+                  className="flex items-center justify-center space-x-2 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors text-sm"
+                  data-testid="button-topup-esim"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-                  </svg>
-                  <span>Share</span>
+                  <Plus className="w-4 h-4" />
+                  <span>Top Up</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
+      )}
+
+      {/* Top Up Checkout Modal */}
+      {showTopUpCheckout && selectedEsimForDetail && (
+        <CheckoutModal
+          isOpen={showTopUpCheckout}
+          onClose={() => setShowTopUpCheckout(false)}
+          selectedPackage={selectedEsimForDetail.package}
+          country={selectedEsimForDetail.country}
+          esimCount={topUpEsimCount}
+          setEsimCount={setTopUpEsimCount}
+          onComplete={() => {
+            setShowTopUpCheckout(false);
+            // Could add success toast here
+          }}
+          hideQuantitySelector={true}
+        />
       )}
 
       {/* Share Modal */}
