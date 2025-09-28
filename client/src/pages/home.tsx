@@ -2599,20 +2599,30 @@ export default function HomeScreen() {
               </div>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
             {/* Combined Currency & Language Selector */}
             <button 
               onClick={() => setShowCurrencyLanguageModal(true)}
-              className="flex items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-2.5 py-1.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
+              className="flex items-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-2 py-1.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
             >
-              <span className="text-sm font-bold text-gray-700 dark:text-gray-300">
+              <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
                 {currencies.find(c => c.code === selectedCurrency)?.symbol}
               </span>
               <span className="mx-1 text-gray-500 dark:text-gray-400 text-xs">•</span>
-              <span className="text-lg">{languages.find(l => l.code === selectedLanguage)?.flag}</span>
+              <span className="text-sm">{languages.find(l => l.code === selectedLanguage)?.flag}</span>
               <svg className="w-3 h-3 ml-1 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
+            </button>
+
+            {/* Balance Display */}
+            <button 
+              onClick={() => setLocation('/balance')}
+              className="flex items-center bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-700 px-2 py-1.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 active:scale-95"
+            >
+              <span className="text-xs font-bold text-green-700 dark:text-green-400">
+                €0.00
+              </span>
             </button>
             
             {/* Offline Indicator */}
@@ -2623,16 +2633,14 @@ export default function HomeScreen() {
             )}
             
             {/* Compact Live Chat Button */}
-            <div>
-              <button 
-                onClick={() => setShowLiveChat(true)}
-                className="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center shadow-md active:shadow-sm transition-all duration-200 active:scale-95 relative"
-              >
-                <MessageCircle className="w-4 h-4 text-white" />
-                {/* Active status indicator */}
-                <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
-              </button>
-            </div>
+            <button 
+              onClick={() => setShowLiveChat(true)}
+              className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-md active:shadow-sm transition-all duration-200 active:scale-95 relative"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-white" />
+              {/* Active status indicator */}
+              <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
+            </button>
           </div>
         </div>
       </div>
