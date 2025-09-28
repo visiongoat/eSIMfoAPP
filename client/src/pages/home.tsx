@@ -3335,7 +3335,7 @@ export default function HomeScreen() {
                     <div>
                       <p className="text-xs font-medium text-blue-800 dark:text-blue-200 mb-1">Important Note</p>
                       <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
-                        Global voice plans include a virtual phone number for international usage. Call forwarding and voicemail features are not available. International calling minutes are limited to 25% of your total voice allowance.
+                        This eSIM comes with a US-based phone number (+1) for global use. Please note that call forwarding and voicemail are not supported. The included balance is divided between national and international usage, with 25% reserved for international calls.
                       </p>
                     </div>
                   </div>
