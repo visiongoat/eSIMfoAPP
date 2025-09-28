@@ -937,11 +937,9 @@ export default function MyEsimsScreen() {
                 
                 <button
                   onClick={() => {
-                    closeModal();
-                    // Small delay to let detail modal close cleanly before opening checkout
-                    setTimeout(() => {
-                      setShowTopUpCheckout(true);
-                    }, 300);
+                    console.log('Top Up clicked, current selectedEsimForDetail:', selectedEsimForDetail);
+                    // Don't close the detail modal, just open checkout modal
+                    setShowTopUpCheckout(true);
                   }}
                   className="flex items-center justify-center space-x-2 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors text-sm"
                   data-testid="button-topup-esim"
@@ -959,7 +957,11 @@ export default function MyEsimsScreen() {
       {showTopUpCheckout && selectedEsimForDetail && selectedEsimForDetail.package && (
         <CheckoutModal
           isOpen={showTopUpCheckout}
-          onClose={() => setShowTopUpCheckout(false)}
+          onClose={() => {
+            setShowTopUpCheckout(false);
+            // Also close the detail modal when checkout is closed
+            closeModal();
+          }}
           selectedPackage={{
             ...selectedEsimForDetail.package,
             duration: selectedEsimForDetail.package.validity,
@@ -970,6 +972,7 @@ export default function MyEsimsScreen() {
           setEsimCount={setTopUpEsimCount}
           onComplete={() => {
             setShowTopUpCheckout(false);
+            closeModal();
             // Could add success toast here
           }}
           hideQuantitySelector={true}
