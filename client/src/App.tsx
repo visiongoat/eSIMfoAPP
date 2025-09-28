@@ -8,6 +8,7 @@ import MobileContainer from "@/components/mobile-container";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { useSwipeNavigation } from "@/hooks/use-swipe-navigation";
 import { SwipeIndicator } from "@/components/swipe-indicator";
+import { MessageCircle } from "lucide-react";
 import SplashScreen from "@/pages/splash";
 import OnboardingScreen from "@/pages/onboarding";
 import HomeScreen from "@/pages/home";
@@ -33,10 +34,13 @@ import IdentityVerificationScreen from "@/pages/identity-verification";
 
 function Router() {
   // Enable swipe navigation globally (disabled on splash and onboarding)
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const swipeEnabled = !['/', '/onboarding'].includes(location);
   
   const swipeState = useSwipeNavigation({ enabled: swipeEnabled });
+  
+  // Chat button visibility (hidden on splash, onboarding, and live-chat page)
+  const showChatButton = !['/', '/onboarding', '/live-chat'].includes(location);
   
   // Mobile debugging
   React.useEffect(() => {
@@ -48,6 +52,10 @@ function Router() {
       console.log('📱 Mobile viewport detected');
     }
   }, [location]);
+
+  const handleChatClick = () => {
+    setLocation('/live-chat');
+  };
 
   return (
     <>
@@ -77,6 +85,31 @@ function Router() {
         {/* 404 Catch-all route */}
         <Route path="/:rest*" component={NotFoundPage} />
       </Switch>
+      
+      {/* Global Floating Chat Button - Airalo Style */}
+      {showChatButton && (
+        <div className="fixed bottom-24 right-4 z-40">
+          <button
+            onClick={handleChatClick}
+            className="group relative w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 ease-out flex items-center justify-center"
+            data-testid="button-floating-chat"
+          >
+            {/* Chat Icon */}
+            <MessageCircle className="w-6 h-6 text-white group-hover:scale-110 transition-transform duration-200" />
+            
+            {/* Notification Badge */}
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+              <span className="text-xs font-bold text-white">2</span>
+            </div>
+            
+            {/* Pulse Ring Animation */}
+            <div className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-75"></div>
+            
+            {/* Shadow Enhancement */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-t from-blue-700/20 to-transparent"></div>
+          </button>
+        </div>
+      )}
       
       {/* Global swipe indicator */}
       <SwipeIndicator isVisible={swipeState.isVisible} progress={swipeState.progress} />
