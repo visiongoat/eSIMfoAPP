@@ -4255,6 +4255,28 @@ export default function HomeScreen() {
         </div>
       )}
 
+      {/* Floating Chat Button - Home Page Only */}
+      <div className="fixed bottom-24 right-4 z-40 transition-all duration-500 ease-in-out chat-button-container">
+        <button
+          onClick={() => setShowQuickActions(true)}
+          className="group relative w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 ease-out flex items-center justify-center"
+          data-testid="button-floating-chat"
+        >
+          {/* Chat Icon */}
+          <svg className="w-6 h-6 text-white group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          
+          {/* Notification Badge */}
+          <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+            <span className="text-xs font-bold text-white">2</span>
+          </div>
+          
+          {/* Shadow Enhancement */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-t from-blue-700/20 to-transparent"></div>
+        </button>
+      </div>
+
       {/* European Coverage Modal - Operators & Networks - New Compact Design */}
       {showCountriesModal && (
         <div 
