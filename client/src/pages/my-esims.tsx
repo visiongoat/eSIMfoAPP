@@ -936,7 +936,11 @@ export default function MyEsimsScreen() {
                 </button>
                 
                 <button
-                  onClick={() => setShowTopUpCheckout(true)}
+                  onClick={() => {
+                    // Close detail modal first, then open checkout
+                    setShowEsimDetailModal(false);
+                    setShowTopUpCheckout(true);
+                  }}
                   className="flex items-center justify-center space-x-2 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors text-sm"
                   data-testid="button-topup-esim"
                 >
@@ -955,8 +959,8 @@ export default function MyEsimsScreen() {
           isOpen={showTopUpCheckout}
           onClose={() => {
             setShowTopUpCheckout(false);
-            // Also close the detail modal when checkout is closed
-            closeModal();
+            // Reopen detail modal when checkout is closed
+            setShowEsimDetailModal(true);
           }}
           selectedPackage={{
             ...selectedEsimForDetail.package,
@@ -968,6 +972,7 @@ export default function MyEsimsScreen() {
           setEsimCount={setTopUpEsimCount}
           onComplete={() => {
             setShowTopUpCheckout(false);
+            // Close both modals after successful purchase
             closeModal();
             // Could add success toast here
           }}
