@@ -3,6 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 // import profileImage from "@assets/IMG_5282_1753389516466.jpeg";
 import { useOnlineStatus } from "@/hooks/use-online-status";
 import { useTabSwipe } from "@/hooks/use-tab-swipe";
@@ -3192,6 +3198,53 @@ export default function HomeScreen() {
                     </div>
                   </div>
                 </div>
+
+                {/* FAQ Accordion - Airalo style */}
+                <Accordion type="single" collapsible className="mt-3 space-y-2">
+                  <AccordionItem value="install" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">When should I install my eSIM?</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-3 pt-0">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Install anytime you like — just be sure you're on a stable internet connection. You may also set it up in advance outside the coverage area — once you arrive, it will connect and your plan will start.
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="use" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">How do I use my eSIM?</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-3 pt-0">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Once you're within the coverage area, connect to a supported mobile network to start using your eSIM. Make sure it's switched on and set as active for data (and for calls or texts if your plan includes them).
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="reuse" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">Can I reuse my eSIM?</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-3 pt-0">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        In many situations, you can recharge your eSIM — no need to buy a new one to stay online. If top-up options are available, you'll see them for your eSIM both before and after purchase.
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+
+                {/* Go to Help Center Button */}
+                <button 
+                  onClick={() => {
+                    // Link will be provided by user
+                    console.log('Go to help center clicked');
+                  }}
+                  className="mt-3 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                >
+                  Go to help center
+                </button>
               </div>
             ) : (
               // Continent List with smooth fade-in animation
