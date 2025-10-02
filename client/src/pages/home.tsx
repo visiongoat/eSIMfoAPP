@@ -4373,7 +4373,7 @@ export default function HomeScreen() {
             </div>
 
             {/* Support Options */}
-            <div className="px-6 pb-8 space-y-3">
+            <div className="px-6 pb-3 space-y-3">
               {/* In-app Chat */}
               <button 
                 onClick={() => {
@@ -4428,10 +4428,10 @@ export default function HomeScreen() {
             </div>
 
             {/* Cancel Button */}
-            <div className="px-6 pb-6">
+            <div className="px-6 pb-4">
               <button 
                 onClick={() => setShowQuickActions(false)}
-                className="w-full py-3 text-gray-600 dark:text-gray-400 font-semibold rounded-xl transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="w-full py-2 text-gray-600 dark:text-gray-400 font-semibold rounded-xl transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 CANCEL
               </button>
