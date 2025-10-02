@@ -3244,15 +3244,14 @@ export default function HomeScreen() {
                 </div>
 
                 {/* Go to Help Center Button */}
-                <button 
-                  onClick={() => {
-                    // Link will be provided by user
-                    console.log('Go to help center clicked');
-                  }}
-                  className="mt-3 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                <a 
+                  href="https://esimfo.com/help-center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors block text-center"
                 >
                   Go to help center
-                </button>
+                </a>
               </div>
             ) : (
               // Continent List with smooth fade-in animation
