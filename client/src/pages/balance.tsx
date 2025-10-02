@@ -18,6 +18,7 @@ export default function Balance1Screen() {
   const [animationTrigger, setAnimationTrigger] = useState(false);
   const [isBalanceAnimating, setIsBalanceAnimating] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
+  const [showSupportModal, setShowSupportModal] = useState(false);
   const [location, setLocation] = useLocation();
   
   // Get user profile data for avatar
