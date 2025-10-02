@@ -13,6 +13,24 @@ export default function ProfileScreen() {
   const [, setLocation] = useLocation();
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [showSupportModal, setShowSupportModal] = useState(false);
+  const [showInAppSupport, setShowInAppSupport] = useState(false);
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [supportMessages, setSupportMessages] = useState([
+    {
+      id: 1,
+      text: 'Hello! Welcome to eSIMfo live support team! 👋',
+      isBot: false,
+      isSupport: true,
+      time: '18:30'
+    },
+    {
+      id: 2,
+      text: 'How can we help you? You can choose one of the options below or write directly.',
+      isBot: false,
+      isSupport: true,
+      time: '18:30'
+    }
+  ]);
   const [swipeY, setSwipeY] = useState(0);
   const [isSwipeActive, setIsSwipeActive] = useState(false);
   const [startY, setStartY] = useState(0);
@@ -76,6 +94,70 @@ export default function ProfileScreen() {
       setSwipeY(0);
     }
     setIsSwipeActive(false);
+  };
+
+  // Support message handler
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!currentMessage.trim()) return;
+
+    // Add user message
+    const userMessage = {
+      id: supportMessages.length + 1,
+      text: currentMessage,
+      isBot: false,
+      isSupport: false,
+      time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setSupportMessages(prev => [...prev, userMessage]);
+    setCurrentMessage('');
+
+    // Support team response after 1.5 seconds
+    setTimeout(() => {
+      const response = {
+        id: supportMessages.length + 2,
+        text: 'Thank you for your message. A support team member will respond to you shortly.',
+        isBot: false,
+        isSupport: true,
+        time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+      };
+      setSupportMessages(prev => [...prev, response]);
+    }, 1500);
+  };
+
+  // Handle quick messages
+  const handleQuickMessage = (message: string) => {
+    const userMessage = {
+      id: supportMessages.length + 1,
+      text: message,
+      isBot: false,
+      isSupport: false,
+      time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setSupportMessages(prev => [...prev, userMessage]);
+
+    // Support team response after 1.5 seconds
+    setTimeout(() => {
+      let response = '';
+      if (message.includes('eSIM')) {
+        response = 'We received your eSIM question. Which country eSIM are you using and what kind of problem are you experiencing?';
+      } else if (message.includes('Activation')) {
+        response = 'We are ready to help with your activation issue. Could you please share the ICCID number of your eSIM?';
+      } else {
+        response = 'A support team member will respond to you shortly. Is there anything else I can help with?';
+      }
+      
+      const botResponse = {
+        id: supportMessages.length + 2,
+        text: response,
+        isBot: false,
+        isSupport: true,
+        time: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+      };
+      setSupportMessages(prev => [...prev, botResponse]);
+    }, 1500);
   };
 
   // Currency options
@@ -724,7 +806,7 @@ export default function ProfileScreen() {
               <button 
                 onClick={() => {
                   setShowSupportModal(false);
-                  setLocation('/live-chat');
+                  setShowInAppSupport(true);
                 }}
                 className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-200 dark:border-gray-700"
               >
@@ -758,6 +840,130 @@ export default function ProfileScreen() {
                 CANCEL
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* In-App Support Screen - eSIMfo Style */}
+      {showInAppSupport && (
+        <div className="fixed inset-0 bg-white dark:bg-gray-900 z-[9999] flex flex-col">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 flex items-center justify-between">
+            <h1 className="text-lg font-semibold">eSIMfo</h1>
+            <button
+              onClick={() => setShowInAppSupport(false)}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Date Header */}
+          <div className="text-center py-3 bg-gray-50 dark:bg-gray-800">
+            <span className="text-sm text-gray-600 dark:text-gray-400">27 Eylül 18:30</span>
+          </div>
+
+          {/* Messages Area */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-100 dark:bg-gray-800">
+            {supportMessages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${message.isSupport ? 'justify-start' : 'justify-end'}`}
+              >
+                <div className="flex items-start space-x-2 max-w-xs">
+                  {message.isSupport && (
+                    <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                  )}
+                  
+                  <div className="space-y-1">
+                    <div 
+                      className={`px-4 py-3 rounded-2xl ${
+                        message.isSupport 
+                          ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-md' 
+                          : 'bg-blue-500 text-white rounded-br-md'
+                      }`}
+                    >
+                      <p className="text-sm leading-relaxed">{message.text}</p>
+                    </div>
+                    <div className={`text-xs text-gray-500 dark:text-gray-400 ${message.isSupport ? 'text-left' : 'text-right'}`}>
+                      {message.time}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Quick Message Options */}
+            {supportMessages.length <= 2 && (
+              <div className="flex flex-col space-y-2 mt-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">Quick options:</p>
+                <button
+                  onClick={() => handleQuickMessage('I need help with my eSIM')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">I need help with my eSIM</span>
+                </button>
+                <button
+                  onClick={() => handleQuickMessage('Activation problem')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">Activation problem</span>
+                </button>
+                <button
+                  onClick={() => handleQuickMessage('Talk to support')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">Talk to support</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Message Input */}
+          <div className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4">
+            <form onSubmit={handleSendMessage} className="flex items-center space-x-3">
+              {/* Attachment Button */}
+              <button
+                type="button"
+                className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                </svg>
+              </button>
+
+              {/* Text Input */}
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  placeholder="Mesaj yazın"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+
+              {/* Send Button */}
+              <button
+                type="submit"
+                disabled={!currentMessage.trim()}
+                className={`p-3 rounded-full transition-colors ${
+                  currentMessage.trim()
+                    ? 'bg-blue-500 hover:bg-blue-600 text-white' 
+                    : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+              </button>
+            </form>
           </div>
         </div>
       )}
