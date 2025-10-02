@@ -3199,12 +3199,16 @@ export default function HomeScreen() {
                   </div>
                 </div>
 
-                {/* FAQ Section - Airalo style with integrated header */}
-                <div className="mt-3">
-                  <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Frequently asked questions</h3>
+                {/* FAQ Section - Integrated design with header */}
+                <div className="mt-3 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                  {/* FAQ Header */}
+                  <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                    <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Frequently asked questions</h3>
+                  </div>
                   
-                  <Accordion type="single" collapsible className="space-y-2">
-                    <AccordionItem value="install" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                  {/* FAQ Accordion */}
+                  <Accordion type="single" collapsible className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <AccordionItem value="install" className="border-0">
                       <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                         <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">When should I install my eSIM?</span>
                       </AccordionTrigger>
@@ -3215,7 +3219,7 @@ export default function HomeScreen() {
                       </AccordionContent>
                     </AccordionItem>
 
-                    <AccordionItem value="use" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <AccordionItem value="use" className="border-0">
                       <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                         <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">How do I use my eSIM?</span>
                       </AccordionTrigger>
@@ -3226,7 +3230,7 @@ export default function HomeScreen() {
                       </AccordionContent>
                     </AccordionItem>
 
-                    <AccordionItem value="reuse" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <AccordionItem value="reuse" className="border-0">
                       <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                         <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">Can I reuse my eSIM?</span>
                       </AccordionTrigger>
