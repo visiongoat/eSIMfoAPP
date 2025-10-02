@@ -4374,14 +4374,14 @@ export default function HomeScreen() {
             </div>
 
             {/* Support Options - Airalo Style */}
-            <div className="bg-white dark:bg-gray-800 mx-4 mb-3 rounded-xl overflow-hidden">
+            <div className="bg-gray-50 dark:bg-gray-800 mx-4 mb-3 rounded-xl overflow-hidden">
               {/* In-app Chat */}
               <button 
                 onClick={() => {
                   setShowQuickActions(false);
                   setShowInAppSupport(true);
                 }}
-                className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-200 dark:border-gray-700"
+                className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-200 dark:border-gray-700"
               >
                 <span className="text-gray-900 dark:text-gray-100 font-medium">Chat in the app</span>
                 <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -4395,7 +4395,7 @@ export default function HomeScreen() {
                   setShowQuickActions(false);
                   window.open(`https://wa.me/436766440122`, '_blank');
                 }}
-                className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
               >
                 <span className="text-gray-900 dark:text-gray-100 font-medium">WhatsApp</span>
                 <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 24 24">
@@ -4408,7 +4408,7 @@ export default function HomeScreen() {
             <div className="mx-4 mb-4">
               <button 
                 onClick={() => setShowQuickActions(false)}
-                className="w-full py-3.5 bg-white dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 font-semibold transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                className="w-full py-3.5 bg-gray-50 dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 font-semibold transition-colors hover:bg-gray-100 dark:hover:bg-gray-700/50"
               >
                 CANCEL
               </button>
