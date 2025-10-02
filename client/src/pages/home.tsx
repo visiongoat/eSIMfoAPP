@@ -3171,20 +3171,23 @@ export default function HomeScreen() {
                   </button>
                 ))}
 
-                {/* Info Text - Clean design */}
+                {/* Info Text - Checkmark design like Airalo */}
                 <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-                  <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0">
-                      <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
+                  <div className="space-y-2.5">
+                    <div className="flex items-start space-x-2.5">
+                      <svg className="w-4 h-4 text-gray-700 dark:text-gray-300 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
                       </svg>
-                    </div>
-                    <div className="flex-1 space-y-1.5">
-                      <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
-                        • You can top up anytime if your balance runs low
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                        If you're running low, you can always <span className="font-semibold">top up</span>
                       </p>
-                      <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
-                        • Your package activates once you connect to a supported network
+                    </div>
+                    <div className="flex items-start space-x-2.5">
+                      <svg className="w-4 h-4 text-gray-700 dark:text-gray-300 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                        The package starts when you connect to a supported network
                       </p>
                     </div>
                   </div>
@@ -3424,20 +3427,23 @@ export default function HomeScreen() {
                   </button>
                 ))}
 
-                {/* Info Text - Clean design */}
+                {/* Info Text - Checkmark design like Airalo */}
                 <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-                  <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0">
-                      <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
+                  <div className="space-y-2.5">
+                    <div className="flex items-start space-x-2.5">
+                      <svg className="w-4 h-4 text-gray-700 dark:text-gray-300 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
                       </svg>
-                    </div>
-                    <div className="flex-1 space-y-1.5">
-                      <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
-                        • You can top up anytime if your balance runs low
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                        If you're running low, you can always <span className="font-semibold">top up</span>
                       </p>
-                      <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
-                        • Your package activates once you connect to a supported network
+                    </div>
+                    <div className="flex items-start space-x-2.5">
+                      <svg className="w-4 h-4 text-gray-700 dark:text-gray-300 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                        The package starts when you connect to a supported network
                       </p>
                     </div>
                   </div>
