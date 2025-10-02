@@ -3511,6 +3511,65 @@ export default function HomeScreen() {
                     </div>
                   </div>
                 </div>
+
+                {/* FAQ Section - Integrated design with header */}
+                <div className="mt-3 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                  {/* FAQ Header */}
+                  <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center space-x-2">
+                      <CircleHelp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Frequently asked questions</h3>
+                    </div>
+                  </div>
+                  
+                  {/* FAQ Accordion */}
+                  <Accordion type="single" collapsible className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <AccordionItem value="install" className="border-0">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">When should I install my eSIM?</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4 pt-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          Install anytime you like — just be sure you're on a stable internet connection. You may also set it up in advance outside the coverage area — once you arrive, it will connect and your plan will start.
+                        </p>
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="use" className="border-0">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">How do I use my eSIM?</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4 pt-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          Once you're within the coverage area, connect to a supported mobile network to start using your eSIM. Make sure it's switched on and set as active for data (and for calls or texts if your plan includes them).
+                        </p>
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="reuse" className="border-0">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">Can I reuse my eSIM?</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4 pt-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          In many situations, you can recharge your eSIM — no need to buy a new one to stay online. If top-up options are available, you'll see them for your eSIM both before and after purchase.
+                        </p>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+
+                {/* Go to Help Center Button */}
+                <div className="mt-3">
+                  <a 
+                    href="https://esimfo.com/help-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors block text-center"
+                  >
+                    Go to help center
+                  </a>
+                </div>
               </div>
             ) : (
               // Data + Voice + SMS Plans
@@ -3560,21 +3619,104 @@ export default function HomeScreen() {
                 ))}
               
               {globalPlanType === 'data-voice-sms' && (
-                <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
-                  <div className="flex items-start space-x-2">
-                    <div className="flex-shrink-0 mt-0.5">
-                      <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-blue-800 dark:text-blue-200 mb-1">Important Note</p>
-                      <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
-                        This eSIM comes with a US-based phone number (+1) for global use. Please note that call forwarding and voicemail are not supported. The included balance is divided between national and international usage, with 25% reserved for international calls.
-                      </p>
+                <>
+                  <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+                    <div className="flex items-start space-x-2">
+                      <div className="flex-shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-blue-800 dark:text-blue-200 mb-1">Important Note</p>
+                        <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+                          This eSIM comes with a US-based phone number (+1) for global use. Please note that call forwarding and voicemail are not supported. The included balance is divided between national and international usage, with 25% reserved for international calls.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                  {/* Info Text - Checkmark design */}
+                  <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800">
+                    <div className="space-y-2.5">
+                      <div className="flex items-start space-x-2.5">
+                        <svg className="w-4 h-4 text-gray-700 dark:text-gray-300 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                          If you're running low, you can always <span className="font-semibold">top up</span>
+                        </p>
+                      </div>
+                      <div className="flex items-start space-x-2.5">
+                        <svg className="w-4 h-4 text-gray-700 dark:text-gray-300 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                          Starts upon connecting to a supported network
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* FAQ Section - Integrated design with header */}
+                  <div className="mt-3 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    {/* FAQ Header */}
+                    <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center space-x-2">
+                        <CircleHelp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Frequently asked questions</h3>
+                      </div>
+                    </div>
+                    
+                    {/* FAQ Accordion */}
+                    <Accordion type="single" collapsible className="divide-y divide-gray-200 dark:divide-gray-700">
+                      <AccordionItem value="install" className="border-0">
+                        <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">When should I install my eSIM?</span>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-4 pb-4 pt-2">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            Install anytime you like — just be sure you're on a stable internet connection. You may also set it up in advance outside the coverage area — once you arrive, it will connect and your plan will start.
+                          </p>
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem value="use" className="border-0">
+                        <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">How do I use my eSIM?</span>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-4 pb-4 pt-2">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            Once you're within the coverage area, connect to a supported mobile network to start using your eSIM. Make sure it's switched on and set as active for data (and for calls or texts if your plan includes them).
+                          </p>
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem value="reuse" className="border-0">
+                        <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">Can I reuse my eSIM?</span>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-4 pb-4 pt-2">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            In many situations, you can recharge your eSIM — no need to buy a new one to stay online. If top-up options are available, you'll see them for your eSIM both before and after purchase.
+                          </p>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  </div>
+
+                  {/* Go to Help Center Button */}
+                  <div className="mt-3">
+                    <a 
+                      href="https://esimfo.com/help-center"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors block text-center"
+                    >
+                      Go to help center
+                    </a>
+                  </div>
+                </>
               )}
               
             </div>
