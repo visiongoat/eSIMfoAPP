@@ -3199,41 +3199,45 @@ export default function HomeScreen() {
                   </div>
                 </div>
 
-                {/* FAQ Accordion - Airalo style */}
-                <Accordion type="single" collapsible className="mt-3 space-y-2">
-                  <AccordionItem value="install" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">When should I install my eSIM?</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-3 pt-0">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                        Install anytime you like — just be sure you're on a stable internet connection. You may also set it up in advance outside the coverage area — once you arrive, it will connect and your plan will start.
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
+                {/* FAQ Section - Airalo style with integrated header */}
+                <div className="mt-3">
+                  <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Frequently asked questions</h3>
+                  
+                  <Accordion type="single" collapsible className="space-y-2">
+                    <AccordionItem value="install" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">When should I install my eSIM?</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4 pt-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          Install anytime you like — just be sure you're on a stable internet connection. You may also set it up in advance outside the coverage area — once you arrive, it will connect and your plan will start.
+                        </p>
+                      </AccordionContent>
+                    </AccordionItem>
 
-                  <AccordionItem value="use" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">How do I use my eSIM?</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-3 pt-0">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                        Once you're within the coverage area, connect to a supported mobile network to start using your eSIM. Make sure it's switched on and set as active for data (and for calls or texts if your plan includes them).
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
+                    <AccordionItem value="use" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">How do I use my eSIM?</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4 pt-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          Once you're within the coverage area, connect to a supported mobile network to start using your eSIM. Make sure it's switched on and set as active for data (and for calls or texts if your plan includes them).
+                        </p>
+                      </AccordionContent>
+                    </AccordionItem>
 
-                  <AccordionItem value="reuse" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">Can I reuse my eSIM?</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-3 pt-0">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                        In many situations, you can recharge your eSIM — no need to buy a new one to stay online. If top-up options are available, you'll see them for your eSIM both before and after purchase.
-                      </p>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                    <AccordionItem value="reuse" className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 text-left">Can I reuse my eSIM?</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-4 pb-4 pt-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          In many situations, you can recharge your eSIM — no need to buy a new one to stay online. If top-up options are available, you'll see them for your eSIM both before and after purchase.
+                        </p>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
 
                 {/* Go to Help Center Button */}
                 <button 
