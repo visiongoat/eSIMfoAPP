@@ -4374,7 +4374,7 @@ export default function HomeScreen() {
             </div>
 
             {/* Support Options - Airalo Style */}
-            <div className="bg-white dark:bg-gray-800 mx-4 mb-4 rounded-2xl overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 mx-4 mb-3 rounded-xl overflow-hidden">
               {/* In-app Chat */}
               <button 
                 onClick={() => {
@@ -4408,7 +4408,7 @@ export default function HomeScreen() {
             <div className="mx-4 mb-4">
               <button 
                 onClick={() => setShowQuickActions(false)}
-                className="w-full py-3.5 bg-white dark:bg-gray-800 rounded-2xl text-gray-900 dark:text-gray-100 font-semibold transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                className="w-full py-3.5 bg-white dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 font-semibold transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50"
               >
                 CANCEL
               </button>
