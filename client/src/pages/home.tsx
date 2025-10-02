@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, CircleHelp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -3203,7 +3203,10 @@ export default function HomeScreen() {
                 <div className="mt-3 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
                   {/* FAQ Header */}
                   <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-                    <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Frequently asked questions</h3>
+                    <div className="flex items-center space-x-2">
+                      <CircleHelp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Frequently asked questions</h3>
+                    </div>
                   </div>
                   
                   {/* FAQ Accordion */}
