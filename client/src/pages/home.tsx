@@ -3187,7 +3187,7 @@ export default function HomeScreen() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
                       </svg>
                       <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                        The package starts when you connect to a supported network
+                        Starts upon connecting to a supported network
                       </p>
                     </div>
                   </div>
@@ -3443,7 +3443,7 @@ export default function HomeScreen() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
                       </svg>
                       <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                        The package starts when you connect to a supported network
+                        Starts upon connecting to a supported network
                       </p>
                     </div>
                   </div>
