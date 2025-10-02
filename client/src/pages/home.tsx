@@ -525,7 +525,6 @@ export default function HomeScreen() {
   const [showLiveChat, setShowLiveChat] = useState(false);
   const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
-  const [showInAppSupport, setShowInAppSupport] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
   const [supportMessages, setSupportMessages] = useState([
     {
