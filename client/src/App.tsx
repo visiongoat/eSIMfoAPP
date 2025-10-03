@@ -39,8 +39,8 @@ function Router() {
   
   const swipeState = useSwipeNavigation({ enabled: swipeEnabled });
   
-  // Chat button visibility (hidden on splash, onboarding, live-chat, home, profile, and packages pages)
-  const showChatButton = !['/', '/onboarding', '/live-chat', '/home', '/profile'].includes(location) && !location.startsWith('/packages');
+  // Chat button visibility (hidden on splash, onboarding, live-chat, home, profile, balance, my-esims, and packages pages)
+  const showChatButton = !['/', '/onboarding', '/live-chat', '/home', '/profile', '/balance', '/my-esims'].includes(location) && !location.startsWith('/packages');
   
   // Mobile debugging
   React.useEffect(() => {
