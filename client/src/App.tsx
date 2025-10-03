@@ -21,7 +21,6 @@ import BalanceScreen from "@/pages/balance";
 import TransactionsScreen from "@/pages/transactions";
 import PersonalInfoScreen from "@/pages/personal-info";
 import PartnerScreen from "@/pages/partner";
-import LiveChatScreen from "@/pages/support";
 import ContactSupportScreen from "@/pages/contact-support";
 import ReferEarnScreen from "@/pages/refer-earn";
 import LoginScreen from "@/pages/login";
@@ -39,8 +38,8 @@ function Router() {
   
   const swipeState = useSwipeNavigation({ enabled: swipeEnabled });
   
-  // Chat button visibility (only visible on home page)
-  const showChatButton = location === '/home';
+  // Chat button visibility (hidden from all pages - Home has its own button)
+  const showChatButton = false;
   
   // Mobile debugging
   React.useEffect(() => {
@@ -73,7 +72,6 @@ function Router() {
         <Route path="/balance" component={BalanceScreen} />
         <Route path="/transactions" component={TransactionsScreen} />
         <Route path="/partner" component={PartnerScreen} />
-        <Route path="/live-chat" component={LiveChatScreen} />
         <Route path="/contact-support" component={ContactSupportScreen} />
         <Route path="/refer-earn" component={ReferEarnScreen} />
         <Route path="/traveler-levels" component={TravelerLevelsScreen} />
