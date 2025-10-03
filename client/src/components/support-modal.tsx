@@ -152,7 +152,7 @@ export default function SupportModal({ isOpen, onClose }: SupportModalProps) {
       let response = '';
       if (message.includes('eSIM')) {
         response = 'We received your eSIM question. Which country eSIM are you using and what kind of problem are you experiencing?';
-      } else if (message.includes('Activation')) {
+      } else if (message.includes('Activation') || message.includes('problem')) {
         response = 'We are ready to help with your activation issue. Could you please share the ICCID number of your eSIM?';
       } else {
         response = 'A support team member will respond to you shortly. Is there anything else I can help with?';
@@ -173,205 +173,187 @@ export default function SupportModal({ isOpen, onClose }: SupportModalProps) {
 
   return (
     <>
-      {/* Support Options Modal */}
+      {/* Support Options Modal - Airalo Style */}
       {!showInAppSupport && (
         <div 
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end justify-center z-[99] transition-opacity duration-200"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-[9999]" 
           onClick={onClose}
         >
           <div 
             ref={supportModalRef}
-            className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-lg shadow-2xl transform transition-all duration-300"
+            className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700"
             onClick={(e) => e.stopPropagation()}
             onTouchStart={handleSupportModalTouchStart}
             onTouchMove={handleSupportModalTouchMove}
             onTouchEnd={handleSupportModalTouchEnd}
+            style={{
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
+            }}
           >
-            {/* Drag Handle */}
+            {/* Handle Bar */}
             <div className="flex justify-center pt-3 pb-2">
-              <div className="w-10 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
+              <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
             </div>
 
             {/* Header */}
-            <div className="px-6 pt-4 pb-3 border-b border-gray-100 dark:border-gray-800">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">Support</h2>
-                <button
-                  onClick={onClose}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
-                  data-testid="button-close-support"
-                >
-                  <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">How can we help you today?</p>
+            <div className="px-6 pb-4 pt-2">
+              <p className="text-gray-600 dark:text-gray-400 text-sm text-center leading-relaxed">
+                Choose your preferred channel to get help from the support team.
+              </p>
             </div>
 
-            {/* Support Options */}
-            <div className="p-6 space-y-3 pb-8">
-              {/* WhatsApp Support */}
-              <button
+            {/* Support Options - Airalo Style */}
+            <div className="bg-gray-50 dark:bg-gray-800 mx-4 mb-3 rounded-xl overflow-hidden">
+              {/* In-app Chat */}
+              <button 
                 onClick={() => {
-                  window.open('https://wa.me/436766440122', '_blank');
+                  setShowInAppSupport(true);
                 }}
-                className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 hover:from-green-100 hover:to-emerald-100 dark:hover:from-green-900/30 dark:hover:to-emerald-900/30 rounded-2xl transition-all duration-200 group border border-green-100 dark:border-green-800/50"
-                data-testid="button-whatsapp-support"
+                className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-200 dark:border-gray-700"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-200">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                    </svg>
-                  </div>
-                  <div className="text-left">
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-base">WhatsApp Support</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Quick response via chat</p>
-                  </div>
-                </div>
-                <svg className="w-5 h-5 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <span className="text-gray-900 dark:text-gray-100 font-medium">Chat in the app</span>
+                <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </button>
 
-              {/* In-App Support */}
-              <button
-                onClick={() => setShowInAppSupport(true)}
-                className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-900/30 dark:hover:to-indigo-900/30 rounded-2xl transition-all duration-200 group border border-blue-100 dark:border-blue-800/50"
-                data-testid="button-inapp-support"
+              {/* WhatsApp Support */}
+              <button 
+                onClick={() => {
+                  onClose();
+                  window.open(`https://wa.me/436766440122`, '_blank');
+                }}
+                className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-200">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                  </div>
-                  <div className="text-left">
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-base">Live Chat Support</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Chat with our support team</p>
-                  </div>
-                </div>
-                <svg className="w-5 h-5 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <span className="text-gray-900 dark:text-gray-100 font-medium">WhatsApp</span>
+                <svg className="w-6 h-6 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488z"/>
                 </svg>
+              </button>
+            </div>
+
+            {/* Cancel Button - Airalo Style */}
+            <div className="mx-4 mb-4">
+              <button 
+                onClick={onClose}
+                className="w-full py-3.5 bg-gray-50 dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 font-semibold transition-colors hover:bg-gray-100 dark:hover:bg-gray-700/50"
+              >
+                CANCEL
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* In-App Support Chat Screen */}
+      {/* In-App Support Screen - eSIMfo Style */}
       {showInAppSupport && (
-        <div className="fixed inset-0 bg-white dark:bg-gray-900 z-[100] flex flex-col">
-          {/* Chat Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white px-4 py-3 shadow-lg">
-            <div className="flex items-center space-x-3">
-              <button 
-                onClick={() => setShowInAppSupport(false)}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                data-testid="button-back-support"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              
-              <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-                </svg>
-              </div>
-              
-              <div className="flex-1">
-                <h3 className="font-semibold text-base">eSIMfo Support</h3>
-                <p className="text-xs text-blue-100">Usually responds instantly</p>
-              </div>
-            </div>
+        <div className="fixed inset-0 bg-white dark:bg-gray-900 z-[9999] flex flex-col">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 flex items-center justify-between">
+            <h1 className="text-lg font-semibold">eSIMfo</h1>
+            <button
+              onClick={() => setShowInAppSupport(false)}
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Date Header */}
+          <div className="text-center py-3 bg-gray-50 dark:bg-gray-800">
+            <span className="text-sm text-gray-600 dark:text-gray-400">27 Eylül 18:30</span>
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-800/50">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-100 dark:bg-gray-800">
             {supportMessages.map((message) => (
-              <div 
+              <div
                 key={message.id}
                 className={`flex ${message.isSupport ? 'justify-start' : 'justify-end'}`}
               >
-                <div className={`max-w-[80%] ${message.isSupport ? 'order-2' : 'order-1'}`}>
+                <div className="flex items-start space-x-2 max-w-xs">
                   {message.isSupport && (
-                    <div className="flex items-center space-x-2 mb-1 pl-1">
-                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-                        </svg>
-                      </div>
-                      <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Support</span>
+                    <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
                     </div>
                   )}
-                  <div className={`rounded-2xl px-4 py-3 ${
-                    message.isSupport 
-                      ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm' 
-                      : 'bg-blue-600 text-white'
-                  }`}>
-                    <p className="text-sm leading-relaxed">{message.text}</p>
-                    <p className={`text-xs mt-1 ${
-                      message.isSupport 
-                        ? 'text-gray-500 dark:text-gray-400' 
-                        : 'text-blue-100'
-                    }`}>
+                  
+                  <div className="space-y-1">
+                    <div 
+                      className={`px-4 py-3 rounded-2xl ${
+                        message.isSupport 
+                          ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-bl-md' 
+                          : 'bg-blue-500 text-white rounded-br-md'
+                      }`}
+                    >
+                      <p className="text-sm leading-relaxed">{message.text}</p>
+                    </div>
+                    <div className={`text-xs text-gray-500 dark:text-gray-400 ${message.isSupport ? 'text-left' : 'text-right'}`}>
                       {message.time}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
 
-            {/* Quick Reply Suggestions */}
-            {supportMessages.length <= 3 && (
-              <div className="space-y-2 pt-2">
-                <p className="text-xs text-gray-500 dark:text-gray-400 px-1">Quick replies:</p>
-                <div className="flex flex-wrap gap-2">
-                  <button 
-                    onClick={() => handleQuickMessage('I have a problem with my eSIM')}
-                    className="px-4 py-2 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full text-sm border border-gray-200 dark:border-gray-600 transition-colors"
-                  >
-                    📱 eSIM Problem
-                  </button>
-                  <button 
-                    onClick={() => handleQuickMessage('Activation issue')}
-                    className="px-4 py-2 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full text-sm border border-gray-200 dark:border-gray-600 transition-colors"
-                  >
-                    🔄 Activation
-                  </button>
-                  <button 
-                    onClick={() => handleQuickMessage('Refund request')}
-                    className="px-4 py-2 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-full text-sm border border-gray-200 dark:border-gray-600 transition-colors"
-                  >
-                    💰 Refund
-                  </button>
-                </div>
+            {/* Quick Message Options */}
+            {supportMessages.length <= 2 && (
+              <div className="flex flex-col space-y-2 mt-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-2">Quick options:</p>
+                <button
+                  onClick={() => handleQuickMessage('I need help with my eSIM')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">I need help with my eSIM</span>
+                </button>
+                <button
+                  onClick={() => handleQuickMessage('Activation problem')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">Activation problem</span>
+                </button>
+                <button
+                  onClick={() => handleQuickMessage('Talk to support')}
+                  className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <span className="text-sm text-gray-900 dark:text-white">Talk to support</span>
+                </button>
               </div>
             )}
           </div>
 
-          {/* Input Area */}
-          <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4">
-            <form onSubmit={handleSendMessage} className="flex items-end space-x-2">
-              <div className="flex-1 bg-gray-100 dark:bg-gray-800 rounded-2xl px-4 py-2 min-h-[44px] flex items-center">
-                <textarea
+          {/* Message Input */}
+          <div className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4">
+            <form onSubmit={handleSendMessage} className="flex items-center space-x-3">
+              {/* Attachment Button */}
+              <button
+                type="button"
+                className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                </svg>
+              </button>
+
+              {/* Text Input */}
+              <div className="flex-1 relative">
+                <input
+                  type="text"
                   value={currentMessage}
                   onChange={(e) => setCurrentMessage(e.target.value)}
-                  placeholder="Type your message..."
-                  className="w-full bg-transparent text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 resize-none outline-none text-sm max-h-24"
-                  rows={1}
-                  onInput={(e) => {
-                    const target = e.target as HTMLTextAreaElement;
-                    target.style.height = 'auto';
-                    target.style.height = Math.min(target.scrollHeight, 96) + 'px';
-                  }}
-                  data-testid="input-support-message"
+                  placeholder="Mesaj yazın"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
+
+              {/* Send Button */}
               <button
                 type="submit"
                 disabled={!currentMessage.trim()}
