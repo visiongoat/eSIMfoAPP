@@ -528,6 +528,12 @@ export default function HomeScreen() {
   const [showSupportModal, setShowSupportModal] = useState(false);
   const [showInAppSupport, setShowInAppSupport] = useState(false);
   const [currentMessage, setCurrentMessage] = useState('');
+  
+  // Support modal swipe states
+  const [supportModalStartY, setSupportModalStartY] = useState<number>(0);
+  const [supportModalCurrentY, setSupportModalCurrentY] = useState<number>(0);
+  const [isSupportModalDragging, setIsSupportModalDragging] = useState<boolean>(false);
+  const supportModalRef = useRef<HTMLDivElement>(null);
   const [supportMessages, setSupportMessages] = useState([
     {
       id: 1,
@@ -657,6 +663,35 @@ export default function HomeScreen() {
   }, [showCountriesModal]);
 
 
+
+  // Prevent body scroll when support modal is open
+  useEffect(() => {
+    if (showSupportModal) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollY}px`;
+      
+      // Cleanup function to restore scroll position
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    }
+  }, [showSupportModal]);
 
   // Prevent body scroll when global coverage modal is open
   useEffect(() => {
@@ -1188,6 +1223,57 @@ export default function HomeScreen() {
     setIsQuickActionsDragging(false);
     setQuickActionsStartY(0);
     setQuickActionsCurrentY(0);
+  };
+
+  // Touch event handlers for Support modal swipe-down dismissal
+  const handleSupportModalTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setSupportModalStartY(touch.clientY);
+    setSupportModalCurrentY(touch.clientY);
+    setIsSupportModalDragging(true);
+  };
+
+  const handleSupportModalTouchMove = (e: React.TouchEvent) => {
+    if (!isSupportModalDragging) return;
+    
+    const touch = e.touches[0];
+    const deltaY = touch.clientY - supportModalStartY;
+    
+    setSupportModalCurrentY(touch.clientY);
+    
+    // Only allow downward swipes (positive deltaY)
+    if (deltaY > 0) {
+      e.preventDefault(); // Prevent body scroll during drag
+      
+      if (supportModalRef.current) {
+        supportModalRef.current.style.transform = `translateY(${Math.min(deltaY, 300)}px)`;
+        supportModalRef.current.style.opacity = `${Math.max(1 - deltaY / 300, 0.3)}`;
+      }
+    }
+  };
+
+  const handleSupportModalTouchEnd = (e: React.TouchEvent) => {
+    if (!isSupportModalDragging) return;
+    
+    const deltaY = supportModalCurrentY - supportModalStartY;
+    
+    // If swiped down more than 80px, close modal
+    if (deltaY > 80 && supportModalRef.current) {
+      // Animate out
+      supportModalRef.current.style.transform = 'translateY(100%)';
+      supportModalRef.current.style.opacity = '0';
+      setTimeout(() => {
+        setShowSupportModal(false);
+      }, 200);
+    } else if (supportModalRef.current) {
+      // Snap back to original position
+      supportModalRef.current.style.transform = 'translateY(0)';
+      supportModalRef.current.style.opacity = '1';
+    }
+    
+    setIsSupportModalDragging(false);
+    setSupportModalStartY(0);
+    setSupportModalCurrentY(0);
   };
 
   // Support message handler
@@ -4465,8 +4551,18 @@ export default function HomeScreen() {
           onClick={() => setShowSupportModal(false)}
         >
           <div 
+            ref={supportModalRef}
             className="bg-white dark:bg-gray-900 rounded-t-3xl w-full max-w-md transform animate-in slide-in-from-bottom duration-300 shadow-2xl relative border-t border-gray-200 dark:border-gray-700"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleSupportModalTouchStart}
+            onTouchMove={handleSupportModalTouchMove}
+            onTouchEnd={handleSupportModalTouchEnd}
+            style={{
+              touchAction: 'manipulation',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
+            }}
           >
             {/* Handle Bar */}
             <div className="flex justify-center pt-3 pb-2">
