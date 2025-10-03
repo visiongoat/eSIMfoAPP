@@ -15,7 +15,6 @@ type FilterType = 'all' | 'active' | 'expired' | 'ready';
 export default function MyEsimsScreen() {
   const [, setLocation] = useLocation();
   const [showQuickActions, setShowQuickActions] = useState(false);
-  const [showSupportModal, setShowSupportModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [selectedEsim, setSelectedEsim] = useState<Esim | null>(null);
   const [showTopUpCheckout, setShowTopUpCheckout] = useState(false);

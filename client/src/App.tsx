@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/contexts/theme-context";
 import { useSwipeNavigation } from "@/hooks/use-swipe-navigation";
 import { SwipeIndicator } from "@/components/swipe-indicator";
 import { MessageCircle } from "lucide-react";
+import SupportModal from "@/components/support-modal";
+import { useState } from "react";
 import SplashScreen from "@/pages/splash";
 import OnboardingScreen from "@/pages/onboarding";
 import HomeScreen from "@/pages/home";
@@ -38,8 +40,9 @@ function Router() {
   
   const swipeState = useSwipeNavigation({ enabled: swipeEnabled });
   
-  // Chat button visibility (hidden from all pages - Home has its own button)
-  const showChatButton = false;
+  // Chat button visibility and support modal state
+  const showChatButton = ['/home', '/my-esims', '/balance'].includes(location);
+  const [showSupportModal, setShowSupportModal] = useState(false);
   
   // Mobile debugging
   React.useEffect(() => {
@@ -53,7 +56,7 @@ function Router() {
   }, [location]);
 
   const handleChatClick = () => {
-    setLocation('/live-chat');
+    setShowSupportModal(true);
   };
 
   return (
@@ -109,6 +112,9 @@ function Router() {
       
       {/* Global swipe indicator */}
       <SwipeIndicator isVisible={swipeState.isVisible} progress={swipeState.progress} />
+      
+      {/* Global Support Modal */}
+      <SupportModal isOpen={showSupportModal} onClose={() => setShowSupportModal(false)} />
     </>
   );
 }
