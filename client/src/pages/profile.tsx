@@ -8,6 +8,8 @@ import EsimfoLogo from "@/components/esimfo-logo";
 import { useTheme } from "@/contexts/theme-context";
 import type { User } from "@shared/schema";
 import { getTravelerLevel, getNextLevel, getLevelProgress, TRAVELER_LEVELS } from "@shared/schema";
+import defaultAvatarLight from "@assets/default-avatar-light.png";
+import defaultAvatarDark from "@assets/default-avatar-dark.png";
 
 export default function ProfileScreen() {
   const [, setLocation] = useLocation();
@@ -434,26 +436,11 @@ export default function ProfileScreen() {
                    inset 0 -1px 0 rgba(0, 0, 0, 0.1)
                  `
                }}>
-            {user?.avatar ? (
-              <img 
-                src={user.avatar} 
-                alt="Profile" 
-                className="w-20 h-20 rounded-full object-cover"
-                onError={(e) => {
-                  // Fallback to initials if image fails to load
-                  const target = e.currentTarget;
-                  target.style.display = 'none';
-                  const fallback = document.createElement('span');
-                  fallback.className = 'text-white text-2xl font-bold';
-                  fallback.textContent = user ? getInitials(user.name) : 'JD';
-                  target.parentElement!.appendChild(fallback);
-                }}
-              />
-            ) : (
-              <span className="text-white text-2xl font-bold">
-                {user ? getInitials(user.name) : 'JD'}
-              </span>
-            )}
+            <img 
+              src={user?.avatar || (theme === 'dark' ? defaultAvatarDark : defaultAvatarLight)} 
+              alt="Profile" 
+              className="w-20 h-20 rounded-full object-cover"
+            />
             {/* Enhanced light reflection effect - matching home page */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-transparent to-white opacity-25 pointer-events-none"></div>
             <div className="absolute top-0 left-1/4 w-1/2 h-1/3 rounded-full bg-white opacity-30 blur-sm pointer-events-none"></div>
