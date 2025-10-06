@@ -4116,7 +4116,9 @@ export default function HomeScreen() {
                       e.preventDefault();
                       e.stopPropagation();
                       setShowHowItWorks(false);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                      setTimeout(() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }, 100);
                     }}
                     className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-5 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2 hover:shadow-lg"
                     data-testid="button-get-started-now"
