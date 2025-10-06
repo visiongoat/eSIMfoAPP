@@ -17,13 +17,27 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
   isOpen,
   onClose
 }) => {
+  // Deferred close to prevent click event from bubbling to underlying modals
+  const handleClose = React.useCallback((event?: React.MouseEvent | React.TouchEvent) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    // Defer unmount until click sequence completes
+    requestAnimationFrame(() => {
+      onClose();
+    });
+  }, [onClose]);
+
   // Handle ESC key and swipe down to close
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
         event.preventDefault();
         event.stopPropagation();
-        onClose();
+        requestAnimationFrame(() => {
+          onClose();
+        });
       }
     };
 
@@ -41,7 +55,9 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
       const diff = currentY - startY;
       // Swipe down more than 100px to close
       if (diff > 100) {
-        onClose();
+        requestAnimationFrame(() => {
+          onClose();
+        });
       }
     };
 
@@ -72,11 +88,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
       {/* Header with close button */}
       <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-2 flex justify-end">
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            onClose();
-          }}
+          onClick={handleClose}
           className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
           data-testid="button-close-auto-renewal-info"
         >
@@ -219,11 +231,7 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
 
         {/* Action button */}
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            onClose();
-          }}
+          onClick={handleClose}
           className="w-full py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium rounded-lg transition-colors hover:bg-gray-800 dark:hover:bg-gray-100"
           data-testid="button-great-auto-renewal"
         >
