@@ -20,7 +20,9 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
   // Handle ESC key and swipe down to close
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && isOpen) {
+        event.preventDefault();
+        event.stopPropagation();
         onClose();
       }
     };
@@ -61,11 +63,20 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-white dark:bg-gray-900 z-[10000] overflow-y-auto">
+    <div 
+      className="fixed inset-0 bg-white dark:bg-gray-900 z-[10000] overflow-y-auto"
+      onClick={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
+      onTouchStart={(e) => e.stopPropagation()}
+    >
       {/* Header with close button */}
       <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-2 flex justify-end">
         <button
-          onClick={onClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            onClose();
+          }}
           className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
           data-testid="button-close-auto-renewal-info"
         >
@@ -208,8 +219,13 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
 
         {/* Action button */}
         <button
-          onClick={onClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            onClose();
+          }}
           className="w-full py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium rounded-lg transition-colors hover:bg-gray-800 dark:hover:bg-gray-100"
+          data-testid="button-great-auto-renewal"
         >
           Great!
         </button>

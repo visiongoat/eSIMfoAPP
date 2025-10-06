@@ -369,10 +369,7 @@ export default function CheckoutModal({
           {/* Payment Methods or Choose Payment Button */}
           {!showPaymentMethods ? (
             <Button
-              onClick={() => {
-                console.log('Choose payment button clicked, showAutoRenewalInfo:', showAutoRenewalInfo);
-                setShowPaymentMethods(true);
-              }}
+              onClick={() => setShowPaymentMethods(true)}
               className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors flex items-center justify-between"
               data-testid="button-choose-payment"
             >
@@ -652,10 +649,7 @@ export default function CheckoutModal({
       {/* Auto Renewal Info Modal */}
       <AutoRenewalInfoModal 
         isOpen={showAutoRenewalInfo} 
-        onClose={() => {
-          console.log('Closing AutoRenewalInfoModal');
-          setShowAutoRenewalInfo(false);
-        }} 
+        onClose={() => setShowAutoRenewalInfo(false)} 
       />
     </div>,
     document.body
