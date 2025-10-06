@@ -23,7 +23,6 @@ import BalanceScreen from "@/pages/balance";
 import TransactionsScreen from "@/pages/transactions";
 import PersonalInfoScreen from "@/pages/personal-info";
 import PartnerScreen from "@/pages/partner";
-import ContactSupportScreen from "@/pages/contact-support";
 import ReferEarnScreen from "@/pages/refer-earn";
 import LoginScreen from "@/pages/login";
 import SignupScreen from "@/pages/signup";
@@ -75,7 +74,6 @@ function Router() {
         <Route path="/balance" component={BalanceScreen} />
         <Route path="/transactions" component={TransactionsScreen} />
         <Route path="/partner" component={PartnerScreen} />
-        <Route path="/contact-support" component={ContactSupportScreen} />
         <Route path="/refer-earn" component={ReferEarnScreen} />
         <Route path="/traveler-levels" component={TravelerLevelsScreen} />
         <Route path="/identity-verification" component={IdentityVerificationScreen} />
