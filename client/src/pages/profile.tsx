@@ -424,37 +424,45 @@ export default function ProfileScreen() {
       <div className="px-4 pt-4">
         {/* Profile Header */}
         <div className="mobile-card p-6 mb-4 text-center">
-          <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 relative" 
+          {/* Glassmorphic Avatar Container */}
+          <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 relative avatar-glassmorphic avatar-gradient-ring transition-all duration-300 ${
+            theme === 'dark' ? 'avatar-glow-dark' : 'avatar-glow-light'
+          }`}
                style={{
-                 border: '2px solid rgba(59, 130, 246, 0.8)',
-                 boxShadow: `
-                   0 0 0 1px rgba(59, 130, 246, 0.2),
-                   0 0 20px rgba(59, 130, 246, 0.15),
-                   0 0 40px rgba(59, 130, 246, 0.1),
-                   0 4px 20px rgba(0, 0, 0, 0.3),
-                   inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                   inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-                 `
-               }}>
+                 animation: 'avatarFadeIn 0.6s ease-out'
+               }}
+               data-testid="profile-avatar-container">
+            {/* Avatar Image */}
             <img 
               src={user?.avatar || (theme === 'dark' ? defaultAvatarDark : defaultAvatarLight)} 
               alt="Profile" 
-              className="w-20 h-20 rounded-full object-cover"
+              className="w-24 h-24 rounded-full object-cover relative z-10 transition-opacity duration-300"
+              data-testid="img-profile-avatar"
             />
-            {/* Enhanced light reflection effect - matching home page */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-transparent to-white opacity-25 pointer-events-none"></div>
-            <div className="absolute top-0 left-1/4 w-1/2 h-1/3 rounded-full bg-white opacity-30 blur-sm pointer-events-none"></div>
-            {/* Level Badge - Compact Style */}
+            
+            {/* Frosted Glass Overlay with Subtle Light Reflection */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-40 pointer-events-none z-20"></div>
+            <div className="absolute top-2 left-1/4 w-1/3 h-1/4 rounded-full bg-white/30 blur-md pointer-events-none z-20"></div>
+            
+            {/* Level Badge - Glassmorphic Style */}
             {user && (() => {
               const totalSpent = parseFloat(user.totalSpent || "0");
               const currentLevel = getTravelerLevel(totalSpent);
+              const badgeColors = {
+                gray: 'from-gray-400 to-gray-600',
+                blue: 'from-blue-400 to-blue-600',
+                purple: 'from-purple-400 to-purple-600',
+                gold: 'from-yellow-400 to-yellow-600'
+              };
+              const badgeGradient = badgeColors[currentLevel.color as keyof typeof badgeColors] || badgeColors.gray;
+              
               return (
-                <div className={`absolute bottom-0 right-0 w-5 h-5 rounded-full border border-white/80 shadow flex items-center justify-center text-xs ${
-                  currentLevel.color === 'gray' ? 'bg-gray-500' :
-                  currentLevel.color === 'blue' ? 'bg-blue-500' :
-                  currentLevel.color === 'purple' ? 'bg-purple-500' :
-                  currentLevel.color === 'gold' ? 'bg-yellow-500' : 'bg-gray-500'
-                }`}>
+                <div className={`absolute -bottom-1 -right-1 w-7 h-7 rounded-full border-2 border-white/90 dark:border-gray-800/90 shadow-lg flex items-center justify-center text-sm bg-gradient-to-br ${badgeGradient} z-30 transition-all duration-300 hover:scale-110`}
+                     style={{
+                       backdropFilter: 'blur(8px)',
+                       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                     }}
+                     data-testid="badge-traveler-level">
                   {currentLevel.emoji}
                 </div>
               );
