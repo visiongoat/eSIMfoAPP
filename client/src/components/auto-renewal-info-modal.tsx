@@ -61,12 +61,13 @@ export const AutoRenewalInfoModal: React.FC<AutoRenewalInfoModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-white dark:bg-gray-900 z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-white dark:bg-gray-900 z-[10000] overflow-y-auto">
       {/* Header with close button */}
       <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 py-2 flex justify-end">
         <button
           onClick={onClose}
           className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+          data-testid="button-close-auto-renewal-info"
         >
           <X className="w-7 h-7 text-gray-500" />
         </button>
