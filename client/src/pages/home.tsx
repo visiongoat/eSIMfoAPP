@@ -664,6 +664,19 @@ export default function HomeScreen() {
 
 
 
+  // Hide chat button when search is active
+  useEffect(() => {
+    if (showFullScreenSearch) {
+      document.body.classList.add('hide-chat-button');
+    } else {
+      document.body.classList.remove('hide-chat-button');
+    }
+    
+    return () => {
+      document.body.classList.remove('hide-chat-button');
+    };
+  }, [showFullScreenSearch]);
+
   // Prevent body scroll when support modal is open
   useEffect(() => {
     if (showSupportModal) {

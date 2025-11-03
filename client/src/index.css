@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide chat button when search is active */
+body.hide-chat-button .chat-button-container {
+  display: none !important;
+}
+
 /* eSIM Detail Modal Animations */
 @keyframes fillProgress {
   from {
