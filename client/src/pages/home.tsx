@@ -2618,13 +2618,13 @@ export default function HomeScreen() {
                 {/* Global Results */}
                 {searchResults.globalPackages && searchResults.globalPackages.length > 0 && (
                   <div>
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-gray-900 dark:text-white text-base font-medium">Global</h3>
-                      <div className="text-xs text-gray-400 bg-orange-500/20 px-2 py-1 rounded-full">
+                      <div className="text-xs font-medium text-orange-600 dark:text-orange-400 bg-orange-500/10 dark:bg-orange-500/20 px-2 py-0.5 rounded-md">
                         172 countries
                       </div>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 text-xs mb-3">Worldwide coverage including your destination. Works in 172+ countries globally.</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-xs mb-3">Worldwide coverage including your destination.</p>
                     <div className="space-y-2">
                       {searchResults.globalPackages.slice(0, 3).map((pkg, index) => (
                         <div key={index} className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md">
