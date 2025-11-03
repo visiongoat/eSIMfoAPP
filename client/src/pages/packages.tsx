@@ -891,14 +891,14 @@ Visit esimfo.com for global eSIM solutions!`;
         {/* Compact Header Section */}
         <div className="px-4 py-3 space-y-2.5">
           {/* Top Row - Country & Actions */}
-          <div className="flex items-center justify-between border-b border-gray-200/80 dark:border-gray-700/40 pb-2.5">
-            <div className="flex items-center">
-              <button onClick={handleBackClick} className="p-1 mr-2 -ml-1">
+          <div className="flex items-center justify-between gap-2 border-b border-gray-200/80 dark:border-gray-700/40 pb-2.5">
+            <div className="flex items-center min-w-0 flex-1">
+              <button onClick={handleBackClick} className="p-1 mr-2 -ml-1 flex-shrink-0">
                 <ArrowLeft className="w-5 h-5 text-gray-900 dark:text-white" />
               </button>
-              <div className="flex items-center">
+              <div className="flex items-center min-w-0 flex-1">
                 {country?.flagUrl && (
-                  <div className="w-7 h-6 mr-2.5 rounded overflow-hidden shadow-sm border border-gray-200 dark:border-gray-600">
+                  <div className="w-7 h-6 mr-2.5 rounded overflow-hidden shadow-sm border border-gray-200 dark:border-gray-600 flex-shrink-0">
                     <img 
                       src={country.flagUrl} 
                       alt={`${country.name} flag`}
@@ -906,12 +906,12 @@ Visit esimfo.com for global eSIM solutions!`;
                     />
                   </div>
                 )}
-                <h1 className="text-base font-semibold text-gray-900 dark:text-white">
+                <h1 className="text-base font-semibold text-gray-900 dark:text-white truncate">
                   {country?.name || "Loading..."}
                 </h1>
               </div>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1 flex-shrink-0">
               <button
                 onClick={handleShare}
                 className="flex items-center space-x-1 px-2.5 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors active:scale-95"
