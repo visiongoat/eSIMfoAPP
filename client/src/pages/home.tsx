@@ -3855,24 +3855,24 @@ export default function HomeScreen() {
             </div>
             
             {/* Dropdown */}
-            <div className="relative">
+            <div className="relative z-50">
               <button
                 onClick={() => {
                   const dropdown = document.getElementById('virtual-country-dropdown');
                   if (dropdown) dropdown.classList.toggle('hidden');
                 }}
-                className="w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl text-left hover:border-gray-300 dark:hover:border-gray-500 transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors active:bg-gray-100 dark:active:bg-gray-650"
               >
                 {selectedVirtualCountry ? (
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2.5 sm:space-x-3 flex-1 min-w-0">
                     {selectedVirtualCountry === 'GLOBAL' ? (
-                      <div className="w-8 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-7 h-5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-sm flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                     ) : (
-                      <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
+                      <div className="w-7 h-5 rounded-sm overflow-hidden flex-shrink-0">
                         <img 
                           src={`https://flagcdn.com/w40/${selectedVirtualCountry.toLowerCase()}.png`} 
                           alt="" 
@@ -3880,33 +3880,35 @@ export default function HomeScreen() {
                         />
                       </div>
                     )}
-                    <span className="font-medium text-gray-900 dark:text-white">
-                      {selectedVirtualCountry === 'US' ? 'United States' : 
-                       selectedVirtualCountry === 'GB' ? 'United Kingdom' :
-                       selectedVirtualCountry === 'MX' ? 'Mexico' :
-                       selectedVirtualCountry === 'NL' ? 'Netherlands' : 'Global'}
-                    </span>
-                    {selectedVirtualCountry === 'GLOBAL' && (
-                      <span className="text-xs text-blue-600 dark:text-blue-400">172 countries</span>
-                    )}
+                    <div className="flex items-center space-x-1.5 min-w-0">
+                      <span className="font-medium text-sm sm:text-base text-gray-900 dark:text-white truncate">
+                        {selectedVirtualCountry === 'US' ? 'United States' : 
+                         selectedVirtualCountry === 'GB' ? 'United Kingdom' :
+                         selectedVirtualCountry === 'MX' ? 'Mexico' :
+                         selectedVirtualCountry === 'NL' ? 'Netherlands' : 'Global'}
+                      </span>
+                      {selectedVirtualCountry === 'GLOBAL' && (
+                        <span className="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">172</span>
+                      )}
+                    </div>
                   </div>
                 ) : (
-                  <span className="text-gray-400">Select a country</span>
+                  <span className="text-sm sm:text-base text-gray-500 dark:text-gray-400">Select a country</span>
                 )}
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg className={`w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0 ml-2 transition-transform ${selectedVirtualCountry ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
               </button>
               
-              {/* Dropdown Menu */}
-              <div id="virtual-country-dropdown" className="hidden absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl shadow-lg z-50 overflow-hidden">
+              {/* Dropdown Menu - Apple Style */}
+              <div id="virtual-country-dropdown" className="hidden absolute bottom-full left-0 right-0 mb-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 {[
                   { code: 'GLOBAL', name: 'Global', subtext: '172 countries' },
                   { code: 'US', name: 'United States' },
                   { code: 'GB', name: 'United Kingdom' },
                   { code: 'MX', name: 'Mexico' },
                   { code: 'NL', name: 'Netherlands' }
-                ].map((country) => (
+                ].map((country, index) => (
                   <button
                     key={country.code}
                     onClick={() => {
@@ -3918,32 +3920,36 @@ export default function HomeScreen() {
                       setSelectedVirtualPlan(null);
                       document.getElementById('virtual-country-dropdown')?.classList.add('hidden');
                     }}
-                    className={`w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                      selectedVirtualCountry === country.code ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                    className={`w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 transition-colors ${
+                      index !== 4 ? 'border-b border-gray-100 dark:border-gray-700' : ''
+                    } ${
+                      selectedVirtualCountry === country.code 
+                        ? 'bg-gray-50 dark:bg-gray-700/50' 
+                        : 'hover:bg-gray-50 dark:hover:bg-gray-700/30'
                     }`}
                   >
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0 flex-1">
                       {country.code === 'GLOBAL' ? (
-                        <div className="w-8 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-7 h-5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-sm flex items-center justify-center flex-shrink-0">
+                          <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                         </div>
                       ) : (
-                        <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
+                        <div className="w-7 h-5 rounded-sm overflow-hidden flex-shrink-0">
                           <img src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`} alt="" className="w-full h-full object-cover" />
                         </div>
                       )}
-                      <div>
-                        <span className="font-medium text-gray-900 dark:text-white">{country.name}</span>
+                      <div className="min-w-0 flex-1">
+                        <span className="font-medium text-sm sm:text-base text-gray-900 dark:text-white block truncate">{country.name}</span>
                         {country.subtext && (
-                          <span className="ml-2 text-xs text-blue-600 dark:text-blue-400">{country.subtext}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">{country.subtext}</span>
                         )}
                       </div>
                     </div>
                     {selectedVirtualCountry === country.code && (
-                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      <svg className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 ml-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                       </svg>
                     )}
                   </button>
