@@ -3828,118 +3828,244 @@ export default function HomeScreen() {
           </div>
         )}
 
-        {/* Virtual Number Section - Compact Apple Style */}
-        <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-          {/* Header - Compact */}
-          <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW</div>
-                <h3 className="text-base font-semibold text-gray-900 dark:text-white">Virtual Numbers</h3>
-              </div>
-              <div className="flex items-center space-x-1.5 text-xs text-gray-500 dark:text-gray-400">
-                <span>📱</span>
-                <span>WhatsApp</span>
-                <span>•</span>
-                <span>Telegram</span>
-                <span className="text-gray-400">+more</span>
-              </div>
-            </div>
-          </div>
+        {/* Virtual Number Section - Step by Step */}
+        <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden p-4">
           
-          {/* Country Selection - Horizontal Scroll */}
-          <div className="px-4 py-3">
-            <div className="flex overflow-x-auto gap-2 pb-1 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              {[
-                { code: 'US', name: 'USA', flag: 'https://flagcdn.com/w40/us.png', price: '€4.99' },
-                { code: 'GB', name: 'UK', flag: 'https://flagcdn.com/w40/gb.png', price: '€5.99' },
-                { code: 'MX', name: 'Mexico', flag: 'https://flagcdn.com/w40/mx.png', price: '€3.99' },
-                { code: 'NL', name: 'Netherlands', flag: 'https://flagcdn.com/w40/nl.png', price: '€4.49' },
-                { code: 'GLOBAL', name: 'Global', flag: null, price: '€9.99' }
-              ].map((country) => (
-                <button
-                  key={country.code}
-                  onClick={() => {
-                    setSelectedVirtualCountry(selectedVirtualCountry === country.code ? null : country.code);
-                    setSelectedVirtualPlan(null);
-                  }}
-                  className={`flex-shrink-0 flex items-center space-x-2 px-3 py-2 rounded-xl border transition-all duration-200 active:scale-95 ${
-                    selectedVirtualCountry === country.code
-                      ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-500 dark:border-blue-400'
-                      : 'bg-gray-50 dark:bg-gray-700/50 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
-                  }`}
-                >
-                  {country.flag ? (
-                    <div className="w-6 h-4 rounded overflow-hidden shadow-sm">
-                      <img src={country.flag} alt={country.name} className="w-full h-full object-cover" />
-                    </div>
-                  ) : (
-                    <div className="w-6 h-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center">
-                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  )}
-                  <span className={`text-sm font-medium ${
-                    selectedVirtualCountry === country.code 
-                      ? 'text-blue-700 dark:text-blue-300' 
-                      : 'text-gray-700 dark:text-gray-300'
-                  }`}>{country.name}</span>
-                </button>
-              ))}
+          {/* Step 1: Choose your country */}
+          <div className="mb-4">
+            <div className="flex items-center space-x-2 mb-3">
+              <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">Choose your country</h3>
             </div>
-          </div>
-          
-          {/* Plans - Show when country is selected */}
-          {selectedVirtualCountry && (
-            <div className="px-4 pb-4 animate-in slide-in-from-top-2 duration-200">
-              <div className="space-y-2">
+            
+            {/* Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => {
+                  const dropdown = document.getElementById('virtual-country-dropdown');
+                  if (dropdown) dropdown.classList.toggle('hidden');
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-left hover:border-gray-300 dark:hover:border-gray-500 transition-colors"
+              >
+                {selectedVirtualCountry ? (
+                  <div className="flex items-center space-x-3">
+                    {selectedVirtualCountry === 'GLOBAL' ? (
+                      <div className="w-8 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                    ) : (
+                      <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
+                        <img 
+                          src={`https://flagcdn.com/w40/${selectedVirtualCountry.toLowerCase()}.png`} 
+                          alt="" 
+                          className="w-full h-full object-cover" 
+                        />
+                      </div>
+                    )}
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {selectedVirtualCountry === 'US' ? 'United States' : 
+                       selectedVirtualCountry === 'GB' ? 'United Kingdom' :
+                       selectedVirtualCountry === 'MX' ? 'Mexico' :
+                       selectedVirtualCountry === 'NL' ? 'Netherlands' : 'Global'}
+                    </span>
+                    {selectedVirtualCountry === 'GLOBAL' && (
+                      <span className="text-xs text-blue-600 dark:text-blue-400">172 countries</span>
+                    )}
+                  </div>
+                ) : (
+                  <span className="text-gray-400">Select a country</span>
+                )}
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div id="virtual-country-dropdown" className="hidden absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl shadow-lg z-50 overflow-hidden">
                 {[
-                  { id: 1, name: 'Starter', duration: '1 Month', price: selectedVirtualCountry === 'GLOBAL' ? '€9.99' : '€4.99', features: ['SMS Receive', 'App Verification'] },
-                  { id: 2, name: 'Pro', duration: '3 Months', price: selectedVirtualCountry === 'GLOBAL' ? '€24.99' : '€12.99', features: ['SMS Receive', 'App Verification', 'Voice Calls'], popular: true },
-                  { id: 3, name: 'Business', duration: '12 Months', price: selectedVirtualCountry === 'GLOBAL' ? '€79.99' : '€39.99', features: ['SMS Receive', 'App Verification', 'Voice Calls', 'Priority Support'] }
-                ].map((plan) => (
+                  { code: 'GLOBAL', name: 'Global', subtext: '172 countries' },
+                  { code: 'US', name: 'United States' },
+                  { code: 'GB', name: 'United Kingdom' },
+                  { code: 'MX', name: 'Mexico' },
+                  { code: 'NL', name: 'Netherlands' }
+                ].map((country) => (
                   <button
-                    key={plan.id}
+                    key={country.code}
                     onClick={() => {
-                      setSelectedVirtualPlan(plan.id);
-                      setShowCheckoutModal(true);
+                      setSelectedVirtualCountry(country.code);
+                      setSelectedVirtualPlan(null);
+                      document.getElementById('virtual-country-dropdown')?.classList.add('hidden');
                     }}
-                    className={`w-full p-3 rounded-xl border text-left transition-all duration-200 active:scale-[0.98] ${
-                      selectedVirtualPlan === plan.id
-                        ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500 dark:border-blue-400'
-                        : 'bg-gray-50 dark:bg-gray-700/30 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                    className={`w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                      selectedVirtualCountry === country.code ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2">
-                          <span className="font-semibold text-gray-900 dark:text-white">{plan.name}</span>
-                          {plan.popular && (
-                            <span className="bg-orange-500 text-white text-xs font-bold px-1.5 py-0.5 rounded">Popular</span>
-                          )}
+                    <div className="flex items-center space-x-3">
+                      {country.code === 'GLOBAL' ? (
+                        <div className="w-8 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{plan.duration} • {plan.features.slice(0, 2).join(', ')}</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold text-gray-900 dark:text-white">{plan.price}</div>
-                        <div className="text-xs text-blue-600 dark:text-blue-400">Select</div>
+                      ) : (
+                        <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
+                          <img src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`} alt="" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                      <div>
+                        <span className="font-medium text-gray-900 dark:text-white">{country.name}</span>
+                        {country.subtext && (
+                          <span className="ml-2 text-xs text-blue-600 dark:text-blue-400">{country.subtext}</span>
+                        )}
                       </div>
                     </div>
+                    {selectedVirtualCountry === country.code && (
+                      <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
                   </button>
                 ))}
               </div>
             </div>
-          )}
+          </div>
           
-          {/* Empty state hint */}
-          {!selectedVirtualCountry && (
-            <div className="px-4 pb-4">
-              <div className="text-center py-3 text-sm text-gray-400 dark:text-gray-500">
-                Select a country to view plans
-              </div>
+          {/* Step 2: Select your plan */}
+          <div className="mb-4">
+            <div className="flex items-center space-x-2 mb-3">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                selectedVirtualCountry ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400'
+              }`}>2</div>
+              <h3 className={`text-base font-semibold ${
+                selectedVirtualCountry ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
+              }`}>Select your plan</h3>
             </div>
-          )}
+            
+            {selectedVirtualCountry ? (
+              <div className="space-y-2">
+                {/* Info banner */}
+                <div className="flex items-center space-x-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg mb-3">
+                  <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <span className="text-sm text-blue-700 dark:text-blue-300">
+                    Get a <span className="font-semibold">{selectedVirtualCountry === 'US' ? '+1' : selectedVirtualCountry === 'GB' ? '+44' : selectedVirtualCountry === 'MX' ? '+52' : selectedVirtualCountry === 'NL' ? '+31' : '+1'} number</span> from {selectedVirtualCountry === 'US' ? 'United States' : selectedVirtualCountry === 'GB' ? 'United Kingdom' : selectedVirtualCountry === 'MX' ? 'Mexico' : selectedVirtualCountry === 'NL' ? 'Netherlands' : 'Global'}
+                  </span>
+                </div>
+                
+                {/* Plan options */}
+                {[
+                  { id: 1, data: '1 GB', mins: '20 mins', sms: '10 SMS', days: '7 days', price: '€1.46' },
+                  { id: 2, data: '2 GB', mins: '40 mins', sms: '20 SMS', days: '15 days', price: '€2.84' },
+                  { id: 3, data: '3 GB', mins: '60 mins', sms: '30 SMS', days: '30 days', price: '€3.87' },
+                  { id: 4, data: '5 GB', mins: '100 mins', sms: '50 SMS', days: '30 days', price: '€6.02' }
+                ].map((plan) => (
+                  <button
+                    key={plan.id}
+                    onClick={() => setSelectedVirtualPlan(plan.id)}
+                    className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-200 active:scale-[0.98] ${
+                      selectedVirtualPlan === plan.id
+                        ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500 dark:border-blue-400'
+                        : 'bg-white dark:bg-gray-700/30 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                        selectedVirtualPlan === plan.id 
+                          ? 'border-blue-600 bg-blue-600' 
+                          : 'border-gray-300 dark:border-gray-500'
+                      }`}>
+                        {selectedVirtualPlan === plan.id && (
+                          <div className="w-2 h-2 bg-white rounded-full"></div>
+                        )}
+                      </div>
+                      <div className="text-left">
+                        <div className="font-semibold text-gray-900 dark:text-white">{plan.data}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          {plan.mins} • {plan.sms} • {plan.days}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="font-bold text-gray-900 dark:text-white">{plan.price}</div>
+                  </button>
+                ))}
+                
+                {/* Keep your number info */}
+                <div className="flex items-start space-x-2 px-3 py-3 bg-green-50 dark:bg-green-900/20 rounded-lg mt-3">
+                  <svg className="w-4 h-4 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  <div>
+                    <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">Keep your number forever:</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400"> Top-up anytime to extend your plan and maintain the same virtual number.</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-xl p-6 text-center">
+                <p className="text-sm text-gray-400 dark:text-gray-500">Please select a country to see available plans</p>
+              </div>
+            )}
+          </div>
+          
+          {/* Step 3: Get your number */}
+          <div>
+            <div className="flex items-center space-x-2 mb-3">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                selectedVirtualPlan ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400'
+              }`}>3</div>
+              <h3 className={`text-base font-semibold ${
+                selectedVirtualPlan ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
+              }`}>Get your number</h3>
+            </div>
+            
+            {selectedVirtualPlan && (
+              <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600 animate-in slide-in-from-top-2 duration-200">
+                <div className="flex items-center space-x-3 mb-2">
+                  <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Your number will look like:</span>
+                </div>
+                <div className="inline-block px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg">
+                  <span className="font-mono font-semibold text-gray-900 dark:text-white">
+                    {selectedVirtualCountry === 'US' ? '+1' : selectedVirtualCountry === 'GB' ? '+44' : selectedVirtualCountry === 'MX' ? '+52' : selectedVirtualCountry === 'NL' ? '+31' : '+1'} (XXX) XXX-XXXX
+                  </span>
+                </div>
+                <p className="text-xs text-green-600 dark:text-green-400 mt-2">Your unique number will be assigned after purchase</p>
+              </div>
+            )}
+            
+            {/* Continue Button */}
+            <button
+              onClick={() => selectedVirtualPlan && setShowCheckoutModal(true)}
+              disabled={!selectedVirtualPlan}
+              className={`w-full py-4 rounded-xl font-semibold text-white transition-all duration-200 flex items-center justify-center space-x-2 ${
+                selectedVirtualPlan
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] shadow-lg'
+                  : 'bg-gray-300 dark:bg-gray-600 cursor-not-allowed'
+              }`}
+            >
+              <span>
+                {selectedVirtualPlan 
+                  ? `Continue (${[
+                      { id: 1, price: '€1.46' },
+                      { id: 2, price: '€2.84' },
+                      { id: 3, price: '€3.87' },
+                      { id: 4, price: '€6.02' }
+                    ].find(p => p.id === selectedVirtualPlan)?.price || '€0.00'})`
+                  : 'Select a plan to continue'
+                }
+              </span>
+              {selectedVirtualPlan && (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Quick Actions */}
