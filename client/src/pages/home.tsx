@@ -3831,6 +3831,35 @@ export default function HomeScreen() {
         {/* Virtual Number Section - Step by Step */}
         <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 relative">
           
+          {/* Virtual Number Header Banner */}
+          <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center space-x-2 mb-2">
+              <div className="inline-flex items-center space-x-1 px-2.5 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                <span className="text-lg">✨</span>
+                <span className="text-xs font-semibold text-blue-700 dark:text-blue-300">NEW: Virtual Numbers</span>
+              </div>
+            </div>
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1">
+              Get Your eSIMfo <span className="text-blue-600 dark:text-blue-400">Virtual Number</span>
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Global connection, local presence.</p>
+            
+            {/* Quick Benefits */}
+            <div className="grid grid-cols-1 gap-2">
+              <div className="flex items-start space-x-2.5">
+                <div className="w-6 h-6 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">Activate Apps</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">WhatsApp, Telegram & more</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           {/* Step 1: Choose your country */}
           <div className="mb-3 sm:mb-4">
             <div className="flex items-center space-x-2 mb-2 sm:mb-3">
