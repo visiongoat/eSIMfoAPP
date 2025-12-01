@@ -3829,7 +3829,7 @@ export default function HomeScreen() {
         )}
 
         {/* Virtual Number Section - Step by Step */}
-        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden p-3 sm:p-4">
+        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 relative">
           
           {/* Step 1: Choose your country */}
           <div className="mb-3 sm:mb-4">
@@ -3895,13 +3895,13 @@ export default function HomeScreen() {
                 ) : (
                   <span className="text-sm sm:text-base text-gray-500 dark:text-gray-400">Select a country</span>
                 )}
-                <svg className={`w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0 ml-2 transition-transform ${selectedVirtualCountry ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                <svg className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               
               {/* Dropdown Menu - Apple Style */}
-              <div id="virtual-country-dropdown" className="hidden absolute bottom-full left-0 right-0 mb-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+              <div id="virtual-country-dropdown" className="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 {[
                   { code: 'GLOBAL', name: 'Global', subtext: '172 countries' },
                   { code: 'US', name: 'United States' },
