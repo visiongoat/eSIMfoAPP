@@ -78,6 +78,10 @@ export default function HomeScreen() {
   const [showEuropePlanInfoModal, setShowEuropePlanInfoModal] = useState(false);
   const planInfoModalRef = useRef<HTMLDivElement>(null);
   const europePlanInfoModalRef = useRef<HTMLDivElement>(null);
+  
+  // Virtual Number states
+  const [selectedVirtualCountry, setSelectedVirtualCountry] = useState<string | null>(null);
+  const [selectedVirtualPlan, setSelectedVirtualPlan] = useState<number | null>(null);
 
   // Memoized Europa plan data to prevent recreating on every render
   const europaPlans = useMemo(() => [
@@ -3824,161 +3828,118 @@ export default function HomeScreen() {
           </div>
         )}
 
-        {/* Virtual Number Section */}
-        <div className="mt-6">
-          {/* Hero Card */}
-          <div className="relative overflow-hidden bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700 dark:from-violet-700 dark:via-purple-700 dark:to-indigo-800 rounded-2xl p-5 border border-purple-500/30 shadow-xl">
-            {/* Background decorative elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-            
-            <div className="relative z-10">
-              {/* NEW Badge */}
-              <div className="inline-flex items-center space-x-1 bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full mb-3">
-                <span className="text-yellow-300 text-xs">✨</span>
-                <span className="text-white text-xs font-semibold">NEW: Virtual Numbers</span>
+        {/* Virtual Number Section - Compact Apple Style */}
+        <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+          {/* Header - Compact */}
+          <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">NEW</div>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white">Virtual Numbers</h3>
               </div>
-              
-              {/* Title */}
-              <h2 className="text-xl font-bold text-white mb-1">
-                Get Your eSIMfo <span className="text-purple-200">Virtual Number</span>
-              </h2>
-              <p className="text-purple-200 text-sm mb-4">Global connection, local presence.</p>
-              
-              {/* Value Props - Compact horizontal chips */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                <div className="flex items-center space-x-1.5 bg-white/15 backdrop-blur-sm px-2.5 py-1.5 rounded-lg">
-                  <div className="w-5 h-5 bg-green-400 rounded-md flex items-center justify-center">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                  </div>
-                  <span className="text-white text-xs font-medium">Activate Apps</span>
-                </div>
-                
-                <div className="flex items-center space-x-1.5 bg-white/15 backdrop-blur-sm px-2.5 py-1.5 rounded-lg">
-                  <div className="w-5 h-5 bg-blue-400 rounded-md flex items-center justify-center">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <span className="text-white text-xs font-medium">Look Professional</span>
-                </div>
-                
-                <div className="flex items-center space-x-1.5 bg-white/15 backdrop-blur-sm px-2.5 py-1.5 rounded-lg">
-                  <div className="w-5 h-5 bg-red-400 rounded-md flex items-center justify-center">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  </div>
-                  <span className="text-white text-xs font-medium">Protect Privacy</span>
-                </div>
-              </div>
-              
-              {/* App icons row */}
-              <div className="flex items-center space-x-3 mb-4">
-                <span className="text-purple-200 text-xs">Works with:</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 bg-green-500 rounded-md flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                    </svg>
-                  </div>
-                  <div className="w-6 h-6 bg-blue-500 rounded-md flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-                    </svg>
-                  </div>
-                  <div className="w-6 h-6 bg-black rounded-md flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">U</span>
-                  </div>
-                  <div className="w-6 h-6 bg-gradient-to-br from-pink-500 to-purple-500 rounded-md flex items-center justify-center">
-                    <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                  </div>
-                  <span className="text-purple-200 text-xs">+more</span>
-                </div>
+              <div className="flex items-center space-x-1.5 text-xs text-gray-500 dark:text-gray-400">
+                <span>📱</span>
+                <span>WhatsApp</span>
+                <span>•</span>
+                <span>Telegram</span>
+                <span className="text-gray-400">+more</span>
               </div>
             </div>
           </div>
           
-          {/* Country Carousel */}
-          <div className="mt-3">
-            <div className="flex overflow-x-auto gap-3 pb-2 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              {/* United States */}
-              <button 
-                onClick={() => setLocation('/virtual-numbers?country=US')}
-                className="flex-shrink-0 snap-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 min-w-[140px] hover:border-purple-400 dark:hover:border-purple-500 transition-all duration-200 active:scale-95"
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
-                    <img src="https://flagcdn.com/w40/us.png" alt="US" className="w-full h-full object-cover" />
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">USA</span>
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">From €4.99/mo</div>
-              </button>
-              
-              {/* United Kingdom */}
-              <button 
-                onClick={() => setLocation('/virtual-numbers?country=GB')}
-                className="flex-shrink-0 snap-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 min-w-[140px] hover:border-purple-400 dark:hover:border-purple-500 transition-all duration-200 active:scale-95"
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
-                    <img src="https://flagcdn.com/w40/gb.png" alt="UK" className="w-full h-full object-cover" />
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">UK</span>
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">From €5.99/mo</div>
-              </button>
-              
-              {/* Mexico */}
-              <button 
-                onClick={() => setLocation('/virtual-numbers?country=MX')}
-                className="flex-shrink-0 snap-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 min-w-[140px] hover:border-purple-400 dark:hover:border-purple-500 transition-all duration-200 active:scale-95"
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
-                    <img src="https://flagcdn.com/w40/mx.png" alt="Mexico" className="w-full h-full object-cover" />
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">Mexico</span>
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">From €3.99/mo</div>
-              </button>
-              
-              {/* Netherlands */}
-              <button 
-                onClick={() => setLocation('/virtual-numbers?country=NL')}
-                className="flex-shrink-0 snap-center bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-3 min-w-[140px] hover:border-purple-400 dark:hover:border-purple-500 transition-all duration-200 active:scale-95"
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-8 h-6 rounded overflow-hidden shadow-sm">
-                    <img src="https://flagcdn.com/w40/nl.png" alt="Netherlands" className="w-full h-full object-cover" />
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">Netherlands</span>
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">From €4.49/mo</div>
-              </button>
-              
-              {/* Global */}
-              <button 
-                onClick={() => setLocation('/virtual-numbers?country=GLOBAL')}
-                className="flex-shrink-0 snap-center bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/30 dark:to-indigo-900/30 border border-purple-200 dark:border-purple-700 rounded-xl p-3 min-w-[140px] hover:border-purple-400 dark:hover:border-purple-500 transition-all duration-200 active:scale-95"
-              >
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-8 h-6 bg-gradient-to-br from-purple-500 to-indigo-500 rounded flex items-center justify-center shadow-sm">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <span className="text-sm font-semibold text-gray-900 dark:text-white">Global</span>
-                </div>
-                <div className="text-xs text-purple-600 dark:text-purple-400 font-medium">172 countries</div>
-              </button>
+          {/* Country Selection - Horizontal Scroll */}
+          <div className="px-4 py-3">
+            <div className="flex overflow-x-auto gap-2 pb-1 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {[
+                { code: 'US', name: 'USA', flag: 'https://flagcdn.com/w40/us.png', price: '€4.99' },
+                { code: 'GB', name: 'UK', flag: 'https://flagcdn.com/w40/gb.png', price: '€5.99' },
+                { code: 'MX', name: 'Mexico', flag: 'https://flagcdn.com/w40/mx.png', price: '€3.99' },
+                { code: 'NL', name: 'Netherlands', flag: 'https://flagcdn.com/w40/nl.png', price: '€4.49' },
+                { code: 'GLOBAL', name: 'Global', flag: null, price: '€9.99' }
+              ].map((country) => (
+                <button
+                  key={country.code}
+                  onClick={() => {
+                    setSelectedVirtualCountry(selectedVirtualCountry === country.code ? null : country.code);
+                    setSelectedVirtualPlan(null);
+                  }}
+                  className={`flex-shrink-0 flex items-center space-x-2 px-3 py-2 rounded-xl border transition-all duration-200 active:scale-95 ${
+                    selectedVirtualCountry === country.code
+                      ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-500 dark:border-blue-400'
+                      : 'bg-gray-50 dark:bg-gray-700/50 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                  }`}
+                >
+                  {country.flag ? (
+                    <div className="w-6 h-4 rounded overflow-hidden shadow-sm">
+                      <img src={country.flag} alt={country.name} className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className="w-6 h-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                  )}
+                  <span className={`text-sm font-medium ${
+                    selectedVirtualCountry === country.code 
+                      ? 'text-blue-700 dark:text-blue-300' 
+                      : 'text-gray-700 dark:text-gray-300'
+                  }`}>{country.name}</span>
+                </button>
+              ))}
             </div>
           </div>
+          
+          {/* Plans - Show when country is selected */}
+          {selectedVirtualCountry && (
+            <div className="px-4 pb-4 animate-in slide-in-from-top-2 duration-200">
+              <div className="space-y-2">
+                {[
+                  { id: 1, name: 'Starter', duration: '1 Month', price: selectedVirtualCountry === 'GLOBAL' ? '€9.99' : '€4.99', features: ['SMS Receive', 'App Verification'] },
+                  { id: 2, name: 'Pro', duration: '3 Months', price: selectedVirtualCountry === 'GLOBAL' ? '€24.99' : '€12.99', features: ['SMS Receive', 'App Verification', 'Voice Calls'], popular: true },
+                  { id: 3, name: 'Business', duration: '12 Months', price: selectedVirtualCountry === 'GLOBAL' ? '€79.99' : '€39.99', features: ['SMS Receive', 'App Verification', 'Voice Calls', 'Priority Support'] }
+                ].map((plan) => (
+                  <button
+                    key={plan.id}
+                    onClick={() => {
+                      setSelectedVirtualPlan(plan.id);
+                      setShowCheckoutModal(true);
+                    }}
+                    className={`w-full p-3 rounded-xl border text-left transition-all duration-200 active:scale-[0.98] ${
+                      selectedVirtualPlan === plan.id
+                        ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500 dark:border-blue-400'
+                        : 'bg-gray-50 dark:bg-gray-700/30 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2">
+                          <span className="font-semibold text-gray-900 dark:text-white">{plan.name}</span>
+                          {plan.popular && (
+                            <span className="bg-orange-500 text-white text-xs font-bold px-1.5 py-0.5 rounded">Popular</span>
+                          )}
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{plan.duration} • {plan.features.slice(0, 2).join(', ')}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-gray-900 dark:text-white">{plan.price}</div>
+                        <div className="text-xs text-blue-600 dark:text-blue-400">Select</div>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Empty state hint */}
+          {!selectedVirtualCountry && (
+            <div className="px-4 pb-4">
+              <div className="text-center py-3 text-sm text-gray-400 dark:text-gray-500">
+                Select a country to view plans
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Quick Actions */}
