@@ -3835,12 +3835,10 @@ export default function HomeScreen() {
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-indigo-200/20 to-transparent rounded-full blur-xl pointer-events-none"></div>
           
           {/* Header with premium styling */}
-          <div className="mb-4 pb-4 border-b border-blue-100/50 dark:border-gray-700 relative">
-            <div className="inline-block px-3 py-1.5 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 dark:from-blue-500/20 dark:to-indigo-500/20 rounded-lg mb-2">
-              <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
-                Get Your eSIMfo <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Virtual Number</span>
-              </h2>
-            </div>
+          <div className="mb-4 pb-4 -mx-3 sm:-mx-4 -mt-3 sm:-mt-4 px-3 sm:px-4 pt-3 sm:pt-4 bg-gradient-to-r from-blue-100/60 via-indigo-50/40 to-purple-100/50 dark:from-blue-900/30 dark:via-indigo-900/20 dark:to-purple-900/30 border-b border-blue-100/50 dark:border-gray-700 relative">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-0.5">
+              Get Your eSIMfo <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Virtual Number</span>
+            </h2>
             <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Global connection, local presence.</p>
           </div>
           
