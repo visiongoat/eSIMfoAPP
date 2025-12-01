@@ -3894,7 +3894,11 @@ export default function HomeScreen() {
                   <button
                     key={country.code}
                     onClick={() => {
-                      setSelectedVirtualCountry(country.code);
+                      if (selectedVirtualCountry === country.code) {
+                        setSelectedVirtualCountry(null);
+                      } else {
+                        setSelectedVirtualCountry(country.code);
+                      }
                       setSelectedVirtualPlan(null);
                       document.getElementById('virtual-country-dropdown')?.classList.add('hidden');
                     }}
