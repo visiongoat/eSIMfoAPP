@@ -4129,18 +4129,20 @@ export default function HomeScreen() {
             
             {selectedVirtualPlan && (
               <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg sm:rounded-xl border border-gray-200 dark:border-gray-600 animate-in slide-in-from-top-2 duration-200">
-                <div className="flex items-center space-x-2 sm:space-x-3 mb-1.5 sm:mb-2">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-start space-x-2 sm:space-x-3">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Your number will look like:</span>
+                  <div className="flex flex-col items-start">
+                    <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1.5 sm:mb-2">Your number will look like:</span>
+                    <div className="inline-block px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg">
+                      <span className="font-mono font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
+                        {selectedVirtualCountry === 'US' ? '+1' : selectedVirtualCountry === 'GB' ? '+44' : selectedVirtualCountry === 'MX' ? '+52' : selectedVirtualCountry === 'NL' ? '+31' : '+1'} (XXX) XXX-XXXX
+                      </span>
+                    </div>
+                    <p className="text-xs text-green-600 dark:text-green-400 mt-1.5 sm:mt-2">Your unique number will be assigned after purchase</p>
+                  </div>
                 </div>
-                <div className="inline-block px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg">
-                  <span className="font-mono font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
-                    {selectedVirtualCountry === 'US' ? '+1' : selectedVirtualCountry === 'GB' ? '+44' : selectedVirtualCountry === 'MX' ? '+52' : selectedVirtualCountry === 'NL' ? '+31' : '+1'} (XXX) XXX-XXXX
-                  </span>
-                </div>
-                <p className="text-xs text-green-600 dark:text-green-400 mt-1.5 sm:mt-2">Your unique number will be assigned after purchase</p>
               </div>
             )}
             
