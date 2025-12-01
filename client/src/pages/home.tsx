@@ -69,6 +69,25 @@ export default function HomeScreen() {
   const [selectedEuropaPlan, setSelectedEuropaPlan] = useState<number | null>(null); // No default selection
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [esimCount, setEsimCount] = useState(1);
+  const scrollPositionRef = useRef<number>(0);
+
+  // Preserve scroll position when checkout modal opens/closes
+  useEffect(() => {
+    if (showCheckoutModal) {
+      scrollPositionRef.current = window.scrollY;
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      if (scrollPositionRef.current > 0) {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, scrollPositionRef.current);
+        });
+      }
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showCheckoutModal]);
   
   // Global tab states
   const [globalPlanType, setGlobalPlanType] = useState<'data' | 'data-voice-sms'>('data');
