@@ -3834,8 +3834,24 @@ export default function HomeScreen() {
           {/* Step 1: Choose your country */}
           <div className="mb-3 sm:mb-4">
             <div className="flex items-center space-x-2 mb-2 sm:mb-3">
-              <div className="w-5 h-5 sm:w-6 sm:h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
-              <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Choose your country</h3>
+              <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                selectedVirtualCountry
+                  ? 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
+                  : 'bg-blue-600 text-white'
+              }`}>
+                {selectedVirtualCountry ? (
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  '1'
+                )}
+              </div>
+              <h3 className={`text-sm sm:text-base font-semibold transition-colors duration-300 ${
+                selectedVirtualCountry
+                  ? 'text-gray-400 dark:text-gray-500'
+                  : 'text-gray-900 dark:text-white'
+              }`}>Choose your country</h3>
             </div>
             
             {/* Dropdown */}
@@ -3939,10 +3955,22 @@ export default function HomeScreen() {
           {/* Step 2: Select your plan */}
           <div className="mb-3 sm:mb-4">
             <div className="flex items-center space-x-2 mb-2 sm:mb-3">
-              <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                selectedVirtualCountry ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400'
-              }`}>2</div>
-              <h3 className={`text-sm sm:text-base font-semibold ${
+              <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                selectedVirtualCountry && !selectedVirtualPlan
+                  ? 'bg-blue-600 text-white'
+                  : selectedVirtualPlan
+                  ? 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
+                  : 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
+              }`}>
+                {selectedVirtualPlan ? (
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  '2'
+                )}
+              </div>
+              <h3 className={`text-sm sm:text-base font-semibold transition-colors duration-300 ${
                 selectedVirtualCountry ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
               }`}>Select your plan</h3>
             </div>
@@ -4016,10 +4044,10 @@ export default function HomeScreen() {
           {/* Step 3: Get your number */}
           <div>
             <div className="flex items-center space-x-2 mb-2 sm:mb-3">
-              <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                selectedVirtualPlan ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400'
+              <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
+                selectedVirtualPlan ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
               }`}>3</div>
-              <h3 className={`text-sm sm:text-base font-semibold ${
+              <h3 className={`text-sm sm:text-base font-semibold transition-colors duration-300 ${
                 selectedVirtualPlan ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
               }`}>Get your number</h3>
             </div>
