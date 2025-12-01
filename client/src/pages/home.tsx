@@ -3836,7 +3836,7 @@ export default function HomeScreen() {
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-indigo-200/20 to-transparent rounded-full blur-xl pointer-events-none"></div>
           
           {/* Header with premium styling */}
-          <div className="mb-4 pb-4 -mx-3 sm:-mx-4 -mt-3 sm:-mt-4 px-3 sm:px-4 pt-3 sm:pt-4 bg-gradient-to-r from-blue-100/60 via-indigo-50/40 to-purple-100/50 dark:from-blue-900/30 dark:via-indigo-900/20 dark:to-purple-900/30 border-b border-blue-100/50 dark:border-gray-700 relative rounded-t-xl sm:rounded-t-2xl">
+          <div className="mb-4 pb-4 -mx-3 sm:-mx-4 -mt-3 sm:-mt-4 px-3 sm:px-4 pt-3 sm:pt-4 bg-gradient-to-r from-blue-100/60 via-indigo-50/40 to-purple-100/50 dark:from-blue-900/30 dark:via-indigo-900/20 dark:to-purple-900/30 relative rounded-t-xl sm:rounded-t-2xl">
             <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-0.5 tracking-tight">
               Get Your eSIMfo <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-tight">Virtual Number</span>
             </h2>
@@ -3851,9 +3851,12 @@ export default function HomeScreen() {
                 <SiAirbnb className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                 <SiInstagram className="w-4 h-4 text-gray-600 dark:text-gray-400" />
                 <SiTiktok className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                <span className="text-[11px] text-gray-500 dark:text-gray-500">+4</span>
+                <span className="text-[10px] px-1.5 py-0.5 bg-white/50 dark:bg-white/10 backdrop-blur-sm rounded-full text-gray-500 dark:text-gray-400 font-medium">+4</span>
               </div>
             </div>
+            
+            {/* Translucent divider - carved surface effect */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/10"></div>
           </div>
           
           {/* Step 1: Choose your country */}
@@ -3865,7 +3868,7 @@ export default function HomeScreen() {
                   : 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
               }`}>
                 {selectedVirtualCountry ? (
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-[pulse_0.5s_ease-in-out_1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-[springPulse_0.4s_cubic-bezier(0.25,0.1,0.25,1)_1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 ) : (
@@ -4035,7 +4038,7 @@ export default function HomeScreen() {
                   : 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
               }`}>
                 {selectedVirtualPlan ? (
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-[pulse_0.5s_ease-in-out_1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-[springPulse_0.4s_cubic-bezier(0.25,0.1,0.25,1)_1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 ) : (
