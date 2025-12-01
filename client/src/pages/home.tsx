@@ -3997,14 +3997,13 @@ export default function HomeScreen() {
                 ))}
                 
                 {/* Keep your number info */}
-                <div className="flex items-start space-x-2 px-2.5 py-2 sm:px-3 sm:py-3 bg-green-50 dark:bg-green-900/20 rounded-lg mt-2 sm:mt-3">
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center space-x-2 px-2.5 py-2 sm:px-3 sm:py-3 bg-green-50 dark:bg-green-900/20 rounded-lg mt-2 sm:mt-3">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 dark:text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                   </svg>
-                  <div>
-                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium">Keep your number forever:</span>
-                    <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400"> Top-up anytime to extend your plan.</span>
-                  </div>
+                  <span className="text-xs sm:text-sm md:text-sm text-gray-700 dark:text-gray-300 font-medium leading-tight">
+                    <span className="font-semibold">Keep your number forever:</span> Top-up anytime to extend your plan.
+                  </span>
                 </div>
               </div>
             ) : (
