@@ -3829,14 +3829,19 @@ export default function HomeScreen() {
         )}
 
         {/* Virtual Number Section - Step by Step */}
-        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 relative">
+        <div className="mt-6 bg-gradient-to-br from-blue-50/80 via-white to-indigo-50/60 dark:from-gray-800 dark:via-gray-800 dark:to-blue-900/20 rounded-xl sm:rounded-2xl border border-blue-100/50 dark:border-gray-700 p-3 sm:p-4 relative overflow-hidden">
+          {/* Subtle cloud/mist effect */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-200/30 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-indigo-200/20 to-transparent rounded-full blur-xl pointer-events-none"></div>
           
-          {/* Header */}
-          <div className="mb-4 pb-4 border-b border-gray-100 dark:border-gray-700">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-0.5">
-              Get Your eSIMfo <span className="text-blue-600 dark:text-blue-400">Virtual Number</span>
-            </h2>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Global connection, local presence.</p>
+          {/* Header with premium styling */}
+          <div className="mb-4 pb-4 border-b border-blue-100/50 dark:border-gray-700 relative">
+            <div className="inline-block px-3 py-1.5 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 dark:from-blue-500/20 dark:to-indigo-500/20 rounded-lg mb-2">
+              <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+                Get Your eSIMfo <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Virtual Number</span>
+              </h2>
+            </div>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Global connection, local presence.</p>
           </div>
           
           {/* Step 1: Choose your country */}
