@@ -3866,13 +3866,13 @@ export default function HomeScreen() {
                 {selectedVirtualCountry ? (
                   <div className="flex items-center space-x-2.5 sm:space-x-3 flex-1 min-w-0">
                     {selectedVirtualCountry === 'GLOBAL' ? (
-                      <div className="w-7 h-5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-tl-md rounded-tr-md rounded-br-md flex items-center justify-center flex-shrink-0">
-                        <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-6 h-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center flex-shrink-0">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                     ) : (
-                      <div className="w-7 h-5 rounded-tl-md rounded-tr-md rounded-br-md overflow-hidden flex-shrink-0">
+                      <div className="w-6 h-4 rounded overflow-hidden flex-shrink-0">
                         <img 
                           src={`https://flagcdn.com/w40/${selectedVirtualCountry.toLowerCase()}.png`} 
                           alt="" 
@@ -3930,13 +3930,13 @@ export default function HomeScreen() {
                   >
                     <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0 flex-1">
                       {country.code === 'GLOBAL' ? (
-                        <div className="w-7 h-5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-tl-md rounded-tr-md rounded-br-md flex items-center justify-center flex-shrink-0">
-                          <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-6 h-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded flex items-center justify-center flex-shrink-0">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                         </div>
                       ) : (
-                        <div className="w-7 h-5 rounded-tl-md rounded-tr-md rounded-br-md overflow-hidden flex-shrink-0">
+                        <div className="w-6 h-4 rounded overflow-hidden flex-shrink-0">
                           <img src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`} alt="" className="w-full h-full object-cover" />
                         </div>
                       )}
