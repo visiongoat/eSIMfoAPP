@@ -3828,16 +3828,16 @@ export default function HomeScreen() {
           </div>
         )}
 
-        {/* Virtual Number Intro Panel - OUTSIDE the step container */}
-        <div className="mt-6 px-1">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1">
-            Get Your eSIMfo <span className="text-blue-600 dark:text-blue-400">Virtual Number</span>
-          </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Global connection, local presence.</p>
-        </div>
-
         {/* Virtual Number Section - Step by Step */}
-        <div className="mt-4 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 relative">
+        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 relative">
+          
+          {/* Header */}
+          <div className="mb-4 pb-4 border-b border-gray-100 dark:border-gray-700">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-0.5">
+              Get Your eSIMfo <span className="text-blue-600 dark:text-blue-400">Virtual Number</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Global connection, local presence.</p>
+          </div>
           
           {/* Step 1: Choose your country */}
           <div className="mb-3 sm:mb-4">
