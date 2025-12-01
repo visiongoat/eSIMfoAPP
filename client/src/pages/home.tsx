@@ -3828,37 +3828,70 @@ export default function HomeScreen() {
           </div>
         )}
 
-        {/* Virtual Number Section - Step by Step */}
-        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 relative">
+        {/* Virtual Number Intro Panel - OUTSIDE the step container */}
+        <div className="mt-6 px-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1">
+            Get Your eSIMfo <span className="text-blue-600 dark:text-blue-400">Virtual Number</span>
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Global connection, local presence.</p>
           
-          {/* Virtual Number Header Banner */}
-          <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex items-center space-x-2 mb-2">
-              <div className="inline-flex items-center space-x-1 px-2.5 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full">
-                <span className="text-lg">✨</span>
-                <span className="text-xs font-semibold text-blue-700 dark:text-blue-300">NEW: Virtual Numbers</span>
+          {/* Features Grid */}
+          <div className="space-y-3 mb-4">
+            {/* Activate Apps */}
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">Activate Apps</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Instantly activate WhatsApp, Telegram, and other apps.</p>
+                {/* App Icons Row */}
+                <div className="flex items-center space-x-2.5 mt-2">
+                  <svg className="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  <svg className="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                  <div className="w-5 h-5 bg-black dark:bg-white rounded flex items-center justify-center">
+                    <span className="text-[8px] font-bold text-white dark:text-black">Uber</span>
+                  </div>
+                  <svg className="w-5 h-5 text-[#FF5A5F]" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 18.275c-1.353 0-2.5-1.155-2.5-2.482 0-1.327 1.147-2.48 2.5-2.48s2.5 1.153 2.5 2.48-1.147 2.482-2.5 2.482zm6.199-1.975c-.096-2.198-.777-4.281-2.041-5.942-1.217-1.593-2.851-2.613-4.658-2.813V4.573c0-.393-.312-.698-.695-.698a.688.688 0 00-.695.698v2.972c-1.806.2-3.44 1.22-4.657 2.813-1.264 1.661-1.945 3.744-2.041 5.942l-.113 2.393h15.113l-.113-2.393zM7.537 7.4c.59-.74 1.274-1.284 2.064-1.661V4.573c0-1.297 1.077-2.347 2.4-2.347s2.4 1.05 2.4 2.347V5.74c.79.376 1.475.92 2.064 1.661.785.984 1.371 2.178 1.763 3.508H5.774c.392-1.33.978-2.524 1.763-3.508z"/></svg>
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.115 3.998 19.312 0h-4.395l-2.198 3.998h4.396zM4.687 9.997l-.002-.007a1.94 1.94 0 0 0-.124-.345 1.942 1.942 0 0 0-1.733-1.147c-.06 0-.122.007-.183.015l-.011.002-.007.001-.003.001a.394.394 0 0 1-.044.006l-.012.002a1.94 1.94 0 0 0-1.44.755c-.004.004-.007.01-.01.014l-.003.003A1.95 1.95 0 0 0 .755 10c0 .067.007.134.018.2l.003.017.002.012.008.037.005.021a1.943 1.943 0 0 0 .122.342 1.943 1.943 0 0 0 1.917 1.133c.06-.004.122-.012.182-.022l.011-.002.007-.001.003-.001.044-.008.012-.002a1.943 1.943 0 0 0 1.438-.759c.004-.004.007-.008.01-.013l.003-.003c.288-.384.458-.854.458-1.36a1.93 1.93 0 0 0-.018-.2l-.003-.016-.002-.013-.008-.037-.005-.022-.316-.018zM12.058 3.997a.4.4 0 0 1-.058.003.4.4 0 0 1-.057-.003H7.547l2.198 3.999h4.396L12.058 3.997zM23.245 10c0-.067-.007-.133-.018-.199l-.003-.017-.002-.012-.008-.037-.005-.022a1.942 1.942 0 0 0-.122-.341A1.943 1.943 0 0 0 21.17 8.24c-.06.003-.122.01-.182.02l-.011.002-.007.001-.003.001-.044.008-.012.002a1.943 1.943 0 0 0-1.439.759c-.003.004-.006.008-.01.013l-.002.003a1.952 1.952 0 0 0-.459 1.36c0 .067.006.134.017.2l.004.017.001.012.008.037.006.021c.028.12.069.235.121.343a1.942 1.942 0 0 0 1.734 1.147c.06 0 .121-.007.182-.015l.011-.002.007-.001.004-.001.043-.007.012-.001a1.943 1.943 0 0 0 1.44-.756c.003-.004.006-.009.01-.014l.002-.003c.288-.383.458-.853.458-1.359l-.316.018zM12 11.51a4.96 4.96 0 0 0-4.963 4.96A4.96 4.96 0 0 0 12 21.43a4.96 4.96 0 0 0 4.963-4.96A4.96 4.96 0 0 0 12 11.51zm0 7.952a2.993 2.993 0 0 1-2.995-2.992A2.993 2.993 0 0 1 12 13.478a2.993 2.993 0 0 1 2.995 2.992A2.993 2.993 0 0 1 12 19.462z" fill="#FE3C72"/></svg>
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><defs><radialGradient id="ig1" cx="30%" cy="107%" r="150%"><stop offset="0%" stopColor="#fdf497"/><stop offset="5%" stopColor="#fdf497"/><stop offset="45%" stopColor="#fd5949"/><stop offset="60%" stopColor="#d6249f"/><stop offset="90%" stopColor="#285AEB"/></radialGradient></defs><path fill="url(#ig1)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </div>
               </div>
             </div>
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1">
-              Get Your eSIMfo <span className="text-blue-600 dark:text-blue-400">Virtual Number</span>
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Global connection, local presence.</p>
             
-            {/* Quick Benefits */}
-            <div className="grid grid-cols-1 gap-2">
-              <div className="flex items-start space-x-2.5">
-                <div className="w-6 h-6 rounded-lg bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">Activate Apps</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">WhatsApp, Telegram & more</p>
-                </div>
+            {/* Look Professional */}
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">Look Professional</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Use as a professional number for your international business.</p>
+              </div>
+            </div>
+            
+            {/* Protect Privacy */}
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">Protect Privacy</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Secure your privacy for online verifications and sign-ups.</p>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Virtual Number Section - Step by Step */}
+        <div className="mt-4 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 p-3 sm:p-4 relative">
           
           {/* Step 1: Choose your country */}
           <div className="mb-3 sm:mb-4">
