@@ -3837,8 +3837,8 @@ export default function HomeScreen() {
           
           {/* Header with premium styling */}
           <div className="mb-4 pb-4 -mx-3 sm:-mx-4 -mt-3 sm:-mt-4 px-3 sm:px-4 pt-3 sm:pt-4 bg-gradient-to-r from-blue-100/60 via-indigo-50/40 to-purple-100/50 dark:from-blue-900/30 dark:via-indigo-900/20 dark:to-purple-900/30 border-b border-blue-100/50 dark:border-gray-700 relative">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-0.5">
-              Get Your eSIMfo <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Virtual Number</span>
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-0.5 tracking-tight">
+              Get Your eSIMfo <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-tight">Virtual Number</span>
             </h2>
             <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-3">Global connection, local presence.</p>
             
@@ -3861,11 +3861,11 @@ export default function HomeScreen() {
             <div className="flex items-center space-x-2 mb-2 sm:mb-3">
               <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
                 selectedVirtualCountry
-                  ? 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
-                  : 'bg-blue-600 text-white'
+                  ? 'bg-green-500 text-white shadow-lg shadow-green-500/30'
+                  : 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
               }`}>
                 {selectedVirtualCountry ? (
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-[pulse_0.5s_ease-in-out_1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 ) : (
@@ -3884,7 +3884,11 @@ export default function HomeScreen() {
               <button
                 onClick={() => {
                   const dropdown = document.getElementById('virtual-country-dropdown');
-                  if (dropdown) dropdown.classList.toggle('hidden');
+                  const chevron = document.getElementById('virtual-country-chevron');
+                  if (dropdown) {
+                    dropdown.classList.toggle('hidden');
+                    chevron?.classList.toggle('rotate-180');
+                  }
                 }}
                 className="w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl text-left hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors active:bg-gray-100 dark:active:bg-gray-650"
               >
@@ -3933,13 +3937,19 @@ export default function HomeScreen() {
                 ) : (
                   <span className="text-sm sm:text-base text-gray-500 dark:text-gray-400">Select a country</span>
                 )}
-                <svg className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  id="virtual-country-chevron"
+                  className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0 ml-2 transition-transform duration-300" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               
               {/* Dropdown Menu - Apple Style */}
-              <div id="virtual-country-dropdown" className="hidden absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+              <div id="virtual-country-dropdown" className="hidden absolute top-full left-0 right-0 mt-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 {[
                   { code: 'GLOBAL', name: 'Global', subtext: '172 countries' },
                   { code: 'US', name: 'United States' },
@@ -3957,6 +3967,7 @@ export default function HomeScreen() {
                       }
                       setSelectedVirtualPlan(null);
                       document.getElementById('virtual-country-dropdown')?.classList.add('hidden');
+                      document.getElementById('virtual-country-chevron')?.classList.remove('rotate-180');
                     }}
                     className={`w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 transition-colors ${
                       index !== 4 ? 'border-b border-gray-100 dark:border-gray-700' : ''
@@ -4018,13 +4029,13 @@ export default function HomeScreen() {
             <div className="flex items-center space-x-2 mb-2 sm:mb-3">
               <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
                 selectedVirtualCountry && !selectedVirtualPlan
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
                   : selectedVirtualPlan
-                  ? 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
+                  ? 'bg-green-500 text-white shadow-lg shadow-green-500/30'
                   : 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
               }`}>
                 {selectedVirtualPlan ? (
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-[pulse_0.5s_ease-in-out_1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 ) : (
@@ -4048,7 +4059,7 @@ export default function HomeScreen() {
                   </span>
                 </div>
                 
-                {/* Plan options */}
+                {/* Plan options - Glassmorphism style */}
                 {[
                   { id: 1, data: '1 GB', mins: '20 mins', sms: '10 SMS', days: '7 days', price: '€1.46' },
                   { id: 2, data: '2 GB', mins: '40 mins', sms: '20 SMS', days: '15 days', price: '€2.84' },
@@ -4058,10 +4069,10 @@ export default function HomeScreen() {
                   <button
                     key={plan.id}
                     onClick={() => setSelectedVirtualPlan(plan.id)}
-                    className={`w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl border transition-all duration-200 active:scale-[0.98] ${
+                    className={`w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl border transition-all duration-200 active:scale-[0.98] backdrop-blur-xl ${
                       selectedVirtualPlan === plan.id
-                        ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500 dark:border-blue-400'
-                        : 'bg-white dark:bg-gray-700/30 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                        ? 'bg-blue-50/80 dark:bg-blue-900/30 border-blue-500 dark:border-blue-400 shadow-lg shadow-blue-500/10'
+                        : 'bg-white/70 dark:bg-gray-700/40 border-gray-200/80 dark:border-gray-600/80 hover:border-gray-300 dark:hover:border-gray-500 hover:bg-white/90 dark:hover:bg-gray-700/60'
                     }`}
                   >
                     <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
@@ -4106,7 +4117,7 @@ export default function HomeScreen() {
           <div>
             <div className="flex items-center space-x-2 mb-2 sm:mb-3">
               <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 ${
-                selectedVirtualPlan ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
+                selectedVirtualPlan ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' : 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'
               }`}>3</div>
               <h3 className={`text-sm sm:text-base font-semibold transition-colors duration-300 ${
                 selectedVirtualPlan ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
