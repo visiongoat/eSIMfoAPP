@@ -3829,13 +3829,13 @@ export default function HomeScreen() {
         )}
 
         {/* Virtual Number Section - Step by Step */}
-        <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden p-4">
+        <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden p-3 sm:p-4">
           
           {/* Step 1: Choose your country */}
-          <div className="mb-4">
-            <div className="flex items-center space-x-2 mb-3">
-              <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
-              <h3 className="text-base font-semibold text-gray-900 dark:text-white">Choose your country</h3>
+          <div className="mb-3 sm:mb-4">
+            <div className="flex items-center space-x-2 mb-2 sm:mb-3">
+              <div className="w-5 h-5 sm:w-6 sm:h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
+              <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">Choose your country</h3>
             </div>
             
             {/* Dropdown */}
@@ -3845,7 +3845,7 @@ export default function HomeScreen() {
                   const dropdown = document.getElementById('virtual-country-dropdown');
                   if (dropdown) dropdown.classList.toggle('hidden');
                 }}
-                className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl text-left hover:border-gray-300 dark:hover:border-gray-500 transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl text-left hover:border-gray-300 dark:hover:border-gray-500 transition-colors"
               >
                 {selectedVirtualCountry ? (
                   <div className="flex items-center space-x-3">
@@ -3937,24 +3937,24 @@ export default function HomeScreen() {
           </div>
           
           {/* Step 2: Select your plan */}
-          <div className="mb-4">
-            <div className="flex items-center space-x-2 mb-3">
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+          <div className="mb-3 sm:mb-4">
+            <div className="flex items-center space-x-2 mb-2 sm:mb-3">
+              <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                 selectedVirtualCountry ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400'
               }`}>2</div>
-              <h3 className={`text-base font-semibold ${
+              <h3 className={`text-sm sm:text-base font-semibold ${
                 selectedVirtualCountry ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
               }`}>Select your plan</h3>
             </div>
             
             {selectedVirtualCountry ? (
-              <div className="space-y-2">
+              <div className="space-y-1.5 sm:space-y-2">
                 {/* Info banner */}
-                <div className="flex items-center space-x-2 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg mb-3">
-                  <svg className="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center space-x-2 px-2.5 py-1.5 sm:px-3 sm:py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg mb-2 sm:mb-3">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span className="text-sm text-blue-700 dark:text-blue-300">
+                  <span className="text-xs sm:text-sm text-blue-700 dark:text-blue-300">
                     Get a <span className="font-semibold">{selectedVirtualCountry === 'US' ? '+1' : selectedVirtualCountry === 'GB' ? '+44' : selectedVirtualCountry === 'MX' ? '+52' : selectedVirtualCountry === 'NL' ? '+31' : '+1'} number</span> from {selectedVirtualCountry === 'US' ? 'United States' : selectedVirtualCountry === 'GB' ? 'United Kingdom' : selectedVirtualCountry === 'MX' ? 'Mexico' : selectedVirtualCountry === 'NL' ? 'Netherlands' : 'Global'}
                   </span>
                 </div>
@@ -3969,76 +3969,76 @@ export default function HomeScreen() {
                   <button
                     key={plan.id}
                     onClick={() => setSelectedVirtualPlan(plan.id)}
-                    className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-200 active:scale-[0.98] ${
+                    className={`w-full flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl border transition-all duration-200 active:scale-[0.98] ${
                       selectedVirtualPlan === plan.id
                         ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500 dark:border-blue-400'
                         : 'bg-white dark:bg-gray-700/30 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
                     }`}
                   >
-                    <div className="flex items-center space-x-3">
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                    <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
+                      <div className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${
                         selectedVirtualPlan === plan.id 
                           ? 'border-blue-600 bg-blue-600' 
                           : 'border-gray-300 dark:border-gray-500'
                       }`}>
                         {selectedVirtualPlan === plan.id && (
-                          <div className="w-2 h-2 bg-white rounded-full"></div>
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full"></div>
                         )}
                       </div>
-                      <div className="text-left">
-                        <div className="font-semibold text-gray-900 dark:text-white">{plan.data}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                      <div className="text-left min-w-0 flex-1">
+                        <div className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">{plan.data}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
                           {plan.mins} • {plan.sms} • {plan.days}
                         </div>
                       </div>
                     </div>
-                    <div className="font-bold text-gray-900 dark:text-white">{plan.price}</div>
+                    <div className="font-bold text-sm sm:text-base text-gray-900 dark:text-white flex-shrink-0 ml-2">{plan.price}</div>
                   </button>
                 ))}
                 
                 {/* Keep your number info */}
-                <div className="flex items-start space-x-2 px-3 py-3 bg-green-50 dark:bg-green-900/20 rounded-lg mt-3">
-                  <svg className="w-4 h-4 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-start space-x-2 px-2.5 py-2 sm:px-3 sm:py-3 bg-green-50 dark:bg-green-900/20 rounded-lg mt-2 sm:mt-3">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                   </svg>
                   <div>
-                    <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">Keep your number forever:</span>
-                    <span className="text-sm text-gray-600 dark:text-gray-400"> Top-up anytime to extend your plan and maintain the same virtual number.</span>
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 font-medium">Keep your number forever:</span>
+                    <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400"> Top-up anytime to extend your plan.</span>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-xl p-6 text-center">
-                <p className="text-sm text-gray-400 dark:text-gray-500">Please select a country to see available plans</p>
+              <div className="border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-lg sm:rounded-xl p-4 sm:p-6 text-center">
+                <p className="text-xs sm:text-sm text-gray-400 dark:text-gray-500">Please select a country to see available plans</p>
               </div>
             )}
           </div>
           
           {/* Step 3: Get your number */}
           <div>
-            <div className="flex items-center space-x-2 mb-3">
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+            <div className="flex items-center space-x-2 mb-2 sm:mb-3">
+              <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                 selectedVirtualPlan ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400'
               }`}>3</div>
-              <h3 className={`text-base font-semibold ${
+              <h3 className={`text-sm sm:text-base font-semibold ${
                 selectedVirtualPlan ? 'text-gray-900 dark:text-white' : 'text-gray-400 dark:text-gray-500'
               }`}>Get your number</h3>
             </div>
             
             {selectedVirtualPlan && (
-              <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600 animate-in slide-in-from-top-2 duration-200">
-                <div className="flex items-center space-x-3 mb-2">
-                  <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg sm:rounded-xl border border-gray-200 dark:border-gray-600 animate-in slide-in-from-top-2 duration-200">
+                <div className="flex items-center space-x-2 sm:space-x-3 mb-1.5 sm:mb-2">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 dark:text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Your number will look like:</span>
+                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Your number will look like:</span>
                 </div>
-                <div className="inline-block px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg">
-                  <span className="font-mono font-semibold text-gray-900 dark:text-white">
+                <div className="inline-block px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg">
+                  <span className="font-mono font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
                     {selectedVirtualCountry === 'US' ? '+1' : selectedVirtualCountry === 'GB' ? '+44' : selectedVirtualCountry === 'MX' ? '+52' : selectedVirtualCountry === 'NL' ? '+31' : '+1'} (XXX) XXX-XXXX
                   </span>
                 </div>
-                <p className="text-xs text-green-600 dark:text-green-400 mt-2">Your unique number will be assigned after purchase</p>
+                <p className="text-xs text-green-600 dark:text-green-400 mt-1.5 sm:mt-2">Your unique number will be assigned after purchase</p>
               </div>
             )}
             
