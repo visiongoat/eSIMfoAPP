@@ -71,23 +71,21 @@ export default function HomeScreen() {
   const [esimCount, setEsimCount] = useState(1);
   const scrollPositionRef = useRef<number>(0);
 
-  // Preserve scroll position when checkout modal opens/closes
-  useEffect(() => {
-    if (showCheckoutModal) {
-      scrollPositionRef.current = window.scrollY;
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-      if (scrollPositionRef.current > 0) {
-        requestAnimationFrame(() => {
-          window.scrollTo(0, scrollPositionRef.current);
-        });
-      }
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [showCheckoutModal]);
+  // Open checkout modal with scroll preservation
+  const openCheckoutModal = () => {
+    scrollPositionRef.current = window.scrollY;
+    document.body.style.overflow = 'hidden';
+    setShowCheckoutModal(true);
+  };
+
+  // Close checkout modal and restore scroll position
+  const closeCheckoutModal = () => {
+    setShowCheckoutModal(false);
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      window.scrollTo(0, scrollPositionRef.current);
+    }, 50);
+  };
   
   // Global tab states
   const [globalPlanType, setGlobalPlanType] = useState<'data' | 'data-voice-sms'>('data');
@@ -4167,7 +4165,7 @@ export default function HomeScreen() {
             
             {/* Continue Button */}
             <button
-              onClick={() => selectedVirtualPlan && setShowCheckoutModal(true)}
+              onClick={() => selectedVirtualPlan && openCheckoutModal()}
               disabled={!selectedVirtualPlan}
               className={`w-full py-4 rounded-xl font-semibold text-white transition-all duration-200 flex items-center justify-center space-x-2 ${
                 selectedVirtualPlan
@@ -4765,7 +4763,7 @@ export default function HomeScreen() {
 
           {/* Purchase Button */}
           <Button
-            onClick={() => setShowCheckoutModal(true)}
+            onClick={() => openCheckoutModal()}
             className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold text-lg rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
           >
             <div className="flex items-center justify-between w-full">
@@ -4796,7 +4794,7 @@ export default function HomeScreen() {
       {/* Checkout Modal for Regions */}
       <CheckoutModal
         isOpen={showCheckoutModal}
-        onClose={() => setShowCheckoutModal(false)}
+        onClose={closeCheckoutModal}
         selectedPackage={
           selectedTab === 'regional' && selectedEuropaPlan
             ? europaPlans.find(plan => plan.id === selectedEuropaPlan)
