@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { X, Calendar, Zap, Check, ChevronRight } from "lucide-react";
 import type { Esim, Package, Country } from "@shared/schema";
 
@@ -21,6 +21,11 @@ export default function TopUpModal({
 }: TopUpModalProps) {
   const [selectedType, setSelectedType] = useState<TopUpType>('extend');
   const [selectedUpgradePlan, setSelectedUpgradePlan] = useState<Package | null>(null);
+  const [dragY, setDragY] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const startY = useRef(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const currentPackage = esim?.package;
   const countryName = esim?.country?.name || 'eSIM';
@@ -94,6 +99,44 @@ export default function TopUpModal({
     });
   };
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalStyle;
+      };
+    }
+  }, [isOpen]);
+
+  // Touch handlers for swipe to dismiss
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const scrollElement = scrollRef.current;
+    if (scrollElement && scrollElement.scrollTop > 0) {
+      return; // Don't start drag if content is scrolled
+    }
+    startY.current = e.touches[0].clientY;
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    const currentY = e.touches[0].clientY;
+    const diff = currentY - startY.current;
+    if (diff > 0) {
+      setDragY(diff);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (dragY > 100) {
+      onClose();
+    }
+    setDragY(0);
+    setIsDragging(false);
+  };
+
   if (!isOpen || !esim || !currentPackage) return null;
 
   const getSelectedNewExpiry = () => {
@@ -128,15 +171,31 @@ export default function TopUpModal({
   const hasValidPrice = currentPrice > 0;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-end justify-center">
+    <div className="fixed inset-0 z-[100] flex items-end justify-center overflow-hidden">
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-md"
+        className="absolute inset-0 bg-black/50 backdrop-blur-md transition-opacity"
         onClick={onClose}
+        style={{ opacity: 1 - (dragY / 300) }}
       />
       
-      <div className="relative w-full max-w-lg bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-t-3xl overflow-hidden animate-slide-up max-h-[85vh] flex flex-col shadow-2xl">
+      <div 
+        ref={modalRef}
+        className="relative w-full max-w-lg bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-t-3xl overflow-hidden max-h-[85vh] flex flex-col shadow-2xl"
+        style={{ 
+          transform: `translateY(${dragY}px)`,
+          transition: isDragging ? 'none' : 'transform 0.3s ease-out'
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* Drag handle */}
+        <div className="flex justify-center pt-3 pb-1">
+          <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
+        </div>
+
         {/* Header - Glass effect */}
-        <div className="px-5 pt-4 pb-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+        <div className="px-5 pt-2 pb-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-3">
               {esim.country?.flagUrl && (
@@ -185,7 +244,7 @@ export default function TopUpModal({
         <div className="h-px bg-gradient-to-r from-transparent via-gray-200/60 dark:via-gray-700/60 to-transparent" />
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto px-5 py-3 space-y-2">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-3 space-y-2 overscroll-contain">
           {/* Extend Option */}
           <button
             onClick={() => {
@@ -311,7 +370,7 @@ export default function TopUpModal({
         </div>
 
         {/* Footer - Glass effect with soft top border */}
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-5 py-3 space-y-2.5">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-5 py-3 space-y-2.5 relative">
           {/* Soft divider */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200/40 dark:via-gray-700/40 to-transparent" />
           
