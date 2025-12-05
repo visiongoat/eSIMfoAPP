@@ -244,13 +244,12 @@ export default function TopUpModal({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Drag handle */}
-        <div className="flex justify-center pt-3 pb-1">
-          <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
-        </div>
-
-        {/* Header - Glass effect */}
-        <div className="px-5 pt-2 pb-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+        {/* Header with integrated drag handle */}
+        <div className="px-5 pt-3 pb-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-t-3xl">
+          {/* Drag handle */}
+          <div className="flex justify-center mb-3">
+            <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
+          </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 flex-1 min-w-0 pr-2">
               {esim.country?.flagUrl && (
