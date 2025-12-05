@@ -96,7 +96,9 @@ export default function TopUpModal({
     return newDate.toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'short',
-      year: 'numeric'
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
     });
   };
 
