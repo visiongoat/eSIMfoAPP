@@ -254,8 +254,8 @@ export default function TopUpModal({
           </button>
 
           {selectedType === 'upgrade' && (
-            <div className="mt-2 space-y-2 animate-in slide-in-from-top-2 duration-200">
-              <p className="text-xs text-gray-500 dark:text-gray-400 px-1 mb-2">
+            <div className="mt-1.5 space-y-1.5 animate-in slide-in-from-top-2 duration-200">
+              <p className="text-xs text-gray-500 dark:text-gray-400 px-1 mb-1">
                 Select a plan to upgrade
               </p>
               
@@ -271,32 +271,27 @@ export default function TopUpModal({
                     <button
                       key={pkg.id}
                       onClick={() => setSelectedUpgradePlan(pkg)}
-                      className={`w-full flex items-center justify-between p-4 rounded-2xl border transition-all duration-200 backdrop-blur-md ${
+                      className={`w-full flex items-center justify-between py-2.5 px-3 rounded-xl border transition-all duration-200 backdrop-blur-md ${
                         isSelected
-                          ? 'border-green-400/60 bg-green-500/15 dark:bg-green-500/20 shadow-lg shadow-green-500/10'
-                          : 'border-white/20 dark:border-white/10 bg-white/40 dark:bg-white/5 hover:bg-white/60 dark:hover:bg-white/10 hover:border-white/40 dark:hover:border-white/20'
+                          ? 'border-green-400/60 bg-green-500/15 dark:bg-green-500/20'
+                          : 'border-gray-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 hover:bg-white/60 dark:hover:bg-white/10'
                       }`}
-                      style={{
-                        boxShadow: isSelected 
-                          ? '0 8px 32px rgba(34, 197, 94, 0.15), inset 0 1px 0 rgba(255,255,255,0.1)' 
-                          : '0 4px 24px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255,255,255,0.1)'
-                      }}
                     >
-                      <div className="flex items-center space-x-3">
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+                      <div className="flex items-center space-x-2.5">
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
                           isSelected
-                            ? 'border-green-500 bg-green-500 shadow-sm shadow-green-500/30'
-                            : 'border-gray-300/60 dark:border-gray-500/40 bg-white/50 dark:bg-white/10'
+                            ? 'border-green-500 bg-green-500'
+                            : 'border-gray-300/60 dark:border-gray-500/40'
                         }`}>
                           {isSelected && (
-                            <Check className="w-3 h-3 text-white" />
+                            <Check className="w-2.5 h-2.5 text-white" />
                           )}
                         </div>
-                        <span className={`font-medium ${isSelected ? 'text-green-700 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
+                        <span className={`text-sm font-medium ${isSelected ? 'text-green-700 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
                           {pkg.data} <span className="text-gray-400 dark:text-gray-500 font-normal">•</span> <span className="text-gray-500 dark:text-gray-400 font-normal">{pkg.validity}</span>
                         </span>
                       </div>
-                      <span className={`font-bold text-lg ${isSelected ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
+                      <span className={`font-semibold text-sm ${isSelected ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
                         €{parseFloat((pkg.price || '0').toString()).toFixed(2)}
                       </span>
                     </button>
