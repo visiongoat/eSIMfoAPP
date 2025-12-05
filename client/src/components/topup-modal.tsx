@@ -332,31 +332,35 @@ export default function TopUpModal({
               </div>
             </button>
 
-            {/* Info Tooltip */}
+            {/* Info Overlay - Centered Modal */}
             {showUpgradeInfo && (
-              <div className="absolute top-full left-0 right-0 mt-2 z-10 animate-in fade-in slide-in-from-top-2 duration-200">
-                <div className="bg-gray-900 dark:bg-gray-800 text-white rounded-xl p-4 shadow-xl border border-gray-700/50">
+              <div className="fixed inset-0 z-[110] flex items-center justify-center px-6">
+                <div 
+                  className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                  onClick={() => setShowUpgradeInfo(false)}
+                />
+                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-200 dark:border-gray-700 max-w-sm w-full animate-in zoom-in-95 fade-in duration-200">
                   <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
-                      <Zap className="w-4 h-4 text-green-400" />
+                    <div className="flex-shrink-0 w-10 h-10 bg-green-500/15 rounded-full flex items-center justify-center">
+                      <Zap className="w-5 h-5 text-green-500" />
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-sm font-semibold text-white mb-1">What is Plan Upgrade?</h4>
-                      <p className="text-xs text-gray-300 leading-relaxed">
+                      <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-1.5">What is Plan Upgrade?</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                         Running low on data? Upgrade your current plan to get more data without installing a new eSIM. 
                         Your existing profile stays the same — just with more data added instantly.
                       </p>
-                      <ul className="mt-2 space-y-1">
-                        <li className="flex items-center text-xs text-gray-400">
-                          <Check className="w-3 h-3 text-green-400 mr-1.5 flex-shrink-0" />
+                      <ul className="mt-3 space-y-2">
+                        <li className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                          <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                           No new QR code needed
                         </li>
-                        <li className="flex items-center text-xs text-gray-400">
-                          <Check className="w-3 h-3 text-green-400 mr-1.5 flex-shrink-0" />
+                        <li className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                          <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                           Keep your current phone number
                         </li>
-                        <li className="flex items-center text-xs text-gray-400">
-                          <Check className="w-3 h-3 text-green-400 mr-1.5 flex-shrink-0" />
+                        <li className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                          <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                           Data added to your balance instantly
                         </li>
                       </ul>
@@ -364,14 +368,18 @@ export default function TopUpModal({
                   </div>
                   <button
                     onClick={() => setShowUpgradeInfo(false)}
-                    className="absolute top-2 right-2 p-1 hover:bg-white/10 rounded-full transition-colors"
+                    className="mt-4 w-full py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium rounded-xl transition-colors text-sm"
+                  >
+                    Got it
+                  </button>
+                  <button
+                    onClick={() => setShowUpgradeInfo(false)}
+                    className="absolute top-3 right-3 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
                     aria-label="Close"
                   >
                     <X className="w-4 h-4 text-gray-400" />
                   </button>
                 </div>
-                {/* Arrow */}
-                <div className="absolute -top-1 right-6 w-2 h-2 bg-gray-900 dark:bg-gray-800 rotate-45 border-l border-t border-gray-700/50" />
               </div>
             )}
           </div>
