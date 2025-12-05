@@ -396,10 +396,16 @@ export default function TopUpModal({
 
             {/* Info Overlay - Centered Modal */}
             {showUpgradeInfo && (
-              <div className="fixed inset-0 z-[110] flex items-center justify-center px-6">
+              <div 
+                className="fixed inset-0 z-[110] flex items-center justify-center px-6"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <div 
                   className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-                  onClick={() => setShowUpgradeInfo(false)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowUpgradeInfo(false);
+                  }}
                 />
                 <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-200 dark:border-gray-700 max-w-sm w-full animate-in zoom-in-95 fade-in duration-200">
                   <div className="flex items-start space-x-3">
