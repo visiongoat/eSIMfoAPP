@@ -245,7 +245,7 @@ export default function TopUpModal({
         onTouchEnd={handleTouchEnd}
       >
         {/* Header with integrated drag handle */}
-        <div className="px-5 pt-3 pb-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-t-3xl">
+        <div className="px-5 pt-3 pb-3 bg-gradient-to-b from-blue-50/80 to-white/80 dark:from-blue-950/40 dark:to-gray-900/80 backdrop-blur-sm rounded-t-3xl">
           {/* Drag handle */}
           <div className="flex justify-center mb-3">
             <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
