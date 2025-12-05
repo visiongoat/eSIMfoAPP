@@ -137,18 +137,21 @@ export default function TopUpModal({
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center space-x-3">
               {esim.country?.flagUrl && (
-                <div className="relative flex-shrink-0">
+                <div className="relative flex-shrink-0 w-10 h-7">
                   <img 
                     src={esim.country.flagUrl} 
                     alt={esim.country.name}
-                    className="w-10 h-7 object-cover rounded-md shadow-sm border border-gray-200 dark:border-gray-700"
+                    className="w-full h-full object-cover shadow-sm border border-gray-200 dark:border-gray-700"
                     style={{
-                      clipPath: 'polygon(0 0, 100% 0, 100% 60%, 75% 60%, 75% 100%, 0 100%)'
+                      clipPath: 'polygon(0 0, 100% 0, 100% 65%, 70% 100%, 0 100%)'
                     }}
                   />
                   <div 
-                    className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-gray-50 dark:bg-gray-900 rounded-tl-sm"
-                    style={{ transform: 'translate(0, 0)' }}
+                    className="absolute bottom-0 right-0 w-3 h-2.5"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.03) 100%)',
+                      clipPath: 'polygon(100% 0, 100% 100%, 0 100%)'
+                    }}
                   />
                 </div>
               )}
