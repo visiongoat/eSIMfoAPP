@@ -22,13 +22,11 @@ export default function TopUpModal({
   const [selectedType, setSelectedType] = useState<TopUpType>('extend');
   const [selectedUpgradePlan, setSelectedUpgradePlan] = useState<Package | null>(null);
 
-  if (!isOpen || !esim || !esim.package) return null;
+  const currentPackage = esim?.package;
+  const currentDataGB = currentPackage ? (parseFloat(currentPackage.data.replace(/[^0-9.]/g, '')) || 0) : 0;
+  const currentDays = currentPackage ? (parseInt(currentPackage.validity.replace(/[^0-9]/g, '')) || 30) : 30;
 
-  const currentPackage = esim.package;
-  const currentDataGB = parseFloat(currentPackage.data.replace(/[^0-9.]/g, '')) || 0;
-  const currentDays = parseInt(currentPackage.validity.replace(/[^0-9]/g, '')) || 30;
-
-  const currentExpiryDate = esim.expiresAt ? new Date(esim.expiresAt) : new Date();
+  const currentExpiryDate = esim?.expiresAt ? new Date(esim.expiresAt) : new Date();
   const formattedCurrentExpiry = currentExpiryDate.toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
@@ -38,6 +36,8 @@ export default function TopUpModal({
   });
 
   const upgradePackages = useMemo(() => {
+    if (!currentPackage) return [];
+    
     const currentGB = currentDataGB;
     const isUnlimited = currentPackage.data.toLowerCase().includes('unlimited');
     
@@ -66,7 +66,7 @@ export default function TopUpModal({
     });
     
     return [...regularPackages, ...unlimitedPackages];
-  }, [availablePackages, currentDataGB, currentPackage.data]);
+  }, [availablePackages, currentDataGB, currentPackage]);
 
   const calculateNewExpiry = (daysToAdd: number) => {
     const newDate = new Date(currentExpiryDate);
@@ -77,6 +77,8 @@ export default function TopUpModal({
       year: 'numeric'
     });
   };
+
+  if (!isOpen || !esim || !currentPackage) return null;
 
   const getSelectedNewExpiry = () => {
     if (selectedType === 'extend') {
