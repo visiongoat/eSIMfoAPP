@@ -111,6 +111,56 @@ export default function TopUpModal({
     }
   }, [isOpen]);
 
+  // Keyboard support - Escape to close
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (showUpgradeInfo) {
+          setShowUpgradeInfo(false);
+        } else {
+          onClose();
+        }
+      }
+    };
+    
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, showUpgradeInfo, onClose]);
+
+  // Focus trap - keep focus inside modal
+  useEffect(() => {
+    if (!isOpen || !modalRef.current) return;
+    
+    const focusableElements = modalRef.current.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+    
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement?.focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement?.focus();
+        }
+      }
+    };
+    
+    document.addEventListener('keydown', handleTabKey);
+    firstElement?.focus();
+    
+    return () => document.removeEventListener('keydown', handleTabKey);
+  }, [isOpen]);
+
   // Touch handlers for swipe to dismiss
   const handleTouchStart = (e: React.TouchEvent) => {
     const scrollElement = scrollRef.current;
@@ -181,6 +231,10 @@ export default function TopUpModal({
       
       <div 
         ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="topup-modal-title"
+        data-testid="topup-modal"
         className="relative w-full max-w-lg bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-t-3xl overflow-hidden max-h-[85vh] flex flex-col shadow-2xl"
         style={{ 
           transform: `translateY(${dragY}px)`,
@@ -219,7 +273,7 @@ export default function TopUpModal({
                 </div>
               )}
               <div>
-                <h2 className="text-base font-semibold text-gray-900 dark:text-white tracking-tight">
+                <h2 id="topup-modal-title" className="text-base font-semibold text-gray-900 dark:text-white tracking-tight">
                   {countryName} <span className="text-sm font-normal text-gray-400 dark:text-gray-500">• {packageData} • {packageValidity}</span>
                 </h2>
                 <div className="flex items-center gap-2 mt-0.5">
@@ -234,6 +288,8 @@ export default function TopUpModal({
             </div>
             <button
               onClick={onClose}
+              aria-label="Close top up modal"
+              data-testid="topup-modal-close"
               className="p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors flex-shrink-0"
             >
               <X className="w-5 h-5 text-gray-400" />
@@ -252,6 +308,8 @@ export default function TopUpModal({
               setSelectedType('extend');
               setSelectedUpgradePlan(null);
             }}
+            aria-pressed={selectedType === 'extend'}
+            data-testid="topup-extend-option"
             className={`w-full p-3 rounded-xl border transition-all duration-200 text-left ${
               selectedType === 'extend'
                 ? 'border-blue-400/50 bg-blue-50/50 dark:bg-blue-500/10'
@@ -289,6 +347,8 @@ export default function TopUpModal({
           <div className="relative">
             <button
               onClick={() => setSelectedType('upgrade')}
+              aria-pressed={selectedType === 'upgrade'}
+              data-testid="topup-upgrade-option"
               className={`w-full p-3 rounded-xl border transition-all duration-200 text-left ${
                 selectedType === 'upgrade'
                   ? 'border-green-400/50 bg-green-50/50 dark:bg-green-500/10'
@@ -326,6 +386,8 @@ export default function TopUpModal({
                   }}
                   className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
                   aria-label="Learn more about upgrade"
+                  aria-expanded={showUpgradeInfo}
+                  data-testid="topup-upgrade-info"
                 >
                   <Info className="w-4 h-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" />
                 </button>
@@ -404,6 +466,8 @@ export default function TopUpModal({
                     <button
                       key={pkg.id}
                       onClick={() => setSelectedUpgradePlan(pkg)}
+                      aria-pressed={isSelected}
+                      data-testid={`topup-plan-${pkg.id}`}
                       className={`w-full flex items-center justify-between py-2 px-3 rounded-lg border transition-all duration-150 ${
                         isSelected
                           ? 'border-green-400/50 bg-green-50/80 dark:bg-green-500/15'
@@ -455,6 +519,11 @@ export default function TopUpModal({
           <button
             onClick={handleProceed}
             disabled={!canProceed}
+            aria-label={selectedType === 'upgrade' 
+              ? hasValidPrice ? `Upgrade and pay ${currentPrice.toFixed(2)} euros` : 'Select a plan first'
+              : `Extend and pay ${currentPrice.toFixed(2)} euros`
+            }
+            data-testid="topup-cta-button"
             className={`w-full py-3 rounded-xl font-medium text-white flex items-center justify-center space-x-2 transition-all duration-200 ${
               canProceed
                 ? selectedType === 'upgrade'
