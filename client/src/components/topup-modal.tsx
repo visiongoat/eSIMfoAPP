@@ -156,9 +156,14 @@ export default function TopUpModal({
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">
                   {countryName} <span className="text-sm font-normal text-gray-500 dark:text-gray-400">• {packageData} • {packageValidity}</span>
                 </h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Expires: {formattedCurrentExpiry}
-                </p>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Expires: {formattedCurrentExpiry}
+                  </p>
+                  <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-[10px] font-medium rounded-full">
+                    {esim.status}
+                  </span>
+                </div>
               </div>
             </div>
             <button
@@ -167,12 +172,6 @@ export default function TopUpModal({
             >
               <X className="w-5 h-5 text-gray-500" />
             </button>
-          </div>
-          
-          <div className="flex items-center justify-center">
-            <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-medium rounded-full">
-              {esim.status}
-            </span>
           </div>
         </div>
 
