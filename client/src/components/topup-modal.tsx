@@ -352,7 +352,7 @@ export default function TopUpModal({
               data-testid="topup-upgrade-option"
               className={`w-full p-3 rounded-xl border transition-all duration-200 text-left ${
                 selectedType === 'upgrade'
-                  ? 'border-green-400/50 bg-green-50/50 dark:bg-green-500/10'
+                  ? 'border-blue-400/50 bg-blue-50/50 dark:bg-blue-500/10'
                   : 'border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
               }`}
             >
@@ -360,7 +360,7 @@ export default function TopUpModal({
                 <div className="flex items-center space-x-3">
                   <div className={`w-5 h-5 rounded-full border-[1.5px] flex items-center justify-center transition-colors ${
                     selectedType === 'upgrade'
-                      ? 'border-green-500 bg-green-500'
+                      ? 'border-blue-500 bg-blue-500'
                       : 'border-gray-300 dark:border-gray-600'
                   }`}>
                     {selectedType === 'upgrade' && (
@@ -369,7 +369,7 @@ export default function TopUpModal({
                   </div>
                   <div>
                     <div className="flex items-center space-x-2">
-                      <Zap className="w-3.5 h-3.5 text-green-500" />
+                      <Zap className="w-3.5 h-3.5 text-blue-500" />
                       <span className="text-sm font-medium text-gray-900 dark:text-white">Upgrade Plan</span>
                       <span className="text-[10px] text-gray-500 dark:text-gray-400 font-normal bg-gray-100 dark:bg-gray-700/50 px-1.5 py-0.5 rounded">
                         more data
@@ -421,8 +421,8 @@ export default function TopUpModal({
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-9 h-9 bg-green-500/15 rounded-full flex items-center justify-center">
-                          <Zap className="w-5 h-5 text-green-500" />
+                        <div className="w-9 h-9 bg-blue-500/15 rounded-full flex items-center justify-center">
+                          <Zap className="w-5 h-5 text-blue-500" />
                         </div>
                         <h4 className="text-lg font-semibold text-gray-900 dark:text-white">What is Plan Upgrade?</h4>
                       </div>
@@ -444,20 +444,20 @@ export default function TopUpModal({
                     
                     <ul className="space-y-2.5 mb-5">
                       <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                        <div className="w-5 h-5 bg-green-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                          <Check className="w-3 h-3 text-green-500" />
+                        <div className="w-5 h-5 bg-blue-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                          <Check className="w-3 h-3 text-blue-500" />
                         </div>
                         No new QR code needed
                       </li>
                       <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                        <div className="w-5 h-5 bg-green-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                          <Check className="w-3 h-3 text-green-500" />
+                        <div className="w-5 h-5 bg-blue-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                          <Check className="w-3 h-3 text-blue-500" />
                         </div>
                         Keep your current phone number
                       </li>
                       <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                        <div className="w-5 h-5 bg-green-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                          <Check className="w-3 h-3 text-green-500" />
+                        <div className="w-5 h-5 bg-blue-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                          <Check className="w-3 h-3 text-blue-500" />
                         </div>
                         Data added to your balance instantly
                       </li>
@@ -465,7 +465,7 @@ export default function TopUpModal({
                     
                     <button
                       onClick={() => setShowUpgradeInfo(false)}
-                      className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-xl transition-colors text-sm"
+                      className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-xl transition-colors text-sm"
                       data-testid="info-modal-got-it"
                     >
                       Got it
@@ -500,25 +500,25 @@ export default function TopUpModal({
                       data-testid={`topup-plan-${pkg.id}`}
                       className={`w-full flex items-center justify-between py-2 px-3 rounded-lg border transition-all duration-150 ${
                         isSelected
-                          ? 'border-green-400/50 bg-green-50/80 dark:bg-green-500/15'
+                          ? 'border-blue-400/50 bg-blue-50/80 dark:bg-blue-500/15'
                           : 'border-gray-100/80 dark:border-gray-700/50 bg-white/60 dark:bg-gray-800/40 hover:bg-gray-50 dark:hover:bg-gray-800/60'
                       }`}
                     >
                       <div className="flex items-center space-x-2.5">
                         <div className={`w-4 h-4 rounded-full border-[1.5px] flex items-center justify-center transition-colors ${
                           isSelected
-                            ? 'border-green-500 bg-green-500'
+                            ? 'border-blue-500 bg-blue-500'
                             : 'border-gray-300/80 dark:border-gray-500/50'
                         }`}>
                           {isSelected && (
                             <Check className="w-2.5 h-2.5 text-white" />
                           )}
                         </div>
-                        <span className={`text-sm ${isSelected ? 'font-medium text-green-700 dark:text-green-400' : 'text-gray-800 dark:text-gray-200'}`}>
+                        <span className={`text-sm ${isSelected ? 'font-medium text-blue-700 dark:text-blue-400' : 'text-gray-800 dark:text-gray-200'}`}>
                           {pkg.data} <span className="text-gray-400 dark:text-gray-500">•</span> <span className="text-gray-500 dark:text-gray-400">{pkg.validity}</span>
                         </span>
                       </div>
-                      <span className={`text-sm font-medium ${isSelected ? 'text-green-600 dark:text-green-400' : 'text-gray-700 dark:text-gray-300'}`}>
+                      <span className={`text-sm font-medium ${isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'}`}>
                         €{pkgPrice.toFixed(2)}
                       </span>
                     </button>
@@ -556,9 +556,7 @@ export default function TopUpModal({
             data-testid="topup-cta-button"
             className={`w-full py-3 rounded-xl font-medium text-white flex items-center justify-center space-x-2 transition-all duration-200 ${
               canProceed
-                ? selectedType === 'upgrade'
-                  ? 'bg-green-500 hover:bg-green-600 active:scale-[0.98]'
-                  : 'bg-blue-500 hover:bg-blue-600 active:scale-[0.98]'
+                ? 'bg-blue-500 hover:bg-blue-600 active:scale-[0.98]'
                 : 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed'
             }`}
           >
