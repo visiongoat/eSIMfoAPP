@@ -23,8 +23,8 @@ export default function TopUpModal({
   const [selectedUpgradePlan, setSelectedUpgradePlan] = useState<Package | null>(null);
 
   const currentPackage = esim?.package;
-  const currentDataGB = currentPackage ? (parseFloat(currentPackage.data.replace(/[^0-9.]/g, '')) || 0) : 0;
-  const currentDays = currentPackage ? (parseInt(currentPackage.validity.replace(/[^0-9]/g, '')) || 30) : 30;
+  const currentDataGB = currentPackage?.data ? (parseFloat(currentPackage.data.replace(/[^0-9.]/g, '')) || 0) : 0;
+  const currentDays = currentPackage?.validity ? (parseInt(currentPackage.validity.replace(/[^0-9]/g, '')) || 30) : 30;
 
   const currentExpiryDate = esim?.expiresAt ? new Date(esim.expiresAt) : new Date();
   const formattedCurrentExpiry = currentExpiryDate.toLocaleDateString('en-GB', {
@@ -36,17 +36,18 @@ export default function TopUpModal({
   });
 
   const upgradePackages = useMemo(() => {
-    if (!currentPackage) return [];
+    if (!currentPackage?.data) return [];
     
     const currentGB = currentDataGB;
-    const isUnlimited = currentPackage.data.toLowerCase().includes('unlimited');
+    const isUnlimited = (currentPackage.data || '').toLowerCase().includes('unlimited');
     
     const regularPackages: Package[] = [];
     const unlimitedPackages: Package[] = [];
     
     availablePackages.forEach(pkg => {
-      const pkgGB = parseFloat(pkg.data.replace(/[^0-9.]/g, '')) || 0;
-      const pkgIsUnlimited = pkg.data.toLowerCase().includes('unlimited');
+      if (!pkg.data) return;
+      const pkgGB = parseFloat((pkg.data || '').replace(/[^0-9.]/g, '')) || 0;
+      const pkgIsUnlimited = (pkg.data || '').toLowerCase().includes('unlimited');
       
       if (isUnlimited) {
         return;
@@ -60,8 +61,8 @@ export default function TopUpModal({
     });
     
     regularPackages.sort((a, b) => {
-      const aGB = parseFloat(a.data.replace(/[^0-9.]/g, '')) || 0;
-      const bGB = parseFloat(b.data.replace(/[^0-9.]/g, '')) || 0;
+      const aGB = parseFloat((a.data || '').replace(/[^0-9.]/g, '')) || 0;
+      const bGB = parseFloat((b.data || '').replace(/[^0-9.]/g, '')) || 0;
       return aGB - bGB;
     });
     
@@ -84,7 +85,7 @@ export default function TopUpModal({
     if (selectedType === 'extend') {
       return calculateNewExpiry(currentDays);
     } else if (selectedUpgradePlan) {
-      const upgradeDays = parseInt(selectedUpgradePlan.validity.replace(/[^0-9]/g, '')) || 30;
+      const upgradeDays = parseInt((selectedUpgradePlan.validity || '').replace(/[^0-9]/g, '')) || 30;
       return calculateNewExpiry(upgradeDays);
     }
     return null;
@@ -238,7 +239,7 @@ export default function TopUpModal({
                 </div>
               ) : (
                 upgradePackages.map((pkg) => {
-                  const isUnlimited = pkg.data.toLowerCase().includes('unlimited');
+                  const isUnlimited = (pkg.data || '').toLowerCase().includes('unlimited');
                   const isSelected = selectedUpgradePlan?.id === pkg.id;
                   const isBestValue = pkg.isPopular;
                   
