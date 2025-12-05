@@ -27,10 +27,10 @@ export default function TopUpModal({
   
   const packageData = currentPackage?.data || '2GB';
   const packageValidity = currentPackage?.validity || '30 Days';
-  const packagePrice = currentPackage?.price ? parseFloat(currentPackage.price.toString()) : 9.99;
+  const packagePrice = Number(currentPackage?.price) || 9.99;
   
-  const currentDataGB = packageData ? (parseFloat(packageData.replace(/[^0-9.]/g, '')) || 2) : 2;
-  const currentDays = packageValidity ? (parseInt(packageValidity.replace(/[^0-9]/g, '')) || 30) : 30;
+  const currentDataGB = parseFloat(packageData.replace(/[^0-9.]/g, '')) || 2;
+  const currentDays = parseInt(packageValidity.replace(/[^0-9]/g, '')) || 30;
 
   const currentExpiryDate = esim?.expiresAt ? new Date(esim.expiresAt) : new Date();
   const formattedCurrentExpiry = currentExpiryDate.toLocaleDateString('en-GB', {
@@ -106,13 +106,13 @@ export default function TopUpModal({
     return null;
   };
 
-  const getSelectedPrice = () => {
+  const getSelectedPrice = (): number => {
     if (selectedType === 'extend') {
-      return `€${packagePrice.toFixed(2)}`;
+      return packagePrice;
     } else if (selectedUpgradePlan) {
-      return `€${parseFloat(selectedUpgradePlan.price?.toString() || '0').toFixed(2)}`;
+      return Number(selectedUpgradePlan.price) || 0;
     }
-    return '€0.00';
+    return 0;
   };
 
   const handleProceed = () => {
@@ -124,24 +124,27 @@ export default function TopUpModal({
   };
 
   const canProceed = selectedType === 'extend' || (selectedType === 'upgrade' && selectedUpgradePlan);
+  const currentPrice = getSelectedPrice();
+  const hasValidPrice = currentPrice > 0;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end justify-center">
       <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50 backdrop-blur-md"
         onClick={onClose}
       />
       
-      <div className="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-t-3xl overflow-hidden animate-slide-up max-h-[90vh] flex flex-col">
-        <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 px-5 pt-4 pb-3 border-b border-gray-100 dark:border-gray-800">
-          <div className="flex items-start justify-between mb-3">
+      <div className="relative w-full max-w-lg bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-t-3xl overflow-hidden animate-slide-up max-h-[85vh] flex flex-col shadow-2xl">
+        {/* Header - Glass effect */}
+        <div className="px-5 pt-4 pb-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+          <div className="flex items-start justify-between">
             <div className="flex items-center space-x-3">
               {esim.country?.flagUrl && (
                 <div className="relative flex-shrink-0 w-10 h-7">
                   <img 
                     src={esim.country.flagUrl} 
                     alt={esim.country.name}
-                    className="w-full h-full object-cover shadow-sm border border-gray-200 dark:border-gray-700"
+                    className="w-full h-full object-cover shadow-sm"
                     style={{
                       clipPath: 'polygon(0 0, 100% 0, 100% 65%, 70% 100%, 0 100%)'
                     }}
@@ -149,21 +152,21 @@ export default function TopUpModal({
                   <div 
                     className="absolute bottom-0 right-0 w-3 h-2.5"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.03) 100%)',
+                      background: 'linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.03) 100%)',
                       clipPath: 'polygon(100% 0, 100% 100%, 0 100%)'
                     }}
                   />
                 </div>
               )}
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">
-                  {countryName} <span className="text-sm font-normal text-gray-500 dark:text-gray-400">• {packageData} • {packageValidity}</span>
+                <h2 className="text-base font-semibold text-gray-900 dark:text-white tracking-tight">
+                  {countryName} <span className="text-sm font-normal text-gray-400 dark:text-gray-500">• {packageData} • {packageValidity}</span>
                 </h2>
                 <div className="flex items-center gap-2 mt-0.5">
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     Expires: {formattedCurrentExpiry}
                   </p>
-                  <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-[10px] font-medium rounded-full">
+                  <span className="px-1.5 py-0.5 bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] font-medium rounded-full">
                     {esim.status}
                   </span>
                 </div>
@@ -171,128 +174,133 @@ export default function TopUpModal({
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors flex-shrink-0"
+              className="p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors flex-shrink-0"
             >
-              <X className="w-5 h-5 text-gray-500" />
+              <X className="w-5 h-5 text-gray-400" />
             </button>
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
+        {/* Soft divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-gray-200/60 dark:via-gray-700/60 to-transparent" />
+
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto px-5 py-3 space-y-2">
+          {/* Extend Option */}
           <button
             onClick={() => {
               setSelectedType('extend');
               setSelectedUpgradePlan(null);
             }}
-            className={`w-full p-4 rounded-2xl border-2 transition-all duration-200 text-left ${
+            className={`w-full p-3 rounded-xl border transition-all duration-200 text-left ${
               selectedType === 'extend'
-                ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/20'
-                : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50'
+                ? 'border-blue-400/50 bg-blue-50/50 dark:bg-blue-500/10'
+                : 'border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
             }`}
           >
-            <div className="flex items-start justify-between">
-              <div className="flex items-start space-x-3">
-                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 transition-colors ${
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className={`w-5 h-5 rounded-full border-[1.5px] flex items-center justify-center transition-colors ${
                   selectedType === 'extend'
                     ? 'border-blue-500 bg-blue-500'
                     : 'border-gray-300 dark:border-gray-600'
                 }`}>
                   {selectedType === 'extend' && (
-                    <Check className="w-3.5 h-3.5 text-white" />
+                    <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
                 <div>
                   <div className="flex items-center space-x-2">
-                    <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <span className="font-semibold text-gray-900 dark:text-white">Extend Current Plan</span>
+                    <Calendar className="w-3.5 h-3.5 text-blue-500" />
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">Extend Current Plan</span>
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    Add {currentDays} more days to your {packageData} plan
-                  </p>
-                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                    Same data package
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 ml-5.5">
+                    +{currentDays} days • Same {packageData}
                   </p>
                 </div>
               </div>
-              <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+              <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">
                 €{packagePrice.toFixed(2)}
               </span>
             </div>
           </button>
 
+          {/* Upgrade Option */}
           <button
             onClick={() => setSelectedType('upgrade')}
-            className={`w-full p-4 rounded-2xl border-2 transition-all duration-200 text-left ${
+            className={`w-full p-3 rounded-xl border transition-all duration-200 text-left ${
               selectedType === 'upgrade'
-                ? 'border-green-500 bg-green-50/50 dark:bg-green-900/20'
-                : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50'
+                ? 'border-green-400/50 bg-green-50/50 dark:bg-green-500/10'
+                : 'border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/30 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
             }`}
           >
-            <div className="flex items-start space-x-3">
-              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 transition-colors ${
+            <div className="flex items-center space-x-3">
+              <div className={`w-5 h-5 rounded-full border-[1.5px] flex items-center justify-center transition-colors ${
                 selectedType === 'upgrade'
                   ? 'border-green-500 bg-green-500'
                   : 'border-gray-300 dark:border-gray-600'
               }`}>
                 {selectedType === 'upgrade' && (
-                  <Check className="w-3.5 h-3.5 text-white" />
+                  <Check className="w-3 h-3 text-white" />
                 )}
               </div>
-              <div className="flex-1">
+              <div>
                 <div className="flex items-center space-x-2">
-                  <Zap className="w-4 h-4 text-green-600 dark:text-green-400" />
-                  <span className="font-semibold text-gray-900 dark:text-white">Upgrade Plan</span>
-                  <span className="px-2 py-0.5 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400 text-[10px] font-medium rounded-full">
+                  <Zap className="w-3.5 h-3.5 text-green-500" />
+                  <span className="text-sm font-medium text-gray-900 dark:text-white">Upgrade Plan</span>
+                  <span className="px-1.5 py-0.5 bg-green-500/10 text-green-600 dark:text-green-400 text-[9px] font-medium rounded-full">
                     More Data
                   </span>
                 </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  Get more data for your {esim.country?.name || 'eSIM'}
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 ml-5.5">
+                  Get more data for {countryName}
                 </p>
               </div>
             </div>
           </button>
 
+          {/* Upgrade Plans List */}
           {selectedType === 'upgrade' && (
-            <div className="mt-1.5 space-y-1.5 animate-in slide-in-from-top-2 duration-200">
-              <p className="text-xs text-gray-500 dark:text-gray-400 px-1 mb-1">
-                Select a plan to upgrade
+            <div className="pt-1 space-y-1 animate-in slide-in-from-top-2 duration-200">
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 px-1 py-1">
+                Choose your new plan
               </p>
               
               {upgradePackages.length === 0 ? (
-                <div className="text-center py-6 text-gray-500 dark:text-gray-400 text-sm">
-                  No upgrade options available for this plan
+                <div className="text-center py-4 text-gray-500 dark:text-gray-400 text-sm">
+                  No upgrade options available
                 </div>
               ) : (
                 upgradePackages.map((pkg) => {
                   const isSelected = selectedUpgradePlan?.id === pkg.id;
+                  const pkgPrice = Number(pkg.price) || 0;
                   
                   return (
                     <button
                       key={pkg.id}
                       onClick={() => setSelectedUpgradePlan(pkg)}
-                      className={`w-full flex items-center justify-between py-2.5 px-3 rounded-xl border transition-all duration-200 backdrop-blur-md ${
+                      className={`w-full flex items-center justify-between py-2 px-3 rounded-lg border transition-all duration-150 ${
                         isSelected
-                          ? 'border-green-400/60 bg-green-500/15 dark:bg-green-500/20'
-                          : 'border-gray-200/60 dark:border-white/10 bg-white/40 dark:bg-white/5 hover:bg-white/60 dark:hover:bg-white/10'
+                          ? 'border-green-400/50 bg-green-50/80 dark:bg-green-500/15'
+                          : 'border-gray-100/80 dark:border-gray-700/50 bg-white/60 dark:bg-gray-800/40 hover:bg-gray-50 dark:hover:bg-gray-800/60'
                       }`}
                     >
                       <div className="flex items-center space-x-2.5">
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+                        <div className={`w-4 h-4 rounded-full border-[1.5px] flex items-center justify-center transition-colors ${
                           isSelected
                             ? 'border-green-500 bg-green-500'
-                            : 'border-gray-300/60 dark:border-gray-500/40'
+                            : 'border-gray-300/80 dark:border-gray-500/50'
                         }`}>
                           {isSelected && (
                             <Check className="w-2.5 h-2.5 text-white" />
                           )}
                         </div>
-                        <span className={`text-sm font-medium ${isSelected ? 'text-green-700 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
-                          {pkg.data} <span className="text-gray-400 dark:text-gray-500 font-normal">•</span> <span className="text-gray-500 dark:text-gray-400 font-normal">{pkg.validity}</span>
+                        <span className={`text-sm ${isSelected ? 'font-medium text-green-700 dark:text-green-400' : 'text-gray-800 dark:text-gray-200'}`}>
+                          {pkg.data} <span className="text-gray-400 dark:text-gray-500">•</span> <span className="text-gray-500 dark:text-gray-400">{pkg.validity}</span>
                         </span>
                       </div>
-                      <span className={`font-semibold text-sm ${isSelected ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
-                        €{parseFloat((pkg.price || '0').toString()).toFixed(2)}
+                      <span className={`text-sm font-medium ${isSelected ? 'text-green-600 dark:text-green-400' : 'text-gray-700 dark:text-gray-300'}`}>
+                        €{pkgPrice.toFixed(2)}
                       </span>
                     </button>
                   );
@@ -302,43 +310,41 @@ export default function TopUpModal({
           )}
         </div>
 
-        <div className="border-t border-gray-100 dark:border-gray-800 bg-gray-50/80 dark:bg-gray-800/80 backdrop-blur-sm px-5 py-4 space-y-3">
+        {/* Footer - Glass effect with soft top border */}
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm px-5 py-3 space-y-2.5">
+          {/* Soft divider */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200/40 dark:via-gray-700/40 to-transparent" />
+          
+          {/* Summary row */}
           <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-              <Calendar className="w-4 h-4" />
-              <span>New expiry:</span>
+            <div className="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>New expiry</span>
             </div>
-            <span className={`font-medium ${getSelectedNewExpiry() ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400'}`}>
-              {getSelectedNewExpiry() || 'Select a plan'}
+            <span className={`font-medium ${getSelectedNewExpiry() ? 'text-gray-900 dark:text-white' : 'text-gray-400'}`}>
+              {getSelectedNewExpiry() || '—'}
             </span>
           </div>
-          
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 text-sm">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-              </svg>
-              <span>Pay securely</span>
-            </div>
-            <div className="text-right">
-              <span className="text-xs text-gray-400 dark:text-gray-500">Total</span>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">{getSelectedPrice()}</p>
-            </div>
-          </div>
 
+          {/* CTA Button with dynamic price */}
           <button
             onClick={handleProceed}
             disabled={!canProceed}
-            className={`w-full py-4 rounded-2xl font-semibold text-white flex items-center justify-center space-x-2 transition-all duration-200 ${
+            className={`w-full py-3 rounded-xl font-medium text-white flex items-center justify-center space-x-2 transition-all duration-200 ${
               canProceed
                 ? selectedType === 'upgrade'
-                  ? 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 active:scale-[0.98] shadow-lg shadow-green-500/25'
-                  : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:scale-[0.98] shadow-lg shadow-blue-500/25'
+                  ? 'bg-green-500 hover:bg-green-600 active:scale-[0.98]'
+                  : 'bg-blue-500 hover:bg-blue-600 active:scale-[0.98]'
                 : 'bg-gray-300 dark:bg-gray-700 cursor-not-allowed'
             }`}
           >
-            <span>{selectedType === 'upgrade' ? 'Upgrade & Pay' : 'Extend & Pay'}</span>
-            <ChevronRight className="w-5 h-5" />
+            <span>
+              {selectedType === 'upgrade' 
+                ? hasValidPrice ? `Upgrade & Pay €${currentPrice.toFixed(2)}` : 'Select a plan'
+                : `Extend & Pay €${currentPrice.toFixed(2)}`
+              }
+            </span>
+            {canProceed && <ChevronRight className="w-4 h-4" />}
           </button>
 
           <p className="text-[10px] text-center text-gray-400 dark:text-gray-500">
