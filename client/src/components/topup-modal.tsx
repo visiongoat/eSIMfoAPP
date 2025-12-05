@@ -251,8 +251,8 @@ export default function TopUpModal({
 
         {/* Header - Glass effect */}
         <div className="px-5 pt-2 pb-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
-          <div className="flex items-start justify-between">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3 flex-1 min-w-0 pr-2">
               {esim.country?.flagUrl && (
                 <div className="relative flex-shrink-0 w-10 h-7">
                   <img 
