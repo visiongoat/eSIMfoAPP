@@ -8,6 +8,7 @@ import TabBar from "@/components/tab-bar";
 import EsimCard from "@/components/esim-card";
 import EsimfoLogo from "@/components/esimfo-logo";
 import CheckoutModal from "@/components/checkout-modal";
+import TopUpModal from "@/components/topup-modal";
 import type { Esim, Package, Country } from "@shared/schema";
 
 type FilterType = 'all' | 'active' | 'expired' | 'ready';
@@ -20,6 +21,9 @@ export default function MyEsimsScreen() {
   const [showTopUpCheckout, setShowTopUpCheckout] = useState(false);
   const [topUpEsimCount, setTopUpEsimCount] = useState(1);
   const [showEsimDetailModal, setShowEsimDetailModal] = useState(false);
+  const [showTopUpModal, setShowTopUpModal] = useState(false);
+  const [topUpSelectedPackage, setTopUpSelectedPackage] = useState<Package | null>(null);
+  const [topUpIsUpgrade, setTopUpIsUpgrade] = useState(false);
   const [selectedEsimForDetail, setSelectedEsimForDetail] = useState<(Esim & { package?: Package; country?: Country }) | null>(null);
 
   // Quick Actions Modal swipe state
@@ -58,6 +62,26 @@ export default function MyEsimsScreen() {
   const { data: esims = [], isLoading } = useQuery<(Esim & { package?: Package; country?: Country })[]>({
     queryKey: ["/api/esims"],
   });
+
+  const { data: allPackages = [] } = useQuery<Package[]>({
+    queryKey: ["/api/packages/popular"],
+  });
+
+  const getPackagesForCountry = (countryId: number) => {
+    return allPackages.filter(pkg => pkg.countryId === countryId);
+  };
+
+  const handleTopUpClick = () => {
+    setShowEsimDetailModal(false);
+    setShowTopUpModal(true);
+  };
+
+  const handleTopUpProceed = (selectedPackage: Package, isUpgrade: boolean) => {
+    setTopUpSelectedPackage(selectedPackage);
+    setTopUpIsUpgrade(isUpgrade);
+    setShowTopUpModal(false);
+    setShowTopUpCheckout(true);
+  };
 
   // Memoized filtered eSIMs based on selected filter and sort by ID descending (newest first)
   const filteredEsims = useMemo(() => {
@@ -987,11 +1011,7 @@ export default function MyEsimsScreen() {
                 </button>
                 
                 <button
-                  onClick={() => {
-                    // Close detail modal first, then open checkout
-                    setShowEsimDetailModal(false);
-                    setShowTopUpCheckout(true);
-                  }}
+                  onClick={handleTopUpClick}
                   className="flex items-center justify-center space-x-2 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors text-sm"
                   data-testid="button-topup-esim"
                 >
@@ -1004,28 +1024,39 @@ export default function MyEsimsScreen() {
         </div>
       )}
 
+      {/* Top Up Modal */}
+      <TopUpModal
+        isOpen={showTopUpModal}
+        onClose={() => {
+          setShowTopUpModal(false);
+          setShowEsimDetailModal(true);
+        }}
+        esim={selectedEsimForDetail}
+        availablePackages={selectedEsimForDetail?.package?.countryId ? getPackagesForCountry(selectedEsimForDetail.package.countryId) : []}
+        onProceedToCheckout={handleTopUpProceed}
+      />
+
       {/* Top Up Checkout Modal */}
-      {showTopUpCheckout && selectedEsimForDetail && selectedEsimForDetail.package && (
+      {showTopUpCheckout && selectedEsimForDetail && topUpSelectedPackage && (
         <CheckoutModal
           isOpen={showTopUpCheckout}
           onClose={() => {
             setShowTopUpCheckout(false);
-            // Reopen detail modal when checkout is closed
+            setTopUpSelectedPackage(null);
             setShowEsimDetailModal(true);
           }}
           selectedPackage={{
-            ...selectedEsimForDetail.package,
-            duration: selectedEsimForDetail.package.validity,
-            price: selectedEsimForDetail.package.price.toString()
+            ...topUpSelectedPackage,
+            duration: topUpSelectedPackage.validity,
+            price: topUpSelectedPackage.price.toString()
           }}
           country={selectedEsimForDetail.country}
           esimCount={topUpEsimCount}
           setEsimCount={setTopUpEsimCount}
           onComplete={() => {
             setShowTopUpCheckout(false);
-            // Close both modals after successful purchase
+            setTopUpSelectedPackage(null);
             closeModal();
-            // Could add success toast here
           }}
           hideQuantitySelector={true}
         />
