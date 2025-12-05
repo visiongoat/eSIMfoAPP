@@ -371,7 +371,7 @@ export default function TopUpModal({
                     <div className="flex items-center space-x-2">
                       <Zap className="w-3.5 h-3.5 text-green-500" />
                       <span className="text-sm font-medium text-gray-900 dark:text-white">Upgrade Plan</span>
-                      <span className="text-[11px] text-gray-400 dark:text-gray-500 font-normal">
+                      <span className="text-[11px] text-gray-400 dark:text-gray-500 font-normal border-b border-gray-300/50 dark:border-gray-600/50 pb-px">
                         more data
                       </span>
                     </div>
