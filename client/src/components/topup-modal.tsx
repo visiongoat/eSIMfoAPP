@@ -154,7 +154,7 @@ export default function TopUpModal({
               )}
               <div>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">
-                  {countryName} <span className="font-medium text-gray-600 dark:text-gray-400">{packageData} - {packageValidity}</span>
+                  {countryName} <span className="text-sm font-normal text-gray-500 dark:text-gray-400">• {packageData} • {packageValidity}</span>
                 </h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                   Expires: {formattedCurrentExpiry}
