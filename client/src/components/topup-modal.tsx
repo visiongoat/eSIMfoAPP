@@ -143,18 +143,23 @@ export default function TopUpModal({
                   className="w-10 h-7 object-cover rounded-md shadow-sm border border-gray-200 dark:border-gray-700"
                 />
               )}
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">
-                  {countryName}
-                </h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {packageData} • {packageValidity} • Expires: {formattedCurrentExpiry}
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">
+                    {countryName}
+                  </h2>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    {packageData} • {packageValidity}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  Expires: {formattedCurrentExpiry}
                 </p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors ml-2"
             >
               <X className="w-5 h-5 text-gray-500" />
             </button>
