@@ -394,59 +394,82 @@ export default function TopUpModal({
               </div>
             </button>
 
-            {/* Info Overlay - Centered Modal */}
+            {/* Info Sheet Modal - Bottom sheet over Top Up modal */}
             {showUpgradeInfo && (
               <div 
-                className="fixed inset-0 z-[110] flex items-center justify-center px-6"
+                className="fixed inset-0 z-[110] flex items-end justify-center"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div 
-                  className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                  className="absolute inset-0 bg-black/30"
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowUpgradeInfo(false);
                   }}
                 />
-                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl border border-gray-200 dark:border-gray-700 max-w-sm w-full animate-in zoom-in-95 fade-in duration-200">
-                  <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 w-10 h-10 bg-green-500/15 rounded-full flex items-center justify-center">
-                      <Zap className="w-5 h-5 text-green-500" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-1.5">What is Plan Upgrade?</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                        Running low on data? Upgrade your current plan to get more data without installing a new eSIM. 
-                        Your existing profile stays the same — just with more data added instantly.
-                      </p>
-                      <ul className="mt-3 space-y-2">
-                        <li className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                          <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          No new QR code needed
-                        </li>
-                        <li className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                          <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          Keep your current phone number
-                        </li>
-                        <li className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                          <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                          Data added to your balance instantly
-                        </li>
-                      </ul>
-                    </div>
+                <div 
+                  className="relative w-full max-w-lg bg-white dark:bg-gray-800 rounded-t-2xl shadow-2xl animate-slide-up"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Drag handle */}
+                  <div className="flex justify-center pt-3 pb-2">
+                    <div className="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />
                   </div>
-                  <button
-                    onClick={() => setShowUpgradeInfo(false)}
-                    className="mt-4 w-full py-2.5 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium rounded-xl transition-colors text-sm"
-                  >
-                    Got it
-                  </button>
-                  <button
-                    onClick={() => setShowUpgradeInfo(false)}
-                    className="absolute top-3 right-3 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
-                    aria-label="Close"
-                  >
-                    <X className="w-4 h-4 text-gray-400" />
-                  </button>
+                  
+                  <div className="px-5 pb-6">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-9 h-9 bg-green-500/15 rounded-full flex items-center justify-center">
+                          <Zap className="w-5 h-5 text-green-500" />
+                        </div>
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">What is Plan Upgrade?</h4>
+                      </div>
+                      <button
+                        onClick={() => setShowUpgradeInfo(false)}
+                        className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                        aria-label="Close info"
+                        data-testid="info-modal-close"
+                      >
+                        <X className="w-5 h-5 text-gray-400" />
+                      </button>
+                    </div>
+                    
+                    {/* Content */}
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                      Running low on data? Upgrade your current plan to get more data without installing a new eSIM. 
+                      Your existing profile stays the same — just with more data added instantly.
+                    </p>
+                    
+                    <ul className="space-y-2.5 mb-5">
+                      <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                        <div className="w-5 h-5 bg-green-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                          <Check className="w-3 h-3 text-green-500" />
+                        </div>
+                        No new QR code needed
+                      </li>
+                      <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                        <div className="w-5 h-5 bg-green-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                          <Check className="w-3 h-3 text-green-500" />
+                        </div>
+                        Keep your current phone number
+                      </li>
+                      <li className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                        <div className="w-5 h-5 bg-green-500/15 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                          <Check className="w-3 h-3 text-green-500" />
+                        </div>
+                        Data added to your balance instantly
+                      </li>
+                    </ul>
+                    
+                    <button
+                      onClick={() => setShowUpgradeInfo(false)}
+                      className="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-xl transition-colors text-sm"
+                      data-testid="info-modal-got-it"
+                    >
+                      Got it
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
