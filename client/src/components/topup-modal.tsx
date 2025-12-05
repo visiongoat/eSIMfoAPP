@@ -134,35 +134,35 @@ export default function TopUpModal({
       
       <div className="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-t-3xl overflow-hidden animate-slide-up max-h-[90vh] flex flex-col">
         <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 px-5 pt-4 pb-3 border-b border-gray-100 dark:border-gray-800">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-start justify-between gap-3 mb-3">
+            <div className="flex items-center space-x-3 min-w-0 flex-1">
               {esim.country?.flagUrl && (
                 <img 
                   src={esim.country.flagUrl} 
                   alt={esim.country.name}
-                  className="w-10 h-7 object-cover rounded-md shadow-sm border border-gray-200 dark:border-gray-700"
+                  className="w-10 h-7 object-cover rounded-md shadow-sm border border-gray-200 dark:border-gray-700 flex-shrink-0"
                 />
               )}
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">
-                    {countryName}
-                  </h2>
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {packageData} • {packageValidity}
-                  </span>
-                </div>
+              <div className="min-w-0 flex-1">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight truncate">
+                  {countryName}
+                </h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                   Expires: {formattedCurrentExpiry}
                 </p>
               </div>
             </div>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors ml-2"
-            >
-              <X className="w-5 h-5 text-gray-500" />
-            </button>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                {packageData} • {packageValidity}
+              </span>
+              <button
+                onClick={onClose}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
           </div>
           
           <div className="flex items-center justify-center">
