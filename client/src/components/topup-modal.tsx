@@ -254,9 +254,7 @@ export default function TopUpModal({
                 </div>
               ) : (
                 upgradePackages.map((pkg) => {
-                  const isUnlimited = (pkg.data || '').toLowerCase().includes('unlimited');
                   const isSelected = selectedUpgradePlan?.id === pkg.id;
-                  const isBestValue = pkg.isPopular;
                   
                   return (
                     <button
@@ -283,26 +281,9 @@ export default function TopUpModal({
                             <Check className="w-3 h-3 text-white" />
                           )}
                         </div>
-                        <div className="flex flex-col items-start">
-                          <div className="flex items-center space-x-2">
-                            <span className={`font-semibold text-base ${isSelected ? 'text-green-700 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
-                              {pkg.data}
-                            </span>
-                            {isBestValue && (
-                              <span className="px-1.5 py-0.5 bg-gradient-to-r from-orange-400 to-amber-500 text-white text-[9px] font-bold rounded-full shadow-sm">
-                                Popular
-                              </span>
-                            )}
-                            {isUnlimited && (
-                              <span className="px-1.5 py-0.5 bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-[9px] font-bold rounded-full shadow-sm">
-                                ∞
-                              </span>
-                            )}
-                          </div>
-                          <span className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                            {pkg.validity}
-                          </span>
-                        </div>
+                        <span className={`font-medium ${isSelected ? 'text-green-700 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
+                          {pkg.data} <span className="text-gray-400 dark:text-gray-500 font-normal">•</span> <span className="text-gray-500 dark:text-gray-400 font-normal">{pkg.validity}</span>
+                        </span>
                       </div>
                       <span className={`font-bold text-lg ${isSelected ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-white'}`}>
                         €{parseFloat((pkg.price || '0').toString()).toFixed(2)}
