@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { X, HelpCircle, Minus, Plus, Lock, ArrowLeft } from "lucide-react";
+import { X, HelpCircle, Minus, Plus, Lock, ArrowLeft, Wallet, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AutoRenewalInfoModal } from "./auto-renewal-info-modal";
 
@@ -14,6 +14,7 @@ interface CheckoutModalProps {
   onComplete?: () => void;
   showPaymentMethodsDefault?: boolean;
   hideQuantitySelector?: boolean;
+  userBalance?: number;
 }
 
 export default function CheckoutModal({ 
@@ -25,13 +26,15 @@ export default function CheckoutModal({
   setEsimCount,
   onComplete,
   showPaymentMethodsDefault = false,
-  hideQuantitySelector = false
+  hideQuantitySelector = false,
+  userBalance = 3.00
 }: CheckoutModalProps) {
   const [autoRenewal, setAutoRenewal] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<string>("");
   const [showPaymentMethods, setShowPaymentMethods] = useState(showPaymentMethodsDefault);
   const [showAutoRenewalInfo, setShowAutoRenewalInfo] = useState(false);
   const [showCardForm, setShowCardForm] = useState(false);
+  const [useBalance, setUseBalance] = useState(true);
   const [cardFormData, setCardFormData] = useState({
     cardNumber: '',
     expiryDate: '',
@@ -112,6 +115,12 @@ export default function CheckoutModal({
   const isBalanceTopUp = hideQuantitySelector;
   const bonus = isBalanceTopUp && basePrice >= 100 ? 5 : 0;
   const finalTotal = total + bonus;
+
+  // Balance calculations
+  const balanceToUse = useBalance ? Math.min(userBalance, total) : 0;
+  const remainingToPay = total - balanceToUse;
+  const isBalanceSufficient = userBalance >= total;
+  const hasBalance = userBalance > 0;
 
   // Card type detection function
   const getCardType = (cardNumber: string) => {
@@ -532,8 +541,85 @@ export default function CheckoutModal({
             </div>
           ) : (
             <div className="space-y-3">
-              <h3 className="font-semibold text-gray-900 dark:text-white">Choose a payment method</h3>
+              {/* Balance Payment Option - Only show if user has balance and not balance top-up */}
+              {hasBalance && !isBalanceTopUp && (
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setUseBalance(!useBalance)}
+                    data-testid="balance-payment-option"
+                    className={`w-full p-3 rounded-xl border-2 transition-all duration-200 ${
+                      useBalance
+                        ? 'border-blue-500 bg-blue-50/80 dark:bg-blue-900/20'
+                        : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                          useBalance ? 'bg-blue-500' : 'bg-gray-100 dark:bg-gray-700'
+                        }`}>
+                          <Wallet className={`w-5 h-5 ${useBalance ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`} />
+                        </div>
+                        <div className="text-left">
+                          <div className="font-medium text-gray-900 dark:text-white text-sm">
+                            Use Balance
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                            €{userBalance.toFixed(2)} available
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        {useBalance && (
+                          <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                            -€{balanceToUse.toFixed(2)}
+                          </span>
+                        )}
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
+                          useBalance
+                            ? 'border-blue-500 bg-blue-500'
+                            : 'border-gray-300 dark:border-gray-600'
+                        }`}>
+                          {useBalance && <Check className="w-3 h-3 text-white" />}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+
+                  {/* Balance sufficient - Direct pay button */}
+                  {useBalance && isBalanceSufficient && (
+                    <Button
+                      onClick={() => {
+                        setTimeout(() => {
+                          if (onComplete) {
+                            onComplete();
+                          } else {
+                            onClose();
+                          }
+                        }, 1500);
+                      }}
+                      data-testid="pay-with-balance-button"
+                      className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors flex items-center justify-center space-x-2"
+                    >
+                      <Wallet className="w-4 h-4" />
+                      <span>Pay €{total.toFixed(2)} with Balance</span>
+                    </Button>
+                  )}
+                </div>
+              )}
+
+              {/* Payment methods header - Show remaining amount if balance used */}
+              {(!hasBalance || !useBalance || !isBalanceSufficient || isBalanceTopUp) && (
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  {useBalance && hasBalance && remainingToPay > 0 && !isBalanceTopUp
+                    ? `Pay remaining €${remainingToPay.toFixed(2)}`
+                    : 'Choose a payment method'
+                  }
+                </h3>
+              )}
               
+              {/* Payment methods - Hide if balance is sufficient */}
+              {(!isBalanceSufficient || !useBalance || isBalanceTopUp) && (
               <div className="space-y-1.5">
                 {paymentMethods.map((method) => (
                   <button
@@ -626,14 +712,17 @@ export default function CheckoutModal({
                   </button>
                 ))}
               </div>
+              )}
 
-              {/* Security Note */}
+              {/* Security Note - Only show when balance is not sufficient */}
+              {(!isBalanceSufficient || !useBalance || isBalanceTopUp || !hasBalance) && (
               <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 dark:text-gray-400 mt-4">
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd"/>
                 </svg>
                 <span>Your payment information is secure and encrypted</span>
               </div>
+              )}
             </div>
           )}
 
