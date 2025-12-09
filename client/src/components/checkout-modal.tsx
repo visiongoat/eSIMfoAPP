@@ -319,7 +319,7 @@ export default function CheckoutModal({
           )}
 
           {/* Pricing */}
-          <div className="space-y-3">
+          <div className="space-y-2">
             {isBalanceTopUp && bonus > 0 && (
               <>
                 <div className="flex justify-between items-center">
@@ -330,7 +330,7 @@ export default function CheckoutModal({
                   <span className="text-sm text-green-600 dark:text-green-400">Bonus</span>
                   <span className="text-sm text-green-600 dark:text-green-400">+€{bonus.toFixed(2)}</span>
                 </div>
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-2">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-medium text-gray-900 dark:text-white">Total</span>
                     <span className="text-lg font-bold text-gray-900 dark:text-white">€{finalTotal.toFixed(2)}</span>
@@ -339,12 +339,30 @@ export default function CheckoutModal({
               </>
             )}
             
-            {/* Standard total for non-bonus scenarios */}
+            {/* Standard total with balance breakdown */}
             {!(isBalanceTopUp && bonus > 0) && (
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-medium text-gray-900 dark:text-white">Total</span>
-                <span className="text-lg font-bold text-gray-900 dark:text-white">€{total.toFixed(2)}</span>
-              </div>
+              <>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">Subtotal</span>
+                  <span className="text-sm text-gray-900 dark:text-white">€{total.toFixed(2)}</span>
+                </div>
+                {useBalance && hasBalance && balanceToUse > 0 && showPaymentMethods && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-blue-600 dark:text-blue-400">Balance</span>
+                    <span className="text-sm text-blue-600 dark:text-blue-400">-€{balanceToUse.toFixed(2)}</span>
+                  </div>
+                )}
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-base font-medium text-gray-900 dark:text-white">
+                      {useBalance && hasBalance && balanceToUse > 0 && showPaymentMethods ? 'To Pay' : 'Total'}
+                    </span>
+                    <span className="text-lg font-bold text-gray-900 dark:text-white">
+                      €{(useBalance && hasBalance && showPaymentMethods ? remainingToPay : total).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+              </>
             )}
           </div>
 
@@ -541,46 +559,47 @@ export default function CheckoutModal({
             </div>
           ) : (
             <div className="space-y-3">
-              {/* Balance Payment Option - Only show if user has balance and not balance top-up */}
+              {/* Balance Payment Option - Compact toggle style */}
               {hasBalance && !isBalanceTopUp && (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <button
                     onClick={() => setUseBalance(!useBalance)}
                     data-testid="balance-payment-option"
-                    className={`w-full p-3 rounded-xl border-2 transition-all duration-200 ${
+                    className={`w-full px-3 py-2.5 rounded-lg border transition-all duration-200 ${
                       useBalance
-                        ? 'border-blue-500 bg-blue-50/80 dark:bg-blue-900/20'
-                        : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
+                        ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/20'
+                        : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          useBalance ? 'bg-blue-500' : 'bg-gray-100 dark:bg-gray-700'
+                      <div className="flex items-center space-x-2.5">
+                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${
+                          useBalance ? 'bg-blue-500' : 'bg-gray-200 dark:bg-gray-700'
                         }`}>
-                          <Wallet className={`w-5 h-5 ${useBalance ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`} />
+                          <Wallet className={`w-3.5 h-3.5 ${useBalance ? 'text-white' : 'text-gray-500 dark:text-gray-400'}`} />
                         </div>
                         <div className="text-left">
-                          <div className="font-medium text-gray-900 dark:text-white text-sm">
+                          <span className="text-sm font-medium text-gray-900 dark:text-white">
                             Use Balance
-                          </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
-                            €{userBalance.toFixed(2)} available
-                          </div>
+                          </span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400 ml-1.5">
+                            (€{userBalance.toFixed(2)})
+                          </span>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        {useBalance && (
-                          <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                      <div className="flex items-center space-x-2">
+                        {useBalance && balanceToUse > 0 && (
+                          <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-100/50 dark:bg-blue-900/30 px-1.5 py-0.5 rounded">
                             -€{balanceToUse.toFixed(2)}
                           </span>
                         )}
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
-                          useBalance
-                            ? 'border-blue-500 bg-blue-500'
-                            : 'border-gray-300 dark:border-gray-600'
+                        {/* Toggle Switch */}
+                        <div className={`w-9 h-5 rounded-full transition-colors relative ${
+                          useBalance ? 'bg-blue-500' : 'bg-gray-300 dark:bg-gray-600'
                         }`}>
-                          {useBalance && <Check className="w-3 h-3 text-white" />}
+                          <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
+                            useBalance ? 'translate-x-4' : 'translate-x-0.5'
+                          }`} />
                         </div>
                       </div>
                     </div>
@@ -599,7 +618,7 @@ export default function CheckoutModal({
                         }, 1500);
                       }}
                       data-testid="pay-with-balance-button"
-                      className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors flex items-center justify-center space-x-2"
+                      className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors flex items-center justify-center space-x-2"
                     >
                       <Wallet className="w-4 h-4" />
                       <span>Pay €{total.toFixed(2)} with Balance</span>
